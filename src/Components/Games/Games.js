@@ -57,14 +57,16 @@ const Games = () => {
                 return(
                     <button key={index} value={categoryItem.title} className={category===categoryItem.title?style.active:style.category} onClick={(e)=>{
                         setCategory(categoryItem.title)
+                        setAllCategory("")
+
                         // setAllCategory(categoryItem.title)
                     }}>{categoryItem.title}</button>
                 )
             })}
-             <Link className={style.category} onClick={(e)=>{
-               
+             <button className={allCategory==="all"?style.active:style.category} onClick={(e)=>{
                 setAllCategory("all")
-            }}>All</Link>
+                setCategory("")
+            }}>All</button>
         </div>
         {allCategory==="all"
         ?

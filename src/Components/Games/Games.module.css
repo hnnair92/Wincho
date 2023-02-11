@@ -30,9 +30,9 @@
     background: linear-gradient(90deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%);
     color: #fff;
 }
-.category.active{
+/* .category.active{
     background-color: lightskyblue;
-}
+} */
 .Games{
     width: 100%;
     height: auto;
@@ -139,17 +139,17 @@
     border-top-right-radius: 20px;
     border-top-left-radius: 20px;
 }
-.categoryActive{
+/* .categoryActive{
     background-color: #af000f !important;
     color: #fff;
-}
+} */
 @media(max-width:767px){
     .Categories{
         /* flex-wrap: wrap; */
         overflow-x: scroll;
         justify-content: flex-start;
     }
-    .category{
+    .category,.active{
         font-size: 12px;
         width: auto;
         padding: 5px 15px;
@@ -166,9 +166,10 @@
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
     }
-    .category{
-        min-width: 85px;
-        width: auto;
+    .category,.active{
+        text-align: center;
+        min-width: 95px;
+        width: 100%;
     }
     
     .LabelFree p,.Label p{
