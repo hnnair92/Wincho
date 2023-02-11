@@ -23,26 +23,31 @@ const Games = () => {
     const categories = [
         {
             title:"novelty",
+            value:"novelty",
             NoOfGames:0,
             id:0,
         },
         {
             title:"collectable",
+            value:"collectable",
             NoOfGames:0,
             id:1,
         },
         {
-            title:"e-gifting",
+            title:"E-Gifting",
+            value:"e-gifting",
             NoOfGames:0,
             id:2,
         },
         {
             title:"new",
+            value:"new",
             NoOfGames:0,
             id:3,
         },
         {
             title:"popular",
+            value:"popular",
             NoOfGames:0,
             id:4,
         },
@@ -55,8 +60,8 @@ const Games = () => {
         <div className={style.Categories}>
             {categories.map((categoryItem,index)=>{
                 return(
-                    <button key={index} value={categoryItem.title} className={category===categoryItem.title?style.active:style.category} onClick={(e)=>{
-                        setCategory(categoryItem.title)
+                    <button key={index} value={categoryItem.value} className={category===categoryItem.value?style.active:style.category} onClick={(e)=>{
+                        setCategory(categoryItem.value)
                         setAllCategory("")
 
                         // setAllCategory(categoryItem.title)
@@ -88,7 +93,9 @@ const Games = () => {
                         
                     </div>
                     <div className={style.Details}>
-                        <p className={style.Name}>{game.title}</p>
+                        <div className={style.DetailTitle}>
+                            <p className={style.Name}>{game.title}</p>
+                        </div>
                         <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                                 <img src={Ticket} alt="" className={style.icon}/>
