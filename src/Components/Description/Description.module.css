@@ -1,0 +1,602 @@
+.Container{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.Description{
+    border:7px solid #fff;
+    border-top: 0;
+    width: 80%;
+    background-color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: hidden;
+    background: rgb(27,143,231);
+    background: linear-gradient(180deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%);
+}
+.GamePlay{
+    width: 60%;
+    /* background-color: blue; */
+    position: relative;
+    height: 100vh;
+    /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
+    /* transform: scaleY(2); */
+    /* overflow: hidden; */
+    /* border-right: 5px solid #fff; */
+   
+}
+.Screen{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.sideIcon img{
+    width: 100%;
+    height: 100%;
+    transform: rotate(90deg);
+   display: flex;
+   justify-content: flex-end;
+   object-fit: cover;
+}
+.sideIcon{
+    width: 100%;
+    position: absolute;
+    z-index: 999;
+    right: 0;
+    top: 0;
+    /* width: auto; */
+    height: 100%;
+    /* background-color: transparent !important; */
+    /* position: absolute;
+    z-index: 99999;
+    right: 0;
+    top: 0; */
+    /* height: 100vh;
+    width: 100vw; */
+   /* object-fit: cover; */
+    /* border-radius: 0% 100% 100% 0%/0%  100%  100%  0%; */
+}
+/* .Screen iframe{
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+} */
+/* .GamePlay:before{
+    content:"";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 65%;
+    height: 100%;
+    border-radius: 0 0 50% 50%/0 0 100% 100%;
+} */
+/* .GamePlay::before{
+    border-radius: 100%;
+    width: 100%;
+  position: absolute;
+  background: blue;
+  right: -200px;
+  left: -200px;
+  top: 0px;
+  transform: rotate(90deg);
+  content: '';
+  bottom: 0;
+} */
+
+.NowPlaying{
+    z-index: 9;
+    width: 15%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #af000f;
+    color: #fff;
+    padding: 15px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+
+}
+.minimized{
+    z-index: 9;
+    width: 15%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #af000f;
+    color: #fff;
+    padding: 15px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+.head{
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+
+}
+.Image{
+    width: 100%;
+}
+.Image img{
+    width: 100%;
+    border-radius: 30px;
+    border:4px solid #fff;
+}
+.title{
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    font-size: 18px;
+}
+.minimized .arrow{
+    top: 85%;
+}
+.arrow{
+    position: absolute;
+    /* bottom: -7%; */
+    top: 95%;
+    background-color: #af000f;
+    border-radius: 50%;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+.arrowIcon{
+    font-size: 30px;
+    cursor: pointer;
+}
+.Controls{
+    padding: 25px;
+    /* position: relative; */
+    width: 40%;
+    /* background-color: #11ceef; */
+    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.Report{
+    position: absolute;
+    bottom: 0;
+    padding-right: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+}
+.ReportIcon{
+    font-size: 2.5em;
+    color: #af000f;
+    background-color: #ebd36d;
+    border-radius: 50%;
+    padding: 5px;
+} 
+.Report p{
+    /* width: 50%; */
+    text-align: center;
+}
+.icons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Magnify{
+    width: 35%;
+    position: relative;
+    
+}
+.Magnify span{
+    position: absolute;
+    left: 0;
+    top:10%;
+    background-color: #cc0d1d;
+    padding: 2px 8px;
+    border-radius: 50%;
+    z-index: 9;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+
+}
+.life{
+    position: relative;
+
+}
+.life span{
+    position: absolute;
+    right: 95%;
+    top: 25%;
+    background-color: #cc0d1d;
+    padding: 2px 8px;
+    border-radius: 50%;
+    z-index: 9;
+    color: #fff;
+    font-weight: 500;
+    font-size: 16px;
+}
+.Magnify img{
+    width: 40%;
+}
+.life{
+    width: 30%;
+}
+.lifeIcons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.userIcons1{
+    width:30%;
+    height: 100%;
+}
+.userIcons2{
+    width:28%;
+    height: 100%;
+}
+.userIcons3{
+    width:26%;
+    height: 100%;
+}
+.Start{
+    width: 100%;
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.points{
+    position: absolute;
+    z-index: 9;
+    bottom: 85%;
+    padding: 35px 25px;
+    border-radius: 50%;
+    /* background-color: #064466; */
+    background: rgb(22,174,224);
+background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%, rgb(0, 0, 10) 100%);
+    opacity: 1;
+}
+.points p{
+    font-size: 2.2vw;
+    font-weight: 900;
+    color: #000;
+    font-style: italic;
+    -webkit-text-stroke: 2px #fff;
+}
+.StartButton{
+    width: 60%;
+
+    height: auto;
+    border:20px solid #14a0cb;
+    border-radius: 50%;
+    outline: 3px solid #000;
+}
+.play{
+    position: relative;
+    z-index: 99;
+    outline:3px solid #000;
+    border:15px solid #b7471c;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.playBtn{
+    outline: 2px solid #fff;
+    width: 100%;
+    background-color: #eb671a;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+.playBtn p{
+    font-size: 3vw;
+    font-weight: 900;
+    color: #fff;
+    font-style: italic;
+    padding: 30% 0px;
+    
+}
+/* .playBtn button{
+    border:none;
+    outline:none;
+    background-color: transparent;
+    font-size: 3vw;
+    font-weight: 900;
+    color: #fff;
+    font-style: italic;
+    padding: 30% 0px;
+    
+} */
+/* .StartButton:hover{
+    transform: scale(1.1);
+} */
+.StartButton:hover .playBtn{
+    background-color: #b7471c;
+    cursor: pointer;
+}
+.Actions{
+    height: 35%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+}
+
+.Retry,.user,.Camera{
+    width: 100%;
+   border:2px solid #000;
+   outline:5px solid #14a0cb;
+   border-radius: 50%;
+    height: 100%;
+    display: flex;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+}
+.user img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #fff;
+    background-color: #eb671a;
+    border-radius: 50%;
+    outline:5px solid #b7471c;
+    transition: all 0.2s ease-in-out;
+    padding: 10px;
+}
+.cameraIcon,.RetryIcon{
+    background-color: #eb671a;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    font-size: 4vw;
+    border: 1px solid #fff;
+    outline:5px solid #b7471c;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+.cameraIcon:hover,.RetryIcon:hover,.user img:hover{
+    background-color: #b7471c;
+    cursor: pointer;
+}
+.CameraActionBtn{
+    right: 0;
+}
+@media(min-width:1057px){
+    .Controls{
+        position: relative;
+       
+    }
+    .GamePlay{
+        /* width: 60%; */
+        /* background-color: blue; */
+        /* height: 100vh; */
+        border-radius: 0% 200% 200% 0%/0%  200%  200%  0%;
+        transform: scaleY(2);
+        /* overflow: hidden; */
+        /* border-right: 5px solid #fff; */
+       
+    }
+    .ActionBtn,.UserActionBtn,.CameraActionBtn{
+        border: 2px solid #000;
+        margin: 20px;
+        border-radius: 50%;
+        padding: 5px;
+        width: 28%;
+        position: absolute;
+        height: auto;
+    }
+    .UserActionBtn{
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-65%);
+    }
+}
+
+@media(max-width:1056px){
+    .Container{
+        height: 91vh;
+    }
+    .Description{
+        width: 100%;
+        flex-direction: column;
+        border:none;
+        overflow: hidden;
+
+    }
+    .NowPlaying{
+        top:auto;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        z-index: 999;
+        bottom: 0;
+        left: 0;
+        width: 60%;
+        padding: 5px;
+    }
+    .head{
+        position: relative;
+        z-index: 9;
+        font-size: 16px;
+    }
+    .title{
+        font-size: 14px;
+    }
+    .arrow{
+        top: auto;
+        bottom:93%;
+        z-index: 1;
+    }
+    .minimized .head{
+        margin-bottom: 0;
+        display: none;
+    }
+    .arrow{
+        transform: rotate(180deg);
+    }
+    .minimized{
+        top: auto;
+        bottom: 0;
+        left: 0;
+        width: 60%;
+        padding: 5px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+    }
+    .minimized .arrow{
+        bottom:70%;
+        top: auto;
+    }
+    .GamePlay{
+       /* overflow: hidden; */
+        height: 50%;
+        width: 100%;
+        /*  border:2px solid #fff;
+        border-top: 0; */
+        /* border-bottom-left-radius: 0vh;
+        border-bottom-right-radius: 100vh; */
+        /* border-radius: 0% 0% 100vh 100vh/0%  0%  100vh  100vh; */
+        /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
+        /* transform: scaleX(2);
+        border-radius: 0% 0% 50% 50%/0%  0%  100%  100%; */
+
+    }
+    .Controls{
+        width: 100%;
+        height: 40%;
+        margin-bottom: 30px;
+        justify-content: space-evenly;
+        /* margin-bottom: 30px; */
+    }
+    .cameraIcon,.RetryIcon{
+        font-size: 10px;
+    }
+    .Actions{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        margin-top: 20px;
+        
+    }
+    .Start{
+        margin-top: 0;
+    }
+    .ActionBtn,.UserActionBtn,.CameraActionBtn{
+        /* position: relative; */
+        width: 22%;
+        display: block;
+       
+    }
+    .user img,.cameraIcon,.RetryIcon{
+        /* display: block; */
+        /* margin: 0; */
+    }
+    .playBtn p{
+        padding: 40% 0px;
+    }
+    .StartButton{
+        width: 35%;
+        border:9px solid #14a0cb;
+        outline:2px solid #000;
+
+
+    }
+    .play{
+        border:5px solid #b7471c;
+        outline:2px solid #000;
+    }
+    .points{
+        padding: 15px 10px;
+    }
+    .points p{
+        font-size:4vw;
+    -webkit-text-stroke: 0.7px #fff;
+
+    }
+    .icons{
+        width: 30%;
+        position: absolute;
+        top: 3%;
+        left: 3%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .Magnify{
+        /* position: absolute;
+        top: 5%;
+        left: 3%; */
+        width: 100%;
+
+    }
+    .life{
+        /* position: absolute;
+        top: 15%;
+        left: 3%; */
+        position: relative;
+        width: 100%;
+    }
+    .life span{
+        position: absolute;
+        top: 0;
+        right: 86%;
+    }
+    .life span,.Magnify span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 15px;
+        height: 15px;
+        font-size: 12px;
+        padding: 0;
+    }
+    .Report{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding-right: 10px;
+    }
+    .Report p{
+        font-size: 14px;
+    }
+    .ReportIcon{
+        font-size: 2em;
+    }
+}

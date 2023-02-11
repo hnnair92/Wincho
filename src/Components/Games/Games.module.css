@@ -1,0 +1,196 @@
+.Container{
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Categories{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    background-color: #fff;
+    padding: 10px;
+    /* border-top: 7px solid #ab2b29; */
+}
+.category{
+    padding: 10px 30px;
+    cursor: pointer;
+    font-family: "Poppins";
+    background-color: #fff;
+    border-radius: 20px;
+    font-size: 16px;
+    border:none;
+    outline:none;
+}
+.category.active{
+    background-color: lightskyblue;
+}
+.Games{
+    width: 100%;
+    height: auto;
+    display: flex;
+    
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.Game{
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 18%;
+    margin: 10px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 20px;
+    /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset -3px -3px 0px rgba(0, 0, 0, 0.2); */
+}
+.Label{
+    border-bottom: 40px solid #af000f;
+    position: absolute;
+    text-align: center;
+    transform: rotate(-40deg);
+    left: -11.7%;
+    top: 5.3%;
+    border-left: 33px solid transparent;
+    border-right: 49px solid transparent;
+    height: 0;
+    width: 65%;
+}
+.PriceDiv{
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* justify-content: space-evenly; */
+}
+.ticketIcon{
+    width: 75px;
+    height: auto;
+}
+.Details{
+    margin-top: 5px;
+}
+.Name{
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
+
+}
+.icon{
+    width: 100%;
+    height: 100%;
+}
+.Label p,.LabelFree p{
+    font-family: "Poppins";
+    font-weight: 900;
+
+    font-size: 1.7em;
+    margin: 0;
+    font-style: italic;
+    -webkit-text-stroke-width: 1px ;
+    -webkit-text-stroke-color: #fff;
+    /* position: absolute; */
+}
+.LabelFree{
+    border-bottom: 40px solid #57b736;
+    position: absolute;
+    text-align: center;
+    transform: rotate(-40deg);
+    left: -11.7%;
+    top: 5.3%;
+    border-left: 33px solid transparent;
+    border-right: 49px solid transparent;
+    height: 0;
+    width: 65%;
+    }
+.free,.Price{
+    font-family: "Poppins";
+    font-weight: 900;
+    font-size: 30px;
+    font-style: italic;
+    margin: 0px 15px 0px 7px;
+}
+.infoIcon{
+    width: 40px;
+}
+.info{
+    width: 100%;
+    height: 100%;
+}
+.Image{
+    width: 100%;
+}
+.Image img{
+    width: 100%;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+.categoryActive{
+    background-color: #af000f !important;
+    color: #fff;
+}
+@media(max-width:767px){
+    .Categories{
+        /* flex-wrap: wrap; */
+        overflow-x: scroll;
+        justify-content: flex-start;
+    }
+    .category{
+        font-size: 12px;
+        width: auto;
+        padding: 5px 15px;
+    }
+    ::-webkit-scrollbar{
+        display: none;
+    }
+    .Game{
+        width:42%;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    .Image img{
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+    }
+    .category{
+        min-width: 85px;
+        width: auto;
+    }
+    
+    .LabelFree p,.Label p{
+        font-size: 18px;
+        margin-top: 5px;
+        text-align: center;
+    }
+    .Name{
+        font-size: 13px;
+    }
+    .ticketIcon{
+        width: 50px;
+    }
+    .Price{
+        font-size: 22px;
+    }
+    .infoIcon{
+        width: 25px;
+    }
+    .LabelFree,.Label{
+        left: -16.7%;
+        top: 0;
+        width: 73%;
+    }
+}
+@media(min-width:767px) and (max-width:1056px){
+    .Game{
+        width:25%;
+    }
+}
