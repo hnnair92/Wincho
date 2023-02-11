@@ -55,7 +55,7 @@ const Games = () => {
         <div className={style.Categories}>
             {categories.map((categoryItem,index)=>{
                 return(
-                    <button key={index} value={categoryItem.title} className={style.category} id={categoryItem.id} onClick={(e)=>{
+                    <button key={index} value={categoryItem.title} className={category===categoryItem.title?style.active:style.category} onClick={(e)=>{
                         setCategory(categoryItem.title)
                         // setAllCategory(categoryItem.title)
                     }}>{categoryItem.title}</button>

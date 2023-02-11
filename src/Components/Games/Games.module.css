@@ -15,7 +15,7 @@
     padding: 10px;
     /* border-top: 7px solid #ab2b29; */
 }
-.category{
+.category,.active{
     padding: 10px 30px;
     cursor: pointer;
     font-family: "Poppins";
@@ -24,6 +24,11 @@
     font-size: 16px;
     border:none;
     outline:none;
+}
+.active{
+    background: rgb(27,143,231);
+    background: linear-gradient(90deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%);
+    color: #fff;
 }
 .category.active{
     background-color: lightskyblue;
