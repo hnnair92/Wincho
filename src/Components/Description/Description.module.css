@@ -17,14 +17,16 @@
     justify-content: space-between;
     align-items: center;
     overflow-y: hidden;
-    background: rgb(27,143,231);
-    background: linear-gradient(180deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%);
+    background: #0099ff;
+    /* background: rgb(27,143,231);
+    background: linear-gradient(180deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%); */
 }
 .GamePlay{
     width: 60%;
     /* background-color: blue; */
     position: relative;
-    height: 100vh;
+    /* height: 100vh; */
+    height: 100%;
     /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
     /* transform: scaleY(2); */
     /* overflow: hidden; */
@@ -34,24 +36,28 @@
 .Screen{
     width: 100%;
     height: 100%;
-    position: relative;
+    /* position: relative; */
+}
+.Screen img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .sideIcon img{
-    width: 100%;
     height: 100%;
-    transform: rotate(90deg);
-   display: flex;
-   justify-content: flex-end;
-   object-fit: cover;
+    object-fit: cover;
+    /* transform: rotate(90deg); */
+    
+   /* display: flex;
+   justify-content: flex-end; 
+   object-fit: cover; */
 }
 .sideIcon{
-    width: 100%;
     position: absolute;
-    z-index: 999;
     right: 0;
-    top: 0;
+   
     /* width: auto; */
-    height: 100%;
+    /* height: 100%; */
     /* background-color: transparent !important; */
     /* position: absolute;
     z-index: 99999;
@@ -62,33 +68,9 @@
    /* object-fit: cover; */
     /* border-radius: 0% 100% 100% 0%/0%  100%  100%  0%; */
 }
-/* .Screen iframe{
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-} */
-/* .GamePlay:before{
-    content:"";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 65%;
-    height: 100%;
-    border-radius: 0 0 50% 50%/0 0 100% 100%;
-} */
-/* .GamePlay::before{
-    border-radius: 100%;
-    width: 100%;
-  position: absolute;
-  background: blue;
-  right: -200px;
-  left: -200px;
-  top: 0px;
-  transform: rotate(90deg);
-  content: '';
-  bottom: 0;
-} */
-
+.svgBottom{
+    display:none;
+}
 .NowPlaying{
     z-index: 9;
     width: 15%;
@@ -400,12 +382,15 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
         position: relative;
        
     }
+    .sideIcon{
+        height: 100%;
+    }
     .GamePlay{
         /* width: 60%; */
         /* background-color: blue; */
         /* height: 100vh; */
-        border-radius: 0% 200% 200% 0%/0%  200%  200%  0%;
-        transform: scaleY(2);
+        /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
+        /* transform: scaleY(2); */
         /* overflow: hidden; */
         /* border-right: 5px solid #fff; */
        
@@ -427,8 +412,28 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
 }
 
 @media(max-width:1056px){
+    .svgRight{
+        display:none
+    }
+    .svgBottom{
+        display:block
+    }
     .Container{
         height: 91vh;
+    }
+    .GamePlay{
+        position: relative;
+    }
+    .GamePlay .sideIcon{
+        height: auto;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        /* transform: rotate(90deg); */
+    }
+    .sideIcon img{
+        width: 100%;
+        /* height: auto; */
     }
     .Description{
         width: 100%;
@@ -486,7 +491,7 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     }
     .GamePlay{
        /* overflow: hidden; */
-        height: 50%;
+        height: 55%;
         width: 100%;
         /*  border:2px solid #fff;
         border-top: 0; */
