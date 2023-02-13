@@ -1,0 +1,151 @@
+.Container{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.Login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.Left{
+    width: 40%;
+    height: 100%;
+}
+.Left img{
+    width: 100%;
+    height: 100%;
+}
+.Right{
+    width: 60%;
+    height: 100%;
+    background-color: #ebebeb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    /* height: 100%; */
+}
+.EmailInput,.PasswordInput{
+    width: 100%;
+}
+.TitleDiv{
+    width: 70%;
+    border-bottom: 2px solid lightgray;
+    margin-bottom: 50px;
+}
+.ForgotPassword{
+    text-align: center;
+    color: rgb(201, 0, 0);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 35px;
+}
+.Title{
+    font-size: 35px;
+    margin: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+.Btns,.Btns a{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.Btns a{
+    width: 100%;
+}
+.LoginBtn,.RegisterBtn{
+    font-family: "Poppins";
+    width: 60%;
+    text-align: center;
+    font-size: 25px;
+    height: 75px;
+    border-radius: 50px;
+    margin: 15px 0;
+    background-color: #1589e1;
+    color: #fff;
+    border:5px solid #fff;
+    font-weight: 500;
+}
+/* .Right a{
+    width: 100%;
+} */
+.RegisterBtn{
+    /* width: 40%; */
+    background-color: #939393;
+    color: #fff;
+}
+.EmailInput label,.PasswordInput label{
+    font-size: 22px;
+    font-weight: 600;
+    text-align: left;
+}
+.email{
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 22px;
+    background-color: #fff;
+    height: 75px;
+    padding: 10px 20px;
+    text-align: left;
+    border-radius: 10px;
+    margin: 10px 0;
+    border:2px solid lightgray;
+}
+@media(max-width:767px){
+    .Left{
+        display: none;
+    }
+    .Right{
+        height: 100%;
+        width: 100%;
+    }
+    .TitleDiv{
+        margin-bottom: 25px;
+    }
+    .Title{
+        font-size: 25px;
+    }
+    .email{
+        height: 45px;
+        font-size: 14px;
+        margin-top: 0;
+    }
+    .EmailInput label,.PasswordInput label{
+        font-size: 12px;
+    }
+    .ForgotPassword{
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    .LoginBtn,.RegisterBtn{
+        height: 45px;
+        font-size: 14px;
+        margin: 5px;
+    }
+}
+@media(min-width:767px) and (max-width:1056px){
+    .Left{
+        display: none;
+    }
+    .Right{
+        width: 100%;
+        height: 100%;
+    }
+}
