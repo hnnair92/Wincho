@@ -17,11 +17,21 @@ const Header = () => {
       <div className={style.mobileFullMenu}>
       <div className={style.Menu}>
           <ul>
-            <Link to="/"><li>Home</li></Link>
-            <Link to="/"><li>Prizes</li></Link>
-            <Link to="/"><li>Search</li></Link>
-            <Link to="/"><li>Support</li></Link>
-            <Link to="/"><li>Basket</li></Link>
+            <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Home</li></Link>
+            <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Prizes</li></Link>
+            <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Search</li></Link>
+            <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Support</li></Link>
+            <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Basket</li></Link>
           </ul>
         </div>
         <div className={style.close}>
