@@ -1,24 +1,52 @@
-import { GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST, GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product";
+import { GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST, GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product";
 
 export const productReducer = (state={products:[]},action)=>{
     switch (action.type) {
         case GET_ALL_PRODUCT_BY_COLLECTION_REQUEST:
-            return{
-                ...state,
-                loading:true,
-            }
+                return{
+                    ...state,
+                    loading:true,
+                }
         case GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS:
-            return{
-                ...state,
-                loading:false,
-                products:action.payload
-        }
-        case GET_ALL_PRODUCT_BY_COLLECTION_FAILED:
-            return{
-                ...state,
-                loading:false,
-                error:action.payload
+                return{
+                    ...state,
+                    loading:false,
+                    products:action.payload
             }
+        case GET_ALL_PRODUCT_BY_COLLECTION_FAILED:
+                return{
+                    ...state,
+                    loading:false,
+                    error:action.payload
+                }
+        default:
+            return{
+                ...state,
+            }
+    }
+}
+export const gameEntry = (state={game:{}},action)=>{
+    switch (action.type) {
+      
+            case GAME_ENTRY_REQUEST:
+                return{
+                    ...state,
+                    loading:true,
+                }
+      
+            case GAME_ENTRY_SUCCESS:
+                return{
+                    ...state,
+                    loading:false,
+                    game:action.payload
+            }
+       
+            case GAME_ENTRY_FAILED:
+                return{
+                    ...state,
+                    loading:false,
+                    error:action.payload
+                }
         default:
             return{
                 ...state,

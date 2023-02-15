@@ -6,8 +6,11 @@ import ticket from '../../assests/golden-ticket.png'
 import penguin from '../../assests/penguin.png'
 import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from 'react-redux'
 const Header = () => {
+  const {user,authenticated,loading} = useSelector((state)=>state.userData)
   const[toggle,setToggle] = useState(false)
+  console.log("header data",user)
   const MobileFunc=()=>{
     useEffect(() => {
       document.body.style.overflow = 'hidden';
@@ -49,7 +52,6 @@ const Header = () => {
         {toggle? <MobileFunc/>:<div className={style.MobileMenu}>
         <div className={style.Menu}>
             <HiMenu className={style.menuIcon} onClick={()=>{
-              
               setToggle(true)
             }}/>
             <p>GAME</p>
@@ -58,7 +60,7 @@ const Header = () => {
         <div className={style.ticket}>
               <img src={ticket} alt="" />
             </div>
-            <p className={style.creditsPrice}>1200</p>
+            <p className={style.creditsPrice}>{user&&user.point}</p>
         </div>
       </div>}
       
@@ -87,18 +89,37 @@ const Header = () => {
             <Link to="/"><li>Basket</li></Link>
           </ul>
         </div>
-        <div className={style.User}>
+        {authenticated?<div className={style.UserLogged}>
+        
+        <div className={style.Credits}>
+          <div className={style.ticket}>
+            <img src={ticket} alt="" />
+          </div>
+          <p className={style.creditsPrice}>{user&&user.point}</p>
+        </div>
+        <div className={style.Profile}>
+          <img src={penguin} alt="" />
+          <p>{user&&user.username}</p>
+        </div>
+      </div>:<div className={style.User}>
+        <div className={style.Profile}>
+          <img src={penguin} alt="" />
+          <Link to="/login">Login</Link>
+        </div>
+      </div>}
+        {/* <div className={style.User}>
+        
           <div className={style.Credits}>
             <div className={style.ticket}>
               <img src={ticket} alt="" />
             </div>
-            <p className={style.creditsPrice}>1200</p>
+            <p className={style.creditsPrice}>{user&&user.point}</p>
           </div>
           <div className={style.Profile}>
             <img src={penguin} alt="" />
-            <p>USERNAME</p>
+            <p>{user&&user.username}</p>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* } */}
       </div>

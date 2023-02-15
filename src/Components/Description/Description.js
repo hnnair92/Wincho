@@ -1,31 +1,133 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useState,useRef, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import style from './Description.module.css'
 import { IoIosArrowDown,IoIosArrowUp } from "react-icons/io";
 import { MdOutlineRestartAlt,MdFlipCameraIos } from "react-icons/md";
 import { RxExclamationTriangle } from "react-icons/rx";
-import user from '../../assests/penguin.png'
+import userIcon from '../../assests/penguin.png'
 import binoculars from '../../assests/binoculars.png'
 import svgIcon from '../../assests/SIDEpng2.png';
 import svgBottom from '../../assests/SIDEBottom.png';
+import videoDemo from '../../assests/www.ytmp4.Net---Arcade Game_ Pac-Man (1980 Namco (Midway License for US release)).mp4';
+import { useDispatch, useSelector } from 'react-redux';
+import { gameEntry } from '../../actions/product';
+import gameScreen from '../../assests/gamescreen.png'
+import gameScreen2 from '../../assests/gamescreen2.png'
 // import svgIcon from '../../assests/sideIcon.png';
 const Description = () => {
-
-
-  const[active,setActive]= useState(true)
+  const dispatch = useDispatch()
+  const[wait,setWait] = useState(false)
+  const[camera,setCamera] = useState(true)
+  const baseUrl = "https://uat.wincha-online.com"
+  const{user}=useSelector((state)=>state.userData)
+  const{game} = useSelector((state)=>state.gameEntry)
+  const[direction,setDirection] = useState([])
+  // useEffect(()=>{
+  // },[game])
+  // console.log("direction",direction);
+  // const userD = JSON.parse(localStorage.getItem("user"))
+  const navigate = useNavigate()
+  useEffect(()=>{
+    console.log("user",user)
+    setDirection(game&&game.movement&&game.movement.split("-"))
+    if(user===undefined){
+          navigate("/login")
+      }
+      dispatch(gameEntry(datas))
+  },[navigate,dispatch,wait])
+  // useEffect(()=>{
+      
+  // },[dispatch,wait])
   const location = useLocation()
   let stateData = location.state
-  const game = stateData.game 
+  const gameData = stateData.game 
   console.log(game)
+  // const{data} = useSelector((state)=>state.userData)
+const datas = {
+  catalog:gameData&&gameData.id,
+  playerID:user&&user.id,
+  machineCode:gameData&&gameData.machine_code,
+  source:"android",
+  replay:false,
+  freeplay:false
+}
+  
+  const videRef = useRef()
+  const[play,setPlay] = useState(false)
+  const handlePlay=()=>{
+    setPlay(true)
+    videRef.current.play()
+    
+  }
+  const handlePause=()=>{
+    setPlay(false)
+      videRef.current.pause()
+    
+  }
+  const handleReplay=()=>{
+    console.log(videRef)
+    setPlay(true)
+    videRef.current.currentTime = 0;
+  }
+// const startGame=async(e)=>{
+//   console.log("reached game start")
+
+//   await fetch(`${baseUrl}/game/start`,{
+//     method:"POST",
+//         body:JSON.stringify({
+//           machineCode:gameData&&gameData.machine_code,
+//           playerID:user&&user.user_id,
+//           source:"android",
+//           freeplay:false
+//         }),
+//         headers:{
+//           "Content-Type":"application/json"
+//       }
+//     }).then(res=>res.json()).then((data)=>{
+//       console.log(data)
+//     })
+// }
+  const[active,setActive]= useState(true)
+  const joinGame = async(e)=>{
+    e.preventDefault()
+    console.log("reached game join")
+    try {
+      await fetch(`${baseUrl}/game/join`,{
+        method:"POST",
+        body:JSON.stringify({
+          machineCode:gameData&&gameData.machine_code,
+          playerID:user&&user.user_id,
+          freeplay:false
+        }),
+        headers:{
+          "Content-Type":"application/json"
+      }
+      }).then(res=>res.json()).then((data)=>{
+        // if(game.total_players===0){
+          console.log("data from join",data)
+        //   setWait(false)
+        //   startGame()
+        // }
+        // setWait(true)
+        
+      })
+      dispatch(gameEntry(datas))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const src1 = `https://wincha-online.com/camera/subscribe.html?cid=1&mcode=${gameData&&gameData.machine_code}`
+  const src2 = `https://wincha-online.com/camera/subscribe.html?cid=2&mcode=${gameData&&gameData.machine_code}`
   return (
     <div className={style.Container}>
+    <div class={style.Overlay}></div>
         <div className={style.Description}>
           {active?<div className={style.NowPlaying}>
             <p className={style.head}>YOU'RE PLAYING FOR</p>
             <div className={style.Image}>
-              <img src={game.featured_image.large} alt="" />
+              <img src={gameData.featured_image.large} alt="" />
             </div>
-            <p className={style.title}>{game.title}</p>
+            <p className={style.title}>{gameData.title}</p>
             <div className={style.arrow}>
               <IoIosArrowUp className={style.arrowIcon} onClick={()=>{
                 setActive(false)
@@ -50,27 +152,31 @@ const Description = () => {
               </div>
               <div className={style.Screen}>
                 {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#000" fill-opacity="1" d="M 400 100 Q 500 300 400 500 L 500 500 L 500 100 L 400 100 "></path></svg> */}
-                <img src={game.featured_image.large} alt="" />
+                {/* <img src={game.featured_image.large} alt="" /> */}
                 {/* <img src="https://images.unsplash.com/photo-1675789652972-ee2040d2cc9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=60" alt="" /> */}
-                {/* <iframe src="https://www.youtube.com/embed/-CbyAk3Sn9I" title="Pac-Man Original (Arcade 1980)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
-                {/* <video ref={videoRef} poster="https://images.unsplash.com/photo-1675789652972-ee2040d2cc9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8&auto=format&fit=crop&w=2000&q=60" controls>
-                    <source src={coverVideo} type="video/mp4" />
-                </video> */}
+                <img src={gameScreen} alt={gameData.title} className={camera===true?style.showVideo:style.hideVideo}/>
+                {/* <iframe src={src1} title={gameData.title} className={camera===true?style.showVideo:style.hideVideo}></iframe> */}
+                {/* <iframe src={src2} title={gameData.title} className={camera===false?style.showVideo:style.hideVideo}></iframe> */}
+               
+                <img src={gameScreen2} alt={gameData.title} className={camera===false?style.showVideo:style.hideVideo}/>
+                {/* <iframe src={camera?src1:src2} title={gameData.title}></iframe> */}
+               
+                {/* <iframe src="https://www.youtube.com/embed/dScq4P5gn4A" title="Arcade Game: Pac-Man (1980 Namco (Midway License for US release))" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> */}
               </div>
           </div>
           <div className={style.Controls}>
               <div className={style.icons}>
                 <div className={style.Magnify}>
                   <img src={binoculars} alt="" />
-                  <span>5</span>
+                  <span>{game.total_viewers?game.total_viewers:0}</span>
                 </div>
                 <div className={style.life}>
                   <div className={style.lifeIcons}>
-                    <img src={user} alt="" className={style.userIcons1}/>
-                    <img src={user} alt="" className={style.userIcons2}/>
-                    <img src={user} alt="" className={style.userIcons3}/>
+                    <img src={userIcon} alt="" className={style.userIcons1}/>
+                    <img src={userIcon} alt="" className={style.userIcons2}/>
+                    <img src={userIcon} alt="" className={style.userIcons3}/>
                   </div>
-                  <span>3</span>
+                  <span>{game.total_players?game.total_players:0}</span>
                 </div>
               </div>
               <div className={style.Start}>
@@ -80,7 +186,24 @@ const Description = () => {
                   <div className={style.StartButton}>
                     <div className={style.play}>
                       <div className={style.playBtn}>
-                        <p>PLAY</p>
+                        <button onClick={(e)=>{
+                          // joinGame(e)
+                          
+                          // setWait(true)
+                        }}>Play</button>
+                        {/* }}>{wait?"Wait":"Play"}</button> */}
+                        {/* <button onMouseDown={(e)=>{
+                          console.log("clicking")
+                        }} onMouseUp={()=>{
+                          console.log("leaved")
+                        }}>Play</button> */}
+                        {/* {game.total_players===0?<button onMouseDown={(e)=>{
+                          console.log("clicking")
+                        }} onMouseUp={()=>{
+                          console.log("leaved")
+                        }}>Play</button>:<button>Wait</button>} */}
+                        {/* {play?<button onClick={handlePause}>wait</button>:<button onClick={handlePlay}>Play</button>} */}
+                      {/* <button onClick={handlePlay}>Play</button> */}
                       </div>
                     </div>
                   </div>
@@ -88,17 +211,28 @@ const Description = () => {
               <div className={style.Actions}>
                 <div className={style.ActionBtn}>
                   <div className={style.Retry}>
-                    <MdOutlineRestartAlt className={style.RetryIcon}/>
+                    <MdOutlineRestartAlt className={style.RetryIcon} onClick={()=>{
+                      handleReplay()
+                      handlePause()
+                    }}/>
                   </div>
                 </div>
                 <div className={style.UserActionBtn}>
                   <div className={style.user}>
-                    <img src={user} alt="" />
+                    <img src={userIcon} alt="" />
                   </div>
                 </div>
                 <div className={style.CameraActionBtn}>
                   <div className={style.Camera}>
-                    <MdFlipCameraIos className={style.cameraIcon}/>
+                    <MdFlipCameraIos className={style.cameraIcon} onClick={()=>{
+                      if(camera===false){
+                        setCamera(true)
+                      }
+                      else{
+                        setCamera(false)
+            
+                      }
+                    }}/>
                   </div>
                 </div>
               </div>

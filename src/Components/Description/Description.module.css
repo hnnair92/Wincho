@@ -1,12 +1,24 @@
 .Container{
     width: 100%;
+    background-image: url('../../assests/Screenshot\ 2023-02-15\ 150935.png');
     height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
+.Overlay{
+    position:absolute;
+    top:0;
+    bottom:0;
+    background-color: #000;
+    width: 100%;
+    height: 90vh;
+    opacity: 0.4;
+    z-index: 9;
+}
 .Description{
+    z-index: 99;
     border:7px solid #fff;
     border-top: 0;
     width: 80%;
@@ -38,7 +50,7 @@
     height: 100%;
     /* position: relative; */
 }
-.Screen img{
+.Screen img,.Screen iframe,.Screen video{
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -88,6 +100,12 @@
     align-items: center;
     transition: all 0.3s ease-in-out;
 
+}
+.hideVideo{
+    display: none;
+}
+.showVideo{
+    display: block;
 }
 .minimized{
     z-index: 9;
@@ -302,15 +320,15 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     align-items: center;
     transition: all 0.2s ease-in-out;
 }
-.playBtn p{
+/* .playBtn p{
     font-size: 3vw;
     font-weight: 900;
     color: #fff;
     font-style: italic;
     padding: 30% 0px;
     
-}
-/* .playBtn button{
+} */
+.playBtn button{
     border:none;
     outline:none;
     background-color: transparent;
@@ -320,7 +338,7 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     font-style: italic;
     padding: 30% 0px;
     
-} */
+}
 /* .StartButton:hover{
     transform: scale(1.1);
 } */

@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react'
 import style from './Games.module.css'
 import Ticket from '../../assests/golden-ticket.png'
 import info from '../../assests/info.png'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate, useParams} from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductByCollection } from '../../actions/product'
 import Loader from '../Loader/Loader'
 
 const Games = () => {
+    const {id} = useParams()
+    const {products,loading} = useSelector((state)=>state.collectionProducts)
+    const{data,status}=useSelector((state)=>state.userData)
+    const user = JSON.parse(localStorage.getItem("user"))
+    const navigate = useNavigate()
+    // const {data,status} = useSelector((state)=>state.userData)
     const[category,setCategory] = useState("novelty")
     const dispatch = useDispatch()
     const response = {
@@ -17,8 +23,11 @@ const Games = () => {
     }
     useEffect(()=>{
         dispatch(getProductByCollection(response))
-    },[dispatch,category])
-    const {products,loading} = useSelector((state)=>state.collectionProducts)
+        if(user===null){
+            navigate("/login")
+        }
+    },[dispatch,category,id])
+
 
     const categories = [
         {

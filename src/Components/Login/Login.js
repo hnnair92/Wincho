@@ -1,8 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import style from './Login.module.css'
 import Banner from '../../assests/Wincha Image Asset.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { loginAction } from '../../actions/user'
 const Login = () => {
+    // const user = JSON.parse(localStorage.getItem("user"))
+    const navigate = useNavigate()
+    const {authenticated,error} = useSelector((state)=>state.userData)
+    const [username,setUsername] = useState("")
+    const[password,setPassword] = useState("")
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        if(authenticated){
+            navigate("/")
+        }
+    })
+    const handleLogin =(e)=>{
+        const data = {
+            username:username,
+            password:password
+        }
+        e.preventDefault()
+        dispatch(loginAction(data))
+    }
   return (
     <div className={style.Container}>
         <div className={style.Login}>
@@ -13,14 +34,19 @@ const Login = () => {
                 <div className={style.TitleDiv}>
                     <h1 className={style.Title}>Login with Email</h1>
                 </div>
-                <form action="" className={style.form}>
+                <form action="" className={style.form} onSubmit={handleLogin}>
+                    {error&&error.status==="False"?<p className={style.loginError}>invalid Crediantials</p>:""}
                     <div className={style.EmailInput}>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name="" id="email" className={style.email} placeholder="Your email"/>
+                        <label htmlFor="Username">Username</label>
+                        <input type="text" name="" id="Username" value={username} className={style.email} placeholder="Your Username" onChange={(e)=>{
+                            setUsername(e.target.value)
+                        }}/>
                     </div>
                     <div className={style.PasswordInput}>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="" id="password" className={style.email} placeholder="Your password"/>
+                        <input type="password" name="" id="password" value={password} className={style.email} placeholder="Your password" onChange={(e)=>{
+                            setPassword(e.target.value);
+                        }}/>
                     </div>
                     <p className={style.ForgotPassword}>Forgot your Password?</p>
                     <div className={style.Btns}>
@@ -28,7 +54,6 @@ const Login = () => {
                         <Link to="/register"><button className={style.RegisterBtn}>Register</button></Link>
                     </div>
                 </form>
-                {/* <Link to="/register"><button className={style.RegisterBtn}>Register</button></Link> */}
             </div>
         </div>
     </div>
