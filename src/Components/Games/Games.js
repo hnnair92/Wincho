@@ -27,7 +27,7 @@ const Games = () => {
         if(user===null){
             navigate("/login")
         }
-    },[dispatch,category,id])
+    },[dispatch,category,id,navigate])
 
 
     const categories = [
