@@ -45,19 +45,19 @@
 }
 .TitleDiv{
     width: 70%;
-    border-bottom: 2px solid lightgray;
-    margin-bottom: 50px;
+    border-bottom: 0.22rem solid lightgray;
+    margin-bottom: 5.68rem;
 }
 .ForgotPassword{
     text-align: center;
     color: rgb(201, 0, 0);
-    font-size: 18px;
+    font-size: 1.56rem;
     font-weight: 600;
-    margin-bottom: 35px;
+    margin-bottom: 3.97rem;
 }
 .Title{
-    font-size: 35px;
-    margin: 15px;
+    font-size: 3rem;
+    margin: 1.70rem;
     text-align: center;
     font-weight: 600;
 }
@@ -75,13 +75,13 @@
     font-family: "Poppins";
     width: 60%;
     text-align: center;
-    font-size: 18px;
-    height: 60px;
-    border-radius: 50px;
-    margin:10px 0;
+    font-size: 2.02rem;
+    height: 6.81rem;
+    border-radius: 5.68rem;
+    margin:1.13rem 0;
     background-color: #1589e1;
     color: #fff;
-    border:5px solid #fff;
+    border:0.56rem solid #fff;
     cursor: pointer;
     font-weight: 500;
 }
@@ -94,26 +94,26 @@
     color: #fff;
 }
 .EmailInput label,.PasswordInput label{
-    font-size: 14px;
+    font-size: 1.5rem;
     font-weight: 600;
     text-align: left;
 }
 .email{
     font-family: "Poppins";
     width: 100%;
-    font-size: 18px;
+    font-size: 1.7rem;
     background-color: #fff;
-    height: 50px;
-    padding: 10px 20px;
+    height: 5.68rem;
+    padding: 1.13rem 2.26rem;
     text-align: left;
-    border-radius: 10px;
-    margin: 10px 0;
-    border:2px solid lightgray;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    border:0.22rem solid lightgray;
 }
 .loginError{
     text-align: left;
     margin-right: auto;
-    font-size: 18px;
+    font-size: 2.02rem;
     color: red;
     font-weight: 600;
 }
@@ -126,27 +126,27 @@
         width: 100%;
     }
     .TitleDiv{
-        margin-bottom: 25px;
+        /* margin-bottom: 2.84rem; */
     }
     .Title{
-        font-size: 25px;
+        /* font-size: 2.84rem; */
     }
     .email{
-        height: 45px;
-        font-size: 14px;
-        margin-top: 0;
+        /* height: 5.11rem;
+        font-size: 1.70rem;
+        margin-top: 0; */
     }
     .EmailInput label,.PasswordInput label{
-        font-size: 12px;
+        /* font-size: 1.36rem; */
     }
     .ForgotPassword{
-        font-size: 12px;
-        margin-bottom: 15px;
+        /* font-size: 1.36rem;
+        margin-bottom: 1.70rem; */
     }
     .LoginBtn,.RegisterBtn{
-        height: 45px;
-        font-size: 14px;
-        margin: 5px;
+        /* height: 5.11rem;
+        font-size: 1.70rem; 
+        margin: 0.56rem; */
     }
 }
 @media(min-width:767px) and (max-width:1056px){

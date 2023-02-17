@@ -10,18 +10,19 @@ import Loader from '../Loader/Loader'
 const Games = () => {
     const {id} = useParams()
     const {products,loading} = useSelector((state)=>state.collectionProducts)
-    const{data,status}=useSelector((state)=>state.userData)
-    const user = JSON.parse(localStorage.getItem("user"))
+    const{user}=useSelector((state)=>state.userData)
+    // const user = JSON.parse(localStorage.getItem("user"))
     const navigate = useNavigate()
     // const {data,status} = useSelector((state)=>state.userData)
     const[category,setCategory] = useState("novelty")
     const dispatch = useDispatch()
-    const response = {
-        "category_id":category,
-        "country_code":"UK",
-         "user_id":""
-    }
+    
     useEffect(()=>{
+        const response = {
+            category_id:category,
+            country_code:"UK",
+             user_id:user.user_id
+        }
         dispatch(getProductByCollection(response))
         if(user===null){
             navigate("/login")
@@ -89,6 +90,7 @@ const Games = () => {
         {products&&products.map((game,index)=>{
             
             return(
+                <Link to={`game/${game.id}`} state={{ game:game ,user:info}}>
                 <div className={style.Game} key={index}>
                     {game.new_item===true?<div className={style.Label}>
                         <p>New</p>
@@ -112,13 +114,15 @@ const Games = () => {
                                 {game.price===0?<p className={style.free}>Free</p>:<p className={style.Price}>{game.price}</p>}
                         
                            <div className={style.infoIcon}>
-                            <Link to={`game/${game.id}`} state={{ game:game ,user:info}}
-                           ><img src={info} alt="" className={style.info}/>
+                            <Link to="">
+                            <img src={info} alt="" className={style.info}/>
                             </Link>
                            </div>
                         </div>
                     </div>
                 </div>
+                </Link>
+                
             )
         })}
     </div>
@@ -127,6 +131,7 @@ const Games = () => {
         {products&&products.map((game,index)=>{
    
             return(
+                <Link to={`game/${game.id}`} state={{ game:game ,user:info}}>
                 <div className={style.Game} key={index}>
                     {game.new_item===true?<div className={style.Label}>
                         <p>New</p>
@@ -148,13 +153,14 @@ const Games = () => {
                                 {game.price===0?<p className={style.free}>Free</p>:<p className={style.Price}>{game.price}</p>}
                           
                            <div className={style.infoIcon}>
-                            <Link to={`game/${game.id}`} state={{ game:game ,user:info}}
-                           ><img src={info} alt="" className={style.info}/>
+                            <Link to="/">
+                                <img src={info} alt="" className={style.info}/>
                             </Link>
                            </div>
                         </div>
                     </div>
                 </div>
+                </Link>
             )
         })}
     </div>

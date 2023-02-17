@@ -7,6 +7,7 @@ import penguin from '../../assests/penguin.png'
 import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from 'react-redux'
+import Logo from '../../assests/Wincha Icon.png'
 const Header = () => {
   const {user,authenticated,loading} = useSelector((state)=>state.userData)
   const[toggle,setToggle] = useState(false)
@@ -54,7 +55,8 @@ const Header = () => {
             <HiMenu className={style.menuIcon} onClick={()=>{
               setToggle(true)
             }}/>
-            <p>GAME</p>
+            {/* <p>GAME</p> */}
+            {/* <img src={Logo} alt="" /> */}
         </div>
         <div className={style.Credits}>
         <div className={style.ticket}>
@@ -68,8 +70,8 @@ const Header = () => {
       <div className={style.Header}>
         <div className={style.Logo}>
             <div className={style.LogoImg}>
-              {/* <img src={} alt="" /> */}
-              <p>W</p>
+              <img src={Logo} alt="" />
+              {/* <p>W</p> */}
             </div>
             <div className={style.PlaystoreIcon}>
               <img src={appStore} alt="" />

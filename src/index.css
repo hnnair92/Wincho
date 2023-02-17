@@ -1,4 +1,16 @@
 @import-normalize;
+@font-face {
+  font-family: drumshake_italic;
+  src: url('./Fonts/drumshake_italic.otf');
+}
+html{
+  font-size:55%;
+}
+@media(max-width:1065px){
+  /* html{
+    font-size: 50%;
+  } */
+}
 body {
   margin: 0;
   font-family: "Poppins";
