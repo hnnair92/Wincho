@@ -15,7 +15,7 @@ const Login = () => {
         if(authenticated){
             navigate("/")
         }
-    })
+    },[])
     const handleLogin =(e)=>{
         const data = {
             username:username,
