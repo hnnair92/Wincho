@@ -7,15 +7,16 @@ import { loginAction } from '../../actions/user'
 const Login = () => {
     // const user = JSON.parse(localStorage.getItem("user"))
     const navigate = useNavigate()
-    const {authenticated,error} = useSelector((state)=>state.userData)
-    const [username,setUsername] = useState("")
-    const[password,setPassword] = useState("")
-    const dispatch = useDispatch()
+    const{error,user,authenticated} = useSelector((state)=>state.userData)
     useEffect(()=>{
         if(authenticated){
             navigate("/")
         }
-    },[])
+    },[navigate,authenticated])
+    const [username,setUsername] = useState("")
+    const[password,setPassword] = useState("")
+    const dispatch = useDispatch()
+    
     const handleLogin =(e)=>{
         const data = {
             username:username,
@@ -23,7 +24,9 @@ const Login = () => {
         }
         e.preventDefault()
         dispatch(loginAction(data))
+        
     }
+    
   return (
     <div className={style.Container}>
         <div className={style.Login}>
