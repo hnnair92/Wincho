@@ -1,0 +1,125 @@
+.Container{
+    background-image: url("../../assests/Ticket\ Page\ Background.png");
+    /* background-attachment: fixed; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+
+}
+.Banner {
+    width: 100%;
+    position: relative;
+    /* height: ; */
+    /* position: relative; */
+    /* background-image: url("../../assests/Clubhouse\ Cashier\ without\ Button.png"); */
+}
+.Banner img{
+    /* position: relative; */
+    /* position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1; */
+    max-width: 100%;
+}
+.Banner button{
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+    z-index: 99;
+    background-color: rgb(2, 185, 241);
+    width: 28.45rem;
+    min-height: 4rem;
+    border-radius:3.5rem;
+    border:0.3rem solid #fff;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #fff;
+    padding: .1rem 0;
+    font-family: "Poppins";
+}
+.Ticket{
+    margin-left: auto;
+    padding: 11.33rem 0;
+    margin-right: auto;
+    width: 75%;
+    height: auto;
+}
+.Tickets{
+    /* margin-top: 4rem; */
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.TicketItem{
+    width: 30%;
+    margin: 2.5rem 0;
+    background-color: rgb(2, 185, 241);
+    border-radius:2.5rem;
+    border: 0.5rem solid #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem .5rem;
+}
+.TicketItem button{
+    background-color: transparent;
+    width: 65%;
+    min-height: 5rem;
+    border-radius:3.5rem;
+    border:0.3rem solid #fff;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #fff;
+    padding: .1rem 0;
+    font-family: "Poppins";
+}
+.image{
+    width: 90%;
+}
+.image img{
+    max-width: 100%;
+}
+@media screen and (min-width:768px) and (max-width:1024px){
+    .Ticket{
+        width: 85%;
+    }
+
+    .Banner button{
+        width: 20rem;
+        right: 2rem;
+        bottom:2rem;
+        font-size: 2rem;
+        height: 2rem;
+    }
+}
+@media(max-width:767px){
+    .Ticket{
+        width: 95%;
+        padding: 4rem 0;
+
+    }
+    .Banner button{
+        width: 10rem;
+        /* width: 25%; */
+        min-height: 3rem;
+        height: 3rem;
+        height: auto;
+        padding: 0;
+        font-size: 1.1rem;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        border-radius: 1.5rem;
+    }
+    .TicketItem{
+        width: 47.5%;
+        border-radius:1.5rem;
+
+    }
+    .TicketItem button{
+        width: 75%;
+        min-height: 3rem;
+        font-size: 1.5rem;
+    }
+}

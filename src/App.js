@@ -8,6 +8,7 @@ import Loader from './Components/Loader/Loader';
 import Register from './Components/register/Register';
 import Login from './Components/Login/Login';
 import { useEffect } from 'react';
+import Ticket from './Components/TicketScreen/Ticket';
 function App() {
   
   // const SERVER = "http://3.239.80.132:4000/";
@@ -36,6 +37,7 @@ function App() {
           {/* <Route path="/load" element={<Loader/>}/> */}
           <Route path="/register" element={<Register/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/tickets" element={<Ticket/>}/>
         </Routes>
       </Router>
       {/* <Games/> */}
