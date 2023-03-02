@@ -1,0 +1,131 @@
+.Container{
+    width: 100%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+.Notifications{
+    width:68rem;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    background-color: skyblue;
+    overflow-y: scroll;
+
+}
+.Notifications::-webkit-scrollbar{
+    display: none;
+}
+.Head{
+    width: 50%;
+    margin: 5rem;
+    /* padding: 5px 5px; */
+    border-radius: 50px;
+    background-color: transparent;
+    border:3px solid #fff;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.Head p{
+    text-align: center;
+    margin: 0;
+    font-family: drumshake_italic;
+    font-size: 6rem;
+    color: #fff;
+}
+.Notification{
+    background-color: #fff;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    /* height: 15rem; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    /* border:2px solid #000; */
+    border-radius: 20px;
+    margin: 10px auto;;
+}
+.Title p{
+    font-family: drumshake_italic;
+    font-size: 4.5rem;
+    /* font-size: calc(2vw + 2em); */
+    text-align: center;
+}
+.Description{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.5rem;
+}
+.playBtn{
+    width: 60%;
+    border-radius: 20px;
+    background-color: skyblue;
+    height: 4.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 10px auto;
+}
+.playBtn button{
+    border-radius: 20px;
+    padding: 10px 0px;
+    color: #fff;
+    font-family: drumshake_italic;
+    font-size: 4.5rem;
+    background-color: transparent;
+    border:none;
+    outline:none;
+}
+.Content{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.Image{
+    width: 40%;
+    /* height: 100%; */
+
+}
+.Image img{
+    width: 100%;
+    /* height: 100%;
+    object-fit: cover; */
+    border-radius: 20px;
+}
+@media(max-width:599px){
+    .Head p{
+        font-size: 8vw;
+    }
+    .Notifications{
+        width: 100%;
+    }
+    .Notification{
+        /* flex-direction: column-reverse; */
+
+    }
+    .Title p{
+        font-size: 3rem;
+    }
+    .Description p{
+        font-size: 1.5rem;
+        line-height: 1.75rem;
+    }
+    .playBtn{
+        height: 4rem;
+    }.playBtn button{
+        font-size: 2rem;
+
+    }
+
+}

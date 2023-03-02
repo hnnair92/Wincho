@@ -1,11 +1,14 @@
 .Container{
     width: 100%;
-    background-image: url('../../assests/Screenshot\ 2023-02-15\ 150935.png');
-    height: 90vh;
+    /* background-image: url('../../assests/Screenshot\ 2023-02-15\ 150935.png'); */
+    background: rgb(27,143,231);
+    background: linear-gradient(180deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%); 
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    /* flex-direction: column; */
 }
 .Overlay{
     position:absolute;
@@ -22,23 +25,23 @@
     border:0.79rem solid #fff;
     border-top: 0;
     width: 80%;
-    background-color: #fff;
+    background-color: transparent;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     overflow-y: hidden;
-    background: #0099ff;
+    /* background: #0099ff; */
     /* background: rgb(27,143,231);
     background: linear-gradient(180deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%); */
 }
 .GamePlay{
-    width: 60%;
+    width: 70%;
     /* background-color: blue; */
     position: relative;
     /* height: 100vh; */
-    height: 100%;
+    height: 60%;
     /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
     /* transform: scaleY(2); */
     /* overflow: hidden; */
@@ -57,6 +60,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 60px;
 }
 .sideIcon img{
     height: 100%;
@@ -260,9 +264,10 @@
     width: 40%;
 }
 .life{
-    width: 30%;
+    width: 100%;
 }
 .lifeIcons{
+    width: 30%;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -437,7 +442,7 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     /* display: block; */
    
 }
-@media(min-width:1057px){
+/* @media(min-width:1057px){
     .Controls{
         position: relative;
        
@@ -454,26 +459,26 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
         /* overflow: hidden; */
         /* border-right: 5px solid #fff; */
        
-    }
-    .ActionBtn,.UserActionBtn,.CameraActionBtn{
+    /* } */
+    /* .ActionBtn,.UserActionBtn,.CameraActionBtn{ */
         /* border: 2px solid #000; */
         /* margin: 20px; */
-        border-radius: 50%;
+        /* border-radius: 50%; */
         /* padding: 5px; */
         /* width: 28%; */
         /* height: 11.361rem;
         width: 11.361rem; */
         /* position: absolute; */
         /* height: auto; */
-    }
+    /* } */
     
-}
+/* }  */
 .OuterDiv{
     display: none;
 }
-@media(max-width:1065px){
+@media(min-width:0px){
     .GamePlay{
-        height: 63%;
+        height: 70%;
     }
     .OuterDiv{
         display: block;
@@ -485,7 +490,8 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
         display: block;
         z-index: 999;
         /* position: relative; */
-        height: 37%;
+        /* height: 35%; */
+        padding: 10px;
         width: 100%;
         padding-bottom: 2rem;
     }
@@ -574,7 +580,7 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
         height: 75%;
     }
     .Start{
-        justify-content: space-evenly;
+        justify-content: space-between;
     }
     
 }
@@ -582,18 +588,22 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     background-color: #ebd36d;
     border-radius: 50%;
 }
-@media(max-width:1056px){
+@media(min-width:0px){
     .svgRight{
         display:none
+    }
+    .Start .Play img{
+        width: 100%;
     }
     .svgBottom{
         display:block
     }
     .Container{
-        height: 91vh;
+        height: 100vh;
     }
     .GamePlay{
         position: relative;
+        width: 30%;
     }
     .GamePlay .sideIcon{
         height: auto;
@@ -607,63 +617,17 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
         /* height: auto; */
     }
     .Description{
-        width: 100%;
+        padding: 20px;
+        width: 50%;
         flex-direction: column;
         border:none;
         overflow: hidden;
 
     }
-    .NowPlaying{
-        top:auto;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: 3.40rem; 
-        border-top-right-radius: 3.40rem;
-        z-index: 9999;
-        bottom: 0;
-        left: 0;
-        /* width: 60%; */
-        /* padding: 5px; */
-    }
-    .head{
-        position: relative;
-        z-index: 9;
-        /* font-size: 16px; */
-    }
-    .title{
-        /* font-size: 14px; */
-    }
-    .arrow{
-        top: auto;
-        bottom:93%;
-        z-index: 1;
-    }
-    .minimized .head{
-        margin-bottom: 0;
-        display: none;
-    }
-    .arrow{
-        transform: rotate(180deg);
-    }
-    .minimized{
-        top: auto;
-        bottom: 0;
-        left: 0;
-        /* width: 22.66rem; */
-        /* padding: 5px; */
-        padding: 0.8rem;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        border-top-left-radius: 3.40rem;
-        border-top-right-radius: 3.40rem;
-    }
-    .minimized .arrow{
-        bottom:70%;
-        top: auto;
-    }
+
     .GamePlay{
        /* overflow: hidden; */
-        height: 63%;
+        height: 100%;
         width: 100%;
         /*  border:2px solid #fff;
         border-top: 0; */
@@ -677,7 +641,7 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     }
     .Controls{
         width: 100%;
-        height: 40%;
+        /* height: 40%; */
         /* margin-bottom: 30px; */
         justify-content: space-evenly;
         /* margin-bottom: 30px; */
@@ -771,6 +735,44 @@ background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%,
     .ReportIcon{
         /* font-size: 2em; */
     }
+    .Restart img{
+        width: 100%;
+        object-fit: contain;
+    }
+    .CameraDiv{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .ReportDiv{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .ReportDiv img{
+        width: 30%;
+    }
+    .Restart{
+        width: 25%;
+        align-items: flex-start;
+    }
+    .Restart img{
+        width: 75%;
+    }
+    .CameraDiv{
+        width: 25%;
+    }
+    .userDiv img{
+        width: 100%;
+    }
+    .AngleChanger{
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .AngleChanger img{
+        width: 70%;
+    }
 }
 @media(max-width:320px){
     .OuterDiv{
@@ -818,4 +820,193 @@ circle{
     fill:none;
     stroke-width: 20px;
     stroke: url(#GradientColor);
+}
+@media(max-width:1025px){
+    .OtherGames{
+        display: none;
+    }
+    .Description{
+        width: 100%;
+    }
+    .Screen iframe{
+        border-radius: 25px;
+    }
+    .Start .OuterDiv{
+        width: 12.5rem;
+        height: 12.5rem;
+    }
+    .ContentDiv button{
+        font-size: 3rem;
+    }
+    .CameraDiv .OuterDiv,.Restart .OuterDiv{
+        width: 8.5rem;
+        height: 8.5rem;
+    }
+    .Restart,.CameraDiv,.Start{
+        width: 33%;
+    }
+        .NowPlaying{
+        top:auto;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3.40rem; 
+        border-top-right-radius: 3.40rem;
+        z-index: 9999;
+        bottom: 0;
+        left: 0;
+        /* width: 60%; */
+        /* padding: 5px; */
+    }
+    .head{
+        position: relative;
+        z-index: 9;
+        /* font-size: 16px; */
+    }
+    .title{
+        /* font-size: 14px; */
+    }
+    .arrow{
+        top: auto;
+        bottom:93%;
+        z-index: 1;
+    }
+    .minimized .head{
+        margin-bottom: 0;
+        display: none;
+    }
+    .arrow{
+        transform: rotate(180deg);
+    }
+    .minimized{
+        top: auto;
+        bottom: 0;
+        left: 0;
+        /* width: 22.66rem; */
+        /* padding: 5px; */
+        padding: 0.8rem;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3.40rem;
+        border-top-right-radius: 3.40rem;
+    }
+    .minimized .arrow{
+        bottom:70%;
+        top: auto;
+    }
+}
+.Play button{
+    background-color: transparent;
+    border:none;
+    outline:none;
+}
+.OtherGames{
+    width: 30%;
+    padding: 50px;
+}
+.AllGames{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* padding: 50px; */
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+}
+.SingleGame{
+    width: 40%;
+    background-color: #fff;
+    padding: 4px;
+    border-radius: 15px;
+    margin:10px
+
+}
+.ProductImage{
+    width: 100%;
+}
+.ProductImage img{
+    width: 100%;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
+.ProductContent{
+    width: 100%;
+    padding: 0px 10px;
+    margin: 10px 0;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.PriceSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.TicketIcon{
+    width: 30%;
+}
+.InfoIcon{
+    width: 25%;
+}
+.InfoIcon img,.TicketIcon img{
+    width: 100%;
+}
+.ProductPrice p{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.ProductTitle p{
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+.gameSection{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.Description{
+    width: 100%;
+    flex-direction: row;
+}
+.leftSide{
+    width: 20%;
+    height: 100%;
+}
+.OtherBtn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 50px; */
+    padding-bottom: 0;
+}
+.OtherBtn button{
+    font-family: drumshake_italic;
+    font-size: 6rem;
+    background-color: #eb671a;
+    color: #fff;
+    /* padding: 5px 20px; */
+    padding: 10px 0;
+    width: 100%;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    outline: none;
+    
+}
+.OtherTitle{
+    width: 100%;
+
+}
+.OtherTitle p{
+    text-align: center;
+    font-family: drumshake_italic;
+    font-size: 5rem;
+    color: #fff;
 }

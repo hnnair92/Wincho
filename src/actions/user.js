@@ -7,6 +7,7 @@ export const loginAction=(data)=>async(disptach)=>{
         disptach({
             type:LOGIN_REQUEST
         })
+        
         await fetch(`${baseUrl}/user/account/login`,{
             method:"POST",
             body:JSON.stringify({
@@ -42,7 +43,7 @@ export const loginAction=(data)=>async(disptach)=>{
     } catch (error) {
         disptach({
             type:LOGIN_FAIL,
-            payload:error
+            payload:error.message
         })
     }
     
@@ -61,11 +62,6 @@ export const registerAction = (data)=>async(dispatch)=>{
                 email:data.email,
                 password:data.password,
                 dob:data.dob,
-                // user_type:"common_user",
-                // coutrycode:"44",
-                // coutryname:"UK",
-                // device_id:"4db5c3281c964f3c",
-
             }),
             headers:{
                 "Content-Type":"application/json"

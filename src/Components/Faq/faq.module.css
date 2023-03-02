@@ -1,0 +1,129 @@
+.dNone{
+    display: none;
+}
+.Container{
+    width: 100%;
+    height: 100vh;
+    /* height: 100%; */
+    margin-left: auto;
+    margin-right: auto;
+}
+.Faq{
+    width: 68rem;
+    /* width: 40%; */
+    padding: 25px 0;
+    height: 100%;
+    background-color: lightyellow;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+
+}
+.FaqBtn{
+    width: auto;
+    border-radius: 10px;
+    padding: 7px 20px;
+    border:1px solid #000;
+    font-family: drumshake_italic;
+    font-size: 5rem;
+    background-color: transparent;
+    outline:none;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.AllFaqSection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 100%;
+}
+.FaqSection{
+    width: 80%;
+   
+}
+.FaqCategory{
+    width: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+}
+.FaqCategory svg{
+    font-size: 4rem;
+}
+.FaqCategory button{
+    font-family: drumshake_italic;
+    text-align: center;
+    width: 100%;
+    font-size: 7.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+    border:none;
+    outline:none;
+    
+}
+.SingleFaqs{
+    background-color: #fff;
+    border-radius: 20px;
+    border:2px solid #000;
+    padding:10px;
+    margin: 15px 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+.SingleFaqs p{
+    font-family: drumshake_italic;
+    font-size: 3.2rem;
+    line-height: initial;
+}
+.FaqQuestion button{
+    background-color: transparent;
+    border:none;
+    outline:none;
+    font-family: drumshake_italic;
+    font-size: 3.2rem;
+    text-align: left;
+}
+.FaqQuestion svg{
+    font-size: 2rem;
+}
+.FaqQuestion{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.FaqAnswer{
+    margin-top: 10px;
+}
+.FaqAnswer p{
+    font-size: 1.3rem;
+    line-height: 20px;
+    font-family: Poppins;
+}
+.QuestionAndAnswer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+@media(max-width:599px){
+    .Faq{
+        width: 100%;
+    }
+    .FaqCategory button{
+        font-size: 5rem;
+    }
+}

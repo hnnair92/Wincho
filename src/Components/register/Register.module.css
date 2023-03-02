@@ -11,7 +11,7 @@
     align-items: center;
 }
 .Register{
-    width: 45%;
+    width: 56rem;
 }
 .Title{
     font-size: 4rem;
@@ -35,7 +35,7 @@
     text-align: center;
     text-transform: uppercase;
     font-family: "Poppins";
-    color: gray;
+    color: #333333d1;
 
 }
 .password{
@@ -64,8 +64,8 @@
 .input{
     font-family: "Poppins";
     width: 100%;
-    font-size: 2.04rem;
-    height: 5.68rem;
+    font-size: 3.5rem;
+    height:7.5rem;
     padding: 1.13rem 2.26rem;
     text-align: left;
     border-radius: 1.13rem;
@@ -131,9 +131,10 @@
 .DataInput{
     width: 100%;
     font-family: "Poppins";
-    height: 5.68rem;
+    height: 7.5rem;
     padding: 1.13rem;
-    font-size: 2.04rem;
+    font-size: 3.5rem;
+    text-transform: uppercase;
     margin: 1.13rem;
     margin-left: 0;
     border-radius: 1.13rem;
@@ -149,13 +150,20 @@
     margin-right: auto;
     margin-top: 0;
 }
+label{
+    text-align: left;
+    font-size: 2rem;
+    color: #333333d1;
+    font-weight: 500;
+    margin-right: auto;
+}
 @media(max-width:767px){
     .Container{
         padding: 1.70rem;
         justify-content: center;
     }
     .Register{
-        width: 90%;
+        /* width: 90%; */
         flex-direction: column;
     }
     .input::-webkit-input-placeholder{
@@ -183,6 +191,10 @@
         font-weight: 500;
         height: 5.11rem;
     }
+    .DataInput{
+        font-size: 1.7rem;
+        height: 5.11rem;
+    }
 }
 @media(max-height:630px){
     .Container{
@@ -195,6 +207,7 @@
     .Container{
         height: 90vh;
     }
+    
 }
 @media(min-width:767px) and (max-width:1056px){
     .Container{
@@ -206,4 +219,9 @@
         width: 60%;
     }
     
+}
+@media(max-width:350px){
+    .Register{
+        width: 100%;
+    }
 }

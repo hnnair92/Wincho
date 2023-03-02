@@ -4,6 +4,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
+    position: relative;
 
 }
 .Banner {
@@ -81,6 +82,85 @@
 .image img{
     max-width: 100%;
 }
+.Popup{
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Overlay{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3;
+}
+.PopupContaner{
+    padding: 2px;
+    position: relative;
+    /* background-color: rgb(16, 166, 241); */
+    background-color: #fff;
+    border-radius: 30px;
+    border:8px solid #fff;
+    z-index: 99;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.PopupContaner .popupImage{
+    width: 100%;
+    background-color: rgb(16, 166, 241);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 30px;
+}.PopupContaner .popupImage img{
+    width: 100%;
+}
+.PopupContaner p{
+    font-size: 2rem;
+    color: #000;
+}
+.PopupBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(16, 166, 241);
+
+}
+.popupContent{
+    margin-top: 2rem;
+}
+.PopupBtn p{
+    font-size: 3rem;
+    margin-left: 15px;
+    color: #fff;
+}
+.PopupBtn svg{
+    font-size: 4rem;
+    color: #fff;
+}
+.Buttons{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.Buttons button{
+    width: 100%;
+    min-height: 4rem;
+    height: 8rem;
+    border-radius: 30px;
+    margin: 10px 0;
+    border:5px solid #fff;
+}
 @media screen and (min-width:768px) and (max-width:1024px){
     .Ticket{
         width: 85%;
@@ -92,6 +172,9 @@
         bottom:2rem;
         font-size: 2rem;
         height: 2rem;
+    }
+    .PopupContaner{
+        width: 50%;
     }
 }
 @media(max-width:767px){
@@ -121,5 +204,8 @@
         width: 75%;
         min-height: 3rem;
         font-size: 1.5rem;
+    }
+    .PopupContaner{
+        width: 80%;
     }
 }

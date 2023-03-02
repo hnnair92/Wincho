@@ -30,28 +30,22 @@ const Login = () => {
   return (
     <div className={style.Container}>
         <div className={style.Login}>
-            <div className={style.Left}>
-                <img src={Banner} alt="" />
-            </div>
             <div className={style.Right}>
-                <div className={style.TitleDiv}>
-                    <h1 className={style.Title}>Login with Email</h1>
-                </div>
                 <form action="" className={style.form} onSubmit={handleLogin}>
                     {error&&error.status==="False"?<p className={style.loginError}>invalid Crediantials</p>:""}
                     <div className={style.EmailInput}>
-                        <label htmlFor="Username">Username</label>
-                        <input type="text" name="" id="Username" value={username} className={style.email} placeholder="Your Username" onChange={(e)=>{
+                        {/* <label htmlFor="Username">Username</label> */}
+                        <input type="text" name="" id="Username" value={username} className={style.email} placeholder="Username" onChange={(e)=>{
                             setUsername(e.target.value)
                         }}/>
                     </div>
                     <div className={style.PasswordInput}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name="" id="password" value={password} className={style.email} placeholder="Your password" onChange={(e)=>{
+                        {/* <label htmlFor="password">Password</label> */}
+                        <input type="password" name="" id="password" value={password} className={style.email} placeholder="password" onChange={(e)=>{
                             setPassword(e.target.value);
                         }}/>
                     </div>
-                    <p className={style.ForgotPassword}>Forgot your Password?</p>
+                    <p className={style.ForgotPassword}>I've forgotten my password?</p>
                     <div className={style.Btns}>
                         <button className={style.LoginBtn}>Login</button>
                         <Link to="/register"><button className={style.RegisterBtn}>Register</button></Link>

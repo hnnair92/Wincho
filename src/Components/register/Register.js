@@ -72,11 +72,18 @@ const Register = () => {
   return (
     <div className={style.Container}>
         <div className={style.Register}>
-            <h1 className={style.Title}>Register to Start Playing!</h1>
+            
             <form className={style.form} onSubmit={handleRegister}>
                 <input type="text" placeholder='username' required className={style.input} value={username} onChange={(e)=>{
                     setUsername(e.target.value)
                 }}/>
+                <label htmlFor="">Date of Birth</label>
+                
+                <input type="date" placeholder='DOB' required name="" id=""  className={style.DataInput} onChange={(e)=>{
+                   handleDate(e)
+                   console.log(e.target.value)
+                }}/>
+                {eligible?"":<p className={style.AgeRestrict}>Age below 12 is not allowed</p>}
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}
                 <div className={style.password}>
                     <input type={passwordType} required placeholder='password' value={password} className={style.input} onChange={(e)=>{
@@ -108,10 +115,7 @@ const Register = () => {
                 <input type="email" required placeholder='email' value={email} className={style.input} onChange={(e)=>{
                     setEmail(e.target.value)
                 }}/>
-                <input type="date" placeholder='DOB' required name="" id=""  className={style.DataInput} onChange={(e)=>{
-                   handleDate(e)
-                }}/>
-                {eligible?"":<p className={style.AgeRestrict}>Age below 12 is not allowed</p>}
+                
                 <div className={style.Terms}>
                     <input type="checkbox" name="" id="" onChange={(e)=>{
                         setTerms(e.target.checked)

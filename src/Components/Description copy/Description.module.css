@@ -1,0 +1,822 @@
+.Container{
+    width: 100%;
+    background-image: url('../../assests/Screenshot\ 2023-02-15\ 150935.png');
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    /* flex-direction: column; */
+}
+.Overlay{
+    position:absolute;
+    top:0;
+    bottom:0;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    z-index: 9;
+}
+.Description{
+    z-index: 99;
+    border:0.79rem solid #fff;
+    border-top: 0;
+    width: 80%;
+    background-color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    overflow-y: hidden;
+    background: #0099ff;
+    /* background: rgb(27,143,231);
+    background: linear-gradient(180deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%); */
+}
+.GamePlay{
+    width: 60%;
+    /* background-color: blue; */
+    position: relative;
+    /* height: 100vh; */
+    height: 100%;
+    /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
+    /* transform: scaleY(2); */
+    /* overflow: hidden; */
+    /* border-right: 5px solid #fff; */
+   
+}
+.MobileControls{
+    display: none;
+}
+.Screen{
+    width: 100%;
+    height: 100%;
+    /* position: relative; */
+}
+.Screen img,.Screen iframe,.Screen video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.sideIcon img{
+    height: 100%;
+    object-fit: cover;
+    /* transform: rotate(90deg); */
+    
+   /* display: flex;
+   justify-content: flex-end; 
+   object-fit: cover; */
+}
+.sideIcon{
+    position: absolute;
+    right: 0;
+   
+    /* width: auto; */
+    /* height: 100%; */
+    /* background-color: transparent !important; */
+    /* position: absolute;
+    z-index: 99999;
+    right: 0;
+    top: 0; */
+    /* height: 100vh;
+    width: 100vw; */
+   /* object-fit: cover; */
+    /* border-radius: 0% 100% 100% 0%/0%  100%  100%  0%; */
+}
+.svgBottom{
+    display:none;
+}
+.NowPlaying{
+    z-index: 9;
+    width: 22.66rem;
+    height: 22.66rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #af000f;
+    color: #fff;
+    padding: 1.70rem;
+    border-bottom-left-radius: 3.40rem;
+    border-bottom-right-radius: 3.40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+
+}
+.hideVideo{
+    display: none;
+}
+.showVideo{
+    display: block;
+}
+.minimized{
+    z-index: 9;
+    width: 22.66rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #af000f;
+    color: #fff;
+    padding: 1.70rem;
+    border-bottom-left-radius: 3.40rem;
+    border-bottom-right-radius: 3.40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+.head{
+    font-size: 1.52rem;
+    font-style: italic;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 1.13rem;
+
+}
+.Image{
+    width: 100%;
+}
+.Image img{
+    width: 100%;
+    border-radius: 3.40rem;
+    border:0.56rem solid #fff;
+}
+.title{
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+    font-size: 1.52rem
+}
+.minimized .arrow{
+    top: 85%;
+}
+.arrow{
+    position: absolute;
+    /* bottom: -7%; */
+    top: 95%;
+    background-color: #af000f;
+    border-radius: 50%;
+    width: 4.54rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4.54rem;
+}
+.arrowIcon{
+    font-size: 3.40rem;
+    cursor: pointer;
+}
+.Controls{
+    padding: 2.84rem;
+    /* position: relative; */
+    width: 40%;
+    /* background-color: #11ceef; */
+    
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.Report{
+    position: absolute;
+    bottom: 0;
+    padding-right: 2.84rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+}
+.ReportIcon{
+    font-size: 4.5rem;
+    color: #af000f;
+    /* background-color: #ebd36d; */
+    /* border-radius: 50%; */
+    padding: 0.56rem;
+} 
+.Report p{
+    /* width: 50%; */
+    font-size: 1.5rem;
+    text-align: center;
+}
+.icons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Magnify{
+    width: 35%;
+    position: relative;
+    
+}
+.Magnify span{
+    position: absolute;
+    left: 0;
+    top:10%;
+    background-color: #cc0d1d;
+    /* padding: 0.22rem 0.82rem; */
+    border-radius: 50%;
+    z-index: 9;
+    color: #fff;
+    font-weight: 500;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    font-size: 1.5rem;
+
+}
+.life{
+    position: relative;
+
+}
+.life span{
+    position: absolute;
+    right: 95%;
+    top: 25%;
+    background-color: #cc0d1d;
+    /* padding: .22rem 0.82rem; */
+    border-radius: 50%;
+    z-index: 9;
+    color: #fff;
+    font-weight: 500;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+.Magnify img{
+    width: 40%;
+}
+.life{
+    width: 30%;
+}
+.lifeIcons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.userIcons1{
+    width:30%;
+    height: 100%;
+}
+.userIcons2{
+    width:28%;
+    height: 100%;
+}
+.userIcons3{
+    width:26%;
+    height: 100%;
+}
+.Start{
+    width: 100%;
+    /* margin-top: 8.52rem; */
+    margin-top: 5.68rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.points{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 9;
+    bottom: 85%;
+    /* padding: 3.97rem 2.84rem; */
+    width: 9.3rem;
+    height: 9.3rem;
+    border-radius: 50%;
+    /* background-color: #064466; */
+    background: rgb(22,174,224);
+background: linear-gradient(180deg, rgba(22,174,224,1) 0%, rgba(9,69,100,1) 40%, rgb(0, 0, 10) 100%);
+    opacity: 1;
+}
+.points p{
+    font-size: 2.75rem;
+    font-weight: 900;
+    color: #000;
+    font-style: italic;
+    -webkit-text-stroke: 0.22rem #fff;
+}
+.StartButton{
+    /* width: 60%; */
+    width: 25.45rem;
+    position: relative;
+    height: 25.45rem;
+    /* height: auto; */
+    border:2.26rem solid #14a0cb;
+    border-radius: 50%;
+    outline: 0.33rem solid #000;
+}
+.play{
+    position: relative;
+    z-index: 99;
+    outline:0.33rem solid #000;
+    border:1.70rem solid #b7471c;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.playBtn{
+    outline: 0.22rem solid #fff;
+    width: 100%;
+    background-color: #eb671a;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+/* .playBtn p{
+    font-size: 3vw;
+    font-weight: 900;
+    color: #fff;
+    font-style: italic;
+    padding: 30% 0px;
+    
+} */
+.playBtn button{
+    border:none;
+    outline:none;
+    background-color: transparent;
+    font-size: 5.15rem;
+    font-weight: 900;
+    color: #fff;
+    cursor: pointer;
+    font-style: italic;
+    /* padding: 3.97rem 0rem; */
+    
+}
+/* .StartButton:hover{
+    transform: scale(1.1);
+} */
+.StartButton:hover .playBtn{
+    background-color: #b7471c;
+    cursor: pointer;
+}
+.Actions{
+    height: 25rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* position: relative; */
+}
+
+.Retry,.user,.Camera{
+    /* width: 100%; */
+   border:0.22rem solid #000;
+   outline:0.56rem solid #14a0cb;
+   border-radius: 50%;
+    height: 13rem;
+    /* width: 13rem; */
+    display: flex;
+    padding: 0.56rem;
+    justify-content: center;
+    align-items: center;
+}
+.user img{
+    width: 100%;
+    height: 100%;
+    border: 0.11rem solid #fff;
+    background-color: #eb671a;
+    border-radius: 50%;
+    outline:0.56rem solid #b7471c;
+    transition: all 0.2s ease-in-out;
+    padding: 1.13rem;
+}
+.cameraIcon,.RetryIcon{
+    background-color: #eb671a;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    padding: 1.13rem;
+    font-size: 6.81rem;
+    border: 0.11rem solid #fff;
+    outline:.56rem solid #b7471c;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+.cameraIcon:hover,.RetryIcon:hover,.user img:hover{
+    background-color: #b7471c;
+    cursor: pointer;
+}
+.CameraActionBtn{
+    /* right: 0; */
+}
+.UserActionBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    /* bottom: 0;
+    left: 50%;
+    transform: translateX(-65%); */
+}
+.ActionBtn,.UserActionBtn,.CameraActionBtn{
+    /* position: relative; */
+    /* width: 22% */
+    width: 13rem;
+    /* height: 11.361rem; */
+    /* display: block; */
+   
+}
+@media(min-width:1057px){
+    .Controls{
+        position: relative;
+       
+    }
+    .sideIcon{
+        height: 100%;
+    }
+    .GamePlay{
+        /* width: 60%; */
+        /* background-color: blue; */
+        /* height: 100vh; */
+        /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
+        /* transform: scaleY(2); */
+        /* overflow: hidden; */
+        /* border-right: 5px solid #fff; */
+       
+    }
+    .ActionBtn,.UserActionBtn,.CameraActionBtn{
+        /* border: 2px solid #000; */
+        /* margin: 20px; */
+        border-radius: 50%;
+        /* padding: 5px; */
+        /* width: 28%; */
+        /* height: 11.361rem;
+        width: 11.361rem; */
+        /* position: absolute; */
+        /* height: auto; */
+    }
+    
+}
+.OuterDiv{
+    display: none;
+}
+@media(max-width:1065px){
+    .GamePlay{
+        height: 63%;
+    }
+    .OuterDiv{
+        display: block;
+    }
+    .Controls{
+        display: none;
+    }
+    .MobileControls{
+        display: block;
+        z-index: 999;
+        /* position: relative; */
+        height: 37%;
+        width: 100%;
+        padding-bottom: 2rem;
+    }
+    .ActionBtn{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .OuterDiv{
+        width: 10rem;
+        height: 10rem;
+        /* border:0.11rem solid #000; */
+        border:.27rem solid #000;
+        outline: 1rem solid #14a0cb;
+        border-radius: 50%;
+    }
+    .innerDiv{
+        width: 100%;
+        height: 100%;
+        border:0.75rem solid #b7471c;
+        outline:0.27rem solid #000;
+        border-radius: 50%;
+
+    }
+    .ContentDiv{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border:0.05rem solid #fff;
+        background-color: #eb671a;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .ContentDiv svg{
+        font-size: 4rem;
+        color: #fff;
+        cursor: pointer;
+    }
+    .ContentDiv button svg{
+        font-size: 6rem;
+        cursor: pointer;
+    }
+    .ContentDiv button{
+        background-color: transparent;
+        border:none;
+        outline:none;
+        color:#fff;
+        font-size: 5rem;
+        font-weight: 900;
+        cursor: pointer;
+    }
+    .ContentDiv p{
+        font-size: 2rem;
+        color: #fff;
+        font-weight: 600;
+    }
+    .Restart,.Start,.CameraDiv{
+        width: 30%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .Start .OuterDiv{
+        width: 15rem;
+        height: 15rem;
+    }
+    .Start .ContentDiv p{
+        font-size: 3.75rem;
+        font-weight: 900;
+    }
+    .Start,.CameraDiv{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .minimized{
+        width: 22.33rem;
+    }
+    .ContentDiv img{
+        width: 75%;
+        height: 75%;
+    }
+    .Start{
+        justify-content: space-evenly;
+    }
+    
+}
+.ReportOuter{
+    background-color: #ebd36d;
+    border-radius: 50%;
+}
+@media(max-width:1056px){
+    .svgRight{
+        display:none
+    }
+    .svgBottom{
+        display:block
+    }
+    .Container{
+        height: 91vh;
+    }
+    .GamePlay{
+        position: relative;
+    }
+    .GamePlay .sideIcon{
+        height: auto;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        /* transform: rotate(90deg); */
+    }
+    .sideIcon img{
+        width: 100%;
+        /* height: auto; */
+    }
+    .Description{
+        width: 100%;
+        flex-direction: column;
+        border:none;
+        overflow: hidden;
+
+    }
+    .NowPlaying{
+        top:auto;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3.40rem; 
+        border-top-right-radius: 3.40rem;
+        z-index: 9999;
+        bottom: 0;
+        left: 0;
+        /* width: 60%; */
+        /* padding: 5px; */
+    }
+    .head{
+        position: relative;
+        z-index: 9;
+        /* font-size: 16px; */
+    }
+    .title{
+        /* font-size: 14px; */
+    }
+    .arrow{
+        top: auto;
+        bottom:93%;
+        z-index: 1;
+    }
+    .minimized .head{
+        margin-bottom: 0;
+        display: none;
+    }
+    .arrow{
+        transform: rotate(180deg);
+    }
+    .minimized{
+        top: auto;
+        bottom: 0;
+        left: 0;
+        /* width: 22.66rem; */
+        /* padding: 5px; */
+        padding: 0.8rem;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 3.40rem;
+        border-top-right-radius: 3.40rem;
+    }
+    .minimized .arrow{
+        bottom:70%;
+        top: auto;
+    }
+    .GamePlay{
+       /* overflow: hidden; */
+        height: 63%;
+        width: 100%;
+        /*  border:2px solid #fff;
+        border-top: 0; */
+        /* border-bottom-left-radius: 0vh;
+        border-bottom-right-radius: 100vh; */
+        /* border-radius: 0% 0% 100vh 100vh/0%  0%  100vh  100vh; */
+        /* border-radius: 0% 200% 200% 0%/0%  200%  200%  0%; */
+        /* transform: scaleX(2);
+        border-radius: 0% 0% 50% 50%/0%  0%  100%  100%; */
+
+    }
+    .Controls{
+        width: 100%;
+        height: 40%;
+        /* margin-bottom: 30px; */
+        justify-content: space-evenly;
+        /* margin-bottom: 30px; */
+    }
+    .cameraIcon,.RetryIcon{
+        /* font-size: 10px; */
+    }
+    .Actions{
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        /* margin-bottom: 25px;
+        margin-top: 20px; */
+        
+    }
+    .Start{
+        margin-top: 0;
+    }
+    
+    .user img,.cameraIcon,.RetryIcon{
+        /* display: block; */
+        /* margin: 0; */
+    }
+    .playBtn p{
+        /* padding: 40% 0px; */
+    }
+    .StartButton{
+        /* width: 35%; */
+        /* border:9px solid #14a0cb;
+        outline:2px solid #000; */
+
+
+    }
+    .play{
+        /* border:5px solid #b7471c;
+        outline:2px solid #000; */
+    }
+    .points{
+        /* padding: 15px 10px; */
+    }
+    .points p{
+        font-size:4vw;
+    /* -webkit-text-stroke: 0.7px #fff; */
+
+    }
+    .icons{
+        width: 30%;
+        position: absolute;
+        top: 3%;
+        left: 3%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .Magnify{
+        /* position: absolute;
+        top: 5%;
+        left: 3%; */
+        width: 100%;
+
+    }
+    .life{
+        /* position: absolute;
+        top: 15%;
+        left: 3%; */
+        position: relative;
+        width: 100%;
+    }
+    .life span{
+        position: absolute;
+        top: 0;
+        right: 86%;
+    }
+    .life span,.Magnify span{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* width: 15px;
+        height: 15px;
+        font-size: 12px; */
+        padding: 0;
+    }
+    .Report{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        /* padding-right: 10px; */
+    }
+    .Report p{
+        /* font-size: 14px; */
+    }
+    .ReportIcon{
+        /* font-size: 2em; */
+    }
+}
+@media(max-width:320px){
+    .OuterDiv{
+        width: 7.5rem;
+        height: 7.5rem;
+    }
+    .Start .OuterDiv{
+        width: 13rem;
+        height: 13rem;
+    }
+    .Start .OuterDiv .ContentDiv p{
+        font-size: 3rem;
+    }
+    .ContentDiv svg{
+        font-size: 2.5rem;
+    }
+}
+.Divs{
+    width: 100px;
+    background-color: red;
+    height: 100px;
+    animation: slide 3s infinite;
+    /* animation-play-state: paused; */
+}
+.Divs{
+    animation-play-state: running;
+}
+@keyframes slide {
+    from { margin-left: 0%; }
+    to { margin-left: calc(100% - var(--w, 150px)); }
+  }
+.WaitGradient svg{
+    z-index: 99;
+   position: absolute;
+   top: 0;
+   left: 0;
+    /* z-index: 99; */
+}
+circle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%);
+    z-index: 999;
+    fill:none;
+    stroke-width: 20px;
+    stroke: url(#GradientColor);
+}

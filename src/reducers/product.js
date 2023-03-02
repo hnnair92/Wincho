@@ -1,19 +1,22 @@
-import { GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST, GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product";
+import { GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_GAMES_FAIL, GET_ALL_GAMES_REQUEST, GET_ALL_GAMES_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST, GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product";
 
 export const productReducer = (state={products:[]},action)=>{
     switch (action.type) {
         case GET_ALL_PRODUCT_BY_COLLECTION_REQUEST:
+            case GET_ALL_GAMES_REQUEST:
                 return{
                     ...state,
                     loading:true,
                 }
         case GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS:
+            case GET_ALL_GAMES_SUCCESS:
                 return{
                     ...state,
                     loading:false,
                     products:action.payload
             }
         case GET_ALL_PRODUCT_BY_COLLECTION_FAILED:
+            case GET_ALL_GAMES_FAIL:
                 return{
                     ...state,
                     loading:false,
