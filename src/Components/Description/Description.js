@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import style from "./Description.module.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { MdOutlineRestartAlt, MdFlipCameraIos } from "react-icons/md";
@@ -8,6 +8,8 @@ import userIcon from "../../assests/penguin.png";
 import binoculars from "../../assests/binoculars.png";
 import svgIcon from "../../assests/SIDEpng2.png";
 import svgBottom from "../../assests/SIDEBottom.png";
+import info from '../../assests/info.png'
+
 // import videoDemo from "../../assests/www.ytmp4.Net---Arcade Game_ Pac-Man (1980 Namco (Midway License for US release)).mp4";
 import { useDispatch, useSelector } from "react-redux";
 import { gameEntry, getAllGames } from "../../actions/product";
@@ -245,7 +247,8 @@ const joinGame=async(e)=>{
 
         <div className={style.OtherGames}>
           <div className={style.OtherBtn}>
-            <button>EXIT GAME</button>
+            
+            <Link to="/prizes"><button>EXIT GAME</button></Link>
           </div>
           <div className={style.OtherTitle}>
             <p>YOU MIGHT ALSO LIKE</p>
@@ -254,6 +257,7 @@ const joinGame=async(e)=>{
             {products&&products.map((gameItem,index)=>{
               if(index<6){
                 return(
+                  <Link to={`/prizes/game/${gameItem.id}`} state={{ game:gameItem ,user:info}} className={style.GameAnchor}>
                   <div className={style.SingleGame}>
                     <div className={style.ProductImage}>
                       <img src={gameItem.featured_image.large} alt="" />
@@ -275,6 +279,7 @@ const joinGame=async(e)=>{
                       </div>
                     </div>
                   </div>
+                  </Link>
                 )
               }
               

@@ -431,7 +431,7 @@
 }
 
 .SingleGame {
-    width: 40%;
+    width: 100%;
     background-color: #fff;
     padding: 4px;
     border-radius: 15px;
@@ -567,7 +567,12 @@
     position: relative;
     z-index: 99;
 }
-
+.GameAnchor{
+    width: 40%;
+}
+.OtherBtn a{
+    width: 100%;
+}
 @media(max-width:1025px) {
     .GamePlay{
         height: 50vh;
