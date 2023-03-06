@@ -47,8 +47,8 @@ const Login = () => {
                     </div>
                     <p className={style.ForgotPassword}>I've forgotten my password?</p>
                     <div className={style.Btns}>
-                        <button className={style.LoginBtn}>Login</button>
-                        <Link to="/register"><button className={style.RegisterBtn}>Register</button></Link>
+                        <button className={style.LoginBtn}>SIGN IN</button>
+                        <Link to="/register"><button className={style.RegisterBtn}>REGISTER</button></Link>
                     </div>
                 </form>
             </div>

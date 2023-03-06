@@ -4,7 +4,8 @@ import style from './Register.module.css'
 import { AiFillEyeInvisible,AiFillEye } from "react-icons/ai";
 import { registerAction } from '../../actions/user';
 import { useDispatch, useSelector } from 'react-redux';
-
+import eye from '../../assests/Password Eye.png'
+import tick from '../../assests/Green Tick.png'
 const Register = () => {
     const navigate = useNavigate()
     const{error,user,authenticated} = useSelector((state)=>state.userData)
@@ -25,6 +26,7 @@ const Register = () => {
     const[eligible,setEligible] = useState(true)
     const[date,setDate] = useState("")
     const dispatch = useDispatch()
+    // const[chec]
     const handleRegister=(e)=>{
         e.preventDefault()
         console.log("reached");
@@ -89,10 +91,10 @@ const Register = () => {
                     <input type={passwordType} required placeholder='password' value={password} className={style.input} onChange={(e)=>{
                         setPassword(e.target.value)
                     }}/>
-                    {passwordType==="text"?<AiFillEyeInvisible className={style.eyeIcon} onClick={()=>{
+                    {passwordType==="text"?<img className={style.eyeIcon} src={eye} onClick={()=>{
                         
                         setPasswordType("password")
-                    }}/>:<AiFillEye className={style.eyeIcon} onClick={()=>{
+                    }}/>:<img className={style.eyeIcon} src={eye} onClick={()=>{
                         setPasswordType("text")
                     }}/>}
 
@@ -117,9 +119,14 @@ const Register = () => {
                 }}/>
                 
                 <div className={style.Terms}>
-                    <input type="checkbox" name="" id="" onChange={(e)=>{
+                    {/* <input type="checkbox" name="" id="" onChange={(e)=>{
                         setTerms(e.target.checked)
-                    }}/>
+                    }}/> */}
+                    <div className={style.CheckBox}>
+                        <img src={tick} alt="" onClick={()=>{
+                            terms?setTerms(false):setTerms(true)
+                        }} className={terms?style.checked:style.NotChecked}/>
+                    </div>
                     <p>I have read and agree to the <Link>Terms of Use</Link> and <Link>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}

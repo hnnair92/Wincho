@@ -1,13 +1,14 @@
 .Container{
     width: 100%;
     height: 100vh;
+    background-color: #2d2d2d;
 }
 .Profile{
     width: 68rem;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
-    background-color: rgb(16, 166, 241);
+    background-color: #3b82f6;
 
 }
 .ProfileContent{
@@ -18,6 +19,7 @@
 .FullDetails{
     width: 100%;
     height: 65%;
+    position: relative;
 }
 .myDetails,.Shipping{
     width: 50%;
@@ -28,8 +30,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    padding: 35px;
-    height: 85%;
+    padding: 15px 35px;
+    height: 100%;
 }
 .Username,.Birthday,.EmailAddress,.Password,.Subscription,.Phone,.Address{
     display: flex;
@@ -82,10 +84,29 @@
     align-items: center;
 }
 .TabSection{
-    height: 100%;
+    height: 90%;
+    position: absolute;
+    z-index: 9999;
+    bottom: 0;
 }
 .TabBtns{
     width: 100%;
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+}
+.TabBtns img{
+    /* z-index: 999; */
+    width: 100%;
+    position: absolute;
+    /* height: 100%;
+    object-fit: cover; */
+}
+.TabBtnActiveImg{
+    z-index: 99;
+}
+.TabBtb{
+    z-index: 999;
 }
 .TabBtb{
     width: 50%;
@@ -119,11 +140,12 @@
     border-radius: 7px;
 }
 .history{
-    background-color: red;
+    background-color: #e60000;
     color: #fff;
 }
 .Faq{
-    background-color: yellow;
+    background-color: #f9e763;
+    color: #2d2d2d;
 }
 .Deactivate{
     background-color: transparent;
@@ -135,18 +157,18 @@
     width: 50%;
     height: 10rem;
     color: #fff;
-    background-color: lightgray;
+    background-color: #bebebe;
     color: #fff;
     -webkit-text-stroke: 1px #000;
     font-size:8rem;
     /* border:none; */
-    border:8px solid #333;
+    border:8px solid #2d2d2d;
     border-radius: 25px;
 }
 .Shipping{
     width: 100%;
-    height: 85%;
-    padding: 35px;
+    height: 100%;
+    padding: 15px 35px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -164,6 +186,63 @@
 }
 .InputSection input{
     outline: none;
+}
+.Phone{
+    align-items: center;
+}
+.Shipping > div .InputSection input{
+    border:none;
+}
+.Shipping .Phone .InputSection input{
+    color: #000;
+    font-weight: 500;
+    font-family: Poppins;
+    border-bottom:2px solid #000;
+}
+.Address .title{
+    padding: 25px 5px;
+}
+.myDetails .Password .InputSection input{
+    border-bottom: none;
+}
+.myDetails .Password .InputSection{
+    border-bottom :2px solid #000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+.myDetails .Password .InputSection img{
+    width: 7.5%;
+    /* -webkit-text-stroke: 2px #fff; */
+}
+.myDetails .Subscription .InputSection img{
+    width: 20%;
+}
+.myDetails .Subscription .InputSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000;
+}
+.myDetails .Subscription .InputSection input{
+    border-bottom: none;
+}
+.Shipping .Phone .InputSection img{
+    width: 7.5%;
+}
+.Shipping .Phone .InputSection input{
+    border-bottom: none;
+
+}
+.Shipping .Phone .InputSection
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #000;
 }
 @media(max-width:599px){
     .Profile{

@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { MdArrowRight, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import profile from "../../assests/Wincha Profile Icon.png";
 import style from "./Profile.module.css";
+import rightArrow from '../../assests/Enter Edit Arrow.png'
+import shippingInfo from '../../assests/Subscription Info Icon.png'
+import myDetailsBlue from '../../assests/My Details Selected Tab.png'
+import shippingGray from '../../assests/Shipping Unselected Tab.png'
+import myDetailsGray from '../../assests/My Details Unselected Tab.png'
+import shippingBlue from '../../assests/Shipping Selected Tab.png'
 const Profile = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -39,29 +46,59 @@ const Profile = () => {
         </div>
         <div className={style.FullDetails}>
           <div className={style.TabBtns}>
-            <button
+            {/* <button
               className={shipping ? style.TabBtb : style.TabBtnActive}
               onClick={() => {
                 setShipping(false);
               }}
             >
               MY DETAILS
-            </button>
-            <button
+            </button> */}
+            {shipping===false?
+            <img src={myDetailsGray} alt="" className={shipping ? style.TabBtnActiveImg : style.TabImg} onClick={() => {
+                
+              setShipping(false)
+              console.log("from mydetails",shipping);
+
+          }}/>
+            :
+            <img src={myDetailsBlue} alt="" className={shipping ? style.TabBtnActiveImg : style.TabImg} onClick={() => {
+                
+                setShipping(false)
+                console.log("from mydetails",shipping);
+
+            }}/>
+            }
+            
+            {/* <button
               className={shipping ? style.TabBtnActive : style.TabBtb}
               onClick={() => {
                 setShipping(true);
               }}
             >
               SHIPPING
-            </button>
+            </button> */}
+            {shipping===false?
+            <img src={shippingBlue} alt="" className={shipping ? style.TabImg : style.TabBtnActiveImg}   onClick={() => {
+                setShipping(true);
+                console.log("from shipping",shipping);
+                
+              }}/>
+              :
+            <img src={shippingGray} alt="" className={shipping ? style.TabImg : style.TabBtnActiveImg}   onClick={() => {
+                setShipping(true);
+                console.log("from shipping",shipping);
+                
+              }}/>
+              }
+
           </div>
 
           
           <div className={style.TabSection}>
 
           
-            {shipping ? 
+            {shipping===false ? 
             <div className={style.Shipping}>
                 <div className={style.Phone}>
                   <div className={style.title}>
@@ -69,6 +106,8 @@ const Profile = () => {
                   </div>
                   <div className={style.InputSection}>
                     <input type="text" value={user.phone} />
+                    <img src={rightArrow} alt="" />
+
                   </div>
                 </div>
                 <div className={style.Address}>
@@ -121,6 +160,9 @@ const Profile = () => {
                   </div>
                   <div className={style.InputSection}>
                     <input type="password" value={password} readOnly/>
+                    {/* <MdOutlineKeyboardArrowRight/> */}
+                    <img src={rightArrow} alt="" />
+
                     {/* <input type="password" value={password} onChange={(e)=>{
                                 setPassword(e.target.value)
                             }}/> */}
@@ -132,6 +174,7 @@ const Profile = () => {
                   </div>
                   <div className={style.InputSection}>
                     <input type="text" value={subscription} readOnly/>
+                    <img src={shippingInfo} alt="" />
                     {/* <input type="text" value={subscription} onChange={(e)=>{
                                 setSubscription(e.target.value)
                             }}/> */}

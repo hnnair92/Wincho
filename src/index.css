@@ -25,6 +25,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.OT_publisher, .OT_subscriber{
-  height: 100% !important;
+.OT_audio-blocked-indicator.OT_active{
+  /* height: 100% !important; */
+  display: none !important;
+}
+.OT_subscriber:hover .OT_edge-bar-item.OT_mode-auto{
+  display: none;
 }

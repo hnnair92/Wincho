@@ -18,22 +18,6 @@ import Notification from './Components/Notification/Notification';
 import Cart from './Components/Cart/Cart';
 import Demo from './Components/Home/Demo';
 function App() {
-  
-  // const SERVER = "http://3.239.80.132:4000/";
-  // var socket = socketClient (SERVER);
-  // console.log("reached here");
-  //     socket.on('Socket_connect', () => {
-  //         console.log(`I'm connected with the back-end`);
-  // });
-
-// }
-  // useEffect(()=>{
-  //   socket.on("Game_que_count",(data)=>{
-  //     console.log('====================================');
-  //     console.log(data);
-  //     console.log('====================================');
-  //   })
-  // },[socket])
   return (
     <div className="App">
       <Router>
@@ -52,7 +36,7 @@ function App() {
           <Route path="/faq" element={<Faq/>}/>
           <Route path="/order-confirmed" element={<OrderConfirmed/>}/>
           <Route path="/notification" element={<Notification/>}/>
-          {/* <Route path="/Demo" element={<Demo/>}/> */}
+          <Route path="/Demo" element={<Demo/>}/>
         </Routes>
         <Footer/>
       </Router>

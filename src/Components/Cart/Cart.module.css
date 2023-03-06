@@ -1,6 +1,6 @@
 .Container{
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
     background-image: url('../../assests/Shipping Page BG.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -13,6 +13,8 @@
     height: 100%;
     margin: 0 auto;
     padding: 20px;
+    padding: 50px 0;
+
 }
 .Cart::-webkit-scrollbar{
     display: none;
@@ -123,7 +125,7 @@
     margin-left: 1.5rem;
 }
 .CircleActive{
-    background-color: lightblue;
+    background-color: #75f85f;
 }
 .FreeShipping .selection .CircleActive{
     margin-left: 0;
@@ -177,7 +179,7 @@
     margin: 0 auto;
     border-radius: 30px;
     border:1px solid #fff;
-    background-color: aqua;
+    background-color: #3b82f6;
     font-family: drumshake_italic;
     font-size: 6rem;
     color: #fff;

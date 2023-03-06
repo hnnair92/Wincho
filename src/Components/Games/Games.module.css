@@ -3,32 +3,35 @@
     height: auto;
     margin-left: auto;
     margin-right: auto;
+    background-color: #ff8100;
 }
 
 .Categories{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-content: center;
+    margin-left: auto;
+    margin-right: auto;
     background-color: #fff;
-    padding: 1.13rem;
     /* border-top: 7px solid #ab2b29; */
 }
 .category,.active{
-    padding: 1.13rem 3.40rem;
+    padding: .75rem 3rem;
     cursor: pointer;
     font-family: "Poppins";
     background-color: #fff;
     border-radius: 2.26rem;
-    font-size: 1.81rem;
+    font-size: 2rem;
     border:none;
     outline:none;
+    font-weight: 600;
 }
 .active{
-    background: rgb(27,143,231);
-    background: linear-gradient(90deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%);
-    color: #fff;
+    /* background: rgb(27,143,231);
+    background: linear-gradient(90deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%); */
+    color: #0a82fc;
 }
 /* .category.active{
     background-color: lightskyblue;
@@ -46,6 +49,16 @@
     overflow-y: hidden;
     overflow-x: hidden;
     width: 18%;
+    /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
+           inset 10px 10px 15px rgba(70, 70, 70, 0.12); */
+           /* box-shadow: 
+    -10px -10px 15px rgba(70, 70, 70, 0.2),
+    10px 10px 15px rgba(70, 70, 70, 0.12); */
+    box-shadow: 
+  -10px -10px 15px rgba(255, 255, 255, 0),
+  2px 2px 15px #ff8100,
+  inset -.2px -.2px 15px rgba(0, 0, 0, .25),
+  inset .2px .2px 15px rgba(00, 0, 00, .25);
     margin: 1.13rem;
     background-color: #fff;
     padding: 1.13rem;
@@ -53,23 +66,28 @@
     /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset -3px -3px 0px rgba(0, 0, 0, 0.2); */
 }
 .Label{
-    border-bottom: 4.54rem solid #af000f;
+    /* border-bottom: 4.54rem solid #af000f; */
     position: absolute;
-    text-align: center;
-    transform: rotate(-40deg);
-    left: -11.7%;
-    top: 5.3%;
-    border-left: 3.75rem solid transparent;
-    border-right: 5.56rem solid transparent;
-    height: 0;
-    width: 65%;
+    /* text-align: center; */
+    /* transform: rotate(-40deg); */
+    /* left: -11.7%; */
+    /* top: 5.3%; */
+    z-index: 999;
+    /* border-left: 3.75rem solid transparent;
+    border-right: 5.56rem solid transparent; */
+    /*height: 0; */
+    width: 35%;
+}
+.Label img{
+    width: 100%;
 }
 .PriceDiv{
     margin-top: 1.13rem;
-    width: 100%;
+    width: 70%;
     height: auto;
     height: 5.68rem;
     display: flex;
+    margin: 0px auto;
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -79,8 +97,21 @@
     width: 7rem;
     height: auto;
 }
+.ticketIcon a,.infoIcon a{
+    position: sticky;
+    background-color: transparent;
+    overflow: unset;
+    margin: 0;
+    width: inherit;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+}
 .Details{
     margin-top: .56rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .Name{
     font-size: 1.75rem;
@@ -125,7 +156,7 @@
     font-weight: 900;
     font-size: 2.75rem;
     font-style: italic;
-    margin: 0px 1.70rem 0px 0.79rem;
+    margin: 0px auto;;
 }
 .infoIcon{
     width: 4rem;
@@ -136,6 +167,7 @@
 }
 .Image{
     width: 100%;
+    height: 50%;
 }
 .Image img{
     width: 100%;
@@ -147,6 +179,7 @@
     color: #fff;
 } */
 @media(max-width:767px){
+    
     .PriceDiv,.infoIcon a,.DetailTitle{
         display: flex;
         flex-direction: row;
@@ -170,6 +203,7 @@
     }
     .Games a{
         width:42%;
+        /* height: 100%; */
         /* padding: 5px; */
         /* border-radius: 10px; */
     }
@@ -191,21 +225,29 @@
     }
     .Name{
         /* font-size: 13px; */
+        font-size: 1.25rem;
     }
-    .ticketIcon{
-        /* width: 50px; */
-    }
+    
     .Price{
-        /* font-size: 20px; */
-    }
-    .infoIcon{
-        /* width: 25px; */
+        font-size: 2rem;
     }
     .LabelFree,.Label{
-        left: -20%;
+        /* left: -20%;
         top: 0;
         width: 100%;
-        text-align: center;
+        text-align: center; */
+    }
+    .ticketIcon a,.infoIcon a{
+        width: 100%;
+    }
+    .ticketIcon{
+        width: 5rem;
+    }
+    .infoIcon{
+        width: 3rem;
+    }
+    .PriceDiv{
+        width: 100%;
     }
 }
 @media(min-width:767px) and (max-width:1056px){
@@ -217,4 +259,46 @@
         overflow-x: scroll;
         justify-content: center;
     }
+}
+.Search{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background-color: #e1f5fb;
+    border: 2px solid #efeef1;
+
+
+
+}
+.SearchIcon,.EmptySearch{
+    width: 7.5%;
+}
+.SearchIcon img,.EmptySearch img{
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+.EmptySearch img{
+    width: 80%;
+}
+.Search input{
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border:none;
+    color: #2d2d2d;
+    font-size: 2.25rem;
+    padding: 0px 10px;
+    font-weight: 500;
+}
+.CategoriesSection{
+    width: 92.5%;
+    display: flex;
+    flex-direction: row;
+    padding: 1.13rem;
+
+    justify-content: space-between;
 }

@@ -27,7 +27,7 @@
     bottom: 3rem;
     right: 3rem;
     z-index: 99;
-    background-color: rgb(2, 185, 241);
+    background-color: #3b82f6;
     width: 28.45rem;
     min-height: 4rem;
     border-radius:3.5rem;
@@ -56,7 +56,7 @@
 .TicketItem{
     width: 30%;
     margin: 2.5rem 0;
-    background-color: rgb(2, 185, 241);
+    background-color: #3b82f6;
     border-radius:2.5rem;
     border: 0.5rem solid #fff;
     display: flex;
@@ -117,7 +117,7 @@
 }
 .PopupContaner .popupImage{
     width: 100%;
-    background-color: rgb(16, 166, 241);
+    background-color: #3b82f6;;
     border-top-right-radius: 30px;
     border-top-left-radius: 30px;
 }.PopupContaner .popupImage img{
@@ -132,7 +132,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: rgb(16, 166, 241);
+    background-color: #3b82f6;;
 
 }
 .popupContent{

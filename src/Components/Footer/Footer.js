@@ -3,8 +3,22 @@ import style from './Footer.module.css'
 import Logo from '../../assests/Wincha Bird Footer.png'
 import {FaFacebook} from 'react-icons/fa'
 import {AiFillTwitterCircle,AiOutlineInstagram} from 'react-icons/ai'
+import { Link, useNavigate } from 'react-router-dom'
 // import {} from 'react-icons/ai'
 const Footer = () => {
+    const navigate = useNavigate();
+    const handleId = (e,title) => {
+        e.preventDefault();
+        const path = window.location.pathname;
+        if (path === "/") {
+          window.location.href = `#${title}`;
+        } else {
+          navigate("/");
+          setTimeout(() => {
+            window.location.href = `#${title}`;
+          }, 100);
+        }
+      };
   return (
     <div className={style.Container}>
         <div className={style.Footer}>
@@ -15,11 +29,20 @@ const Footer = () => {
             <div className={style.Menu}>
                 <ul>
                 <p className={style.Title}>LINKS</p>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Watch</li>
-                    <li>Store</li>
-                    <li>Support</li>
+                    <li onClick={(e)=>{
+                        handleId(e,"home")
+                    }}>Home</li>
+                    <li onClick={(e)=>{
+                        handleId(e,"about")
+                    }}>About</li>
+                    <li onClick={(e)=>{
+                        handleId(e,"watch")
+                    }}>Watch</li>
+                    <Link to="/tickets"><li>Store</li></Link>
+                    
+                    <li onClick={(e)=>{
+                        handleId(e,"support")
+                    }}>Support</li>
                 </ul>
             </div>
             <div className={style.Address}>

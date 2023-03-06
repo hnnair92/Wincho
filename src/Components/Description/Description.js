@@ -28,6 +28,8 @@ import UpArrow from '../../Animation/arrow_up.json'
 import waitAnime from '../../Animation/wait_reverse.json'
 import ticketIcon from '../../assests/golden-ticket.png'
 import infoIcon from '../../assests/info.png'
+import Demo from "../Home/Demo";
+import pointsBg from '../../assests/Price of Game BG.png'
 const Description = () => {
   const dispatch = useDispatch();
   const [wait, setWait] = useState(false);
@@ -78,6 +80,7 @@ const Description = () => {
   const data ={user_id:"63d0c1fedcc86094481af6e8",socket_id:"g07wnxHwDJre_l5pAADJ",machineCode:"UK-WH1-NID1-215"}
   const[firstStep,setFirstStep] = useState(false)
   const[secondStep,setSecondStep] = useState(false)
+  const[failed,setFailed] = useState(false)
   console.log("direction",direction)
   const firstMoveStart=async(directionMove)=>{
     await fetch(`${baseUrl}/game/movement`,{
@@ -132,6 +135,11 @@ const Description = () => {
       console.log(data)
       setFirstStep(false)
       setSecondStep(true)
+      setTimeout(()=>{
+        setFailed(true)
+        setSecondStep(false)
+        setGameStatus(false)
+      },150000)
       // clearTimeout()
     })
   
@@ -175,6 +183,7 @@ const Description = () => {
       console.log("starting")
       setDirection(game&&game.movement.split("-"));
       setFirstStep(true)
+      
     })
   }
   const[gameStatus,setGameStatus] = useState(false)
@@ -292,10 +301,27 @@ const joinGame=async(e)=>{
               <span>{game.total_players ? game.total_players : 0}</span>
             </div>
           </div>
-            <iframe src={src1} title={gameData.title} className={camera===true?style.showVideo:style.hideVideo}></iframe>
-            <iframe src={src2} title={gameData.title} className={camera===false?style.showVideo:style.hideVideo}></iframe>
-
-          
+            {/* <iframe src={src1} title={gameData.title} className={camera===true?style.showVideo:style.hideVideo}></iframe>
+            <iframe src={src2} title={gameData.title} className={camera===false?style.showVideo:style.hideVideo}></iframe> */}
+            <div className={camera===true?style.showVideo:style.hideVideo}>
+            {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
+:""}
+            </div>
+            <div className={camera===false?style.showVideo:style.hideVideo}>
+            {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[1]&&game.camera_data[1].session} token={game&&game.camera_data&&game.camera_data[1]&&game.camera_data[1].token}/>
+:""}
+            </div>
+            {/* <div className={camera===true?style.showVideo:style.hideVideo}>
+            {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
+:""}
+            </div>
+            <div className={camera===false?style.showVideo:style.hideVideo}>
+            {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
+:""}
+            </div> */}
+            {/* {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
+:""} */}
+                        
           
           </div>
         </div>
@@ -303,31 +329,30 @@ const joinGame=async(e)=>{
          
           <div className={style.ActionBtn}>
             <div className={style.Restart}>
-              {/* <div className={style.OuterDiv}>
-                <div className={style.innerDiv}>
-                  <div className={style.ContentDiv}>
-                    <MdFlipCameraIos />
-                  </div>
-                </div>
-              </div> */}
+              
               <img src={cameraImage} alt="" onClick={()=>{
                 camera?setCamera(false):setCamera(true)
               }}/>
             </div>
             <div className={style.Start}>
               <div className={style.Play}>
-                {/* <div className={style.OuterDiv}> */}
-                  {/* <div className={style.innerDiv}> */}
-                    {/* <div className={style.ContentDiv}> */}
-                      {/* <p>Play</p> */}
+                      <div className={style.Points}>
+                        <img src={pointsBg} alt="" />
+                        <p>{user&&user.point}</p>
+                      </div>
                       {gameStatus?firstStep?direction&&direction[1]==="Right"?
                       <button onMouseDown={(e) => {
                         firstMoveStart(direction&&direction[1].toUpperCase())
                       }}
                       onMouseUp={()=>{
                         firstMoveRelease()
+                      }}
+                      onTimeUpdate={(e)=>{
+                        console.log(e)
                       }}>
-                        <Lottie animationData={RightArrow} loop={false}/>
+                        <Lottie animationData={RightArrow} loop={false} onComplete={()=>{
+                          setFailed(true)
+                        }}/>
                       </button>
                       
                     :direction&&direction[1]==="Left"?
@@ -337,7 +362,9 @@ const joinGame=async(e)=>{
                     onMouseUp={()=>{
                       firstMoveRelease()
                     }}>
-                      <Lottie animationData={LeftArrow} loop={false} />
+                      <Lottie animationData={LeftArrow} loop={false}  onComplete={()=>{
+                          setFailed(true)
+                        }}/>/>
                     </button>
                     :<Lottie animationData={waitAnime} loop={false}/>:secondStep?
                     <button
@@ -348,12 +375,14 @@ const joinGame=async(e)=>{
                     onMouseUp={()=>{
                       secondMoveRelease()
                     }}>
-                        <Lottie animationData={UpArrow} loop={false}/>
+                        <Lottie animationData={UpArrow} loop={false} onComplete={()=>{
+                          setFailed(true)
+                        }}/>/>
                     </button>
                     
     
                   :gameStatus?<Lottie animationData={waitAnime} loop={false}/>:"Play"
-                    : 
+                    :failed?<Lottie animationData={waitAnime} loop={false}/>: 
                     <button onClick={(e) => {
                       // joinGame(e)
                       // connectSocket()
@@ -373,37 +402,16 @@ const joinGame=async(e)=>{
               </div>
               <div className={style.ReportDiv}>
                 <img src={reportImage} alt="" />
-                {/* <div className={style.OuterDiv}>
                 
-                  <div className={style.innerDiv}>
-                    <div className={style.ContentDiv}> */}
-                {/* <div className={style.ReportOuter}>
-                  <RxExclamationTriangle className={style.ReportIcon} />
-                </div> */}
-                {/* </div>
-                  </div>
-                </div> */}
               </div>
             </div>
             <div className={style.CameraDiv}>
             <div className={style.userDiv}>
-                {/* <div className={style.OuterDiv}>
-                  <div className={style.innerDiv}>
-                    <div className={style.ContentDiv}>
-                      <MdOutlineRestartAlt />
-                    </div>
-                  </div>
-                </div> */}
+                
                 <img src={playInfo} alt="" />
               </div>
               <div className={style.AngleChanger}>
-                {/* <div className={style.OuterDiv}>
-                  <div className={style.innerDiv}>
-                    <div className={style.ContentDiv}>
-                      <img src={userIcon} alt="" />
-                    </div>
-                  </div>
-                </div> */}
+                
                 <img src={restartImg} alt="" />
               </div>
               

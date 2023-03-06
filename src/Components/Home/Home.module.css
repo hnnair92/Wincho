@@ -5,10 +5,10 @@
 }
 .Transition,.About,.Watch,.Support{
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
 }
 .About{
-    margin-top: -20rem;
+    margin-top: -5.5%;
 }
 .Transition div{
     /* height: 100%; */
@@ -162,8 +162,8 @@
     max-width: 30rem;
     height: 10rem;
     background-color: red;
-    border:1rem solid lightgray;
-    border-radius: 3.5rem;
+    border:3px solid lightgray;
+    border-radius: 2.5rem;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -173,6 +173,10 @@
 }
 .TicketIcon{
     width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
     /* overflow: auto; */
 }
 .TicketText{
@@ -205,18 +209,42 @@
     color: lightgray;
     cursor: not-allowed;
 }
+.AppStore{
+    width: 20%;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.PlayBtn{
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%,100%);
+    width: 15%;
+    z-index: 999;
+}
+.PlayBtn img{
+    width: 100%;
+}
+
 @media(max-width:1065px){
+    .About{
+        margin-top: -6rem;
+    }
     .Transition,.About,.Watch,.Support{
         height: auto;
     }
     .Ticket{
-        max-width: 20rem;
-        min-width: 7rem;
-        border-radius: 2.5rem;
+        top: 5vh;
+        width: 23%;
+    height: 5%;
+    border-radius: 1.5rem;
     }
     .TicketText{
         font-size: 3rem;
-        line-height: 20px;
+        line-height: 18px;
     }
     .SupportContent{
         justify-content: center;
@@ -231,14 +259,26 @@
     }
 }
 @media(max-width:767px){
+    .About{
+        margin-top: -7%;
+    }
+    .PlayBtn{
+        position: absolute;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%,100%);
+        width: 10%;
+        z-index: 999;
+    }
     .Ticket{
-        max-width: 15rem;
-        min-width: 7rem;
-        height: 7rem;
+        top: 9vh;
+        width: 29%;
+        height: 6%;
 
     }
     .TicketText{
-        font-size: 2rem;
+        font-size: 1.75rem;
+        line-height: 10px;
     }
     .ContactSection p{
         font-size: 7rem;
@@ -259,5 +299,15 @@
     }
     .LeftIcons,.RightIcons,.WLeftIcons,.WRightIcons{
         transform: translateY(-50%);
+    }
+}
+@media(max-width:1065px)and(min-width:450px){
+    .About{
+        margin-top: 4rem;
+    }
+}
+@media(min-width:1530px){
+    .About{
+        margin-top: -5%;
     }
 }

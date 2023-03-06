@@ -35,7 +35,7 @@
     text-align: center;
     text-transform: uppercase;
     font-family: "Poppins";
-    color: #333333d1;
+    /* color: #333333d1; */
 
 }
 .password{
@@ -51,7 +51,7 @@
     text-align: left;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
-    border:.22rem solid gray;
+    border:.3rem solid gray;
 }
 .password .input{
     border: none;
@@ -70,7 +70,10 @@
     text-align: left;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
-    border:0.2rem solid gray;
+    border:0.3rem solid gray;
+    color: #333
+
+
 
 }
 .Terms{
@@ -86,12 +89,19 @@
   }
 
 .Terms p{
-    width: 75%;
+    width: 65%;
     margin-left: 2.26rem;
-    font-size: 1.36rem;
+    font-size: 2rem;
+    color: #3b82f6;
+    font-weight: 600;
+}
+.Terms p a{
+    font-size: 2rem;
+    color: #3b82f6;
+    font-weight: 600;
 }
 .formBtn,.btnDisabled{
-    font-family: "Poppins";
+    /* font-family: "Poppins";
     width: 50%;
     font-size: 2.5rem;
     margin-top: 1.13rem;
@@ -103,6 +113,20 @@
     color: #fff;
     border:none;
     background-color: #489ae6;
+    cursor: pointer; */
+    font-family: "Poppins";
+    width: 50%;
+    font-size: 3rem;
+    margin-top: 1.13rem;
+    height: 7rem;
+    padding: 1.13rem;
+    text-align: center;
+    border-radius: 4rem;
+    margin: 1.13rem 0;
+    color: #fff;
+    border: none;
+    text-transform: uppercase;
+    background-color: #3b82f6;
     cursor: pointer;
 }
 .btnDisabled{
@@ -139,9 +163,9 @@
     margin-left: 0;
     border-radius: 1.13rem;
     margin-right: auto;
-    border:1px solid #000;
+    border:0.3rem solid gray;
     text-align: center;
-    color: gray;
+    color: #3333;
 }
 .AgeRestrict{
     color: red;
@@ -156,6 +180,30 @@ label{
     color: #333333d1;
     font-weight: 500;
     margin-right: auto;
+}
+.eyeIcon{
+    width: 15%;
+}
+input::-webkit-input-placeholder{
+    color: #3333338e;
+}
+.CheckBox{
+    padding: 2px;
+    width: 40px;
+    height: 40px;
+    border:4px solid gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.checked,.NotChecked{
+    width: 100%;
+}
+.NotChecked{
+    opacity: 0;
+}
+.checked{
+    opacity: 1;
 }
 @media(max-width:767px){
     .Container{

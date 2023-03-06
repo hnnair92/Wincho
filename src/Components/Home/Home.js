@@ -8,6 +8,9 @@ import {HiOutlineChevronRight,HiOutlineChevronLeft} from 'react-icons/hi'
 import ticketIcon from '../../Api/Ticket.json'
 import supportContact from '../../assests/Full Support Box.png'
 import WinchaIcon from '../../Api/WinchaIcon.json'
+import AppStore from '../../assests/pngwing.com (4).png'
+import playBtn from '../../assests/Play Button.png'
+import { Link } from 'react-router-dom';
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     // var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
@@ -99,17 +102,25 @@ const Home = () => {
     },[])
   return (
     <div className={style.Container}>
-        <div className={style.Home}>
+        <div className={style.Home} id="home">
             <div className={style.Transition}>
                 <Lottie animationData={backgroundData[background]} loop={true} />;
                 {/* <img src={backgroundData[1]} alt="" /> */}
                 <div className={style.Crane}>
                 <Lottie animationData={WinchaIcon} loop={false} />;
-                    
+                
                 </div>
+                <Link to="/prizes">
+                    <div className={style.PlayBtn}>
+                        
+                        <img src={playBtn} alt="" />
+                    </div>
+                </Link>
+                
             </div>
-            <div className={style.About}>
+            <div className={style.About} id="about">
                 <div className={style.Image}>
+                <img src={AppStore} alt="" className={style.AppStore}/>
                     <div className={style.LeftIcons}>
                         <span><HiOutlineChevronLeft onClick={()=>{
                             leftHandle()
@@ -136,7 +147,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className={style.Watch}>
+            <div className={style.Watch} id="watch">
                 <div className={style.Image}>
                 <div className={style.WLeftIcons}>
                         <button disabled={aboutId===0} className={aboutId===0?style.Disable:""}><HiOutlineChevronLeft onClick={()=>{

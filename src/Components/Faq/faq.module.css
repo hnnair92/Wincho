@@ -3,9 +3,10 @@
 }
 .Container{
     width: 100%;
-    height: 100vh;
+    /* height: 100vh; */
     /* height: 100%; */
     margin-left: auto;
+    background-color: #2d2d2d;
     margin-right: auto;
 }
 .Faq{
@@ -13,7 +14,7 @@
     /* width: 40%; */
     padding: 25px 0;
     height: 100%;
-    background-color: lightyellow;
+    background-color: #f9e763;
     margin-left: auto;
     margin-right: auto;
     display: flex;
@@ -25,15 +26,16 @@
 }
 .FaqBtn{
     width: auto;
-    border-radius: 10px;
-    padding: 7px 20px;
-    border:1px solid #000;
+    border-radius: 50px;
+    padding: 6px 30px;
+    border:2px solid #2d2d2d;
     font-family: drumshake_italic;
-    font-size: 5rem;
+    font-size: 7rem;
     background-color: transparent;
     outline:none;
     margin-left: auto;
     margin-right: auto;
+    margin: 25px;
 
 }
 .AllFaqSection{
@@ -43,9 +45,11 @@
     justify-content: space-evenly;
     height: 100%;
     width: 100%;
+    
 }
 .FaqSection{
     width: 80%;
+    margin: 15px;
    
 }
 .FaqCategory{
@@ -56,13 +60,16 @@
    align-items: center;
 }
 .FaqCategory svg{
-    font-size: 4rem;
+    font-size: 5rem;
+    -webkit-text-stroke: 1px #fff;
 }
 .FaqCategory button{
     font-family: drumshake_italic;
     text-align: center;
     width: 100%;
-    font-size: 7.5rem;
+    font-size: 10rem;
+    -webkit-text-stroke: 2px #fff;
+
     margin-left: auto;
     margin-right: auto;
     background-color: transparent;
@@ -72,8 +79,8 @@
 }
 .SingleFaqs{
     background-color: #fff;
-    border-radius: 20px;
-    border:2px solid #000;
+    border-radius: 25px;
+    border:4px solid #2d2d2d;
     padding:10px;
     margin: 15px 0px;
     display: flex;
@@ -86,6 +93,9 @@
     font-family: drumshake_italic;
     font-size: 3.2rem;
     line-height: initial;
+    height: 35px;
+    align-items: center;
+    display: flex;
 }
 .FaqQuestion button{
     background-color: transparent;
@@ -96,7 +106,7 @@
     text-align: left;
 }
 .FaqQuestion svg{
-    font-size: 2rem;
+    font-size: 4rem;
 }
 .FaqQuestion{
     width: 100%;
@@ -109,9 +119,11 @@
     margin-top: 10px;
 }
 .FaqAnswer p{
-    font-size: 1.3rem;
+    font-size: 1.75rem;
+    font-weight: 500;
     line-height: 20px;
     font-family: Poppins;
+    height: 100%;
 }
 .QuestionAndAnswer{
     width: 100%;
@@ -125,5 +137,22 @@
     }
     .FaqCategory button{
         font-size: 5rem;
+    }
+}
+@media(max-width:767px){
+    .FaqSection{
+        width: 90%;
+    }
+    .FaqCategory button{
+        -webkit-text-stroke: 1.5px #fff;
+    }
+    .FaqAnswer p{
+        font-size: 1.25rem;
+    }
+    .SingleFaqs{
+        border-width: 3px;
+    }
+    .FaqQuestion button{
+        font-size: 2.75rem;
     }
 }

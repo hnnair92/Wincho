@@ -27,9 +27,9 @@ const Header = () => {
             <Link to="/" onClick={()=>{
               setToggle(false)
             }}><li>Prizes</li></Link>
-            <Link to="/" onClick={()=>{
+            {/* <Link to="/" onClick={()=>{
               setToggle(false)
-            }}><li>Search</li></Link>
+            }}><li>Search</li></Link> */}
             <Link to="/" onClick={()=>{
               setToggle(false)
             }}><li>Support</li></Link>
@@ -91,10 +91,10 @@ const Header = () => {
                 )
             })} */}
             <Link to="/"><li>Home</li></Link>
-            <Link to="/"><li>Prizes</li></Link>
-            <Link to="/"><li>Search</li></Link>
+            <Link to="/prizes"><li>Prizes</li></Link>
+            {/* <Link to="/prizes"><li>Search</li></Link> */}
             <Link to="/"><li>Support</li></Link>
-            <Link to="/"><li>Basket</li></Link>
+            <Link to="/cart"><li>Basket</li></Link>
           </ul>
         </div>
         {authenticated?<div className={style.UserLogged}>

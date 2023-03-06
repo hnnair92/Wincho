@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import style from "./Header.module.css";
 import logo from "../../assests/Wincha Icon.png";
 import { FiMenu } from "react-icons/fi";
+import { MdOutlineSettings } from "react-icons/md";
 import ticket from "../../assests/Floating Tab Gold Ticket.png";
 import plus from "../../assests/Header Add Value.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { HiMenu } from "react-icons/hi";
+import { AiOutlineClose } from "react-icons/ai";
+// import { useSelector } from 'react-redux'
 const Header = () => {
   const [setting, setSetting] = useState(false);
   const { user } = useSelector((state) => state.userData);
@@ -28,11 +32,178 @@ const Header = () => {
     navigate("/")
     window.location.reload()
   }
+  const[toggle,setToggle] = useState(false)
+  const MobileFunc=()=>{
+    useEffect(() => {
+      document.body.style.overflow = 'hidden';
+      return ()=> document.body.style.overflow = 'unset';
+   }, []);
+    return(
+      <div className={style.mobileFullMenu}>
+      <div className={style.Menu}>
+          <ul>
+            <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Home</li></Link>
+            <Link to="/prizes" onClick={()=>{
+              setToggle(false)
+            }}><li>Prizes</li></Link>
+            {/* <Link to="/" onClick={()=>{
+              setToggle(false)
+            }}><li>Search</li></Link> */}
+            <Link to="/" onClick={(e)=>{
+              setToggle(false)
+              handleId(e)
+            }}><li>Support</li></Link>
+            <Link to="/cart" onClick={()=>{
+              setToggle(false)
+            }}><li
+            //  onMouseOver={()=>{
+            //   console.log("entered")
+            // }} onMouseLeave={()=>{
+            //   console.log("leaved")
+            // }}
+            >Basket</li></Link>
+          </ul>
+        </div>
+        
+        <div className={style.close}>
+            <AiOutlineClose className={style.closeIcon} onClick={()=>{
+              setToggle(false)
+            }}/>
+        </div>
+      </div>
+    )
+  }
+   
   return (
     <div className={style.Container}>
+      {toggle? 
+          
+          <MobileFunc/>:<div className={style.MobileMenu}>
+          <div className={style.Menu}>
+              <HiMenu className={style.menuIcon} onClick={()=>{
+                setToggle(true)
+              }}/>
+              {/* <p>GAME</p> */}
+              {/* <img src={Logo} alt="" /> */}
+          </div>
+          <div className={style.HamBurgerMenu}>
+            <MdOutlineSettings
+              onClick={() => {
+                // setSetting(true)
+                setting ? setSetting(false) : setSetting(true);
+              }}
+            />
+            {setting ? (
+              <div className={style.Settings}>
+                <AiOutlineClose className={style.closeIcon} onClick={()=>{
+                setSetting(false)
+              }}/>
+                {user?
+                <ul>
+                  <Link to="/profile" >
+                    <li onClick={()=>{
+                setSetting(false)
+              }}>Profile</li>
+                  </Link>
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                    <li>Music</li>
+                  </Link>
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                    <li>Sound</li>
+                  </Link>
+                  <Link to="/notification" onClick={()=>{
+                setSetting(false)
+              }}>
+                    <li>Notifications</li>
+                  </Link>
+                  <Link to="/tickets" onClick={()=>{
+                setSetting(false)
+              }}>
+                    <li>Cashier</li>
+                  </Link>
+                  <Link to="/faq" onClick={()=>{
+                setSetting(false)
+              }}>
+                    {" "}
+                    <li>FAQ</li>
+                  </Link>
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                    <li>Terms of Use</li>
+                  </Link>
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                    <li>Privacy Policy</li>
+                  </Link>
+                  <Link to="/logout" onClick={(e)=>{
+                    handleLogout(e)
+                  }}>
+                    <li>Logout</li>
+                  </Link>
+                  {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
+                </ul>:
+                <ul>
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                  <li>Music</li>
+                </Link>
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                  <li>Sound</li>
+                </Link>
+                <Link to="/tickets" onClick={()=>{
+                setSetting(false)
+              }}>
+                  <li>Cashier</li>
+                </Link>
+                <Link to="/faq" onClick={()=>{
+                setSetting(false)
+              }}>
+                  {" "}
+                  <li>FAQ</li>
+                </Link>
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                  <li>Terms of Use</li>
+                </Link>
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
+                  <li>Privacy Policy</li>
+                </Link>
+                <Link to="/login" onClick={()=>{
+                setSetting(false)
+              }}>
+                  <li>Login/Register</li>
+                </Link>
+                {/* <Link to="/register">
+                  <li>Sigin</li>
+                </Link> */}
+                {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
+              </ul>}
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+         
+        </div>}
+        
       <div className={style.Header}>
         <div className={style.Logo}>
-          <img src={logo} alt="" />
+        <Link to="/"><img src={logo} alt="" /></Link>
+          
         </div>
         <div className={style.Menu}>
           <ul>
@@ -84,59 +255,90 @@ const Header = () => {
               <div className={style.Settings}>
                 {user?
                 <ul>
-                  <Link to="/profile">
+                  <Link to="/profile" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Profile</li>
                   </Link>
-                  <Link to="">
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Music</li>
                   </Link>
-                  <Link to="">
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Sound</li>
                   </Link>
-                  <Link to="/notification">
+                  <Link to="/notification" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Notifications</li>
                   </Link>
-                  <Link to="/tickets">
+                  <Link to="/tickets" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Cashier</li>
                   </Link>
-                  <Link to="/faq">
+                  <Link to="/faq" onClick={()=>{
+                setSetting(false)
+              }}>
                     {" "}
                     <li>FAQ</li>
                   </Link>
-                  <Link to="">
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Terms of Use</li>
                   </Link>
-                  <Link to="">
+                  <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                     <li>Privacy Policy</li>
                   </Link>
                   <Link to="/logout" onClick={(e)=>{
                     handleLogout(e)
+                    setSetting(false)
                   }}>
                     <li>Logout</li>
                   </Link>
                   {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
                 </ul>:
                 <ul>
-                <Link to="">
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                   <li>Music</li>
                 </Link>
-                <Link to="">
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                   <li>Sound</li>
                 </Link>
-                <Link to="/tickets">
+                <Link to="/tickets" onClick={()=>{
+                setSetting(false)
+              }}>
                   <li>Cashier</li>
                 </Link>
-                <Link to="/faq">
+                <Link to="/faq" onClick={()=>{
+                setSetting(false)
+              }}>
                   {" "}
                   <li>FAQ</li>
                 </Link>
-                <Link to="">
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                   <li>Terms of Use</li>
                 </Link>
-                <Link to="">
+                <Link to="" onClick={()=>{
+                setSetting(false)
+              }}>
                   <li>Privacy Policy</li>
                 </Link>
-                <Link to="/login">
+                <Link to="/login" onClick={()=>{
+                setSetting(false)
+              }}>
                   <li>Login/Register</li>
                 </Link>
                 {/* <Link to="/register">

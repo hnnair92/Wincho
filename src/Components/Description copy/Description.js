@@ -268,7 +268,9 @@ const joinGame=async(e)=>{
             <div className={style.StartButton}>
              
              <div className={style.play}>
+              {/* <p>123</p> */}
                 <div className={style.playBtn}>
+                
                   {gameStatus?firstStep?direction&&direction[1]==="Right"?<button onMouseDown={(e) => {
                       firstMoveStart(direction&&direction[1].toUpperCase())
                     }}
