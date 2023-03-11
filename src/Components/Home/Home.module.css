@@ -152,17 +152,17 @@
 .Watch img{
     width: 100%;
 }
-.Ticket{
+.Ticket a{
     position: -webkit-fixed;
     position: fixed;
     z-index: 999;
-    top: 10vh;
-    right: 0;
+    top:80px;
+    right: 10px;
     min-width: 15rem;
     max-width: 30rem;
-    height: 10rem;
+    height: 90px;
     background-color: red;
-    border:3px solid lightgray;
+    border:10px solid #949393;
     border-radius: 2.5rem;
     display: flex;
     flex-direction: row;
@@ -182,13 +182,14 @@
 .TicketText{
     /* overflow: auto; */
     width: 50%;
-    color: white;
-    margin: 0px;
-    font-family: drumshake_italic;
-    font-size: 4.5rem;
-    line-height: 30px;
-    /* margin-left: 90px; */
-    text-align: left;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.TicketText img{
+    width: 110%;
 }
 .ContactSection p{
     /* text-align: left; */
@@ -220,9 +221,9 @@
 .PlayBtn{
     position: absolute;
     left: 50%;
-    bottom: 50%;
+    bottom: 45%;
     transform: translate(-50%,100%);
-    width: 15%;
+    width: 12%;
     z-index: 999;
 }
 .PlayBtn img{
@@ -236,7 +237,7 @@
     .Transition,.About,.Watch,.Support{
         height: auto;
     }
-    .Ticket{
+    .Ticket a{
         top: 5vh;
         width: 23%;
     height: 5%;
@@ -270,7 +271,7 @@
         width: 10%;
         z-index: 999;
     }
-    .Ticket{
+    .Ticket a{
         top: 9vh;
         width: 29%;
         height: 6%;
@@ -310,4 +311,23 @@
     .About{
         margin-top: -5%;
     }
+}
+.Crane{
+    width: 100vw;
+    height: 75vh;
+    /* position: relative; */
+    position: absolute;
+    z-index: 99;
+    right: 0%;
+    transform: translateX(-21%) !important;
+}
+.Crane div{
+    
+    /* position: absolute; */
+    /* position: relative; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+}
+.Crane div svg{
+    width: 60% !important;
 }

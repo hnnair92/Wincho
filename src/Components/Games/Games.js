@@ -16,7 +16,7 @@ const Games = () => {
     const userDatas = JSON.parse(localStorage.getItem("user"))
     console.log(userDatas)
     const navigate = useNavigate()
-    const[category,setCategory] = useState("novelty")
+    const[category,setCategory] = useState("free")
     const dispatch = useDispatch()
     const response = {
         category_id:category,

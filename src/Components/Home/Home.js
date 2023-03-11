@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import style from './Home.module.css'
-import backgroundData from '../../Api/background'
+import backgroundData from '../../Api/backgroundJson'
 import Lottie, { LottiePlayer } from "lottie-react";
 import AboutData from '../../Api/AboutImage'
 import WatchData from '../../Api/WatchImage'
@@ -11,6 +11,7 @@ import WinchaIcon from '../../Api/WinchaIcon.json'
 import AppStore from '../../assests/pngwing.com (4).png'
 import playBtn from '../../assests/Play Button.png'
 import { Link } from 'react-router-dom';
+import imageDiv from '../../assests/TEXTOff Tickets.png'
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     // var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
@@ -104,18 +105,19 @@ const Home = () => {
     <div className={style.Container}>
         <div className={style.Home} id="home">
             <div className={style.Transition}>
-                <Lottie animationData={backgroundData[background]} loop={true} />;
+                <Lottie animationData={backgroundData[2]} loop={true} />;
                 {/* <img src={backgroundData[1]} alt="" /> */}
-                <div className={style.Crane}>
-                <Lottie animationData={WinchaIcon} loop={false} />;
-                
-                </div>
                 <Link to="/prizes">
                     <div className={style.PlayBtn}>
                         
                         <img src={playBtn} alt="" />
                     </div>
                 </Link>
+                <div className={style.Crane}>
+                    <Lottie animationData={WinchaIcon} loop={false} />;
+                
+                </div>
+                
                 
             </div>
             <div className={style.About} id="about">
@@ -182,13 +184,17 @@ const Home = () => {
             </div>
         </div>
         <div className={style.Ticket}>
-            <div className={style.TicketIcon}>
-                <Lottie animationData={ticketIcon} loop={true} />;
-                    
-            </div>
-            <div className={style.TicketText}>
-                    <p>20% OFF TICKETS!</p>
-            </div>
+            <Link to="/tickets">
+                <div className={style.TicketIcon}>
+                    <Lottie animationData={ticketIcon} loop={true} />;
+                        
+                </div>
+                <div className={style.TicketText}>
+                        {/* <p>20% OFF TICKETS!</p> */}
+                        <img src={imageDiv} alt="" />
+                </div>
+            </Link>
+            
         </div>
     </div>
   )

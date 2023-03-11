@@ -6,7 +6,85 @@ import { registerAction } from '../../actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import eye from '../../assests/Password Eye.png'
 import tick from '../../assests/Green Tick.png'
+import wincha from '../../assests/Wincha Pop-Up Icon.png'
+import Select from 'react-select';
+import {FaChevronDown} from 'react-icons/fa'
+import info from '../../assests/Information Icon.png'
+
 const Register = () => {
+    const[errors,setError] = useState("")
+    const[checkError,setCheckError] = useState(false)
+    const[password,setPassword] = useState("")
+    // const[error,setError] = useState(true)
+    const[location,setLocation] = useState("")
+    const baseUrl = "https://uat.wincha-online.com"
+    const[terms,setTerms] = useState(false)
+    const[passwordType,setPasswordType] = useState("password")
+    // const[showPassword,setShowPassword] = useState(false)
+    const [email,setEmail] = useState("")
+    const[confirmPassword,setConfirmPassword] = useState("")
+    const[username,setUsername] = useState("")
+    const[usernameExist,setUsernameExist] = useState('')
+    const[eligible,setEligible] = useState(true)
+    const[date,setDate] = useState("")
+    const[state,setState] = useState("Select a State")
+    const[allState,setAllState] = useState([])
+    const[selectState,setSelectState] = useState(false)
+    const dispatch = useDispatch()
+    const fetchLocation = async()=>{
+        fetch('http://ip-api.com//json',{ 
+            method: 'get',
+            headers: {'Content-Type': "application/json"
+            }})
+        .then(res=>res.json()).then((data)=>{
+            setLocation(data)
+            // if(data.)
+            console.log(data);
+            
+            
+            
+           
+        }).catch((err)=>{
+            console.log(err)
+        })
+        // const response  = await data.json()
+        // console.log(response)
+    }
+    const stateFetch = ()=>{
+        fetch(`${baseUrl}/configurations/state/collections`,{ 
+            method: 'get',
+            headers: {'Content-Type': "application/json"
+            }}).then(res=>res.json()).then((data)=>{
+                setAllState(data.data)
+                
+            }).catch((err)=>{
+                console.log(err);
+                
+            })
+        
+    }
+    useEffect(()=>{
+        fetchLocation()
+        stateFetch()
+
+        // const response  = data.json()
+        // console.log(response)
+    
+    },[])
+    const checkNumbers=(str)=>{
+        return /\d/.test(str)
+    }
+    useEffect(()=>{
+        const check = checkNumbers(password)
+        console.log(check)
+        if(check===false){
+            setError("No Numbers Found")
+        }
+        else{
+            setError("")
+        }
+        console.log(errors)
+    },[password])
     const navigate = useNavigate()
     const{error,user,authenticated} = useSelector((state)=>state.userData)
     useEffect(()=>{
@@ -14,18 +92,6 @@ const Register = () => {
             navigate("/")
         }
     },[navigate,authenticated])
-    const baseUrl = "https://uat.wincha-online.com"
-    const[terms,setTerms] = useState(false)
-    const[passwordType,setPasswordType] = useState("password")
-    // const[showPassword,setShowPassword] = useState(false)
-    const [email,setEmail] = useState("")
-    const[password,setPassword] = useState("")
-    const[confirmPassword,setConfirmPassword] = useState("")
-    const[username,setUsername] = useState("")
-    const[usernameExist,setUsernameExist] = useState('')
-    const[eligible,setEligible] = useState(true)
-    const[date,setDate] = useState("")
-    const dispatch = useDispatch()
     // const[chec]
     const handleRegister=(e)=>{
         e.preventDefault()
@@ -36,7 +102,8 @@ const Register = () => {
             username:username,
             email:email,
             password:password,
-            dob:date
+            dob:date,
+            country:location.country
         }
         if(eligible===true&&password===confirmPassword){
             dispatch(registerAction(data))
@@ -64,32 +131,157 @@ const Register = () => {
         const CurYear = new Date().getFullYear()
         console.log(dateArray);
         if(dateArray[0]<=CurYear-12){
+            setCheckError(false)
             setEligible(true)
+            
+            // popup()
         }
         else{
+            // setDate("")
+            setCheckError(true)
             setEligible(false)
+            
         }
         setDate(`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`)
     }
+    const popup = (error)=>{
+        return(
+            <div className={style.Popup}>
+                <div className={style.Contents}>
+                    <div className={style.image}>
+                        <img src={wincha} alt="" />
+                    </div>
+                    <div className={style.PopupText}>
+                        <p>{error}</p>
+                    </div>
+                    <div className={style.Actions}>
+                        <div className={style.accept}>
+                            <button onClick={()=>{
+                                setCheckError(false)
+                            }}>OK</button>
+                        </div>
+                        <div className={style.Terms}>
+                            <button>TERMS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+    console.log(allState);
+const checkState=(state,e)=>{
+    e.preventDefault()
+    if(state.status===false){
+        setCheckError(true)
+        setState("")
+        setSelectState(false)
+
+    }
+    else{
+        setState(state)
+        setSelectState(false)
+    }
+}
+const[passIcon,setPassIcon] = useState(false)
   return (
     <div className={style.Container}>
+        {checkError?
+         <div className={style.Popup}>
+         <div className={style.Contents}>
+             <div className={style.image}>
+                 <img src={wincha} alt="" />
+             </div>
+             <div className={style.PopupText}>
+                {/* {eligible?<p>Sorry you're not eligible to play! </p>:} */}
+                <p>Sorry you're not eligible to play! </p>
+                 
+             </div>
+             <div className={style.Actions}>
+                 <div className={style.accept}>
+                     <button onClick={()=>{
+                        console.log("clicked")
+                         setCheckError(false)
+                     }}>OK</button>
+                 </div>
+                 <div className={style.Terms}>
+                     <button>TERMS</button>
+                 </div>
+             </div>
+         </div>
+     </div>
+        :passIcon?<div className={style.popup}>
+        <div className={style.image}>
+            <img src={wincha} alt="" />
+        </div>
+        <div className={style.content}>
+            <ul>
+                <li>8-20 Characters</li>
+                <li>At least 1 capital letter</li>
+                <li>At least 1 number</li>
+                <li>At least 1 special character</li>
+                <li>No spaces</li>
+            </ul>
+        </div>
+        <div className={style.action}>
+            <button onClick={()=>{
+                setPassIcon(false)
+            }}>OK</button>
+        </div>
+    </div>:""}
+        
         <div className={style.Register}>
             
             <form className={style.form} onSubmit={handleRegister}>
                 <input type="text" placeholder='username' required className={style.input} value={username} onChange={(e)=>{
                     setUsername(e.target.value)
                 }}/>
+                {username.length<3&&username!==""?<p className={style.AgeRestrict}>Username should be greater than 3</p>:username.length>20?<p className={style.AgeRestrict}>Username Should be below 20</p>:""}
                 <label htmlFor="">Date of Birth</label>
                 
-                <input type="date" placeholder='DOB' required name="" id=""  className={style.DataInput} onChange={(e)=>{
+                <input type="date" placeholder='DOB' required name="" id=""  className={date?style.DataInput:style.hideDate} onChange={(e)=>{
                    handleDate(e)
                    console.log(e.target.value)
                 }}/>
-                {eligible?"":<p className={style.AgeRestrict}>Age below 12 is not allowed</p>}
+                <label htmlFor="">Select a State</label>
+                {location&&location.countryCode==="US"?
+                <div className={`${style.input} ${style.selectInput}`}>
+
+                    {state.state?<input type="text" readOnly value={state.state} className={style.StateSelect}/>:
+                    <input type="text" readOnly className={style.StateSelectCenter} placeholder="SELECT STATE"/>}
+                    {/* <input type="text" readOnly value={state.state||"Select a State"} className={state.state?style.StateSelectHide:style.StateSelect}/> */}
+                    <FaChevronDown onClick={()=>{
+                        selectState?
+                            setSelectState(false):setSelectState(true)
+                    }}/>
+                    {selectState?
+                    <div className={selectState?style.AllState:style.stateUp}>
+                        
+                    {allState.map((stateItem)=>{
+                        return(
+                            <input type="text" name="state" id="state" readOnly value={stateItem.state} onClick={(e)=>{
+                                checkState(stateItem,e)
+                            }}/>
+                        )
+                    })}
+                </div>
+                    :""}
+                    
+                </div>
+                :""}
+            {/* // :""} */}
+                
+                {/* {eligible&&checkError?"":popup("Sorry you're not eligible to play!")} */}
+                {/* {eligible?"":<p className={style.AgeRestrict}>Age below 12 is not allowed</p>} */}
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}
                 <div className={style.password}>
+                    <div className={style.info}>
+                            <img src={info} alt="" onClick={()=>{
+                                setPassIcon(true)
+                            }}/>
+                        </div>
                     <input type={passwordType} required placeholder='password' value={password} className={style.input} onChange={(e)=>{
                         setPassword(e.target.value)
+                        console.log("lenght",password.length>8&&password.length<15)
                     }}/>
                     {passwordType==="text"?<img className={style.eyeIcon} src={eye} onClick={()=>{
                         
@@ -99,7 +291,9 @@ const Register = () => {
                     }}/>}
 
                 </div>
-               
+               {password.length<8&&password!==""?<p className={style.AgeRestrict}>Password Should be More than 8 Letter</p>:password&&password.length>15&&password!==""?<p className={style.AgeRestrict}>Password Should be Less than 15 Letters</p>:/\d/.test(password)===false&&password!==""?<p className={style.AgeRestrict}>Password Should Contain a Number</p>:/[A-Z]/.test(password)===false&&password!==""?<p className={style.AgeRestrict}>Password Should Contain a UpperCase</p>:""}
+               {/* {password.length<8&&password.length>15?<p>Enter Password More than 8 Words</p>:""} */}
+               {/* {new String(password).length<8&&new String(password).length>15?<p>Enter Password More than 8 Words</p>:""} */}
                 <div className={style.password}>
                     <input type="password" required placeholder='repeat password' className={style.input} onChange={(e)=>{
                         setConfirmPassword(e.target.value)
@@ -112,12 +306,11 @@ const Register = () => {
                     }}/>} */}
                 </div>
                 <div className={style.CheckPassword}>
-                    {password===confirmPassword?"":<p className={style.passInvalid}>password is not matching</p>}
+                    {password===confirmPassword?"":<p className={style.AgeRestrict}>password is not matching</p>}
                 </div>
                 <input type="email" required placeholder='email' value={email} className={style.input} onChange={(e)=>{
                     setEmail(e.target.value)
-                }}/>
-                
+                }}/>        
                 <div className={style.Terms}>
                     {/* <input type="checkbox" name="" id="" onChange={(e)=>{
                         setTerms(e.target.checked)
@@ -130,7 +323,7 @@ const Register = () => {
                     <p>I have read and agree to the <Link>Terms of Use</Link> and <Link>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-                {eligible&&terms===true&&password===confirmPassword?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
+                {eligible&&terms===true&&password===confirmPassword&&password.length>8&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
                 
                 <div className={style.checkUser}>{error&&error.status==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div>
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}

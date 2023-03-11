@@ -46,6 +46,7 @@
 .Address{
     height: 100%;
     display: flex;
+    width: 35%;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -79,6 +80,7 @@
 .SocialMedia svg{
     font-size: 5rem;
     color: #fff;
+    cursor: pointer;
 }
 .Copyright,.TermsAndPrivacy{
     display: flex;

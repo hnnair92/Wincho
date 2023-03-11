@@ -9,6 +9,7 @@ import binoculars from "../../assests/binoculars.png";
 import svgIcon from "../../assests/SIDEpng2.png";
 import svgBottom from "../../assests/SIDEBottom.png";
 import info from '../../assests/info.png'
+import userView from '../../assests/GAME - ICON - Queue no bubble ICON.png'
 
 // import videoDemo from "../../assests/www.ytmp4.Net---Arcade Game_ Pac-Man (1980 Namco (Midway License for US release)).mp4";
 import { useDispatch, useSelector } from "react-redux";
@@ -299,9 +300,9 @@ const joinGame=async(e)=>{
             </div>
             <div className={style.life}>
               <div className={style.lifeIcons}>
-                <img src={userIcon} alt="" className={style.userIcons1} />
-                <img src={userIcon} alt="" className={style.userIcons2} />
-                <img src={userIcon} alt="" className={style.userIcons3} />
+                <img src={userView} alt="" className={style.userIcons1} />
+                {/* <img src={userIcon} alt="" className={style.userIcons2} />
+                <img src={userIcon} alt="" className={style.userIcons3} /> */}
               </div>
               <span>{game.total_players ? game.total_players : 0}</span>
             </div>

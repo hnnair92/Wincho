@@ -1,10 +1,12 @@
 .Container{
     width: 100%;
     border-bottom: 5px solid #949393;
+    /* position: fixed;
+    z-index: 99999; */
 }
 .Header{
     width: 100%;
-    padding: 10px 25px;
+    padding: 5px 25px;
     background-color: #2d2d2d;
     display: flex;
     flex-direction: row;
@@ -235,11 +237,11 @@
         right: 2rem;
 
     }
-    
-}
-.Credits{
+    .Credits{
     display: none;
 }
+}
+
 @media(max-width:765px){
     .MobileMenu .Menu{
         padding: 0;

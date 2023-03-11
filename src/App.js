@@ -17,6 +17,9 @@ import OrderConfirmed from './Components/OrderConfirmed/OrderConfirmed';
 import Notification from './Components/Notification/Notification';
 import Cart from './Components/Cart/Cart';
 import Demo from './Components/Home/Demo';
+import Jins from './Components/jins/jins';
+import Socket from './socket';
+// import { Socket } from 'socket.io-client';
 function App() {
   return (
     <div className="App">
@@ -37,6 +40,7 @@ function App() {
           <Route path="/order-confirmed" element={<OrderConfirmed/>}/>
           <Route path="/notification" element={<Notification/>}/>
           <Route path="/Demo" element={<Demo/>}/>
+          <Route path="/socket" element={<Socket/>}/>
         </Routes>
         <Footer/>
       </Router>

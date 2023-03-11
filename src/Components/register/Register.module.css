@@ -1,14 +1,70 @@
 .Container{
     width: 100%;
     /* height: 90vh; */
-    height: 90vh;
-    padding: 0 11.5rem;
+    /* height: 100vh; */
+    height: 100%;
+    padding: 5rem 11.5rem;
     background: url("../../assests/Login BG.png");
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: relative;
+}
+.Popup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /* width: 250px;
+    height: 500px; */
+    background-color: #3b82f6;
+    padding: 25px 10px;
+    
+    border-radius:15px;
+    border:7px solid #949393;
+}
+.PopupText{
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 15%;
+}
+.image{
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}
+.image img{
+    width: 100%;
+}
+.Actions{
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.Contents{
+    width: 80%;
+    margin: auto;
+}
+.accept,.Contents .Terms{
+    width: 45%;
+}
+.Actions button{
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    /* width: 100%; */
+    color: #fff;
+    background-color: transparent;
+    border-radius:30px;
+    padding: 10px 20px;
+    border:1px solid #fff;
 }
 .Register{
     width: 56rem;
@@ -37,6 +93,10 @@
     font-family: "Poppins";
     /* color: #333333d1; */
 
+}
+.input::-webkit-keygen-select{
+
+    display: none;
 }
 .password{
     display: flex;
@@ -77,6 +137,7 @@
 
 }
 .Terms{
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content:center;
@@ -205,6 +266,198 @@ input::-webkit-input-placeholder{
 .checked{
     opacity: 1;
 }
+.StateSelect{
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border:none;
+    outline:none;
+    color: #000;
+    height: 100%;
+    font-size: 3.5rem;
+}
+@keyframes slideDown{
+    0%{
+        height:112.5px;
+    }
+    /* 25%{
+        height: 225px;
+    }
+    50%{
+        height: 337.5px;
+    } */
+    100%{
+        height: 450px;
+    }
+}
+@keyframes slideUp{
+    0%{
+        height:450px;
+    }
+    /* 25%{
+        height: 225px;
+    }
+    50%{
+        height: 337.5px;
+    } */
+    100%{
+        height: 0px;
+    }
+}
+.selectInput{
+    position: relative;
+}
+.AllState{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 100%;
+    height: 450px;
+    overflow-y: scroll;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    padding: 15px;
+    /* animation: slideDown 500ms ease; */
+    /* transition: all 0.5s ease; */
+    
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+}
+.stateUp{
+    animation: slideUp 500ms ease;
+
+}
+.StateSelectHide{
+    color: #3333338e;
+}
+.AllState::-webkit-scrollbar{
+    display: none;
+}
+.AllState input{
+    background-color: transparent;
+    border:none;
+    font-size: 2rem;
+    border-bottom: .5px solid #fff;
+    padding: 10px;
+    outline:none;
+    color: #fff;
+}
+.input{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.input input{
+    width: 100%;
+}
+
+
+.info{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.info img{
+    width: 100%;
+    cursor: pointer;
+}
+
+/* .passwordInput{
+    width: 100%;
+    height: 100%;
+    border:none;
+    outline:none;
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 3rem;
+    background-color: #fff;
+    padding: 1.13rem 2.26rem;
+    text-align: left;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+} */
+.popup{
+    width: 25%;
+    padding: 50px;
+    border-radius: 15px;
+    border:7.5px solid #949393;
+    position: relative;
+    background-color: #3b82f6;
+    position: absolute;
+    top: 50%;
+    z-index: 999;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.content{
+    margin: 10% 0;
+}
+.content ul{
+    display: flex;
+    flex-direction: column;
+    list-style: circle;
+    font-size: 2rem;
+}
+.content ul li{
+    margin: 7px 0px;
+    color: #fff;
+
+}
+.action{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.action button{
+    margin: auto;
+    width: 75%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.image{
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.image img{
+    width: 100%;
+}
+.StateSelectCenter{
+    text-align: center;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border:none;
+    outline:none;
+    color: #3333333d;
+    height: 100%;
+    font-size: 3.5rem;
+}
+.StateSelectCenter::-webkit-input-placeholder{
+    color: #3333338e !important;
+}
 @media(max-width:767px){
     .Container{
         padding: 1.70rem;
@@ -253,7 +506,7 @@ input::-webkit-input-placeholder{
 }
 @media(min-height:630px){
     .Container{
-        height: 90vh;
+        /* height: 100vh; */
     }
     
 }
@@ -272,4 +525,40 @@ input::-webkit-input-placeholder{
     .Register{
         width: 100%;
     }
+}
+.DataInput{
+    color: #000;
+    text-align: left;
+    position: relative;
+}
+.hideDate{
+    width: 100%;
+    font-family: "Poppins";
+    height: 7.5rem;
+    padding: 1.13rem;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    margin: 1.13rem;
+    margin-left: 0;
+    border-radius: 1.13rem;
+    margin-right: auto;
+    border:0.3rem solid gray;
+    text-align: center;
+    color: #3333;
+    position: relative;
+}
+.DataInput::-webkit-calendar-picker-indicator{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+    opacity: 0;
+
+}
+.hideDate::-webkit-calendar-picker-indicator{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+    opacity: 0;
 }

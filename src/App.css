@@ -5,10 +5,15 @@
 }
 .App{
   /* position: relative; */
+  overflow: hidden;
 }
 a{
   text-decoration: none;
   color: #000;
+  cursor: pointer;
+}
+li{
+  cursor: pointer;
 }
 .OT_publisher, .OT_subscriber{
   position: static !important;

@@ -1,7 +1,7 @@
 .Container{
     width: 100%;
     /* height: 90vh; */
-    height: 90vh;
+    height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -10,6 +10,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     align-items: center;
+    position: relative;
 }
 .Login{
     width: 90%;
@@ -63,6 +64,9 @@
     font-size: 2rem;
     font-weight: 600;
     margin: 2rem 0;
+    background-color: transparent;
+    border:none;
+    outline:none;
 }
 .Title{
     font-size: 3rem;
@@ -79,6 +83,9 @@
 }
 .Btns a{
     width: 100%;
+}
+.PasswordError{
+
 }
 .LoginBtn,.RegisterBtn{
     /* font-family: "Poppins";
@@ -148,6 +155,161 @@
     font-size: 2.02rem;
     color: red;
     font-weight: 600;
+}
+.email{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.passwordInput::-webkit-input-placeholder{
+    text-align: center;
+    text-transform: uppercase;
+
+}
+.info{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.info img{
+    width: 100%;
+    cursor: pointer;
+}
+.eye {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.eye img{
+    width: 100%;
+    cursor: pointer;
+}
+.passwordInput{
+    width: 100%;
+    height: 100%;
+    border:none;
+    outline:none;
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 3rem;
+    background-color: #fff;
+    /* height: 5.68rem; */
+    padding: 1.13rem 2.26rem;
+    text-align: left;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    /* border:.25rem solid #333333c1; */
+}
+.popup{
+    width: 25%;
+    padding: 50px;
+    border-radius: 15px;
+    border:7.5px solid #949393;
+    position: relative;
+    background-color: #3b82f6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.content{
+    margin: 10% 0;
+}
+.content ul{
+    display: flex;
+    flex-direction: column;
+    list-style: circle;
+    font-size: 2rem;
+}
+.content ul li{
+    margin: 7px 0px;
+    color: #fff;
+
+}
+.action{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Forgotaction{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.action button{
+    margin: auto;
+    width: 75%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.Forgotaction button{
+    margin: auto;
+    width: 45%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.image{
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.image img{
+    width: 100%;
+}
+.forgotEmail p{
+    font-size: 2rem;
+    color: #fff;
+    line-height: 25px;
+    text-align: center;
+}
+.forgotInput{
+    width: 100%;
+    /* height: 100%; */
+    margin-top: 10px;
+    
+
+}
+.forgotInput input{
+    width: 100%;
+    height: 6rem;
+    font-size: 3rem;
+    text-align: left;
+    border:2px solid #949393;
+    background-color: #fff;
+    outline:none;
+    padding:5px 10px;
+    border-radius: 10px;
+    color: #000;
+}
+.forgotInput input::-webkit-input-placeholder{
+    color: #33333d7c;
+    font-size: 2.75rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+.PasswordError{
+    color: red;
 }
 @media(max-width:500px){
     .Left{

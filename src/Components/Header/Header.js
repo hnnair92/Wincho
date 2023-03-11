@@ -44,6 +44,8 @@ const Header = () => {
           <ul>
             <Link to="/" onClick={()=>{
               setToggle(false)
+              // setSetting(false)
+
             }}><li>Home</li></Link>
             <Link to="/prizes" onClick={()=>{
               setToggle(false)
@@ -207,15 +209,22 @@ const Header = () => {
         </div>
         <div className={style.Menu}>
           <ul>
-            <Link to="/">
+            <Link to="/" onClick={()=>{
+                setSetting(false)
+
+            }}>
               <li>Home</li>
             </Link>
-            <Link to="/prizes">
+            <Link to="/prizes" onClick={()=>{
+                setSetting(false)
+
+            }}>
               <li>Prizes</li>
             </Link>
             <li
               onClick={(e) => {
                 handleId(e);
+                setSetting(false)
               }}
             >
               Support
@@ -224,7 +233,10 @@ const Header = () => {
               e.preventDefault()
               window.location.href = "/#support"
             }}>Support</li> */}
-            <Link to="/cart">
+            <Link to="/cart" onClick={()=>{
+                setSetting(false)
+
+            }}>
               <li>Basket</li>
             </Link>
           </ul>

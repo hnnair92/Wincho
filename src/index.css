@@ -32,3 +32,10 @@ code {
 .OT_subscriber:hover .OT_edge-bar-item.OT_mode-auto{
   display: none;
 }
+.css-13cymwt-control{
+  border:none !important;
+  outline:none !important;
+}
+.css-qbdosj-Input input{
+  text-align: center !important;
+}
