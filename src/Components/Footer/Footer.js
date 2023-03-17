@@ -3,6 +3,11 @@ import style from './Footer.module.css'
 import Logo from '../../assests/Wincha Bird Footer.png'
 import {FaFacebook} from 'react-icons/fa'
 import {AiFillTwitterCircle,AiOutlineInstagram} from 'react-icons/ai'
+import facebook from '../../assests/Facebook Icon.png'
+import instagram from '../../assests/Instagram Icon.png'
+import twitter from '../../assests/Twitter Icon.png'
+import tiktok from '../../assests/TikTok Icon.png'
+import youtube from '../../assests/YouTube Icon.png'
 import { Link, useNavigate } from 'react-router-dom'
 // import {} from 'react-icons/ai'
 const Footer = () => {
@@ -46,11 +51,16 @@ const Footer = () => {
                 </ul>
             </div>
             <div className={style.Address}>
-                <p className={style.Title}>YOOHOO-- FOLLOW US</p>
+                <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
                 <div className={style.SocialMedia}>
-                    <FaFacebook/>
+                    {/* <FaFacebook/>
                     <AiOutlineInstagram/>
-                    <AiFillTwitterCircle/>
+                    <AiFillTwitterCircle/> */}
+                    <img src={facebook} alt="" />
+                    <img src={twitter} alt="" />
+                    <img src={instagram} alt="" />
+                    <img src={tiktok} alt="" />
+                    <img src={youtube} alt="" />
 
                 </div>
                 <div className={style.Copyright}>

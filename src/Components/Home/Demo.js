@@ -13,7 +13,13 @@ const Video = ({sessionId,token}) => {
     useEffect(()=>{
         setId(data.id)
     },[])
-     var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
+    var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
+    const session = OT.initSession(apiKey, sessionId);
+    session.on("streamDestroyed", function (event) {
+      console.log("Stream stopped. Reason: " + event.reason);
+      // event.stream()
+      session.connect()
+    });
     // var sessionID = sessionId;
     // var sessionID = "1_MX40NzQ5ODQ3MX5-MTY3NzkxMzMxNTYwMH4vOGdWdE9KU2JhMnlXYis2NzF0dTVwV1l-fn4"; // Replace with your own session ID.
                         // See https://tokbox.com/developer/guides/create-session/.

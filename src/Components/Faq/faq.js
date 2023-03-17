@@ -1,33 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./faq.module.css";
 import faqDataCategory from "../../Api/FaqCategory";
-import faqData from "../../Api/faq";
+// import faqData from "../../Api/faq";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 const Faq = () => {
+  const[faqData,setFaqData] = useState([])
   const [faqCat, setFaqCat] = useState("");
   const [status, setStatus] = useState(false);
   const [catId, setCatId] = useState("");
   const [id, setId] = useState("");
   const [faqStatus, setFaqStatus] = useState(false);
+  const baseUrl = "https://uat.wincha-online.com"
+  const faqApi = async()=>{
+    await fetch(`${baseUrl}/game/faq`).then(res=>res.json()).then((data)=>{
+      setFaqData(data.data[0].faq_sections)
+    })
+  }
+  useEffect(()=>{
+    faqApi()
+  },[])
   return (
     <div className={style.Container}>
       <div className={style.Faq}>
         <button className={style.FaqBtn}>FAQ</button>
         <div className={style.AllFaqSection}>
-          {faqDataCategory.map((item) => {
+          {faqData.map((item,index) => {
             return (
-              <div className={style.FaqSection}>
+              <div className={style.FaqSection} key={index}>
                 <div className={style.FaqCategory}>
-                  <button>{item.name}</button>
-                  {faqStatus && catId === item.id ? (
+                  <button>{item.section}</button>
+                  {faqStatus && faqCat === item.section ? (
                     <IoIosArrowUp
                       onClick={() => {
                         // setFaqCat(item.name);
                         // setFaqStatus(false)
                         // setCatId(item.id)
-                        setFaqCat("");
-                        setFaqStatus(false);
-                        setCatId("");
+                        setFaqCat("")
+                        setFaqStatus(false)
+                        setCatId("")
                         // set
                       }}
                     />
@@ -37,7 +47,7 @@ const Faq = () => {
                         // setFaqCat("");
                         // setFaqStatus(true)
                         // setCatId("")
-                        setFaqCat(item.name);
+                        setFaqCat(item.section);
                         setFaqStatus(true);
                         setCatId(item.id);
                         //   console.log(faqCat)
@@ -46,21 +56,24 @@ const Faq = () => {
                     />
                   )}
                 </div>
-                {faqCat === item.name ? (
+                {faqCat === item.section ? (
                   <div className={style.CategoryDescription}>
-                    {faqData.map((faq, index) => {
-                      if (faq.category === faqCat) {
+                    {item.faqs.map((faq, index) => {
+                      const parser = new DOMParser();
+                      let doc = parser.parseFromString(faq.ans,"text/html")
+                      {/* if (faq.category === faqCat) { */}
                         return (
                           <div
                             className={
                               faqCat === "" ? style.dNone : style.SingleFaqs
                             }
+                            key={index}
                           >
                             <p>Q.&nbsp;</p>
                             <div className={style.QuestionAndAnswer}>
                               <div className={style.FaqQuestion}>
-                                <button>{faq.question}</button>
-                                {status && faq.id === id ? (
+                                <button>{faq.q}</button>
+                                {status && faq.q === id ? (
                                   <IoIosArrowUp
                                     onClick={() => {
                                       setStatus(false);
@@ -71,14 +84,14 @@ const Faq = () => {
                                   <IoIosArrowDown
                                     onClick={() => {
                                       setStatus(true);
-                                      setId(faq.id);
+                                      setId(faq.q);
                                     }}
                                   />
                                 )}
                               </div>
-                              {status && faq.id === id ? (
+                              {status && faq.q === id ? (
                                 <div className={style.FaqAnswer}>
-                                  <p>{faq.answer}</p>
+                                  <p><div className="content" dangerouslySetInnerHTML={{__html: faq.ans}}></div></p>
                                 </div>
                               ) : (
                                 ""
@@ -86,7 +99,7 @@ const Faq = () => {
                             </div>
                           </div>
                         );
-                      }
+                      {/* } */}
                     })}
                   </div>
                 ) : (

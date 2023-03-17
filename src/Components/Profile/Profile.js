@@ -15,7 +15,7 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   const [subscription, setSubscription] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [shipping, setShipping] = useState(false);
+  const [myDetails, setmyDetails] = useState(false);
   const { user } = useSelector((state) => state.userData);
   useEffect(() => {
     if (user) {
@@ -46,48 +46,34 @@ const Profile = () => {
         </div>
         <div className={style.FullDetails}>
           <div className={style.TabBtns}>
-            {/* <button
-              className={shipping ? style.TabBtb : style.TabBtnActive}
-              onClick={() => {
-                setShipping(false);
-              }}
-            >
-              MY DETAILS
-            </button> */}
-            {shipping===false?
-            <img src={myDetailsGray} alt="" className={shipping ? style.TabBtnActiveImg : style.TabImg} onClick={() => {
+            {/* mydetails */}
+
+            {myDetails===false?
+            <img src={myDetailsGray} alt="" className={myDetails ? style.TabBtnActiveImg : style.TabImg} onClick={() => {
                 
-              setShipping(false)
-              console.log("from mydetails",shipping);
+                setmyDetails(false)
+              console.log("from mydetails",myDetails);
 
           }}/>
             :
-            <img src={myDetailsBlue} alt="" className={shipping ? style.TabBtnActiveImg : style.TabImg} onClick={() => {
+            <img src={myDetailsBlue} alt="" className={myDetails ? style.TabBtnActiveImg : style.TabImg} onClick={() => {
                 
-                setShipping(false)
-                console.log("from mydetails",shipping);
+                setmyDetails(false)
+                console.log("from mydetails",myDetails);
 
             }}/>
             }
-            
-            {/* <button
-              className={shipping ? style.TabBtnActive : style.TabBtb}
-              onClick={() => {
-                setShipping(true);
-              }}
-            >
-              SHIPPING
-            </button> */}
-            {shipping===false?
-            <img src={shippingBlue} alt="" className={shipping ? style.TabImg : style.TabBtnActiveImg}   onClick={() => {
-                setShipping(true);
-                console.log("from shipping",shipping);
+            {/* shipping */}
+            {myDetails===false?
+            <img src={shippingBlue} alt="" className={myDetails ? style.TabImg : style.TabBtnActiveImg}   onClick={() => {
+                setmyDetails(true);
+                console.log("from shipping",myDetails);
                 
               }}/>
               :
-            <img src={shippingGray} alt="" className={shipping ? style.TabImg : style.TabBtnActiveImg}   onClick={() => {
-                setShipping(true);
-                console.log("from shipping",shipping);
+            <img src={shippingGray} alt="" className={myDetails ? style.TabImg : style.TabBtnActiveImg}   onClick={() => {
+                setmyDetails(true);
+                console.log("from shipping",myDetails);
                 
               }}/>
               }
@@ -98,7 +84,7 @@ const Profile = () => {
           <div className={style.TabSection}>
 
           
-            {shipping===false ? 
+            {myDetails===false ? 
             <div className={style.Shipping}>
                 <div className={style.Phone}>
                   <div className={style.title}>
