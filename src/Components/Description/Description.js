@@ -23,6 +23,7 @@ import UpArrow from "../../Animation/arrow_up.json";
 import waitAnime from "../../Animation/wait_reverse.json";
 import PulseAnime from "../../Animation/wait_pulse.json";
 import ticketIcon from "../../assests/golden-ticket.png";
+import reversePlay from '../../Animation/btn_play_reverse.json'
 import infoIcon from "../../assests/info.png";
 import Demo from "../Home/Demo";
 import pointsBg from "../../assests/Price of Game BG.png";
@@ -31,9 +32,10 @@ const Description = () => {
   const {id}= useParams()
   const[count,setCount] = useState(0);
   // console.log("url",id)
-  
+  const[playAgain,setPlayAgain] = useState(false)
   const [timeoutState, setTimeoutState] = useState(false);
   const [firstMove, setFirstMove] = useState(false);
+  const[isKick,setIsKick] = useState(false);
   const dispatch = useDispatch();
   const [wait, setWait] = useState(false);
   const [camera, setCamera] = useState(true);
@@ -52,6 +54,14 @@ const Description = () => {
     country_code: user && user.coutryname,
     user_id: user && user.user_id,
   };
+  let datas = {
+    catalog: gameData && gameData.id,
+    playerID: user.id,
+    machineCode: gameData && gameData.machine_code,
+    source: "android",
+    replay: false,
+    freeplay: false,
+  };
   const { products } = useSelector((state) => state.collectionProducts);
   const { game } = useSelector((state) => state.gameEntry);
   // console.log("its game", game);
@@ -59,19 +69,12 @@ const Description = () => {
     // console.log("user", user);
     dispatch(getAllGames(dataEntry));
     dispatch(gameEntry(datas));
-
+    console.log(datas)
     if (user === undefined) {
       navigate("/login");
     }
   }, [navigate, dispatch, wait]);
-  const datas = {
-    catalog: gameData && gameData.id,
-    playerID: user && user.id,
-    machineCode: gameData && gameData.machine_code,
-    source: "android",
-    replay: false,
-    freeplay: false,
-  };
+
 
   const [active, setActive] = useState(true);
   // const src1 = `https://wincha-online.com/camera/subscribe.html?cid=1&mcode=${
@@ -84,6 +87,7 @@ const Description = () => {
   const [secondStep, setSecondStep] = useState(false);
   const [failed, setFailed] = useState(false);
   const [moved, setMoved] = useState("");
+  const[status,setStatus] = useState({})
   const baseMessage = `${user.user_id}|${game.machineCode}`;
   let socket_connect = {
     user_id: user.user_id,
@@ -126,7 +130,7 @@ const Description = () => {
     });
     socket.on("disconnect", (daata) => {
       console.log(daata);
-      console.log("disconnecting");
+      console.log("disconnecting the socket");
     });
     socket.on("watchers_count", (count) => {
       console.log(count);
@@ -156,6 +160,16 @@ const Description = () => {
     });
     socket.on("update_que_status", (sensor) => {
       console.log(sensor);
+      const splitedQue = sensor.split('|');
+      const userId = splitedQue[0].split(":")
+      console.log(userId)
+      // console.log(splitedQue[splitedQue.length-1])
+      // if(splitedQue[splitedQue.length-1]==="KICK"&&userId[1]===user.user_id){
+      //   setIsKick(true)
+      //   setPlayAgain(true)
+      //   setGameStatus(false);
+
+      // }
       console.log("update_que_status");
     });
     socket.on("request_processing", (sensor) => {
@@ -184,8 +198,8 @@ const Description = () => {
   }, [socket, moved, que, timeoutState, firstMove]);
 
   const firstMoveStart = async (directionMove) => {
-    const P_ENDED = `${baseMessage}|P_ENDED`;
-    const G_DISCONNECTED = `${baseMessage}|G_DISCONNECTED`;
+    // const P_ENDED = `${baseMessage}|P_ENDED`;
+    // const G_DISCONNECTED = `${baseMessage}|G_DISCONNECTED`;
     console.log(moved, "moved");
 
     if (directionMove === "LEFT") {
@@ -239,6 +253,7 @@ const Description = () => {
       socket.emit("peer_message", message);
       console.log("emited LR");
     }
+
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
@@ -265,10 +280,7 @@ const Description = () => {
   };
   const secondMoveRelease = async () => {
     const FW_RELEASE = `${baseMessage}|FW_RELEASE`;
-    const P_ENDED = `${baseMessage}|P_ENDED`;
-    const G_DISCONNECTED = `${baseMessage}|G_DISCONNECTED`;
-    socket.emit("peer_message", FW_RELEASE);
-
+    socket.emit("peer_message",FW_RELEASE);
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
@@ -282,14 +294,21 @@ const Description = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        const P_ENDED = `${baseMessage}|P_ENDED`;
+        const G_DISCONNECTED = `${baseMessage}|G_DISCONNECTED`;
+        socket.emit("peer_message",P_ENDED);
+        socket.emit( "peer_message",G_DISCONNECTED);
         // console.log(data);
         setSecondStep(false);
         // clearTimeout()
+        // setQue("")
         setGameStatus(true);
         setTimeout(() => {
+          // setGameStatus(false);
+          
+          setIsKick(true)
           setGameStatus(false);
-          socket.emit("peer_message", P_ENDED);
-          socket.emit("peer_message", G_DISCONNECTED);
+        setPlayAgain(true)
         }, game && game.machine_delay_time * 1000);
         setTimeout(() => {
           statusApi()
@@ -301,12 +320,12 @@ const Description = () => {
   const startGame = async () => {
     const message = `${baseMessage}|P_STARTED`;
     socket.emit("peer_message", message);
-    // console.log("direction from start", direction);
+    console.log("direction from start", user.user_id);
     await fetch(`${baseUrl}/game/start`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game && game.machineCode,
-        playerId: user && user.user_id,
+        machineCode: game.machineCode,
+        playerID: user.user_id,
         source: "android",
         freeplay: false,
       }),
@@ -316,15 +335,18 @@ const Description = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("starting");
+        setStatus(data.data[0])
+        console.log("starting",data.data[0]);
         setWait(false);
         setDirection(game && game.movement.split("-"));
         setFirstStep(true);
       });
   };
   const [gameStatus, setGameStatus] = useState(false);
-  const joinGame = async (e) => {
+  const joinGame = async (e) => { 
     e.preventDefault();
+    const message = `${baseMessage}|G_CONNECTED`;
+    socket.emit("peer_message", message);
     await socket.on("game_que_count", (queCount) => {
       console.log(queCount);
 
@@ -332,7 +354,7 @@ const Description = () => {
 
       const splitQue = splitWord[splitWord.length - 1].split(":");
       const splitId = splitWord[0].split(":");
-      console.log(splitQue[1])
+      console.log(typeof splitQue[1])
       if (splitId[1] === user.user_id) {
         setQue(splitQue[1]);
       }
@@ -350,16 +372,15 @@ const Description = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("joined");
+        console.log("joined",data);
 
         // setTimeout(() => {
         setGameStatus(true);
         console.log(que, "que");
-        if (que === "0") {
+        if (que==="0") {
           
           console.log("starting joingame");
-          const message = `${baseMessage}|G_CONNECTED`;
-          socket.emit("peer_message", message);
+          
 
           setWait(false);
           // startGame();
@@ -375,25 +396,26 @@ const Description = () => {
     await fetch(`${baseUrl}/game/status`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game && game.machineCode,
-        playerID: user && user.user_id,
+        machineCode: game.machineCode,
+        playerID: user.user_id,
       }),
       headers: {
         "Content-Type": "application/json",
       },
     }).then((res) => res.json()).then((data) => {
-       setWait(data)
+      console.log(data)
       });
   };
   const sessionApi = async () => {
     await fetch(`${baseUrl}/game/session/status`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game && game._id,
-        playerID: user && user.user_id,
+        // machineCode: game && game._id,
+        user_id:user.user_id,
+        machineID:game._id,
         game_status: false, // Status from game status API
-        product_id: stateData && stateData.game.id,
-        game_session_id: "63ec715245a883626f92c526",
+        product_id: stateData.game.id,
+        game_session_id: status.game_session_id,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -402,6 +424,7 @@ const Description = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        console.log("status.game_session_id",status.game_session_id,)
       });
   };
   // console.log(que,"outside")
@@ -417,8 +440,11 @@ const Description = () => {
       }
     }).then(res=>res.json()).then((data)=>{
       navigate(`/prizes/game/${id}`,{state:{game:gameData}});
-      window.location.reload()
+      // window.location.reload()
+      datas.replay=true
       console.log(data);
+      console.log(datas.replay)
+      dispatch(gameEntry(datas))
       
     })
   }
@@ -676,18 +702,7 @@ const Description = () => {
                           <Lottie
                             animationData={UpArrow}
                             loop={false}
-                            onComplete={() => {
-                              setFailed(true);
-                              socket.emit(
-                                "peer_message",
-                                `${baseMessage}|P_ENDED`
-                              );
-                              socket.emit(
-                                "peer_message",
-                                `${baseMessage}|G_DISCONNECTED`
-                              );
-                              console.log("finished left");
-                            }}
+                            
                           />
                         </button>
                       ) : (
@@ -696,7 +711,34 @@ const Description = () => {
                     ) : (
                       <Lottie animationData={waitAnime} loop={false} />
                     )
-                  ) : (
+                  ) : playAgain?<button onClick={()=>{
+                    // gameEntry()
+                    setGameStatus(true);
+                    setWait(false);
+                    console.log(que ,"que is replay")
+                    let message = `${baseMessage}|P_RESTARTED`;
+                    socket.emit("peer_message", message);
+                    message = `${baseMessage}|G_CONNECTED`;
+                    socket.emit("peer_message", message);
+                    // message = `${baseMessage}|P_STARTED`;
+                    // socket.emit("peer_message", message);
+                    startGame()
+
+                  }}><Lottie animationData={reversePlay} loop={false} onComplete={() => {
+                    setFailed(true);
+                    // setPlayAgain(false)
+                    // socket.emit(
+                    //   "peer_message",
+                    //   `${baseMessage}|P_ENDED`
+                    // );
+                    // socket.emit(
+                    //   "peer_message",
+                    //   `${baseMessage}|G_DISCONNECTED`
+                    // );
+                    // gameLeave()
+                    console.log("finished left");
+                    setPlayAgain(false)
+                  }}/></button>:(
                     <button
                       onClick={(e) => {
                         // console.log(que,"queCount")

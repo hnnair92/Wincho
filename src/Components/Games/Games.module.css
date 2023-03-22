@@ -250,6 +250,9 @@
     .PriceDiv{
         width: 100%;
     }
+    .free{
+        font-size: 1.75rem;
+    }
 }
 @media(min-width:767px) and (max-width:1056px){
     .Games a{

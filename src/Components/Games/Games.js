@@ -146,7 +146,7 @@ const Games = () => {
                             
                             </Link>
                             </div>
-                                {game&&game.price===0?<p className={style.free}>Free</p>:<p className={style.Price}>{game.price}</p>}
+                                {game&&game.price==="0"?<p className={style.free}>Free</p>:<p className={style.Price}>{game.price}</p>}
                           
                            <div className={style.infoIcon}>
                             <Link to="/">
