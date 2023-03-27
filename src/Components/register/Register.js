@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import style from './Register.module.css'
 import { AiFillEyeInvisible,AiFillEye } from "react-icons/ai";
-import { registerAction } from '../../actions/user';
+import { registerAction, updateProfile } from '../../actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import eye from '../../assests/Password Eye.png'
 import tick from '../../assests/Green Tick.png'
@@ -90,6 +90,9 @@ const Register = () => {
     useEffect(()=>{
         if(authenticated){
             navigate("/")
+        }
+        if(user){
+            dispatch(updateProfile(user&&user.user_id))
         }
     },[navigate,authenticated])
     // const[chec]
@@ -242,9 +245,10 @@ const[passIcon,setPassIcon] = useState(false)
                    handleDate(e)
                    console.log(e.target.value)
                 }}/>
-                <label htmlFor="">Select a State</label>
                 {location&&location.countryCode==="US"?
-                <div className={`${style.input} ${style.selectInput}`}>
+                <>
+                <label htmlFor="">Select a State</label>
+                    <div className={`${style.input} ${style.selectInput}`}>
 
                     {state.state?<input type="text" readOnly value={state.state} className={style.StateSelect}/>:
                     <input type="text" readOnly className={style.StateSelectCenter} placeholder="SELECT STATE"/>}
@@ -267,6 +271,8 @@ const[passIcon,setPassIcon] = useState(false)
                     :""}
                     
                 </div>
+                </>
+                
                 :""}
             {/* // :""} */}
                 

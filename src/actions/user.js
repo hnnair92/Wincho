@@ -1,8 +1,8 @@
-import {LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, REGISTER_FAIL, REGISTER_REQUEST, REGISTER_SUCCESS} from '../constants/user'
+import {LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, PROFILE_FAIL, PROFILE_REQUEST, PROFILE_SUCCESS, REGISTER_FAIL, REGISTER_REQUEST, REGISTER_SUCCESS} from '../constants/user'
 const baseUrl = "https://uat.wincha-online.com"
 
 export const loginAction=(data)=>async(disptach)=>{
-    console.log("reached")
+    console.log("reached",data)
     try {
         disptach({
             type:LOGIN_REQUEST
@@ -19,7 +19,9 @@ export const loginAction=(data)=>async(disptach)=>{
             }
         }).then(res=>res.json()).then((data)=>{
             if(data.status==="True"){
-                localStorage.setItem("user",JSON.stringify(data))
+                // updateProfile(data.data.user_id)
+                localStorage.setItem("user",JSON.stringify(data.data.user_id))
+                // localStorage.setItem("user",JSON.stringify(data))
                 const userData = {
                     status:data.status,
                     user:data.data
@@ -31,7 +33,7 @@ export const loginAction=(data)=>async(disptach)=>{
             })
             }
             else{
-                localStorage.removeItem("user")
+                // localStorage.removeItem("user")
                 disptach({
                     type:LOGIN_FAIL,
                     payload:data
@@ -68,14 +70,16 @@ export const registerAction = (data)=>async(dispatch)=>{
             }
         }).then(res=>res.json()).then((data)=>{
             if(data.status==="True"){
-                localStorage.setItem("user",JSON.stringify(data))
+                // localStorage.setItem("user",JSON.stringify(data))
+                localStorage.setItem("user",JSON.stringify(data.data[0]._id))
+                updateProfile(data.data.user_id)
                 dispatch({
                     type:REGISTER_SUCCESS,
                     payload:data
                 })
             }
             else{
-                localStorage.removeItem("user")
+                // localStorage.removeItem("user")
                 dispatch({
                     type:REGISTER_FAIL,
                     payload:data
@@ -87,6 +91,39 @@ export const registerAction = (data)=>async(dispatch)=>{
         dispatch({
             type:REGISTER_FAIL,
             payload:error
+        })
+    }
+}
+
+export const updateProfile = (user)=>async(dispatch)=>{
+    try {
+        dispatch({
+            type:PROFILE_REQUEST
+        })
+        const userId = localStorage.getItem("user")
+        await fetch(`${baseUrl}/user/profile/details`,{
+            method:"POST",
+            body:JSON.stringify({
+                user_id:userId
+            }),
+            headers:{
+                "Content-type":"application/json"
+            }
+        }).then(res=>res.json()).then((data)=>{
+                // localStorage.setItem("user",JSON.stringify(data.data[0]._id))
+
+                dispatch({
+                    type:PROFILE_SUCCESS,
+                    payload:data
+                })
+            })
+        
+    } catch (error) {
+                // localStorage.removeItem("user")
+
+        dispatch({
+            type:PROFILE_FAIL,
+            payload:error.message
         })
     }
 }

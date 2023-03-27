@@ -18,6 +18,8 @@ const Video = ({sessionId,token}) => {
     session.on("streamDestroyed", function (event) {
       console.log("Stream stopped. Reason: " + event.reason);
       // event.stream()
+      // session.disconnect()
+      console.log(session)
       session.connect()
     });
     // var sessionID = sessionId;

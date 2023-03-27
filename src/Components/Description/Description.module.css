@@ -701,3 +701,17 @@
         position: absolute;
     }
 }
+.hide,.hideCamera{
+    display: none;
+}
+.show,.ShowCamera{
+    display: flex;
+}
+.AngleChanger button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.Restart{
+    flex-direction: column;
+}

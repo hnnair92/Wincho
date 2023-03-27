@@ -1,4 +1,4 @@
-import { CONFIGURATION_FAILED, CONFIGURATION_REQUEST, CONFIGURATION_SUCCESS, GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_GAMES_FAIL, GET_ALL_GAMES_REQUEST, GET_ALL_GAMES_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST,GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product"
+import { GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_GAMES_FAIL, GET_ALL_GAMES_REQUEST, GET_ALL_GAMES_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST,GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product"
 const baseUrl = "https://uat.wincha-online.com"
 export const getProductByCollection=(request)=>async(dispatch)=>{
     console.log(request);
@@ -61,7 +61,6 @@ export const getAllGames=(data)=>async(dispatch)=>{
     }
 }
 export const gameEntry=(data)=>async(dispatch)=>{
-    console.log(data)
     try {
         dispatch({
             type:GAME_ENTRY_REQUEST
@@ -90,38 +89,6 @@ export const gameEntry=(data)=>async(dispatch)=>{
         dispatch({
             type:GAME_ENTRY_FAILED,
             payload:error
-        })
-    }
-}
-export const configutation =()=>async(dispatch)=>{
-    // console.log(countryCode);
-    try {
-        await fetch(`http://ip-api.com//json`).then(res=>res.json()).then((data)=>{
-        // console.log(data)
-        // setCountryCode(data.countryCode)
-        dispatch({
-            type:CONFIGURATION_REQUEST
-        })
-        fetch(`${baseUrl}/configurations/app`,{
-            method:"POST",
-            body:JSON.stringify({
-                countrycode:data.countryCode
-            }),
-            headers:{
-                "Content-type":"application/json"
-            }
-        }).then(res=>res.json()).then((data)=>{
-            dispatch({
-                type:CONFIGURATION_SUCCESS,
-                payload:data.data[0],
-            })
-        })
-      })
-        
-    } catch (error) {
-        dispatch({
-            type:CONFIGURATION_FAILED,
-            payload:error.message
         })
     }
 }

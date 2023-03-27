@@ -1,4 +1,4 @@
-import { CONFIGURATION_FAILED, CONFIGURATION_REQUEST, CONFIGURATION_SUCCESS, GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_GAMES_FAIL, GET_ALL_GAMES_REQUEST, GET_ALL_GAMES_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST, GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product";
+import { GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_GAMES_FAIL, GET_ALL_GAMES_REQUEST, GET_ALL_GAMES_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST, GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product";
 
 export const productReducer = (state={products:[]},action)=>{
     switch (action.type) {
@@ -53,33 +53,6 @@ export const gameEntry = (state={game:{}},action)=>{
         default:
             return{
                 ...state,
-            }
-    }
-}
-export const configurationReducer = (state={configuration:{}},action)=>{
-    switch (action.type) {
-        case CONFIGURATION_REQUEST:
-            return{
-                ...state,
-                loading:true,
-            }
-        case CONFIGURATION_SUCCESS:
-            return{
-                ...state,
-                loading:false,
-                configuration:action.payload
-            }
-        case CONFIGURATION_FAILED:{
-            return{
-                ...state,
-                loading:false,
-                error:action.payload
-            }
-        }
-    
-        default:
-            return{
-                ...state
             }
     }
 }

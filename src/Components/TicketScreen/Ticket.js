@@ -4,9 +4,11 @@ import Banner from '../../assests/Clubhouse Cashier without Button.png'
 import Tickets from '../../Api/Tickets'
 import {BsCreditCardFill} from 'react-icons/bs'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 const Ticket = () => {
     const[popup,setPopup] = useState(false)
     const[ticketItem,setTicketItem] = useState()
+    const {configuration} = useSelector((state)=>state.configuration)
     const showPopup = ()=>{
         return(
             <div className={style.Popup} onClick={()=>{
@@ -43,7 +45,7 @@ const Ticket = () => {
         <div className={style.Ticket}>
             <div className={style.Banner}>
                 <img src={Banner} alt="" />
-                <button>€11.99 / 3 Months</button>
+                <button>{configuration.CURRENCY_SYMBOL} {configuration.VIP_SUBSCRIPTION} / {configuration.VIP_SUBSCRIPTION_PERIOD}</button>
             </div>
             <div className={style.Tickets}>
                 {Tickets.map((item,index)=>{
@@ -57,7 +59,7 @@ const Ticket = () => {
                                     setPopup(true)
                                     setTicketItem(item)
                                     console.log(ticketItem)
-                                }}>€{item.price}</button>
+                                }}>{configuration.CURRENCY_SYMBOL}{item.price}</button>
                             {/* </Link> */}
                             
 

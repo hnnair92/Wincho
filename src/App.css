@@ -18,3 +18,13 @@ li{
 .OT_publisher, .OT_subscriber{
   position: static !important;
 }
+.OT_publisher .OT_video-element, .OT_subscriber .OT_video-element {
+  display: block;
+  position: absolute;
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+  border: 3px solid #fff;
+  transform: translateZ(0)
+}

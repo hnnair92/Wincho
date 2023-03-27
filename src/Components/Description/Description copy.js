@@ -1,22 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useParams,
-  usePrompt,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import style from "./Description.module.css";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 import binoculars from "../../assests/binoculars.png";
-import io from "socket.io-client";
 
 import info from "../../assests/info.png";
 import userView from "../../assests/GAME - ICON - Queue no bubble ICON.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { configutation, gameEntry, getAllGames } from "../../actions/product";
+import { gameEntry, getAllGames } from "../../actions/product";
 
 import restartImg from "../../assests/Last Win Button.png";
 import cameraImage from "../../assests/Switch Camera Button.png";
@@ -36,40 +29,14 @@ import Demo from "../Home/Demo";
 import pointsBg from "../../assests/Price of Game BG.png";
 import { socket } from "../../Socket";
 import { AllAnimation } from "../../Animation/allAnimation";
-import { updateProfile } from "../../actions/user";
 const Description = () => {
-  const [exit, setExit] = useState(false);
-  useEffect(() => {
-    if (gameStatus) {
-      window.addEventListener("beforeunload", alertUser);
-    }
-    // window.addEventListener("unload", handleEndConcert);
-    return () => {
-      window.removeEventListener("beforeunload", alertUser);
-      // window.removeEventListener("unload", handleEndConcert);
-      // handleEndConcert();
-    };
-  }, []);
-  const alertUser = (e) => {
-    e.preventDefault();
-    e.returnValue = "";
-    setExit(true);
-  };
-  // const handleEndConcert = async () => {
-  //   await fetcher({
-  //     url: endConcert(concert.id),
-  //     method: "PUT",
-  //   });
-  // };
-
   const dispatch = useDispatch();
   const baseUrl = "https://uat.wincha-online.com";
-  const { user } = useSelector((state) => state.profile);
-  const { configuration } = useSelector((state) => state.configuration);
+  const { user } = useSelector((state) => state.userData);
   const navigate = useNavigate();
   const location = useLocation();
   let stateData = location.state;
-  console.log(stateData.game.price);
+  console.log(stateData)
   const [viewCount, setViewCount] = useState(0);
   const [ids, setId] = useState("");
   const [playAgain, setPlayAgain] = useState(false);
@@ -87,17 +54,7 @@ const Description = () => {
   const [gameStatus, setGameStatus] = useState(false);
   const [waitAnimation, setWaitAnime] = useState({});
   const [session, setSession] = useState({});
-  const [userFreePlay, setUserFreePlay] = useState(()=>{
-    localStorage.getItem('times')?localStorage.getItem('times'):0
-  });
   console.log(stateData, "stateData");
-  useEffect(()=>{
-    localStorage.getItem('times')?
-    localStorage.setItem('times',JSON.stringify(userFreePlay)):
-    localStorage.setItem('times',JSON.stringify(0))
-
-  },[userFreePlay])
-  console.log(userFreePlay,"userFreePlay")
   const onFocus = (e) => {
     console.log("Tab is in focus", e);
   };
@@ -147,14 +104,13 @@ const Description = () => {
     window.addEventListener("offline", () => {
       console.log("I am offline.");
     });
-    //
+
     window.addEventListener("online", () => {
       console.log("I am back online.");
     });
 
     onFocus();
     return () => {
-      // usePrompt("Hello from usePrompt -- Are you sure you want to leave?", isBlocking);
       window.addEventListener("offline", () => {
         console.log("I am offline.");
       });
@@ -170,11 +126,11 @@ const Description = () => {
   const dataEntry = {
     category_id: 0,
     country_code: user && user.coutryname,
-    user_id: user && user._id,
+    user_id: user && user.user_id,
   };
   let datas = {
     catalog: gameData && gameData.id,
-    playerID: user && user._id,
+    playerID: user.id,
     machineCode: gameData && gameData.machine_code,
     source: "web",
     replay: false,
@@ -187,46 +143,23 @@ const Description = () => {
     dispatch(getAllGames(dataEntry));
     dispatch(gameEntry(datas));
     console.log(datas);
-    // if (user === undefined) {
-      // navigate("/login");
-    // }
+    if (user === undefined) {
+      navigate("/login");
+    }
   }, [navigate, dispatch, wait]);
 
-  const baseMessage = `${user && user._id}|${game && game.machineCode}`;
+  const baseMessage = `${user.user_id}|${game.machineCode}`;
   let socket_connect = {
-    user_id: user && user._id,
+    user_id: user.user_id,
     socket_id: socket.id,
-    machineCode: game && game.machineCode,
+    machineCode: game.machineCode,
   };
   // console.log(socket_connect);
-  const checktimeout = (id) => {
-    // socket.disconnect();
-    //       console.log("socket disconnected of user", user._id);
-    //       console.log("socket disconnected of user ids", ids);
-    //       setTimeout(()=>{
-    //         console.log(socket)
-    //         socket.connect({'forceNew': true});
-    //         socket.on('connect', function() {
-    //           console.log('Connected!');
-    //         });
-    //         socket.emit("socket_connect", JSON.stringify(socket_connect));
-    //         console.log(socket)
-
-    //       },1000)
+  const checktimeout = () => {
     // if(firstMove===false){
-    socket.emit("peer_message", `${baseMessage}|P_ENDED`);
-    socket.emit("peer_message", `${baseMessage}|G_DISCONNECTED`);
-    datas.replay = true;
-    console.log(datas.replay);
-    dispatch(gameEntry(datas));
-    if(secondStep===false&&firstStep===false){
-      gameLeave(id,true);
-    }
-    else{
-      gameLeave(id,false)
-    }
-    console.log(datas);
-
+    // socket.emit("peer_message", `${baseMessage}|P_ENDED`);
+    // socket.emit("peer_message", `${baseMessage}|G_DISCONNECTED`);
+    // gameLeave()
     // console.log("got out");
     // }, 5000);
     // }
@@ -241,13 +174,9 @@ const Description = () => {
   }, [game]);
   console.log(waitAnimation);
   useEffect(() => {
-    console.log(socket);
-    dispatch(configutation());
-    console.log(configuration.FREE_PLAY_LIMIT);
-
     socket.on("connect", () => {
       console.log("connected");
-      console.log(socket);
+      console.log(socket)
     });
     socket.emit("socket_connect", JSON.stringify(socket_connect));
   }, []);
@@ -264,17 +193,18 @@ const Description = () => {
       const splitQue = splitWord[splitWord.length - 1].split(":");
       const splitId = splitWord[0].split(":");
 
-      if (splitId[1] === user._id) {
+      if (splitId[1] === user.user_id) {
         setQue(splitQue[1]);
       }
     });
     socket.on("disconnect", (daata) => {
       console.log(daata);
       console.log("disconnecting the socket");
-      socket.on("connect", () => {
-        console.log("connected after ");
-      });
-      socket.emit("socket_connect", JSON.stringify(socket_connect));
+      socket.on("connect",()=>{
+        console.log("connected after ")
+      })
+    socket.emit("socket_connect", JSON.stringify(socket_connect));
+
     });
     socket.on("watchers_count", (count) => {
       console.log(count);
@@ -346,7 +276,7 @@ const Description = () => {
       method: "POST",
       body: JSON.stringify({
         machineCode: game && game.machineCode,
-        playerID: user && user._id,
+        playerID: user && user.user_id,
         command: directionMove,
       }),
       headers: {
@@ -365,7 +295,7 @@ const Description = () => {
       method: "POST",
       body: JSON.stringify({
         machineCode: game && game.machineCode,
-        playerID: user && user._id,
+        playerID: user && user.user_id,
         command: "P_FW",
       }),
       headers: {
@@ -390,7 +320,7 @@ const Description = () => {
       method: "POST",
       body: JSON.stringify({
         machineCode: game && game.machineCode,
-        playerID: user && user._id,
+        playerID: user && user.user_id,
         command: directionMove,
       }),
       headers: {
@@ -410,7 +340,7 @@ const Description = () => {
       method: "POST",
       body: JSON.stringify({
         machineCode: game && game.machineCode,
-        playerID: user && user._id,
+        playerID: user && user.user_id,
         command: "FW_STOP",
       }),
       headers: {
@@ -437,38 +367,15 @@ const Description = () => {
         }, game && game.get_status_time * 1000);
       });
   };
-  const fetchPoints = async () => {
-    await fetch(`${baseUrl}/points/update`, {
-      method: "PUT",
-      body: JSON.stringify({
-        user_id: user._id,
-        point: stateData.game.price,
-        credicts: false,
-        source: "web",
-      }),
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch(updateProfile(user._id));
-        console.log(data);
-        startGame();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   const startGame = async () => {
     const message = `${baseMessage}|P_STARTED`;
     socket.emit("peer_message", message);
-    console.log("direction from start", user._id);
+    console.log("direction from start", user.user_id);
     await fetch(`${baseUrl}/game/start`, {
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: user.user_id,
         source: "web",
         freeplay: false,
       }),
@@ -487,66 +394,56 @@ const Description = () => {
   };
   const joinGame = async (e) => {
     e.preventDefault();
-    const intPrice = parseInt(stateData.game.price);
-    const intPoints = parseInt(user.point);
-    if (intPrice <= intPoints) {
-      console.log(intPoints >= intPrice);
-      const message = `${baseMessage}|G_CONNECTED`;
-      socket.emit("peer_message", message);
-      await socket.on("game_que_count", (queCount) => {
-        console.log(queCount);
+    const message = `${baseMessage}|G_CONNECTED`;
+    socket.emit("peer_message", message);
+    await socket.on("game_que_count", (queCount) => {
+      console.log(queCount);
 
-        const splitWord = queCount.split("|");
+      const splitWord = queCount.split("|");
 
-        const splitQue = splitWord[splitWord.length - 1].split(":");
-        const splitId = splitWord[0].split(":");
-        console.log(typeof splitQue[1]);
-        if (splitId[1] === user._id) {
-          setQue(splitQue[1]);
+      const splitQue = splitWord[splitWord.length - 1].split(":");
+      const splitId = splitWord[0].split(":");
+      console.log(typeof splitQue[1]);
+      if (splitId[1] === user.user_id) {
+        setQue(splitQue[1]);
+      }
+    });
+    await fetch(`${baseUrl}/game/join`, {
+      method: "POST",
+      body: JSON.stringify({
+        machineCode: game && game.machineCode,
+        playerID: user && user.user_id,
+        freeplay: false,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("joined", data);
+
+        // setTimeout(() => {
+        setGameStatus(true);
+        console.log(que, "que");
+        if (que === "0") {
+          console.log("starting joingame");
+
+          setWait(false);
+          // startGame();
+        } else {
+          console.log("starting joingame sent");
+          setWait(true);
         }
+        // }, 5000);
       });
-      await fetch(`${baseUrl}/game/join`, {
-        method: "POST",
-        body: JSON.stringify({
-          machineCode: game && game.machineCode,
-          playerID: user && user._id,
-          freeplay: false,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("joined", data);
-
-          // setTimeout(() => {
-          setGameStatus(true);
-          console.log(que, "que");
-          if (que === "0") {
-            console.log("starting joingame");
-
-            setWait(false);
-            // startGame();
-          } else {
-            console.log("starting joingame sent");
-            setWait(true);
-          }
-          // }, 5000);
-        });
-    } else {
-      // navigate("/tickets");
-      console.log(intPoints >= intPrice);
-      console.log("intPoints", user);
-      console.log("intPrice", intPrice);
-    }
   };
   const statusApi = async () => {
     await fetch(`${baseUrl}/game/status`, {
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: user.user_id,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -562,7 +459,7 @@ const Description = () => {
       method: "POST",
       body: JSON.stringify({
         // machineCode: game && game._id,
-        user_id: user._id,
+        user_id: user.user_id,
         machineID: game._id,
         game_status: status, // Status from game status API
         product_id: stateData.game.id,
@@ -576,20 +473,16 @@ const Description = () => {
       .then((data) => {
         console.log(data);
         setSession(data.data[0]);
-        if (data.status === "True") {
-          AddtoCart();
-        }
         console.log("status.game_session_id", gameStart.game_session_id);
       });
   };
   // console.log(que,"outside")
-  const gameLeave = async (idData,status) => {
+  const gameLeave = async (idData) => {
     await fetch(`${baseUrl}/game/leave`, {
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
-        timeout_status: "",
+        playerID: user.user_id,
       }),
       headers: {
         "Content-type": "application/json",
@@ -598,56 +491,42 @@ const Description = () => {
       .then((res) => res.json())
       .then((data) => {
         // navigate(`/prizes/game/${id}`,{state:{game:gameData}});
-        if (user._id === idData) {
+        if (user.user_id === idData) {
           socket.disconnect();
-          console.log("socket disconnected of user", user._id);
+          console.log("socket disconnected of user", user.user_id);
           console.log("socket disconnected of user ids", ids);
-          setTimeout(() => {
-            console.log(socket);
-            socket.connect({ forceNew: true });
-            socket.on("connect", function () {
-              console.log("Connected!");
-            });
-            socket.emit("socket_connect", JSON.stringify(socket_connect));
-            console.log(socket);
-          }, 1000);
         } else {
           console.log("not getting disconnected");
-          console.log("socket not disconnected of user", user._id, ids);
+          console.log("socket not disconnected of user", user.user_id, ids);
         }
 
-        window.location.reload();
+        // window.location.reload()
+        // datas.replay=true
+        // console.log(data);
+        // console.log(datas.replay)
+        // dispatch(gameEntry(datas))
       });
   };
   const AddtoCart = async () => {
     await fetch(`${baseUrl}//cart/add`, {
       method: "POST",
       body: JSON.stringify({
-        user_id: user._id,
+        user_id: user.user_id,
         product_id: stateData.id,
         game_status: status,
         machineID: game._id,
         archiveid: session.archiveid,
         game_session_id: game.game_session_id,
       }),
-      headers: {
-        "Content-type": "application/json",
-      },
+      headers:{
+        "Content-type":"application/json"
+      }
+    }).then(res=>res.json).then((data)=>{
+      console.log(data)
     })
-      .then((res) => res.json)
-      .then((data) => {
-        console.log(data);
-      });
   };
   return (
     <div className={style.Container}>
-      {exit ? (
-        <div>
-          <p>Are you sure you want to leave this page?</p>
-        </div>
-      ) : (
-        ""
-      )}
       {/* <div className={style.Overlay}></div> */}
       <div className={style.Description}>
         {active ? (
@@ -818,7 +697,7 @@ const Description = () => {
                 <div className={style.Play}>
                   <div className={style.Points}>
                     <img src={pointsBg} alt="" />
-                    <p>{stateData.game.price}</p>
+                    <p>{stateData.price}</p>
                   </div>
                   {gameStatus ? (
                     que === "0" ? (
@@ -828,207 +707,98 @@ const Description = () => {
                           loop={false}
                           onComplete={() => {
                             // setWait(true)
-                            fetchPoints();
+                            startGame();
                             console.log("reached");
                           }}
                         />
                       ) : firstStep ? (
                         direction && direction[1] === "Right" ? (
-                          <div className={style.CheckCamera}>
-                            <button
-                              className={
-                                camera === true
-                                  ? style.ShowCamera
-                                  : style.hideCamera
-                              }
-                              onMouseDown={(e) => {
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
-                              }}
-                              onMouseUp={() => {
-                                firstMoveRelease("RL_STOP");
-                              }}
-                              onTimeUpdate={(e) => {
-                                // console.log(e);
-                              }}
-                            >
-                              <Lottie
-                                animationData={RightArrow}
-                                loop={false}
-                                onComplete={() => {
-                                  // setFailed(true);
-                                  // checktimeout()
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished right")
-                                  checktimeout(user._id);
-                                }}
-                              />
-                            </button>
-                            :
-                            <button
-                              className={
-                                camera === true
-                                  ? style.hideCamera
-                                  : style.ShowCamera
-                              }
-                              onMouseDown={(e) => {
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
-                              }}
-                              onMouseUp={() => {
-                                firstMoveRelease("RL_STOP");
-                              }}
-                              onTimeUpdate={(e) => {
-                                // console.log(e);
-                              }}
-                            >
-                              <Lottie animationData={UpArrow} loop={false} />
-                            </button>
-                          </div>
-                        ) : direction && direction[1] === "Left" ? (
-                          <div className={style.CheckCamera}>
-                            <button
-                              className={
-                                camera === true
-                                  ? style.ShowCamera
-                                  : style.hideCamera
-                              }
-                              onMouseDown={(e) => {
-                                // setFirstMove(true)
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
-                              }}
-                              onMouseUp={() => {
-                                firstMoveRelease("LR_STOP");
-                              }}
-                            >
-                              <Lottie
-                                animationData={LeftArrow}
-                                loop={false}
-                                onComplete={() => {
-                                  // setFailed(true);
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished left")
-                                  checktimeout(user._id);
-                                }}
-                              />
-                            </button>
-                            :
-                            <button
-                              className={
-                                camera === true
-                                  ? style.hideCamera
-                                  : style.ShowCamera
-                              }
-                              onMouseDown={(e) => {
-                                // setFirstMove(true)
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
-                              }}
-                              onMouseUp={() => {
-                                firstMoveRelease("LR_STOP");
-                              }}
-                            >
-                              <Lottie animationData={UpArrow} loop={false} />
-                            </button>
-                          </div>
-                        ) : (
-                          ""
-                        )
-                      ) : secondStep ? (
-                        <div className={style.CheckCamera}>
+                      
+                      game.camera_data[0].camera_id ==="1"?
                           <button
-                            className={
-                              camera === true
-                                ? style.ShowCamera
-                                : style.hideCamera
-                            }
                             onMouseDown={(e) => {
-                              SecondMoveStart();
-                              // console.log("e.target.value");
+                              firstMoveStart(
+                                direction && direction[1].toUpperCase()
+                              );
                             }}
                             onMouseUp={() => {
-                              secondMoveRelease();
+                              firstMoveRelease("RL_STOP");
+                            }}
+                            onTimeUpdate={(e) => {
+                              // console.log(e);
                             }}
                           >
-                            <Lottie animationData={UpArrow} loop={false} />
-                          </button>
-                          <div
-                            className={
-                              camera === true
-                                ? style.hideCamera
-                                : style.ShowCamera
-                            }
+                            <Lottie
+                              animationData={RightArrow}
+                              loop={false}
+                              onComplete={() => {
+                                // setFailed(true);
+                                // checktimeout()
+                                // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
+                                // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
+                                // console.log("finished right")
+                                checktimeout();
+                              }}
+                            />
+                          </button>: <button
+                          onMouseDown={(e) => {
+                              firstMoveStart(
+                                direction && direction[1].toUpperCase()
+                              );
+                            }}
+                            onMouseUp={() => {
+                              firstMoveRelease("RL_STOP");
+                            }}
+                            onTimeUpdate={(e) => {
+                              // console.log(e);
+                            }}
+                        >
+                          <Lottie animationData={UpArrow} loop={false} />
+                        </button>
+                        ) : direction && direction[1] === "Left" ? (
+                          <button
+                            onMouseDown={(e) => {
+                              // setFirstMove(true)
+                              firstMoveStart(
+                                direction && direction[1].toUpperCase()
+                              );
+                            }}
+                            onMouseUp={() => {
+                              firstMoveRelease("LR_STOP");
+                            }}
                           >
-                            <button
-                              className={
-                                direction && direction[1] === "Left"
-                                  ? style.Show
-                                  : style.hide
-                              }
-                              onMouseDown={(e) => {
-                                SecondMoveStart();
-                                // console.log("e.target.value");
+                            <Lottie
+                              animationData={LeftArrow}
+                              loop={false}
+                              onComplete={() => {
+                                // setFailed(true);
+                                // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
+                                // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
+                                // console.log("finished left")
+                                checktimeout();
                               }}
-                              onMouseUp={() => {
-                                secondMoveRelease();
-                              }}
-                            >
-                              <Lottie
-                                animationData={RightArrow}
-                                loop={false}
-                                onComplete={() => {
-                                  // setFailed(true);
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished left")
-                                  checktimeout(user._id);
-                                }}
-                              />
-                            </button>
-
-                            <button
-                              className={
-                                direction && direction[1] === "Right"
-                                  ? style.Show
-                                  : style.hide
-                              }
-                              onMouseDown={(e) => {
-                                SecondMoveStart();
-                                // console.log("e.target.value");
-                              }}
-                              onMouseUp={() => {
-                                secondMoveRelease();
-                              }}
-                            >
-                              <Lottie
-                                animationData={LeftArrow}
-                                loop={false}
-                                onComplete={() => {
-                                  // setFailed(true);
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished left")
-                                  checktimeout(user._id);
-                                }}
-                              />
-                            </button>
-                          </div>
-                        </div>
+                            />
+                          </button>
+                        ) : (
+                          <Lottie animationData={waitAnimation} loop={false} />
+                        )
+                      ) : secondStep ? (
+                        <button
+                          onMouseDown={(e) => {
+                            SecondMoveStart();
+                            // console.log("e.target.value");
+                          }}
+                          onMouseUp={() => {
+                            secondMoveRelease();
+                          }}
+                        >
+                          <Lottie animationData={UpArrow} loop={false} />
+                        </button>
                       ) : (
                         <Lottie animationData={waitAnimation} loop={false} />
                       )
                     ) : (
-                      <Lottie
-                        animationData={AllAnimation.wait_R_G}
-                        loop={false}
-                      />
+                      <Lottie animationData={AllAnimation.wait_R_G} loop={false} />
                     )
                   ) : playAgain ? (
                     <button
@@ -1047,7 +817,7 @@ const Description = () => {
                         socket.emit("peer_message", message);
                         // message = `${baseMessage}|P_STARTED`;
                         // socket.emit("peer_message", message);
-                        fetchPoints();
+                        startGame();
                       }}
                     >
                       <Lottie
@@ -1064,58 +834,22 @@ const Description = () => {
                           //   "peer_message",
                           //   `${baseMessage}|G_DISCONNECTED`
                           // );
-                          setId(user._id);
-                          gameLeave(user._id);
+                          setId(user.user_id);
+                          gameLeave(user.user_id);
                           console.log("finished left");
                           setPlayAgain(false);
                         }}
                       />
                     </button>
                   ) : (
-                    // game.price==="0"?
-                    // userFreePlay<=configuration.FREE_PLAY_LIMIT?
                     <button
                       onClick={(e) => {
-                        if (stateData.game.price === "0") {
-                          if (userFreePlay <= configuration.FREE_PLAY_LIMIT) {
-                            console.log(
-                              userFreePlay <= configuration.FREE_PLAY_LIMIT
-                            );
-                            joinGame(e);
-                          } else {
-                            console.log(
-                              userFreePlay <= configuration.FREE_PLAY_LIMIT
-                            );
-                            console.log(userFreePlay, "userFreePlay");
-                            console.log(
-                              configuration.FREE_PLAY_LIMIT,
-                              "configuration.FREE_PLAY_LIMIT"
-                            );
-
-                            navigate("/prizes");
-                          }
-                        } else {
-                          console.log(
-                            userFreePlay <= configuration.FREE_PLAY_LIMIT
-                          );
-                          joinGame(e);
-                        }
-
                         // console.log(que,"queCount")
+                        joinGame(e);
                       }}
                     >
                       <img src={startImage} />
                     </button>
-                    // :""
-
-                    // <button
-                    //   onClick={(e) => {
-                    //     // console.log(que,"queCount")
-                    //     joinGame(e);
-                    //   }}
-                    // >
-                    //   <img src={startImage} />
-                    // </button>
                   )}
                 </div>
                 <div className={style.ReportDiv}>

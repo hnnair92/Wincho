@@ -37,6 +37,8 @@ import pointsBg from "../../assests/Price of Game BG.png";
 import { socket } from "../../Socket";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { updateProfile } from "../../actions/user";
+import greenPrizeMove from '../../assests/Assistance Button.png'
+import GrayPrizeMove from '../../assests/Assistance Pressed Button.png'
 const Description = () => {
   const [exit, setExit] = useState(false);
   useEffect(() => {
@@ -65,6 +67,7 @@ const Description = () => {
   const dispatch = useDispatch();
   const baseUrl = "https://uat.wincha-online.com";
   const { user } = useSelector((state) => state.profile);
+  const userData = useSelector((state) => state.userData);
   const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
   const location = useLocation();
@@ -87,17 +90,20 @@ const Description = () => {
   const [gameStatus, setGameStatus] = useState(false);
   const [waitAnimation, setWaitAnime] = useState({});
   const [session, setSession] = useState({});
-  const [userFreePlay, setUserFreePlay] = useState(()=>{
-    localStorage.getItem('times')?localStorage.getItem('times'):0
-  });
+  const [userFreePlay, setUserFreePlay] = useState(
+    JSON.parse(localStorage.getItem("times"))
+      ? JSON.parse(localStorage.getItem("times"))
+      : 0
+  );
+  const[count,setCount] = useState(0)
   console.log(stateData, "stateData");
-  useEffect(()=>{
-    localStorage.getItem('times')?
-    localStorage.setItem('times',JSON.stringify(userFreePlay)):
-    localStorage.setItem('times',JSON.stringify(0))
-
-  },[userFreePlay])
-  console.log(userFreePlay,"userFreePlay")
+  useEffect(() => {
+    localStorage.getItem("times")
+      ? localStorage.setItem("times", JSON.stringify(userFreePlay))
+      : localStorage.setItem("times", JSON.stringify(0));
+  }, [userFreePlay]);
+  console.log(userFreePlay, "userFreePlay");
+  console.log(stateData, "stateData");
   const onFocus = (e) => {
     console.log("Tab is in focus", e);
   };
@@ -140,6 +146,9 @@ const Description = () => {
         setWaitAnime({});
     }
   };
+  useEffect(() => {
+    dispatch(updateProfile(userData.user));
+  }, [dispatch]);
   useEffect(() => {
     console.log(window.navigator);
     window.addEventListener("focus", onFocus);
@@ -187,9 +196,9 @@ const Description = () => {
     dispatch(getAllGames(dataEntry));
     dispatch(gameEntry(datas));
     console.log(datas);
-    // if (user === undefined) {
-      // navigate("/login");
-    // }
+    if (user === undefined) {
+      navigate("/login");
+    }
   }, [navigate, dispatch, wait]);
 
   const baseMessage = `${user && user._id}|${game && game.machineCode}`;
@@ -219,11 +228,10 @@ const Description = () => {
     datas.replay = true;
     console.log(datas.replay);
     dispatch(gameEntry(datas));
-    if(secondStep===false&&firstStep===false){
-      gameLeave(id,true);
-    }
-    else{
-      gameLeave(id,false)
+    if (secondStep === false && firstStep === false) {
+      gameLeave(id, true);
+    } else {
+      gameLeave(id, false);
     }
     console.log(datas);
 
@@ -438,12 +446,13 @@ const Description = () => {
       });
   };
   const fetchPoints = async () => {
+    console.log(que, "que from fetch points");
     await fetch(`${baseUrl}/points/update`, {
       method: "PUT",
       body: JSON.stringify({
         user_id: user._id,
         point: stateData.game.price,
-        credicts: false,
+        credicts: "false",
         source: "web",
       }),
       headers: {
@@ -460,6 +469,32 @@ const Description = () => {
         console.log(err);
       });
   };
+  const checkQue = async () => {
+    try {
+      await fetch(`${baseUrl}/game/player/que/verify`, {
+        method: "POST",
+        body: JSON.stringify({
+          playerID: user._id,
+          machineID: game._id,
+          source: "web",
+        }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setWait(false);
+          console.log(data);
+          if (data.status === true) {
+            fetchPoints();
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const startGame = async () => {
     const message = `${baseMessage}|P_STARTED`;
     socket.emit("peer_message", message);
@@ -483,6 +518,7 @@ const Description = () => {
         setWait(false);
         setDirection(game && game.movement.split("-"));
         setFirstStep(true);
+        setCount(count+1)
       });
   };
   const joinGame = async (e) => {
@@ -583,7 +619,7 @@ const Description = () => {
       });
   };
   // console.log(que,"outside")
-  const gameLeave = async (idData,status) => {
+  const gameLeave = async (idData, status) => {
     await fetch(`${baseUrl}/game/leave`, {
       method: "POST",
       body: JSON.stringify({
@@ -637,6 +673,7 @@ const Description = () => {
       .then((res) => res.json)
       .then((data) => {
         console.log(data);
+        navigate("/order-confirmed");
       });
   };
   return (
@@ -806,13 +843,33 @@ const Description = () => {
           <div className={style.MobileControls}>
             <div className={style.ActionBtn}>
               <div className={style.Restart}>
-                <img
+                <div className={style.CameraChanger}>
+                  <img
+                    src={cameraImage}
+                    alt=""
+                    onClick={() => {
+                      camera ? setCamera(false) : setCamera(true);
+                    }}
+                  />
+                </div>
+                <div className={style.PrizeMove}>
+                    {count%configuration.FREE_PLAY_LIMIT===0&&count!==0?
+                    <img src={greenPrizeMove} />
+                  :
+                    // <img src={GrayPrizeMove} />
+                    ""
+                      
+                  }
+                </div>
+               
+
+                {/* <img
                   src={cameraImage}
                   alt=""
                   onClick={() => {
                     camera ? setCamera(false) : setCamera(true);
                   }}
-                />
+                /> */}
               </div>
               <div className={style.Start}>
                 <div className={style.Play}>
@@ -828,7 +885,7 @@ const Description = () => {
                           loop={false}
                           onComplete={() => {
                             // setWait(true)
-                            fetchPoints();
+                            checkQue();
                             console.log("reached");
                           }}
                         />
@@ -1068,6 +1125,7 @@ const Description = () => {
                           gameLeave(user._id);
                           console.log("finished left");
                           setPlayAgain(false);
+                          navigate("/prizes");
                         }}
                       />
                     </button>
@@ -1077,6 +1135,7 @@ const Description = () => {
                     <button
                       onClick={(e) => {
                         if (stateData.game.price === "0") {
+                          setUserFreePlay(userFreePlay + 1);
                           if (userFreePlay <= configuration.FREE_PLAY_LIMIT) {
                             console.log(
                               userFreePlay <= configuration.FREE_PLAY_LIMIT
@@ -1124,10 +1183,23 @@ const Description = () => {
               </div>
               <div className={style.CameraDiv}>
                 <div className={style.userDiv}>
+                  {gameStatus?
                   <img src={playInfo} alt="" />
+                  
+                  :
+                  <img src={playInfo} alt="" />
+                  
+                }
                 </div>
                 <div className={style.AngleChanger}>
-                  <img src={restartImg} alt="" />
+                  {/* <button disabled = {gameStatus}> */}
+                  {gameStatus ? (
+                    <img src={restartImg} alt="" />
+                  ) : (
+                    <img src={restartImg} alt="" />
+                  )}
+
+                  {/* </button> */}
                 </div>
               </div>
             </div>

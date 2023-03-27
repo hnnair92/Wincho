@@ -16,7 +16,7 @@ const Profile = () => {
   const [subscription, setSubscription] = useState("");
   const [birthday, setBirthday] = useState("");
   const [myDetails, setmyDetails] = useState(false);
-  const { user } = useSelector((state) => state.userData);
+  const { user } = useSelector((state) => state.profile);
   useEffect(() => {
     if (user) {
       const date = user.dob.split("-");

@@ -7,11 +7,11 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import Description from "./Components/Description/Description";
+import Description from "./Components/Description/Description copy 2";
 import Loader from "./Components/Loader/Loader";
 import Register from "./Components/register/Register";
 import Login from "./Components/Login/Login";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Ticket from "./Components/TicketScreen/Ticket";
 import Home from "./Components/Home/Home";
 import Footer from "./Components/Footer/Footer";
@@ -23,9 +23,12 @@ import Cart from "./Components/Cart/Cart";
 import Demo from "./Components/Home/Demo";
 import Jins from "./Components/jins/jins";
 import { socket } from "./Socket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { configutation } from "./actions/product";
 // import { Socket } from 'socket.io-client';
 function App() {
+  const dispatch = useDispatch()
+  const[countryCode,setCountryCode] = useState("")
   // const {user} = useSelector((state)=>state.userData)
   // let data = {
   //   user_id: user&&user.user_id,
@@ -59,6 +62,25 @@ function App() {
     // }
   // },[socket]);
   
+  const state = async()=>{
+    try {
+    //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    //  .catch(() => console.log('Network request failed, adblock is enabled'));
+      await fetch(`http://ip-api.com//json`).then(res=>res.json()).then((data)=>{
+        // console.log(data)
+        setCountryCode(data.countryCode)
+        dispatch(configutation(data.countryCode))
+      }).catch((err)=>{
+        console.log(err)
+      })
+    } catch (error) {
+      console.log(error)
+    } 
+  }
+  useEffect(()=>{
+    state()
+    
+  },[dispatch,countryCode])
   return (
     <div className="App">
       <Router>

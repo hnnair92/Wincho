@@ -6,14 +6,23 @@ import { MdOutlineSettings } from "react-icons/md";
 import ticket from "../../assests/Floating Tab Gold Ticket.png";
 import plus from "../../assests/Header Add Value.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
+import { updateProfile } from "../../actions/user";
 // import { useSelector } from 'react-redux'
 const Header = () => {
+  const dispatch = useDispatch()
   const [setting, setSetting] = useState(false);
-  const { user } = useSelector((state) => state.userData);
+  const userData = useSelector((state) => state.userData);
+  const {user} = useSelector((state) => state.profile);
+
+  const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
+  useEffect(()=>{
+    dispatch(updateProfile(userData.user))
+
+  },[dispatch])
   const handleId = (e) => {
     e.preventDefault();
     const path = window.location.pathname;
@@ -135,12 +144,12 @@ const Header = () => {
                     {" "}
                     <li>FAQ</li>
                   </Link>
-                  <Link to="" onClick={()=>{
+                  <Link to={`${configuration.terms}`} onClick={()=>{
                 setSetting(false)
               }}>
                     <li>Terms of Use</li>
                   </Link>
-                  <Link to="" onClick={()=>{
+                  <Link to={`${configuration.policy}`}  onClick={()=>{
                 setSetting(false)
               }}>
                     <li>Privacy Policy</li>
@@ -174,12 +183,12 @@ const Header = () => {
                   {" "}
                   <li>FAQ</li>
                 </Link>
-                <Link to="" onClick={()=>{
+                <Link to={`${configuration.terms}`} onClick={()=>{
                 setSetting(false)
               }}>
                   <li>Terms of Use</li>
                 </Link>
-                <Link to="" onClick={()=>{
+                <Link to={`${configuration.policy}`} onClick={()=>{
                 setSetting(false)
               }}>
                   <li>Privacy Policy</li>
@@ -298,12 +307,12 @@ const Header = () => {
                     {" "}
                     <li>FAQ</li>
                   </Link>
-                  <Link to="" onClick={()=>{
+                  <Link to={`${configuration.terms}`} onClick={()=>{
                 setSetting(false)
               }}>
                     <li>Terms of Use</li>
                   </Link>
-                  <Link to="" onClick={()=>{
+                  <Link to={`${configuration.policy}`}  onClick={()=>{
                 setSetting(false)
               }}>
                     <li>Privacy Policy</li>
@@ -338,12 +347,12 @@ const Header = () => {
                   {" "}
                   <li>FAQ</li>
                 </Link>
-                <Link to="" onClick={()=>{
+                <Link to={`${configuration.terms}`} onClick={()=>{
                 setSetting(false)
               }}>
                   <li>Terms of Use</li>
                 </Link>
-                <Link to="" onClick={()=>{
+                <Link to={`${configuration.policy}`}  onClick={()=>{
                 setSetting(false)
               }}>
                   <li>Privacy Policy</li>

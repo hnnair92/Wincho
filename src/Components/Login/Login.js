@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import style from './Login.module.css'
 import Banner from '../../assests/Wincha Image Asset.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginAction } from '../../actions/user'
+import { loginAction, updateProfile } from '../../actions/user'
 import eye from '../../assests/Password Eye.png'
 import info from '../../assests/Information Icon.png'
 import icon from '../../assests/Wincha Support Icon.png'
@@ -19,6 +19,9 @@ const Login = () => {
     useEffect(()=>{
         if(authenticated){
             navigate("/")
+        }
+        if(user){
+            dispatch(updateProfile(user&&user.user_id))
         }
     },[navigate,authenticated])
     const [username,setUsername] = useState("")
