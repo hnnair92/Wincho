@@ -22,7 +22,7 @@ import Notification from "./Components/Notification/Notification";
 import Cart from "./Components/Cart/Cart";
 import Demo from "./Components/Home/Demo";
 import Jins from "./Components/jins/jins";
-import { socket } from "./Socket";
+import { socket } from "./socket";
 import { useDispatch, useSelector } from "react-redux";
 import { configutation } from "./actions/product";
 // import { Socket } from 'socket.io-client';

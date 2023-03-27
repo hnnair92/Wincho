@@ -34,7 +34,7 @@ import reversePlay from "../../Animation/btn_play_reverse.json";
 import infoIcon from "../../assests/info.png";
 import Demo from "../Home/Demo";
 import pointsBg from "../../assests/Price of Game BG.png";
-import { socket } from "../../Socket";
+import { socket } from "../../socket";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { updateProfile } from "../../actions/user";
 import greenPrizeMove from '../../assests/Assistance Button.png'
