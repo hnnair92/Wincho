@@ -373,7 +373,7 @@
 
 .Restart {
     width: 25%;
-    margin-bottom: 20%;
+    margin-bottom: 5%;
     align-items: flex-start;
 }
 
@@ -574,6 +574,11 @@
 .OtherBtn a{
     width: 100%;
 }
+.Restart div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 @media(max-width:1025px) {
     .GamePlay{
         height: 50vh;
@@ -686,7 +691,7 @@
     .Play .Points p{
         font-size: 2.5rem;
     }.Restart{
-        margin-bottom: 20%;
+        margin-bottom: 10%;
     }
 }
 @media(min-width:1065px){
@@ -714,4 +719,10 @@
 }
 .Restart{
     flex-direction: column;
+}
+.hideResetPrize{
+    opacity: 0;
+}
+.showPrizeReset{
+    opacity: 1;
 }

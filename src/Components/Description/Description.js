@@ -828,7 +828,8 @@ const Description = () => {
                           loop={false}
                           onComplete={() => {
                             // setWait(true)
-                            fetchPoints();
+                            // fetchPoints();
+                            // checkQue()
                             console.log("reached");
                           }}
                         />

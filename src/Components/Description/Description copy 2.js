@@ -90,17 +90,17 @@ const Description = () => {
   const [gameStatus, setGameStatus] = useState(false);
   const [waitAnimation, setWaitAnime] = useState({});
   const [session, setSession] = useState({});
+  const[count,setCount] = useState(4)
   const [userFreePlay, setUserFreePlay] = useState(
     JSON.parse(localStorage.getItem("times"))
       ? JSON.parse(localStorage.getItem("times"))
       : 0
   );
-  const[count,setCount] = useState(0)
   console.log(stateData, "stateData");
   useEffect(() => {
     localStorage.getItem("times")
-      ? localStorage.setItem("times", JSON.stringify(userFreePlay))
-      : localStorage.setItem("times", JSON.stringify(0));
+      ? localStorage.setItem("times", (userFreePlay))
+      : localStorage.setItem("times", (0));
   }, [userFreePlay]);
   console.log(userFreePlay, "userFreePlay");
   console.log(stateData, "stateData");
@@ -146,6 +146,14 @@ const Description = () => {
         setWaitAnime({});
     }
   };
+  // useEffect(()=>{
+  //   console.log(que,"que")
+  //   console.log(gameStatus,"gameStatus")
+  //   console.log(firstStep,"firstStep")
+  //   console.log(secondStep,"secondStep")
+  //   console.log(direction,"direction")
+  //   console.log(wait,"wait")
+  // },[que,gameStatus,firstStep,secondStep,direction,wait])
   useEffect(() => {
     dispatch(updateProfile(userData.user));
   }, [dispatch]);
@@ -181,20 +189,23 @@ const Description = () => {
     country_code: user && user.coutryname,
     user_id: user && user._id,
   };
-  let datas = {
-    catalog: gameData && gameData.id,
-    playerID: user && user._id,
-    machineCode: gameData && gameData.machine_code,
-    source: "web",
-    replay: false,
-    freeplay: false,
-  };
+  
   const { products } = useSelector((state) => state.collectionProducts);
   const { game } = useSelector((state) => state.gameEntry);
-
+  let datas ={}
   useEffect(() => {
+    if(user&&gameData){
+      datas = {
+        catalog: gameData && gameData.id,
+        playerID: user && user._id,
+        machineCode: gameData && gameData.machine_code,
+        source: "web",
+        replay: false,
+        freeplay: false,
+      };
+      dispatch(gameEntry(datas));
+    }
     dispatch(getAllGames(dataEntry));
-    dispatch(gameEntry(datas));
     console.log(datas);
     if (user === undefined) {
       navigate("/login");
@@ -243,6 +254,9 @@ const Description = () => {
     // }
   };
   useEffect(() => {
+    console.log(que,"que form useEffect")
+  }, [que]);
+  useEffect(() => {
     if (game) {
       checkWaitAnime();
     }
@@ -272,7 +286,7 @@ const Description = () => {
       const splitQue = splitWord[splitWord.length - 1].split(":");
       const splitId = splitWord[0].split(":");
 
-      if (splitId[1] === user._id) {
+      if (splitId[1] === user&&user._id) {
         setQue(splitQue[1]);
       }
     });
@@ -356,6 +370,8 @@ const Description = () => {
         machineCode: game && game.machineCode,
         playerID: user && user._id,
         command: directionMove,
+        source:"web"
+
       }),
       headers: {
         "Content-Type": "application/json",
@@ -375,6 +391,8 @@ const Description = () => {
         machineCode: game && game.machineCode,
         playerID: user && user._id,
         command: "P_FW",
+        source:"web"
+
       }),
       headers: {
         "Content-Type": "application/json",
@@ -400,6 +418,8 @@ const Description = () => {
         machineCode: game && game.machineCode,
         playerID: user && user._id,
         command: directionMove,
+        source:"web"
+
       }),
       headers: {
         "Content-Type": "application/json",
@@ -420,6 +440,8 @@ const Description = () => {
         machineCode: game && game.machineCode,
         playerID: user && user._id,
         command: "FW_STOP",
+        source:"web"
+
       }),
       headers: {
         "Content-Type": "application/json",
@@ -470,6 +492,7 @@ const Description = () => {
       });
   };
   const checkQue = async () => {
+    console.log("queCheck")
     try {
       await fetch(`${baseUrl}/game/player/que/verify`, {
         method: "POST",
@@ -484,10 +507,15 @@ const Description = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          setWait(false);
+          // setWait(false);
           console.log(data);
-          if (data.status === true) {
+          if (data.status === "True") {
             fetchPoints();
+            // setWait(true)
+          }
+          else{
+            setWait(false)
+
           }
         });
     } catch (error) {
@@ -496,6 +524,7 @@ const Description = () => {
   };
 
   const startGame = async () => {
+    fetchPoints()
     const message = `${baseMessage}|P_STARTED`;
     socket.emit("peer_message", message);
     console.log("direction from start", user._id);
@@ -521,6 +550,9 @@ const Description = () => {
         setCount(count+1)
       });
   };
+  const changeState =()=>{
+    setWait(true)
+  }
   const joinGame = async (e) => {
     e.preventDefault();
     const intPrice = parseInt(stateData.game.price);
@@ -539,6 +571,7 @@ const Description = () => {
         console.log(typeof splitQue[1]);
         if (splitId[1] === user._id) {
           setQue(splitQue[1]);
+          
         }
       });
       await fetch(`${baseUrl}/game/join`, {
@@ -547,6 +580,7 @@ const Description = () => {
           machineCode: game && game.machineCode,
           playerID: user && user._id,
           freeplay: false,
+          source:"web"
         }),
         headers: {
           "Content-Type": "application/json",
@@ -561,12 +595,19 @@ const Description = () => {
           console.log(que, "que");
           if (que === "0") {
             console.log("starting joingame");
-
+            console.log(que, "que from game");
+            // changeState()
+            // checkQue()
+            // setWait(true);
             setWait(false);
             // startGame();
           } else {
             console.log("starting joingame sent");
             setWait(true);
+            // checkQue()
+
+            // setWait(true);
+            // 
           }
           // }, 5000);
         });
@@ -583,6 +624,8 @@ const Description = () => {
       body: JSON.stringify({
         machineCode: game.machineCode,
         playerID: user._id,
+        source:"web"
+
       }),
       headers: {
         "Content-Type": "application/json",
@@ -603,6 +646,8 @@ const Description = () => {
         game_status: status, // Status from game status API
         product_id: stateData.game.id,
         game_session_id: gameStart.game_session_id,
+        source:"web"
+
       }),
       headers: {
         "Content-Type": "application/json",
@@ -625,7 +670,9 @@ const Description = () => {
       body: JSON.stringify({
         machineCode: game.machineCode,
         playerID: user._id,
-        timeout_status: "",
+        timeout_status: status,
+        source:"web"
+
       }),
       headers: {
         "Content-type": "application/json",
@@ -665,6 +712,8 @@ const Description = () => {
         machineID: game._id,
         archiveid: session.archiveid,
         game_session_id: game.game_session_id,
+        source:"web"
+
       }),
       headers: {
         "Content-type": "application/json",
@@ -853,13 +902,13 @@ const Description = () => {
                   />
                 </div>
                 <div className={style.PrizeMove}>
-                    {count%configuration.FREE_PLAY_LIMIT===0&&count!==0?
-                    <img src={greenPrizeMove} />
-                  :
-                    // <img src={GrayPrizeMove} />
-                    ""
+                    {/* {count%configuration.FREE_PLAY_LIMIT===0&&count!==0&&playAgain? */}
+                    <img src={greenPrizeMove} className={count%configuration.FREE_PLAY_LIMIT===0&&count!==0&&playAgain?style.showPrizeReset:style.hideResetPrize}/>
+                  {/* : */}
+                    {/* // <img src={GrayPrizeMove} /> */}
+                    {/* "" */}
                       
-                  }
+                  {/* } */}
                 </div>
                
 
@@ -879,13 +928,13 @@ const Description = () => {
                   </div>
                   {gameStatus ? (
                     que === "0" ? (
-                      wait ? (
+                      wait===true ? (
                         <Lottie
                           animationData={PulseAnime}
                           loop={false}
                           onComplete={() => {
                             // setWait(true)
-                            checkQue();
+                            startGame();
                             console.log("reached");
                           }}
                         />
@@ -1079,7 +1128,14 @@ const Description = () => {
                           </div>
                         </div>
                       ) : (
-                        <Lottie animationData={waitAnimation} loop={false} />
+                        <Lottie animationData={waitAnimation} loop={false} onComplete={()=>{
+                          console.log(que,"que")
+                          console.log(gameStatus,"gameStatus")
+    console.log(firstStep,"firstStep")
+    console.log(secondStep,"secondStep")
+    console.log(direction,"direction")
+    console.log(wait,"wait")
+                        }}/>
                       )
                     ) : (
                       <Lottie

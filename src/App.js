@@ -81,6 +81,7 @@ function App() {
     state()
     
   },[dispatch,countryCode])
+  console.log(localStorage.getItem("user"))
   return (
     <div className="App">
       <Router>

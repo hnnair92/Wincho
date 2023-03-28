@@ -11,7 +11,9 @@ export const getProductByCollection=(request)=>async(dispatch)=>{
                 body:JSON.stringify({
                     category_id:request.category_id,
                     country_code:request.country_code,
-                    user_id:request.user_id
+                    user_id:request.user_id,
+                    source:"web"
+
                 }),
                 headers:{
                     "Content-Type":"application/json"
@@ -41,6 +43,8 @@ export const getAllGames=(data)=>async(dispatch)=>{
                 category_id:"0",
                 country_code:"UK",
                 user_id:data.user_id,
+                source:"web"
+
             }),
             headers:{
                 "Content-Type":"application/json"
@@ -70,9 +74,9 @@ export const gameEntry=(data)=>async(dispatch)=>{
             method:'POST',
             body:JSON.stringify({
                 catalog:data.catalog,
-                playerID:data.user_id,
+                playerID:data.playerID,
                 machineCode:data.machineCode,
-                source:data.source,
+                source:"web",
                 replay:data.replay,
                 freeplay:data.freeplay
             }),
@@ -80,6 +84,7 @@ export const gameEntry=(data)=>async(dispatch)=>{
                 "Content-Type":"application/json"
             }
         }).then(res=>res.json()).then((data)=>{
+            console.log(data);
             dispatch({
                 type:GAME_ENTRY_SUCCESS,
                 payload:data.data[0]
@@ -105,7 +110,9 @@ export const configutation =()=>async(dispatch)=>{
         fetch(`${baseUrl}/configurations/app`,{
             method:"POST",
             body:JSON.stringify({
-                countrycode:data.countryCode
+                countrycode:data.countryCode,
+                source:"web"
+
             }),
             headers:{
                 "Content-type":"application/json"

@@ -17,11 +17,14 @@ const Login = () => {
     const[forgotPass,setForgotPass] = useState(false)
     const [passError,setPassError] = useState({})
     useEffect(()=>{
-        if(authenticated){
+        if(localStorage.getItem("user")){
+            dispatch(updateProfile(user&&user.user_id))
+        }
+        if(localStorage.getItem("user")){
             navigate("/")
         }
-        if(user){
-            dispatch(updateProfile(user&&user.user_id))
+        else{
+            navigate("/login")
         }
     },[navigate,authenticated])
     const [username,setUsername] = useState("")

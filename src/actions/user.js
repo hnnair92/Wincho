@@ -12,7 +12,9 @@ export const loginAction=(data)=>async(disptach)=>{
             method:"POST",
             body:JSON.stringify({
                 username:data.username,
-                password:data.password
+                password:data.password,
+                source:"web"
+
             }),
             headers:{
                 "Content-Type":"application/json"
@@ -64,6 +66,8 @@ export const registerAction = (data)=>async(dispatch)=>{
                 email:data.email,
                 password:data.password,
                 dob:data.dob,
+                source:"web"
+
             }),
             headers:{
                 "Content-Type":"application/json"
@@ -100,11 +104,13 @@ export const updateProfile = (user)=>async(dispatch)=>{
         dispatch({
             type:PROFILE_REQUEST
         })
-        const userId = localStorage.getItem("user")
+        const userId = JSON.parse(localStorage.getItem("user"))
         await fetch(`${baseUrl}/user/profile/details`,{
             method:"POST",
             body:JSON.stringify({
-                user_id:userId
+                user_id:userId,
+                source:"web"
+
             }),
             headers:{
                 "Content-type":"application/json"

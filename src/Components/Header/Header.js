@@ -16,13 +16,13 @@ const Header = () => {
   const [setting, setSetting] = useState(false);
   const userData = useSelector((state) => state.userData);
   const {user} = useSelector((state) => state.profile);
-
+  const isUser = JSON.parse(localStorage.getItem("user"))
   const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
   useEffect(()=>{
     dispatch(updateProfile(userData.user))
 
-  },[dispatch])
+  },[dispatch,userData.user])
   const handleId = (e) => {
     e.preventDefault();
     const path = window.location.pathname;
@@ -111,7 +111,7 @@ const Header = () => {
                 <AiOutlineClose className={style.closeIcon} onClick={()=>{
                 setSetting(false)
               }}/>
-                {user?
+                {isUser?
                 <ul>
                   <Link to="/profile" >
                     <li onClick={()=>{
@@ -274,7 +274,7 @@ const Header = () => {
             />
             {setting ? (
               <div className={style.Settings}>
-                {user?
+                {isUser?
                 <ul>
                   <Link to="/profile" onClick={()=>{
                 setSetting(false)
