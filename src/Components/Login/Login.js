@@ -27,7 +27,7 @@ const Login = () => {
         else{
             navigate("/login")
         }
-    },[])
+    },[dispatch,navigate])
     const [username,setUsername] = useState("")
     const[password,setPassword] = useState("")
     const[email,setEmail] = useState("")
