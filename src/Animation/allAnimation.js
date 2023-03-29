@@ -8,5 +8,11 @@ import wait_40 from './wait40_s.json'
 import wait_45 from './wait45_s.json'
 import wait_50 from './wait50_s.json'
 import wait_R_G from './wait red to green.json'
-
-export const AllAnimation = {wait_10,wait_15,wait_20,wait_25,wait_30,wait_35,wait_40,wait_45,wait_50,wait_R_G}
+import ArrowUp from './arrow_up.json'
+import ArrowRight from './arrow_right.json'
+import ArrowLeft from './left_arrow.json'
+import RedtoGreen from './wait red to green.json'
+import waitPulse from './wait_pulse.json'
+import ReversePlay from './btn_play_reverse.json'
+import ReverseWait from './wait_reverse.json'
+export const AllAnimation = {wait_10,wait_15,wait_20,wait_25,wait_30,wait_35,wait_40,wait_45,wait_50,wait_R_G,ArrowUp,ArrowLeft,ArrowRight,RedtoGreen,waitPulse,ReversePlay,ReverseWait}

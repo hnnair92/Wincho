@@ -32,7 +32,7 @@ export const getProductByCollection=(request)=>async(dispatch)=>{
         console.log(error);
     }
 }
-export const getAllGames=(data)=>async(dispatch)=>{
+export const getAllGames=(user)=>async(dispatch)=>{
     try {
         dispatch({
             type:GET_ALL_GAMES_REQUEST
@@ -42,7 +42,7 @@ export const getAllGames=(data)=>async(dispatch)=>{
             body:JSON.stringify({
                 category_id:"0",
                 country_code:"UK",
-                user_id:data.user_id,
+                user_id:user,
                 source:"web"
 
             }),
@@ -65,7 +65,7 @@ export const getAllGames=(data)=>async(dispatch)=>{
     }
 }
 export const gameEntry=(data)=>async(dispatch)=>{
-    console.log(data)
+    // console.log(data)
     try {
         dispatch({
             type:GAME_ENTRY_REQUEST
@@ -84,7 +84,7 @@ export const gameEntry=(data)=>async(dispatch)=>{
                 "Content-Type":"application/json"
             }
         }).then(res=>res.json()).then((data)=>{
-            console.log(data);
+            // console.log(data);
             dispatch({
                 type:GAME_ENTRY_SUCCESS,
                 payload:data.data[0]

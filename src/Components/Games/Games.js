@@ -12,30 +12,46 @@ import searchIcon from "../../assests/Search Icon.png";
 const Games = () => {
   const { id } = useParams();
   const baseUrl = "https://uat.wincha-online.com";
-  const { products, loading } = useSelector(
+  let { products, loading } = useSelector(
     (state) => state.collectionProducts
-  );
+  ); 
+  const userId = JSON.parse(localStorage.getItem("user"))
   const { user } = useSelector((state) => state.profile);
   const userDatas = JSON.parse(localStorage.getItem("user"));
 //   console.log(userDatas);
   const navigate = useNavigate();
-  const [category, setCategory] = useState("free");
-  const dispatch = useDispatch();
   const[search,setSearch] = useState("")
+  const [searchArray,setSearchArray] = useState(false)
+  const [category, setCategory] = useState("free");
+  // const [category, setCategory] = useState(searchArray.length>0?"":"free");
+  const dispatch = useDispatch();
   const response = {
     category_id: category,
     country_code: "UK",
     user_id: user && user.user_id,
   };
+  useEffect(()=>{
+    if(searchArray.length>0){
+      setCategory("")
+    }
+    else{
+      setCategory(category)
+    }
+  },[category])
   const searchApi = async () => {
     await fetch(`${baseUrl}/product/search`, {
       method: "POST",
       body: JSON.stringify({
         search_key: search,
-        user_id: user.user_id,
+        user_id: userId,
       }),
+      headers:{
+        "Content-type":"application/json"
+      }
     }).then(res=>res.json()).then((data)=>{
         console.log(data)
+        setSearchArray(data.data)
+        // products.push(data)
         // console.log(search)
     })
   };
@@ -121,7 +137,13 @@ const Games = () => {
                     : style.category
                 }
                 onClick={(e) => {
+                  if(searchArray.length>0){
+                    setCategory("")
+                  }
+                  else{
+                    // setCategory(category)
                   setCategory(categoryItem.value);
+                  }
                   setAllCategory("");
 
                   // setAllCategory(categoryItem.title)
@@ -156,10 +178,54 @@ const Games = () => {
         <Loader />
       ) : (
         <div className={style.Games}>
-          {products &&
+          {search===""?products&&
             products.map((game, index) => {
               return (
-                <Link to={`game/${game.id}`} state={{ game: game, user: info }}>
+                <Link to={`/game/${game.id}`} state={{ game: game, user: info }}>
+                  <div className={style.Game} key={index}>
+                    {game.new_item === true ? (
+                      <div className={style.Label}>
+                        {/* <p>New</p> */}
+                        <img src={labelNew} alt="" />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    {/* {game.price==="0"?<div className={style.LabelFree}>
+                        <p>Free</p>
+                    </div>:""} */}
+
+                    <div className={style.Image}>
+                      <img src={game.featured_image.thumbnail} alt="" />
+                    </div>
+                    <div className={style.Details}>
+                      <p className={style.Name}>{game.title}</p>
+                      <div className={style.PriceDiv}>
+                        <div className={style.ticketIcon}>
+                          <Link to="/tickets">
+                            <img src={Ticket} alt="" className={style.icon} />
+                          </Link>
+                        </div>
+                        {game && game.price === "0" ? (
+                          <p className={style.free}>Free</p>
+                        ) : (
+                          <p className={style.Price}>{game.price}</p>
+                        )}
+
+                        <div className={style.infoIcon}>
+                          <Link to="/">
+                            <img src={info} alt="" className={style.info} />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            }):
+            searchArray&&searchArray.map((game, index) => {
+              return (
+                <Link to={`/game/${game.id}`} state={{ game: game, user: info }}>
                   <div className={style.Game} key={index}>
                     {game.new_item === true ? (
                       <div className={style.Label}>

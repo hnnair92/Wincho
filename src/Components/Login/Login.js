@@ -9,6 +9,7 @@ import info from '../../assests/Information Icon.png'
 import icon from '../../assests/Wincha Support Icon.png'
 const Login = () => {
     // const user = JSON.parse(localStorage.getItem("user"))
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const baseUrl = "https://uat.wincha-online.com"
     const{error,user,authenticated} = useSelector((state)=>state.userData)
@@ -26,11 +27,10 @@ const Login = () => {
         else{
             navigate("/login")
         }
-    },[navigate,authenticated])
+    },[])
     const [username,setUsername] = useState("")
     const[password,setPassword] = useState("")
     const[email,setEmail] = useState("")
-    const dispatch = useDispatch()
     
     const handleLogin =(e)=>{
         const data = {

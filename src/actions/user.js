@@ -99,7 +99,7 @@ export const registerAction = (data)=>async(dispatch)=>{
     }
 }
 
-export const updateProfile = (user)=>async(dispatch)=>{
+export const updateProfile = ()=>async(dispatch)=>{
     try {
         dispatch({
             type:PROFILE_REQUEST
@@ -110,7 +110,6 @@ export const updateProfile = (user)=>async(dispatch)=>{
             body:JSON.stringify({
                 user_id:userId,
                 source:"web"
-
             }),
             headers:{
                 "Content-type":"application/json"

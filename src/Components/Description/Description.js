@@ -1,449 +1,446 @@
-import React, { useState, useRef, useEffect } from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useParams,
-  usePrompt,
-} from "react-router-dom";
-import style from "./Description.module.css";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-
-import binoculars from "../../assests/binoculars.png";
-import io from "socket.io-client";
-
-import info from "../../assests/info.png";
-import userView from "../../assests/GAME - ICON - Queue no bubble ICON.png";
-
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { configutation, gameEntry, getAllGames } from "../../actions/product";
-
-import restartImg from "../../assests/Last Win Button.png";
-import cameraImage from "../../assests/Switch Camera Button.png";
-import playInfo from "../../assests/How to Play Button.png";
-import reportImage from "../../assests/Report Issue Icon.png";
-import startImage from "../../assests/Play Button.png";
-import Lottie from "lottie-react";
-import RightArrow from "../../Animation/arrow_right.json";
-import LeftArrow from "../../Animation/left_arrow.json";
-import UpArrow from "../../Animation/arrow_up.json";
-import waitAnime from "../../Animation/wait_reverse.json";
-import PulseAnime from "../../Animation/wait_pulse.json";
-import ticketIcon from "../../assests/golden-ticket.png";
-import reversePlay from "../../Animation/btn_play_reverse.json";
-import infoIcon from "../../assests/info.png";
-import Demo from "../Home/Demo";
-import pointsBg from "../../assests/Price of Game BG.png";
-import { socket } from "../../socket";
-import { AllAnimation } from "../../Animation/allAnimation";
 import { updateProfile } from "../../actions/user";
-const Description = () => {
-  const [exit, setExit] = useState(false);
-  useEffect(() => {
-    if (gameStatus) {
-      window.addEventListener("beforeunload", alertUser);
-    }
-    // window.addEventListener("unload", handleEndConcert);
-    return () => {
-      window.removeEventListener("beforeunload", alertUser);
-      // window.removeEventListener("unload", handleEndConcert);
-      // handleEndConcert();
-    };
-  }, []);
-  const alertUser = (e) => {
-    e.preventDefault();
-    e.returnValue = "";
-    setExit(true);
-  };
-  // const handleEndConcert = async () => {
-  //   await fetcher({
-  //     url: endConcert(concert.id),
-  //     method: "PUT",
-  //   });
-  // };
+import style from "./Description.module.css";
+import Screen from "./Screen";
+import { socket } from "../../socket";
+import Lottie from "lottie-react";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { AllAnimation } from "../../Animation/allAnimation";
+import { assets } from "./assests";
+import ReactPlayer from "react-player";
 
+const Description = () => {
   const dispatch = useDispatch();
-  const baseUrl = "https://uat.wincha-online.com";
-  const { user } = useSelector((state) => state.profile);
-  const { configuration } = useSelector((state) => state.configuration);
-  const navigate = useNavigate();
   const location = useLocation();
-  let stateData = location.state;
-  console.log(stateData.game.price);
-  const [viewCount, setViewCount] = useState(0);
-  const [ids, setId] = useState("");
-  const [playAgain, setPlayAgain] = useState(false);
-  const [firstMove, setFirstMove] = useState(false);
-  const [wait, setWait] = useState(false);
-  const [camera, setCamera] = useState(true);
-  const [direction, setDirection] = useState([]);
-  const [que, setQue] = useState("");
-  const [active, setActive] = useState(true);
+  const navigate = useNavigate();
+  const state = location.state;
+  const GameData = state.game;
+  const baseUrl = "https://uat.wincha-online.com";
+  //   console.log(GameData);
+  const videoRef = useRef()
+  const userId = JSON.parse(localStorage.getItem("user"));
+  const baseMessage = `${userId}|${GameData?.machine_code}`;
+  // React UseStates
+  const [report, setReport] = useState({
+    Title: "",
+    Content: "",
+  });
+  const [status, setStatus] = useState({});
+  const [lastWin,setLastWin] = useState(false)
+  const [minimized,setminimized] = useState(false)
+  const [session, setSession] = useState({});
   const [firstStep, setFirstStep] = useState(false);
   const [secondStep, setSecondStep] = useState(false);
-  const [moved, setMoved] = useState("");
-  const [status, setStatus] = useState({});
-  const [gameStart, setGameStart] = useState({});
-  const [gameStatus, setGameStatus] = useState(false);
-  const [waitAnimation, setWaitAnime] = useState({});
-  const [session, setSession] = useState({});
-  const [userFreePlay, setUserFreePlay] = useState(()=>{
-    localStorage.getItem('times')?localStorage.getItem('times'):0
-  });
-  console.log(stateData, "stateData");
-  useEffect(()=>{
-    localStorage.getItem('times')?
-    localStorage.setItem('times',JSON.stringify(userFreePlay)):
-    localStorage.setItem('times',JSON.stringify(0))
-
-  },[userFreePlay])
-  console.log(userFreePlay,"userFreePlay")
-  const onFocus = (e) => {
-    console.log("Tab is in focus", e);
-  };
-  const onBlur = (e) => {
-    console.log("Tab is blurred", e);
-  };
-  console.log(waitAnime);
-  const checkWaitAnime = () => {
-    console.log(game.machine_delay_time, "its the delay time");
-    switch (game.machine_delay_time) {
-      case 10:
-        setWaitAnime(AllAnimation.wait_10);
-        break;
-      case 15:
-        setWaitAnime(AllAnimation.wait_15);
-        break;
-      case 20:
-        setWaitAnime(AllAnimation.wait_20);
-        break;
-      case 25:
-        setWaitAnime(AllAnimation.wait_25);
-        break;
-      case 30:
-        setWaitAnime(AllAnimation.wait_30);
-        break;
-      case 35:
-        setWaitAnime(AllAnimation.wait_35);
-        break;
-      case 40:
-        setWaitAnime(AllAnimation.wait_40);
-        break;
-      case 45:
-        setWaitAnime(AllAnimation.wait_45);
-        break;
-      case 50:
-        setWaitAnime(AllAnimation.wait_50);
-        break;
-
-      default:
-        setWaitAnime({});
-    }
-  };
-  useEffect(() => {
-    console.log(window.navigator);
-    window.addEventListener("focus", onFocus);
-    window.addEventListener("blur", onBlur);
-    window.addEventListener("offline", () => {
-      console.log("I am offline.");
-    });
-    //
-    window.addEventListener("online", () => {
-      console.log("I am back online.");
-    });
-
-    onFocus();
-    return () => {
-      // usePrompt("Hello from usePrompt -- Are you sure you want to leave?", isBlocking);
-      window.addEventListener("offline", () => {
-        console.log("I am offline.");
-      });
-
-      window.addEventListener("online", () => {
-        console.log("I am back online.");
-      });
-      window.removeEventListener("focus", onFocus);
-      window.removeEventListener("blur", onBlur);
-    };
-  }, [window]);
-  const gameData = stateData.game;
-  const dataEntry = {
-    category_id: 0,
-    country_code: user && user.coutryname,
-    user_id: user && user._id,
-  };
-  let datas = {
-    catalog: gameData && gameData.id,
-    playerID: user && user._id,
-    machineCode: gameData && gameData.machine_code,
-    source: "web",
-    replay: false,
-    freeplay: false,
-  };
+  const [wait, setWait] = useState(false);
+  const [camera, setCamera] = useState(false);
+  const [count, setCount] = useState(4);
+  const [viewCount, setViewCount] = useState("");
+  const [onPlay,setOnPlay] = useState(true)
+  const [freePlay, setFreePlay] = useState(
+    localStorage.getItem("times")
+      ? JSON.parse(localStorage.getItem("times"))
+      : 0
+  );
+  const [gamePlayStatus, setGamePlayStatus] = useState(false);
+  const [playAgain, setPlayAgain] = useState(false);
+  const [que, setQue] = useState("");
+  const [direction, setDirection] = useState([]);
+  const [waitAnimation, setWaitAnimation] = useState({});
+  const [id, setId] = useState("");
+  const [topup, setTopup] = useState(false);
+  const [leavePopup, setLeavePopup] = useState(false);
+  const [freeLimitPopup, setFreeLimitPopup] = useState(false);
+  const [prizeResetActive,setPrizeResetActive] = useState(false)
+  // Redux UseSelectors
+  const { game, loading } = useSelector((state) => state.gameEntry);
+  const { user } = useSelector((state) => state.profile);
+  const { configuration } = useSelector((state) => state.configuration);
   const { products } = useSelector((state) => state.collectionProducts);
-  const { game } = useSelector((state) => state.gameEntry);
 
+  //   sockets
   useEffect(() => {
-    dispatch(getAllGames(dataEntry));
-    dispatch(gameEntry(datas));
-    console.log(datas);
-    // if (user === undefined) {
-      // navigate("/login");
-    // }
-  }, [navigate, dispatch, wait]);
-
-  const baseMessage = `${user && user._id}|${game && game.machineCode}`;
-  let socket_connect = {
-    user_id: user && user._id,
-    socket_id: socket.id,
-    machineCode: game && game.machineCode,
-  };
-  // console.log(socket_connect);
-  const checktimeout = (id) => {
-    // socket.disconnect();
-    //       console.log("socket disconnected of user", user._id);
-    //       console.log("socket disconnected of user ids", ids);
-    //       setTimeout(()=>{
-    //         console.log(socket)
-    //         socket.connect({'forceNew': true});
-    //         socket.on('connect', function() {
-    //           console.log('Connected!');
-    //         });
-    //         socket.emit("socket_connect", JSON.stringify(socket_connect));
-    //         console.log(socket)
-
-    //       },1000)
-    // if(firstMove===false){
-    socket.emit("peer_message", `${baseMessage}|P_ENDED`);
-    socket.emit("peer_message", `${baseMessage}|G_DISCONNECTED`);
-    datas.replay = true;
-    console.log(datas.replay);
-    dispatch(gameEntry(datas));
-    if(secondStep===false&&firstStep===false){
-      gameLeave(id,true);
-    }
-    else{
-      gameLeave(id,false)
-    }
-    console.log(datas);
-
-    // console.log("got out");
-    // }, 5000);
-    // }
-    // else{
-    //   console.log("not timeout")
-    // }
-  };
-  useEffect(() => {
-    if (game) {
-      checkWaitAnime();
-    }
-  }, [game]);
-  console.log(waitAnimation);
-  useEffect(() => {
-    console.log(socket);
-    dispatch(configutation());
-    console.log(configuration.FREE_PLAY_LIMIT);
-
     socket.on("connect", () => {
-      console.log("connected");
-      console.log(socket);
+      console.log("Connected");
     });
-    socket.emit("socket_connect", JSON.stringify(socket_connect));
+    socket.emit(
+      "socket_connect",
+      JSON.stringify({
+        user_id: userId,
+        socket_id: socket.id,
+        machineCode: GameData?.machine_code,
+      })
+    );
+    if (game) {
+      // setDirection(game.movement.split("-"))
+      // console.log(game)
+      checkAnime();
+    }
   }, []);
   useEffect(() => {
-    if (socket.connected === false) {
-      socket.on("connect", () => {
-        console.log("connected");
-      });
-    }
+    socket.on("game_que_count", (res) => {
+      const splitRes = res.split("|");
+      const splitQue = splitRes[splitRes.length - 1].split(":");
+      const splitId = splitRes[0].split(":");
+      if (userId === splitId[1]) {
+        socket.emit("sent_que_status",res)
+        setQue(splitQue[splitQue.length - 1]);
+      }
+    });
+    socket.on("request_processing", (res) => {
+      console.log(res);
+    });
+    socket.on("watchers_count", (res) => {
+      const splitRes = res.split("|");
+      const splitViews = splitRes[splitRes.length - 1].split(":");
+      const splitId = splitRes[0].split(":");
+      if (game.machineCode === splitId[1]) {
+        console.log(splitViews[splitViews.length - 1]);
+        setViewCount(splitViews[splitViews.length - 1]);
+      }
+      console.log(res);
+    //   setViewCount();
+    });
+    socket.on("get_machine_status", (res) => {
+      console.log(res);
+    });
+    socket.on("first_move", (res) => {
+      console.log(res);
+    });
+    socket.on("second_move", (res) => {
+      console.log(res);
+    });
+    socket.on("update_que_status", (res) => {
+      console.log(res);
+    });
+    socket.on("game_started", (res) => {
+      console.log(res);
+    });
+    socket.on("lr_release", (res) => {
+      console.log(res);
+    });
+    socket.on("fw_stop", (res) => {
+      console.log(res);
+    });
+    socket.on("wait_prize_reset", (res) => {
+      console.log(res);
+    });
+    socket.on("prize_reset", (res) => {
+      console.log(res);
+    });
+    socket.on("sensor_message", (res) => {
+      console.log(res);
+    });
+    socket.on("disconnect", (res) => {
+      console.log(res);
+    });
+  }, [socket, que]);
 
-    socket.on("game_que_count", (queCount) => {
+  let EntryRequest = {};
+
+  // Redux Dispatch and React UseEffect
+  useEffect(() => {
+    if (GameData) {
+      EntryRequest = {
+        catalog: GameData && GameData.id,
+        playerID: userId,
+        machineCode: GameData && GameData.machine_code,
+        source: "web",
+        replay: false,
+        freeplay: false,
+      };
+      dispatch(gameEntry(EntryRequest));
+      dispatch(configutation());
+      dispatch(getAllGames(userId));
+
+      //   console.log(EntryRequest);
+    }
+    dispatch(updateProfile());
+  }, [dispatch]);
+  useEffect(() => {
+    localStorage.getItem("times")
+      ? localStorage.setItem("times", freePlay)
+      : localStorage.setItem("times", 0);
+  }, [freePlay]);
+
+  // popups
+  async function movePrize(){
+    return(
+        <div className={style.popup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.popupText}>
+          <p>Woah there you haven't got enough tickets</p>
+        </div>
+        <div className={style.popupButton}>
+          {/* <Link
+            to="/tickets"
+            onClick={() => {
+              setTopup(false);
+            }}
+          > */}
+            <button onClick={()=>{
+                prizeReset()
+                setPrizeResetActive(true)
+            }}>YES</button>
+          {/* </Link> */}
+          <Link
+            to="/prizes"
+            onClick={() => {
+              setTopup(false);
+            }}
+          >
+            <button>NO</button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
+  async function TopUps() {
+    return (
+      <div className={style.popup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.popupText}>
+          <p>Woah there you haven't got enough tickets</p>
+        </div>
+        <div className={style.popupButton}>
+          <Link
+            to="/tickets"
+            onClick={() => {
+              setTopup(false);
+            }}
+          >
+            <button>TOP UP</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  async function LeavePopup() {
+    return (
+      <div className={style.popup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.popupText}>
+          <p>Woah there you haven't got enough tickets</p>
+        </div>
+        <div className={style.popupButton}>
+          <Link
+            to="/tickets"
+            onClick={() => {
+              setLeavePopup(false);
+            }}
+          >
+            <button>TOP UP</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  async function FreeLimitPopup() {
+    return (
+      <div className={style.popup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.popupText}>
+          <p>You've used all your free plays</p>
+        </div>
+        <div className={style.popupButton}>
+          <Link
+            to="/prizes"
+            onClick={() => {
+              setFreeLimitPopup(false);
+            }}
+          >
+            <button>OK</button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // All Game Screen API's
+  async function status_Session() {
+    setTimeout(() => {
+      gameStatus();
+      // gameSession()
+    }, game.get_status_time);
+  }
+  async function timeOut(userId, timeout_status) {
+    socket.emit(`${baseMessage}|P_ENDED`);
+    socket.emit(`${baseMessage}|G_DISCONNECTED`);
+    gameLeave(userId, timeout_status);
+    setTimeout(() => {
+      EntryRequest.replay = true;
+      dispatch(gameEntry(EntryRequest));
+    }, 5000);
+  }
+  async function replayTimeout(id) {
+    setId(id);
+    gameLeave(id, false);
+    setPlayAgain(false);
+    navigate("/prizes");
+  }
+  async function checkAnime() {
+    switch (game.machine_delay_time) {
+      case 10:
+        setWaitAnimation(AllAnimation.wait_10);
+        break;
+      case 15:
+        setWaitAnimation(AllAnimation.wait_15);
+        break;
+      case 20:
+        setWaitAnimation(AllAnimation.wait_20);
+        break;
+      case 25:
+        setWaitAnimation(AllAnimation.wait_25);
+        break;
+      case 20:
+        setWaitAnimation(AllAnimation.wait_30);
+        break;
+      case 35:
+        setWaitAnimation(AllAnimation.wait_35);
+        break;
+      case 40:
+        setWaitAnimation(AllAnimation.wait_40);
+        break;
+      case 45:
+        setWaitAnimation(AllAnimation.wait_45);
+        break;
+      case 50:
+        setWaitAnimation(AllAnimation.wait_50);
+        break;
+      default:
+        setWaitAnimation(AllAnimation.ReverseWait);
+        break;
+    }
+  }
+  async function prizeReset() {
+    await fetch(`${baseUrl}/game/player/request/prize/move`, {
+      method: "POST",
+      body: JSON.stringify({
+        playerID: userId,
+        machineCode: game.machineCode,
+        player_request: "RH_MOVE_GIFT",
+      }),
+      headers:{
+        "Content-type":'application/json'
+      }
+    }).then(res=>res.json()).then((data)=>{console.log(data)})
+  }
+  async function gameJoin(e) {
+    setDirection(game.movement.split("-"));
+    e.preventDefault();
+    socket.emit("peer_message", `${baseMessage}|G_CONNECTED`);
+    await socket.on("game_que_count", (queCount) => {
       console.log(queCount);
+
       const splitWord = queCount.split("|");
+
       const splitQue = splitWord[splitWord.length - 1].split(":");
       const splitId = splitWord[0].split(":");
-
-      if (splitId[1] === user._id) {
+      console.log(typeof splitQue[1]);
+      if (splitId[1] === userId) {
         setQue(splitQue[1]);
       }
     });
-    socket.on("disconnect", (daata) => {
-      console.log(daata);
-      console.log("disconnecting the socket");
-      socket.on("connect", () => {
-        console.log("connected after ");
-      });
-      socket.emit("socket_connect", JSON.stringify(socket_connect));
-    });
-    socket.on("watchers_count", (count) => {
-      console.log(count);
-      const splitCount = count.split("|");
-      const num = splitCount[splitCount.length - 1].split(":");
-      setViewCount(num[1]);
-      console.log("watchers_count");
-    });
-    socket.on("first_move", (moveData) => {
-      const move = moveData.split("|");
-      setMoved(move[move.length - 1]);
-      console.log(moveData);
-      console.log(moved, "moved");
-    });
-    socket.on("second_move", (moveData) => {
-      console.log(moveData);
-    });
-    socket.on("get_machine_status", (status) => {
-      console.log(status);
-      console.log("get_machine_status");
-    });
-    socket.on("game_started", (status) => {
-      console.log(status);
-      console.log("game_started");
-    });
-    socket.on("sensor_message", (sensor) => {
-      console.log(sensor);
-      console.log("sensor_message");
-    });
-    socket.on("update_que_status", (sensor) => {
-      console.log(sensor);
-      const splitedQue = sensor.split("|");
-      const userId = splitedQue[0].split(":");
-      console.log(userId);
-      console.log("update_que_status");
-    });
-    socket.on("request_processing", (sensor) => {
-      console.log(sensor);
-      console.log("request_processing");
-    });
-    socket.on("lr_release", (sensor) => {
-      console.log(sensor);
-      console.log("lr_release");
-    });
-    socket.on("prize_reset", (sensor) => {
-      console.log(sensor);
-      console.log("prize_reset");
-    });
-    socket.on("wait_prize_reset", (sensor) => {
-      console.log(sensor);
-      console.log("wait_prize_reset");
-    });
-    socket.on("fw_stop", (sensor) => {
-      console.log(sensor);
-      console.log("fw_stop");
-    });
-  }, [socket, moved, que, firstMove]);
-
-  const firstMoveStart = async (directionMove) => {
-    console.log(moved, "moved");
-    if (directionMove === "LEFT") {
-      const message = `${baseMessage}|P_LR`;
-      socket.emit("peer_message", message);
-    } else if (directionMove === "RIGHT") {
-      const message = `${baseMessage}|P_RL`;
-      socket.emit("peer_message", message);
-    }
-    await fetch(`${baseUrl}/game/movement`, {
+    await fetch(`${baseUrl}/game/join`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game && game.machineCode,
-        playerID: user && user._id,
-        command: directionMove,
+        machineCode: game.machineCode,
+        playerID: user._id,
+        freeplay: false,
+        source: "web",
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        setFirstMove(false);
+        setGamePlayStatus(true);
+        console.log(data);
+        if (que === "0") {
+          console.log(que);
+        } else {
+          setWait(true);
+          console.log(que);
+          console.log("not zero");
+        }
       });
-  };
-  const SecondMoveStart = async () => {
-    const message = `${baseMessage}|P_FW`;
-    socket.emit("peer_message", message);
+  }
+  async function gameStart() {
+    // console.log(freePlay)
+    // localStorage.setItem("times",JSON.stringify(freePlay))
+    // const freePl = JSON.parse(localStorage.getItem("times"))
+    // console.log(freePl);
+    // setFreePlay(freePlay+1)
+    console.log(direction);
+    socket.emit("peer_message", `${baseMessage}|P_STARTED`);
+
+    await fetch(`${baseUrl}/game/start`, {
+      method: "POST",
+      body: JSON.stringify({
+        playerID: user._id,
+        machineCode: game.machineCode,
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setWait(false);
+        setFirstStep(true);
+      });
+  }
+  async function FirstArrowPress(command) {
+    console.log("reached Press");
+
+    if (command === "LEFT") {
+      socket.emit("peer_message", `${baseMessage}|P_RL`);
+    } else if (command === "RIGHT") {
+      socket.emit("peer_message", `${baseMessage}|P_LR`);
+    }
+
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game && game.machineCode,
-        playerID: user && user._id,
-        command: "P_FW",
+        machineCode: game.machineCode,
+        playerID: user._id,
+        command:
+          command === "LEFT" ? "LEFT" : command === "RIGHT" ? "RIGHT" : "",
+        source: "web",
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {});
-  };
-  const firstMoveRelease = async (directionMove) => {
-    if (directionMove === "RL_STOP") {
-      const message = `${baseMessage}|RL_RELEASE`;
-      socket.emit("peer_message", message);
-      console.log("emited RL");
-    } else if (directionMove === "LR_STOP") {
-      const message = `${baseMessage}|LR_RELEASE`;
-      socket.emit("peer_message", message);
-      console.log("emited LR");
+  }
+  async function FirstArrowRelease(command) {
+    console.log("reached release");
+    if (command === "RL_STOP") {
+      socket.emit("peer_message", `${baseMessage}|LR_RELEASE `);
+    } else if (command === "LR_STOP") {
+      socket.emit("peer_message", `${baseMessage}|LR_RELEASE `);
     }
 
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game && game.machineCode,
-        playerID: user && user._id,
-        command: directionMove,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setFirstStep(false);
-        setSecondStep(true);
-      });
-  };
-  const secondMoveRelease = async () => {
-    const FW_RELEASE = `${baseMessage}|FW_RELEASE`;
-    socket.emit("peer_message", FW_RELEASE);
-    await fetch(`${baseUrl}/game/movement`, {
-      method: "POST",
-      body: JSON.stringify({
-        machineCode: game && game.machineCode,
-        playerID: user && user._id,
-        command: "FW_STOP",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const P_ENDED = `${baseMessage}|P_ENDED`;
-        const G_DISCONNECTED = `${baseMessage}|G_DISCONNECTED`;
-        socket.emit("peer_message", P_ENDED);
-        socket.emit("peer_message", G_DISCONNECTED);
-
-        setSecondStep(false);
-
-        setGameStatus(true);
-        setTimeout(() => {
-          setGameStatus(false);
-          setPlayAgain(true);
-        }, game && game.machine_delay_time * 1000);
-        setTimeout(() => {
-          statusApi();
-          sessionApi();
-        }, game && game.get_status_time * 1000);
-      });
-  };
-  const fetchPoints = async () => {
-    await fetch(`${baseUrl}/points/update`, {
-      method: "PUT",
-      body: JSON.stringify({
-        user_id: user._id,
-        point: stateData.game.price,
-        credicts: false,
+        machineCode: game.machineCode,
+        playerID: user._id,
+        command: command,
         source: "web",
       }),
       headers: {
@@ -452,144 +449,109 @@ const Description = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatch(updateProfile(user._id));
+        setSecondStep(true);
+        setFirstStep(false);
         console.log(data);
-        startGame();
-      })
-      .catch((err) => {
-        console.log(err);
       });
-  };
-  const startGame = async () => {
-    const message = `${baseMessage}|P_STARTED`;
-    socket.emit("peer_message", message);
-    console.log("direction from start", user._id);
-    await fetch(`${baseUrl}/game/start`, {
+  }
+  async function SecondArrowPress() {
+    socket.emit("peer_message", `${baseMessage}|P_FW`);
+
+    await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
         playerID: user._id,
+        command: "P_FW",
         source: "web",
-        freeplay: false,
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  }
+  async function SecondArrowRelease() {
+    socket.emit("peer_message", `${baseMessage}|FW_RELEASE`);
+
+    await fetch(`${baseUrl}/game/movement`, {
+      method: "POST",
+      body: JSON.stringify({
+        machineCode: game.machineCode,
+        playerID: user._id,
+        command: "FW_STOP",
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        setGameStart(data.data[0]);
-        console.log("starting", data.data[0]);
-        setWait(false);
-        setDirection(game && game.movement.split("-"));
-        setFirstStep(true);
+        socket.emit(`${baseMessage}|P_ENDED`);
+        socket.emit(`${baseMessage}|G_DISCONNECTED`);
+        setSecondStep(false);
+        setTimeout(() => {
+          gameStatus();
+          gameSession();
+        }, game.get_status_time * 1000);
       });
-  };
-  const joinGame = async (e) => {
-    e.preventDefault();
-    const intPrice = parseInt(stateData.game.price);
-    const intPoints = parseInt(user.point);
-    if (intPrice <= intPoints) {
-      console.log(intPoints >= intPrice);
-      const message = `${baseMessage}|G_CONNECTED`;
-      socket.emit("peer_message", message);
-      await socket.on("game_que_count", (queCount) => {
-        console.log(queCount);
-
-        const splitWord = queCount.split("|");
-
-        const splitQue = splitWord[splitWord.length - 1].split(":");
-        const splitId = splitWord[0].split(":");
-        console.log(typeof splitQue[1]);
-        if (splitId[1] === user._id) {
-          setQue(splitQue[1]);
-        }
-      });
-      await fetch(`${baseUrl}/game/join`, {
-        method: "POST",
-        body: JSON.stringify({
-          machineCode: game && game.machineCode,
-          playerID: user && user._id,
-          freeplay: false,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log("joined", data);
-
-          // setTimeout(() => {
-          setGameStatus(true);
-          console.log(que, "que");
-          if (que === "0") {
-            console.log("starting joingame");
-
-            setWait(false);
-            // startGame();
-          } else {
-            console.log("starting joingame sent");
-            setWait(true);
-          }
-          // }, 5000);
-        });
-    } else {
-      // navigate("/tickets");
-      console.log(intPoints >= intPrice);
-      console.log("intPoints", user);
-      console.log("intPrice", intPrice);
-    }
-  };
-  const statusApi = async () => {
+  }
+  async function gameStatus() {
+    console.log(userId);
     await fetch(`${baseUrl}/game/status`, {
       method: "POST",
       body: JSON.stringify({
+        playerID: userId,
         machineCode: game.machineCode,
-        playerID: user._id,
+        source: "web",
       }),
       headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setStatus(data.status);
-      });
-  };
-  const sessionApi = async () => {
-    await fetch(`${baseUrl}/game/session/status`, {
-      method: "POST",
-      body: JSON.stringify({
-        // machineCode: game && game._id,
-        user_id: user._id,
-        machineID: game._id,
-        game_status: status, // Status from game status API
-        product_id: stateData.game.id,
-        game_session_id: gameStart.game_session_id,
-      }),
-      headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setSession(data.data[0]);
-        if (data.status === "True") {
-          AddtoCart();
-        }
-        console.log("status.game_session_id", gameStart.game_session_id);
+
+        setStatus(data.status);
       });
-  };
-  // console.log(que,"outside")
-  const gameLeave = async (idData,status) => {
+  }
+  async function gameSession() {
+    console.log("session");
+    // setStatus(true)
+    await fetch(`${baseUrl}/game/session/status`, {
+      method: "POST",
+      body: JSON.stringify({
+        user_id: user._id,
+        machineID: game._id,
+        game_status: status,
+        product_id: GameData.id,
+        game_session_id: gameStart.game_session_id,
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        setSession(data.data);
+        if (status === true) {
+          addToCart();
+        }
+      });
+  }
+  async function gameLeave(User, timeout_status) {
     await fetch(`${baseUrl}/game/leave`, {
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
-        timeout_status: "",
+        playerID: userId,
+        timeout_status: timeout_status,
       }),
       headers: {
         "Content-type": "application/json",
@@ -597,34 +559,30 @@ const Description = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // navigate(`/prizes/game/${id}`,{state:{game:gameData}});
-        if (user._id === idData) {
+        console.log(id);
+        if (User === userId) {
           socket.disconnect();
-          console.log("socket disconnected of user", user._id);
-          console.log("socket disconnected of user ids", ids);
           setTimeout(() => {
-            console.log(socket);
             socket.connect({ forceNew: true });
-            socket.on("connect", function () {
-              console.log("Connected!");
-            });
-            socket.emit("socket_connect", JSON.stringify(socket_connect));
-            console.log(socket);
+            socket.on("connect", () => {});
+            socket.emit(
+              JSON.stringify({
+                user_id: userId,
+                socket_id: socket.id,
+                machineCode: GameData.machine_code,
+              })
+            );
           }, 1000);
-        } else {
-          console.log("not getting disconnected");
-          console.log("socket not disconnected of user", user._id, ids);
+          window.location.reload();
         }
-
-        window.location.reload();
       });
-  };
-  const AddtoCart = async () => {
-    await fetch(`${baseUrl}//cart/add`, {
+  }
+  async function addToCart() {
+    await fetch(`${baseUrl}/cart/add`, {
       method: "POST",
       body: JSON.stringify({
         user_id: user._id,
-        product_id: stateData.id,
+        product_id: GameData.id,
         game_status: status,
         machineID: game._id,
         archiveid: session.archiveid,
@@ -634,507 +592,719 @@ const Description = () => {
         "Content-type": "application/json",
       },
     })
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
       });
-  };
+  }
+  //   async function ApiLog(){
+  //     await fetch(`${baseUrl}/game/error/log`,{
+  //         method:"POST",
+  //         body:JSON.stringify({
+
+  //         })
+  //     })
+  //   }
+  async function PointDebit() {
+    const userPointInt = parseInt(user.point);
+    const gamePriceInt = parseInt(GameData.price);
+    if (userPointInt < gamePriceInt) {
+      // return navigate("/prizes")
+      return setTopup(true);
+    }
+
+    await fetch(`${baseUrl}/points/update`, {
+      method: "PUT",
+      body: JSON.stringify({
+        user_id: user._id,
+        point: GameData.price,
+        credicts: "false",
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (GameData.price === "0") {
+          setFreePlay(freePlay + 1);
+        }
+        if (
+          freePlay >= configuration.FREE_PLAY_LIMIT &&
+          GameData.price === "0"
+        ) {
+          return setFreeLimitPopup(true);
+        }
+        setCount(count + 1);
+        dispatch(updateProfile());
+        gameStart();
+      });
+  }
+  async function freeplayCheck() {
+    await fetch(`${baseUrl}`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: userId,
+        device_id: "",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  }
+  async function ReportIssue() {
+    await fetch(`${baseUrl}/game/issue/report`, {
+      method: "POST",
+      body: JSON.stringify({
+        playerID: user._id,
+        machineID: game._id,
+        productID: GameData.id,
+        title: report.Title,
+        content: report.Content,
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  }
+  async function ValidateApi() {
+    await fetch(`${baseUrl}`, {
+      method: "POST",
+      body: JSON.parse({
+        playerID: user._id,
+        machineID: game._id,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {});
+  }
   return (
     <div className={style.Container}>
-      {exit ? (
-        <div>
-          <p>Are you sure you want to leave this page?</p>
+        {prizeResetActive?
+         <div className={style.popup}>
+         <div className={style.popupImage}>
+           <img src={assets.winchaPopup} alt="" />
+         </div>
+         <div className={style.popupText}>
+           <p>Woah there you haven't got enough tickets</p>
+         </div>
+         <div className={style.popupButton}>
+           {/* <Link
+             to="/tickets"
+             onClick={() => {
+               setTopup(false);
+             }}
+           > */}
+             <button onClick={()=>{
+                 prizeReset()
+                 setPrizeResetActive(false)
+             }}>YES</button>
+           {/* </Link> */}
+           <Link
+             to="/prizes"
+             onClick={() => {
+               setTopup(false);
+               setPrizeResetActive(false)
+
+             }}
+           >
+             <button>NO</button>
+           </Link>
+         </div>
+       </div>
+        :""}
+      {topup ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Woah there you haven't got enough tickets</p>
+          </div>
+          <div className={style.popupButton}>
+            <Link
+              to="/tickets"
+              onClick={() => {
+                setTopup(false);
+              }}
+            >
+              <button>TOP UP</button>
+            </Link>
+          </div>
         </div>
       ) : (
         ""
       )}
-      {/* <div className={style.Overlay}></div> */}
-      <div className={style.Description}>
-        {active ? (
-          <div className={style.NowPlaying}>
-            <p className={style.head}>YOU'RE PLAYING FOR</p>
-            <div className={style.Image}>
-              <img src={gameData.featured_image.large} alt="" />
-            </div>
-            <p className={style.title}>{gameData.title}</p>
-            <div className={style.arrow}>
-              <IoIosArrowUp
-                className={style.arrowIcon}
-                onClick={() => {
-                  setActive(false);
-                }}
-              />
-            </div>
+      {leavePopup ? <LeavePopup /> : ""}
+      {freeLimitPopup ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
           </div>
-        ) : (
-          <div className={style.minimized}>
-            <p className={style.head}>YOU'RE PLAYING FOR</p>
-            <p className={style.title}>{gameData.title}</p>
-            <div className={style.arrow}>
-              <IoIosArrowDown
-                className={style.arrowIcon}
-                onClick={() => {
-                  setActive(true);
-                }}
-              />
-            </div>
+          <div className={style.popupText}>
+            <p>You've used all your free plays</p>
           </div>
-        )}
-
-        <div className={style.OtherGames}>
-          <div className={style.OtherBtn}>
-            <Link to="/prizes">
-              <button>EXIT GAME</button>
+          <div className={style.popupButton}>
+            <Link
+              to="/prizes"
+              onClick={() => {
+                setFreeLimitPopup(false);
+              }}
+            >
+              <button>OK</button>
             </Link>
           </div>
-          <div className={style.OtherTitle}>
+        </div>
+      ) : (
+        ""
+      )}
+      {lastWin?
+      <div className={style.LastWinPopup}>
+        <div className={style.PlayIcon}>
+            <button onClick={()=>{
+                
+                // videoRef.current.play()?videoRef.current.pause():videoRef.current.play()
+            }}>
+
+            <img src={assets.PlayImage} alt="" onClick={()=>{
+                onPlay?setOnPlay(false):setOnPlay(true)
+            }}/>
+            </button>
+        </div>
+        <div className={style.VideoSection}>
+        <ReactPlayer
+      url={game.last_win_url}
+      width="100%"
+      height="500px"
+      playIcon={<button>Play</button>}
+      playing={onPlay}
+    //   light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    />
+            {/* <video ref ={videoRef}>
+                <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
+            </video> */}
+        </div>
+      </div>
+    :
+    ""}
+      <div className={style.Section}>
+        <div className={style.ExtraGames}>
+          <div className={style.ExtraButton}>
+            <button>EXIT GAME</button>
+          </div>
+          <div className={style.Description}>
             <p>YOU MIGHT ALSO LIKE</p>
           </div>
           <div className={style.AllGames}>
-            {products &&
-              products.map((gameItem, index) => {
-                if (index < 6) {
-                  return (
-                    <Link
-                      to={`/prizes/game/${gameItem.id}`}
-                      state={{ game: gameItem, user: info }}
-                      className={style.GameAnchor}
-                      key={index}
-                    >
-                      <div className={style.SingleGame}>
-                        <div className={style.ProductImage}>
-                          <img src={gameItem.featured_image.thumbnail} alt="" />
-                        </div>
-                        <div className={style.ProductContent}>
-                          <div className={style.ProductTitle}>
-                            <p>{gameItem.title}</p>
-                          </div>
-                          <div className={style.PriceSection}>
-                            <div className={style.TicketIcon}>
-                              <img src={ticketIcon} alt="" />
-                            </div>
-                            <div className={style.ProductPrice}>
-                              <p>{gameItem.price}</p>
-                            </div>
-                            <div className={style.InfoIcon}>
-                              <img src={infoIcon} alt="" />
-                            </div>
-                          </div>
-                        </div>
+            {products?.map((game) => {
+              return (
+                <Link to={`/game/${game.id}`} state={{game:game}} >
+                <div className={style.Game}>
+                  <div className={style.Image}>
+                    <img src={game.featured_image.thumbnail} alt="" />
+                  </div>
+                  <div className={style.GameContent}>
+                    <div className={style.GameName}>
+                      <p>{game.title}</p>
+                    </div>
+                    <div className={style.TicketPrice}>
+                      <div className={style.Ticket}>
+                        <img src={assets.ticketIcon} alt="" />
                       </div>
-                    </Link>
-                  );
-                }
-              })}
+                      <div className={style.Price}>
+                        <p>{game.price === "0" ? "Free" : game.price}</p>
+                      </div>
+                      <div className={style.info}>
+                        <img src={assets.info} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
-        <div className={style.gameSection}>
-          <div className={style.GamePlay}>
-            <div className={style.Screen}>
-              <div className={style.icons}>
-                <div className={style.Magnify}>
-                  <img src={binoculars} alt="" />
-                  <span>{viewCount ? viewCount : 0}</span>
-                </div>
-                <div className={style.life}>
-                  <div className={style.lifeIcons}>
-                    <img src={userView} alt="" className={style.userIcons1} />
-                    {/* <img src={userIcon} alt="" className={style.userIcons2} />
-                <img src={userIcon} alt="" className={style.userIcons3} /> */}
-                  </div>
-                  <span>{que ? que : 0}</span>
-                </div>
+        <div className={style.GameScreen}>
+          <div className={style.Screen}>
+            <div className={style.Icons}>
+              <div className={style.queStatus}>
+                <img src={assets.userView} alt="" />
+                <span>{que ? que : 0}</span>
               </div>
-              {/* <iframe src={src1} title={gameData.title} className={camera===true?style.showVideo:style.hideVideo}></iframe>
-            <iframe src={src2} title={gameData.title} className={camera===false?style.showVideo:style.hideVideo}></iframe> */}
-              <div
-                className={camera === true ? style.showVideo : style.hideVideo}
-              >
-                {game && game.camera_data ? (
-                  <Demo
-                    sessionId={
-                      game &&
-                      game.camera_data &&
-                      game.camera_data[0] &&
-                      game.camera_data[0].session
-                    }
-                    token={
-                      game &&
-                      game.camera_data &&
-                      game.camera_data[0] &&
-                      game.camera_data[0].token
-                    }
-                  />
-                ) : (
-                  ""
-                )}
+              <div className={style.spectator}>
+                <img src={assets.binoculars} alt="" />
+                <span>{viewCount ? viewCount : 0}</span>
               </div>
-              <div
-                className={camera === false ? style.showVideo : style.hideVideo}
-              >
-                {game && game.camera_data ? (
-                  <Demo
-                    sessionId={
-                      game &&
-                      game.camera_data &&
-                      game.camera_data[1] &&
-                      game.camera_data[1].session
-                    }
-                    token={
-                      game &&
-                      game.camera_data &&
-                      game.camera_data[1] &&
-                      game.camera_data[1].token
-                    }
-                  />
-                ) : (
-                  ""
-                )}
-              </div>
-              {/* <div className={camera===true?style.showVideo:style.hideVideo}>
-            {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
-:""}
             </div>
-            <div className={camera===false?style.showVideo:style.hideVideo}>
-            {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
-:""}
-            </div> */}
-              {/* {game&&game.camera_data?<Demo sessionId={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].session} token={game&&game.camera_data&&game.camera_data[0]&&game.camera_data[0].token}/>
-:""} */}
-            </div>
+            {game && game.camera_data ? (
+              <div className={camera === false ? style.video : style.hideVideo}>
+                <Screen
+                  sessionId={
+                    game &&
+                    game.camera_data &&
+                    game.camera_data[0] &&
+                    game.camera_data[0].session
+                  }
+                  token={
+                    game &&
+                    game.camera_data &&
+                    game.camera_data[0] &&
+                    game.camera_data[0].token
+                  }
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            {game && game.camera_data ? (
+              <div className={camera === false ? style.hideVideo : style.video}>
+                <Screen
+                  sessionId={
+                    game &&
+                    game.camera_data &&
+                    game.camera_data[1] &&
+                    game.camera_data[1].session
+                  }
+                  token={
+                    game &&
+                    game.camera_data &&
+                    game.camera_data[1] &&
+                    game.camera_data[1].token
+                  }
+                />
+              </div>
+            ) : (
+              ""
+            )}
+            {/* <div className={style.video}>
+                    <Screen />
+                </div> */}
           </div>
-          <div className={style.MobileControls}>
-            <div className={style.ActionBtn}>
-              <div className={style.Restart}>
-                <img
-                  src={cameraImage}
-                  alt=""
+          <div className={style.Controls}>
+            <div className={style.Left}>
+              <div className={style.Camera}>
+                <button
                   onClick={() => {
                     camera ? setCamera(false) : setCamera(true);
                   }}
-                />
+                >
+                  <img src={assets.cameraChanger} alt="" />
+                </button>
               </div>
-              <div className={style.Start}>
-                <div className={style.Play}>
-                  <div className={style.Points}>
-                    <img src={pointsBg} alt="" />
-                    <p>{stateData.game.price}</p>
-                  </div>
-                  {gameStatus ? (
-                    que === "0" ? (
-                      wait ? (
-                        <Lottie
-                          animationData={PulseAnime}
-                          loop={false}
-                          onComplete={() => {
-                            // setWait(true)
-                            // fetchPoints();
-                            // checkQue()
-                            console.log("reached");
-                          }}
-                        />
-                      ) : firstStep ? (
-                        direction && direction[1] === "Right" ? (
-                          <div className={style.CheckCamera}>
+              <div className={style.PrizeReset}>
+                {count % 5 === 0 && playAgain && count != 0 ? (
+                    prizeResetActive?
+                    <button> 
+                        <img src={assets.GrayPrizeMove} alt="" />
+                      </button>
+                    :
+                  <button onClick={()=>{
+                    setPrizeResetActive(true)
+
+                    // prizeReset()
+                  }}> 
+                    <img src={assets.greenPrizeMove} alt="" />
+                  </button>
+                ) : (
+                  ""
+                )}
+                {/* <button>
+                  <img src={assets.greenPrizeMove} alt="" />
+                </button> */}
+              </div>
+            </div>
+            <div className={style.Center}>
+              <div className={style.PlayImage}>
+                <div className={style.GameScore}>
+                    <img src={assets.GamePricePng} alt="" />
+                    <span>{GameData?.price}</span>
+                </div>
+                {gamePlayStatus ? (
+                  que === "0" ? (
+                    wait ? (
+                      <Lottie
+                        animationData={AllAnimation.waitPulse}
+                        loop={false}
+                        onComplete={() => {
+                          PointDebit();
+                        }}
+                      />
+                    ) : firstStep ? (
+                      direction && direction[1] === "Right" ? (
+                        game.camera_data[0].camera_id === "1" ? (
+                          camera === false ? (
                             <button
-                              className={
-                                camera === true
-                                  ? style.ShowCamera
-                                  : style.hideCamera
-                              }
-                              onMouseDown={(e) => {
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
+                              onMouseDown={() => {
+                                FirstArrowPress("RIGHT");
                               }}
                               onMouseUp={() => {
-                                firstMoveRelease("RL_STOP");
-                              }}
-                              onTimeUpdate={(e) => {
-                                // console.log(e);
+                                FirstArrowRelease("RL_STOP");
                               }}
                             >
                               <Lottie
-                                animationData={RightArrow}
+                                animationData={AllAnimation.ArrowRight}
                                 loop={false}
                                 onComplete={() => {
-                                  // setFailed(true);
-                                  // checktimeout()
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished right")
-                                  checktimeout(user._id);
+                                  timeOut(userId, false);
                                 }}
                               />
                             </button>
-                            :
+                          ) : (
                             <button
-                              className={
-                                camera === true
-                                  ? style.hideCamera
-                                  : style.ShowCamera
-                              }
-                              onMouseDown={(e) => {
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
+                              onMouseDown={() => {
+                                FirstArrowPress("RIGHT");
                               }}
                               onMouseUp={() => {
-                                firstMoveRelease("RL_STOP");
-                              }}
-                              onTimeUpdate={(e) => {
-                                // console.log(e);
-                              }}
-                            >
-                              <Lottie animationData={UpArrow} loop={false} />
-                            </button>
-                          </div>
-                        ) : direction && direction[1] === "Left" ? (
-                          <div className={style.CheckCamera}>
-                            <button
-                              className={
-                                camera === true
-                                  ? style.ShowCamera
-                                  : style.hideCamera
-                              }
-                              onMouseDown={(e) => {
-                                // setFirstMove(true)
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
-                              }}
-                              onMouseUp={() => {
-                                firstMoveRelease("LR_STOP");
+                                FirstArrowRelease("RL_STOP");
                               }}
                             >
                               <Lottie
-                                animationData={LeftArrow}
+                                animationData={AllAnimation.ArrowUp}
                                 loop={false}
                                 onComplete={() => {
-                                  // setFailed(true);
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished left")
-                                  checktimeout(user._id);
+                                  timeOut(userId, false);
                                 }}
                               />
                             </button>
-                            :
+                          )
+                        ) : camera === false ? (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("RIGHT");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("RL_STOP");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowUp}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("RIGHT");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("RL_STOP");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowRight}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        )
+                      ) : direction && direction[1] === "Left" ? (
+                        game.camera_data[0].camera_id === "1" ? (
+                          camera === false ? (
                             <button
-                              className={
-                                camera === true
-                                  ? style.hideCamera
-                                  : style.ShowCamera
-                              }
-                              onMouseDown={(e) => {
-                                // setFirstMove(true)
-                                firstMoveStart(
-                                  direction && direction[1].toUpperCase()
-                                );
+                              onMouseDown={() => {
+                                FirstArrowPress("LEFT");
+                                console.log("clicked");
                               }}
                               onMouseUp={() => {
-                                firstMoveRelease("LR_STOP");
+                                FirstArrowRelease("LR_STOP");
+                                console.log("released");
                               }}
                             >
-                              <Lottie animationData={UpArrow} loop={false} />
+                              <Lottie
+                                animationData={AllAnimation.ArrowLeft}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
                             </button>
-                          </div>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                FirstArrowPress("LEFT");
+                                console.log("clicked");
+                              }}
+                              onMouseUp={() => {
+                                FirstArrowRelease("LR_STOP");
+                                console.log("released");
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          )
+                        ) : camera === false ? (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("LEFT");
+                              console.log("clicked");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("LR_STOP");
+                              console.log("released");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowUp}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("LEFT");
+                              console.log("clicked");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("LR_STOP");
+                              console.log("released");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowLeft}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        )
+                      ) : (
+                        ""
+                      )
+                    ) : secondStep ? (
+                      game.camera_data[0].camera_id === "2" ? (
+                        direction && direction[1] === "Left" ? (
+                          camera === false ? (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowRight}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, true);
+                                }}
+                              />
+                            </button>
+                          )
+                        ) : direction && direction[1] === "Right" ? (
+                          camera ? (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowLeft}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, true);
+                                }}
+                              />
+                            </button>
+                          )
                         ) : (
                           ""
                         )
-                      ) : secondStep ? (
-                        <div className={style.CheckCamera}>
-                          <button
-                            className={
-                              camera === true
-                                ? style.ShowCamera
-                                : style.hideCamera
-                            }
-                            onMouseDown={(e) => {
-                              SecondMoveStart();
-                              // console.log("e.target.value");
-                            }}
-                            onMouseUp={() => {
-                              secondMoveRelease();
-                            }}
-                          >
-                            <Lottie animationData={UpArrow} loop={false} />
-                          </button>
-                          <div
-                            className={
-                              camera === true
-                                ? style.hideCamera
-                                : style.ShowCamera
-                            }
-                          >
-                            <button
-                              className={
-                                direction && direction[1] === "Left"
-                                  ? style.Show
-                                  : style.hide
-                              }
-                              onMouseDown={(e) => {
-                                SecondMoveStart();
-                                // console.log("e.target.value");
-                              }}
-                              onMouseUp={() => {
-                                secondMoveRelease();
-                              }}
-                            >
-                              <Lottie
-                                animationData={RightArrow}
-                                loop={false}
-                                onComplete={() => {
-                                  // setFailed(true);
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished left")
-                                  checktimeout(user._id);
-                                }}
-                              />
-                            </button>
-
-                            <button
-                              className={
-                                direction && direction[1] === "Right"
-                                  ? style.Show
-                                  : style.hide
-                              }
-                              onMouseDown={(e) => {
-                                SecondMoveStart();
-                                // console.log("e.target.value");
-                              }}
-                              onMouseUp={() => {
-                                secondMoveRelease();
-                              }}
-                            >
-                              <Lottie
-                                animationData={LeftArrow}
-                                loop={false}
-                                onComplete={() => {
-                                  // setFailed(true);
-                                  // socket.emit("peer_message",`${baseMessage}|P_ENDED`)
-                                  // socket.emit("peer_message",`${baseMessage}|G_DISCONNECTED`)
-                                  // console.log("finished left")
-                                  checktimeout(user._id);
-                                }}
-                              />
-                            </button>
-                          </div>
-                        </div>
                       ) : (
-                        <Lottie animationData={waitAnimation} loop={false} />
+                        <button
+                          onMouseDown={() => {
+                            SecondArrowPress();
+                          }}
+                          onMouseUp={() => {
+                            SecondArrowRelease();
+                          }}
+                        >
+                          <Lottie
+                            animationData={AllAnimation.ArrowUp}
+                            loop={false}
+                            onComplete={() => {
+                              timeOut(userId, true);
+                            }}
+                          />
+                        </button>
                       )
                     ) : (
                       <Lottie
-                        animationData={AllAnimation.wait_R_G}
-                        loop={false}
-                      />
-                    )
-                  ) : playAgain ? (
-                    <button
-                      onClick={() => {
-                        // gameEntry()
-                        setGameStatus(true);
-                        setWait(false);
-                        socket.emit(
-                          "socket_connect",
-                          JSON.stringify(socket_connect)
-                        );
-                        console.log(que, "que is replay");
-                        let message = `${baseMessage}|P_RESTARTED`;
-                        socket.emit("peer_message", message);
-                        message = `${baseMessage}|G_CONNECTED`;
-                        socket.emit("peer_message", message);
-                        // message = `${baseMessage}|P_STARTED`;
-                        // socket.emit("peer_message", message);
-                        fetchPoints();
-                      }}
-                    >
-                      <Lottie
-                        animationData={reversePlay}
+                        animationData={waitAnimation}
                         loop={false}
                         onComplete={() => {
-                          // setFailed(true);
-                          // setPlayAgain(false)
-                          // socket.emit(
-                          //   "peer_message",
-                          //   `${baseMessage}|P_ENDED`
-                          // );
-                          // socket.emit(
-                          //   "peer_message",
-                          //   `${baseMessage}|G_DISCONNECTED`
-                          // );
-                          setId(user._id);
-                          gameLeave(user._id);
-                          console.log("finished left");
-                          setPlayAgain(false);
+                          setGamePlayStatus(false);
+                          setPlayAgain(true);
                         }}
                       />
-                    </button>
+                    )
                   ) : (
-                    // game.price==="0"?
-                    // userFreePlay<=configuration.FREE_PLAY_LIMIT?
-                    <button
-                      onClick={(e) => {
-                        if (stateData.game.price === "0") {
-                          if (userFreePlay <= configuration.FREE_PLAY_LIMIT) {
-                            console.log(
-                              userFreePlay <= configuration.FREE_PLAY_LIMIT
-                            );
-                            joinGame(e);
-                          } else {
-                            console.log(
-                              userFreePlay <= configuration.FREE_PLAY_LIMIT
-                            );
-                            console.log(userFreePlay, "userFreePlay");
-                            console.log(
-                              configuration.FREE_PLAY_LIMIT,
-                              "configuration.FREE_PLAY_LIMIT"
-                            );
-
-                            navigate("/prizes");
-                          }
-                        } else {
-                          console.log(
-                            userFreePlay <= configuration.FREE_PLAY_LIMIT
-                          );
-                          joinGame(e);
-                        }
-
-                        // console.log(que,"queCount")
-                      }}
-                    >
-                      <img src={startImage} />
+                    <button>
+                      <Lottie
+                        animationData={AllAnimation.ReverseWait}
+                        loop={false}
+                      />
                     </button>
-                    // :""
-
-                    // <button
-                    //   onClick={(e) => {
-                    //     // console.log(que,"queCount")
-                    //     joinGame(e);
-                    //   }}
-                    // >
-                    //   <img src={startImage} />
-                    // </button>
-                  )}
-                </div>
-                <div className={style.ReportDiv}>
-                  <img src={reportImage} alt="" />
-                </div>
+                  )
+                ) : // :""
+                playAgain ? (
+                  <button
+                    onClick={() => {
+                      setWait(true);
+                      setGamePlayStatus(true);
+                      socket.emit(
+                        "socket_connect",
+                        JSON.stringify({
+                          user_id: userId,
+                          socket_id: socket.id,
+                          machineCode: GameData.machine_code,
+                        })
+                      );
+                      let message = `${baseMessage}|P_RESTARTED`;
+                      socket.emit("peer_message", message);
+                      message = `${baseMessage}|G_CONNECTED`;
+                      socket.emit("peer_message", message);
+                      // gameStart()
+                      setPlayAgain(false);
+                    }}
+                  >
+                    <Lottie
+                      animationData={AllAnimation.ReversePlay}
+                      loop={false}
+                      onStop={prizeResetActive}
+                      onComplete={() => {
+                        gameLeave(userId, false);
+                        setPlayAgain(false);
+                      }}
+                    />
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      gameJoin(e);
+                    }}
+                  >
+                    <img src={assets.PlayImage} alt="" />
+                  </button>
+                )}
               </div>
-              <div className={style.CameraDiv}>
-                <div className={style.userDiv}>
-                  <img src={playInfo} alt="" />
-                </div>
-                <div className={style.AngleChanger}>
-                  <img src={restartImg} alt="" />
-                </div>
+              <div className={style.Report}>
+                <button>
+                  <img src={assets.reportImage} alt="" />
+                </button>
+              </div>
+            </div>
+            <div className={style.Right}>
+              <div className={style.LastWin}>
+                <button onClick={()=>{
+                    lastWin?setLastWin(false):setLastWin(true)
+                }}>
+                  <img src={assets.lastWin} alt="" />
+                </button>
+              </div>
+              <div className={style.Guide}>
+                <button>
+                  <img src={assets.Guide} alt="" />
+                </button>
               </div>
             </div>
           </div>
         </div>
-        <div className={style.leftSide}></div>
+        <div className={style.LeftSide}>
+        {minimized?
+                <div className={style.NowPlaying}>
+                    <div className={style.NowPlayingTitle}>
+                    <p>YOU'RE PLAYING FOR</p>
+                </div>
+                <div className={style.CurrentTitle}>
+                    <p>{GameData?.title}</p>
+                </div>
+                <div className={style.CloseIcon}>
+                <IoIosArrowDown onClick={()=>{
+                    setminimized(false)
+                }}/>
+            </div>
+                </div>
+                :
+          <div className={style.NowPlaying}>
+            <div className={style.NowPlayingTitle}>
+                <p>YOU'RE PLAYING FOR</p>
+            </div>
+            <div className={style.CurrentImage}>
+                <img src={GameData?.featured_image?.thumbnail} alt="" />
+            </div>
+            <div className={style.CurrentTitle}>
+                <p>{GameData?.title}</p>
+            </div>
+            <div className={style.CloseIcon}>
+                <IoIosArrowUp onClick={()=>{
+                    setminimized(true)
+                }}/>
+            </div>
+          </div>}
+        </div>
       </div>
     </div>
   );

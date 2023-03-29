@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { OTSession, OTPublisher, OTStreams, OTSubscriber } from 'opentok-react';
 const OT = require('@opentok/client');
-const Video = ({sessionId,token}) => {
+const Screen = ({sessionId,token}) => {
+  // console.log(sessionId,token)
     const[id,setId] = useState("")
     const data ={
         id:"",
@@ -16,10 +17,10 @@ const Video = ({sessionId,token}) => {
     var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
     const session = OT.initSession(apiKey, sessionId);
     session.on("streamDestroyed", function (event) {
-      console.log("Stream stopped. Reason: " + event.reason);
+      // console.log("Stream stopped. Reason: " + event.reason);
       // event.stream()
       // session.disconnect()
-      console.log(session)
+      // console.log(session)
       session.connect()
     });
     // var sessionID = sessionId;
@@ -39,4 +40,4 @@ const Video = ({sessionId,token}) => {
   )
 }
 
-export default Video
+export default Screen

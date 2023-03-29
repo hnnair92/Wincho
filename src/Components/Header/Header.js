@@ -22,7 +22,7 @@ const Header = () => {
   useEffect(()=>{
     dispatch(updateProfile(userData.user))
 
-  },[dispatch,userData.user])
+  },[dispatch])
   const handleId = (e) => {
     e.preventDefault();
     const path = window.location.pathname;
