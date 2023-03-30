@@ -19,8 +19,41 @@ const Description = () => {
   const state = location.state;
   const GameData = state.game;
   const baseUrl = "https://uat.wincha-online.com";
+  const onFocus = (e) => {};
+
+  //  Hard coded Datas
+
+  const reportCategories = [
+    {
+      id: "1",
+      category: "CRANE",
+    },
+    {
+      id: "2",
+      category: "CAMERA",
+    },
+    {
+      id: "3",
+      category: "PAYMENT",
+    },
+    {
+      id: "4",
+      category: "DELAY",
+    },
+    {
+      id: "5",
+      category: "OTHER",
+    },
+  ];
+  const onBlur = (e) => {
+    // console.log("Tab is blurred", e);
+    alert("DO you wana exist this page");
+  };
+  useEffect(() => {
+    console.log(navigator.onLine);
+  }, [navigator]);
   //   console.log(GameData);
-  const videoRef = useRef()
+  const videoRef = useRef();
   const userId = JSON.parse(localStorage.getItem("user"));
   const baseMessage = `${userId}|${GameData?.machine_code}`;
   // React UseStates
@@ -29,8 +62,8 @@ const Description = () => {
     Content: "",
   });
   const [status, setStatus] = useState({});
-  const [lastWin,setLastWin] = useState(false)
-  const [minimized,setminimized] = useState(false)
+  const [lastWin, setLastWin] = useState(false);
+  const [minimized, setminimized] = useState(false);
   const [session, setSession] = useState({});
   const [firstStep, setFirstStep] = useState(false);
   const [secondStep, setSecondStep] = useState(false);
@@ -38,7 +71,14 @@ const Description = () => {
   const [camera, setCamera] = useState(false);
   const [count, setCount] = useState(4);
   const [viewCount, setViewCount] = useState("");
-  const [onPlay,setOnPlay] = useState(true)
+  const [onPlay, setOnPlay] = useState(true);
+  const [startGame, setStartGame] = useState({});
+  const [reportIssueCategories, setReportIssueCategories] = useState(false);
+  const [reportContent, setReportContent] = useState(false);
+  const [reportConfirm, setReportConfirm] = useState(false);
+  const [category, setCategory] = useState("");
+  const [reportText, setReportText] = useState("");
+
   const [freePlay, setFreePlay] = useState(
     localStorage.getItem("times")
       ? JSON.parse(localStorage.getItem("times"))
@@ -53,7 +93,7 @@ const Description = () => {
   const [topup, setTopup] = useState(false);
   const [leavePopup, setLeavePopup] = useState(false);
   const [freeLimitPopup, setFreeLimitPopup] = useState(false);
-  const [prizeResetActive,setPrizeResetActive] = useState(false)
+  const [prizeResetActive, setPrizeResetActive] = useState(false);
   // Redux UseSelectors
   const { game, loading } = useSelector((state) => state.gameEntry);
   const { user } = useSelector((state) => state.profile);
@@ -85,7 +125,7 @@ const Description = () => {
       const splitQue = splitRes[splitRes.length - 1].split(":");
       const splitId = splitRes[0].split(":");
       if (userId === splitId[1]) {
-        socket.emit("sent_que_status",res)
+        socket.emit("sent_que_status", res);
         setQue(splitQue[splitQue.length - 1]);
       }
     });
@@ -101,7 +141,7 @@ const Description = () => {
         setViewCount(splitViews[splitViews.length - 1]);
       }
       console.log(res);
-    //   setViewCount();
+      //   setViewCount();
     });
     socket.on("get_machine_status", (res) => {
       console.log(res);
@@ -131,6 +171,14 @@ const Description = () => {
       console.log(res);
     });
     socket.on("sensor_message", (res) => {
+      const splitRes = res.split("|");
+      const data = splitRes[splitRes.length - 1];
+      const splitId = splitRes[1].split(":");
+      if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
+        setPlayAgain(false);
+        return addToCart();
+      }
+      // :UK|M:UK-WH1-NID1-101|PRIZE_WON
       console.log(res);
     });
     socket.on("disconnect", (res) => {
@@ -164,11 +212,36 @@ const Description = () => {
       ? localStorage.setItem("times", freePlay)
       : localStorage.setItem("times", 0);
   }, [freePlay]);
+  useEffect(() => {
+    console.log(window.navigator);
+    window.addEventListener("focus", onFocus);
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("offline", () => {
+      console.log("I am offline.");
+    });
+    //
+    window.addEventListener("online", () => {
+      console.log("I am back online.");
+    });
 
+    onFocus();
+    return () => {
+      // usePrompt("Hello from usePrompt -- Are you sure you want to leave?", isBlocking);
+      window.addEventListener("offline", () => {
+        console.log("I am offline.");
+      });
+
+      window.addEventListener("online", () => {
+        console.log("I am back online.");
+      });
+      window.removeEventListener("focus", onFocus);
+      window.removeEventListener("blur", onBlur);
+    };
+  }, [window]);
   // popups
-  async function movePrize(){
-    return(
-        <div className={style.popup}>
+  async function movePrize() {
+    return (
+      <div className={style.popup}>
         <div className={style.popupImage}>
           <img src={assets.winchaPopup} alt="" />
         </div>
@@ -182,10 +255,14 @@ const Description = () => {
               setTopup(false);
             }}
           > */}
-            <button onClick={()=>{
-                prizeReset()
-                setPrizeResetActive(true)
-            }}>YES</button>
+          <button
+            onClick={() => {
+              prizeReset();
+              setPrizeResetActive(true);
+            }}
+          >
+            YES
+          </button>
           {/* </Link> */}
           <Link
             to="/prizes"
@@ -197,7 +274,7 @@ const Description = () => {
           </Link>
         </div>
       </div>
-    )
+    );
   }
   async function TopUps() {
     return (
@@ -267,6 +344,29 @@ const Description = () => {
   }
 
   // All Game Screen API's
+
+  async function sendReport() {
+    await fetch(`${baseUrl}/game/issue/report`, {
+      method: "POST",
+      body: JSON.stringify({
+        playerID: userId,
+        machineID: game._id,
+        productID: GameData.id,
+        title: category,
+        content: reportText,
+        source: "web",
+      }),
+      headers:{
+        "Content-type":"application/json"
+      }
+    }).then(res=>res.json()).then((data)=>{
+        console.log(data)
+        setReportContent(false)
+        setReportConfirm(true)
+        setCategory("")
+        setReportText("")
+    })
+  }
   async function status_Session() {
     setTimeout(() => {
       gameStatus();
@@ -330,10 +430,14 @@ const Description = () => {
         machineCode: game.machineCode,
         player_request: "RH_MOVE_GIFT",
       }),
-      headers:{
-        "Content-type":'application/json'
-      }
-    }).then(res=>res.json()).then((data)=>{console.log(data)})
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
   }
   async function gameJoin(e) {
     setDirection(game.movement.split("-"));
@@ -399,6 +503,7 @@ const Description = () => {
       .then((res) => res.json())
       .then((data) => {
         setWait(false);
+        setStartGame(data.data[0]);
         setFirstStep(true);
       });
   }
@@ -581,12 +686,12 @@ const Description = () => {
     await fetch(`${baseUrl}/cart/add`, {
       method: "POST",
       body: JSON.stringify({
-        user_id: user._id,
+        user_id: userId,
         product_id: GameData.id,
-        game_status: status,
+        game_status: true,
         machineID: game._id,
         archiveid: session.archiveid,
-        game_session_id: game.game_session_id,
+        game_session_id: startGame.game_session_id,
       }),
       headers: {
         "Content-type": "application/json",
@@ -595,6 +700,8 @@ const Description = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        gameLeave();
+        socket.disconnect();
       });
   }
   //   async function ApiLog(){
@@ -689,39 +796,44 @@ const Description = () => {
   }
   return (
     <div className={style.Container}>
-        {prizeResetActive?
-         <div className={style.popup}>
-         <div className={style.popupImage}>
-           <img src={assets.winchaPopup} alt="" />
-         </div>
-         <div className={style.popupText}>
-           <p>Woah there you haven't got enough tickets</p>
-         </div>
-         <div className={style.popupButton}>
-           {/* <Link
+      {prizeResetActive ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Woah there you haven't got enough tickets</p>
+          </div>
+          <div className={style.popupButton}>
+            {/* <Link
              to="/tickets"
              onClick={() => {
                setTopup(false);
              }}
            > */}
-             <button onClick={()=>{
-                 prizeReset()
-                 setPrizeResetActive(false)
-             }}>YES</button>
-           {/* </Link> */}
-           <Link
-             to="/prizes"
-             onClick={() => {
-               setTopup(false);
-               setPrizeResetActive(false)
-
-             }}
-           >
-             <button>NO</button>
-           </Link>
-         </div>
-       </div>
-        :""}
+            <button
+              onClick={() => {
+                prizeReset();
+                setPrizeResetActive(false);
+              }}
+            >
+              YES
+            </button>
+            {/* </Link> */}
+            <Link
+              to="/prizes"
+              onClick={() => {
+                setTopup(false);
+                setPrizeResetActive(false);
+              }}
+            >
+              <button>NO</button>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
       {topup ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
@@ -739,6 +851,91 @@ const Description = () => {
             >
               <button>TOP UP</button>
             </Link>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {reportIssueCategories ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>What issue would you like to report</p>
+          </div>
+          <div className={style.ReportPopupButton}>
+            {reportCategories.map((item) => {
+              return (
+                <button
+                  onClick={() => {
+                    setCategory(item.category);
+                    setReportIssueCategories(false);
+                    setReportContent(true);
+                  }}
+                >
+                  {item.category}
+                </button>
+              );
+            })}
+            {/* <button>CAMERA</button>
+          <button>PAYMENT</button>
+          <button>DELAY</button>
+          <button>OTHER</button> */}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {reportContent ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button>{category}</button>
+          </div>
+          <div className={style.popupInput}>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              onChange={(e) => {
+                setReportText(e.target.value);
+              }}
+              placeholder="Please describe the issues you are experiencing..."
+            ></textarea>
+          </div>
+          <div className={style.popupSubmit}>
+            <button
+              onClick={() => {
+                sendReport();
+              }}
+            >
+              SEND
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {reportConfirm ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>
+              Thanks! We have received your reprt and if necessary will aim to
+              respond within 24 hours
+            </p>
+          </div>
+          <div className={style.popupButton}>
+            <button onClick={()=>{
+                setReportConfirm(false)
+            }}>OK</button>
+            {/* </Link> */}
           </div>
         </div>
       ) : (
@@ -767,35 +964,45 @@ const Description = () => {
       ) : (
         ""
       )}
-      {lastWin?
-      <div className={style.LastWinPopup}>
-        <div className={style.PlayIcon}>
-            <button onClick={()=>{
-                
+      {lastWin ? (
+        <div
+          className={style.LastWinPopup}
+          onClick={() => {
+            setOnPlay(false);
+          }}
+        >
+          <div className={style.PlayIcon}>
+            <button
+              onClick={() => {
                 // videoRef.current.play()?videoRef.current.pause():videoRef.current.play()
-            }}>
-
-            <img src={assets.PlayImage} alt="" onClick={()=>{
-                onPlay?setOnPlay(false):setOnPlay(true)
-            }}/>
+              }}
+            >
+              <img
+                src={assets.PlayImage}
+                alt=""
+                onClick={() => {
+                  onPlay ? setOnPlay(false) : setOnPlay(true);
+                }}
+              />
             </button>
-        </div>
-        <div className={style.VideoSection}>
-        <ReactPlayer
-      url={game.last_win_url}
-      width="100%"
-      height="500px"
-      playIcon={<button>Play</button>}
-      playing={onPlay}
-    //   light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-    />
+          </div>
+          <div className={style.VideoSection}>
+            <ReactPlayer
+              url={game.last_win_url}
+              width="100%"
+              height="500px"
+              playIcon={<button>Play</button>}
+              playing={onPlay}
+              //   light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+            />
             {/* <video ref ={videoRef}>
                 <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
             </video> */}
+          </div>
         </div>
-      </div>
-    :
-    ""}
+      ) : (
+        ""
+      )}
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
@@ -807,28 +1014,28 @@ const Description = () => {
           <div className={style.AllGames}>
             {products?.map((game) => {
               return (
-                <Link to={`/game/${game.id}`} state={{game:game}} >
-                <div className={style.Game}>
-                  <div className={style.Image}>
-                    <img src={game.featured_image.thumbnail} alt="" />
-                  </div>
-                  <div className={style.GameContent}>
-                    <div className={style.GameName}>
-                      <p>{game.title}</p>
+                <Link to={`/game/${game.id}`} state={{ game: game }}>
+                  <div className={style.Game}>
+                    <div className={style.Image}>
+                      <img src={game.featured_image.thumbnail} alt="" />
                     </div>
-                    <div className={style.TicketPrice}>
-                      <div className={style.Ticket}>
-                        <img src={assets.ticketIcon} alt="" />
+                    <div className={style.GameContent}>
+                      <div className={style.GameName}>
+                        <p>{game.title}</p>
                       </div>
-                      <div className={style.Price}>
-                        <p>{game.price === "0" ? "Free" : game.price}</p>
-                      </div>
-                      <div className={style.info}>
-                        <img src={assets.info} alt="" />
+                      <div className={style.TicketPrice}>
+                        <div className={style.Ticket}>
+                          <img src={assets.ticketIcon} alt="" />
+                        </div>
+                        <div className={style.Price}>
+                          <p>{game.price === "0" ? "Free" : game.price}</p>
+                        </div>
+                        <div className={style.info}>
+                          <img src={assets.info} alt="" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </Link>
               );
             })}
@@ -903,18 +1110,21 @@ const Description = () => {
               </div>
               <div className={style.PrizeReset}>
                 {count % 5 === 0 && playAgain && count != 0 ? (
-                    prizeResetActive?
-                    <button> 
-                        <img src={assets.GrayPrizeMove} alt="" />
-                      </button>
-                    :
-                  <button onClick={()=>{
-                    setPrizeResetActive(true)
+                  prizeResetActive ? (
+                    <button>
+                      <img src={assets.GrayPrizeMove} alt="" />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setPrizeResetActive(true);
 
-                    // prizeReset()
-                  }}> 
-                    <img src={assets.greenPrizeMove} alt="" />
-                  </button>
+                        // prizeReset()
+                      }}
+                    >
+                      <img src={assets.greenPrizeMove} alt="" />
+                    </button>
+                  )
                 ) : (
                   ""
                 )}
@@ -926,8 +1136,8 @@ const Description = () => {
             <div className={style.Center}>
               <div className={style.PlayImage}>
                 <div className={style.GameScore}>
-                    <img src={assets.GamePricePng} alt="" />
-                    <span>{GameData?.price}</span>
+                  <img src={assets.GamePricePng} alt="" />
+                  <span>{GameData?.price}</span>
                 </div>
                 {gamePlayStatus ? (
                   que === "0" ? (
@@ -1233,7 +1443,7 @@ const Description = () => {
                     <Lottie
                       animationData={AllAnimation.ReversePlay}
                       loop={false}
-                      onStop={prizeResetActive}
+                      pause={prizeResetActive}
                       onComplete={() => {
                         gameLeave(userId, false);
                         setPlayAgain(false);
@@ -1251,16 +1461,22 @@ const Description = () => {
                 )}
               </div>
               <div className={style.Report}>
-                <button>
+                <button
+                  onClick={() => {
+                    setReportIssueCategories(true);
+                  }}
+                >
                   <img src={assets.reportImage} alt="" />
                 </button>
               </div>
             </div>
             <div className={style.Right}>
               <div className={style.LastWin}>
-                <button onClick={()=>{
-                    lastWin?setLastWin(false):setLastWin(true)
-                }}>
+                <button
+                  onClick={() => {
+                    lastWin ? setLastWin(false) : setLastWin(true);
+                  }}
+                >
                   <img src={assets.lastWin} alt="" />
                 </button>
               </div>
@@ -1273,37 +1489,42 @@ const Description = () => {
           </div>
         </div>
         <div className={style.LeftSide}>
-        {minimized?
-                <div className={style.NowPlaying}>
-                    <div className={style.NowPlayingTitle}>
-                    <p>YOU'RE PLAYING FOR</p>
-                </div>
-                <div className={style.CurrentTitle}>
-                    <p>{GameData?.title}</p>
-                </div>
-                <div className={style.CloseIcon}>
-                <IoIosArrowDown onClick={()=>{
-                    setminimized(false)
-                }}/>
-            </div>
-                </div>
-                :
-          <div className={style.NowPlaying}>
-            <div className={style.NowPlayingTitle}>
+          {minimized ? (
+            <div className={style.NowPlaying}>
+              <div className={style.NowPlayingTitle}>
                 <p>YOU'RE PLAYING FOR</p>
-            </div>
-            <div className={style.CurrentImage}>
-                <img src={GameData?.featured_image?.thumbnail} alt="" />
-            </div>
-            <div className={style.CurrentTitle}>
+              </div>
+              <div className={style.CurrentTitle}>
                 <p>{GameData?.title}</p>
+              </div>
+              <div className={style.CloseIcon}>
+                <IoIosArrowDown
+                  onClick={() => {
+                    setminimized(false);
+                  }}
+                />
+              </div>
             </div>
-            <div className={style.CloseIcon}>
-                <IoIosArrowUp onClick={()=>{
-                    setminimized(true)
-                }}/>
+          ) : (
+            <div className={style.NowPlaying}>
+              <div className={style.NowPlayingTitle}>
+                <p>YOU'RE PLAYING FOR</p>
+              </div>
+              <div className={style.CurrentImage}>
+                <img src={GameData?.featured_image?.thumbnail} alt="" />
+              </div>
+              <div className={style.CurrentTitle}>
+                <p>{GameData?.title}</p>
+              </div>
+              <div className={style.CloseIcon}>
+                <IoIosArrowUp
+                  onClick={() => {
+                    setminimized(true);
+                  }}
+                />
+              </div>
             </div>
-          </div>}
+          )}
         </div>
       </div>
     </div>

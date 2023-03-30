@@ -8,7 +8,7 @@
     height: 100%;
     margin-left: auto;
     margin-right: auto;
-    background-color: #3b82f6;
+    background-color: #0D82FC;
 
 }
 .ProfileContent{
@@ -61,18 +61,22 @@
 .ProfileImage{
     width: 50%;
     height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 .ProfileContent{
     width: 100%;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;;
     /* height: 100%; */
 }
 .ProfileImage img{
     border-radius: 50%;
     object-fit: contain;
-    width: 100%;
+    width: 75%;
     height: 100%;
 }
 .ProfileAction{
@@ -150,6 +154,7 @@
 .Deactivate{
     background-color: transparent;
     color: #fff;
+    border-radius: 30px;
 }
 .TabBtnActive{
     

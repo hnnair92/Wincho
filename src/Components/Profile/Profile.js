@@ -38,9 +38,9 @@ const Profile = () => {
             <img src={profile} alt="" />
           </div>
           <div className={style.ProfileAction}>
-            <button className={style.ProfileBtn}>PROFILE</button>
+            {/* <button className={style.ProfileBtn}>PROFILE</button>
             <button className={style.history}>HISTORY</button>
-            <button className={style.Faq}>FAQ</button>
+            <button className={style.Faq}>FAQ</button> */}
             <button className={style.Deactivate}>DEACTIVATE ACCOUNT</button>
           </div>
         </div>
@@ -91,7 +91,7 @@ const Profile = () => {
                     <p>Phone Number</p>
                   </div>
                   <div className={style.InputSection}>
-                    <input type="text" value={user.phone} />
+                    <input type="text" value={user?.phone} />
                     <img src={rightArrow} alt="" />
 
                   </div>
@@ -101,12 +101,12 @@ const Profile = () => {
                     <p>Shipping</p>
                   </div>
                   <div className={style.InputSection}>
-                    <input type="text" value={user.username||""} readOnly/>
-                    <input type="text" value={user.addressline1||""}readOnly/>
-                    <input type="text"  value={user.addressline2||""}readOnly/>
-                    <input type="text"  value={user.city||""}readOnly/>
-                    <input type="text"  value={user.county||""}readOnly/>
-                    <input type="text" value={user.zipcode||""}readOnly/>
+                    <input type="text" value={user?.username||""} readOnly/>
+                    <input type="text" value={user?.addressline1||""}readOnly/>
+                    <input type="text"  value={user?.addressline2||""}readOnly/>
+                    <input type="text"  value={user?.city||""}readOnly/>
+                    <input type="text"  value={user?.county||""}readOnly/>
+                    <input type="text" value={user?.zipcode||""}readOnly/>
                   </div>
                 </div>
               </div>

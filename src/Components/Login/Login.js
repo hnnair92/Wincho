@@ -13,13 +13,14 @@ const Login = () => {
     const navigate = useNavigate()
     const baseUrl = "https://uat.wincha-online.com"
     const{error,user,authenticated} = useSelector((state)=>state.userData)
+    const userId = JSON.parse(localStorage.getItem("user")) 
     const[type,setType] = useState(true)
     const[passIcon,setPassIcon] = useState(false)
     const[forgotPass,setForgotPass] = useState(false)
     const [passError,setPassError] = useState({})
     useEffect(()=>{
         if(localStorage.getItem("user")){
-            dispatch(updateProfile(user&&user.user_id))
+            dispatch(updateProfile(userId))
         }
         if(localStorage.getItem("user")){
             navigate("/")
@@ -27,7 +28,7 @@ const Login = () => {
         else{
             navigate("/login")
         }
-    },[dispatch,navigate])
+    },[dispatch,userId])
     const [username,setUsername] = useState("")
     const[password,setPassword] = useState("")
     const[email,setEmail] = useState("")

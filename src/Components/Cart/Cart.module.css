@@ -5,6 +5,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 }
 .Cart{
     width: 68rem;
@@ -232,4 +233,35 @@
         width: 3rem;
         height: 3rem;
     }
+}
+.Popup{
+    position: absolute;
+    top: 0%;
+    border-radius:40px;
+    width: 20%;
+    background-color: #000;
+    /* height: 100%; */
+    outline:10px solid #949393;
+    border:7.5px solid #3b82f6;
+    overflow: hidden;
+    z-index: 99;
+    left: 50%;
+    transform: translate(-50%,50%);
+}
+.playerButton{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%,-50%);
+}
+.playerButton img{
+    width: 20%;
+}
+video{
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
+    /* border-radius: 40px; */
 }

@@ -265,7 +265,7 @@ video{
     object-fit: contain;
 }
 .popupText{
-    margin-top: 15%;
+    margin-top: 25%;
 }
 .popupText p{
     font-size: 2rem;
@@ -275,6 +275,42 @@ video{
 
 }
 .popupButton button{
+    margin: 1.5rem;
+    padding: 1rem 7.5rem;
+    background-color: transparent;
+    border:3px solid #fff;
+    outline:none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+}
+.ReportPopupButton{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.ReportPopupButton button{
+    margin: 1.5rem;
+    padding: 1rem 7.5rem;
+    background-color: transparent;
+    border:3px solid #fff;
+    outline:none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+}
+.popupInput textarea{
+    width: 95%;
+    padding:2rem 2rem;
+    border-radius: 30px;
+    color: #1b8fe7;
+
+    outline:none;
+    margin: 1rem;
+}
+.popupSubmit button{
     margin: 1.5rem;
     padding: 1rem 7.5rem;
     background-color: transparent;
