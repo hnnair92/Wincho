@@ -11,6 +11,7 @@ import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import {assets} from '../Description/assests'
 import { updateProfile } from "../../actions/user";
+
 import bandaiLogo from '../../assests/Bandai Namco Logo.png'
 
 // import { useSelector } from 'react-redux'
