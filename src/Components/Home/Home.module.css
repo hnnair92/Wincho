@@ -189,7 +189,7 @@
     align-items: center;
 }
 .TicketText img{
-    width: 110%;
+    width: 135%;
 }
 .ContactSection p{
     /* text-align: left; */
@@ -260,6 +260,18 @@
     }
 }
 @media(max-width:767px){
+    .home,.Transition,.About,.Watch,.Support{
+        height: 100vh;
+    }
+    .Slider img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .Ticket a{
+        border-width: 5px;
+        padding: .5rem;
+    }
     .About{
         margin-top: -7%;
     }

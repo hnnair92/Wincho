@@ -26,6 +26,9 @@
     width: 30%;
     height: 100%;
 }
+.Menu{
+    width: 35%;
+}
 .Title{
     font-size: 4rem;
     font-weight: 700;
@@ -46,12 +49,12 @@
 .Address{
     height: 100%;
     display: flex;
-    width: 49%;
+    width: 45%;
     flex-direction: column;
     justify-content: space-between;
 }
 .FooterDetails{
-    width: 100%;
+    width: 50%;
     height: 100%;
     justify-content: flex-end;
     display: flex;
@@ -73,7 +76,7 @@
 }
 .Copyright p,.TermsAndPrivacy p{
     font-size: 1.5rem;
-    margin-top: 0.75rem;
+    /* margin-top: 0.75rem; */
     color: #fff;
 }
 .SocialMedia{
@@ -95,7 +98,7 @@
     margin-top: 3rem;
 } */
 @media (max-width:1064px){
-    .Container{
+    /* .Container{
         padding: 25px;
     }
     .Menu,.Address{
@@ -103,14 +106,13 @@
     }
     .FooterDetails{
         width: 50%;
-    }
-    .Logo{
+    } */
+    /* .Logo{
         width: 50%;
-    }
-}
-@media(max-width:767px){
+    } */
     .FooterDetails{
         width: 100%;
+        padding: 50px;
     }
     .Container{
         height: 100%;
@@ -123,6 +125,50 @@
     .Logo,.Menu,.Address{
         width: 100%;
         padding: 0;
+    }
+    .Logo img{
+        width: 100%;
+    }
+    .Title{
+        font-size: 3.5rem;
+    }
+    .Menu ul li{
+        font-size: 2.5rem;
+        padding:15px 0;
+    }
+    .SocialMedia{
+        width: 100%;
+        margin: 25px 0;
+    }
+    .SocialMedia svg{
+        font-size: 3.5rem;
+    }
+    .Copyright{
+        margin: 15px 0;
+    }
+    .bandaiLogo{
+        display: none;
+    }
+}
+@media(max-width:767px){
+    .FooterDetails{
+        width: 100%;
+        padding: 0;
+    }
+    .Container{
+        height: 100%;
+        padding: 25px;
+    }
+    .Footer{
+        flex-direction: column-reverse;
+    }
+    
+    .Logo,.Menu,.Address{
+        width: 100%;
+        padding: 0;
+    }
+    .Logo img{
+        width: 100%;
     }
     .Title{
         font-size: 2.5rem;
@@ -141,4 +187,18 @@
     .Copyright{
         margin: 15px 0;
     }
+    .bandaiLogo{
+        display: none;
+    }
+}
+
+.bandaiLogo{
+    width: 40%;
+}
+.bandaiLogo img{
+    width: 100%;
+}
+.TermsAndPrivacy{
+    flex-direction: row;
+    justify-content: space-between;
 }

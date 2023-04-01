@@ -4,6 +4,7 @@
     margin-left: auto;
     margin-right: auto;
     background-color: #ff8100;
+    position: relative;
 }
 
 .Categories{
@@ -28,6 +29,7 @@
     outline:none;
     font-weight: 600;
     white-space: nowrap;
+
 }
 .active{
     /* background: rgb(27,143,231);
@@ -305,4 +307,90 @@
     padding: 1.13rem;
 
     justify-content: space-between;
+}
+.popupOverlay{
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: absolute;
+    /* background-color: #00000074; */
+    z-index: 9999;
+
+}
+.Popup{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    overflow-y: hidden;
+    overflow-x: hidden;
+    width: 18%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
+    inset 10px 10px 15px rgba(70, 70, 70, 0.12); */
+    /* box-shadow: 
+    -10px -10px 15px rgba(70, 70, 70, 0.2),
+    10px 10px 15px rgba(70, 70, 70, 0.12); */
+    box-shadow: 
+    -10px -10px 15px rgba(255, 255, 255, 0),
+    1px 1px 15px #00000031,
+    inset -.2px -.2px 15px rgba(0, 0, 0, .25),
+    inset .2px .2px 15px rgba(00, 0, 00, .25);
+    margin: 1.13rem;
+    background-color: #fff;
+    padding: 1.13rem;
+    border-radius: 2.26rem;
+    z-index: 99999;
+}
+.popupImage{
+    width: 100%;
+    border-radius: 2.26rem;
+    overflow: hidden;
+}.popupImage img{
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+}
+.popupTitle{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 1rem;
+}
+.popupDescription{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 1rem;
+}
+.popupPlayNow{
+    border-radius: 2.8rem;
+    display: flex;
+    width: 80%;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* width: 100%; */
+    background-color: #0a82fc;
+    padding: .5rem 1.5rem;
+    align-items: center;
+}
+.popupPlayNow p{
+    font-family: drumshake_italic;
+    font-size: 4rem;
+    color: #fff;
+
+    -webkit-text-stroke: 1px #000;
+}
+.popupTicket{
+    width: 30%;
+    padding: .5rem;
+}
+.popupTicket img{
+    width: 100%;
+    object-fit: cover;
 }

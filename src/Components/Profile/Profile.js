@@ -38,6 +38,10 @@ const Profile = () => {
             <img src={profile} alt="" />
           </div>
           <div className={style.ProfileAction}>
+          {/* <div className={style.AllBtns}>
+            <button className={style.btn2}>SHIPPING</button>
+            <button className={style.btn1}>MY DETAILS</button>
+          </div> */}
             {/* <button className={style.ProfileBtn}>PROFILE</button>
             <button className={style.history}>HISTORY</button>
             <button className={style.Faq}>FAQ</button> */}

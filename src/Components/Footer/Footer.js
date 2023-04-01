@@ -9,6 +9,7 @@ import twitter from '../../assests/Twitter Icon.png'
 import tiktok from '../../assests/TikTok Icon.png'
 import youtube from '../../assests/YouTube Icon.png'
 import { Link, useNavigate } from 'react-router-dom'
+import bandaiLogo from '../../assests/Bandai Namco Logo.png'
 // import {} from 'react-icons/ai'
 const Footer = () => {
     const navigate = useNavigate();
@@ -68,8 +69,13 @@ const Footer = () => {
                     <p>&copy; Bandai Namco Amusement Europe Ltd.</p>
                 </div>
                 <div className={style.TermsAndPrivacy}>
+                <div className={style.TermsAndPrivacyText}>
                     <p>Privacy Policy</p>
                     <p>Terms and Conditions</p>
+                </div>
+                <div className={style.bandaiLogo}>
+                    <img src={bandaiLogo} alt="" />
+                </div>
                 </div>
             </div>
             </div>

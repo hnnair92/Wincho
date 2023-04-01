@@ -9,16 +9,29 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
+import {assets} from '../Description/assests'
 import { updateProfile } from "../../actions/user";
+import bandaiLogo from '../../assests/Bandai Namco Logo.png'
+
 // import { useSelector } from 'react-redux'
 const Header = () => {
   const dispatch = useDispatch()
+  const[popup,setPopup]=useState(false)
+  const [leave,setLeave] = useState(false)
   const [setting, setSetting] = useState(false);
   const userData = useSelector((state) => state.userData);
   const {user} = useSelector((state) => state.profile);
   const isUser = JSON.parse(localStorage.getItem("user"))
   const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
+  let inGame = localStorage.getItem("inGame")
+  console.log(inGame)
+  useEffect(()=>{
+    inGame = localStorage.getItem('inGame')
+    if(inGame===null||inGame===undefined){
+      localStorage.setItem("inGame",false)
+    }
+  },[localStorage])
   useEffect(()=>{
     dispatch(updateProfile(userData.user))
 
@@ -41,23 +54,74 @@ const Header = () => {
     navigate("/")
     window.location.reload()
   }
+  function checkGameOn(){
+  inGame = localStorage.getItem("inGame")
+
+    if(inGame===true){
+      // return(
+      //   <div className={style.PopupContainer}>
+      //       <div className={style.popup}>
+      //     <div className={style.popupImage}>
+      //       <img src={assets.winchaPopup} alt="" />
+      //     </div>
+      //     <div className={style.popupText}>
+      //       <p>Woah there you haven't got enough tickets</p>
+      //     </div>
+      //     <div className={style.popupButton}>
+      //       <button onClick={()=>{
+      //         console.log("cancelled");
+              
+      //       }}>CANCEL</button>
+      //       <button onClick={()=>{
+      //         // callback(false)
+      //         console.log("Exits");
+
+      //       }}>OK</button>
+      //       {/* <Link
+      //         to="/tickets"
+      //         onClick={() => {
+      //           setTopup(false);
+      //         }}
+      //       >
+      //         <button>TOP UP</button>
+      //       </Link> */}
+      //     </div>
+      //   </div>
+      //   </div>
+      // )
+      setLeave(true)
+    }
+    else{
+      setLeave(false)
+    }
+   }
   const[toggle,setToggle] = useState(false)
   const MobileFunc=()=>{
     useEffect(() => {
       document.body.style.overflow = 'hidden';
       return ()=> document.body.style.overflow = 'unset';
    }, []);
+   
     return(
       <div className={style.mobileFullMenu}>
       <div className={style.Menu}>
           <ul>
             <Link to="/" onClick={()=>{
-              setToggle(false)
+              checkGameOn()
+              console.log("clicked Home")
+
+              
               // setSetting(false)
 
             }}><li>Home</li></Link>
+            {/* {inGame? */}
             <Link to="/prizes" onClick={()=>{
-              setToggle(false)
+              checkGameOn()
+              console.log("clicked Home")
+
+              
+              // setSetting(false)
+
             }}><li>Prizes</li></Link>
             {/* <Link to="/" onClick={()=>{
               setToggle(false)
@@ -89,6 +153,67 @@ const Header = () => {
    
   return (
     <div className={style.Container}>
+      {leave?<div className={style.PopupContainer}>
+            <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Woah there you haven't got enough tickets</p>
+          </div>
+          <div className={style.popupButton}>
+            <button onClick={()=>{
+              console.log("cancelled");
+              
+            }}>CANCEL</button>
+            <button onClick={()=>{
+              // callback(false)
+              console.log("Exits");
+
+            }}>OK</button>
+            {/* <Link
+              to="/tickets"
+              onClick={() => {
+                setTopup(false);
+              }}
+            >
+              <button>TOP UP</button>
+            </Link> */}
+          </div>
+        </div>
+        </div>:""}
+    {popup?
+    <div className={style.Section}>
+    <div className={style.popup}>
+      <div className={style.popupImage}>
+        <img src={assets.winchaPopup} alt="" />
+      </div>
+      <div className={style.popupText}>
+        {/* <p>{vipData.vip_discription}</p> */}
+        <p>Are you sure you want to logout?</p>
+        {/* <p>fhf</p> */}
+      </div>
+      <div className={style.ReportPopupButton}>
+        
+            <button
+              onClick={(e) => {
+                  handleLogout(e)
+              }}
+            >
+              YES
+            </button>
+            <button
+              onClick={() => {
+                  setPopup(false)
+              }}
+            >
+              NO
+            </button>
+        
+      </div>
+    </div>
+    </div>:
+    ""}
       {toggle? 
           
           <MobileFunc/>:<div className={style.MobileMenu}>
@@ -154,8 +279,9 @@ const Header = () => {
               }}>
                     <li>Privacy Policy</li>
                   </Link>
-                  <Link to="/logout" onClick={(e)=>{
-                    handleLogout(e)
+                  <Link to="" onClick={(e)=>{
+                    setSetting(false)
+                    setPopup(true)
                   }}>
                     <li>Logout</li>
                   </Link>
@@ -216,16 +342,24 @@ const Header = () => {
         <Link to="/"><img src={logo} alt="" /></Link>
           
         </div>
+        <div className={style.bandaiLogo}>
+          <img src={bandaiLogo} alt="" />
+        </div>
         <div className={style.Menu}>
           <ul>
             <Link to="/" onClick={()=>{
                 setSetting(false)
+              console.log("clicked Home")
+
 
             }}>
               <li>Home</li>
             </Link>
+            {/* {inGame===false? */}
             <Link to="/prizes" onClick={()=>{
                 setSetting(false)
+              console.log("clicked Home")
+
 
             }}>
               <li>Prizes</li>
@@ -317,9 +451,9 @@ const Header = () => {
               }}>
                     <li>Privacy Policy</li>
                   </Link>
-                  <Link to="/logout" onClick={(e)=>{
-                    handleLogout(e)
+                  <Link to="" onClick={(e)=>{
                     setSetting(false)
+                    setPopup(true)
                   }}>
                     <li>Logout</li>
                   </Link>

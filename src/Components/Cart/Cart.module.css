@@ -38,7 +38,14 @@
     margin: 10px 0px;
     padding: 40px;
     padding-top: 0;
+    height: 50vh;
+    overflow: scroll;
     border-bottom: 1.5px solid #fff;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.Carts::-webkit-scrollbar{
+    display: none;
 }
 .CartItem{
     margin: 10px;
@@ -264,4 +271,79 @@ video{
     object-fit: cover;
     height: 100%;
     /* border-radius: 40px; */
+}
+.popup{
+    position: absolute;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1b8fe7;
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    padding:2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    /* width: 15%; */
+}.popupImage{
+    width: 40%;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+}
+.popupImage img{
+    width: 100%;
+    object-fit: contain;
+}
+.popupText{
+    margin-top: 15%;
+}
+.popupText p{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    width: 300px;
+    font-weight: 500;
+    /* word-wrap: break-word; */
+    line-height: 25px;
+
+}
+.popupButton button{
+    margin: 1.5rem;
+    padding: 1rem 7.5rem;
+    background-color: transparent;
+    border:3px solid #fff;
+    outline:none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+}
+.ReportPopupButton{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.ReportPopupButton button{
+    margin: 1.5rem;
+    padding: 1rem 7.5rem;
+    background-color: transparent;
+    border:3px solid #fff;
+    outline:none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+}
+.popupInput textarea{
+    width: 95%;
+    padding:2rem 2rem;
+    border-radius: 30px;
+    color: #1b8fe7;
+
+    outline:none;
+    margin: 1rem;
 }

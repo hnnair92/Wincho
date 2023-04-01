@@ -105,7 +105,7 @@ const Home = () => {
     <div className={style.Container}>
         <div className={style.Home} id="home">
             <div className={style.Transition}>
-                <Lottie animationData={backgroundData[2]} loop={true} />;
+                <Lottie animationData={backgroundData[background]} loop={true} />;
                 {/* <img src={backgroundData[1]} alt="" /> */}
                 <Link to="/prizes">
                     <div className={style.PlayBtn}>

@@ -15,6 +15,8 @@ const Games = () => {
   let { products, loading } = useSelector(
     (state) => state.collectionProducts
   ); 
+  const [popup,setPopup] = useState(false)
+  const [gameData,setGameData] = useState({})
   const userId = JSON.parse(localStorage.getItem("user"))
   const { user } = useSelector((state) => state.profile);
   const userDatas = JSON.parse(localStorage.getItem("user"));
@@ -124,6 +126,36 @@ const Games = () => {
   // const[getAllCategory,setGetAllCategory] = useState("")
   return (
     <div className={style.Container}>
+    {popup?
+      <div className={style.popupOverlay} onClick={()=>{
+        setPopup(false)
+      }}>
+        <div className={style.Popup} onClick={()=>{
+        setPopup(true)
+      }}>
+          <div className={style.popupImage}>
+            <img src={gameData.featured_image.thumbnail} alt="" />
+          </div>
+          <div className={style.popupTitle}>
+            <p>{gameData.title}</p>
+          </div>
+          <div className={style.popupDescription}>
+            <p>{gameData.content}</p>
+          </div>
+          <div className={style.popupPlayNow} onClick={()=>{
+            navigate(`/game/${gameData.id}`,{state:{game:gameData}})
+          }}>
+            {/* <button></button> */}
+            <p>PLAY</p>
+            <div className={style.popupTicket}>
+            <img src={Ticket} alt="" />
+
+            </div>
+            <p>{gameData.price==="0"?"FREE":gameData.price}</p>
+          </div>
+      </div>
+    </div>
+    :""}
       <div className={style.Categories}>
         <div className={style.CategoriesSection}>
           {categories.map((categoryItem, index) => {
@@ -213,7 +245,11 @@ const Games = () => {
                         )}
 
                         <div className={style.infoIcon}>
-                          <Link to="/">
+                          <Link to="" onClick={()=>{
+                            setGameData(game)
+                            setPopup(true)
+                          
+                          }}>
                             <img src={info} alt="" className={style.info} />
                           </Link>
                         </div>

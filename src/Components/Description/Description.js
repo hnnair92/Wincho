@@ -11,18 +11,20 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { assets } from "./assests";
 import ReactPlayer from "react-player";
-
+import { useParams} from "react-router-dom";
 const Description = () => {
-  const dispatch = useDispatch();
+console.log(localStorage)
+    const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state;
   const GameData = state.game;
   const baseUrl = "https://uat.wincha-online.com";
   const onFocus = (e) => {};
+  console.log(GameData)
+// const location = useLocation()
 
   //  Hard coded Datas
-
   const reportCategories = [
     {
       id: "1",
@@ -47,7 +49,7 @@ const Description = () => {
   ];
   const onBlur = (e) => {
     // console.log("Tab is blurred", e);
-    alert("DO you wana exist this page");
+    // alert("DO you wana exist this page");
   };
   useEffect(() => {
     console.log(navigator.onLine);
@@ -78,7 +80,7 @@ const Description = () => {
   const [reportConfirm, setReportConfirm] = useState(false);
   const [category, setCategory] = useState("");
   const [reportText, setReportText] = useState("");
-
+  const [ifPerson,setIfPerson] = useState(JSON.parse(localStorage.getItem("tabsOpen")))
   const [freePlay, setFreePlay] = useState(
     localStorage.getItem("times")
       ? JSON.parse(localStorage.getItem("times"))
@@ -94,6 +96,8 @@ const Description = () => {
   const [leavePopup, setLeavePopup] = useState(false);
   const [freeLimitPopup, setFreeLimitPopup] = useState(false);
   const [prizeResetActive, setPrizeResetActive] = useState(false);
+  const [isTimeout,setisTimeout] = useState(false)
+
   // Redux UseSelectors
   const { game, loading } = useSelector((state) => state.gameEntry);
   const { user } = useSelector((state) => state.profile);
@@ -189,6 +193,29 @@ const Description = () => {
   let EntryRequest = {};
 
   // Redux Dispatch and React UseEffect
+//   useEffect(() => {
+//     // console.log(location.pathname.split("/")[1])
+//     // console.log(location)
+//     // define increment counter part
+//     if(location.pathname.split("/")[1]){
+
+//         const tabsOpen = localStorage.getItem('tabsOpen')
+//         console.log('tabsOpen', tabsOpen)
+//         if (tabsOpen == null) {
+//             localStorage.setItem('tabsOpen', 1)
+//         } else {
+//             localStorage.setItem('tabsOpen', parseInt(tabsOpen) + parseInt(1))
+//         }
+    
+//         // define decrement counter part
+//         window.onunload = function (e) {
+//             const newTabCount = localStorage.getItem('tabsOpen')
+//             if (newTabCount !== null) {
+//                 localStorage.setItem('tabsOpen', newTabCount - 1)
+//             }
+//         }
+//     }
+// }, [location])
   useEffect(() => {
     if (GameData) {
       EntryRequest = {
@@ -238,6 +265,22 @@ const Description = () => {
       window.removeEventListener("blur", onBlur);
     };
   }, [window]);
+  useEffect(()=>{
+    if(game){
+        if(game &&
+            game.camera_data &&
+            game.camera_data[0] &&
+            game.camera_data[0].camera_id==="1"){
+            setCamera(false)
+        }
+        else if(game &&
+            game.camera_data &&
+            game.camera_data[0] &&
+            game.camera_data[0].camera_id==="2"){
+            setCamera(true)
+        }
+    }
+  },[dispatch])
   // popups
   async function movePrize() {
     return (
@@ -502,6 +545,7 @@ const Description = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        localStorage.setItem("inGame",true)
         setWait(false);
         setStartGame(data.data[0]);
         setFirstStep(true);
@@ -598,6 +642,7 @@ const Description = () => {
         socket.emit(`${baseMessage}|G_DISCONNECTED`);
         setSecondStep(false);
         setTimeout(() => {
+
           gameStatus();
           gameSession();
         }, game.get_status_time * 1000);
@@ -648,6 +693,8 @@ const Description = () => {
         if (status === true) {
           addToCart();
         }
+        localStorage.setItem("inGame",false)
+
       });
   }
   async function gameLeave(User, timeout_status) {
@@ -964,6 +1011,11 @@ const Description = () => {
       ) : (
         ""
       )}
+      {/* {ifPerson>=0?
+      <div className={style.isLogged}>
+        <h1>Please close other tabs inorder to play</h1>
+      </div>
+      :""} */}
       {lastWin ? (
         <div
           className={style.LastWinPopup}
@@ -1054,7 +1106,9 @@ const Description = () => {
               </div>
             </div>
             {game && game.camera_data ? (
-              <div className={camera === false ? style.video : style.hideVideo}>
+              <div className={camera === false&&game&&game.camera_data &&
+                game.camera_data[0] &&
+                game.camera_data[0].camera_id==="1" ? style.video : style.hideVideo}>
                 <Screen
                   sessionId={
                     game &&
@@ -1071,10 +1125,28 @@ const Description = () => {
                 />
               </div>
             ) : (
-              ""
+                // <div className={camera === true&&game&&game.camera_data &&
+                //     game.camera_data[1] &&
+                //     game.camera_data[1].camera_id==="1" ? style.video : style.hideVideo}>
+                //     <Screen
+                //       sessionId={
+                //         game &&
+                //         game.camera_data &&
+                //         game.camera_data[1] &&
+                //         game.camera_data[1].session
+                //       }
+                //       token={
+                //         game &&
+                //         game.camera_data &&
+                //         game.camera_data[1] &&
+                //         game.camera_data[1].token
+                //       }
+                //     />
+                //   </div>
+                ""
             )}
             {game && game.camera_data ? (
-              <div className={camera === false ? style.hideVideo : style.video}>
+              <div className={camera === true ? style.video : style.hideVideo}>
                 <Screen
                   sessionId={
                     game &&
