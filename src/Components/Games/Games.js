@@ -183,7 +183,7 @@ const Games = () => {
       ) : (
         <div className={style.Games}>
           {search===""?products&&
-            products.map((game, index) => {
+            products.map((game,index) => {
               return (
                 <Link to={`/game/${game.id}`} state={{ game: game, user: info }}>
                   {popup&&ids===game.id?
