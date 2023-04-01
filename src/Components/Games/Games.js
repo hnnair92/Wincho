@@ -25,6 +25,7 @@ const Games = () => {
   const[search,setSearch] = useState("")
   const [searchArray,setSearchArray] = useState(false)
   const [category, setCategory] = useState("free");
+  const [ids,setId] = useState("")
   // const [category, setCategory] = useState(searchArray.length>0?"":"free");
   const dispatch = useDispatch();
   const response = {
@@ -126,36 +127,7 @@ const Games = () => {
   // const[getAllCategory,setGetAllCategory] = useState("")
   return (
     <div className={style.Container}>
-    {popup?
-      <div className={style.popupOverlay} onClick={()=>{
-        setPopup(false)
-      }}>
-        <div className={style.Popup} onClick={()=>{
-        setPopup(true)
-      }}>
-          <div className={style.popupImage}>
-            <img src={gameData.featured_image.thumbnail} alt="" />
-          </div>
-          <div className={style.popupTitle}>
-            <p>{gameData.title}</p>
-          </div>
-          <div className={style.popupDescription}>
-            <p>{gameData.content}</p>
-          </div>
-          <div className={style.popupPlayNow} onClick={()=>{
-            navigate(`/game/${gameData.id}`,{state:{game:gameData}})
-          }}>
-            {/* <button></button> */}
-            <p>PLAY</p>
-            <div className={style.popupTicket}>
-            <img src={Ticket} alt="" />
-
-            </div>
-            <p>{gameData.price==="0"?"FREE":gameData.price}</p>
-          </div>
-      </div>
-    </div>
-    :""}
+    
       <div className={style.Categories}>
         <div className={style.CategoriesSection}>
           {categories.map((categoryItem, index) => {
@@ -214,6 +186,36 @@ const Games = () => {
             products.map((game, index) => {
               return (
                 <Link to={`/game/${game.id}`} state={{ game: game, user: info }}>
+                  {popup&&ids===game.id?
+                    <div className={style.Game} onClick={()=>{
+                      setPopup(false)
+                    }}>
+                      <div className={style.Popup} onClick={()=>{
+                      setPopup(true)
+                    }}>
+                        <div className={style.popupImage}>
+                          <img src={game.featured_image.thumbnail} alt="" />
+                        </div>
+                        <div className={style.popupTitle}>
+                          <p>{game.title}</p>
+                        </div>
+                        <div className={style.popupDescription}>
+                          <p>{game.content}</p>
+                        </div>
+                        <div className={style.popupPlayNow} onClick={()=>{
+                          navigate(`/game/${game.id}`,{state:{game:game}})
+                        }}>
+                          {/* <button></button> */}
+                          <p>PLAY</p>
+                          <div className={style.popupTicket}>
+                          <img src={Ticket} alt="" />
+              
+                          </div>
+                          <p>{game.price==="0"?"FREE":game.price}</p>
+                        </div>
+                    </div>
+                  </div>
+                  :
                   <div className={style.Game} key={index}>
                     {game.new_item === true ? (
                       <div className={style.Label}>
@@ -246,6 +248,7 @@ const Games = () => {
 
                         <div className={style.infoIcon}>
                           <Link to="" onClick={()=>{
+                            setId(game.id)
                             setGameData(game)
                             setPopup(true)
                           
@@ -256,6 +259,8 @@ const Games = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  }
                 </Link>
               );
             }):
