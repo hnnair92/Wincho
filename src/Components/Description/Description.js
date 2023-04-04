@@ -776,7 +776,6 @@ console.log(localStorage)
         console.log(data);
         gameLeave();
         socket.disconnect();
-        navigate("/win-screen",{state:{game:GameData}})
       });
   }
   //   async function ApiLog(){
@@ -1074,20 +1073,15 @@ console.log(localStorage)
             onClick={() => {
               setLastWin(false);
             }}
-          />{game.last_win_url===""?
-            <div className={style.VideoEmptyOverlay}>
-              <h1>Whoops! Video unavailable please try again please</h1>
-            </div>
-        :
-        <ReactPlayer
-          url={game.last_win_url}
-          width="100%"
-          height="500px"
-          playIcon={<button>Play</button>}
-          playing={true}
-          controls={true}
           />
-        }
+            <ReactPlayer
+              url={game.last_win_url}
+              width="100%"
+              height="500px"
+              playIcon={<button>Play</button>}
+              playing={true}
+              controls={true}
+              />
               {/* <video src=""></video> */}
               {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
             {/* <video ref ={videoRef}>
@@ -1166,11 +1160,10 @@ console.log(localStorage)
                         <p>{game.title}</p>
                       </div>
                       <div className={style.TicketPrice}>
-                        <div className={style.Ticket}>
-                          <img src={assets.ticketIcon} alt=""  onClick={()=>{
-                          setSelGameData(game);
+                        <div className={style.Ticket} onClick={()=>{
                           setPopup(true);
-                        }}/>
+                        }}>
+                          <img src={assets.ticketIcon} alt="" />
                         </div>
                         <div className={style.Price}>
                           <p>{game.price === "0" ? "Free" : game.price}</p>
@@ -1508,28 +1501,12 @@ console.log(localStorage)
                         ""
                       )
                     ) : secondStep ? (
-                      game.camera_data[0].camera_id === "2" ? (
+                      game.camera_data[1].camera_id === "2" ? (
                         direction && direction[1] === "Left" ? (
                           camera === false ? (
                             <button
                               onMouseDown={() => {
-                                SecondArrowPress();
-                              }}
-                              onMouseUp={() => {
-                                SecondArrowRelease();
-                              }}
-                            >
-                              <Lottie
-                                animationData={AllAnimation.ArrowRight}
-                                loop={false}
-                                onComplete={() => {
-                                  timeOut(userId, false);
-                                }}
-                              />
-                            </button>
-                          ) : (
-                            <button
-                              onMouseDown={() => {
+                                console.log("second arrow left false")
                                 SecondArrowPress();
                               }}
                               onMouseUp={() => {
@@ -1540,15 +1517,37 @@ console.log(localStorage)
                                 animationData={AllAnimation.ArrowUp}
                                 loop={false}
                                 onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : camera===true?(
+                            <button
+                              onMouseDown={() => {
+                                console.log("second arrow left true")
+
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowRight}
+                                loop={false}
+                                onComplete={() => {
                                   timeOut(userId, true);
                                 }}
                               />
                             </button>
                           )
+                          :""
                         ) : direction && direction[1] === "Right" ? (
-                          camera ? (
+                          camera===false ? (
                             <button
                               onMouseDown={() => {
+                                console.log("second arrow right false")
+
                                 SecondArrowPress();
                               }}
                               onMouseUp={() => {
@@ -1563,9 +1562,11 @@ console.log(localStorage)
                                 }}
                               />
                             </button>
-                          ) : (
+                          ) : camera===true?(
                             <button
                               onMouseDown={() => {
+                                console.log("second arrow right true")
+
                                 SecondArrowPress();
                               }}
                               onMouseUp={() => {
@@ -1580,13 +1581,15 @@ console.log(localStorage)
                                 }}
                               />
                             </button>
-                          )
+                          ):""
                         ) : (
                           ""
                         )
                       ) : (
                         <button
                           onMouseDown={() => {
+                            console.log("second arrow right find it ")
+
                             SecondArrowPress();
                           }}
                           onMouseUp={() => {

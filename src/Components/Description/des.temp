@@ -1,0 +1,250 @@
+ direction && direction[1] === "Right" ? (
+                        game.camera_data[0].camera_id === "1" ? (
+                          camera === false ? (
+                            <button
+                              onMouseDown={() => {
+                                FirstArrowPress("RIGHT");
+                              }}
+                              onMouseUp={() => {
+                                FirstArrowRelease("RL_STOP");
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowRight}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                FirstArrowPress("RIGHT");
+                              }}
+                              onMouseUp={() => {
+                                FirstArrowRelease("RL_STOP");
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          )
+                        ) : camera === false ? (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("RIGHT");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("RL_STOP");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowUp}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("RIGHT");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("RL_STOP");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowRight}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        )
+                      ) : direction && direction[1] === "Left" ? (
+                        game.camera_data[0].camera_id === "1" ? (
+                          camera === false ? (
+                            <button
+                              onMouseDown={() => {
+                                FirstArrowPress("LEFT");
+                                console.log("clicked");
+                              }}
+                              onMouseUp={() => {
+                                FirstArrowRelease("LR_STOP");
+                                console.log("released");
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowLeft}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                FirstArrowPress("LEFT");
+                                console.log("clicked");
+                              }}
+                              onMouseUp={() => {
+                                FirstArrowRelease("LR_STOP");
+                                console.log("released");
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          )
+                        ) : camera === false ? (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("LEFT");
+                              console.log("clicked");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("LR_STOP");
+                              console.log("released");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowUp}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        ) : (
+                          <button
+                            onMouseDown={() => {
+                              FirstArrowPress("LEFT");
+                              console.log("clicked");
+                            }}
+                            onMouseUp={() => {
+                              FirstArrowRelease("LR_STOP");
+                              console.log("released");
+                            }}
+                          >
+                            <Lottie
+                              animationData={AllAnimation.ArrowLeft}
+                              loop={false}
+                              onComplete={() => {
+                                timeOut(userId, false);
+                              }}
+                            />
+                          </button>
+                        )
+                      ) : (
+                        ""
+                      )
+                    ) : secondStep ? (
+                      game.camera_data[0].camera_id === "2" ? (
+                        direction && direction[1] === "Left" ? (
+                          camera === false ? (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowRight}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, true);
+                                }}
+                              />
+                            </button>
+                          )
+                        ) : direction && direction[1] === "Right" ? (
+                          camera ? (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowLeft}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, false);
+                                }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              onMouseDown={() => {
+                                SecondArrowPress();
+                              }}
+                              onMouseUp={() => {
+                                SecondArrowRelease();
+                              }}
+                            >
+                              <Lottie
+                                animationData={AllAnimation.ArrowUp}
+                                loop={false}
+                                onComplete={() => {
+                                  timeOut(userId, true);
+                                }}
+                              />
+                            </button>
+                          )
+                        ) : (
+                          ""
+                        )
+                      ) : (
+                        <button
+                          onMouseDown={() => {
+                            SecondArrowPress();
+                          }}
+                          onMouseUp={() => {
+                            SecondArrowRelease();
+                          }}
+                        >
+                          <Lottie
+                            animationData={AllAnimation.ArrowUp}
+                            loop={false}
+                            onComplete={() => {
+                              timeOut(userId, true);
+                            }}
+                          />
+                        </button>
+                      )
