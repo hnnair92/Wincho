@@ -116,6 +116,7 @@
     left: 50%;
     transform: translateX(-50%);
     /* transform: translateY(100%); */
+    /* top: 100%; */
     z-index: 999;
     display: flex;
     flex-direction: row;
@@ -152,10 +153,14 @@
 .Watch img{
     width: 100%;
 }
-.Ticket a{
+.Ticket{
+    transition: all 0.25s ease-in-out;
+
+}
+.Ticket a,.TicketTop a{
     position: -webkit-fixed;
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     top:80px;
     right: 10px;
     min-width: 15rem;
@@ -168,10 +173,17 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    transition: all 0.25s ease-in-out;
     
     
 }
-.TicketIcon{
+.TicketTop a{
+    top: 0;
+    transition: all 0.25s ease-in-out;
+
+}
+.Ticket a
+.TicketIcon,.TicketTop a .TicketIcon{
     width: 40%;
     display: flex;
     flex-direction: row;

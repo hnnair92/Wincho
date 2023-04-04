@@ -347,3 +347,58 @@ video{
     outline:none;
     margin: 1rem;
 }
+.Address{
+    width: 68rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Address form{
+    background-color: #fff;
+    padding: 20px;
+    border-radius:20px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+
+}
+.Address form input{
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 3rem;
+    background-color: #fff;
+    height: 7.5rem;
+    /* height: 5.68rem; */
+    padding: 1.13rem 2.26rem;
+    text-align: left;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    border:.25rem solid #333333c1;
+}
+.Address form h1{
+    text-align: left;
+    font-weight: 500;
+    color: #333333c1;
+    text-align: left;
+    margin-right: auto;
+}
+.Address form {
+    align-items: center;
+}
+.Address form button{
+    width: 75%;
+    border-radius: 50px;
+    background-color: #3b82f6;
+    border: none;
+    outline:none;
+    height: 7.5rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 2rem;
+}

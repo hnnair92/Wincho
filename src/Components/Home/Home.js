@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import imageDiv from '../../assests/TEXTOff Tickets.png'
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
+    const[scrollNav,setScrollNav] = useState(false);
     // var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
     // var sessionID = "2_MX40NzQ5ODQ3MX5-MTY3NzY0MzU3MTUxMX5OQkNMYWxtc3ZKVXN2d3hlbmE0cG1IMER-fn4"; // Replace with your own session ID.
     //                     // See https://tokbox.com/developer/guides/create-session/.
@@ -26,6 +27,17 @@ const Home = () => {
     // console.log(subscriber)
     // });
     // session.connect(token);
+    const chnageNav=()=>{
+        if(window.scrollY >= 80){
+          setScrollNav(true)
+        }else{
+          setScrollNav(false)
+        }
+      };
+      useEffect(()=>{
+        window.addEventListener('scroll',chnageNav);
+        console.log(scrollNav,"scrollNav");
+      },[window.scrollY]);
     const[id,setId] = useState(0);
     const[aboutId,setAboutId] = useState(0)
     const leftHandle=()=>{
@@ -183,7 +195,9 @@ const Home = () => {
                     
             </div>
         </div>
-        <div className={style.Ticket}>
+        {scrollNav
+        ?
+        <div className={style.TicketTop}>
             <Link to="/tickets">
                 <div className={style.TicketIcon}>
                     <Lottie animationData={ticketIcon} loop={true} />;
@@ -196,6 +210,33 @@ const Home = () => {
             </Link>
             
         </div>
+        
+        :
+        <div className={style.Ticket} style={{top:scrollNav?"0px":"80px"}}>
+            <Link to="/tickets">
+                <div className={style.TicketIcon}>
+                    <Lottie animationData={ticketIcon} loop={true} />;
+                        
+                </div>
+                <div className={style.TicketText}>
+                        {/* <p>20% OFF TICKETS!</p> */}
+                        <img src={imageDiv} alt="" />
+                </div>
+            </Link>
+            
+        </div>}
+        {/* <div className={style.Ticket} style={{top:scrollNav?"0px":"80px"}}>
+            <Link to="/tickets">
+                <div className={style.TicketIcon}>
+                    <Lottie animationData={ticketIcon} loop={true} />;
+                        
+                </div>
+                <div className={style.TicketText}>
+                        <img src={imageDiv} alt="" />
+                </div>
+            </Link>
+            
+        </div> */}
     </div>
   )
 }

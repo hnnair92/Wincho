@@ -74,8 +74,9 @@ export const registerAction = (data)=>async(dispatch)=>{
             }
         }).then(res=>res.json()).then((data)=>{
             if(data.status==="True"){
+                // console.log(data)
                 // localStorage.setItem("user",JSON.stringify(data))
-                localStorage.setItem("user",JSON.stringify(data.data[0]._id))
+                localStorage.setItem("user",JSON.stringify(data.data.user_id))
                 updateProfile(data.data.user_id)
                 dispatch({
                     type:REGISTER_SUCCESS,
@@ -94,7 +95,7 @@ export const registerAction = (data)=>async(dispatch)=>{
     } catch (error) {
         dispatch({
             type:REGISTER_FAIL,
-            payload:error
+            payload:error.message
         })
     }
 }

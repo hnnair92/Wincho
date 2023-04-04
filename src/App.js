@@ -25,6 +25,7 @@ import Jins from "./Components/jins/jins";
 import { socket } from "./socket";
 import { useDispatch, useSelector } from "react-redux";
 import { configutation } from "./actions/product";
+import WinScreen from "./Components/winScreen/winScreen";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
@@ -101,6 +102,7 @@ function App() {
           <Route path="/order-confirmed" element={<OrderConfirmed />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/Demo" element={<Demo />} />
+          <Route path="/win-screen" element={<WinScreen />} />
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
         <Footer />

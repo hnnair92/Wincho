@@ -31,6 +31,7 @@ const Register = () => {
     const[allState,setAllState] = useState([])
     const[selectState,setSelectState] = useState(false)
     const dispatch = useDispatch()
+    const userId = localStorage.getItem("user")
     const fetchLocation = async()=>{
         fetch('http://ip-api.com//json',{ 
             method: 'get',
@@ -88,13 +89,13 @@ const Register = () => {
     const navigate = useNavigate()
     const{error,user,authenticated} = useSelector((state)=>state.userData)
     useEffect(()=>{
-        if(authenticated){
+        if(userId!==null){
+            dispatch(updateProfile(userId))
             navigate("/")
         }
-        if(user){
-            dispatch(updateProfile(user&&user.user_id))
-        }
-    },[navigate,authenticated])
+        // if(userId!==null){
+        // }
+    },[userId,dispatch])
     // const[chec]
     const handleRegister=(e)=>{
         e.preventDefault()

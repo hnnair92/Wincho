@@ -1,0 +1,31 @@
+.containerScreen{
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    position: relative;
+}
+.popup{
+    width: 100%;
+    background-color: #000000;
+    /* height: 50%; */
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    /* z-index: 9999; */
+    right: 0;
+}
+
+.Section{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Section h1{
+    font-style: 2rem;
+    color: #fff;
+}

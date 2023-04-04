@@ -6,19 +6,22 @@ import { updateProfile } from "../../actions/user";
 import style from "./Description.module.css";
 import Screen from "./Screen";
 import { socket } from "../../socket";
+// import React, { useEffect, useState } from 'react'
+import { OTSession, OTPublisher, OTStreams, OTSubscriber } from 'opentok-react';
 import Lottie from "lottie-react";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { assets } from "./assests";
 import ReactPlayer from "react-player";
 import { useParams} from "react-router-dom";
+import { MdClose } from "react-icons/md";
 const Description = () => {
 console.log(localStorage)
     const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state;
-  const GameData = state.game;
+  const GameData = state&&state.game;
   const baseUrl = "https://uat.wincha-online.com";
   const onFocus = (e) => {};
   console.log(GameData)
@@ -73,7 +76,7 @@ console.log(localStorage)
   const [camera, setCamera] = useState(false);
   const [count, setCount] = useState(4);
   const [viewCount, setViewCount] = useState("");
-  const [onPlay, setOnPlay] = useState(true);
+  const [onPlay, setOnPlay] = useState(false);
   const [startGame, setStartGame] = useState({});
   const [reportIssueCategories, setReportIssueCategories] = useState(false);
   const [reportContent, setReportContent] = useState(false);
@@ -81,6 +84,8 @@ console.log(localStorage)
   const [category, setCategory] = useState("");
   const [reportText, setReportText] = useState("");
   const [ifPerson,setIfPerson] = useState(JSON.parse(localStorage.getItem("tabsOpen")))
+  const [popup,setPopup] = useState(false);
+  const [SelGameData,setSelGameData] = useState({})
   const [freePlay, setFreePlay] = useState(
     localStorage.getItem("times")
       ? JSON.parse(localStorage.getItem("times"))
@@ -106,6 +111,7 @@ console.log(localStorage)
 
   //   sockets
   useEffect(() => {
+    checkFreePlay()
     socket.on("connect", () => {
       console.log("Connected");
     });
@@ -280,7 +286,10 @@ console.log(localStorage)
             setCamera(true)
         }
     }
-  },[dispatch])
+  },[dispatch,game])
+  useEffect(()=>{
+    checkFreePlay()
+  },[gamePlayStatus])
   // popups
   async function movePrize() {
     return (
@@ -387,7 +396,25 @@ console.log(localStorage)
   }
 
   // All Game Screen API's
-
+  async function checkFreePlay(){
+    await fetch(`${baseUrl}/game/freeplay/limit`,{
+      method:"POST",
+      body:JSON.stringify({
+        user:userId,
+        device_id:""
+      }),
+      headers:{
+        "Content-type":"application/json"
+      }
+    }).then(res=>res.json()).then((data)=>{
+      console.log(data);
+      
+      localStorage.getItem("timesall")
+      ? localStorage.setItem("timesall",parseInt(data.data[0].freeplay_limit))
+      : localStorage.setItem("timesall", 0);
+      
+    })
+  }
   async function sendReport() {
     await fetch(`${baseUrl}/game/issue/report`, {
       method: "POST",
@@ -749,6 +776,7 @@ console.log(localStorage)
         console.log(data);
         gameLeave();
         socket.disconnect();
+        navigate("/win-screen",{state:{game:GameData}})
       });
   }
   //   async function ApiLog(){
@@ -1023,33 +1051,91 @@ console.log(localStorage)
             setOnPlay(false);
           }}
         >
-          <div className={style.PlayIcon}>
+          <div className={style.VideoOverlay} onClick={() => {
+            setLastWin(false);
+          }}>
+
+          </div>
+          {/* <div className={style.PlayIcon}>
             <button
               onClick={() => {
-                // videoRef.current.play()?videoRef.current.pause():videoRef.current.play()
+                onPlay ? setOnPlay(false) : setOnPlay(true);
               }}
             >
               <img
                 src={assets.PlayImage}
                 alt=""
-                onClick={() => {
-                  onPlay ? setOnPlay(false) : setOnPlay(true);
-                }}
+                
               />
             </button>
-          </div>
+          </div> */}
           <div className={style.VideoSection}>
-            <ReactPlayer
-              url={game.last_win_url}
-              width="100%"
-              height="500px"
-              playIcon={<button>Play</button>}
-              playing={onPlay}
-              //   light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-            />
+            <MdClose 
+            onClick={() => {
+              setLastWin(false);
+            }}
+          />{game.last_win_url===""?
+            <div className={style.VideoEmptyOverlay}>
+              <h1>Whoops! Video unavailable please try again please</h1>
+            </div>
+        :
+        <ReactPlayer
+          url={game.last_win_url}
+          width="100%"
+          height="500px"
+          playIcon={<button>Play</button>}
+          playing={true}
+          controls={true}
+          />
+        }
+              {/* <video src=""></video> */}
+              {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
             {/* <video ref ={videoRef}>
                 <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
             </video> */}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {popup ? (
+        <div
+          className={style.PopupSection}
+          
+        >
+          <div className={style.PopupOverlay}onClick={() => {
+            setPopup(false);
+          }}>
+
+          </div>
+          <div
+            className={style.Popup}
+            onClick={() => {
+              setPopup(true);
+            }}
+          >
+            <div className={style.popupImage}>
+              <img src={SelGameData.featured_image.large} alt="" />
+            </div>
+            <div className={style.popupTitle}>
+              <p>{SelGameData.title}</p>
+            </div>
+            <div className={style.popupDescription}>
+              <p>{SelGameData.content}</p>
+            </div>
+            <div
+              className={style.popupPlayNow}
+              onClick={() => {
+                navigate(`/game/${SelGameData.id}`, { state: { game: SelGameData } });
+              }}
+            >
+              {/* <button></button> */}
+              <p>PLAY</p>
+              <div className={style.popupTicket}>
+                <img src={assets.ticketIcon} alt="" />
+              </div>
+              <p>{SelGameData.price === "0" ? "FREE" : SelGameData.price}</p>
+            </div>
           </div>
         </div>
       ) : (
@@ -1066,10 +1152,14 @@ console.log(localStorage)
           <div className={style.AllGames}>
             {products?.map((game) => {
               return (
-                <Link to={`/game/${game.id}`} state={{ game: game }}>
+                <Link to={`/game/${game.id}`} state={{ game: game }} style={{pointerEvents:gamePlayStatus?"none":"visible"}}
+                //  onClick={()=>{
+                //   window.location.reload()
+                // }}>
+                >
                   <div className={style.Game}>
                     <div className={style.Image}>
-                      <img src={game.featured_image.thumbnail} alt="" />
+                      <img src={game.featured_image.large} alt="" />
                     </div>
                     <div className={style.GameContent}>
                       <div className={style.GameName}>
@@ -1077,7 +1167,10 @@ console.log(localStorage)
                       </div>
                       <div className={style.TicketPrice}>
                         <div className={style.Ticket}>
-                          <img src={assets.ticketIcon} alt="" />
+                          <img src={assets.ticketIcon} alt=""  onClick={()=>{
+                          setSelGameData(game);
+                          setPopup(true);
+                        }}/>
                         </div>
                         <div className={style.Price}>
                           <p>{game.price === "0" ? "Free" : game.price}</p>
@@ -1095,6 +1188,12 @@ console.log(localStorage)
         </div>
         <div className={style.GameScreen}>
           <div className={style.Screen}>
+            <div className={style.Overlay}>
+              <div className={style.Loader}>
+              <h1>Please wait while we get the video for you </h1>
+                <div className={style.LoaderDiv}></div>
+              </div>
+            </div>
             <div className={style.Icons}>
               <div className={style.queStatus}>
                 <img src={assets.userView} alt="" />
@@ -1123,6 +1222,21 @@ console.log(localStorage)
                     game.camera_data[0].token
                   }
                 />
+                {/* <OTSession apiKey="47498471" sessionId={game &&
+                    game.camera_data &&
+                    game.camera_data[0] &&
+                    game.camera_data[0].session} token={ game &&
+                    game.camera_data &&
+                    game.camera_data[0] &&
+                    game.camera_data[0].token}>
+            
+            <OTStreams >
+              <OTSubscriber onSubscribe={(e)=>{
+                console.log(e);
+                console.log("gotted");
+              }}/>
+            </OTStreams>
+          </OTSession> */}
               </div>
             ) : (
                 // <div className={camera === true&&game&&game.camera_data &&
@@ -1161,6 +1275,22 @@ console.log(localStorage)
                     game.camera_data[1].token
                   }
                 />
+                {/* <OTSession apiKey="47498471" sessionId={game &&
+                    game.camera_data &&
+                    game.camera_data[1] &&
+                    game.camera_data[1].session} token={ game &&
+                    game.camera_data &&
+                    game.camera_data[1] &&
+                    game.camera_data[1].token}>
+            
+            <OTStreams >
+            <OTStreams >
+              <OTSubscriber onSubscribe={(e)=>{
+                console.log(e);
+                console.log("gotted");
+              }}/>
+            </OTStreams>
+          </OTSession> */}
               </div>
             ) : (
               ""
@@ -1181,7 +1311,7 @@ console.log(localStorage)
                 </button>
               </div>
               <div className={style.PrizeReset}>
-                {count % 5 === 0 && playAgain && count != 0 ? (
+                {count % configuration.FREE_PLAY_LIMIT === 0 && playAgain && count != 0 ? (
                   prizeResetActive ? (
                     <button>
                       <img src={assets.GrayPrizeMove} alt="" />
@@ -1532,7 +1662,7 @@ console.log(localStorage)
                   </button>
                 )}
               </div>
-              <div className={style.Report}>
+              <div className={style.Report}  style={{pointerEvents:gamePlayStatus?"none":"visible"}}>
                 <button
                   onClick={() => {
                     setReportIssueCategories(true);
@@ -1542,7 +1672,7 @@ console.log(localStorage)
                 </button>
               </div>
             </div>
-            <div className={style.Right}>
+            <div className={style.Right}  style={{pointerEvents:gamePlayStatus?"none":"visible"}}>
               <div className={style.LastWin}>
                 <button
                   onClick={() => {
@@ -1563,9 +1693,9 @@ console.log(localStorage)
         <div className={style.LeftSide}>
           {minimized ? (
             <div className={style.NowPlaying}>
-              <div className={style.NowPlayingTitle}>
+              {/* <div className={style.NowPlayingTitle}>
                 <p>YOU'RE PLAYING FOR</p>
-              </div>
+              </div> */}
               <div className={style.CurrentTitle}>
                 <p>{GameData?.title}</p>
               </div>
@@ -1583,7 +1713,7 @@ console.log(localStorage)
                 <p>YOU'RE PLAYING FOR</p>
               </div>
               <div className={style.CurrentImage}>
-                <img src={GameData?.featured_image?.thumbnail} alt="" />
+                <img src={GameData?.featured_image?.large} alt="" />
               </div>
               <div className={style.CurrentTitle}>
                 <p>{GameData?.title}</p>

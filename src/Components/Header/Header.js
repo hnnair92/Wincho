@@ -153,6 +153,15 @@ const Header = () => {
    
   return (
     <div className={style.Container}>
+      <div className={style.MobileBottomNav}>
+        <ul>
+          <li><img src="" alt="" /></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
       {leave?<div className={style.PopupContainer}>
             <div className={style.popup}>
           <div className={style.popupImage}>
