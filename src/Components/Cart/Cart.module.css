@@ -45,7 +45,17 @@
     overflow-y: scroll;
 }
 .Carts::-webkit-scrollbar{
-    display: none;
+    /* -webkit-appearance: none; */
+    /* background-color:transparent; */
+    width: 10px;
+}
+.Carts::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+.Carts::-webkit-scrollbar-thumb {
+    background: #1b8fe7; 
+    border-radius: 10px;
 }
 .CartItem{
     margin: 10px;

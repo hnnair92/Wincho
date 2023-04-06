@@ -32,7 +32,7 @@
 }
 .Logo img{
     width: 8.5rem;
-    z-index: 99;
+    z-index: 9999999;
     top: 0%;
     position: absolute;
     height: 8.5rem;
@@ -286,7 +286,9 @@
 .PopupContainer{
     width: 100vw;
     height: 100vh;
-    position: relative;
+    position: absolute;
+    background-color: transparent;
+    z-index: 999999;
 }
 .popup{
     position: absolute;
@@ -468,3 +470,8 @@
 
     }
 }
+/* @media(min-width:1065px){
+    .Container{
+        width: fit-content;
+    }
+} */

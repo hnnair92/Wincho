@@ -24,6 +24,9 @@
     overflow-y: scroll;
 
 }
+.Faq::-webkit-scrollbar{
+    display: none;
+}
 .FaqBtn{
     width: auto;
     border-radius: 50px;

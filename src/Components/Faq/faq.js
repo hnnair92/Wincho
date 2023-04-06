@@ -5,20 +5,32 @@ import faqDataCategory from "../../Api/FaqCategory";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 const Faq = () => {
   const[faqData,setFaqData] = useState([])
-  const [faqCat, setFaqCat] = useState("");
-  const [status, setStatus] = useState(false);
+  const [faqCat, setFaqCat] = useState("Registration");
+  const [status, setStatus] = useState(true);
   const [catId, setCatId] = useState("");
   const [id, setId] = useState("");
   const [faqStatus, setFaqStatus] = useState(false);
   const baseUrl = "https://uat.wincha-online.com"
   const faqApi = async()=>{
     await fetch(`${baseUrl}/game/faq`).then(res=>res.json()).then((data)=>{
+      setFaqStatus(true)
       setFaqData(data.data[0].faq_sections)
+      // console.log(data.data[0].faq_sections[0].faqs[0].q)
+      setFaqCat(data.data[0].faq_sections[0].section)
+      setId(data.data[0].faq_sections[0].faqs[0].q)
     })
   }
   useEffect(()=>{
     faqApi()
+    if(faqData){
+      // setFaqCat(faqData[0].section)
+      
+    }
   },[])
+  console.log(faqData)
+  console.log(faqCat)
+  console.log(faqStatus)
+  console.log(id)
   return (
     <div className={style.Container}>
       <div className={style.Faq}>

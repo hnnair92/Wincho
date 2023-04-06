@@ -40,19 +40,32 @@
 
 .GameScreen {
     width: 40%;
-    height: 100%;
+    /* min-height: 100vh; */
     padding-top: 0rem;
+    position: relative;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-
+.AllGameSectin{
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
 .GameScreen .Screen {
     width: 90%;
-    min-height: 30vh;
+    /* min-height: 30vh; */
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    height: auto;
+    /* height: 90%; */
 }
 
 .GameScreen .Screen .video {
@@ -62,7 +75,10 @@
 
 .Screen {
     position: relative;
+    display: flex;
+    justify-content: center;
     min-height: 45vh;
+    /* height: 90%; */
 }
 
 .Icons {
@@ -306,20 +322,23 @@ video {
 
 .popup {
     position: absolute;
-    z-index: 9999;
+    font-family: myraidproregular !important;
+    z-index: 99999;
     top: 50%;
     left: 50%;
     width: fit-content;
     transform: translate(-50%, -50%);
     border: 1rem solid #949393;
-    border-radius: 20px;
+    border-radius: 30px;
     background-color: #1b8fe7;
-    padding: 2rem;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /* width: 15%; */
+    width: 300px;
+    
 }
 
 .popupImage {
@@ -336,19 +355,27 @@ video {
 
 .popupText {
     margin-top: 15%;
+    padding:0rem 2rem;
 }
 
 .popupText p {
     font-size: 2rem;
     text-align: center;
     color: #fff;
+    line-height: 25px;
+    font-size:2.25rem;
     font-weight: 500;
 
 }
+.popupButton,.popupButtonSubmit{
+    width: 100%;
+    padding:0rem 2rem;
 
-.popupButton button {
-    margin: 1.5rem;
-    padding: 1rem 7.5rem;
+}
+.popupButton button,.popupButtonSubmit button {
+    margin: 1.5rem 0;
+    padding: 1rem 0rem;
+    width: 100%;
     background-color: transparent;
     border: 3px solid #fff;
     outline: none;
@@ -356,45 +383,73 @@ video {
     font-size: 2rem;
     font-weight: 600;
     border-radius: 30px;
+    font-family: myraidproregular;
+}
+.popupButtonSubmit button{
+    border-width: 1.5px;
 }
 
-.ReportPopupButton {
+.ReportPopupButton,.ReportPopupButtonCategory {
+    width: 100%;
     margin: 0 auto;
     display: flex;
+    padding: 0rem 2rem;
     flex-direction: column;
 }
-
-.ReportPopupButton button {
-    margin: 1.5rem;
-    padding: 1rem 7.5rem;
-    background-color: transparent;
-    border: 3px solid #fff;
-    outline: none;
-    color: #fff;
-    font-size: 2rem;
-    font-weight: 600;
-    border-radius: 30px;
+.ReportPopupButtonCategory{
+    margin-top: 12%;
 }
-
-.popupInput textarea {
-    width: 95%;
-    padding: 2rem 2rem;
-    border-radius: 30px;
-    color: #1b8fe7;
-
-    outline: none;
+.ReportPopupButton button ,.ReportPopupButtonCategory button{
     margin: 1rem;
-}
-
-.popupSubmit button {
-    margin: 1.5rem;
-    padding: 1rem 7.5rem;
+    padding: 1rem 0rem;
     background-color: transparent;
-    border: 3px solid #fff;
+    border: 1.5px solid #fff;
     outline: none;
     color: #fff;
     font-size: 2rem;
-    font-weight: 600;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    border-radius: 30px;
+    font-family: myraidproregular;
+}
+.popupInput{
+    width: 100%;
+}
+.popupInput textarea {
+        /* min-width: 270px; */
+    /* max-width: 270px; */
+    /* min-height: 225px; */
+    /* max-height: 225px; */
+    padding: 2rem 2rem;
+    font-family: myraidproregular;
+    border-radius: 20px;
+    font-size: 2rem;
+    color: #1b8fe7;
+    /* overflow-y: scroll; */
+    outline: none;
+    margin: 1rem 0;
+    resize: none;
+    width: 100%;
+}
+/* .popupInput textarea::-webkit-textfield-decoration-container{
+    display: none;
+} */
+.popupSubmit{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.popupSubmit button {
+    margin: .5rem;
+    padding: 1rem 3rem;
+    background-color: transparent;
+    font-family: myraidproregular;
+
+    border: 1.5px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 500;
     border-radius: 30px;
 }
 
@@ -497,10 +552,14 @@ video {
 }
 
 .VideoSection {
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 300px;
     object-fit: cover;
     overflow: hidden;
+    border: 10px solid #1b8fe7;
+    outline: 10px solid #949393;
+    border-radius: 30px;
+
 }
 
 .PlayIcon button img {
@@ -539,11 +598,37 @@ video {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.VideoSection div{
+    background-color: #1b8fe7;
+    width: 100%;
+    height: 100% !important;
+}
+
 
 .VideoSection video {
-    border-radius: 30px;
-    border: 7px solid #949393;
+    background-color: #000;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* border-radius: 30px; */
+    /* border: 14px solid #1b8fe7; */
     /* outline: 14x solid #1b8fe7; */
+}
+.hideVideopopup{
+    display: none;
+}
+.VideoSection .VideoEmpty{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.VideoEmpty p{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
 }
 
 @media(max-width:1065px) {
@@ -665,7 +750,7 @@ video {
     }
 
     .Section {
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -801,13 +886,13 @@ video {
 }
 
 .Overlay {
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 0; */
+    /* width: 100%;
     height: 100%;
     border-radius: 50px;
-    background-color: #000;
+    background-color: #000; */
 }
 
 /* .GameScreen .Screen{
@@ -898,3 +983,59 @@ video {
 .VideoEmptyOverlay h1{
 
 }
+.videoStarting{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(27, 143, 231, 1) 0%, rgba(19, 192, 236, 1) 50%, rgba(32, 122, 224, 1) 100%);
+    z-index: 999999;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 8rem;
+    font-weight: 600;
+    font-family: drumshake_italic;
+}
+.videoStarting p{
+    text-align: center;
+}
+.TimeoutAnimation{
+    width: 62.5%;
+    position: absolute;
+    right: 0;
+    z-index: 99999;
+    bottom: 0;
+    cursor: ;
+}
+/* @media(min-width:1065px){
+    .Container,.Section{
+        width: fit-content;
+    }
+    .ExtraGames{
+        max-width: 450px;
+        min-width: 450px;
+    }
+    .GameScreen{
+        min-width: 750px;
+        max-width: 750px;
+        width: 40%;
+        padding: 75px;
+        min-height: 100vh;
+        padding-top: 0rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .LeftSide{
+        min-width: 450px;
+        max-width: 450px;
+    }
+} */

@@ -219,15 +219,16 @@ const Games = () => {
                         <p className={style.Name}>{game.title}</p>
                         <div className={style.PriceDiv}>
                           <div className={style.ticketIcon}>
-                            <Link to="/tickets">
+                            <div className={style.ticketIconDiv}>
                               <img src={Ticket} alt="" className={style.icon} />
-                            </Link>
-                          </div>
-                          {game && game.price === "0" ? (
+                            </div>
+                            {game && game.price === "0" ? (
                             <p className={style.free}>Free</p>
                           ) : (
                             <p className={style.Price}>{game.price}</p>
                           )}
+                          </div>
+                          
 
                           <div className={style.infoIcon}>
                             <Link
@@ -268,21 +269,21 @@ const Games = () => {
                     </div>:""} */}
 
                       <div className={style.Image}>
-                        <img src={game.featured_image.thumbnail} alt="" />
+                        <img src={game.featured_image.large} alt="" />
                       </div>
                       <div className={style.Details}>
                         <p className={style.Name}>{game.title}</p>
                         <div className={style.PriceDiv}>
                           <div className={style.ticketIcon}>
-                            <Link to="/tickets">
+                            <div className={style.ticketIconDiv}>
                               <img src={Ticket} alt="" className={style.icon} />
-                            </Link>
-                          </div>
+                            </div>
                           {game && game.price === "0" ? (
                             <p className={style.free}>Free</p>
                           ) : (
                             <p className={style.Price}>{game.price}</p>
                           )}
+                          </div>
 
                           <div className={style.infoIcon}>
                             <Link to="/">
@@ -299,7 +300,7 @@ const Games = () => {
       )}
       {history?
       <div className={style.History}>
-        
+
       </div>
     :""}
       {popup && ids ? (

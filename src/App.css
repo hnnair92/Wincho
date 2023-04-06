@@ -56,3 +56,9 @@ li{
     border-radius: 25px ;
   }
 }
+/* @media(min-width:1065px){
+  .App{
+    background-color: #2d2d2d;
+    overflow: scroll;
+  }
+} */

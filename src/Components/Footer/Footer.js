@@ -10,9 +10,11 @@ import tiktok from '../../assests/TikTok Icon.png'
 import youtube from '../../assests/YouTube Icon.png'
 import { Link, useNavigate } from 'react-router-dom'
 import bandaiLogo from '../../assests/Bandai Namco Logo.png'
+import { useSelector } from 'react-redux'
 // import {} from 'react-icons/ai'
 const Footer = () => {
     const navigate = useNavigate();
+    const {configuration} = useSelector((state)=>state.configuration)
     const handleId = (e,title) => {
         e.preventDefault();
         const path = window.location.pathname;
@@ -65,13 +67,13 @@ const Footer = () => {
 
                 </div>
                 <div className={style.Copyright}>
-                    <p>Wincha</p>
+                    <p>Wincha&reg;</p>
                     <p>&copy; Bandai Namco Amusement Europe Ltd.</p>
                 </div>
                 <div className={style.TermsAndPrivacy}>
                 <div className={style.TermsAndPrivacyText}>
-                    <p>Privacy Policy</p>
-                    <p>Terms and Conditions</p>
+                    <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
+                    <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
                 </div>
                 <div className={style.bandaiLogo}>
                     <img src={bandaiLogo} alt="" />

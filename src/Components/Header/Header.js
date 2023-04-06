@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import React, { useState,useEffect } from "react";
 import style from "./Header.module.css";
 import logo from "../../assests/Wincha Icon.png";
@@ -14,7 +15,7 @@ import { updateProfile } from "../../actions/user";
 import bandaiLogo from '../../assests/Bandai Namco Logo.png'
 
 // import { useSelector } from 'react-redux'
-const Header = () => {
+const Header = ({setActive,active,setGamePlay,gamePlay}) => {
   const dispatch = useDispatch()
   const[popup,setPopup]=useState(false)
   const [leave,setLeave] = useState(false)
@@ -27,6 +28,9 @@ const Header = () => {
   let inGame = localStorage.getItem("inGame")
   console.log(inGame)
   useEffect(()=>{
+    console.log(active,"active from description")
+  },[active])
+  useEffect(()=>{
     inGame = localStorage.getItem('inGame')
     if(inGame===null||inGame===undefined){
       localStorage.setItem("inGame",false)
@@ -36,6 +40,10 @@ const Header = () => {
     dispatch(updateProfile(userData.user))
 
   },[dispatch])
+  useEffect(()=>{
+    console.log(gamePlay,"gamePlay status")
+    console.log(active,"active status")
+  })
   const handleId = (e) => {
     e.preventDefault();
     const path = window.location.pathname;
@@ -68,23 +76,31 @@ const Header = () => {
       //       <p>Woah there you haven't got enough tickets</p>
       //     </div>
       //     <div className={style.popupButton}>
-      //       <button onClick={()=>{
+      //       <button  onClick={()=>{
+              // {gamePlay===true?
+              //   setActive(true)
+              //   :
+               
       //         console.log("cancelled");
               
-      //       }}>CANCEL</button>
-      //       <button onClick={()=>{
+      //       }}}>CANCEL</button>
+      //       <button  onClick={()=>{
+              // {gamePlay===true?
+              //   setActive(true)
+              //   :
+               
       //         // callback(false)
       //         console.log("Exits");
 
-      //       }}>OK</button>
-      //       {/* <Link
+      //       }}}>OK</button>
+      //       {/* <button
       //         to="/tickets"
       //         onClick={() => {
       //           setTopup(false);
       //         }}
       //       >
       //         <button>TOP UP</button>
-      //       </Link> */}
+      //       </button> */}
       //     </div>
       //   </div>
       //   </div>
@@ -106,46 +122,62 @@ const Header = () => {
       <div className={style.mobileFullMenu}>
       <div className={style.Menu}>
           <ul>
-            <Link to="/" onClick={()=>{
-              checkGameOn()
-              console.log("clicked Home")
+            <button   onClick={()=>{
 
-              
-              // setSetting(false)
 
-            }}><li>Home</li></Link>
+            }}><li>Home</li></button>
             {/* {inGame? */}
-            <Link to="/prizes" onClick={()=>{
+            <button onClick={()=>{
+              // eslint-disable-next-line no-lone-blocks
+              {gamePlay===true?
+                setActive(true)
+                :
+               navigate("/prizes");
+              //  
               checkGameOn()
               console.log("clicked Home")
 
               
               // setSetting(false)
 
-            }}><li>Prizes</li></Link>
-            {/* <Link to="/" onClick={()=>{
+            }}}><li>Prizes</li></button>
+            {/* <button to="/"  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
               setToggle(false)
-            }}><li>Search</li></Link> */}
-            <Link to="/" onClick={(e)=>{
+            }}}><li>Search</li></button> */}
+            <button  onClick={(e)=>{
               setToggle(false)
               handleId(e)
-            }}><li>Support</li></Link>
-            <Link to="/cart" onClick={()=>{
+            }}><li>Support</li></button>
+            <button  onClick={()=>{
+              // eslint-disable-next-line no-lone-blocks
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate("/cart");
+               
               setToggle(false)
-            }}><li
+            }}}><li
             //  onMouseOver={()=>{
             //   console.log("entered")
             // }} onMouseLeave={()=>{
             //   console.log("leaved")
             // }}
-            >Basket</li></Link>
+            >Basket</li></button>
           </ul>
         </div>
         
         <div className={style.close}>
-            <AiOutlineClose className={style.closeIcon} onClick={()=>{
+            <AiOutlineClose className={style.closeIcon}  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
               setToggle(false)
-            }}/>
+            }}}/>
         </div>
       </div>
     )
@@ -162,32 +194,42 @@ const Header = () => {
           <li></li>
         </ul>
       </div>
-      {leave?<div className={style.PopupContainer}>
+      {active?<div className={style.PopupContainer}>
             <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Woah there you haven't got enough tickets</p>
+            <p>Do you want to exit the game</p>
           </div>
           <div className={style.popupButton}>
-            <button onClick={()=>{
+            <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(false)
+                :
+               
               console.log("cancelled");
               
-            }}>CANCEL</button>
-            <button onClick={()=>{
+            }}}>CANCEL</button>
+            <button  onClick={()=>{
+              // {gamePlay===true?
+              //   setActive(true)
+              //   :
+               navigate("/prizes")
               // callback(false)
+              setActive(false);
+              setGamePlay(false);
               console.log("Exits");
 
             }}>OK</button>
-            {/* <Link
+            {/* <button
               to="/tickets"
               onClick={() => {
                 setTopup(false);
               }}
             >
               <button>TOP UP</button>
-            </Link> */}
+            </button> */}
           </div>
         </div>
         </div>:""}
@@ -227,8 +269,12 @@ const Header = () => {
           
           <MobileFunc/>:<div className={style.MobileMenu}>
           <div className={style.Menu}>
-              <HiMenu className={style.menuIcon} onClick={()=>{
-                setToggle(true)
+              <HiMenu className={style.menuIcon}  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
+                setToggle(true)}
               }}/>
               {/* <p>GAME</p> */}
               {/* <img src={Logo} alt="" /> */}
@@ -242,101 +288,169 @@ const Header = () => {
             />
             {setting ? (
               <div className={style.Settings}>
-                <AiOutlineClose className={style.closeIcon} onClick={()=>{
+                <AiOutlineClose className={style.closeIcon}  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}/>
+              }}}/>
                 {isUser?
                 <ul>
-                  <Link to="/profile" >
-                    <li onClick={()=>{
+                  <button >
+                    <li  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               navigate('/profile')
                 setSetting(false)
-              }}>Profile</li>
-                  </Link>
-                  <Link to="" onClick={()=>{
+              }}}>Profile</li>
+                  </button>
+                  <button     onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Music</li>
-                  </Link>
-                  <Link to="" onClick={()=>{
+                  </button>
+                  <button     onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Sound</li>
-                  </Link>
-                  <Link to="/notification" onClick={()=>{
+                  </button>
+                  <button   onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/notification')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Notifications</li>
-                  </Link>
-                  <Link to="/tickets" onClick={()=>{
+                  </button>
+                  <button onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/tickets')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Cashier</li>
-                  </Link>
-                  <Link to="/faq" onClick={()=>{
+                  </button>
+                  <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/faq')
+               
                 setSetting(false)
-              }}>
-                    {" "}
+              }}}>
+                    {/* {" "} */}
                     <li>FAQ</li>
-                  </Link>
-                  <Link to={`${configuration.terms}`} onClick={()=>{
+                  </button>
+                  <button to={`${configuration.terms}`}  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.terms}`)
+                window.open(`${configuration.terms}`,'_blank')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Terms of Use</li>
-                  </Link>
-                  <Link to={`${configuration.policy}`}  onClick={()=>{
+                  </button>
+                  <button to={`${configuration.policy}`}   onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.policy}`)
+                window.open(`${configuration.policy}`,'_blank')
+
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Privacy Policy</li>
-                  </Link>
-                  <Link to="" onClick={(e)=>{
+                  </button>
+                  <button    onClick={(e)=>{
                     setSetting(false)
                     setPopup(true)
                   }}>
                     <li>Logout</li>
-                  </Link>
-                  {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
+                  </button>
+                  {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
                 </ul>:
                 <ul>
-                <Link to="" onClick={()=>{
-                setSetting(false)
-              }}>
+                <button>
                   <li>Music</li>
-                </Link>
-                <Link to="" onClick={()=>{
-                setSetting(false)
-              }}>
+                </button>
+                <button>
                   <li>Sound</li>
-                </Link>
-                <Link to="/tickets" onClick={()=>{
+                </button>
+                <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/tickets')
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Cashier</li>
-                </Link>
-                <Link to="/faq" onClick={()=>{
+                </button>
+                <button   onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/faq')
+               
                 setSetting(false)
-              }}>
-                  {" "}
+              }}}>
+                  {/* {" "} */}
                   <li>FAQ</li>
-                </Link>
-                <Link to={`${configuration.terms}`} onClick={()=>{
+                </button>
+                <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.terms}`)
+                window.open(`${configuration.terms}`,'_blank')
+
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Terms of Use</li>
-                </Link>
-                <Link to={`${configuration.policy}`} onClick={()=>{
+                </button>
+                <button onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                window.open(`${configuration.policy}`,'_blank')
+                // navigate()
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Privacy Policy</li>
-                </Link>
-                <Link to="/login" onClick={()=>{
+                </button>
+                <button to="/login"  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/login')
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Login/Register</li>
-                </Link>
-                {/* <Link to="/register">
+                </button>
+                {/* <button to="/register">
                   <li>Sigin</li>
-                </Link> */}
-                {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
+                </button> */}
+                {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
               </ul>}
               </div>
             ) : (
@@ -348,7 +462,15 @@ const Header = () => {
         
       <div className={style.Header}>
         <div className={style.Logo}>
-        <Link to="/"><img src={logo} alt="" /></Link>
+        <button onClick={()=>{
+          {gamePlay===true?
+            setActive(true)
+          
+          :
+            setActive(false);
+            navigate("/")
+          }
+        }}><img src={logo} alt="" /></button>
           
         </div>
         <div className={style.bandaiLogo}>
@@ -356,27 +478,39 @@ const Header = () => {
         </div>
         <div className={style.Menu}>
           <ul>
-            <Link to="/" onClick={()=>{
+            <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               navigate("/")
                 setSetting(false)
               console.log("clicked Home")
 
 
-            }}>
+            }}}>
               <li>Home</li>
-            </Link>
+            </button>
             {/* {inGame===false? */}
-            <Link to="/prizes" onClick={()=>{
+            <button onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
               console.log("clicked Home")
+              navigate("/prizes");
 
-
-            }}>
+            }}}>
               <li>Prizes</li>
-            </Link>
+            </button>
             <li
               onClick={(e) => {
+                {gamePlay===true?
+                setActive(true)
+                :
                 handleId(e);
                 setSetting(false)
+                }
               }}
             >
               Support
@@ -384,13 +518,17 @@ const Header = () => {
             {/* <li onClick={(e)=>{
               e.preventDefault()
               window.location.href = "/#support"
-            }}>Support</li> */}
-            <Link to="/cart" onClick={()=>{
+            }}}>Support</li> */}
+            <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate("/cart");
                 setSetting(false)
 
-            }}>
+            }}}>
               <li>Basket</li>
-            </Link>
+            </button>
           </ul>
         </div>
         <div className={style.Credits}>
@@ -401,9 +539,9 @@ const Header = () => {
             <p>{user&&user.point||"0"}</p>
           </div>
           <div className={style.Plus}>
-            <Link to="/tickets">
+            <button>
               <img src={plus} alt="" />
-            </Link>
+            </button>
           </div>
         </div>
         <div className={style.Profile}>
@@ -419,96 +557,177 @@ const Header = () => {
               <div className={style.Settings}>
                 {isUser?
                 <ul>
-                  <Link to="/profile" onClick={()=>{
+                  <button onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/profile')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Profile</li>
-                  </Link>
-                  <Link to="" onClick={()=>{
+                  </button>
+                  <button     onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Music</li>
-                  </Link>
-                  <Link to="" onClick={()=>{
+                  </button>
+                  <button     onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Sound</li>
-                  </Link>
-                  <Link to="/notification" onClick={()=>{
+                  </button>
+                  <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/notification')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Notifications</li>
-                  </Link>
-                  <Link to="/tickets" onClick={()=>{
+                  </button>
+                  <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/tickets')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Cashier</li>
-                  </Link>
-                  <Link to="/faq" onClick={()=>{
+                  </button>
+                  <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
+                navigate('/faq')
                 setSetting(false)
-              }}>
-                    {" "}
+              }}}>
+                    {/* {" "} */}
                     <li>FAQ</li>
-                  </Link>
-                  <Link to={`${configuration.terms}`} onClick={()=>{
+                  </button>
+                  <button onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.terms}`)
+                window.open(`${configuration.terms}`,'_blank')
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Terms of Use</li>
-                  </Link>
-                  <Link to={`${configuration.policy}`}  onClick={()=>{
+                  </button>
+                  <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.policy}`)
+                window.open(`${configuration.policy}`,'_blank')
+
+               
                 setSetting(false)
-              }}>
+              }}}>
                     <li>Privacy Policy</li>
-                  </Link>
-                  <Link to="" onClick={(e)=>{
+                  </button>
+                  <button    onClick={(e)=>{
+                    {gamePlay===true?
+                    setActive(true)
+                    :
                     setSetting(false)
                     setPopup(true)
+                    }
                   }}>
                     <li>Logout</li>
-                  </Link>
-                  {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
+                  </button>
+                  {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
                 </ul>:
                 <ul>
-                <Link to="" onClick={()=>{
+                <button     onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Music</li>
-                </Link>
-                <Link to="" onClick={()=>{
+                </button>
+                <button     onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Sound</li>
-                </Link>
-                <Link to="/tickets" onClick={()=>{
+                </button>
+                <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/tickets')
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Cashier</li>
-                </Link>
-                <Link to="/faq" onClick={()=>{
+                </button>
+                <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate('/faq')
+               
                 setSetting(false)
-              }}>
+              }}}>
                   {" "}
                   <li>FAQ</li>
-                </Link>
-                <Link to={`${configuration.terms}`} onClick={()=>{
+                </button>
+                <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.terms}`)
+                window.open(`${configuration.terms}`,'_blank')
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Terms of Use</li>
-                </Link>
-                <Link to={`${configuration.policy}`}  onClick={()=>{
+                </button>
+                <button onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                // navigate(`${configuration.policy}`)
+                window.open(`${configuration.policy}`,'_blank')
+
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Privacy Policy</li>
-                </Link>
-                <Link to="/login" onClick={()=>{
+                </button>
+                <button  onClick={()=>{
+              {gamePlay===true?
+                setActive(true)
+                :
+                navigate("/login")
+               
                 setSetting(false)
-              }}>
+              }}}>
                   <li>Login/Register</li>
-                </Link>
-                {/* <Link to="/register">
+                </button>
+                {/* <button to="/register">
                   <li>Sigin</li>
-                </Link> */}
-                {/* {user?<Link to="/logout"><li>Logout</li></Link>:<Link to="/login"><li>Login</li></Link>} */}
+                </button> */}
+                {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
               </ul>}
               </div>
             ) : (

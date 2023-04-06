@@ -13,4 +13,5 @@ import greenPrizeMove from '../../assests/Assistance Button.png'
 import GrayPrizeMove from '../../assests/Assistance Pressed Button.png'
 import winchaPopup from '../../assests/Wincha Pop-Up Icon.png'
 import GamePricePng from '../../assests/Price of Game BG.png'
-export const assets = {GamePricePng,winchaPopup,binoculars,info,userView,lastWin,cameraChanger,Guide,reportImage,PlayImage,infoIcon,pointsBg,greenPrizeMove,GrayPrizeMove,ticketIcon}
+import timeOutImage from '../../assests/TIME OUT Button with TImer-01.png'
+export const assets = {timeOutImage,GamePricePng,winchaPopup,binoculars,info,userView,lastWin,cameraChanger,Guide,reportImage,PlayImage,infoIcon,pointsBg,greenPrizeMove,GrayPrizeMove,ticketIcon}

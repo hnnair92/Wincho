@@ -6,6 +6,7 @@ import AboutData from '../../Api/AboutImage'
 import WatchData from '../../Api/WatchImage'
 import {HiOutlineChevronRight,HiOutlineChevronLeft} from 'react-icons/hi'
 import ticketIcon from '../../Api/Ticket.json'
+import ticketImage from '../../assests/Floating Tab Gold Ticket.png'
 import supportContact from '../../assests/Full Support Box.png'
 import WinchaIcon from '../../Api/WinchaIcon.json'
 import AppStore from '../../assests/pngwing.com (4).png'
@@ -117,7 +118,8 @@ const Home = () => {
     <div className={style.Container}>
         <div className={style.Home} id="home">
             <div className={style.Transition}>
-                <Lottie animationData={backgroundData[background]} loop={true} />;
+                {/* <Lottie animationData={backgroundData[background]} loop={true} /> */}
+                <Lottie animationData={backgroundData[background?background:0]} loop={true} />;
                 {/* <img src={backgroundData[1]} alt="" /> */}
                 <Link to="/prizes">
                     <div className={style.PlayBtn}>
@@ -200,7 +202,9 @@ const Home = () => {
         <div className={style.TicketTop}>
             <Link to="/tickets">
                 <div className={style.TicketIcon}>
-                    <Lottie animationData={ticketIcon} loop={true} />;
+                <img src={ticketImage} alt="" />
+
+                    {/* <Lottie animationData={ticketIcon} loop={true} />; */}
                         
                 </div>
                 <div className={style.TicketText}>
@@ -215,7 +219,8 @@ const Home = () => {
         <div className={style.Ticket} style={{top:scrollNav?"0px":"80px"}}>
             <Link to="/tickets">
                 <div className={style.TicketIcon}>
-                    <Lottie animationData={ticketIcon} loop={true} />;
+                <img src={ticketImage} alt="" />
+                    {/* <Lottie animationData={ticketIcon} loop={true} />; */}
                         
                 </div>
                 <div className={style.TicketText}>

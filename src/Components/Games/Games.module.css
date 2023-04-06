@@ -7,7 +7,9 @@
     background-color: #ff8100;
     position: relative;
 }
-
+.Container::-webkit-scrollbar{
+    display: none;
+}
 .Categories{
     width: 100%;
     display: flex;
@@ -98,8 +100,12 @@
     /* justify-content: space-evenly; */
 }
 .ticketIcon{
-    width: 7rem;
+    width: fit-content;
     height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 .ticketIcon a,.infoIcon a{
     position: sticky;
@@ -112,10 +118,13 @@
     box-shadow: none;
 }
 .Details{
-    margin-top: .56rem;
+    margin-top: 0.56rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 85%;
+    margin: 0.56rem auto;
+    margin-bottom: 0;
 }
 .Name{
     font-size: 1.75rem;
@@ -451,4 +460,13 @@
     padding: 20px;
     z-index: 9999;
 
+}
+.ticketIconDiv{
+    width: 40%;
+}
+.ticketIcon{
+    justify-content: flex-start;
+}
+.free,.Price{
+    margin: 0 5px;
 }

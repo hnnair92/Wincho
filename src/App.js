@@ -29,6 +29,15 @@ import WinScreen from "./Components/winScreen/winScreen";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
+  useEffect(() => {
+    const handleContextmenu = e => {
+        e.preventDefault()
+    }
+    document.addEventListener('contextmenu', handleContextmenu)
+    return function cleanup() {
+        document.removeEventListener('contextmenu', handleContextmenu)
+    }
+}, [ ])
   const[countryCode,setCountryCode] = useState("")
   // const {user} = useSelector((state)=>state.userData)
   // let data = {
@@ -83,14 +92,16 @@ function App() {
     
   },[dispatch,countryCode])
   // console.log(localStorage.getItem("user"))
+  const [active,setActive] = useState(false)
+  const [gamePlay,setGamePlay] = useState(false)
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/prizes/" element={<Games />} />
-          <Route path="/game/:id" element={<Description />} />
+          <Route path="/game/:id" element={<Description setActive={setActive} active={active}  setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           {/* <Route path="/:category" element={<Games/>}/> */}
           {/* <Route path="/load" element={<Loader/>}/> */}
           <Route path="/register" element={<Register />} />

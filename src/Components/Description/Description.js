@@ -14,9 +14,11 @@ import { AllAnimation } from "../../Animation/allAnimation";
 import { assets } from "./assests";
 import ReactPlayer from "react-player";
 import { useParams} from "react-router-dom";
+import playVideo from '../../assests/PlayButton.png'
 import { MdClose } from "react-icons/md";
-const Description = () => {
+const Description = ({active,setActive,setGamePlay,gamePlay}) => {
 console.log(localStorage)
+console.log(active,"active from description");
     const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -61,14 +63,27 @@ console.log(localStorage)
   const videoRef = useRef();
   const userId = JSON.parse(localStorage.getItem("user"));
   const baseMessage = `${userId}|${GameData?.machine_code}`;
+  const vidRef = useRef(null)
+
+
   // React UseStates
   const [report, setReport] = useState({
     Title: "",
     Content: "",
   });
   const [status, setStatus] = useState({});
+  const [videoGot,setVideoGot] = useState(false);
+  useEffect(()=>{
+    console.log(videoGot,"video got in description")
+  },[videoGot])
+  // console.log(vidRef.current&&vidRef.current.play())
+  // console.log(vidRef.current)
+  // console.log(vidRef)
+ 
   const [lastWin, setLastWin] = useState(false);
   const [minimized, setminimized] = useState(false);
+  const [timeoutStatus, setTimeoutStatus] = useState(false);
+  const [gameFailed, setGameFailed] = useState(false);
   const [session, setSession] = useState({});
   const [firstStep, setFirstStep] = useState(false);
   const [secondStep, setSecondStep] = useState(false);
@@ -187,6 +202,11 @@ console.log(localStorage)
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
         setPlayAgain(false);
         return addToCart();
+      }
+      if (data === "PRIZE_LOST" && GameData.machine_code === splitId[1]) {
+        // setPlayAgain(true);
+
+        // return addToCart();
       }
       // :UK|M:UK-WH1-NID1-101|PRIZE_WON
       console.log(res);
@@ -395,6 +415,15 @@ console.log(localStorage)
     );
   }
 
+// Extra Funcions
+
+const handlePlayVideo = () => {
+  vidRef.current.play();
+ }
+ const handlePauseVideo = () => {
+  vidRef.current.pause();
+ }
+
   // All Game Screen API's
   async function checkFreePlay(){
     await fetch(`${baseUrl}/game/freeplay/limit`,{
@@ -446,11 +475,13 @@ console.log(localStorage)
   async function timeOut(userId, timeout_status) {
     socket.emit(`${baseMessage}|P_ENDED`);
     socket.emit(`${baseMessage}|G_DISCONNECTED`);
-    gameLeave(userId, timeout_status);
+    setTimeoutStatus(true);
     setTimeout(() => {
+      gameLeave(userId, timeout_status);
       EntryRequest.replay = true;
       dispatch(gameEntry(EntryRequest));
-    }, 5000);
+      setTimeoutStatus(false)
+    }, 7500);
   }
   async function replayTimeout(id) {
     setId(id);
@@ -540,6 +571,7 @@ console.log(localStorage)
       .then((res) => res.json())
       .then((data) => {
         setGamePlayStatus(true);
+        setGamePlay(true)
         console.log(data);
         if (que === "0") {
           console.log(que);
@@ -720,6 +752,11 @@ console.log(localStorage)
         if (status === true) {
           addToCart();
         }
+        if(status===false){
+          setTimeout(()=>{
+            setGameFailed(true)
+          },5000)
+        }
         localStorage.setItem("inGame",false)
 
       });
@@ -752,6 +789,7 @@ console.log(localStorage)
               })
             );
           }, 1000);
+          setTimeoutStatus(false);
           window.location.reload();
         }
       });
@@ -870,6 +908,7 @@ console.log(localStorage)
   }
   return (
     <div className={style.Container}>
+    
       {prizeResetActive ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
@@ -936,7 +975,7 @@ console.log(localStorage)
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>What issue would you like to report</p>
+            <p>What issue would you like to report?</p>
           </div>
           <div className={style.ReportPopupButton}>
             {reportCategories.map((item) => {
@@ -966,7 +1005,7 @@ console.log(localStorage)
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
-          <div className={style.ReportPopupButton}>
+          <div className={style.ReportPopupButtonCategory}>
             <button>{category}</button>
           </div>
           <div className={style.popupInput}>
@@ -1001,11 +1040,11 @@ console.log(localStorage)
           </div>
           <div className={style.popupText}>
             <p>
-              Thanks! We have received your reprt and if necessary will aim to
+              Thanks! We have received your report and if necessary will aim to
               respond within 24 hours
             </p>
           </div>
-          <div className={style.popupButton}>
+          <div className={style.popupButtonSubmit}>
             <button onClick={()=>{
                 setReportConfirm(false)
             }}>OK</button>
@@ -1045,20 +1084,24 @@ console.log(localStorage)
       :""} */}
       {lastWin ? (
         <div
-          className={style.LastWinPopup}
+          className={lastWin?style.LastWinPopup:style.hideVideopopup}
           onClick={() => {
-            setOnPlay(false);
+            // setOnPlay(false);
           }}
         >
           <div className={style.VideoOverlay} onClick={() => {
             setLastWin(false);
+            setOnPlay(false);
+
           }}>
 
           </div>
-          {/* <div className={style.PlayIcon}>
-            <button
-              onClick={() => {
-                onPlay ? setOnPlay(false) : setOnPlay(true);
+          <div className={style.PlayIcon}>
+           {onPlay===true?
+           
+           <button onClick={() => {
+                setOnPlay(false);
+                handlePauseVideo()
               }}
             >
               <img
@@ -1067,21 +1110,47 @@ console.log(localStorage)
                 
               />
             </button>
-          </div> */}
+           :
+            <button
+              onClick={() => {
+                setOnPlay(true);
+                handlePlayVideo()
+              }}
+            >
+              <img
+                src={playVideo}
+                alt=""
+                
+              />
+            </button>
+           }
+          </div>
           <div className={style.VideoSection}>
             <MdClose 
             onClick={() => {
               setLastWin(false);
+              setOnPlay(false);
             }}
           />
-            <ReactPlayer
-              url={game.last_win_url}
-              width="100%"
-              height="500px"
-              playIcon={<button>Play</button>}
-              playing={true}
-              controls={true}
-              />
+          {game.last_win_url===""?
+
+        <div className={style.VideoEmpty}>
+          <p>Whoops! Video unavailable Please try again later.</p>
+        </div>
+          :
+            // <ReactPlayer
+            // ref={videoRef2}
+            //   url={game.last_win_url}
+            //   width="100%"
+            //   height="500px"
+            //   playIcon={<button>Play</button>}
+            //   playing={true}
+            //   controls={true}
+            //   />\
+            <video ref={vidRef}>
+              <source src={game.last_win_url} type="video/mp4" />
+            </video>
+          }
               {/* <video src=""></video> */}
               {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
             {/* <video ref ={videoRef}>
@@ -1089,9 +1158,9 @@ console.log(localStorage)
             </video> */}
           </div>
         </div>
-      ) : (
-        ""
-      )}
+       ) : (
+        "" 
+       )} 
       {popup ? (
         <div
           className={style.PopupSection}
@@ -1138,7 +1207,15 @@ console.log(localStorage)
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
-            <button>EXIT GAME</button>
+            <button onClick={()=>{
+              if(gamePlayStatus===true){
+              setActive(true)
+              }
+              if(gamePlayStatus===false){
+                setActive(false)
+                navigate("/prizes")
+              }
+            }}>EXIT GAME</button>
           </div>
           <div className={style.Description}>
             <p>YOU MIGHT ALSO LIKE</p>
@@ -1146,7 +1223,7 @@ console.log(localStorage)
           <div className={style.AllGames}>
             {products?.map((game) => {
               return (
-                <Link to={`/game/${game.id}`} state={{ game: game }} style={{pointerEvents:gamePlayStatus?"none":"visible"}}
+                <Link to={`/game/${game.id}`} state={{ game: game }} style={{pointerEvents:gamePlayStatus?"none":"visible",cursor:gamePlayStatus?"not-allowed":"pointer"}}
                 //  onClick={()=>{
                 //   window.location.reload()
                 // }}>
@@ -1160,17 +1237,21 @@ console.log(localStorage)
                         <p>{game.title}</p>
                       </div>
                       <div className={style.TicketPrice}>
+                       
                         <div className={style.Ticket} onClick={()=>{
                           setPopup(true);
                         }}>
                           <img src={assets.ticketIcon} alt="" />
                         </div>
+                        
+                     
                         <div className={style.Price}>
                           <p>{game.price === "0" ? "Free" : game.price}</p>
-                        </div>
+                        </div> 
+                        {gamePlayStatus===false?
                         <div className={style.info}>
                           <img src={assets.info} alt="" />
-                        </div>
+                        </div> :""}
                       </div>
                     </div>
                   </div>
@@ -1180,13 +1261,47 @@ console.log(localStorage)
           </div>
         </div>
         <div className={style.GameScreen}>
+          {videoGot===false?
+      <div className={style.videoStarting}>
+        <p>Please wait while we get the video for you!</p>
+      </div>
+      :""}
+      <div className={style.AllGameSectin}>
           <div className={style.Screen}>
-            <div className={style.Overlay}>
+            {/* <div className={style.Overlay}>
               <div className={style.Loader}>
               <h1>Please wait while we get the video for you </h1>
                 <div className={style.LoaderDiv}></div>
               </div>
+            </div> */}
+            {timeoutStatus?
+            
+          
+            <div className={style.TimeoutAnimation}>
+              <Lottie
+                animationData={AllAnimation.timeout}
+                loop={false}
+                onComplete={() => {
+                  // timeOut(userId, false);
+                  // setTimeoutStatus(true);
+                }}
+                />
             </div>
+                :""}
+            {playAgain?
+            
+          
+            <div className={style.TimeoutAnimation}>
+              <Lottie
+                animationData={AllAnimation.missed}
+                loop={false}
+                onComplete={() => {
+                  // timeOut(userId, false);
+                  // setTimeoutStatus(true);
+                }}
+                />
+            </div>
+                :""}
             <div className={style.Icons}>
               <div className={style.queStatus}>
                 <img src={assets.userView} alt="" />
@@ -1197,7 +1312,10 @@ console.log(localStorage)
                 <span>{viewCount ? viewCount : 0}</span>
               </div>
             </div>
-            {game && game.camera_data ? (
+            {game&&game.camera_data &&
+                game.camera_data[0] &&
+                game.camera_data[0].camera_id==="1" ? (
+
               <div className={camera === false&&game&&game.camera_data &&
                 game.camera_data[0] &&
                 game.camera_data[0].camera_id==="1" ? style.video : style.hideVideo}>
@@ -1214,6 +1332,8 @@ console.log(localStorage)
                     game.camera_data[0] &&
                     game.camera_data[0].token
                   }
+                  setVideoGot ={setVideoGot}
+                  videoGot = {videoGot}
                 />
                 {/* <OTSession apiKey="47498471" sessionId={game &&
                     game.camera_data &&
@@ -1250,10 +1370,14 @@ console.log(localStorage)
                 //       }
                 //     />
                 //   </div>
-                ""
-            )}
-            {game && game.camera_data ? (
-              <div className={camera === true ? style.video : style.hideVideo}>
+                game&&game.camera_data &&
+                game.camera_data[0] &&
+                game.camera_data[0].camera_id==="2"?
+                <div 
+              // className={camera === true ? style.video : style.hideVideo}>
+              className={camera === true&&game&&game.camera_data &&
+                game.camera_data[0] &&
+                game.camera_data[0].camera_id==="2" ? style.video : style.hideVideo}>
                 <Screen
                   sessionId={
                     game &&
@@ -1268,25 +1392,9 @@ console.log(localStorage)
                     game.camera_data[1].token
                   }
                 />
-                {/* <OTSession apiKey="47498471" sessionId={game &&
-                    game.camera_data &&
-                    game.camera_data[1] &&
-                    game.camera_data[1].session} token={ game &&
-                    game.camera_data &&
-                    game.camera_data[1] &&
-                    game.camera_data[1].token}>
-            
-            <OTStreams >
-            <OTStreams >
-              <OTSubscriber onSubscribe={(e)=>{
-                console.log(e);
-                console.log("gotted");
-              }}/>
-            </OTStreams>
-          </OTSession> */}
+    
               </div>
-            ) : (
-              ""
+                :""
             )}
             {/* <div className={style.video}>
                     <Screen />
@@ -1361,6 +1469,9 @@ console.log(localStorage)
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, false);
+                                  setFirstStep(false)
+                                  setSecondStep(false)
+                              setTimeoutStatus(true);
                                 }}
                               />
                             </button>
@@ -1378,6 +1489,10 @@ console.log(localStorage)
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, false);
+                                  console.log("7")
+                                   setFirstStep(false)
+                                  setSecondStep(false)
+                              setTimeoutStatus(true);
                                 }}
                               />
                             </button>
@@ -1396,6 +1511,11 @@ console.log(localStorage)
                               loop={false}
                               onComplete={() => {
                                 timeOut(userId, false);
+                                setSecondStep(false)
+                                setFirstStep(false)
+                                console.log(timeoutStatus,"6")
+
+                              setTimeoutStatus(true);
                               }}
                             />
                           </button>
@@ -1413,6 +1533,9 @@ console.log(localStorage)
                               loop={false}
                               onComplete={() => {
                                 timeOut(userId, false);
+                                setFirstStep(false)
+                                setSecondStep(false)
+                              setTimeoutStatus(true);
                               }}
                             />
                           </button>
@@ -1435,6 +1558,9 @@ console.log(localStorage)
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, false);
+                                  setFirstStep(false)
+                                  setSecondStep(false)
+                              setTimeoutStatus(true);
                                 }}
                               />
                             </button>
@@ -1454,6 +1580,11 @@ console.log(localStorage)
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, false);
+                                  setFirstStep(false)
+                                  setSecondStep(false)
+                                  console.log(timeoutStatus,"5")
+
+                              setTimeoutStatus(true);
                                 }}
                               />
                             </button>
@@ -1474,6 +1605,11 @@ console.log(localStorage)
                               loop={false}
                               onComplete={() => {
                                 timeOut(userId, false);
+                                setFirstStep(false)
+                                setSecondStep(false)
+                                console.log(timeoutStatus,"4")
+
+                              setTimeoutStatus(true);
                               }}
                             />
                           </button>
@@ -1493,6 +1629,9 @@ console.log(localStorage)
                               loop={false}
                               onComplete={() => {
                                 timeOut(userId, false);
+                                setFirstStep(false)
+                                setSecondStep(false)
+                              setTimeoutStatus(true);
                               }}
                             />
                           </button>
@@ -1518,6 +1657,9 @@ console.log(localStorage)
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, false);
+                                  setSecondStep(false)
+                              setTimeoutStatus(true);
+
                                 }}
                               />
                             </button>
@@ -1537,6 +1679,9 @@ console.log(localStorage)
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, true);
+                                  setSecondStep(false)
+                                  console.log(timeoutStatus,"3")
+                              setTimeoutStatus(true);
                                 }}
                               />
                             </button>
@@ -1555,10 +1700,13 @@ console.log(localStorage)
                               }}
                             >
                               <Lottie
-                                animationData={AllAnimation.ArrowLeft}
+                                animationData={AllAnimation.ArrowUp}
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, false);
+                                  setSecondStep(false)
+                              setTimeoutStatus(true);
+
                                 }}
                               />
                             </button>
@@ -1574,10 +1722,15 @@ console.log(localStorage)
                               }}
                             >
                               <Lottie
-                                animationData={AllAnimation.ArrowUp}
+                                animationData={AllAnimation.ArrowLeft}
                                 loop={false}
                                 onComplete={() => {
                                   timeOut(userId, true);
+                                  console.log(timeoutStatus,"2")
+
+                                  setSecondStep(false)
+                              setTimeoutStatus(true);
+
                                 }}
                               />
                             </button>
@@ -1601,16 +1754,30 @@ console.log(localStorage)
                             loop={false}
                             onComplete={() => {
                               timeOut(userId, true);
+                              console.log(timeoutStatus,"1")
+
+                              setSecondStep(false)
+                              setTimeoutStatus(true);
+
                             }}
                           />
                         </button>
                       )
-                    ) : (
+                    ) : 
+                    timeoutStatus?
+                    
+                    <button>
+                      <img src={assets.timeOutImage} alt="" />
+                    </button>
+                    
+                    :
+                    (
                       <Lottie
                         animationData={waitAnimation}
                         loop={false}
                         onComplete={() => {
                           setGamePlayStatus(false);
+                          setGamePlay(false)
                           setPlayAgain(true);
                         }}
                       />
@@ -1629,6 +1796,7 @@ console.log(localStorage)
                     onClick={() => {
                       setWait(true);
                       setGamePlayStatus(true);
+                      setGamePlay(true)
                       socket.emit(
                         "socket_connect",
                         JSON.stringify({
@@ -1688,13 +1856,34 @@ console.log(localStorage)
               <div className={style.Guide}>
                 <button>
                   <img src={assets.Guide} alt="" />
-                </button>
+                </button> 
               </div>
             </div>
           </div>
+
+      </div>
         </div>
         <div className={style.LeftSide}>
           {minimized ? (
+              <div className={style.NowPlaying}>
+            <div className={style.NowPlayingTitle}>
+              <p>YOU'RE PLAYING FOR</p>
+            </div>
+            <div className={style.CurrentImage}>
+              <img src={GameData?.featured_image?.large} alt="" />
+            </div>
+            <div className={style.CurrentTitle}>
+              <p>{GameData?.title}</p>
+            </div>
+            <div className={style.CloseIcon}>
+              <IoIosArrowUp
+                onClick={() => {
+                  setminimized(true);
+                }}
+              />
+            </div>
+              </div>
+          ) : (
             <div className={style.NowPlaying}>
               {/* <div className={style.NowPlayingTitle}>
                 <p>YOU'RE PLAYING FOR</p>
@@ -1707,26 +1896,7 @@ console.log(localStorage)
                   onClick={() => {
                     setminimized(false);
                   }}
-                />
-              </div>
-            </div>
-          ) : (
-            <div className={style.NowPlaying}>
-              <div className={style.NowPlayingTitle}>
-                <p>YOU'RE PLAYING FOR</p>
-              </div>
-              <div className={style.CurrentImage}>
-                <img src={GameData?.featured_image?.large} alt="" />
-              </div>
-              <div className={style.CurrentTitle}>
-                <p>{GameData?.title}</p>
-              </div>
-              <div className={style.CloseIcon}>
-                <IoIosArrowUp
-                  onClick={() => {
-                    setminimized(true);
-                  }}
-                />
+                  />
               </div>
             </div>
           )}
