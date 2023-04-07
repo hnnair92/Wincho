@@ -6,15 +6,19 @@
     margin-right: auto;
     background-color: #ff8100;
     position: relative;
+    
 }
 .Container::-webkit-scrollbar{
     display: none;
+}
+.Section{
+    /* max-width: 1600px; */
 }
 .Categories{
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content:  center;
     align-content: center;
     margin-left: auto;
     margin-right: auto;
@@ -49,12 +53,16 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    /* max-width: 1600px; */
+    margin: 0 auto;
 }
-.Games a {
+.Games .Game {
     position: relative;
     overflow-y: hidden;
     overflow-x: hidden;
     width: 18%;
+    /* height: 100%; */
+    cursor: pointer;
     /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
            inset 10px 10px 15px rgba(70, 70, 70, 0.12); */
            /* box-shadow: 
@@ -107,7 +115,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.ticketIcon a,.infoIcon a{
+.ticketIcon a,.infoIcon{
     position: sticky;
     background-color: transparent;
     overflow: unset;
@@ -180,7 +188,7 @@
 }
 .Image{
     width: 100%;
-    height: 50%;
+    /* height: 50%; */
 }
 .Image img{
     width: 100%;
@@ -247,10 +255,11 @@
     border-radius: 2.26rem;
     z-index: 99999; 
 }
+
 .PopupSection{
    width: 100%;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -271,11 +280,27 @@
     border-top-left-radius: 2.26rem;
     border-top-right-radius: 2.26rem;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }.popupImage img{
     width: 100%;
    
     /* height: 50; */
     object-fit: cover;
+}
+.popupImage span{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color:red;
+    margin: 5px;
+}
+.Navigation{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 .popupTitle{
     text-align: center;
@@ -292,6 +317,7 @@
 .popupPlayNow{
     border-radius: 2.8rem;
     display: flex;
+    margin: 0 auto;
     width: 80%;
     flex-direction: row;
     justify-content: space-evenly;
@@ -343,7 +369,7 @@
     ::-webkit-scrollbar{
         display: none;
     }
-    .Games a{
+    .Games .Game{
         width:42%;
         /* height: 100%; */
         /* padding: 5px; */
@@ -399,7 +425,7 @@
     }
 }
 @media(min-width:767px) and (max-width:1056px){
-    .Games a{
+    .Games .Game{
         width:25%;
     }
     .Categories{
@@ -447,7 +473,7 @@
     display: flex;
     flex-direction: row;
     padding: 1.13rem;
-
+    /* max-width: 1600px; */
     justify-content: space-between;
 }
 .popupOverlay{
@@ -469,4 +495,13 @@
 }
 .free,.Price{
     margin: 0 5px;
+}
+.popupImage .Rounded{
+    border: 2px solid red;
+    background-color: transparent;
+
+}
+.popupImage .fill{
+    border:none;
+    background-color: red;
 }

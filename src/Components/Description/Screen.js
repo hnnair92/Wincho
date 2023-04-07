@@ -58,11 +58,11 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
       // connectionDestroyed={getlog}
       // sessionConnected={getlog}
       // sessionDisconnected={getlog}
-      // sessionReconnected={getlog}
-      connectionCreated={ console.log("connection created")}
-      connectionDestroyed={console.log("connection destroyed")}
-      sessionConnected={console.log("Client connect to a session")}
-      sessionDisconnected={console.log("Client disConnect to a session")}
+      // // sessionReconnected={getlog}
+      // connectionCreated={ console.log("connection created")}
+      // connectionDestroyed={console.log("connection destroyed")}
+      // sessionConnected={console.log("Client connect to a session")}
+      // sessionDisconnected={console.log("Client disConnect to a session")}
        apiKey={apiKey} sessionId={sessionId} token={token}>
             
             <OTStreams >

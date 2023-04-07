@@ -128,7 +128,8 @@ const Home = () => {
                     </div>
                 </Link>
                 <div className={style.Crane}>
-                    <Lottie animationData={WinchaIcon} loop={false} />;
+                    {/* <Lottie animationData={WinchaIcon} loop={false} />; */}
+                    <img src="" alt="" />
                 
                 </div>
                 

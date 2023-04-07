@@ -15,6 +15,7 @@
     justify-content: space-evenly;
     align-items: center;
     min-height: 100vh;
+    max-width: 1600px;
 }
 
 .hideVideo {
@@ -138,6 +139,7 @@
 
 .PlayImage button {
     width: 100%;
+    /* width: 20rem; */
 }
 
 .PlayImage button img {
@@ -1005,13 +1007,13 @@ video {
 .videoStarting p{
     text-align: center;
 }
-.TimeoutAnimation{
-    width: 62.5%;
+.video .TimeoutAnimation{
+    width: 75%;
     position: absolute;
     right: 0;
     z-index: 99999;
     bottom: 0;
-    cursor: ;
+    cursor: pointer;
 }
 /* @media(min-width:1065px){
     .Container,.Section{

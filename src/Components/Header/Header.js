@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import {assets} from '../Description/assests'
-import { updateProfile } from "../../actions/user";
+import { cartAction, notificationAction, updateProfile } from "../../actions/user";
 import bandaiLogo from '../../assests/Bandai Namco Logo.png'
+import { MainMenu, settingsMenu } from "./Menu";
 
 // import { useSelector } from 'react-redux'
 const Header = ({setActive,active,setGamePlay,gamePlay}) => {
@@ -22,22 +23,31 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
   const [setting, setSetting] = useState(false);
   const userData = useSelector((state) => state.userData);
   const {user} = useSelector((state) => state.profile);
+  const [music,setMusic] = useState(true)
   const isUser = JSON.parse(localStorage.getItem("user"))
   const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
+  const {notification} = useSelector((state)=>state.notification)
   let inGame = localStorage.getItem("inGame")
+  let userId = localStorage.getItem("user")
   console.log(inGame)
   useEffect(()=>{
     console.log(active,"active from description")
   },[active])
+  // useEffect(()=>{
+  //   dispatch(cartAction())
+  // },[])
   useEffect(()=>{
     inGame = localStorage.getItem('inGame')
     if(inGame===null||inGame===undefined){
       localStorage.setItem("inGame",false)
     }
   },[localStorage])
+  const {cart} = useSelector((state)=>state.cart)
   useEffect(()=>{
     dispatch(updateProfile(userData.user))
+    dispatch(cartAction())
+    dispatch(notificationAction())
 
   },[dispatch])
   useEffect(()=>{
@@ -66,45 +76,6 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
   inGame = localStorage.getItem("inGame")
 
     if(inGame===true){
-      // return(
-      //   <div className={style.PopupContainer}>
-      //       <div className={style.popup}>
-      //     <div className={style.popupImage}>
-      //       <img src={assets.winchaPopup} alt="" />
-      //     </div>
-      //     <div className={style.popupText}>
-      //       <p>Woah there you haven't got enough tickets</p>
-      //     </div>
-      //     <div className={style.popupButton}>
-      //       <button  onClick={()=>{
-              // {gamePlay===true?
-              //   setActive(true)
-              //   :
-               
-      //         console.log("cancelled");
-              
-      //       }}}>CANCEL</button>
-      //       <button  onClick={()=>{
-              // {gamePlay===true?
-              //   setActive(true)
-              //   :
-               
-      //         // callback(false)
-      //         console.log("Exits");
-
-      //       }}}>OK</button>
-      //       {/* <button
-      //         to="/tickets"
-      //         onClick={() => {
-      //           setTopup(false);
-      //         }}
-      //       >
-      //         <button>TOP UP</button>
-      //       </button> */}
-      //     </div>
-      //   </div>
-      //   </div>
-      // )
       setLeave(true)
     }
     else{
@@ -122,57 +93,35 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
       <div className={style.mobileFullMenu}>
       <div className={style.Menu}>
           <ul>
-            <button   onClick={()=>{
-
-
-            }}><li>Home</li></button>
-            {/* {inGame? */}
-            <button onClick={()=>{
-              // eslint-disable-next-line no-lone-blocks
-              {gamePlay===true?
-                setActive(true)
-                :
-               navigate("/prizes");
-              //  
-              checkGameOn()
-              console.log("clicked Home")
-
-              
-              // setSetting(false)
-
-            }}}><li>Prizes</li></button>
-            {/* <button to="/"  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-              setToggle(false)
-            }}}><li>Search</li></button> */}
-            <button  onClick={(e)=>{
-              setToggle(false)
-              handleId(e)
-            }}><li>Support</li></button>
-            <button  onClick={()=>{
-              // eslint-disable-next-line no-lone-blocks
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate("/cart");
-               
-              setToggle(false)
-            }}}><li
-            //  onMouseOver={()=>{
-            //   console.log("entered")
-            // }} onMouseLeave={()=>{
-            //   console.log("leaved")
-            // }}
-            >Basket</li></button>
+            {MainMenu.map((menu)=>{
+              return(
+                <div className={style.MenuSection} onClick={(e)=>{
+                  // eslint-disable-next-line no-lone-blocks
+                  {gamePlay===true&&active===false?
+                    setActive(true)
+                    :
+                
+                  checkGameOn()
+                  setToggle(false)
+                  if(menu.Name==="Support"){
+                    setToggle(false)
+                    handleId(e)
+                  }
+                  if(menu.Name!="Support"){
+                    navigate(`/${menu.url}`)
+                  }
+                }}}>
+                  <p>{menu.Name}</p>
+                  {menu.Badge===true?<span className={style.CartBadge}>{cart&&cart.length?cart&&cart.length:"0"}</span>:""}
+                </div>
+              )
+            })}
           </ul>
         </div>
         
         <div className={style.close}>
             <AiOutlineClose className={style.closeIcon}  onClick={()=>{
-              {gamePlay===true?
+              {  gamePlay===true&&active===false?
                 setActive(true)
                 :
                
@@ -185,7 +134,7 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
    
   return (
     <div className={style.Container}>
-      <div className={style.MobileBottomNav}>
+      {/* <div className={style.MobileBottomNav}>
         <ul>
           <li><img src="" alt="" /></li>
           <li></li>
@@ -193,7 +142,7 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
           <li></li>
           <li></li>
         </ul>
-      </div>
+      </div> */}
       {active?<div className={style.PopupContainer}>
             <div className={style.popup}>
           <div className={style.popupImage}>
@@ -204,7 +153,7 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
           </div>
           <div className={style.popupButton}>
             <button  onClick={()=>{
-              {gamePlay===true?
+              {  gamePlay===true&&active===false?
                 setActive(false)
                 :
                
@@ -212,7 +161,7 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
               
             }}}>CANCEL</button>
             <button  onClick={()=>{
-              // {gamePlay===true?
+              // {  gamePlay===true&&active===false?
               //   setActive(true)
               //   :
                navigate("/prizes")
@@ -265,12 +214,11 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
     </div>
     </div>:
     ""}
-      {toggle? 
-          
-          <MobileFunc/>:<div className={style.MobileMenu}>
-          <div className={style.Menu}>
+      {toggle?<MobileFunc/>:
+          <div className={style.MobileMenu}>
+            <div className={style.Menu}>
               <HiMenu className={style.menuIcon}  onClick={()=>{
-              {gamePlay===true?
+              {  gamePlay===true&&active===false?
                 setActive(true)
                 :
                
@@ -286,184 +234,64 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
                 setting ? setSetting(false) : setSetting(true);
               }}
             />
-            {setting ? (
+            {setting ? 
               <div className={style.Settings}>
                 <AiOutlineClose className={style.closeIcon}  onClick={()=>{
-              {gamePlay===true?
+              {  gamePlay===true&&active===false?
                 setActive(true)
                 :
                
                 setSetting(false)
               }}}/>
-                {isUser?
+                {/* {isUser? */}
                 <ul>
-                  <button >
-                    <li  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               navigate('/profile')
-                setSetting(false)
-              }}}>Profile</li>
-                  </button>
-                  <button     onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              }}}>
-                    <li>Music</li>
-                  </button>
-                  <button     onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              }}}>
-                    <li>Sound</li>
-                  </button>
-                  <button   onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/notification')
-               
-                setSetting(false)
-              }}}>
-                    <li>Notifications</li>
-                  </button>
-                  <button onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/tickets')
-               
-                setSetting(false)
-              }}}>
-                    <li>Cashier</li>
-                  </button>
-                  <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/faq')
-               
-                setSetting(false)
-              }}}>
-                    {/* {" "} */}
-                    <li>FAQ</li>
-                  </button>
-                  <button to={`${configuration.terms}`}  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.terms}`)
-                window.open(`${configuration.terms}`,'_blank')
-               
-                setSetting(false)
-              }}}>
-                    <li>Terms of Use</li>
-                  </button>
-                  <button to={`${configuration.policy}`}   onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.policy}`)
-                window.open(`${configuration.policy}`,'_blank')
-
-               
-                setSetting(false)
-              }}}>
-                    <li>Privacy Policy</li>
-                  </button>
-                  <button    onClick={(e)=>{
-                    setSetting(false)
-                    setPopup(true)
-                  }}>
-                    <li>Logout</li>
-                  </button>
-                  {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
-                </ul>:
-                <ul>
-                <button>
+                  {settingsMenu.map((menu)=>{
+                    return(
+                      <div className={style.MenuSection} onClick={()=>{
+                        { gamePlay===true&&active===false?
+                          setActive(true)
+                          :
+                          setSetting(false)
+                        }
+                        if(menu.Name==="Terms of Use"||menu.Name==="Privacy Policy"){
+                          window.open(`${menu.Name==="Terms of Use"?configuration.terms:menu.Name==="Privacy Policy"?configuration.policy:""}`,'_blank')
+                        }
+                        if(menu.Name==="Logout"){
+                            setPopup(true)
+                        }
+                        if(menu.Name!="Sound"||menu.Name!="Music"){
+                          navigate(`/${menu.url}`)
+                        }
+                      }
+                        }>
+                          {/* if(menu.Name) */}
+                        <p>{menu.Name}</p>
+                        {menu.Name==="Music"?<div className={style.Music}>
                   <li>Music</li>
-                </button>
-                <button>
-                  <li>Sound</li>
-                </button>
-                <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/tickets')
-               
-                setSetting(false)
-              }}}>
-                  <li>Cashier</li>
-                </button>
-                <button   onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/faq')
-               
-                setSetting(false)
-              }}}>
-                  {/* {" "} */}
-                  <li>FAQ</li>
-                </button>
-                <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.terms}`)
-                window.open(`${configuration.terms}`,'_blank')
-
-               
-                setSetting(false)
-              }}}>
-                  <li>Terms of Use</li>
-                </button>
-                <button onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                window.open(`${configuration.policy}`,'_blank')
-                // navigate()
-               
-                setSetting(false)
-              }}}>
-                  <li>Privacy Policy</li>
-                </button>
-                <button to="/login"  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/login')
-               
-                setSetting(false)
-              }}}>
-                  <li>Login/Register</li>
-                </button>
-                {/* <button to="/register">
-                  <li>Sigin</li>
-                </button> */}
-                {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
-              </ul>}
+                  <div className={style.Slider}>
+                    <div className={style.SliderBtn}></div>
+                  </div>
+                </div>:""}
+                {menu.Name==="Sound"?
+                <div className={style.Sound}>
+                <li>Sound</li>
+                <div className={style.Slider}>
+                  <div className={style.SliderBtn}></div>
+                </div>
               </div>
-            ) : (
-              ""
-            )}
-          </div>
-         
-        </div>}
+              :""}
+                      </div>
+                    )
+                  })}
+              </ul>
+            </div>:""}
+            </div>
+          </div>}
         
       <div className={style.Header}>
         <div className={style.Logo}>
         <button onClick={()=>{
-          {gamePlay===true?
+          {  gamePlay===true&&active===false?
             setActive(true)
           
           :
@@ -477,58 +305,30 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
           <img src={bandaiLogo} alt="" />
         </div>
         <div className={style.Menu}>
-          <ul>
-            <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               navigate("/")
-                setSetting(false)
-              console.log("clicked Home")
-
-
-            }}}>
-              <li>Home</li>
-            </button>
-            {/* {inGame===false? */}
-            <button onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              console.log("clicked Home")
-              navigate("/prizes");
-
-            }}}>
-              <li>Prizes</li>
-            </button>
-            <li
-              onClick={(e) => {
-                {gamePlay===true?
-                setActive(true)
-                :
-                handleId(e);
-                setSetting(false)
-                }
-              }}
-            >
-              Support
-            </li>
-            {/* <li onClick={(e)=>{
-              e.preventDefault()
-              window.location.href = "/#support"
-            }}}>Support</li> */}
-            <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate("/cart");
-                setSetting(false)
-
-            }}}>
-              <li>Basket</li>
-            </button>
+        <ul>
+            {MainMenu.map((menu)=>{
+              return(
+                <div className={style.MenuSection} onClick={(e)=>{
+                  // eslint-disable-next-line no-lone-blocks
+                  {gamePlay===true&&active===false?
+                    setActive(true)
+                    :
+                
+                  checkGameOn()
+                  setToggle(false)
+                  if(menu.Name==="Support"){
+                    setToggle(false)
+                    handleId(e)
+                  }
+                  if(menu.Name!="Support"){
+                    navigate(`/${menu.url}`)
+                  }
+                }}}>
+                  <p>{menu.Name}</p>
+                  {menu.Badge===true?<span className={style.CartBadge}>{cart&&cart.length?cart&&cart.length:"0"}</span>:""}
+                </div>
+              )
+            })}
           </ul>
         </div>
         <div className={style.Credits}>
@@ -553,190 +353,55 @@ const Header = ({setActive,active,setGamePlay,gamePlay}) => {
                 setting ? setSetting(false) : setSetting(true);
               }}
             />
-            {setting ? (
+            {setting ? 
               <div className={style.Settings}>
-                {isUser?
                 <ul>
-                  <button onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/profile')
-               
-                setSetting(false)
-              }}}>
-                    <li>Profile</li>
-                  </button>
-                  <button     onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              }}}>
-                    <li>Music</li>
-                  </button>
-                  <button     onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              }}}>
-                    <li>Sound</li>
-                  </button>
-                  <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/notification')
-               
-                setSetting(false)
-              }}}>
-                    <li>Notifications</li>
-                  </button>
-                  <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/tickets')
-               
-                setSetting(false)
-              }}}>
-                    <li>Cashier</li>
-                  </button>
-                  <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                navigate('/faq')
-                setSetting(false)
-              }}}>
-                    {/* {" "} */}
-                    <li>FAQ</li>
-                  </button>
-                  <button onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.terms}`)
-                window.open(`${configuration.terms}`,'_blank')
-               
-                setSetting(false)
-              }}}>
-                    <li>Terms of Use</li>
-                  </button>
-                  <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.policy}`)
-                window.open(`${configuration.policy}`,'_blank')
-
-               
-                setSetting(false)
-              }}}>
-                    <li>Privacy Policy</li>
-                  </button>
-                  <button    onClick={(e)=>{
-                    {gamePlay===true?
-                    setActive(true)
-                    :
-                    setSetting(false)
-                    setPopup(true)
-                    }
-                  }}>
-                    <li>Logout</li>
-                  </button>
-                  {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
-                </ul>:
-                <ul>
-                <button     onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              }}}>
+                  {settingsMenu.map((menu)=>{
+                    return(
+                      <div className={style.MenuSection} onClick={()=>{
+                        { gamePlay===true&&active===false?
+                          setActive(true)
+                          :
+                          setSetting(false)
+                        }
+                        if(menu.Name==="Terms of Use"||menu.Name==="Privacy Policy"){
+                          window.open(`${menu.Name==="Terms of Use"?configuration.terms:menu.Name==="Privacy Policy"?configuration.policy:""}`,'_blank')
+                        }
+                        if(menu.Name==="Logout"){
+                            setPopup(true)
+                        }
+                        if(menu.Name!="Sound"||menu.Name!="Music"){
+                          navigate(`/${menu.url}`)
+                        }
+                      }
+                        }>
+                          {/* if(menu.Name) */}
+                        <p>{menu.Name==="Sound"||menu.Name==="Music"||menu.Name==="Logout"||menu.Name==="Login/Register"?"":menu.Name}</p>
+                        {userId===null?<p>{menu.Name==="Login/Register"?menu.Name:""}</p>:<p>{menu.Name==="Logout"?menu.Name:""}</p>}
+                        {menu.Name==="Music"?<div className={style.Music}>
                   <li>Music</li>
-                </button>
-                <button     onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-               
-                setSetting(false)
-              }}}>
-                  <li>Sound</li>
-                </button>
-                <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/tickets')
-               
-                setSetting(false)
-              }}}>
-                  <li>Cashier</li>
-                </button>
-                <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate('/faq')
-               
-                setSetting(false)
-              }}}>
-                  {" "}
-                  <li>FAQ</li>
-                </button>
-                <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.terms}`)
-                window.open(`${configuration.terms}`,'_blank')
-               
-                setSetting(false)
-              }}}>
-                  <li>Terms of Use</li>
-                </button>
-                <button onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                // navigate(`${configuration.policy}`)
-                window.open(`${configuration.policy}`,'_blank')
-
-               
-                setSetting(false)
-              }}}>
-                  <li>Privacy Policy</li>
-                </button>
-                <button  onClick={()=>{
-              {gamePlay===true?
-                setActive(true)
-                :
-                navigate("/login")
-               
-                setSetting(false)
-              }}}>
-                  <li>Login/Register</li>
-                </button>
-                {/* <button to="/register">
-                  <li>Sigin</li>
-                </button> */}
-                {/* {user?<button to="/logout"><li>Logout</li></button>:<button to="/login"><li>Login</li></button>} */}
-              </ul>}
+                  <div className={style.Slider}>
+                    <div className={style.SliderBtn}></div>
+                  </div>
+                </div>:""}
+                {menu.Name==="Sound"?
+                <div className={style.Sound}>
+                <li>Sound</li>
+                <div className={style.Slider}>
+                  <div className={style.SliderBtn}></div>
+                </div>
               </div>
-            ) : (
-              ""
-            )}
+              :""}
+                      </div>
+                    )
+                  })}
+              </ul>
+            </div>:""}
+           
           </div>
         </div>
       </div>
-    </div>
+          </div>
   );
 };
 

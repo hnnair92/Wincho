@@ -1,4 +1,4 @@
-import {LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, PROFILE_FAIL, PROFILE_REQUEST, PROFILE_SUCCESS, REGISTER_FAIL, REGISTER_REQUEST, REGISTER_SUCCESS} from '../constants/user'
+import {CART_FAIL, CART_REQUEST, CART_SUCCESS, LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS, NOTIFICATION_FAIL, NOTIFICATION_REQUEST, NOTIFICATION_SUCCESS, PROFILE_FAIL, PROFILE_REQUEST, PROFILE_SUCCESS, REGISTER_FAIL, REGISTER_REQUEST, REGISTER_SUCCESS} from '../constants/user'
 const baseUrl = "https://uat.wincha-online.com"
 
 export const loginAction=(data)=>async(disptach)=>{
@@ -129,6 +129,64 @@ export const updateProfile = ()=>async(dispatch)=>{
 
         dispatch({
             type:PROFILE_FAIL,
+            payload:error.message
+        })
+    }
+}
+export const notificationAction=()=>async(dispatch)=>{
+    try {
+        dispatch({
+            type:NOTIFICATION_REQUEST,
+        })
+        const userId = JSON.parse(localStorage.getItem("user"))
+        await fetch(`${baseUrl}/user/notifications/get`,{
+            method:"POST",
+            body:JSON.stringify({
+                user_id:userId
+            }),
+            headers:{
+                "Content-type":"application/json"
+            }
+        }).then(res=>res.json()).then((data)=>{
+            dispatch({
+                type:NOTIFICATION_SUCCESS,
+                payload:data.data[0]
+            })
+            
+        })
+    } catch (error) {
+        dispatch({
+            type:NOTIFICATION_FAIL,
+            payload:error
+        })
+    }
+}
+export const cartAction=()=>async(dispatch)=>{
+    try {
+        dispatch({
+            type:CART_REQUEST,
+        })
+        const userId = JSON.parse(localStorage.getItem("user"))
+        await fetch(`${baseUrl}/cart/collection`, {
+            method: "POST",
+            body: JSON.stringify({
+              user_id: userId,
+            }),
+            headers: {
+              "Content-type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+                dispatch({
+                    type:CART_SUCCESS,
+                    payload:data.data
+                })
+            })
+        
+    } catch (error) {
+        dispatch({
+            type:CART_FAIL,
             payload:error.message
         })
     }

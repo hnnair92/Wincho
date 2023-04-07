@@ -1,7 +1,13 @@
 import {
+  CART_FAIL,
+  CART_REQUEST,
+  CART_SUCCESS,
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  NOTIFICATION_FAIL,
+  NOTIFICATION_REQUEST,
+  NOTIFICATION_SUCCESS,
   PROFILE_FAIL,
   PROFILE_REQUEST,
   PROFILE_SUCCESS,
@@ -66,3 +72,54 @@ export const profileReducer = (state = { profile: [] }, action) => {
       };
   }
 };
+export const cartReducer = (state={cart:[]},action)=>{
+  switch (action.type) {
+    case CART_REQUEST:
+      return{
+        loading:true,
+      }
+    case CART_SUCCESS:
+      return{
+        ...state,
+        loading:false,
+        cart:action.payload
+
+      }
+    case CART_FAIL:
+      return{
+        ...state,
+        loading:false,
+        error:action.payload
+      }
+    default:
+      return{
+        ...state
+      }
+  }
+}
+export const notificationReducer = (state={notification:[]},action)=>{
+  switch (action.type) {
+    case NOTIFICATION_REQUEST:
+      return{
+        
+        loading:true,
+      }
+    case NOTIFICATION_SUCCESS:
+      return{
+        ...state,
+        loading:false,
+        notification:action.payload
+
+      }
+    case NOTIFICATION_FAIL:
+      return{
+        ...state,
+        loading:false,
+        error:action.payload
+      }
+    default:
+      return{
+        ...state
+      }
+  }
+}

@@ -2,7 +2,7 @@ import {createStore,combineReducers,applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { configurationReducer, gameEntry, productReducer } from './reducers/product'
-import { profileReducer, userReducer } from './reducers/user'
+import { cartReducer, notificationReducer, profileReducer, userReducer } from './reducers/user'
 
 
 const reducers = combineReducers({
@@ -10,7 +10,9 @@ const reducers = combineReducers({
     userData:userReducer,
     gameEntry:gameEntry,
     configuration:configurationReducer,
-    profile:profileReducer
+    profile:profileReducer,
+    cart:cartReducer,
+    notification:notificationReducer,
 })
 const middleware = [thunk]
 const InitialState = {
