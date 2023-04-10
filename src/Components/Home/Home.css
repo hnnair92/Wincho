@@ -1,0 +1,389 @@
+.Container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.MHome{
+    display: none;
+}
+.Transition,.About,.Watch,.Support{
+    width: 100%;
+    /* height: 100vh; */
+}
+.About{
+    margin-top: -5.5%;
+}
+.Transition div{
+    /* height: 100%; */
+}
+.Support{
+    background-image: url("../../assests/Support City Background.png");
+    background-size: cover;
+    
+}
+.ContactSection{
+    width: 40%;
+    color: #fff;
+    font-size: 4rem;
+    font-weight: 600;
+    
+}
+.SupportContent{
+    width: 80%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.Image{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.Contact{
+    width: 100%;
+}
+.Contact img{
+    width: 100%;
+    height: 100%;
+}
+.LeftIcons,.RightIcons,.WLeftIcons,.WRightIcons{
+    position: absolute;
+    top:50%;
+    transform: translateY(0%);
+    z-index: 99;
+}
+.Slider{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 9;
+}
+.Slider img{
+    width: 100%;
+    height: auto;
+    /* object-fit: ; */
+}
+.LeftIcons,.WLeftIcons{
+    left: 0;
+}
+.RightIcons,.WRightIcons{
+    right: 0;
+}
+.RightIcons span,.LeftIcons span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1.5rem;
+    height: 10rem;
+    background-color: red;
+    border-radius:20px;
+    border:0.3rem solid #fff;
+
+    /* vertical-align: middle; */
+    margin: auto;
+    
+}
+.RightIcons span svg,.LeftIcons span svg{
+    font-size: 4rem;
+    color:#fff;
+}
+.WRightIcons button,.WLeftIcons button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 1.5rem;
+    height: 10rem;
+    background-color: transparent;
+    border-radius:20px;
+    border:none;
+    outline:none;
+    /* border:0.3rem solid #fff; */
+
+    /* vertical-align: middle; */
+    margin: auto;
+    
+}
+.WRightIcons button svg,.WLeftIcons button svg{
+    font-size: 4rem;
+    color:#fff;
+}
+.Slidernav{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* transform: translateY(100%); */
+    /* top: 100%; */
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+.CircleNav .Active{
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 5px;
+    /* font-size: 100px; */
+    border-radius: 50%;
+    background-color: red;
+    border:3px solid #fff;
+}
+.CircleNav .NonActive{
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 5px;
+    /* font-size: 100px; */
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.200);
+    border:3px solid #fff;
+}
+.Transition{
+    position: relative;
+}
+.Crane{
+    position: absolute;
+    top: 0;
+    left:50%;
+    transform: translate(-50%);
+}
+.Watch img{
+    width: 100%;
+}
+.Ticket{
+    transition: all 0.25s ease-in-out;
+
+}
+.Ticket a,.TicketTop a{
+    position: -webkit-fixed;
+    position: fixed;
+    z-index: 9999;
+    top:80px;
+    right: 10px;
+    min-width: 15rem;
+    max-width: 30rem;
+    height: 90px;
+    background-color: red;
+    border:10px solid #949393;
+    border-radius: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    transition: all 0.25s ease-in-out;
+    
+    
+}
+.TicketTop a{
+    top: 0;
+    transition: all 0.25s ease-in-out;
+
+}
+.Ticket a
+.TicketIcon,.TicketTop a .TicketIcon{
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items: center;
+    /* overflow: auto; */
+}
+.TicketText{
+    /* overflow: auto; */
+    width: 50%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.TicketText img{
+    width: 135%;
+}
+.ContactSection p{
+    /* text-align: left; */
+    font-family: drumshake_italic;
+    font-size: 15rem;
+    margin: 0;
+    text-align: center;
+}
+.ContactSection .StrokeContact{
+    color:#000;
+    font-size: 7rem;
+    /* -webkit-text-stroke: 1px; */
+    -webkit-text-stroke-color: #fff;
+    -webkit-text-stroke-width: .05rem;
+
+}
+.WLeftIcons .Disable svg,.WRightIcons .Disable svg{
+    color: lightgray;
+    cursor: not-allowed;
+}
+.AppStore{
+    width: 20%;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.PlayBtn{
+    position: absolute;
+    left: 50%;
+    bottom: 45%;
+    transform: translate(-50%,100%);
+    width: 12%;
+    z-index: 999;
+}
+.PlayBtn img{
+    width: 100%;
+}
+
+@media(max-width:1065px){
+    .Home{
+        display: none;
+    }
+    .MHome{
+        display: flex;
+        flex-direction: column;
+    }
+    .About{
+        margin-top: -6rem;
+    }
+    .MTransitionBgImage,.MAbout,.MWatch,.MSupport{
+        height: 100vh;
+    }
+    /* .MTransition img,.MAbout img,.MWatch img,.MSupport img{ */
+    .MTransitionBgImage img{
+        height: 100%;
+    }
+    .MTransitionDiv{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        /* width: 10%; */
+        z-index: 999;
+        width: 50%;
+    }
+    .MPlayBtn img{
+        width: 100%;
+    }
+    .MAppStore{
+        width: 100%;
+    }
+    .Ticket a{
+        top: 5vh;
+        width: 23%;
+    height: 5%;
+    border-radius: 1.5rem;
+    }
+    .TicketText{
+        font-size: 3rem;
+        line-height: 18px;
+    }
+    .SupportContent{
+        justify-content: center;
+    }
+    .ContactSection{
+        width: 75%;
+    }
+    .CircleNav .Active,.CircleNav .NonActive{
+        width: 1.5rem;
+        height: 1.5rem;
+        border:2px solid #fff
+    }
+}
+@media(max-width:767px){
+    .home,.Transition,.About,.Watch,.Support{
+        height: 100vh;
+    }
+    .Slider img{
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .Ticket a{
+        border-width: 5px;
+        padding: .5rem;
+    }
+    .About{
+        margin-top: -7%;
+    }
+    .PlayBtn{
+        position: absolute;
+        left: 50%;
+        bottom: 50%;
+        transform: translate(-50%,100%);
+        width: 10%;
+        z-index: 999;
+    }
+    .Ticket a{
+        top: 9vh;
+        width: 29%;
+        height: 6%;
+
+    }
+    .TicketText{
+        font-size: 1.75rem;
+        line-height: 10px;
+    }
+    .ContactSection p{
+        font-size: 7rem;
+    }
+    .ContactSection .StrokeContact{
+        font-size: 3.25rem;
+    }
+    .RightIcons span,.LeftIcons span{
+        height: 5rem;
+        border-radius: 10px;
+
+    }
+    .RightIcons span svg,.LeftIcons span svg{
+        font-size: 2rem;
+    }
+    .WRightIcons button svg,.WLeftIcons button svg{
+        font-size: 2rem;
+    }
+    .LeftIcons,.RightIcons,.WLeftIcons,.WRightIcons{
+        transform: translateY(-50%);
+    }
+}
+@media(max-width:1065px)and(min-width:450px){
+    .About{
+        margin-top: 4rem;
+    }
+}
+@media(min-width:1530px){
+    .About{
+        margin-top: -5%;
+    }
+}
+.Crane{
+    width: 100vw;
+    height: 75vh;
+    /* position: relative; */
+    position: absolute;
+    z-index: 99;
+    right: 0%;
+    transform: translateX(-21%) !important;
+}
+.Crane div{
+    
+    /* position: absolute; */
+    /* position: relative; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+}
+.Crane div svg{
+    width: 60% !important;
+}
+.TicketIcon img{
+    width: 80%;
+}

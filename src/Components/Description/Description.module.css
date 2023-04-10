@@ -124,7 +124,9 @@
     width: 55%;
     margin: 0 auto;
 }
-
+.PrizeReset{
+    width: 45%;
+}
 .Camera button,
 .PrizeReset button,
 .LastWin button {
@@ -637,10 +639,14 @@ video {
     .Container {
         height: 100%;
     }
-
+    .GameScreen{
+        height: auto;
+    }
     .Section {
         width: 90%;
         margin: 0 auto;
+        height: auto;
+        margin-top: 5%;
     }
 
     .Section {
@@ -730,11 +736,61 @@ video {
         border-radius: 25px;
     } */
     .video {
-        border-radius: 25px;
+        border-radius: 30px;
     }
 
     .GameScore span {
         font-size: 6rem;
+    }
+    .ExtraButton{
+        display: flex;flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .ExtraButton button{
+        font-family: drumshake_italic;
+        font-size: 5rem;
+        background-color: #fd8204;
+        margin: auto;
+        color: #fff;
+        padding: 5px 0;
+        width: 70%;
+        border-radius: 15px;
+        border: 2px solid #fff;
+        outline: none;
+        margin-top: 2rem;
+    }
+    .Controls{
+        width: 90%;
+        margin-top: 4%;
+    }
+    .Controls div{
+        width: 65%;
+    }
+    .Controls div .PlayImage{
+        width: 100%;
+    }
+    .PlayImage button img{
+        width: 100%;
+    }
+    .Report button{
+        width: 75%;
+    }
+    .Description p{
+        margin-top: 1.5rem;
+    }
+    .queStatus,.spectator{
+        font-size: 1.2rem;
+        padding: 0.5px 2px;
+    }
+    .queStatus img,.spectator img{
+        width: 35%;
+    }
+    .GameScreen{
+        margin-top: 11%;
+    }
+    .Controls .GameScore{
+        width: 40%;
     }
 }
 
@@ -848,11 +904,13 @@ video {
         border-radius: 25px;
     } */
     .video {
-        border-radius: 25px;
+        /* border-radius: 25px; */
     }
 
     .GameScore span {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        color: #000;
+        -webkit-text-stroke: 1px #fff;
     }
 
     .Icons {
@@ -941,7 +999,11 @@ video {
 
 }
 
-@media(max-width:1065px) {}
+@media(max-width:1065px) {
+    .GameScreen{
+        margin-top: 11%;
+    }
+}
 
 @media(max-width:768px) {
     .Overlay{
@@ -986,9 +1048,9 @@ video {
 
 }
 .videoStarting{
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
     top: 0;
     right: 0;
     left: 0;
@@ -1041,3 +1103,58 @@ video {
         max-width: 450px;
     }
 } */
+.LoaderDivSection{
+    position: absolute;
+    /* top: 50%; */
+    width: 100%;
+    height: 100%;
+    /* left: 50%; */
+    /* transform: translate(-50%,-50%); */
+    /* width: 20rem; */
+    /* background-color: #000000c9; */
+}
+.LoaderAnime{
+    width: 20rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-100%);
+}
+.videoStarting .LoaderDivSection p{
+    font-size: 2.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-60%);
+    font-weight: normal;
+    color: #000;
+
+}
+.ArrowBothButtons .playImageLoader{
+    position: relative;
+}
+.ArrowBothButtons .playImageLoader div{
+    position: absolute;
+    z-index: 9;
+}
+.ArrowBothButtons .playImageLoader img{
+    width: 100%;
+    position: relative;
+    z-index: 99;
+}
+.ArrowBothButtons .playImageLoaderActive{
+    display: none;
+}
+.ArrowBothButtons .playImageLoaderActive div{
+    position: absolute;
+}
+.ArrowBothButtons .playImageLoaderActive img{
+    width: 100%;
+}
+@media(max-width:1065px){
+    .videoStarting{
+        width: 100vw;
+    height: 100vh;
+    position: fixed;
+    }
+}

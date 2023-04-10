@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 const WinScreen = () => {
   const location = useLocation();
   const state = location.state;
-  const data = state.game;
+  const data = state?.game;
   console.log(data);
   
   return (
@@ -15,7 +15,7 @@ const WinScreen = () => {
           <img src={winBg} alt="" />
         </div>
         <div className={style.WinGame}>
-            <img src={data.featured_image.large} alt="" />
+            <img src={data?.featured_image?.large} alt="" />
         </div>
       </div>
     </div>

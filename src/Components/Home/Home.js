@@ -13,6 +13,7 @@ import AppStore from '../../assests/pngwing.com (4).png'
 import playBtn from '../../assests/Play Button.png'
 import { Link } from 'react-router-dom';
 import imageDiv from '../../assests/TEXTOff Tickets.png'
+import {bgImage} from './BgImage.js'
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     const[scrollNav,setScrollNav] = useState(false);
@@ -198,6 +199,35 @@ const Home = () => {
                     
             </div>
         </div>
+        <div className={style.MHome}>
+            <div className={style.Mtransition}>
+                <div className={style.MTransitionBg}>
+                    <img src={bgImage[background?background:0]} alt="" />
+                </div>
+                <div className={style.MTransitionContent}>
+                    {/* <link> */}
+                        <div className={style.MPlayBtn}>
+                            <img src={playBtn} alt="" />
+                        </div>
+                    
+                    {/* </link>  */}
+                    <div className={style.MAppStore}>
+                        <img src={AppStore} alt="" />
+                    </div>
+                </div>
+                    <div className={style.MCrane}>
+                        <img src="" alt="" />
+                    </div>
+            </div>
+            <div className={style.MAbout}></div>
+            <div className={style.MWatch}></div>
+            <div className={style.MSupport}>
+                <div className={style.MSupportBg}>
+                    <img src="" alt="" />
+                </div>
+            </div>
+        </div>
+
         {scrollNav
         ?
         <div className={style.TicketTop}>

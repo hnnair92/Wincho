@@ -51,22 +51,36 @@
     justify-content: space-evenly;
     align-items: center;
 }
-.Menu ul li{
+.MenuSection .NormalUrl{
     font-size: 2.25rem;
     color: #fff;
     font-weight: 600;
-    margin: 15px;
+    /* margin: 15px; */
+    margin-right: 0;
     transition: all 0.2s ease-in-out;
 
 }
-.Menu ul li{
+.MenuSection{
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     /* justify-content: flex-start; */
     /* height: 100%; */
+    margin: 15px 0;
 }
-.Menu ul li:hover{
+.MenuSection .ActiveUrl{
+    color: #1b8fe7;
+    font-size: 2.25rem;
+    /* color: #fff; */
+    font-weight: 600;
+    /* margin: 15px; */
+}
+.MenuSection .NormalUrl:hover{
     color:#1b8fe7;
+    font-size: 2.25rem;
+    /* color: #fff; */
+    font-weight: 600;
+    /* margin: 15px; */
     /* margin-top: 5px;
     transform: scale(1.1); */
 }
@@ -116,7 +130,7 @@
     justify-content: space-between;
     align-items: center;
 }
-.Profile p{
+.Username{
     font-size: 2.25rem;
     color: #fff;
     font-weight: 600;
@@ -156,7 +170,7 @@
     list-style: none;
     font-weight: 600;
     font-size: 2.25rem;
-    margin: 15px;
+    /* margin: 15px; */
     transition: all 0.2s ease-in-out;
 
 }
@@ -473,15 +487,7 @@
     display: none;
 }
 @media(max-width:765px){
-   .MobileBottomNav{
-    width: 100%;
-        display: block;
-        position: fixed;
-        bottom:0;
-        padding:25px;
-        background-color: #333;
-
-    }
+   
 }
 /* @media(min-width:1065px){
     .Container{
@@ -500,6 +506,7 @@
     justify-content: center;
     align-items: center;
     margin: 0rem 1rem;
+    margin-left: 0;
     color: #fff;
 }
 .Music ,.Sound{
@@ -520,13 +527,142 @@
     width: 50%;
     border-radius: 5rem;
     height: 3rem;
+    left: 0;
 }
 .ActiveSlider{
     background-color: #72F456;
+    width: 30%;
+    height: 3rem;
+    border-radius: 5rem;
+    position: relative;
 }
 .ActiveSliderBtn{
     background-color: #A8A8A8;
     width: 50%;
+    right: 0;
+    position: absolute;
     border-radius: 5rem;
     height: 3rem;
+}
+.MobileTopNav{
+    display: none;
+}
+@media(max-width:1065px){
+    .Container{
+        border-width: 23x;
+    }
+    .MobileMenu{
+        bottom: 0;
+        position: fixed;
+        left: 0;
+    }
+    .MobileTopNav{
+        width: 100%;
+        display: flex;
+        height: 35px;
+
+        /* position: fixed; */
+        /* top:0; */
+        /* left:0; */
+        padding:0px;
+        padding: 0px 10px;
+        background-color: #333;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        }
+    .MLogo{
+        width: 15%;
+        height: 100%;
+        position: absolute;
+        top: 0%;
+        left: 7.5%;
+        transform: translate(-10%,50%);
+    }
+    .MLogo img{
+        width: 100%;
+    }
+    .MBandaiLogo{
+        width: 28%;
+        position: absolute;
+        top: 50%;
+        left: 45%;
+        transform: translate(-50%,-50%);
+
+    }
+    .MBandaiLogo img{
+        width: 100%;
+
+    }
+    .MCredits{
+    width: 30%;
+    height: 25px;
+    background-color: #09061d;
+    border-radius: 50px;
+    position: relative;
+    z-index: 9999;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right:2%;
+    transform: translate(0%,-50%);
+    }
+    .MTicket{
+        width:30%;
+    }
+    .MTicket img{
+        width: 100%;
+    }
+    .MPlus{
+        width: 25%;
+    }
+    .MPlus img{
+        width: 100%;
+    }
+    .MPoints p{
+        font-size: 2.75rem;
+        font-family: drumshake_italic;
+        color: #000;
+        -webkit-text-stroke: 1px #fff;
+    }
+    .Menu{
+        width: 100%;
+    }
+    .HomeMenuIcons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%
+    }
+    .BottomMenuIcon{
+        width: 11.5%;
+    }
+    .BottomMenuIcon img{
+        width: 100%;
+    }
+    .HomeMenuIcons svg{
+        /* width: 100%; */
+        color: #fff;
+        font-size: 4rem;
+    }
+    .MobileMenu{
+        padding:5px 7.5px;
+        z-index: 9999999;
+    }
+    .MobileMenu .HamBurgerMenu .Settings{
+        top: -1%;
+        position: fixed;
+        z-index: 99999999;
+    }
+    .MenuSection{
+        margin: 15px 0px;
+    }
+    .Settings ul li{
+        margin: 0;
+    }
 }

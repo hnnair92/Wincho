@@ -505,3 +505,9 @@
     border:none;
     background-color: red;
 }
+
+@media(max-width:1065px){
+    .CategoriesSection{
+        margin-left: 15%;
+    }
+}

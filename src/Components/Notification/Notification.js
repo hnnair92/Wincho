@@ -3,12 +3,15 @@ import style from './Notification.module.css';
 import NotificationDatas from '../../Api/Notification';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { AllAnimation } from '../../Animation/allAnimation';
+import Lottie from 'lottie-react';
 const Notification = () => {
   const baseUrl = "https://uat.wincha-online.com";
   const{user} = useSelector((state)=>state.profile)
   const [notificationData,setNotificationData] = useState({})
   const userId = JSON.parse(localStorage.getItem("user"))
   const[product,setProduct] = useState({})
+  const [loading,setLoading] = useState(true)
 //   const[notification,setNotification] = useState({})
   const navigate = useNavigate()
     async function notificationGet(){
@@ -22,7 +25,8 @@ const Notification = () => {
             }
         }).then(res=>res.json()).then((data)=>{
             setNotificationData(data.data[0])
-            // console.log(data)
+            setLoading(false)
+            console.log(notificationData.notifications.length)
             // setProduct(data.data[0].notifications.[])
         })
     }
@@ -55,7 +59,7 @@ const Notification = () => {
             <div className={style.Head}>
                 <p>NOTIFICATIONS</p>
             </div>
-            {notificationData?.notifications?.map((notification)=>{
+            {loading===false?notificationData?.notifications?.length>1?notificationData?.notifications?.map((notification)=>{
                 {/* console.log(notification.product[0]) */}
                 return(
                     <div className={style.Notification} onClick={()=>{
@@ -89,7 +93,13 @@ const Notification = () => {
                         </div>
                     </div>
                 )
-            })}
+            }):<p className={style.EmptyCart}>You Have Viewed All the Notifications</p>:
+            <div className={style.LoaderDiv}>
+            <div className={style.LoaderAnime}>
+              <Lottie animationData={AllAnimation.Loader} />
+            </div>
+            </div>
+            }
         </div>
     </div>
   )

@@ -1,11 +1,12 @@
-.Container{
+.Container {
     width: 100%;
     height: 400px;
     background-color: #2D2D2D;
     /* padding:50px 50px */
 
 }
-.Footer{
+
+.Footer {
     width: 100%;
     height: 100%;
     display: flex;
@@ -13,28 +14,35 @@
     justify-content: space-between;
     align-items: center;
 }
-.Logo{
+
+.Logo {
     /* width: 45%; */
     /* padding: 30px; */
     height: 100%;
 }
-.Logo img{
+
+.Logo img {
     /* width: 100%; */
     height: 100%;
 }
-.Address,.Menu{
+
+.Address,
+.Menu {
     width: 30%;
     height: 100%;
 }
-.Menu{
+
+.Menu {
     width: 35%;
 }
-.Title{
+
+.Title {
     font-size: 4rem;
     font-weight: 700;
     color: #fff;
 }
-.Menu ul{
+
+.Menu ul {
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -42,28 +50,32 @@
     list-style: none;
 
 }
-.Menu ul li{
+
+.Menu ul li {
     font-size: 2.5rem;
     color: #fff;
     width: fit-content;
     transition: all 0.2s ease-in-out;
-    border-bottom:1.5px solid transparent;
+    border-bottom: 1.5px solid transparent;
 
     /* text-decoration: underline; */
 }
-.Menu ul li:hover{
+
+.Menu ul li:hover {
     border-bottom: 1.5px solid #1b8fe7;
     /* transform: scale(1.1); */
 
 }
-.Address{
+
+.Address {
     height: 100%;
     display: flex;
     width: 45%;
     flex-direction: column;
     justify-content: space-between;
 }
-.FooterDetails{
+
+.FooterDetails {
     width: 50%;
     height: 100%;
     justify-content: flex-end;
@@ -71,43 +83,55 @@
     padding: 50px;
 
     flex-direction: row;
-    }
-.SocialMedia img{
+}
+
+.SocialMedia img {
     width: 15%;
     object-fit: contain;
 }
-@media(min-wdith:1065px){
-    .FooterDetails{
+
+@media(min-wdith:1065px) {
+    .FooterDetails {
         justify-content: space-evenly;
     }
-    .Menu,.Address{
+
+    .Menu,
+    .Address {
         width: 100%;
     }
 }
-.Copyright p,.TermsAndPrivacy p{
+
+.Copyright p,
+.TermsAndPrivacy p {
     font-size: 1.5rem;
     /* margin-top: 0.75rem; */
     color: #fff;
 }
-.SocialMedia{
+
+.SocialMedia {
     width: 75%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.SocialMedia svg{
+
+.SocialMedia svg {
     font-size: 5rem;
     color: #fff;
     cursor: pointer;
 }
-.Copyright,.TermsAndPrivacy{
+
+.Copyright,
+.TermsAndPrivacy {
     display: flex;
     flex-direction: column;
 }
+
 /* .TermsAndPrivacy{
     margin-top: 3rem;
 } */
-@media (max-width:1064px){
+@media (max-width:1064px) {
+
     /* .Container{
         padding: 25px;
     }
@@ -120,105 +144,198 @@
     /* .Logo{
         width: 50%;
     } */
-    .FooterDetails{
+    .FooterDetails {
         width: 100%;
         padding: 50px;
     }
-    .Container{
+
+    .Container {
         height: 100%;
         padding: 25px;
     }
-    .Footer{
+
+    .Footer {
         flex-direction: column-reverse;
     }
-    
-    .Logo,.Menu,.Address{
+
+    .Logo,
+    .Menu,
+    .Address {
         width: 100%;
         padding: 0;
     }
-    .Logo img{
+
+    .Logo img {
         width: 100%;
     }
-    .Title{
+
+    .Title {
         font-size: 3.5rem;
     }
-    .Menu ul li{
+
+    .Menu ul li {
         font-size: 2.5rem;
-        padding:15px 0;
+        padding: 15px 0;
     }
-    .SocialMedia{
+
+    .SocialMedia {
         width: 100%;
         margin: 25px 0;
     }
-    .SocialMedia svg{
+
+    .SocialMedia svg {
         font-size: 3.5rem;
     }
-    .Copyright{
+
+    .Copyright {
         margin: 15px 0;
     }
-    .bandaiLogo{
-        display: none;
-    }
-}
-@media(max-width:767px){
-    .FooterDetails{
-        width: 100%;
-        padding: 0;
-    }
-    .Container{
-        height: 100%;
-        padding: 25px;
-    }
-    .Footer{
-        flex-direction: column-reverse;
-    }
-    
-    .Logo,.Menu,.Address{
-        width: 100%;
-        padding: 0;
-    }
-    .Logo img{
-        width: 100%;
-    }
-    .Title{
-        font-size: 2.5rem;
-    }
-    .Menu ul li{
-        font-size: 1.75rem;
-        padding:15px 0;
-    }
-    .SocialMedia{
-        width: 100%;
-        margin: 25px 0;
-    }
-    .SocialMedia svg{
-        font-size: 3rem;
-    }
-    .Copyright{
-        margin: 15px 0;
-    }
-    .bandaiLogo{
+
+    .bandaiLogo {
         display: none;
     }
 }
 
-.bandaiLogo{
+@media(max-width:767px) {
+    .FooterDetails {
+        width: 100%;
+        padding: 0;
+    }
+
+    .Container {
+        height: 100%;
+        padding: 25px;
+    }
+
+    .Footer {
+        flex-direction: column-reverse;
+    }
+
+    .Logo,
+    .Menu,
+    .Address {
+        width: 100%;
+        padding: 0;
+    }
+
+    .Logo img {
+        width: 100%;
+    }
+
+    .Title {
+        font-size: 2.5rem;
+    }
+
+    .Menu ul li {
+        font-size: 1.75rem;
+        padding: 15px 0;
+    }
+
+    .SocialMedia {
+        width: 100%;
+        margin: 25px 0;
+    }
+
+    .SocialMedia svg {
+        font-size: 3rem;
+    }
+
+    .Copyright {
+        margin: 15px 0;
+    }
+
+    .bandaiLogo {
+        display: none;
+    }
+}
+
+.bandaiLogo {
     width: 40%;
 }
-.bandaiLogo img{
+
+.bandaiLogo img {
     width: 100%;
 }
-.TermsAndPrivacy{
+
+.TermsAndPrivacy {
     flex-direction: row;
     justify-content: space-between;
 }
-.TermsAndPrivacyText{
+
+.TermsAndPrivacyText {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
 }
-.TermsAndPrivacyText a{
+
+.TermsAndPrivacyText a {
     color: #fff;
     font-size: 1.25rem;
+}
+
+.MFooter {
+    display: none;
+}
+
+@media(max-width:1065px) {
+    .Container {
+        padding-top: 10px;
+    }
+
+    .Footer {
+        display: none;
+    }
+
+    .MFooter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 20px;
+
+    }
+
+    .MFooter .Address {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .SocialMedia {
+        width: 75%;
+    }
+
+    .SocialMedia img {
+        width: 15%;
+    }
+
+    .Copyright,
+    .TermsAndPrivacyText {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .TermsAndPrivacy {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .TermsAndPrivacyText a {
+        text-decoration: underline;
+        font-size: 1.55rem;
+        margin: 3px 0;
+    }
+
+    .MbandaiLogo {
+        margin: 30px;
+        width: 50%;
+    }
+
+    .MbandaiLogo img {
+        width: 100%;
+    }
 }

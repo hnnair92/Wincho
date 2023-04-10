@@ -14,7 +14,7 @@
     height: 100%;
     margin: 0 auto;
     padding: 20px;
-    padding: 50px 0;
+    padding: 50px 25px;
 
 }
 .Cart::-webkit-scrollbar{
@@ -35,6 +35,7 @@
 .Carts{
     display: flex;
     flex-direction: column;
+    position: relative;
     margin: 10px 0px;
     padding: 40px;
     padding-top: 0;
@@ -104,6 +105,7 @@
     display: flex;
     flex-direction: column;
     padding: 40px;
+    border-bottom:1.5px solid #fff;
     padding-top: 0;
 }
 .PrimeShipping{
@@ -283,7 +285,7 @@ video{
     /* border-radius: 40px; */
 }
 .popup{
-    position: absolute;
+    position: fixed;
     z-index: 9999;
     top: 50%;
     left: 50%;
@@ -310,6 +312,10 @@ video{
 }
 .popupText{
     margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 .popupText p{
     font-size: 2rem;
@@ -362,6 +368,7 @@ video{
     position: absolute;
     top: 50%;
     left: 50%;
+    z-index: 9;
     transform: translate(-50%,-50%);
     display: flex;
     flex-direction: column;
@@ -389,6 +396,13 @@ video{
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border:.25rem solid #333333c1;
+    /* outline:.25rem solid #000; */
+
+    
+}
+.Address form input:focus{
+    outline:.25rem solid #1b8fe7;
+    border-color:transparent;
 }
 .Address form h1{
     text-align: left;
@@ -411,4 +425,290 @@ video{
     font-weight: 600;
     color: #fff;
     margin-top: 2rem;
+}
+.LoaderDiv{
+    /* position: absolute; */
+    /* top: 50%; */
+    width: 100%;
+    height: 100%;
+    /* left: 50%; */
+    /* transform: translate(-50%,-50%); */
+    /* width: 20rem; */
+    /* background-color: #000000c9; */
+}
+.LoaderAnime{
+    width: 20rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.CloseIcon {
+    z-index: 9;
+    position: absolute;
+    bottom: 0;
+    padding: 1rem;
+    border-radius: 50%;
+    background-color: #e50000;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CloseIcon svg {
+    color: #fff;
+    font-size: 3rem;
+}
+
+.LastWinPopup {
+    width: 100vw;
+    height: 100%;
+    position: fixed;
+    top: 50%;
+    z-index: 9999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.PlayIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+
+}
+
+.VideoSection {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    overflow: hidden;
+    border: 10px solid #1b8fe7;
+    outline: 10px solid #949393;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+}
+
+.PlayIcon button img {
+    width: 20%;
+}
+
+.PlayImage {
+    margin: 0 auto;
+    width: 80%;
+    position: relative;
+}
+
+.PlayImage button {
+    position: relative;
+    z-index: 99;
+}
+.VideoSection div{
+    background-color: #1b8fe7;
+    width: 100%;
+    height: 100% !important;
+}
+
+
+.VideoSection video {
+    background-color: #000;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* border-radius: 30px; */
+    /* border: 14px solid #1b8fe7; */
+    /* outline: 14x solid #1b8fe7; */
+}
+.hideVideopopup{
+    display: none;
+}
+.VideoSection .VideoEmpty{
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.VideoEmpty p{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
+}
+/* .VideoOverlay{
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000028;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+} */
+.VideoSection svg{
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    font-size: 4rem;
+    z-index: 9999;
+    color: #fff;
+}
+.VideoEmptyOverlay h1{
+
+}
+.videoStarting{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(27, 143, 231, 1) 0%, rgba(19, 192, 236, 1) 50%, rgba(32, 122, 224, 1) 100%);
+    z-index: 999999;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 8rem;
+    font-weight: 600;
+    font-family: drumshake_italic;
+}
+.videoStarting p{
+    text-align: center;
+}
+.VideoOverlay{
+    width: 100vw;
+    height: 100%;
+    background-color: #00000028;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+}
+.share{
+    position: relative;
+}
+.ShareDiv{
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #1b8fe7;
+    border-radius: 25px;
+    padding: 5px 10px;
+    left: 0;
+    top: 0;
+    transform: translate(-75%,-150%);
+}
+.ShareIcon svg{
+    margin: 0px 7px;
+    color: #fff;
+    font-size: 2.5rem;
+}
+@media(max-width:1065px){
+    .Address form{
+        width: 100%;
+    }
+    .Address{
+        width: 90%;
+    }
+    .Address form input{
+        font-family: "Poppins";
+    width: 100%;
+    font-size: 2rem;
+    background-color: #fff;
+    height: 5.5rem;
+    /* height: 5.68rem; */
+    padding: 1.13rem 1.26rem;
+    text-align: left;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    border: 0.15rem solid #333333c1;
+    }
+    .VideoSection{
+        width: 90%;
+        height: 250px;
+        border-width:5px ;
+        outline-width: 5px;
+    }
+    .ShareDiv{
+        transform: translate(-90%,-125%);
+    }
+    .Address form h1{
+        font-size: 1.5rem;
+    }
+    .Address form button{
+        width: 60%;
+        border-radius: 50px;
+        background-color: #3b82f6;
+        border: none;
+        outline: none;
+        height: 5.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #fff;
+        margin-top: 2rem;
+    }
+    .Passpopup{
+        width: 90%;
+    }
+}
+.DeliveryAddress{
+    width: 90%;
+    padding: 25px;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: space-evenly;
+}
+.AddressSection{
+    width: 30%;
+}
+.AddressSection input{
+    background-color: transparent;
+    border:none;
+    outline:none;
+    color: #fff;
+    font-size: 2.25rem;
+    margin: 5px 0;
+    font-weight: 600;
+    width: 100%;
+}
+.AddressTitle p{
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #fff;
+
+}
+.AddressEditBtn button{
+    background-color: #1b8fe7;
+    border:1.5px solid #fff;
+    outline:none;
+    font-size: 2rem;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 30px;
+    margin: 20px 0;
+    font-weight: 700;
+}
+.AddressHeadSeciton{
+    width: 50%;
+}
+.AddressHeadSection button{
+    margin: 10px 0;
+}
+.Blank{
+    color: transparent;
+    opacity: 0;
 }

@@ -3,12 +3,15 @@ import style from "./faq.module.css";
 import faqDataCategory from "../../Api/FaqCategory";
 // import faqData from "../../Api/faq";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import { AllAnimation } from "../../Animation/allAnimation";
+import Lottie from "lottie-react";
 const Faq = () => {
   const[faqData,setFaqData] = useState([])
   const [faqCat, setFaqCat] = useState("Registration");
   const [status, setStatus] = useState(true);
   const [catId, setCatId] = useState("");
   const [id, setId] = useState("");
+  const [loading,setLoading] = useState(true)
   const [faqStatus, setFaqStatus] = useState(false);
   const baseUrl = "https://uat.wincha-online.com"
   const faqApi = async()=>{
@@ -18,6 +21,7 @@ const Faq = () => {
       // console.log(data.data[0].faq_sections[0].faqs[0].q)
       setFaqCat(data.data[0].faq_sections[0].section)
       setId(data.data[0].faq_sections[0].faqs[0].q)
+      setLoading(false)
     })
   }
   useEffect(()=>{
@@ -36,7 +40,7 @@ const Faq = () => {
       <div className={style.Faq}>
         <button className={style.FaqBtn}>FAQ</button>
         <div className={style.AllFaqSection}>
-          {faqData.map((item,index) => {
+          {loading===false?faqData.map((item,index) => {
             return (
               <div className={style.FaqSection} key={index}>
                 <div className={style.FaqCategory}>
@@ -119,7 +123,13 @@ const Faq = () => {
                 )}
               </div>
             );
-          })}
+          }):
+          <div className={style.LoaderDiv}>
+            <div className={style.LoaderAnime}>
+              <Lottie animationData={AllAnimation.Loader} />
+            </div>
+            </div>
+          }
         </div>
       </div>
     </div>

@@ -1,28 +1,37 @@
+import basket from '../../assests/BASKET ICON.png'
+import home from '../../assests/HOME ICON.png'
+import support from '../../assests/SUPPORT ICON.png'
+import price from '../../assests/PRIZES ICON.png'
 
 export const MainMenu = [
+
     {
         id:"01",
         Name:"Home",
         url:"",
         Badge:false,
+        icon:home,
     },
     {
         id:"02",
         Name:"Prizes",
         url:"prizes",
         Badge:false,
+        icon:price
     },
     {
         id:"03",
         Name:"Support",
         url:"",
         Badge:false,
+        icon:support,
     },
     {
         id:"04",
         Name:"Basket",
         url:"cart",
         Badge:true,
+        icon:basket
     },
 ]
 

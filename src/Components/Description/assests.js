@@ -14,4 +14,11 @@ import GrayPrizeMove from '../../assests/Assistance Pressed Button.png'
 import winchaPopup from '../../assests/Wincha Pop-Up Icon.png'
 import GamePricePng from '../../assests/Price of Game BG.png'
 import timeOutImage from '../../assests/TIME OUT Button with TImer-01.png'
-export const assets = {timeOutImage,GamePricePng,winchaPopup,binoculars,info,userView,lastWin,cameraChanger,Guide,reportImage,PlayImage,infoIcon,pointsBg,greenPrizeMove,GrayPrizeMove,ticketIcon}
+import LeftArrow from '../../assests/Left Arrow.png'
+import RightArrow from '../../assests/Right Arrow.png'
+import UpArrow from '../../assests/Up Arrow.png'
+import LeftArrowPressed from '../../assests/Left Pressed Arrow.png'
+import RightArrowPressed from '../../assests/Right Pressed Arrow.png'
+import UpArrowPressed from '../../assests/Up Pressed Arrow.png'
+// import timeOutImage from '../../assests/TIME OUT Button with TImer-01.png'
+export const assets = {UpArrowPressed,LeftArrowPressed,RightArrowPressed,UpArrow,LeftArrow,RightArrow,timeOutImage,GamePricePng,winchaPopup,binoculars,info,userView,lastWin,cameraChanger,Guide,reportImage,PlayImage,infoIcon,pointsBg,greenPrizeMove,GrayPrizeMove,ticketIcon}

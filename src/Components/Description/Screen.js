@@ -18,32 +18,32 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
         setId(data.id)
     },[])
     var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
-    const session = OT.initSession(apiKey, sessionId);
-    const reconnecting = session._.reconnecting()
-    session.on("streamDestroyed", function (event) {
+    // const session = OT.initSession(apiKey, sessionId);
+    // const reconnecting = session._.reconnecting()
+    // session.on("streamDestroyed", function (event) {
       // console.log("Stream stopped. Reason: " + event.reason);
       // event.stream()
       // session.disconnect()
       // console.log(session)
       // session.connect()
-      setVideoGot(false);
-      console.log(session._.reconnecting(),"reconnecting")
-      console.log(session._.reconnecting(),"reconnecting")
-      console.log(setVideoGot,"setVideoGot")
-      console.log(videoGot,"videoGot")
-    });
-    console.log(session._.reconnecting(),"reconnecting")
-    console.log(typeof session._.reconnecting(),"reconnecting")
+    //   setVideoGot(false);
+    //   console.log(session._.reconnecting(),"reconnecting")
+    //   console.log(session._.reconnecting(),"reconnecting")
+    //   console.log(setVideoGot,"setVideoGot")
+    //   console.log(videoGot,"videoGot")
+    // });
+    // console.log(session._.reconnecting(),"reconnecting")
+    // console.log(typeof session._.reconnecting(),"reconnecting")
 
-      console.log(setVideoGot,"setVideoGot")
-      console.log(videoGot,"videoGot")
+    //   console.log(setVideoGot,"setVideoGot")
+    //   console.log(videoGot,"videoGot")
     // var sessionID = sessionId;
     // var sessionID = "1_MX40NzQ5ODQ3MX5-MTY3NzkxMzMxNTYwMH4vOGdWdE9KU2JhMnlXYis2NzF0dTVwV1l-fn4"; // Replace with your own session ID.
                         // See https://tokbox.com/developer/guides/create-session/.
     // var tokenId = token;
-    function getlog(e){
-      console.log(e)
-    }
+    // function getlog(e){
+    //   console.log(e)
+    // }
     return (
     <div className={style.container}>
         {/* {popup?
@@ -63,13 +63,15 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
       // connectionDestroyed={console.log("connection destroyed")}
       // sessionConnected={console.log("Client connect to a session")}
       // sessionDisconnected={console.log("Client disConnect to a session")}
-       apiKey={apiKey} sessionId={sessionId} token={token}>
+       apiKey={apiKey} sessionId={sessionId} token={token} >
             
             <OTStreams >
               <OTSubscriber onSubscribe={(e)=>{
                 console.log(e);
                 setVideoGot(true)
                 console.log("gotted");
+              }} onError={(error)=>{
+                console.log("Exited",error)
               }}/>
             </OTStreams>
           </OTSession>

@@ -83,6 +83,35 @@ const Footer = () => {
             </div>
             
         </div>
+        <div className={style.MFooter}>
+        <div className={style.Address}>
+                {/* <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p> */}
+                <div className={style.SocialMedia}>
+                    {/* <FaFacebook/>
+                    <AiOutlineInstagram/>
+                    <AiFillTwitterCircle/> */}
+                    <img src={facebook} alt="" />
+                    <img src={twitter} alt="" />
+                    <img src={instagram} alt="" />
+                    <img src={tiktok} alt="" />
+                    <img src={youtube} alt="" />
+
+                </div>
+                <div className={style.Copyright}>
+                    <p>Wincha&reg;</p>
+                    <p>&copy; Bandai Namco Amusement Europe Ltd.</p>
+                </div>
+                <div className={style.TermsAndPrivacy}>
+                <div className={style.TermsAndPrivacyText}>
+                    <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
+                    <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
+                </div>
+                <div className={style.MbandaiLogo}>
+                    <img src={bandaiLogo} alt="" />
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
   )
 }

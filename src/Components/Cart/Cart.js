@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./Cart.module.css";
 import bg from "../../assests/Shipping Page BG.png";
 import replay from "../../assests/Last Win Icon.png";
@@ -10,6 +10,14 @@ import playBtn from "../../assests/PlayButton.png";
 import { assets } from "../Description/assests";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import { AllAnimation } from "../../Animation/allAnimation";
+import { MdClose, MdFacebook } from "react-icons/md";
+import playVideo from "../../assests/PlayButton.png";
+import { AiFillYoutube, AiOutlineInstagram } from "react-icons/ai";
+import { FaTiktok } from "react-icons/fa";
+import { TfiTwitter } from "react-icons/tfi";
+
 const Cart = () => {
   // const[prime,setPrime] = useState(true)
   const [cartData, setCartData] = useState([]);
@@ -18,12 +26,25 @@ const Cart = () => {
   const { configuration } = useSelector((state) => state.configuration);
   const { user } = useSelector((state) => state.profile);
   let saved = localStorage.getItem("SaveShipping");
+  const vidRef = useRef(null)
+  const [shareId,setShareId] = useState("")
+  const [shareIcons,setShareIcons] = useState(false)
+  const [onPlay, setOnPlay] = useState(false);
   const [eGifting, setEGifting] = useState(true);
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({});
-
+  const [line1,setLine1] = useState("")
+  const [line2,setLine2] = useState("")
+  const [city,setCity] = useState("")
+  const [state,setState] = useState("")
+  const[url,setUrl] = useState("")
+  const [zipcode,setZipCode] = useState("")
+  const [countryCode,setCountryCode] = useState("")
+  const [number,setNumber] = useState("")
   // UseState
-  const [emptyCart,setEmptyCart] = useState(false);
+  const [showVideo,setShowVideo] = useState(false)
+  const [emptyCart, setEmptyCart] = useState(false);
+  const [loading,setLoading] = useState(true)
   const [isVip, setIsVip] = useState(false);
   const [isVipShown, setIsVipShown] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
@@ -34,16 +55,79 @@ const Cart = () => {
   const [isTopupShown, setIsTopupShown] = useState(false);
   const [isAddressField, setisAddressField] = useState(false);
   const [isAddressFieldShown, setIsAddressFieldShown] = useState(false);
-  const [addressObj,setAddressObj] = useState({
-    line1:"",
-    line2:"",
-    city:"",
-    state:"",
-    zipcode:""
-  })
-  const[count,setCount] = useState(1);
+  const [vipMessage, setVipMessage] = useState([]);
+  const [addressObj, setAddressObj] = useState({
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    zipcode: "",
+  });
+  const [count, setCount] = useState(1);
   // End
+  const handlePlayVideo = () => {
+    vidRef.current.play();
+  };
+  const handlePauseVideo = () => {
+    vidRef.current.pause();
+  };
+useEffect(()=>{
+  if(saved==="true"){
+    console.log(typeof saved)
+    // setCount(1)
+  }
+  else{
+    console.log(typeof saved)
+    setCount(1)
+  }
+  if(user&&user.vip===true){
+    setCount(1)
+    console.log(user&&user.vip)
 
+  }
+  else{
+    console.log(user&&user.vip)
+    setCount(2)
+  }
+  if(user&&user.point<configuration&&configuration.STANDARD_SHIPPING_PRICE&&user.vip===false){
+    setCount(2)
+  }
+  else if(user&&user.point>configuration&&configuration.STANDARD_SHIPPING_PRICE&&user.vip===false){
+    // if(parsedPoint>parsedPrice){
+      // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
+      setIsAddress(true);
+        
+        setCount(3)
+        console.log("count jumbed 2")
+      // }
+  }
+  else{
+    setCount(1)
+  }
+  if(user&&user.line1===""){
+    setCount(3)
+  }
+  else{
+    setCount(4)
+  }
+  if(user&&user.vip===true){
+    setCount(1)
+    console.log(user&&user.vip)
+
+  }
+  else{
+    console.log(user&&user.vip)
+    setCount(2)
+  }
+},[user,configuration])
+useEffect(()=>{
+  console.log(vipMessage,"count from useEffect")
+},[vipMessage])
+useEffect(()=>{
+  console.log(isAddress,"address from useEffect")
+  console.log(count,"count from useEffect")
+
+},[isAddress])
   async function fetchCart() {
     await fetch(`${baseUrl}/cart/collection`, {
       method: "POST",
@@ -57,6 +141,7 @@ const Cart = () => {
       .then((res) => res.json())
       .then((data) => {
         setCartData(data.data);
+        setLoading(false)
         console.log(data);
         [...data.data].forEach((cart) => {
           if (cart.is_Egifting === false) {
@@ -83,239 +168,499 @@ const Cart = () => {
       .then((res) => res.json())
       .then((data) => {
         setVipData(data);
+        const message = data.data[0].vip_discription.split("\n")
+        setVipMessage(message)
         console.log(data);
+        // console.log(data.data[0].vip_discription.split("\n"))
       });
+  }
+  async function numberValidation(){
+    await fetch(`${baseUrl}/user/phonecode/check`,{
+      method:"POST",
+      body:JSON.stringify({
+        user:userId,
+        number:number
+      }),
+      headers:{
+        "Content-type":"application/json"
+      }
+    }).then(res=>res.json()).then((data)=>{
+      if(data.status ===true){
+        postCodeCheck()
+      }
+    })
+  }
+  async function postCodeCheck(){
+    await fetch(`${baseUrl}/configurations/code/check`,{
+      method:"POST",
+      body:JSON.stringify({
+        country:"UK",
+        code:zipcode
+      }),
+      headers:{
+        "Content-type":"application/json"
+      }
+    }).then(res=>res.json()).then((data)=>{
+      console.log(data)
+    }) 
   }
   // function get
   useEffect(() => {
-    console.log(saved)
+    console.log(saved);
     fetchCart();
     getVipDetails();
-    if(saved===null){
-      localStorage.setItem("SaveShipping",false);
+    if (saved === null) {
+      localStorage.setItem("SaveShipping", false);
     }
-    
   }, []);
-  function checkCount(){
-    console.log("Checking count",count);
-    if(saved==="true"){
+  function checkCount() {
+    console.log("Checking count", count);
+    if (saved === "true") {
       setCount(1);
     }
-    if(vipData.status===false){
+    if (vipData.status === false) {
       setCount(2);
     }
   }
-  function Popup(url){
-    // console.log(videoUrl);
+  function Popup(url) {
+    console.log(url)
     
-    return(
-        <div className={style.Popup}>
-            <button className={style.playerButton} onClick={()=>{
-                    // onPlay?setOnPlay(false):
-                    // setOnPlay(true)
-                    // console.log(onPlay);
-                    
-                }}>
-                <img src={playBtn} alt=""/>
-            </button>
-            {/* <ReactPlayer 
-            url="https://ocp-video-archive.s3.amazonaws.com/47498471/aae3d108-86e2-41e7-a023-dbadc7704964/archive.mp4"
-            width="100%"
-            height="auto"
-            className={style.videoPlayer}
-            playIcon={<button>Play</button>}
-            playing={true}
-            controls={true}
-            /> */}
-            <ReactPlayer
-              url={url}
-              width="100%"
-              height="500px"
-              playIcon={<button>Play</button>}
-              playing={true}
-              controls={true}
-              />
+
+    return (
+      <div
+          className={showVideo ? style.LastWinPopup : style.hideVideopopup}
+          onClick={() => {
+          }}
+        >
+          <div
+            className={style.VideoOverlay}
+            onClick={() => {
+               setShowVideo(false);
+              setOnPlay(false);
+            }}
+          ></div>
+          <div className={style.PlayIcon}>
+            {onPlay === true ? (
+              <button
+                onClick={() => {
+                  setOnPlay(false);
+                  handlePauseVideo();
+                }}
+              >
+                <img src={assets.PlayImage} alt="" />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setOnPlay(true);
+                  handlePlayVideo();
+                }}
+              >
+                <img src={playVideo} alt="" />
+              </button>
+            )}
+          </div>
+          <div className={style.VideoSection}>
+            <MdClose
+              onClick={() => {
+                 setShowVideo(false);
+                setOnPlay(false);
+              }}
+            />
+            {url==="" ? (
+              <div className={style.VideoEmpty}>
+                <p>Whoops! Video unavailable Please try again later.</p>
+              </div>
+            ) : (
+              // <ReactPlayer
+              // ref={videoRef2}
+              //   url={url}
+              //   width="100%"
+              //   height="500px"
+              //   playIcon={<button>Play</button>}
+              //   playing={true}
+              //   controls={true}
+              //   />\
+              <video ref={vidRef}>
+                <source src={url} type="video/mp4" />
+              </video>
+            )}
+            {/* <video src=""></video> */}
+            {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
+            {/* <video ref ={videoRef}>
+                <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
+            </video> */}
+          </div>
         </div>
-    )
-   }
-  function lowPoint(){
+    );
+  }
+  function lowPoint() {
     const pointInt = parseInt(user.point);
     const priceInt = parseInt(configuration.STANDARD_SHIPPING_PRICE);
-    if(pointInt<priceInt){
-        setIsTopup(true)
-        // setCount()
-    }
-    else{
+    if (pointInt < priceInt) {
+      setIsTopup(true);
+      // setCount()
+    } else {
       setCount(3);
     }
-}
+  }
 
   return (
     <div className={style.Container}>
-      {isVip&&isVipShown===false?
-        <div className={style.popup}>
-        <div className={style.popupImage}>
-          <img src={assets.winchaPopup} alt="" />
-        </div>
-        <div className={style.popupText}>
-          {/* <p>{vipData.vip_discription}</p> */}
-          <p><div dangerouslySetInnerHTML={{__html: vipData.data[0].vip_discription}}></div></p>
-          {/* <p>fhf</p> */}
-        </div>
-        <div className={style.ReportPopupButton}>
-          
+      {showVideo?
+      // <Popup/>
+      <div
+          className={showVideo ? style.LastWinPopup : style.hideVideopopup}
+          onClick={() => {
+          }}
+        >
+          <div
+            className={style.VideoOverlay}
+            onClick={() => {
+               setShowVideo(false);
+              setOnPlay(false);
+            }}
+          ></div>
+          <div className={style.PlayIcon}>
+            {onPlay === true &&url===""? (
               <button
                 onClick={() => {
-                    // localStorage.setItem("saveShipping",true)\
-                    setIsVip(false);
-                  // setIsVipShown(true);
-                  setCount(2);
-                  // if(user&&user.addressline1!==""){
-                  //     setIsShowAddressPopup(true)
-                  // }
+                  setOnPlay(false);
+                  handlePauseVideo();
                 }}
               >
-                OK
+                <img src={assets.PlayImage} alt="" />
               </button>
-          
-        </div>
-      </div>
-      :""}
-      {isAddress&&isAddressShown===false?
-         <div className={style.popup}>
-         <div className={style.popupImage}>
-           <img src={assets.winchaPopup} alt="" />
-         </div>
-         <div className={style.popupText}>
-           {/* <p>{vipData.vip_discription}</p> */}
-           <p>Whoops! We need your shipping details</p>
-           {/* <p>fhf</p> */}
-         </div>
-         <div className={style.ReportPopupButton}>
-           
-               <button
-                 onClick={() => {
-                   setisAddressField(true)
-                     setIsAddressShown(true);
-                     setIsAddress(false)
-                    //  setCount
-                 }}
-               >
-                 ADD DETAILS
-               </button>
-           
-         </div>
-       </div>
-      :""}
-      {isBundleReminder===true?
-        <div className={style.popup}>
-        <div className={style.popupImage}>
-          <img src={assets.winchaPopup} alt="" />
-        </div>
-        <div className={style.popupText}>
-          <p>Woah there! Remember to bundle your prizes to save an shipping!</p>
-        </div>
-        <div className={style.ReportPopupButton}>
-          
+            ) : url===""?"":(
               <button
                 onClick={() => {
-                    localStorage.setItem("SaveShipping","true")
-                    if(vipData.status===true){
-                      setCount(2);
-                    }
-                    else{
-                      setCount(2);
-                    }
-                  // setIsReminderShown(true);
-                  setIsBundleReminder(false)
+                  setOnPlay(true);
+                  handlePlayVideo();
                 }}
               >
-                OK
+                <img src={playVideo} alt="" />
               </button>
-          {/* <button>CAMERA</button>
-        <button>PAYMENT</button>
-        <button>DELAY</button>
-        <button>OTHER</button> */}
+            )}
+          </div>
+          <div className={style.VideoSection}>
+            <MdClose
+              onClick={() => {
+                 setShowVideo(false);
+                setOnPlay(false);
+              }}
+            />
+            {url==="" ? (
+              <div className={style.VideoEmpty}>
+                <p>Whoops! Video unavailable Please try again later.</p>
+              </div>
+            ) : (
+              // <ReactPlayer
+              // ref={videoRef2}
+              //   url={url}
+              //   width="100%"
+              //   height="500px"
+              //   playIcon={<button>Play</button>}
+              //   playing={true}
+              //   controls={true}
+              //   />\
+              <video ref={vidRef}>
+                <source src={url} type="video/mp4" />
+              </video>
+            )}
+            {/* <video src=""></video> */}
+            {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
+            {/* <video ref ={videoRef}>
+                <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
+            </video> */}
+          </div>
         </div>
-      </div>
       :""}
-      {isTopup&&isTopupShown===false?
+      {isVip && isVipShown === false ? (
         <div className={style.popup}>
-        <div className={style.popupImage}>
-          <img src={assets.winchaPopup} alt="" />
-        </div>
-        <div className={style.popupText}>
-          <p>Woah there! You haven't got enough tickets!</p>
-        </div>
-        <div className={style.ReportPopupButton}>
-          
-              <button
-                onClick={() => {
-                    // localStorage.setItem("saveShipping",true)
-                    navigate("/tickets")
-                  // setIsLowPoint(false)
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            {/* <p>{vipData.vip_discription}</p> */}
+            {/* <p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: vipData.data[0].vip_discription,
+                }}
+              ></div>
+            </p> */}
+            {vipMessage.map((text)=>{
+              console.log(text)
+              return(
+                <p className={text?style.PopupTextContent:style.Blank}>{`${text?text:text===""?"Blank":""}`}</p>
+              )
+            })}
+            <p></p>
+            {/* <p>fhf</p> */}
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                const parsedPoint = user&&parseInt(user.point)
+              const parsedPrice = configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)
+                // localStorage.setItem("saveShipping",true)\
+                setIsVip(false);
+                // setIsVipShown(true);
+                setCount(2);
+                if(parsedPoint>parsedPrice){
+                  setIsAddress(true);
+                    
+                  setCount(4)
+                  console.log("count jumbed 2")
+                }
+                if(user&&user.addressline1===""){
+                  setIsAddress(true);
+                    
                   setCount(3)
-                  setIsTopup(false)
-                }}
-              >
-                TOP UP
-              </button>
-          {/* <button>CAMERA</button>
+                  console.log("count jumbed 2")
+                }
+                else{
+                  setCount(4)
+                }
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {isAddress && isAddressShown === false&&user?.line1===""? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            {/* <p>{vipData.vip_discription}</p> */}
+            <p>Whoops! We need your shipping details</p>
+            {/* <p>fhf</p> */}
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                setisAddressField(true);
+                setIsAddressShown(true);
+                setIsAddress(false);
+                //  setCount
+              }}
+            >
+              ADD DETAILS
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {isBundleReminder === true ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>
+              Woah there! Remember to bundle your prizes to save an shipping!
+            </p>
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                localStorage.setItem("SaveShipping", "true");
+                if (vipData.status === true) {
+                  setCount(2);
+                } else {
+                  setCount(2);
+                }
+                // setIsReminderShown(true);
+                setIsBundleReminder(false);
+              }}
+            >
+              OK
+            </button>
+            {/* <button>CAMERA</button>
         <button>PAYMENT</button>
         <button>DELAY</button>
         <button>OTHER</button> */}
+          </div>
         </div>
-      </div>
-      :""}
-      {isAddressField&&isAddressFieldShown===false?
+      ) : (
+        ""
+      )}
+      {isTopup && isTopupShown === false ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Woah there! You haven't got enough tickets!</p>
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                // localStorage.setItem("saveShipping",true)
+                navigate("/tickets");
+                // setIsLowPoint(false)
+                setCount(3);
+                setIsTopup(false);
+              }}
+            >
+              TOP UP
+            </button>
+            {/* <button>CAMERA</button>
+        <button>PAYMENT</button>
+        <button>DELAY</button>
+        <button>OTHER</button> */}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {isAddressField===true ? (
+      // {isAddressField===true || isAddressFieldShown === false ? (
         <div className={style.Address}>
-        <div className={style.AddressTitle}>
-        </div>
-        <form action="">
+          <div className={style.AddressTitle}></div>
+          <form action="">
             <h1>Shipping Address</h1>
-            <input type="text" name="" id="" value={addressObj.line1}placeholder="LINE 1" onChange={(e)=>{
-                addressObj.line1 = e.target.value
-                // addressObj.line2 = e.target.value
-            }}/>
-            <input type="text" name="" id="" value={addressObj.line2 } placeholder="LINE 2" onChange={(e)=>{
-                addressObj.line2 = e.target.value
-                // addressObj.line2 = e.target.value
-            }}/>
-            <input type="text" name="" id="" value={addressObj.city} placeholder="CITY" onChange={(e)=>{
-                addressObj.city = e.target.value
-                // addressObj.line2 = e.target.value
-            }}/>
-            {configuration.COUNTRY_CODE==="USA"?
-             <input type="text" name="" id="" value={addressObj.state} readOnly placeholder='STATE/PROVINCE'/>
-            :<input type="text" name="" id="" value={addressObj.state} placeholder="COUNTY"/>}
-            {configuration.COUNTRY_CODE==="UK"?
-            <input type="text" name="" id="" value={addressObj.state} placeholder="POSTCODE" onChange={(e)=>{
-                addressObj.state = e.target.value
-                // addressObj.line2 = e.target.value
-            }}/>
-            :
-            <input type="text" name="" id="" value={addressObj.zipcode} placeholder="ZIP/POSTAL CODE"  onChange={(e)=>{
-                addressObj.zipcode = e.target.value
-                // addressObj.line2 = e.target.value
-            }}/>
-            }
-            <button type="submit"onClick={()=>{
+            <input
+              type="text"
+              name=""
+              id=""
+              value={line1}
+              placeholder="LINE 1"
+              onChange={(e) => {
+                setLine1(e.target.value);
+                //  line2 = e.target.value
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={line2}
+              placeholder="LINE 2"
+              onChange={(e) => {
+                setLine2(e.target.value)
+                //  line2 = e.target.value
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={number}
+              placeholder="PHONE NUMBER"
+              onChange={(e) => {
+                setNumber(e.target.value)
+                //  line2 = e.target.value
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={city}
+              placeholder="CITY"
+              onChange={(e) => {
+                setCity(e.target.value)
+                //  line2 = e.target.value
+              }}
+            />
+            {configuration.COUNTRY_CODE === "USA" ? (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={state}
+                readOnly
+                placeholder="STATE/PROVINCE"
+                onChange={(e) => {
+                  setState(e.target.value)
+                  //  line2 = e.st.value
+                }}
+              />
+            ) : (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={state}
+                placeholder="COUNTY"
+                onChange={(e) => {
+                  setState(e.target.value)
+                  //  line2 = e.target.value
+                }}
+              />
+            )}
+            {configuration.COUNTRY_CODE === "UK" ? (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={state}
+                placeholder="POSTCODE"
+                onChange={(e) => {
+                  state(e.target.value)
+                  //  line2 = e.target.value
+                }}
+              />
+            ) : (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={zipcode}
+                placeholder="ZIP/POSTAL CODE"
+                onChange={(e) => {
+                  setZipCode(e.target.value)
+                  //  line2 = e.target.value
+                }}
+              />
+            )}
+            <button
+              type="submit"
+              onClick={() => {
                 setIsAddressFieldShown(true);
                 setisAddressField(false);
+                setAddressObj({
+                  line1,
+                  line2,
+                  city,
+                  state,
+                  zipcode
+                })
+                numberValidation()
                 // setCount(4)
-                console.log(addressObj)
-
-            }}>CONFIRM</button>
-        </form>
-    </div>
-      :""}
+                console.log(addressObj);
+              }}
+              disabled={ line1===""|| line2===""|| city===""|| state===""|| zipcode===""}
+            >
+              CONFIRM
+            </button>
+          </form>
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className={style.Cart}>
         <div className={style.Title}>
           <p>BASKET</p>
         </div>
+        {/* {loading? */}
+        
         <div className={style.Carts}>
-          {cartData.map((cart) => {
+          {loading?
+          <div className={style.LoaderDiv}>
+            <div className={style.LoaderAnime}>
+              <Lottie animationData={AllAnimation.Loader} />
+            </div>
+          </div>
+          :cartData.map((cart,index) => {
             return (
               <div className={style.CartItem}>
                 <div className={style.Game}>
@@ -332,21 +677,54 @@ const Cart = () => {
                       src={replay}
                       alt=""
                       onClick={() => {
-                        console.log(cart.game_share_url)
-                        // setShowVideo(true);
+                        console.log(cart.game_share_url);
+                        setShowVideo(true);
                         // setVideoUrl(cart.video_url);
-                        Popup(cart.game_share_url);
+                        setUrl(cart.game_share_url);
                       }}
                     />
                   </div>
-                  <div className={style.share}>
-                    <img src={share} alt="" />
+                  <div className={style.share}
+                    
+                    >
+                    {shareIcons&&shareId===cart.id*index?
+                    <div className={style.ShareDiv}>
+                      <div className={style.ShareIcon}>
+                        <MdFacebook/>
+                      </div>
+                      <div className={style.ShareIcon}>
+                        <AiOutlineInstagram/>
+                      </div>
+                      <div className={style.ShareIcon}>
+                        <TfiTwitter/>
+                      </div>
+                      <div className={style.ShareIcon}>
+                        <FaTiktok/>
+                      </div>
+                      <div className={style.ShareIcon}>
+                        <AiFillYoutube/>
+                      </div>
+                    </div>
+                    :""
+                    }
+                    <img src={share} alt=""  onClick={()=>{
+                      shareIcons?setShareIcons(false):setShareIcons(true)
+                      setShareId(cart.id*index)
+                    }}
+                    // onMouseLeave={()=>{
+                    //   setShareIcons(false)
+                    // }}
+                    />
                   </div>
                 </div>
               </div>
             );
-          })}
+          })
+          
+        }
+          
         </div>
+        
         {eGifting && cartData.length > 0 ? (
           ""
         ) : (
@@ -391,14 +769,22 @@ const Cart = () => {
                       // setPrime(false);
                     }}
                   ></span>
-                ) : (
+                ) : vipData.status === true &&
+                vipData.data[0].vip_token === false ?
+                <span
+                    className={style.CircleActive}
+                    onClick={() => {
+                      // setPrime(false);
+                    }}
+                  ></span>
+                :
                   <span
                     className={style.Circle}
                     onClick={() => {
                       // setPrime(true);
                     }}
                   ></span>
-                )}
+                }
               </div>
             </div>
           </div>
@@ -428,85 +814,141 @@ const Cart = () => {
         ) : (
           ""
         )}
+        <div className={style.DeliveryAddress}>
+          <div className={style.AddressHeadSeciton}>
+            <div className={style.AddressTitle}>
+              <p>Delivery Address</p>
+            </div>
+            <div className={style.AddressEditBtn}>
+              <button onClick={()=>{
+                setIsAddressFieldShown(false)
+                console.log("Edited")
+                setisAddressField(true);
+
+              }}>Edit</button>
+            </div>
+          </div>
+          <div className={style.AddressSection}>
+            <input type="text" placeholder="House" value={user?user.username:"-"}/>
+            <input type="text" placeholder="Line 1" value={user?user.addressline1:"-"}/>
+            <input type="text" placeholder="Line 2" value={user?user.addressline2:"-"}/>
+            <input type="text" placeholder="City" value={user?user.city:"-"}/>
+            <input type="text" placeholder="Country" value={user?user.state:"-"}/>
+            <input type="text" placeholder="Postcode" value={user?user.zipcode:"-"}/>
+          </div>
+        </div>
         <div className={style.Checkout}>
-          <button onClick={() => {
-            checkCount();
-            console.log(count,"count");
+          <button
+            onClick={() => {
+              const parsedPoint = user&&parseInt(user.point)
+              const parsedPrice = configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)
+              checkCount();
+              console.log(count, "count");
               // console.log(typeof saved)
-              console.log(saved,"isBundleReminder from t")
-              console.log(isVipShown,"isVip from t")
-              console.log(isAddressShown,"isAddress from t")
-            
-            if(saved==="false"){
-              console.log(isBundleReminder,"isBundleReminder")
-              setIsBundleReminder(true);
-              console.log(isBundleReminder,"isBundleReminder")
-              saved = localStorage.getItem("SaveShipping");
-            }
-            // if(count===1){
-            //   console.log(isVip,"isVip")
-            //   setIsVip(true)
-            //   console.log(isVip,"isVip")
-            // }
-            // if(count===2){
-            //   console.log(isAddress,"isAddress")
-            //   setIsAddress(true);
-            //   console.log(isAddress,"isAddress")
-            // }
-            // if(count===3){
-            //   setEmptyCart(true);
-            // }
-            
-            // else if(count===0){
-            //   console.log(count,"count = 0");
-            //   if(saved===false){
-            //   setIsBundleReminder(true);
-            //   }
-            //   else{
-            //     setCount(1);
-            //   }
-              
+              console.log(saved, "isBundleReminder from t");
+              console.log(isVipShown, "isVip from t");
+              console.log(isAddressShown, "isAddress from t");
 
-            // }
-            else{
-              console.log("false")
-              if(count===1){
-                setCount(2)
-                if(vipData.status===true){
-                  setIsVip(true);
-                  console.log(isVip,"isVip")
+              if (saved === "false") {
+                console.log(isBundleReminder, "isBundleReminder");
+                setIsBundleReminder(true);
+                console.log(isBundleReminder, "isBundleReminder");
+                saved = localStorage.getItem("SaveShipping");
+                if(parsedPoint<parsedPrice){
+                  setCount(3)
+                  console.log("count jumbed 2")
                 }
-                else{
-                  setCount(2);
-                }
-                
-  
               }
-              // else if(count ===1&&vipData.status===false){
-              //   setIsVipShown(true)
-              //   lowPoint();
-              // console.log(isBundleReminder,"isBundleReminder")
+              // if(count===1){
+              //   console.log(isVip,"isVip")
+              //   setIsVip(true)
+              //   console.log(isVip,"isVip")
               // }
-            if(count===2){
-              setCount(3)
-              lowPoint();
-              console.log(isBundleReminder,"isBundleReminder")
-              // continue
-  
-            }
-            if(count===3){
-              setCount(4)
-              setIsAddress(true);
-              console.log(isAddress,"isAddress")
-  
-            }
-            if(count===4){
-              setCount(5)
-              console.log("Checked out")
-            }
-            }
+              // if(count===2){
+              //   console.log(isAddress,"isAddress")
+              //   setIsAddress(true);
+              //   console.log(isAddress,"isAddress")
+              // }
+              // if(count===3){
+              //   setEmptyCart(true);
+              // }
 
-          }}>CHECKOUT</button>
+              // else if(count===0){
+              //   console.log(count,"count = 0");
+              //   if(saved===false){
+              //   setIsBundleReminder(true);
+              //   }
+              //   else{
+              //     setCount(1);
+              //   }
+
+              // }
+              else {
+                console.log("false");
+                // if(user&&parseInt(user.point)>configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)&& vipData.status === false){
+                //   setCount(3)
+                //   console.log("count jumbed 2")
+                // }
+                if (count === 1) {
+                  setCount(2);
+                  if (vipData.status === true) {
+                    setIsVip(true);
+                    console.log(isVip, "isVip");
+                  } else {
+                    setCount(2);
+                  }
+                  if(parsedPoint<parsedPrice){
+                    setCount(3)
+                    console.log("count jumbed 2")
+                  }
+                  else{
+                    console.log("reached here instead");
+                    
+                  }
+                }
+                // else{
+                  
+                // }
+                // else if(count ===1&&vipData.status===false){
+                //   setIsVipShown(true)
+                //   lowPoint();
+                // console.log(isBundleReminder,"isBundleReminder")
+                // }
+                if (count === 2) {
+                  console.log("checking")
+                  if(parsedPoint>parsedPrice){
+                  // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
+                  setIsAddress(true);
+                    
+                    setCount(4)
+                    console.log("count jumbed 2")
+                  }
+                  else{
+                    console.log(user&&parseInt(user.point))
+                    console.log(configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE))
+                    console.log(parsedPoint>parsedPrice)
+                    setCount(3);
+                    lowPoint();
+                    console.log(isBundleReminder, "isBundleReminder");
+                  }
+                  // continue
+                }
+                if (count === 3) {
+                  setCount(4);
+                  setIsAddress(true);
+                  console.log(isAddress, "isAddress");
+                }
+                if (count === 4) {
+                  setCount(5);
+                  console.log("Checked out");
+                  navigate("/order-confirmed")
+                }
+              }
+            }}
+            disabled={loading}
+          >
+            CHECKOUT
+          </button>
         </div>
       </div>
     </div>

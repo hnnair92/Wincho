@@ -51,9 +51,10 @@ li{
   transform: translateZ(0);
 }
 
-@media(max-width:767px){
+@media(max-width:1065px){
   .OT_publisher .OT_video-element, .OT_subscriber .OT_video-element {
-    border-radius: 25px ;
+    border-radius: 30px ;
+    border-width:3px;
   }
 }
 /* @media(min-width:1065px){

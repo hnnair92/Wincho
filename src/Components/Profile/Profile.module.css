@@ -8,6 +8,7 @@
     height: 100%;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
     background-color: #3b82f6;
 
 }
@@ -270,5 +271,363 @@
     }
     .InputSection input{
         font-size: 1.75rem;
+    }
+}
+.popup {
+    position: absolute;
+    font-family: myraidproregular !important;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    transform: translate(-50%, -50%);
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    background-color: #1b8fe7;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 15%; */
+    width: 300px;
+    
+}
+
+.popupImage {
+    width: 40%;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+}
+
+.popupImage img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.popupText {
+    margin-top: 15%;
+    padding:1rem;
+}
+
+.popupText p {
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    line-height: 25px;
+    font-size:2.25rem;
+    font-weight: 500;
+
+}
+.popupButton,.popupButtonSubmit{
+    width: 100%;
+    padding:0rem 2rem;
+
+}
+.popupButton button,.popupButtonSubmit button {
+    margin: 1.5rem 0;
+    padding: 1rem 0rem;
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    font-family: myraidproregular;
+}
+.popupButtonSubmit button{
+    border-width: 1.5px;
+}
+popupInput{
+    width: 100%;
+}
+.popupInput textarea {
+        /* min-width: 270px; */
+    /* max-width: 270px; */
+    /* min-height: 225px; */
+    /* max-height: 225px; */
+    padding: 2rem 2rem;
+    font-family: myraidproregular;
+    border-radius: 20px;
+    font-size: 2rem;
+    color: #1b8fe7;
+    /* overflow-y: scroll; */
+    outline: none;
+    margin: 1rem 0;
+    resize: none;
+    width: 100%;
+}
+/* .popupInput textarea::-webkit-textfield-decoration-container{
+    display: none;
+} */
+.popupSubmit{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.popupSubmit button {
+    margin: .5rem;
+    padding: 1rem 3rem;
+    background-color: transparent;
+    font-family: myraidproregular;
+
+    border: 1.5px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 500;
+    border-radius: 30px;
+}
+.ReportPopupButton,.ReportPopupButtonCategory {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    padding: 0rem 2rem;
+    flex-direction: column;
+}
+.ReportPopupButtonCategory{
+    margin-top: 12%;
+}
+.ReportPopupButton button ,.ReportPopupButtonCategory button{
+    margin: 1rem;
+    padding: 1rem 0rem;
+    background-color: transparent;
+    border: 1.5px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    border-radius: 30px;
+    font-family: myraidproregular;
+}
+.AddressSection{
+    width: 68rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 99999;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.AddressSection form{
+    background-color: #fff;
+    padding: 20px;
+    border-radius:20px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+
+}
+.AddressSection form input,.email{
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 3rem;
+    background-color: #fff;
+    height: 7.5rem;
+    /* height: 5.68rem; */
+    padding: 1.13rem 2.26rem;
+    text-align: left;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    border:.25rem solid #333333c1;
+    /* outline:.25rem solid #000; */
+
+    
+}
+.AddressSection form input:focus{
+    outline:.25rem solid #1b8fe7;
+    border-color:transparent;
+}
+.AddressSection form h1{
+    text-align: left;
+    font-weight: 500;
+    color: #333333c1;
+    text-align: left;
+    margin-right: auto;
+}
+.AddressSection form {
+    align-items: center;
+}
+.AddressSection form button{
+    width: 75%;
+    border-radius: 50px;
+    background-color: #3b82f6;
+    border: none;
+    outline:none;
+    height: 7.5rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 2rem;
+}
+.AddressSection form input::-webkit-input-placeholder{
+    text-align: center;
+    text-transform: uppercase;
+}
+.info{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.info img{
+    width: 100%;
+    cursor: pointer;
+}
+.eye {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.eye img{
+    width: 100%;
+    cursor: pointer;
+}
+.email{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.AddressSection form .email input{
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+.Passpopup{
+    width: 65%;
+    padding: 50px;
+    border-radius: 15px;
+    border:7.5px solid #949393;
+    position: relative;
+    background-color: #3b82f6;
+    position: absolute;
+    top: 50%;
+    z-index: 999999;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.content{
+    margin: 10% 0;
+}
+.content ul{
+    display: flex;
+    flex-direction: column;
+    list-style: circle;
+    font-size: 2rem;
+}
+.content ul li{
+    margin: 7px 0px;
+    color: #fff;
+
+}
+.action{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Forgotaction{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.action button{
+    margin: auto;
+    width: 75%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.Forgotaction button{
+    margin: auto;
+    width: 45%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.image{
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.image img{
+    width: 100%;
+}
+@media(max-width:1065px){
+    .AddressSection{
+        width: 90%;
+    }
+    .AddressSection form{
+        width: 100%;
+    }
+    .AddressSection form input,.email{
+        font-family: "Poppins";
+    width: 100%;
+    font-size: 2rem;
+    background-color: #fff;
+    height: 5.5rem;
+    /* height: 5.68rem; */
+    padding: 1.13rem 1.26rem;
+    text-align: left;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    border: 0.15rem solid #333333c1;
+    }
+    .VideoSection{
+        width: 90%;
+        height: 250px;
+        border-width:5px ;
+        outline-width: 5px;
+    }
+    .ShareDiv{
+        transform: translate(-90%,-125%);
+    }
+    .AddressSection form h1{
+        font-size: 1.5rem;
+    }
+    .AddressSection form button{
+        width: 60%;
+        border-radius: 50px;
+        background-color: #3b82f6;
+        border: none;
+        outline: none;
+        height: 5.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #fff;
+        margin-top: 2rem;
+    }
+    .Passpopup{
+        width: 90%;
+    }
+}
+@media(max-width:1065px){
+    .Container{
+        height: 90vh;
     }
 }
