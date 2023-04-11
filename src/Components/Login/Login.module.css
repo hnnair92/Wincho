@@ -345,8 +345,8 @@
         margin: 0.56rem; */
     }
     .email{
-        height: 5.11rem;
-        font-size: 1.7rem;
+        height: 6.11rem;
+        font-size: 2.7rem;
     }
     .Btns button{
         font-size: 2.0rem;
@@ -357,5 +357,15 @@
 @media(min-width:550px) and (max-width:1056px){
     .Login{
         justify-content: center;
+    }
+}
+@media(max-width:1065px){
+    .Container{
+        background:#FAE863;
+    }
+    .Right{
+        -webkit-box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
     }
 }

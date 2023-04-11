@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import style from "./Games.module.css";
 import Ticket from "../../assests/golden-ticket.png";
 import info from "../../assests/info.png";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { configutation, getAllGames, getProductByCollection } from "../../actions/product";
 import Loader from "../Loader/Loader";
@@ -12,6 +12,8 @@ import searchIcon from "../../assests/Search Icon.png";
 import {assets} from '../Description/assests'
 const Games = () => {
   const { id } = useParams();
+  const location = useLocation()
+  const state = location.state
   const baseUrl = "https://uat.wincha-online.com";
   let { products, loading } = useSelector((state) => state.collectionProducts);
   const [popup, setPopup] = useState(false);
@@ -24,15 +26,15 @@ const Games = () => {
   const [topup,setTopup] = useState(false)
   const [search, setSearch] = useState("");
   const [searchArray, setSearchArray] = useState(false);
-  const [category, setCategory] = useState("free");
+  const [category, setCategory] = useState(state?.category?state?.category:"free");
   const [history, setHistory] = useState(false);
   const [ids, setId] = useState("");
   const [imageGallery,setImageGallery] = useState([])
   const [countSection,setCountSection] = useState(0)
   const times = localStorage.getItem("times")
   useEffect(()=>{
-    console.log(imageGallery)
-  },[imageGallery])
+    console.log(state)
+  },[state])
   // console.log(imageGallery)
   // useEffect(()=>{
   //   if(times>=configuration.FREE_PLAY_LIMIT){
@@ -89,12 +91,12 @@ const Games = () => {
     searchApi();
   }, [search]);
   useEffect(() => {
-    if (category === "all") {
-      dispatch(getAllGames(response));
-    } else {
+    // if (category === "all") {
+    //   dispatch(getAllGames(response));
+    // } else {
       dispatch(getProductByCollection(response));
       dispatch(configutation());
-    }
+    // }
     if (user === undefined) {
       // navigate("/login");
     }
@@ -145,7 +147,7 @@ const Games = () => {
     },
     {
       title: "All",
-      value: "all",
+      value: "0",
       NoOfGames: 0,
       id: 7,
     },
@@ -244,11 +246,108 @@ const Games = () => {
         ""
       )}
             {search === ""
-              ? products &&
+              ? products.length>0 &&
                 products.map((game, index) => {
-                  return (
-                    
-                      <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.id}`:userId!=null?`/game/${game.id}`:""} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
+                  if(category==="all"&&game.category!="free"){
+
+                    return (
+                      
+                        <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/register"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{
+                          console.log("Div")
+                          console.log(userId)
+                          
+                          // else{
+  
+                            // if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                            //   navigate(`/game/${game.id}`,{state:{game:game}})
+                            // }
+                            // else if(userId!=null){
+                            //   navigate(`/game/${game.id}`,{state:{game:game}})
+                            // }
+                          // }
+                          // else if(user)
+                        }}>
+  
+                          {game.new_item === true ? (
+                            <div className={style.Label}>
+                              {/* <p>New</p> */}
+                              <img src={labelNew} alt="" />
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          {/* {game.price==="0"?<div className={style.LabelFree}>
+                            <p>Free</p>
+                        </div>:""} */}
+  
+                          <div className={style.Image} onClick={()=>{
+                            console.log("images")
+                          }}>
+                            <img src={game.featured_image.large} alt="" />
+                          
+                          
+                            
+                          </div>
+                          <div className={style.Details}>
+                            <p className={style.Name}>{game.title}</p>
+                            <div className={style.PriceDiv}>
+                              <div className={style.ticketIcon}>
+                                <div className={style.ticketIconDiv}>
+                                  {times>=configuration.FREE_PLAY_LIMIT&&game.price==="0"&&user?.vip===false?
+                                  <img src={Ticket} alt="" className={style.icon} style={{filter:"grayScale(1)"}}/>
+                                  :
+                                  <img src={Ticket} alt="" className={style.icon} style={{filter:"grayScale(0)"}}/>
+                                }
+                                </div>
+                                {game && game.price === "0" ? (
+                                <p className={style.free}>FREE</p>
+                              ) : (
+                                <p className={style.Price}>{game.price}</p>
+                              )}
+                              </div>
+                              
+  
+                              <div className={style.infoIcon}>
+                                <Link
+                                  // to=""
+                                  onClick={ (event) => {
+                                    // if(event.target !== event.currentTarget) return;
+                                    // console.log(gameData.product_gallery.length)
+                                    console.log(gameData.product_gallery)
+                                    console.log(game.id)
+                                    // if(gameData.product_gallery&&gameData.product_gallery.length>0){
+                                      // if(game.id===gameData.id){
+                                        setImageGallery(game.product_gallery)
+                                      // }
+                                      setImageGallery(imageGallery=>[...imageGallery,{src:game.featured_image.large}])
+                                      // setImageGallery(prevState=>[...prevState,{src:gameData?.featured_image?.large}])
+                                      // setImageGallery(prevState=>[...prevState,{src:gameData.featured_image.large}])
+                                    // }
+                                    // console.log(imageGallery,"imagegalley")
+                                    // setImageGallery([...imageGallery[0],{src:game.featured_image.large}])
+                                    // console.log(imageGallery[0])
+                                    // setImageGallery([...imageGallery[0],{
+                                    //   src:"sdasdsdasd as"
+                                    // }])
+  
+                                    setId(game.id);
+                                    setGameData(game);
+                                    setPopup(true);
+                                  }}
+                                >
+                                  <img src={info} alt="" className={style.info} />
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      
+                    );
+                  }
+                  else{
+                    return (
+                      
+                      <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/register"} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
                         console.log("Div")
                         console.log(userId)
                         
@@ -296,7 +395,7 @@ const Games = () => {
                               }
                               </div>
                               {game && game.price === "0" ? (
-                              <p className={style.free}>Free</p>
+                              <p className={style.free}>FREE</p>
                             ) : (
                               <p className={style.Price}>{game.price}</p>
                             )}
@@ -339,11 +438,12 @@ const Games = () => {
                       </Link>
                     
                   );
+                  }
                 })
               : searchArray &&
                 searchArray.map((game, index) => {
                   return (
-                    <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.id}`:userId!=null?`/game/${game.id}`:""} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
+                    <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:""} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
                       console.log("Div")
                       console.log(userId)
                       
@@ -386,7 +486,7 @@ const Games = () => {
                               }
                               </div>
                             {game && game.price === "0" ? (
-                              <p className={style.free}>Free</p>
+                              <p className={style.free}>FREE</p>
                             ) : (
                               <p className={style.Price}>{game.price}</p>
                             )}
@@ -487,7 +587,7 @@ const Games = () => {
               <div
                 className={style.popupPlayNow}
                 onClick={() => {
-                  navigate(`/game/${gameData.id}`, { state: { game: gameData } });
+                  navigate(`/game/${gameData.slug}`, { state: { game: gameData ,user:user} });
                 }}
               >
                 {/* <button></button> */}

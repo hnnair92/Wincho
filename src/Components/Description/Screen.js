@@ -18,20 +18,21 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
         setId(data.id)
     },[])
     var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
-    // const session = OT.initSession(apiKey, sessionId);
-    // const reconnecting = session._.reconnecting()
-    // session.on("streamDestroyed", function (event) {
-      // console.log("Stream stopped. Reason: " + event.reason);
+    const session = OT.initSession(apiKey, sessionId);
+    const reconnecting = session._.reconnecting()
+    session.on("streamDestroyed", function (event) {
+      console.log("Stream stopped. Reason: " + event.reason);
       // event.stream()
       // session.disconnect()
       // console.log(session)
       // session.connect()
-    //   setVideoGot(false);
-    //   console.log(session._.reconnecting(),"reconnecting")
-    //   console.log(session._.reconnecting(),"reconnecting")
-    //   console.log(setVideoGot,"setVideoGot")
-    //   console.log(videoGot,"videoGot")
-    // });
+      setVideoGot(false);
+      // console.log(session._.reconnecting(),"reconnecting")
+      // console.log(session._.reconnecting(),"reconnecting")
+      // console.log(setVideoGot,"setVideoGot")
+      // console.log(videoGot,"videoGot")
+      setPopup(false)
+    });
     // console.log(session._.reconnecting(),"reconnecting")
     // console.log(typeof session._.reconnecting(),"reconnecting")
 
@@ -53,6 +54,7 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
           </div>
         </div>
         :""} */}
+        {popup?
           <OTSession
       // connectionCreated={getlog}
       // connectionDestroyed={getlog}
@@ -75,6 +77,32 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
               }}/>
             </OTStreams>
           </OTSession>
+        
+        :
+          <OTSession
+      // connectionCreated={getlog}
+      // connectionDestroyed={getlog}
+      // sessionConnected={getlog}
+      // sessionDisconnected={getlog}
+      // // sessionReconnected={getlog}
+      // connectionCreated={ console.log("connection created")}
+      // connectionDestroyed={console.log("connection destroyed")}
+      // sessionConnected={console.log("Client connect to a session")}
+      // sessionDisconnected={console.log("Client disConnect to a session")}
+       apiKey={apiKey} sessionId={sessionId} token={token} >
+            
+            <OTStreams >
+              <OTSubscriber onSubscribe={(e)=>{
+                console.log(e);
+                setVideoGot(true)
+                console.log("gotted");
+              }} onError={(error)=>{
+                console.log("Exited",error)
+              }}/>
+            </OTStreams>
+          </OTSession>
+        
+        }
     </div>
   )
 }

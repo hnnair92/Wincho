@@ -562,3 +562,71 @@ input::-webkit-input-placeholder{
     z-index: 0;
     opacity: 0;
 }
+@media(max-width:1065px){
+    .Container{
+        background:#FAE863;
+        padding: 50px 25px;
+    }
+    .form{
+        -webkit-box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+    }
+    .hideDate,.input,.password,.DataInput{
+        height: 6.11rem;
+        font-size: 2.7rem;
+        font-weight: normal;
+    }
+    .hideDate,.input input,.password input,.DataInput{
+        /* height: 6.11rem; */
+        font-size: 2.7rem;
+    }
+    /* .DataInput{
+
+    } */
+    .hideDate::-webkit-input-placeholder,.DataInput::-webkit-input-placeholder{
+        opacity: 1;
+        color: #33333d7c;
+    }
+    .forgotInput input::-webkit-input-placeholder{
+        color: #33333d7c;
+        font-size: 2.75rem;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .passwordInput::-webkit-input-placeholder{
+        font-size: 2.7rem;
+    } 
+    .input::-webkit-input-placeholder{
+        text-align: center;
+        font-size: 2.7rem;
+        opacity: 1;
+        text-transform: uppercase;
+       
+    }
+    .EmailInput label,.PasswordInput label{
+        font-size: 1.5rem;
+    }
+    .Terms p a{
+        font-size: 1.36rem;
+        text-decoration: underline;
+    }
+    .CheckBox{
+        width: 25px;
+        height: 25px;
+        border: 3px solid gray;
+    }
+    .AgeRestrict{
+        margin-bottom: 0;
+    }
+    .Popup{
+        z-index: 99;
+        width: 80%;
+    }
+    .AgeRestrict{
+        font-size: 1.5rem;
+    }
+    label{
+        font-size: 1.5rem;
+    }
+}

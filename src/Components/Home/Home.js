@@ -14,9 +14,11 @@ import playBtn from '../../assests/Play Button.png'
 import { Link } from 'react-router-dom';
 import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
+import { assets } from '../Description/assests';
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     const[scrollNav,setScrollNav] = useState(false);
+    const [isAddress, setIsAddress] = useState(false);
     // var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
     // var sessionID = "2_MX40NzQ5ODQ3MX5-MTY3NzY0MzU3MTUxMX5OQkNMYWxtc3ZKVXN2d3hlbmE0cG1IMER-fn4"; // Replace with your own session ID.
     //                     // See https://tokbox.com/developer/guides/create-session/.
@@ -167,19 +169,19 @@ const Home = () => {
             </div>
             <div className={style.Watch} id="watch">
                 <div className={style.Image}>
-                <div className={style.WLeftIcons}>
+                {/* <div className={style.WLeftIcons}>
                         <button disabled={aboutId===0} className={aboutId===0?style.Disable:""}><HiOutlineChevronLeft onClick={()=>{
                             AboutLeftHandle()
                         }}/></button>
-                    </div>
+                    </div> */}
                 <div className={style.Slider}>
-                    <img src={WatchData[aboutId]} alt="" />
+                    <img src={WatchData[0]} alt="" />
                 </div>
-                <div className={style.WRightIcons}>
+                {/* <div className={style.WRightIcons}>
                         <button disabled={aboutId===AboutData.length-1} className={aboutId===AboutData.length-1?style.Disable:""}><HiOutlineChevronRight onClick={()=>{
                             AboutRightHandle()
                         }}/></button>
-                    </div>
+                    </div> */}
                 </div>
             
             </div>
@@ -190,7 +192,9 @@ const Home = () => {
                         <p className={style.StrokeContact}>WE'RE HERE TO HELP</p>
                         <div className={style.Contact}>
                             {/* <div className={style.Logo}> */}
-                                <img src={supportContact} alt="" />
+                                <img src={supportContact} alt=""  onClick={()=>{
+                                    setIsAddress(true)
+                                }}/>
                             {/* </div> */}
 
                         </div>
@@ -199,6 +203,38 @@ const Home = () => {
                     
             </div>
         </div>
+        {isAddress? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            {/* <p>{vipData.vip_discription}</p> */}
+            <form action="">
+                <input type="text" placeholder='Name'/>
+                <input type="text" placeholder="Email"/>
+                <input type="text" placeholder="Phone Number"/>
+                <textarea name="" id="" cols="30" rows="10"  placeholder="Email"></textarea>
+            </form>
+            {/* <p>fhf</p> */}
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                // setisAddressField(true);
+                // setIsAddressShown(true);
+                // setIsAddress(false);
+                setIsAddress(false)
+                //  setCount
+              }}
+            >
+              SEND
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
         <div className={style.MHome}>
             <div className={style.Mtransition}>
                 <div className={style.MTransitionBg}>
@@ -220,10 +256,26 @@ const Home = () => {
                     </div>
             </div>
             <div className={style.MAbout}></div>
-            <div className={style.MWatch}></div>
+            <div className={style.MWatch}>
+            <img src={WatchData[0]} alt="" />
+            </div>
             <div className={style.MSupport}>
-                <div className={style.MSupportBg}>
+                {/* <div className={style.MSupportBg}>
                     <img src="" alt="" />
+                </div> */}
+                <div className={style.SupportContent}>
+                    <div className={style.ContactSection}>
+                        <p>Support</p>
+                        <p className={style.StrokeContact}>WE'RE HERE TO HELP</p>
+                        <div className={style.Contact}>
+                            {/* <div className={style.Logo}> */}
+                                <img src={supportContact} alt=""  onClick={()=>{
+                                    setIsAddress(true)
+                                }}/>
+                            {/* </div> */}
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

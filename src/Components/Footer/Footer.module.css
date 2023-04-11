@@ -272,6 +272,7 @@
 .TermsAndPrivacyText a {
     color: #fff;
     font-size: 1.25rem;
+    text-decoration: underline;
 }
 
 .MFooter {

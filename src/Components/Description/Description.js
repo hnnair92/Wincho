@@ -16,11 +16,11 @@ import { assets } from "./assests";
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import playVideo from "../../assests/PlayButton.png";
-import { MdClose } from "react-icons/md";
+import { MdClose, MdPauseCircleFilled } from "react-icons/md";
 import {music} from '../../assests/Musics/allMusic.js'
 import waitStatic from "../../assests/Wait Pressed Button.png";
 import Lottie from "lottie-web";
-const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
+const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, setActive, setGamePlay, gamePlay }) => {
   console.log(localStorage);
   console.log(active, "active from description");
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
   const audioRef = useRef(null)
   const audioRefHome = useRef(null)
   const animeRef = useRef(null)
-  console.log(GameData);
+  console.log(state);
   // const location = useLocation()
 
   //  Hard coded Datas
@@ -107,40 +107,40 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
   const [ifPerson, setIfPerson] = useState(
     JSON.parse(localStorage.getItem("tabsOpen"))
     );
-    const [popup, setPopup] = useState(false);
-    const [SelGameData, setSelGameData] = useState({});
-    const [freePlay, setFreePlay] = useState(
+  const [popup, setPopup] = useState(false);
+  const [transferGame,setTransferGame] = useState({})
+  const [SelGameData, setSelGameData] = useState({});
+  const [freePlay, setFreePlay] = useState(
       localStorage.getItem("times")
       ? JSON.parse(localStorage.getItem("times"))
       : 0
-      );
-      const [gamePlayStatus, setGamePlayStatus] = useState(false);
-      const [playAgain, setPlayAgain] = useState(false);
-      const [que, setQue] = useState("");
-      const [direction, setDirection] = useState([]);
-      const [waitAnimation, setWaitAnimation] = useState({});
-      const [id, setId] = useState("");
-      const [topup, setTopup] = useState(false);
-      const [leavePopup, setLeavePopup] = useState(false);
-      const [freeLimitPopup, setFreeLimitPopup] = useState(false);
-      const [prizeResetActive, setPrizeResetActive] = useState(false);
-      const [isTimeout, setisTimeout] = useState(false);
-      const [gameMusic,setGameMusic] = useState(localStorage.getItem("music")?JSON.parse(localStorage.getItem("music")):localStorage.setItem("music",JSON.stringify(true)))
-      const [report, setReport] = useState({
-        Title: "",
-        Content: "",
-      });
-      const [status, setStatus] = useState({});
-      const [videoGot, setVideoGot] = useState(false);
-      
-      // Redux UseSelectors
-      const { game, loading } = useSelector((state) => state.gameEntry);
-      const { user } = useSelector((state) => state.profile);
-      const { configuration } = useSelector((state) => state.configuration);
-      const { products } = useSelector((state) => state.collectionProducts);
-      
-      //   sockets
-      useEffect(() => {
+  );
+  const [gamePlayStatus, setGamePlayStatus] = useState(false);
+  const [playAgain, setPlayAgain] = useState(false);
+  const [que, setQue] = useState("");
+  const [direction, setDirection] = useState([]);
+  const [waitAnimation, setWaitAnimation] = useState({});
+  const [id, setId] = useState("");
+  const [topup, setTopup] = useState(false);
+  const [leavePopup, setLeavePopup] = useState(false);
+  const [freeLimitPopup, setFreeLimitPopup] = useState(false);
+  const [prizeResetActive, setPrizeResetActive] = useState(false);
+  const [isTimeout, setisTimeout] = useState(false);
+  const [report, setReport] = useState({
+    Title: "",
+    Content: "",
+  });
+  const [status, setStatus] = useState({});
+  const [videoGot, setVideoGot] = useState(false);
+
+  // Redux UseSelectors
+  const { game, loading } = useSelector((state) => state.gameEntry);
+  const { user } = useSelector((state) => state.profile);
+  const { configuration } = useSelector((state) => state.configuration);
+  const { products } = useSelector((state) => state.collectionProducts);
+
+  //   sockets
+  useEffect(() => {
         checkFreePlay();
         socket.on("connect", () => {
           console.log("Connected");
@@ -260,15 +260,84 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
       console.log(videoGot, "video got in description");
     }, [videoGot]);
     useEffect(()=>{
-      localStorage.setItem("music",JSON.stringify(gameMusic))
-      if(gameMusic===true){
-        audioRefHome.current.volume = 1;
+      // localStorage.setItem("music",JSON.stringify(gameMusic))
+      // if(gameMusic==="true"){
+      //   audioRefHome.current.volume = 1;
+      //   playAudioBg()
+
+      // console.log(gameMusic)
+      // console.log(audioRefHome.current.volume)
+      // console.log("unmute")
+
+      // }
+      // else{
+      //   audioRefHome.current.volume = 0;
+      // console.log(gameMusic)
+      // console.log(audioRefHome.current.volume)
+      // console.log("mute")
+
+
+
+      // }
+      // console.log(gameMusic)
+    },[gameMusic])
+    useEffect(()=>{
+      console.log(gameMusic==="true","gameSound")
+      console.log(typeof gameMusic,"gameMusic")
+      if(gameMusic==="true"||gameMusic===true){
+        console.log(audioRefHome.current.volume)
+        audioRefHome.current.volume=1
+        console.log("true for gameMusic")
+        console.log(audioRefHome.current.volume)
+        playAudioBg()
       }
       else{
-        audioRefHome.current.volume = 0;
-
+        audioRefHome.current.volume=0
+        console.log(typeof gameMusic)
+        console.log("not reached")
       }
-    },[gameMusic,musicStatus,localStorage])
+      console.log(typeof gameMusic)
+    },[gameMusic])
+    useEffect(()=>{
+      console.log(gameSound==="true","gameSound")
+      console.log(typeof gameSound,"gameMusic")
+      if(gameSound==="true"||gameSound===true){
+        console.log(audioRef.current.volume)
+        audioRef.current.volume=1
+        console.log("true for gameMusic")
+        console.log(audioRef.current.volume)
+        
+      }
+      else{
+        audioRef.current.volume=0
+        console.log(typeof gameMusic)
+        console.log("not reached")
+      }
+      console.log(typeof setGameSound)
+    },[gameSound])
+    useEffect(()=>{
+      if(gameMusic==="true"||gameMusic===true){
+        console.log(audioRefHome.current.volume)
+        audioRefHome.current.volume = 1;
+        playAudioBg()
+      }
+      else{
+        console.log(typeof gameMusic)
+        console.log("not reached")
+      }
+      if(gameSound==="true"||gameSound===true){
+        console.log(audioRef.current.volume)
+        audioRef.current.volume = 1;
+        playAudioBg()
+      }
+      else{
+        console.log(typeof gameMusic)
+        console.log("not reached")
+      }
+      console.log(typeof gameMusic)
+      // console.log()
+    },[])
+
     useEffect(()=>{
       console.log(cameraState1)
     },[cameraState1])
@@ -284,7 +353,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
       console.log(typeof audioStatus,"audioStatus")
       console.log(playAgain,"playAgain")
       
-      if(playAgain===false&&audioStatus==="true"){
+      if(playAgain===false){
         console.log(audioStatus,"audioStatus from playagain")
         
         playAudio(music.Whoops)
@@ -316,7 +385,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
 
       //   console.log(EntryRequest);
     }
-    dispatch(updateProfile());
+    // dispatch(updateProfile());
   }, [dispatch]);
   useEffect(() => {
     localStorage.getItem("times")
@@ -556,6 +625,8 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
       // audioRefHome.current.volume=1;
       audioRefHome.current.src=music.Game;
       audioRefHome.current.play()
+      console.log(audioRefHome.current.volume,"from its function")
+
     // }
     // else{
     //   audioRefHome.current.volume = 0;
@@ -641,7 +712,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
     setId(id);
     gameLeave(id, false);
     setPlayAgain(false);
-    navigate("/prizes");
+    navigate("/prizes",{state:{category:GameData.category}});
   }
   async function checkAnime() {
     switch (game.machine_delay_time) {
@@ -995,7 +1066,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
       method: "PUT",
       body: JSON.stringify({
         user_id: user._id,
-        point: GameData.price,
+        point: GameData.price==="0"?"":GameData.price,
         credicts: "false",
         source: "web",
       }),
@@ -1098,6 +1169,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
             {/* </Link> */}
             <Link
               to="/prizes"
+              state={{category:GameData.category}}
               onClick={() => {
                 setTopup(false);
                 setPrizeResetActive(false);
@@ -1243,7 +1315,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
       ) : (
         ""
       )}
-      {leavePopup ? <LeavePopup /> : ""}
+     
       {freeLimitPopup &&user.vip===false? (
         <div className={style.popup}>
           <div className={style.popupImage}>
@@ -1293,7 +1365,8 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                   handlePauseVideo();
                 }}
               >
-                <img src={assets.PlayImage} alt="" />
+                {/* <img src={assets.PlayImage} alt="" /> */}
+                <MdPauseCircleFilled/>
               </button>
             ) : (
               <button
@@ -1384,18 +1457,48 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
       ) : (
         ""
       )}
+      {leavePopup ? <div className={style.popup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.popupText}>
+          <p>Are you sure you want to leave this game?</p>
+        </div>
+        <div className={style.ExitpopupButton}>
+          {/* <Link
+            to="/tickets"
+            onClick={() => {
+              setLeavePopup(false);
+            }}
+          > */}
+            <button onClick={()=>{
+              console.log(transferGame)
+              navigate(`/game/${transferGame.slug}`,{state:{game:transferGame}})
+            setLeavePopup(false)
+            window.location.reload()
+            // window.location.reload()
+            }}>YES</button>
+          {/* </Link> */}
+          <button onClick={()=>{
+            setLeavePopup(false)
+            console.log("hello");
+            
+          }}>NO</button>
+        </div>
+      </div> : ""}
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
-            <button
+            <button style={{pointerEvents:gamePlayStatus?"none":"visible"}}
               onClick={() => {
                 if (gamePlayStatus === true) {
                   setActive(true);
                 }
                 if (gamePlayStatus === false) {
                   setActive(false);
-                  navigate("/prizes");
+                  navigate("/prizes",{state:{category:GameData.category}});
                 }
+                console.log(GameData)
               }}
             >
               EXIT GAME
@@ -1407,18 +1510,25 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
           <div className={style.AllGames}>
             {products?.map((game) => {
               return (
-                <Link
-                  to={`/game/${game.id}`}
-                  state={{ game: game }}
-                  style={{
-                    pointerEvents: gamePlayStatus ? "none" : "visible",
-                    cursor: gamePlayStatus ? "not-allowed" : "pointer",
-                  }}
+                // <div
+                //   to={`/game/${game.id}`}
+                //   state={{ game: game }}
                   //  onClick={()=>{
-                  //   window.location.reload()
-                  // }}>
-                >
-                  <div className={style.Game}>
+                    //   window.location.reload()
+                    // }}>
+                    // >
+                  <div className={style.Game}
+                  onClick={()=>{
+                    setLeavePopup(true)
+                    setTransferGame(game)
+                  }}
+                  
+                  // style={{
+                  //   pointerEvents: gamePlayStatus ? "none" : "visible",
+                  //   cursor: gamePlayStatus ? "not-allowed" : "pointer",
+                  // }}
+                  >
+                     
                     <div className={style.Image}>
                       <img src={game.featured_image.large} alt="" />
                     </div>
@@ -1437,12 +1547,12 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                         </div>
 
                         <div className={style.Price}>
-                          <p>{game.price === "0" ? "Free" : game.price}</p>
+                          <p>{game.price === "0" ? "FREE" : game.price}</p>
                         </div>
                       </div>
                     </div>
                   </div>
-                </Link>
+                // </div>
               );
             })}
           </div>
@@ -2034,7 +2144,9 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
 
                     </div>
                   </div>:
-                   ""
+                   <button>
+                    <img src={waitStatic} alt="" />
+                   </button>
                    :game.camera_data[0].camera_id === "2"?
                    direction&&direction[1] === "Right"?
                   //  <div className={style.playImageLoader}>
@@ -2140,7 +2252,9 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
 
                     </div>
                   </div>:
-                  ""
+                   <button>
+                   <img src={waitStatic} alt="" />
+                  </button>
                    :<button>
                    <Lotties
                      animationData={AllAnimation.ArrowLeft}
@@ -2164,7 +2278,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                  </button>
                    :<button>
                    <Lotties
-                     animationData={AllAnimation.ArrowRight}
+                     animationData={AllAnimation.wait_50}
                      loop={false}
                    />
                  </button>
@@ -2212,8 +2326,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                    <img src={assets.PlayImage} alt="" />
                  </button>}
                   </div>
-                  <div
-                    className={style.Report}
+                  <div className={style.Report}
                     style={{
                       pointerEvents: gamePlayStatus ? "none" : "visible",
                     }}
@@ -2227,8 +2340,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                     </button>
                   </div>
                 </div>
-                <div
-                  className={style.Right}
+                <div className={style.Right}
                   style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
                 >
                   <div className={style.LastWin}>
@@ -2263,7 +2375,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                 <p>{GameData?.title}</p>
               </div>
               <div className={style.CloseIcon}>
-                <IoIosArrowUp
+                <IoIosArrowDown
                   onClick={() => {
                     setminimized(false);
                   }}
@@ -2279,8 +2391,7 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
                 <p>{GameData?.title}</p>
               </div>
               <div className={style.CloseIcon}>
-                <IoIosArrowDown
-                  onClick={() => {
+                <IoIosArrowDown                  onClick={() => {
                     setminimized(true);
                   }}
                 />

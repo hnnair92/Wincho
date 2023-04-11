@@ -10,6 +10,7 @@ import wincha from '../../assests/Wincha Pop-Up Icon.png'
 import Select from 'react-select';
 import {FaChevronDown} from 'react-icons/fa'
 import info from '../../assests/Information Icon.png'
+import { configutation } from '../../actions/product';
 
 const Register = () => {
     const[errors,setError] = useState("")
@@ -22,6 +23,7 @@ const Register = () => {
     const[passwordType,setPasswordType] = useState("password")
     // const[showPassword,setShowPassword] = useState(false)
     const [email,setEmail] = useState("")
+    const {configuration} = useSelector((state)=>state.configuration)
     const[confirmPassword,setConfirmPassword] = useState("")
     const[username,setUsername] = useState("")
     const[usernameExist,setUsernameExist] = useState('')
@@ -32,6 +34,9 @@ const Register = () => {
     const[selectState,setSelectState] = useState(false)
     const dispatch = useDispatch()
     const userId = localStorage.getItem("user")
+    useEffect(()=>{
+        dispatch(configutation())
+    },[dispatch])
     const fetchLocation = async()=>{
         fetch('http://ip-api.com//json',{ 
             method: 'get',
@@ -207,7 +212,9 @@ const[passIcon,setPassIcon] = useState(false)
                          setCheckError(false)
                      }}>OK</button>
                  </div>
-                 <div className={style.Terms}>
+                 <div className={style.Terms} onClick={()=>{
+                    window.open(`${configuration.terms}`,"_Blank")
+                 }}>
                      <button>TERMS</button>
                  </div>
              </div>
@@ -327,7 +334,11 @@ const[passIcon,setPassIcon] = useState(false)
                             terms?setTerms(false):setTerms(true)
                         }} className={terms?style.checked:style.NotChecked}/>
                     </div>
-                    <p>I have read and agree to the <Link>Terms of Use</Link> and <Link>Privacy Policy</Link>.</p>
+                    <p>I have read and agree to the <Link onClick={()=>{
+                        window.open(`${configuration.terms}`,"_Blank")
+                    }}>Terms of Use</Link> and <Link onClick={()=>{
+                        window.open(`${configuration.privacy}`,"_Blank")
+                    }}>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
                 {eligible&&terms===true&&password===confirmPassword&&password.length>8&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}

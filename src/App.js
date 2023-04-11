@@ -29,6 +29,17 @@ import WinScreen from "./Components/winScreen/winScreen";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
+  const [gameMusic,setGameMusic] = useState(localStorage.getItem("music")?localStorage.getItem("music"):localStorage.setItem("music",JSON.stringify(true)))
+  const [gameSound,setGameSound] = useState(localStorage.getItem("sound")?localStorage.getItem("sound"):localStorage.setItem("sound",JSON.stringify(true)))
+  useEffect(()=>{
+    localStorage.setItem("music",gameMusic)
+    console.log(typeof gameMusic)
+  },[gameMusic])
+  useEffect(()=>{
+    localStorage.setItem("sound",gameSound)
+    console.log(typeof gameSound)
+
+  },[gameSound])
   useEffect(() => {
     const handleContextmenu = e => {
         e.preventDefault()
@@ -97,11 +108,11 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Header setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
+        <Header gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/prizes/" element={<Games />} />
-          <Route path="/game/:id" element={<Description setActive={setActive} active={active}  setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
+          <Route path="/game/:id" element={<Description gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active}  setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           {/* <Route path="/:category" element={<Games/>}/> */}
           {/* <Route path="/load" element={<Loader/>}/> */}
           <Route path="/register" element={<Register />} />

@@ -20,7 +20,7 @@ import bandaiLogo from "../../assests/Bandai Namco Logo.png";
 import { MainMenu, settingsMenu } from "./Menu";
 import { music } from "../../assests/Musics/allMusic";
 // import { useSelector } from 'react-redux'
-const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
+const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
   const dispatch = useDispatch();
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
@@ -56,6 +56,10 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
   // useEffect(()=>{
   //   dispatch(cartAction())
   // },[])
+  useEffect(()=>{
+    console.log(gameSound,"gameSound")
+    console.log(gameMusic,"gameMusic")
+  },[gameMusic,gameSound])
   useEffect(() => {
     inGame = localStorage.getItem("inGame");
     if (inGame === null || inGame === undefined) {
@@ -76,7 +80,9 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
   useEffect(() => {
     console.log(gamePlay, "gamePlay status");
     console.log(active, "active status");
-  });
+    console.log(window.innerWidth)
+    console.log(window.outerHeight)
+  },[]);
   const handleId = (e) => {
     e.preventDefault();
     const path = window.location.pathname;
@@ -363,7 +369,7 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
                                 menu.Name === "Terms of Use"
                                   ? configuration.terms
                                   : menu.Name === "Privacy Policy"
-                                  ? configuration.policy
+                                  ? configuration.privacy
                                   : ""
                               }`,
                               "_blank"
@@ -372,7 +378,12 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
                           if (menu.Name === "Logout") {
                             setPopup(true);
                           }
-                          if (menu.Name != "Sound" || menu.Name != "Music") {
+                          if (menu.Name === "Sound" || menu.Name === "Music") {
+                            // navigate(``)
+                            setSetting(true);
+
+                            // navigate(`/${menu.url}`)
+                          } else {
                             navigate(`/${menu.url}`);
                           }
                         }}
@@ -393,22 +404,90 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
                         {/* <p className={id===menu.id&&menu.name!="Logout"&&menu.name!="Login/Register"?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p> */}
                         {menu.Name === "Music" ? (
                           <div className={style.Music}>
-                            <li>Music</li>
-                            <div className={style.Slider}>
-                              <div className={style.SliderBtn} onClick={()=>{
-                              }}></div>
-                            </div>
+                          <li>Music</li>
+                          <div
+                            className={
+                              gameMusic === true||gameMusic==="true"
+                                ? style.ActiveSlider
+                                : style.Slider
+                            }
+                            onClick={() => {
+                              setMusicId(menu.id);
+                              gameMusic===true?setGameMusic(false):setGameMusic(true)
+                              // sliderSction
+                              //   ? setSliderAction(false)
+                              //   : setSliderAction(true);
+                              // if (sliderSction === true) {
+                              // setGameSound(false)
+
+                              //   localStorage.setItem(
+                              //     "music",
+                              //     JSON.stringify(false)
+                              //   );
+                              // } else {
+                              // setGameSound(true)
+
+                              //   localStorage.setItem(
+                              //     "music",
+                              //     JSON.stringify(true)
+                              //   );
+                              // }
+                            }}
+                          >
+                            <div
+                              className={
+                                gameMusic === true||gameMusic==="true"
+                                  ? style.ActiveSliderBtn
+                                  : style.SliderBtn
+                              }
+                            ></div>
                           </div>
+                        </div>
                         ) : (
                           ""
                         )}
                         {menu.Name === "Sound" ? (
-                          <div className={style.Sound}>
-                            <li>Sound</li>
-                            <div className={style.Slider}>
-                              <div className={style.SliderBtn}></div>
-                            </div>
-                          </div>
+                           <div className={style.Sound}>
+                           <li>Sound</li>
+                           <div
+                             className={
+                               gameSound === true||gameSound==="true"
+                                 ? style.ActiveSlider
+                                 : style.Slider
+                             }
+                             onClick={() => {
+                               setAudioId(menu.id);
+                               gameSound===true?setGameSound(false):setGameSound(true)
+                               // sliderSction
+                               //   ? setSliderAction(false)
+                               //   : setSliderAction(true);
+                               // if (sliderSction === true) {
+                               // setGameSound(false)
+
+                               //   localStorage.setItem(
+                               //     "sound",
+                               //     JSON.stringify(false)
+                               //   );
+                               // } else {
+                               // setGameSound(true)
+
+                               //   localStorage.setItem(
+                               //     "sound",
+                               //     JSON.stringify(true)
+                                 
+                               //   );
+                               // }
+                             }}
+                           >
+                             <div
+                               className={
+                                 gameSound === true||gameSound==="true"
+                                   ? style.ActiveSliderBtn
+                                   : style.SliderBtn
+                               }
+                             ></div>
+                           </div>
+                         </div>
                         ) : (
                           ""
                         )}
@@ -501,6 +580,7 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
             })}
           </ul>
         </div>
+        {userId!==null?
         <div className={style.Credits}>
           <div className={style.Ticket}>
             <img src={ticket} alt="" />
@@ -514,6 +594,9 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
             </button>
           </div>
         </div>
+      :
+      ""}
+      {userId!==null?
         <div className={style.Profile}>
           <p className={style.Username}>
             {(user && user.username) || "username"}
@@ -549,7 +632,7 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
                                 menu.Name === "Terms of Use"
                                   ? configuration.terms
                                   : menu.Name === "Privacy Policy"
-                                  ? configuration.policy
+                                  ? configuration.privacy
                                   : ""
                               }`,
                               "_blank"
@@ -589,31 +672,36 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
                             <li>Music</li>
                             <div
                               className={
-                                musicId === menu.id && sliderSction === true
+                                gameMusic === true||gameMusic==="true"
                                   ? style.ActiveSlider
                                   : style.Slider
                               }
                               onClick={() => {
                                 setMusicId(menu.id);
-                                sliderSction
-                                  ? setSliderAction(false)
-                                  : setSliderAction(true);
-                                if (sliderSction === true) {
-                                  localStorage.setItem(
-                                    "music",
-                                    JSON.stringify(false)
-                                  );
-                                } else {
-                                  localStorage.setItem(
-                                    "music",
-                                    JSON.stringify(true)
-                                  );
-                                }
+                                gameMusic===true?setGameMusic(false):setGameMusic(true)
+                                // sliderSction
+                                //   ? setSliderAction(false)
+                                //   : setSliderAction(true);
+                                // if (sliderSction === true) {
+                                // setGameSound(false)
+
+                                //   localStorage.setItem(
+                                //     "music",
+                                //     JSON.stringify(false)
+                                //   );
+                                // } else {
+                                // setGameSound(true)
+
+                                //   localStorage.setItem(
+                                //     "music",
+                                //     JSON.stringify(true)
+                                //   );
+                                // }
                               }}
                             >
                               <div
                                 className={
-                                  musicId === menu.id && sliderSction === true
+                                  gameMusic === true||gameMusic==="true"
                                     ? style.ActiveSliderBtn
                                     : style.SliderBtn
                                 }
@@ -628,31 +716,37 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
                             <li>Sound</li>
                             <div
                               className={
-                                audioId === menu.id && sliderSction === true
+                                gameSound === true||gameSound==="true"
                                   ? style.ActiveSlider
                                   : style.Slider
                               }
                               onClick={() => {
                                 setAudioId(menu.id);
-                                sliderSction
-                                  ? setSliderAction(false)
-                                  : setSliderAction(true);
-                                if (sliderSction === true) {
-                                  localStorage.setItem(
-                                    "sound",
-                                    JSON.stringify(false)
-                                  );
-                                } else {
-                                  localStorage.setItem(
-                                    "sound",
-                                    JSON.stringify(true)
-                                  );
-                                }
+                                gameSound===true?setGameSound(false):setGameSound(true)
+                                // sliderSction
+                                //   ? setSliderAction(false)
+                                //   : setSliderAction(true);
+                                // if (sliderSction === true) {
+                                // setGameSound(false)
+
+                                //   localStorage.setItem(
+                                //     "sound",
+                                //     JSON.stringify(false)
+                                //   );
+                                // } else {
+                                // setGameSound(true)
+
+                                //   localStorage.setItem(
+                                //     "sound",
+                                //     JSON.stringify(true)
+                                  
+                                //   );
+                                // }
                               }}
                             >
                               <div
                                 className={
-                                  audioId === menu.id && sliderSction === true
+                                  gameSound === true||gameSound==="true"
                                     ? style.ActiveSliderBtn
                                     : style.SliderBtn
                                 }
@@ -683,6 +777,22 @@ const Header = ({ setActive, active, setGamePlay, gamePlay }) => {
             )}
           </div>
         </div>
+      
+    :
+    <div className={style.Profile}>
+          <p className={style.LoginRegister} onClick={()=>{
+            navigate("/login")
+          }}>
+           Sign In
+          </p>
+          <p className={style.LoginRegister} onClick={()=>{
+            navigate("/register")
+          }}>
+           Register
+          </p>
+          
+        </div>
+    }
       </div>
     </div>
   );

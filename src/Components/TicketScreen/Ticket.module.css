@@ -91,8 +91,12 @@
     width: 100%;
     height: 100%;
     /* position: relative; */
-    position: absolute;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
     display: flex;
+    z-index: 9999;
     justify-content: center;
     align-items: center;
 }
@@ -216,5 +220,35 @@
     }
     .PopupContaner{
         width: 80%;
+    }
+    .Popup{
+        width: 100%;
+        height: 100vh;
+        /* position: relative; */
+        top: 50%;
+        position: fixed;
+        display: flex;
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .PopupBtn p{
+        font-size: 1.5rem;
+    }
+    .PopupContaner p{
+        font-size: 1.5rem;
+    }
+    .Buttons button{
+        width: 90%;
+        min-height: 4rem;
+        height: 6rem;
+        border-radius: 30px;
+        margin: 10px 0;
+        border: 5px solid #fff;
+    }
+    .PopupBtn svg{
+        font-size: 2.5rem;
     }
 }
