@@ -8,7 +8,7 @@ import primeIcon from "../../assests/Wincha Clubhouse Option.png";
 import ReactPlayer from "react-player";
 import playBtn from "../../assests/PlayButton.png";
 import { assets } from "../Description/assests";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import { AllAnimation } from "../../Animation/allAnimation";
@@ -17,42 +17,45 @@ import playVideo from "../../assests/PlayButton.png";
 import { AiFillYoutube, AiOutlineInstagram } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
 import { TfiTwitter } from "react-icons/tfi";
-import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png"
-import FreeplaySection from "../../assests/Artboard 48 Freeplay Icon and TEXT.png"
-import NotificationSection from "../../assests/Artboard 48 Notification Icon and TEXT.png"
-import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.png"
-import CloseImage from "../../assests/Artboard 48 X.png"
-import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
-import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
+import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png";
+import FreeplaySection from "../../assests/Artboard 48 Freeplay Icon and TEXT.png";
+import NotificationSection from "../../assests/Artboard 48 Notification Icon and TEXT.png";
+import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.png";
+import CloseImage from "../../assests/Artboard 48 X.png";
+import Lower from "../../assests/Artboard 48 - Lower Image Split.png";
+import Upper from "../../assests/Artboard 48 - Upper Image Split.png";
+import { updateProfile } from "../../actions/user";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   // const[prime,setPrime] = useState(true)
   const [cartData, setCartData] = useState([]);
-  const [premiumPopup,setPremiumPopup] = useState(false)
+  const [premiumPopup, setPremiumPopup] = useState(false);
   const baseUrl = "https://uat.wincha-online.com";
   const userId = JSON.parse(localStorage.getItem("user"));
   const { configuration } = useSelector((state) => state.configuration);
   const { user } = useSelector((state) => state.profile);
   let saved = localStorage.getItem("SaveShipping");
-  const vidRef = useRef(null)
-  const [shareId,setShareId] = useState("")
-  const [shareIcons,setShareIcons] = useState(false)
+  const vidRef = useRef(null);
+  const [shareId, setShareId] = useState("");
+  const [shareIcons, setShareIcons] = useState(false);
   const [onPlay, setOnPlay] = useState(false);
   const [eGifting, setEGifting] = useState(true);
   const navigate = useNavigate();
   const [vipData, setVipData] = useState({});
-  const [line1,setLine1] = useState("")
-  const [line2,setLine2] = useState("")
-  const [city,setCity] = useState("")
-  const [state,setState] = useState("")
-  const[url,setUrl] = useState("")
-  const [zipcode,setZipCode] = useState("")
-  const [countryCode,setCountryCode] = useState("")
-  const [number,setNumber] = useState("")
+  const [line1, setLine1] = useState("");
+  const [line2, setLine2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [url, setUrl] = useState("");
+  const [zipcode, setZipCode] = useState("");
+  const [countryCode, setCountryCode] = useState("");
+  const [number, setNumber] = useState("");
   // UseState
-  const [showVideo,setShowVideo] = useState(false)
+  const [userCountry, setUserCountry] = useState("");
+  const [showVideo, setShowVideo] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
-  const [loading,setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const [isVip, setIsVip] = useState(false);
   const [isVipShown, setIsVipShown] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
@@ -64,6 +67,7 @@ const Cart = () => {
   const [isAddressField, setisAddressField] = useState(false);
   const [isAddressFieldShown, setIsAddressFieldShown] = useState(false);
   const [vipMessage, setVipMessage] = useState([]);
+  const [products,setProducts] = useState([])
   const [addressObj, setAddressObj] = useState({
     line1: "",
     line2: "",
@@ -79,63 +83,64 @@ const Cart = () => {
   const handlePauseVideo = () => {
     vidRef.current.pause();
   };
-useEffect(()=>{
-  if(saved==="true"){
-    console.log(typeof saved)
-    // setCount(1)
-  }
-  else{
-    console.log(typeof saved)
-    setCount(1)
-  }
-  if(user&&user.vip===true){
-    setCount(1)
-    console.log(user&&user.vip)
-
-  }
-  else{
-    console.log(user&&user.vip)
-    setCount(2)
-  }
-  if(user&&user.point<configuration&&configuration.STANDARD_SHIPPING_PRICE&&user.vip===false){
-    setCount(2)
-  }
-  else if(user&&user.point>configuration&&configuration.STANDARD_SHIPPING_PRICE&&user.vip===false){
-    // if(parsedPoint>parsedPrice){
+  useEffect(() => {
+    if (saved === "true") {
+      console.log(typeof saved);
+      // setCount(1)
+    } else {
+      console.log(typeof saved);
+      setCount(1);
+    }
+    if (user && user.vip === true) {
+      setCount(1);
+      console.log(user && user.vip);
+    } else {
+      console.log(user && user.vip);
+      setCount(2);
+    }
+    if (
+      user &&
+      user.point < configuration &&
+      configuration.STANDARD_SHIPPING_PRICE &&
+      user.vip === false
+    ) {
+      setCount(2);
+    } else if (
+      user &&
+      user.point > configuration &&
+      configuration.STANDARD_SHIPPING_PRICE &&
+      user.vip === false
+    ) {
+      // if(parsedPoint>parsedPrice){
       // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
       setIsAddress(true);
-        
-        setCount(3)
-        console.log("count jumbed 2")
+
+      setCount(3);
+      console.log("count jumbed 2");
       // }
-  }
-  else{
-    setCount(1)
-  }
-  if(user&&user.line1===""){
-    setCount(3)
-  }
-  else{
-    setCount(4)
-  }
-  if(user&&user.vip===true){
-    setCount(1)
-    console.log(user&&user.vip)
-
-  }
-  else{
-    console.log(user&&user.vip)
-    setCount(2)
-  }
-},[user,configuration])
-useEffect(()=>{
-  console.log(vipMessage,"count from useEffect")
-},[vipMessage])
-useEffect(()=>{
-  console.log(isAddress,"address from useEffect")
-  console.log(count,"count from useEffect")
-
-},[isAddress])
+    } else {
+      setCount(1);
+    }
+    if (user && user.line1 === "") {
+      setCount(3);
+    } else {
+      setCount(4);
+    }
+    if (user && user.vip === true) {
+      setCount(1);
+      console.log(user && user.vip);
+    } else {
+      console.log(user && user.vip);
+      setCount(2);
+    }
+  }, [user, configuration]);
+  useEffect(() => {
+    console.log(vipMessage, "count from useEffect");
+  }, [vipMessage]);
+  useEffect(() => {
+    console.log(isAddress, "address from useEffect");
+    console.log(count, "count from useEffect");
+  }, [isAddress]);
   async function fetchCart() {
     await fetch(`${baseUrl}/cart/collection`, {
       method: "POST",
@@ -149,9 +154,14 @@ useEffect(()=>{
       .then((res) => res.json())
       .then((data) => {
         setCartData(data.data);
-        setLoading(false)
+        setLoading(false);
         console.log(data);
         [...data.data].forEach((cart) => {
+          setProducts(products=>[...products,{
+            id:cart.id,
+            is_Egifting:cart.is_Egifting,
+            quantity:1
+          }])
           if (cart.is_Egifting === false) {
             setEGifting(false);
             console.log(cart);
@@ -161,6 +171,40 @@ useEffect(()=>{
         //     console.log(cart)
         // }
         // console.log(eGifting)
+      });
+  }
+  useEffect(()=>{
+    console.log(products)
+  },[products])
+  function addAddress() {
+    if (configuration.COUNTRY_CODE === "UK") {
+      setUserCountry("county");
+    } else {
+      setUserCountry("state");
+    }
+    fetch(`${baseUrl}/user/shipping/details/update`, {
+      method: "POST",
+      body: JSON.stringify({
+        id: "632966a3276161e78911c3ca",
+        username: user.username,
+        first_name: "Dora",
+        last_name: "S",
+        phone: number,
+        addressline1: line1,
+        addressline2: line2,
+        city: city,
+        userCountry: state,
+        zipcode: zipcode,
+        coutrycode: configuration.COUNTRY_CODE,
+        coutryname: configuration.COUNTRY_CODE,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(updateProfile());
       });
   }
   function getVipDetails() {
@@ -176,41 +220,73 @@ useEffect(()=>{
       .then((res) => res.json())
       .then((data) => {
         setVipData(data);
-        const message = data.data[0].vip_discription.split("\n")
-        setVipMessage(message)
+        const message = data.data[0].vip_discription.split("\n");
+        setVipMessage(message);
         console.log(data);
         // console.log(data.data[0].vip_discription.split("\n"))
       });
   }
-  async function numberValidation(){
-    await fetch(`${baseUrl}/user/phonecode/check`,{
-      method:"POST",
-      body:JSON.stringify({
-        user:userId,
-        number:number
+  async function numberValidation() {
+    await fetch(`${baseUrl}/user/phonecode/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: userId,
+        number: number,
       }),
-      headers:{
-        "Content-type":"application/json"
-      }
-    }).then(res=>res.json()).then((data)=>{
-      if(data.status ===true){
-        postCodeCheck()
-      }
+      headers: {
+        "Content-type": "application/json",
+      },
     })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === true) {
+          postCodeCheck();
+        }
+      });
   }
-  async function postCodeCheck(){
-    await fetch(`${baseUrl}/configurations/code/check`,{
-      method:"POST",
-      body:JSON.stringify({
-        country:"UK",
-        code:zipcode
+  async function postCodeCheck() {
+    await fetch(`${baseUrl}/configurations/code/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        country: "UK",
+        code: zipcode,
       }),
-      headers:{
-        "Content-type":"application/json"
-      }
-    }).then(res=>res.json()).then((data)=>{
-      console.log(data)
-    }) 
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        addAddress();
+        console.log(data);
+      });
+  }
+  async function checkoutAPi() {
+    await fetch(`${baseUrl}/configurations/code/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        address_1: user.addressline1,
+        address_2: user.addressline2,
+        city: user.city,
+        company: "",
+        country: configuration.COUNTRY_CODE,
+        email: user.email,
+        first_name: user.username,
+        phone: user.phone,
+        postcode: user.zipcode,
+        products: products,
+        state: user.state,
+        user_id: userId,
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate("/order-confirmed");
+        console.log(data);
+      });
   }
   // function get
   useEffect(() => {
@@ -231,75 +307,73 @@ useEffect(()=>{
     }
   }
   function Popup(url) {
-    console.log(url)
-    
+    console.log(url);
 
     return (
       <div
-          className={showVideo ? style.LastWinPopup : style.hideVideopopup}
+        className={showVideo ? style.LastWinPopup : style.hideVideopopup}
+        onClick={() => {}}
+      >
+        <div
+          className={style.VideoOverlay}
           onClick={() => {
+            setShowVideo(false);
+            setOnPlay(false);
           }}
-        >
-          <div
-            className={style.VideoOverlay}
+        ></div>
+        <div className={style.PlayIcon}>
+          {onPlay === true ? (
+            <button
+              onClick={() => {
+                setOnPlay(false);
+                handlePauseVideo();
+              }}
+            >
+              <img src={assets.PlayImage} alt="" />
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                setOnPlay(true);
+                handlePlayVideo();
+              }}
+            >
+              <img src={playVideo} alt="" />
+            </button>
+          )}
+        </div>
+        <div className={style.VideoSection}>
+          <MdClose
             onClick={() => {
-               setShowVideo(false);
+              setShowVideo(false);
               setOnPlay(false);
             }}
-          ></div>
-          <div className={style.PlayIcon}>
-            {onPlay === true ? (
-              <button
-                onClick={() => {
-                  setOnPlay(false);
-                  handlePauseVideo();
-                }}
-              >
-                <img src={assets.PlayImage} alt="" />
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  setOnPlay(true);
-                  handlePlayVideo();
-                }}
-              >
-                <img src={playVideo} alt="" />
-              </button>
-            )}
-          </div>
-          <div className={style.VideoSection}>
-            <MdClose
-              onClick={() => {
-                 setShowVideo(false);
-                setOnPlay(false);
-              }}
-            />
-            {url==="" ? (
-              <div className={style.VideoEmpty}>
-                <p>Whoops! Video unavailable Please try again later.</p>
-              </div>
-            ) : (
-              // <ReactPlayer
-              // ref={videoRef2}
-              //   url={url}
-              //   width="100%"
-              //   height="500px"
-              //   playIcon={<button>Play</button>}
-              //   playing={true}
-              //   controls={true}
-              //   />\
-              <video ref={vidRef}>
-                <source src={url} type="video/mp4" />
-              </video>
-            )}
-            {/* <video src=""></video> */}
-            {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
-            {/* <video ref ={videoRef}>
+          />
+          {url === "" ? (
+            <div className={style.VideoEmpty}>
+              <p>Whoops! Video unavailable Please try again later.</p>
+            </div>
+          ) : (
+            // <ReactPlayer
+            // ref={videoRef2}
+            //   url={url}
+            //   width="100%"
+            //   height="500px"
+            //   playIcon={<button>Play</button>}
+            //   playing={true}
+            //   controls={true}
+            //   />\
+            <video ref={vidRef}>
+              <source src={url} type="video/mp4" />
+            </video>
+          )}
+          {/* <video src=""></video> */}
+          {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
+          {/* <video ref ={videoRef}>
                 <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
             </video> */}
-          </div>
         </div>
+      </div>
     );
   }
   function lowPoint() {
@@ -315,16 +389,19 @@ useEffect(()=>{
 
   return (
     <div className={style.Container}>
-      {premiumPopup?
-      <div className={style.clubHousePopup}>
-        <div className={style.ClubHouse}>
+      {premiumPopup ? (
+        <div className={style.clubHousePopup}>
+          <div className={style.ClubHouse}>
             <div className={style.TopImage}>
-          <div className={style.clubHouseClose} onClick={()=>{
-            setPremiumPopup(false)
-          }}>
-            {/* <MdClose/> */}
-            <img src={CloseImage} alt="" />
-          </div>
+              <div
+                className={style.clubHouseClose}
+                onClick={() => {
+                  setPremiumPopup(false);
+                }}
+              >
+                {/* <MdClose/> */}
+                <img src={CloseImage} alt="" />
+              </div>
               <img src={Upper} alt="" />
             </div>
             <div className={style.BottomContents}>
@@ -332,41 +409,33 @@ useEffect(()=>{
                 <img src={Lower} alt="" />
               </div> */}
               <div className={style.BonusPoints}>
-                  <div className={style.Bonus}>
-                    <p>{configuration.VIP_BONUS_POINT}W</p>
-                  </div>
-                  <div className={style.BonusText}>
-                    <p>Sign Up Bonus!</p>
-                  </div>
+                <div className={style.Bonus}>
+                  <p>{configuration.VIP_BONUS_POINT}W</p>
+                </div>
+                <div className={style.BonusText}>
+                  <p>Sign Up Bonus!</p>
+                </div>
               </div>
               <div className={style.benefits}>
                 <div className={style.benefit}>
                   <div className={style.benefitImage}>
-                  <img src={ShippingSection} alt="" />
-
+                    <img src={ShippingSection} alt="" />
                   </div>
-                  
                 </div>
                 <div className={style.benefit}>
                   <div className={style.benefitImage}>
-                  <img src={BundleSection} alt="" />
-
+                    <img src={BundleSection} alt="" />
                   </div>
-                  
                 </div>
                 <div className={style.benefit}>
                   <div className={style.benefitImage}>
-                  <img src={NotificationSection} alt="" />
-
+                    <img src={NotificationSection} alt="" />
                   </div>
-                  
                 </div>
                 <div className={style.benefit}>
                   <div className={style.benefitImage}>
-                  <img src={FreeplaySection} alt="" />
-
+                    <img src={FreeplaySection} alt="" />
                   </div>
-                  
                 </div>
               </div>
               <div className={style.SubscribeButton}>
@@ -377,44 +446,43 @@ useEffect(()=>{
               </div>
             </div>
             <div className={style.TermsAndPolicy}>
-              <div className={style.Terms} onClick={()=>{
-                window.open(
-                  `${ configuration.terms}`,
-                  "_blank"
-                );
-              }}>
+              <div
+                className={style.Terms}
+                onClick={() => {
+                  window.open(`${configuration.terms}`, "_blank");
+                }}
+              >
                 <p>Subscription Terms</p>
               </div>
-              <div className={style.Policy} onClick={()=>{
-                window.open(
-                  `${ configuration.privacy}`,
-                  "_blank"
-                );
-              }}>
+              <div
+                className={style.Policy}
+                onClick={() => {
+                  window.open(`${configuration.privacy}`, "_blank");
+                }}
+              >
                 <p>Privacy Policy</p>
               </div>
             </div>
+          </div>
         </div>
-
-      </div>
-      
-      :""}
-      {showVideo?
-      // <Popup/>
-      <div
+      ) : (
+        ""
+      )}
+      {showVideo ? (
+        // <Popup/>
+        <div
           className={showVideo ? style.LastWinPopup : style.hideVideopopup}
-          onClick={() => {
-          }}
+          onClick={() => {}}
         >
           <div
             className={style.VideoOverlay}
             onClick={() => {
-               setShowVideo(false);
+              setShowVideo(false);
               setOnPlay(false);
             }}
           ></div>
           <div className={style.PlayIcon}>
-            {onPlay === true &&url===""? (
+            {onPlay === true && url === "" ? (
               <button
                 onClick={() => {
                   setOnPlay(false);
@@ -423,7 +491,9 @@ useEffect(()=>{
               >
                 <img src={assets.PlayImage} alt="" />
               </button>
-            ) : url===""?"":(
+            ) : url === "" ? (
+              ""
+            ) : (
               <button
                 onClick={() => {
                   setOnPlay(true);
@@ -437,11 +507,11 @@ useEffect(()=>{
           <div className={style.VideoSection}>
             <MdClose
               onClick={() => {
-                 setShowVideo(false);
+                setShowVideo(false);
                 setOnPlay(false);
               }}
             />
-            {url==="" ? (
+            {url === "" ? (
               <div className={style.VideoEmpty}>
                 <p>Whoops! Video unavailable Please try again later.</p>
               </div>
@@ -466,8 +536,10 @@ useEffect(()=>{
             </video> */}
           </div>
         </div>
-      :""}
-      
+      ) : (
+        ""
+      )}
+
       {isVip && isVipShown === false ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
@@ -482,11 +554,13 @@ useEffect(()=>{
                 }}
               ></div>
             </p> */}
-            {vipMessage.map((text)=>{
-              console.log(text)
-              return(
-                <p className={text?style.PopupTextContent:style.Blank}>{`${text?text:text===""?"Blank":""}`}</p>
-              )
+            {vipMessage.map((text) => {
+              console.log(text);
+              return (
+                <p className={text ? style.PopupTextContent : style.Blank}>{`${
+                  text ? text : text === "" ? "Blank" : ""
+                }`}</p>
+              );
             })}
             <p></p>
             {/* <p>fhf</p> */}
@@ -494,26 +568,27 @@ useEffect(()=>{
           <div className={style.ReportPopupButton}>
             <button
               onClick={() => {
-                const parsedPoint = user&&parseInt(user.point)
-              const parsedPrice = configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)
+                const parsedPoint = user && parseInt(user.point);
+                const parsedPrice =
+                  configuration &&
+                  parseInt(configuration.STANDARD_SHIPPING_PRICE);
                 // localStorage.setItem("saveShipping",true)\
                 setIsVip(false);
                 // setIsVipShown(true);
                 setCount(2);
-                if(parsedPoint>parsedPrice){
+                if (parsedPoint > parsedPrice) {
                   setIsAddress(true);
-                    
-                  setCount(4)
-                  console.log("count jumbed 2")
+
+                  setCount(4);
+                  console.log("count jumbed 2");
                 }
-                if(user&&user.addressline1===""){
+                if (user && user.addressline1 === "") {
                   setIsAddress(true);
-                    
-                  setCount(3)
-                  console.log("count jumbed 2")
-                }
-                else{
-                  setCount(4)
+
+                  setCount(3);
+                  console.log("count jumbed 2");
+                } else {
+                  setCount(4);
                 }
               }}
             >
@@ -524,7 +599,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {isAddress && isAddressShown === false&&user?.line1===""? (
+      {isAddress && isAddressShown === false && user?.line1 === "" ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -614,8 +689,8 @@ useEffect(()=>{
         ""
       )}
 
-      {isAddressField===true ? (
-      // {isAddressField===true || isAddressFieldShown === false ? (
+      {isAddressField === true ? (
+        // {isAddressField===true || isAddressFieldShown === false ? (
         <div className={style.Address}>
           <div className={style.AddressTitle}></div>
           <form action="">
@@ -638,7 +713,7 @@ useEffect(()=>{
               value={line2}
               placeholder="LINE 2"
               onChange={(e) => {
-                setLine2(e.target.value)
+                setLine2(e.target.value);
                 //  line2 = e.target.value
               }}
             />
@@ -649,7 +724,7 @@ useEffect(()=>{
               value={number}
               placeholder="PHONE NUMBER"
               onChange={(e) => {
-                setNumber(e.target.value)
+                setNumber(e.target.value);
                 //  line2 = e.target.value
               }}
             />
@@ -660,7 +735,7 @@ useEffect(()=>{
               value={city}
               placeholder="CITY"
               onChange={(e) => {
-                setCity(e.target.value)
+                setCity(e.target.value);
                 //  line2 = e.target.value
               }}
             />
@@ -673,7 +748,7 @@ useEffect(()=>{
                 readOnly
                 placeholder="STATE/PROVINCE"
                 onChange={(e) => {
-                  setState(e.target.value)
+                  setState(e.target.value);
                   //  line2 = e.st.value
                 }}
               />
@@ -685,7 +760,7 @@ useEffect(()=>{
                 value={state}
                 placeholder="COUNTY"
                 onChange={(e) => {
-                  setState(e.target.value)
+                  setState(e.target.value);
                   //  line2 = e.target.value
                 }}
               />
@@ -698,7 +773,7 @@ useEffect(()=>{
                 value={state}
                 placeholder="POSTCODE"
                 onChange={(e) => {
-                  state(e.target.value)
+                  state(e.target.value);
                   //  line2 = e.target.value
                 }}
               />
@@ -710,7 +785,7 @@ useEffect(()=>{
                 value={zipcode}
                 placeholder="ZIP/POSTAL CODE"
                 onChange={(e) => {
-                  setZipCode(e.target.value)
+                  setZipCode(e.target.value);
                   //  line2 = e.target.value
                 }}
               />
@@ -725,13 +800,19 @@ useEffect(()=>{
                   line2,
                   city,
                   state,
-                  zipcode
-                })
-                numberValidation()
+                  zipcode,
+                });
+                numberValidation();
                 // setCount(4)
                 console.log(addressObj);
               }}
-              disabled={ line1===""|| line2===""|| city===""|| state===""|| zipcode===""}
+              disabled={
+                line1 === "" ||
+                line2 === "" ||
+                city === "" ||
+                state === "" ||
+                zipcode === ""
+              }
             >
               CONFIRM
             </button>
@@ -742,94 +823,99 @@ useEffect(()=>{
       )}
 
       <div className={style.Cart}>
-      
         <div className={style.Title}>
           <p>BASKET</p>
         </div>
         {/* {loading? */}
-        
+
         <div className={style.Carts}>
-          {loading?
-          <div className={style.LoaderDiv}>
-            <div className={style.LoaderAnime}>
-              <Lottie animationData={AllAnimation.Loader} />
-            </div>
-          </div>
-          :cartData.map((cart,index) => {
-            return (
-              <div className={style.CartItem}>
-                <div className={style.Game}>
-                  <div className={style.image}>
-                    <img src={cart.featured_image.thumbnail} alt="" />
-                  </div>
-                  <div className={style.name}>
-                    <p>{cart.title}</p>
-                  </div>
-                </div>
-                <div className={style.Actions}>
-                  <div className={style.replay}>
-                    <img
-                      src={replay}
-                      alt=""
-                      onClick={() => {
-                        console.log(cart.game_share_url);
-                        setShowVideo(true);
-                        // setVideoUrl(cart.video_url);
-                        setUrl(cart.game_share_url);
-                      }}
-                    />
-                  </div>
-                  <div className={style.share}
-                    
-                    >
-                    {shareIcons&&shareId===cart.id*index?
-                    <div className={style.ShareDiv}>
-                      <div className={style.ShareIcon}>
-                        <MdFacebook/>
-                      </div>
-                      <div className={style.ShareIcon}>
-                        <AiOutlineInstagram/>
-                      </div>
-                      <div className={style.ShareIcon}>
-                        <TfiTwitter/>
-                      </div>
-                      <div className={style.ShareIcon}>
-                        <FaTiktok/>
-                      </div>
-                      <div className={style.ShareIcon}>
-                        <AiFillYoutube/>
-                      </div>
-                    </div>
-                    :""
-                    }
-                    <img src={share} alt=""  onClick={()=>{
-                      shareIcons?setShareIcons(false):setShareIcons(true)
-                      setShareId(cart.id*index)
-                    }}
-                    // onMouseLeave={()=>{
-                    //   setShareIcons(false)
-                    // }}
-                    />
-                  </div>
-                </div>
+          {loading ? (
+            <div className={style.LoaderDiv}>
+              <div className={style.LoaderAnime}>
+                <Lottie animationData={AllAnimation.Loader} />
               </div>
-            );
-          })
-          
-        }
-          
+            </div>
+          ) : (
+            cartData.map((cart, index) => {
+              return (
+                <div className={style.CartItem}>
+                  <div className={style.Game}>
+                    <div className={style.image}>
+                      <img src={cart.featured_image.thumbnail} alt="" />
+                    </div>
+                    <div className={style.name}>
+                      <p>{cart.title}</p>
+                    </div>
+                  </div>
+                  <div className={style.Actions}>
+                    <div className={style.replay}>
+                      <img
+                        src={replay}
+                        alt=""
+                        onClick={() => {
+                          console.log(cart.game_share_url);
+                          setShowVideo(true);
+                          // setVideoUrl(cart.video_url);
+                          setUrl(cart.game_share_url);
+                        }}
+                      />
+                    </div>
+                    <div className={style.share}>
+                      {shareIcons && shareId === cart.id * index ? (
+                        <div className={style.ShareDiv}>
+                          <div className={style.ShareIcon}>
+                            <MdFacebook />
+                          </div>
+                          <div className={style.ShareIcon}>
+                            <AiOutlineInstagram />
+                          </div>
+                          <div className={style.ShareIcon}>
+                            <TfiTwitter />
+                          </div>
+                          <div className={style.ShareIcon}>
+                            <FaTiktok />
+                          </div>
+                          <div className={style.ShareIcon}>
+                            <AiFillYoutube />
+                          </div>
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      <img
+                        src={share}
+                        alt=""
+                        onClick={() => {
+                          shareIcons
+                            ? setShareIcons(false)
+                            : setShareIcons(true);
+                          setShareId(cart.id * index);
+                        }}
+                        // onMouseLeave={()=>{
+                        //   setShareIcons(false)
+                        // }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
-        
+
         {eGifting && cartData.length > 0 ? (
           ""
         ) : (
           <div className={style.Shipping}>
             <div className={style.PrimeShipping}>
-              <div className={style.shippingIcon} onClick={()=>{
-                if(user?.vip===false){
-                  setPremiumPopup(true)
-                }
-              }}>
+              <div
+                className={style.shippingIcon}
+                onClick={() => {
+                  if (user?.vip === false) {
+                    setPremiumPopup(true);
+                  }
+                }}
+              >
                 <img src={primeIcon} alt="" />
               </div>
               <div className={style.selection}>
@@ -869,21 +955,21 @@ useEffect(()=>{
                     }}
                   ></span>
                 ) : vipData.status === true &&
-                vipData.data[0].vip_token === false ?
-                <span
+                  vipData.data[0].vip_token === false ? (
+                  <span
                     className={style.CircleActive}
                     onClick={() => {
                       // setPrime(false);
                     }}
                   ></span>
-                :
+                ) : (
                   <span
                     className={style.Circle}
                     onClick={() => {
                       // setPrime(true);
                     }}
                   ></span>
-                }
+                )}
               </div>
             </div>
           </div>
@@ -919,28 +1005,57 @@ useEffect(()=>{
               <p>Delivery Address</p>
             </div>
             <div className={style.AddressEditBtn}>
-              <button onClick={()=>{
-                setIsAddressFieldShown(false)
-                console.log("Edited")
-                setisAddressField(true);
-
-              }}>Edit</button>
+              <button
+                onClick={() => {
+                  setIsAddressFieldShown(false);
+                  console.log("Edited");
+                  setisAddressField(true);
+                }}
+              >
+                Edit
+              </button>
             </div>
           </div>
           <div className={style.AddressSection}>
-            <input type="text" placeholder="House" value={user?user.username:"-"}/>
-            <input type="text" placeholder="Line 1" value={user?user.addressline1:"-"}/>
-            <input type="text" placeholder="Line 2" value={user?user.addressline2:"-"}/>
-            <input type="text" placeholder="City" value={user?user.city:"-"}/>
-            <input type="text" placeholder="Country" value={user?user.state:"-"}/>
-            <input type="text" placeholder="Postcode" value={user?user.zipcode:"-"}/>
+            <input
+              type="text"
+              placeholder="House"
+              value={user ? user.username : "-"}
+            />
+            <input
+              type="text"
+              placeholder="Line 1"
+              value={user ? user.addressline1 : "-"}
+            />
+            <input
+              type="text"
+              placeholder="Line 2"
+              value={user ? user.addressline2 : "-"}
+            />
+            <input
+              type="text"
+              placeholder="City"
+              value={user ? user.city : "-"}
+            />
+            <input
+              type="text"
+              placeholder="Country"
+              value={user ? user.state : "-"}
+            />
+            <input
+              type="text"
+              placeholder="Postcode"
+              value={user ? user.zipcode : "-"}
+            />
           </div>
         </div>
         <div className={style.Checkout}>
           <button
             onClick={() => {
-              const parsedPoint = user&&parseInt(user.point)
-              const parsedPrice = configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)
+              const parsedPoint = user && parseInt(user.point);
+              const parsedPrice =
+                configuration &&
+                parseInt(configuration.STANDARD_SHIPPING_PRICE);
               checkCount();
               console.log(count, "count");
               // console.log(typeof saved)
@@ -953,9 +1068,9 @@ useEffect(()=>{
                 setIsBundleReminder(true);
                 console.log(isBundleReminder, "isBundleReminder");
                 saved = localStorage.getItem("SaveShipping");
-                if(parsedPoint<parsedPrice){
-                  setCount(3)
-                  console.log("count jumbed 2")
+                if (parsedPoint < parsedPrice) {
+                  setCount(3);
+                  console.log("count jumbed 2");
                 }
               }
               // if(count===1){
@@ -996,17 +1111,15 @@ useEffect(()=>{
                   } else {
                     setCount(2);
                   }
-                  if(parsedPoint<parsedPrice){
-                    setCount(3)
-                    console.log("count jumbed 2")
-                  }
-                  else{
+                  if (parsedPoint < parsedPrice) {
+                    setCount(3);
+                    console.log("count jumbed 2");
+                  } else {
                     console.log("reached here instead");
-                    
                   }
                 }
                 // else{
-                  
+
                 // }
                 // else if(count ===1&&vipData.status===false){
                 //   setIsVipShown(true)
@@ -1014,18 +1127,20 @@ useEffect(()=>{
                 // console.log(isBundleReminder,"isBundleReminder")
                 // }
                 if (count === 2) {
-                  console.log("checking")
-                  if(parsedPoint>parsedPrice){
-                  // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
-                  setIsAddress(true);
-                    
-                    setCount(4)
-                    console.log("count jumbed 2")
-                  }
-                  else{
-                    console.log(user&&parseInt(user.point))
-                    console.log(configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE))
-                    console.log(parsedPoint>parsedPrice)
+                  console.log("checking");
+                  if (parsedPoint > parsedPrice) {
+                    // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
+                    setIsAddress(true);
+
+                    setCount(4);
+                    console.log("count jumbed 2");
+                  } else {
+                    console.log(user && parseInt(user.point));
+                    console.log(
+                      configuration &&
+                        parseInt(configuration.STANDARD_SHIPPING_PRICE)
+                    );
+                    console.log(parsedPoint > parsedPrice);
                     setCount(3);
                     lowPoint();
                     console.log(isBundleReminder, "isBundleReminder");
@@ -1040,7 +1155,8 @@ useEffect(()=>{
                 if (count === 4) {
                   setCount(5);
                   console.log("Checked out");
-                  navigate("/order-confirmed")
+                  checkoutAPi();
+                  // navigate("/order-confirmed");
                 }
               }
             }}

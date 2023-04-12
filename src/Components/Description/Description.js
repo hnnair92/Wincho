@@ -9,7 +9,7 @@ import { socket } from "../../socket";
 // import React, { useEffect, useState } from 'react'
 import { OTSession, OTPublisher, OTStreams, OTSubscriber } from "opentok-react";
 import Lotties from "lottie-react";
-import lottie from "lottie-web"
+import lottie from "lottie-web";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { assets } from "./assests";
@@ -17,10 +17,20 @@ import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
 import playVideo from "../../assests/PlayButton.png";
 import { MdClose, MdPauseCircleFilled } from "react-icons/md";
-import {music} from '../../assests/Musics/allMusic.js'
+import { music } from "../../assests/Musics/allMusic.js";
 import waitStatic from "../../assests/Wait Pressed Button.png";
 import Lottie from "lottie-web";
-const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, setActive, setGamePlay, gamePlay }) => {
+import prizeMove from "../../assests/43 POP UP Full.png";
+const Description = ({
+  gameMusic,
+  setGameMusic,
+  gameSound,
+  setGameSound,
+  active,
+  setActive,
+  setGamePlay,
+  gamePlay,
+}) => {
   console.log(localStorage);
   console.log(active, "active from description");
   const dispatch = useDispatch();
@@ -30,11 +40,16 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
   const GameData = state && state.game;
   const baseUrl = "https://uat.wincha-online.com";
   const onFocus = (e) => {};
-  const audioRef = useRef(null)
-  const audioRefHome = useRef(null)
-  const animeRef = useRef(null)
+  const audioRef = useRef(null);
+  const audioRefHome = useRef(null);
+  const animeRef = useRef(null);
   console.log(state);
   // const location = useLocation()
+  useEffect(() => {
+    if (GameData.content.length < 75) {
+      console.log(GameData.content);
+    }
+  });
 
   //  Hard coded Datas
   const reportCategories = [
@@ -71,33 +86,37 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
   const userId = JSON.parse(localStorage.getItem("user"));
   const baseMessage = `${userId}|${GameData?.machine_code}`;
   const vidRef = useRef(null);
-  
+
   // localStorage
   // let musicStatus = localStorage.getItem("music")
-  let audioStatus = localStorage.getItem("sound")
+  let audioStatus = localStorage.getItem("sound");
 
   // console.log(musicStatus)
   // React UseStates
   // console.log(vidRef.current&&vidRef.current.play())
   // console.log(vidRef.current)
   // console.log(vidRef)
-  
+
   const [lastWin, setLastWin] = useState(false);
   const [minimized, setminimized] = useState(false);
   const [timeoutStatus, setTimeoutStatus] = useState(false);
   const [gameFailed, setGameFailed] = useState(false);
-  const [cameraState1,setCameraState1] = useState(false)
-  const [cameraState2,setCameraState2] = useState(false)
+  const [cameraState1, setCameraState1] = useState(false);
+  const [cameraState2, setCameraState2] = useState(false);
   const [session, setSession] = useState({});
   const [firstStep, setFirstStep] = useState(false);
-  const [freePlayNotReg,setFreePlayNotReg] = useState(false)
+  const [freePlayNotReg, setFreePlayNotReg] = useState(false);
   const [secondStep, setSecondStep] = useState(false);
   const [wait, setWait] = useState(false);
   const [camera, setCamera] = useState(false);
   const [count, setCount] = useState(4);
   const [viewCount, setViewCount] = useState("");
   const [onPlay, setOnPlay] = useState(false);
-  const [musicStatus,setMusicStatus] = useState(localStorage.getItem("music")?localStorage.getItem("music"):localStorage.setItem("music",JSON.stringify(false)))
+  const [musicStatus, setMusicStatus] = useState(
+    localStorage.getItem("music")
+      ? localStorage.getItem("music")
+      : localStorage.setItem("music", JSON.stringify(false))
+  );
   const [startGame, setStartGame] = useState({});
   const [reportIssueCategories, setReportIssueCategories] = useState(false);
   const [reportContent, setReportContent] = useState(false);
@@ -106,12 +125,12 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
   const [reportText, setReportText] = useState("");
   const [ifPerson, setIfPerson] = useState(
     JSON.parse(localStorage.getItem("tabsOpen"))
-    );
+  );
   const [popup, setPopup] = useState(false);
-  const [transferGame,setTransferGame] = useState({})
+  const [transferGame, setTransferGame] = useState({});
   const [SelGameData, setSelGameData] = useState({});
   const [freePlay, setFreePlay] = useState(
-      localStorage.getItem("times")
+    localStorage.getItem("times")
       ? JSON.parse(localStorage.getItem("times"))
       : 0
   );
@@ -125,6 +144,8 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
   const [leavePopup, setLeavePopup] = useState(false);
   const [freeLimitPopup, setFreeLimitPopup] = useState(false);
   const [prizeResetActive, setPrizeResetActive] = useState(false);
+  const [currentPrizeMove, setCurrentPrizeMove] = useState(false);
+  const [prizeMoveStatus, setPrizeMoveStatus] = useState(false);
   const [isTimeout, setisTimeout] = useState(false);
   const [report, setReport] = useState({
     Title: "",
@@ -141,17 +162,17 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
 
   //   sockets
   useEffect(() => {
-        checkFreePlay();
-        socket.on("connect", () => {
-          console.log("Connected");
-        });
-        socket.emit(
-          "socket_connect",
-          JSON.stringify({
-            user_id: userId,
-            socket_id: socket.id,
-            machineCode: GameData?.machine_code,
-          })
+    checkFreePlay();
+    socket.on("connect", () => {
+      console.log("Connected");
+    });
+    socket.emit(
+      "socket_connect",
+      JSON.stringify({
+        user_id: userId,
+        socket_id: socket.id,
+        machineCode: GameData?.machine_code,
+      })
     );
     if (game) {
       // setDirection(game.movement.split("-"))
@@ -171,6 +192,11 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
     });
     socket.on("request_processing", (res) => {
       console.log(res);
+      const data = res.split("|")
+      const progress = data[data.length-1]
+      if(progress==="INPROGRESS"){
+        setCurrentPrizeMove(true)
+      }
     });
     socket.on("watchers_count", (res) => {
       const splitRes = res.split("|");
@@ -214,6 +240,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       const splitRes = res.split("|");
       const data = splitRes[splitRes.length - 1];
       const splitId = splitRes[1].split(":");
+      const user = splitRes[0].split(":")
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
         setPlayAgain(false);
         return addToCart();
@@ -222,153 +249,174 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
         // setPlayAgain(true);
         // return addToCart();
       }
-      // :UK|M:UK-WH1-NID1-101|PRIZE_WON
+      if (
+        data === "RH_POSITION_CHANGED" &&
+        GameData.machine_code === splitId[1]
+      ) {
+        setCurrentPrizeMove(false);
+        socket.emit("sent_help_status", `${baseMessage}|RECEIVED`);
+        socket.emit(
+          "confirm_move",
+          `${baseMessage}|RH_POSITION_CHANGED`
+        );
+        if(user[1]===userId){
+
+          setGamePlayStatus(true);
+          setGamePlay(true);
+          setWait(true);
+          socket.emit(
+            "socket_connect",
+            JSON.stringify({
+              user_id: userId,
+              socket_id: socket.id,
+              machineCode: GameData.machine_code,
+            })
+          );
+          let message = `${baseMessage}|P_RESTARTED`;
+          socket.emit("peer_message", message);
+          message = `${baseMessage}|G_CONNECTED`;
+          socket.emit("peer_message", message);
+            console.log(currentPrizeMove)
+          // gameStart()
+        }
+        // :UK|M:UK-WH1-NID1-101|PRIZE_WON
+      }
       console.log(res);
     });
     socket.on("disconnect", (res) => {
       console.log(res);
     });
   }, [socket, que]);
-  
+
   let EntryRequest = {};
-  
+
   // Redux Dispatch and React UseEffect
   //   useEffect(() => {
-    //     // console.log(location.pathname.split("/")[1])
-    //     // console.log(location)
-    //     // define increment counter part
-    //     if(location.pathname.split("/")[1]){
-      
-      //         const tabsOpen = localStorage.getItem('tabsOpen')
-      //         console.log('tabsOpen', tabsOpen)
-      //         if (tabsOpen == null) {
-        //             localStorage.setItem('tabsOpen', 1)
-        //         } else {
-          //             localStorage.setItem('tabsOpen', parseInt(tabsOpen) + parseInt(1))
-          //         }
-          
-          //         // define decrement counter part
-          //         window.onunload = function (e) {
-            //             const newTabCount = localStorage.getItem('tabsOpen')
-            //             if (newTabCount !== null) {
-              //                 localStorage.setItem('tabsOpen', newTabCount - 1)
-              //             }
-              //         }
-              //     }
-              // }, [location])
-    useEffect(() => {
-      console.log(videoGot, "video got in description");
-    }, [videoGot]);
-    useEffect(()=>{
-      // localStorage.setItem("music",JSON.stringify(gameMusic))
-      // if(gameMusic==="true"){
-      //   audioRefHome.current.volume = 1;
-      //   playAudioBg()
+  //     // console.log(location.pathname.split("/")[1])
+  //     // console.log(location)
+  //     // define increment counter part
+  //     if(location.pathname.split("/")[1]){
 
-      // console.log(gameMusic)
-      // console.log(audioRefHome.current.volume)
-      // console.log("unmute")
+  //         const tabsOpen = localStorage.getItem('tabsOpen')
+  //         console.log('tabsOpen', tabsOpen)
+  //         if (tabsOpen == null) {
+  //             localStorage.setItem('tabsOpen', 1)
+  //         } else {
+  //             localStorage.setItem('tabsOpen', parseInt(tabsOpen) + parseInt(1))
+  //         }
 
-      // }
-      // else{
-      //   audioRefHome.current.volume = 0;
-      // console.log(gameMusic)
-      // console.log(audioRefHome.current.volume)
-      // console.log("mute")
-
-
-
-      // }
-      // console.log(gameMusic)
-    },[gameMusic])
-    useEffect(()=>{
-      console.log(gameMusic==="true","gameSound")
-      console.log(typeof gameMusic,"gameMusic")
-      if(gameMusic==="true"||gameMusic===true){
-        console.log(audioRefHome.current.volume)
-        audioRefHome.current.volume=1
-        console.log("true for gameMusic")
-        console.log(audioRefHome.current.volume)
-        playAudioBg()
-      }
-      else{
-        audioRefHome.current.volume=0
-        console.log(typeof gameMusic)
-        console.log("not reached")
-      }
-      console.log(typeof gameMusic)
-    },[gameMusic])
-    useEffect(()=>{
-      console.log(gameSound==="true","gameSound")
-      console.log(typeof gameSound,"gameMusic")
-      if(gameSound==="true"||gameSound===true){
-        console.log(audioRef.current.volume)
-        audioRef.current.volume=1
-        console.log("true for gameMusic")
-        console.log(audioRef.current.volume)
-        
-      }
-      else{
-        audioRef.current.volume=0
-        console.log(typeof gameMusic)
-        console.log("not reached")
-      }
-      console.log(typeof setGameSound)
-    },[gameSound])
-    useEffect(()=>{
-      if(gameMusic==="true"||gameMusic===true){
-        console.log(audioRefHome.current.volume)
-        audioRefHome.current.volume = 1;
-        playAudioBg()
-      }
-      else{
-        console.log(typeof gameMusic)
-        console.log("not reached")
-      }
-      if(gameSound==="true"||gameSound===true){
-        console.log(audioRef.current.volume)
-        audioRef.current.volume = 1;
-        playAudioBg()
-      }
-      else{
-        console.log(typeof gameMusic)
-        console.log("not reached")
-      }
-      console.log(typeof gameMusic)
-      // console.log()
-    },[])
-
-    useEffect(()=>{
-      console.log(cameraState1)
-    },[cameraState1])
-    useEffect(()=>{
-      console.log(cameraState2)
-    },[cameraState2])
-    useEffect(()=>{
-      console.log(musicStatus,"musicStatus from Desc");
-      
-      playAudioBg()
-    },[])
-    useEffect(()=>{
-      console.log(typeof audioStatus,"audioStatus")
-      console.log(playAgain,"playAgain")
-      
-      if(playAgain===false){
-        console.log(audioStatus,"audioStatus from playagain")
-        
-        playAudio(music.Whoops)
-      }
-    },[playAgain])
-    useEffect(()=>{
-    if(freePlay>=configuration.FREE_PLAY_LIMIT){
-      setFreePlayNotReg(true)
+  //         // define decrement counter part
+  //         window.onunload = function (e) {
+  //             const newTabCount = localStorage.getItem('tabsOpen')
+  //             if (newTabCount !== null) {
+  //                 localStorage.setItem('tabsOpen', newTabCount - 1)
+  //             }
+  //         }
+  //     }
+  // }, [location])
+  useEffect(() => {
+    console.log(videoGot, "video got in description");
+  }, [videoGot]);
+  useEffect(() => {
+    // localStorage.setItem("music",JSON.stringify(gameMusic))
+    // if(gameMusic==="true"){
+    //   audioRefHome.current.volume = 1;
+    //   playAudioBg()
+    // console.log(gameMusic)
+    // console.log(audioRefHome.current.volume)
+    // console.log("unmute")
+    // }
+    // else{
+    //   audioRefHome.current.volume = 0;
+    // console.log(gameMusic)
+    // console.log(audioRefHome.current.volume)
+    // console.log("mute")
+    // }
+    // console.log(gameMusic)
+  }, [gameMusic]);
+  useEffect(() => {
+    console.log(gameMusic === "true", "gameSound");
+    console.log(typeof gameMusic, "gameMusic");
+    if (gameMusic === "true" || gameMusic === true) {
+      console.log(audioRefHome.current.volume);
+      audioRefHome.current.volume = 1;
+      console.log("true for gameMusic");
+      console.log(audioRefHome.current.volume);
+      playAudioBg();
+    } else {
+      audioRefHome.current.volume = 0;
+      console.log(typeof gameMusic);
+      console.log("not reached");
     }
-  },[freePlay])
-  useEffect(()=>{
-    if(reportIssueCategories===true&&audioStatus==="true"){
-      playAudio(music.Chime)
+    console.log(typeof gameMusic);
+  }, [gameMusic]);
+  useEffect(() => {
+    console.log(gameSound === "true", "gameSound");
+    console.log(typeof gameSound, "gameMusic");
+    if (gameSound === "true" || gameSound === true) {
+      console.log(audioRef.current.volume);
+      audioRef.current.volume = 1;
+      console.log("true for gameMusic");
+      console.log(audioRef.current.volume);
+    } else {
+      audioRef.current.volume = 0;
+      console.log(typeof gameMusic);
+      console.log("not reached");
     }
-  },[reportIssueCategories])
+    console.log(typeof setGameSound);
+  }, [gameSound]);
+  useEffect(() => {
+    if (gameMusic === "true" || gameMusic === true) {
+      console.log(audioRefHome.current.volume);
+      audioRefHome.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    if (gameSound === "true" || gameSound === true) {
+      console.log(audioRef.current.volume);
+      audioRef.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    console.log(typeof gameMusic);
+    // console.log()
+  }, []);
+
+  useEffect(() => {
+    console.log(cameraState1);
+  }, [cameraState1]);
+  useEffect(() => {
+    console.log(cameraState2);
+  }, [cameraState2]);
+  useEffect(() => {
+    console.log(musicStatus, "musicStatus from Desc");
+
+    playAudioBg();
+  }, []);
+  useEffect(() => {
+    console.log(typeof audioStatus, "audioStatus");
+    console.log(playAgain, "playAgain");
+
+    if (playAgain === false) {
+      console.log(audioStatus, "audioStatus from playagain");
+
+      playAudio(music.Whoops);
+    }
+  }, [playAgain]);
+  useEffect(() => {
+    if (freePlay >= configuration.FREE_PLAY_LIMIT) {
+      setFreePlayNotReg(true);
+    }
+  }, [freePlay]);
+  useEffect(() => {
+    if (reportIssueCategories === true && audioStatus === "true") {
+      playAudio(music.Chime);
+    }
+  }, [reportIssueCategories]);
   useEffect(() => {
     if (GameData) {
       EntryRequest = {
@@ -392,9 +440,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       ? localStorage.setItem("times", freePlay)
       : localStorage.setItem("times", 0);
   }, [freePlay]);
-  useEffect(()=>{
-
-  })
+  useEffect(() => {});
   useEffect(() => {
     console.log(window.navigator);
     window.addEventListener("focus", onFocus);
@@ -458,23 +504,27 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
   useEffect(() => {
     checkFreePlay();
   }, [gamePlayStatus]);
-  useEffect(()=>{
-    if(game &&
+  useEffect(() => {
+    if (
+      game &&
       game.camera_data &&
       game.camera_data[0] &&
-      game.camera_data[0].camera_id === "1" ){
-        setCamera(false)
-      }
-      if(game &&
-        game.camera_data &&
-        game.camera_data[1] &&
-        game.camera_data[1].camera_id === "1"){
-          setCamera(true)
-        }
-  },[game,dispatch])
-  useEffect(()=>{
-    console.log("camera status",camera)
-  },[camera])
+      game.camera_data[0].camera_id === "1"
+    ) {
+      setCamera(false);
+    }
+    if (
+      game &&
+      game.camera_data &&
+      game.camera_data[1] &&
+      game.camera_data[1].camera_id === "1"
+    ) {
+      setCamera(true);
+    }
+  }, [game, dispatch]);
+  useEffect(() => {
+    console.log("camera status", camera);
+  }, [camera]);
   // popups
   async function movePrize() {
     return (
@@ -579,58 +629,49 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       </div>
     );
   }
-  console.log(audioStatus,"audioStatus")
+  console.log(audioStatus, "audioStatus");
   // Extra Funcions
   const preventDragHandler = (e) => {
     e.preventDefault();
-  }
-  async function audioEnded(src){
-    if(musicStatus==="true"){
+  };
+  async function audioEnded(src) {
+    if (musicStatus === "true") {
       // audioRefHome.current.unmute()
-      audioRefHome.current.volume=1;
-      audioRefHome.current.src=src;
-      audioRefHome.current.play() 
-    }
-    else{
+      audioRefHome.current.volume = 1;
+      audioRefHome.current.src = src;
+      audioRefHome.current.play();
+    } else {
       audioRefHome.current.volume = 0;
       // audioRefHome.current.mute()
-
     }
-     };  
-  async function playAudio(src){
-  console.log(audioStatus,"audioStatus")
-  // audioRef.current.volume = 1
-    if(audioStatus==="true"){
-      console.log("reached here")
+  }
+  async function playAudio(src) {
+    console.log(audioStatus, "audioStatus");
+    // audioRef.current.volume = 1
+    if (audioStatus === "true") {
+      console.log("reached here");
       audioRef.current.volume = 1;
-      audioRef.current.src=src
-      audioRef.current.play()
+      audioRef.current.src = src;
+      audioRef.current.play();
       // console.log(audioRef.current.volume);
-      
-    }
-    else{
+    } else {
       // audioRefHome.current.mute()
       // console.log(audioStatus);
       audioRef.current.volume = 0;
-
-      
-
     }
-    
   }
-  async function playAudioBg(){
-  console.log(musicStatus,"musicStatus")
+  async function playAudioBg() {
+    console.log(musicStatus, "musicStatus");
     // if(musicStatus==="true"){
-      console.log(audioRefHome.current.play(),"from its function")
-      // audioRefHome.current.volume=1;
-      audioRefHome.current.src=music.Game;
-      audioRefHome.current.play()
-      console.log(audioRefHome.current.volume,"from its function")
+    console.log(audioRefHome.current.play(), "from its function");
+    // audioRefHome.current.volume=1;
+    audioRefHome.current.src = music.Game;
+    audioRefHome.current.play();
+    console.log(audioRefHome.current.volume, "from its function");
 
     // }
     // else{
     //   audioRefHome.current.volume = 0;
-
 
     // }
   }
@@ -689,19 +730,20 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
         setReportText("");
       });
   }
+
   async function status_Session() {
     setTimeout(() => {
-      gameStatus();
+      // gameStatus();
       // gameSession()
     }, game.get_status_time);
   }
   async function timeOut(userId, timeout_status) {
-    playAudio(music.Whoops)
+    playAudio(music.Whoops);
 
     socket.emit(`${baseMessage}|P_ENDED`);
     socket.emit(`${baseMessage}|G_DISCONNECTED`);
     setTimeoutStatus(true);
-    setTimeout(async() => {
+    setTimeout(async () => {
       await gameLeave(userId, timeout_status);
       EntryRequest.replay = true;
       dispatch(gameEntry(EntryRequest));
@@ -712,7 +754,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
     setId(id);
     gameLeave(id, false);
     setPlayAgain(false);
-    navigate("/prizes",{state:{category:GameData.category}});
+    navigate("/prizes", { state: { category: GameData.category } });
   }
   async function checkAnime() {
     switch (game.machine_delay_time) {
@@ -749,6 +791,8 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
     }
   }
   async function prizeReset() {
+    const message = `${baseMessage}|RH_MOVE_GIFT`;
+    socket.emit(message);
     await fetch(`${baseUrl}/game/player/request/prize/move`, {
       method: "POST",
       body: JSON.stringify({
@@ -766,7 +810,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       });
   }
   async function gameJoin(e) {
-    playAudio(music.Wincha)
+    playAudio(music.Wincha);
     setDirection(game.movement.split("-"));
     e.preventDefault();
     socket.emit("peer_message", `${baseMessage}|G_CONNECTED`);
@@ -830,7 +874,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
     })
       .then((res) => res.json())
       .then((data) => {
-    console.log("direction",game.camera_data[0].camera_id);
+        console.log("direction", game.camera_data[0].camera_id);
 
         localStorage.setItem("inGame", true);
         setWait(false);
@@ -978,7 +1022,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
 
         setSession(data.data);
         if (status === true) {
-          addToCart();
+          // addToCart();
         }
         if (status === false) {
           setTimeout(() => {
@@ -1023,7 +1067,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       });
   }
   async function addToCart() {
-    playAudio(music.Woohoo)
+    playAudio(music.Woohoo);
     await fetch(`${baseUrl}/cart/add`, {
       method: "POST",
       body: JSON.stringify({
@@ -1041,7 +1085,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        navigate("/win-screen")
+        navigate("/win-screen");
         gameLeave();
         socket.disconnect();
       });
@@ -1066,7 +1110,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       method: "PUT",
       body: JSON.stringify({
         user_id: user._id,
-        point: GameData.price==="0"?"":GameData.price,
+        point: GameData.price === "0" ? "" : GameData.price,
         credicts: "false",
         source: "web",
       }),
@@ -1086,7 +1130,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
           return setFreeLimitPopup(true);
         }
         setCount(count + 1);
-        playAudio(music.CoinDrop)
+        playAudio(music.CoinDrop);
         dispatch(updateProfile());
         gameStart();
       });
@@ -1162,6 +1206,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
               onClick={() => {
                 prizeReset();
                 setPrizeResetActive(false);
+                setCurrentPrizeMove(true);
               }}
             >
               YES
@@ -1169,7 +1214,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
             {/* </Link> */}
             <Link
               to="/prizes"
-              state={{category:GameData.category}}
+              state={{ category: GameData.category }}
               onClick={() => {
                 setTopup(false);
                 setPrizeResetActive(false);
@@ -1204,7 +1249,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       ) : (
         ""
       )}
-      {freePlayNotReg &&userId===null? (
+      {freePlayNotReg && userId === null ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -1315,8 +1360,8 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       ) : (
         ""
       )}
-     
-      {freeLimitPopup &&user.vip===false? (
+
+      {freeLimitPopup && user.vip === false ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -1357,7 +1402,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
               setOnPlay(false);
             }}
           ></div>
-          <div className={style.PlayIcon}>
+          {/* <div className={style.PlayIcon}>
             {onPlay === true ? (
               <button
                 onClick={() => {
@@ -1366,7 +1411,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                 }}
               >
                 {/* <img src={assets.PlayImage} alt="" /> */}
-                <MdPauseCircleFilled/>
+                {/* <MdPauseCircleFilled />
               </button>
             ) : (
               <button
@@ -1378,7 +1423,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                 <img src={playVideo} alt="" />
               </button>
             )}
-          </div>
+          </div> */}
           <div className={style.VideoSection}>
             <MdClose
               onClick={() => {
@@ -1400,7 +1445,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
               //   playing={true}
               //   controls={true}
               //   />\
-              <video ref={vidRef}>
+              <video ref={vidRef} autoPlay muted={true}>
                 <source src={game.last_win_url} type="video/mp4" />
               </video>
             )}
@@ -1457,48 +1502,64 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
       ) : (
         ""
       )}
-      {leavePopup ? <div className={style.popup}>
-        <div className={style.popupImage}>
-          <img src={assets.winchaPopup} alt="" />
-        </div>
-        <div className={style.popupText}>
-          <p>Are you sure you want to leave this game?</p>
-        </div>
-        <div className={style.ExitpopupButton}>
-          {/* <Link
+      {leavePopup ? (
+        <div className={style.popup}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Are you sure you want to leave this game?</p>
+          </div>
+          <div className={style.ExitpopupButton}>
+            {/* <Link
             to="/tickets"
             onClick={() => {
               setLeavePopup(false);
             }}
           > */}
-            <button onClick={()=>{
-              console.log(transferGame)
-              navigate(`/game/${transferGame.slug}`,{state:{game:transferGame}})
-            setLeavePopup(false)
-            window.location.reload()
-            // window.location.reload()
-            }}>YES</button>
-          {/* </Link> */}
-          <button onClick={()=>{
-            setLeavePopup(false)
-            console.log("hello");
-            
-          }}>NO</button>
+            <button
+              onClick={() => {
+                console.log(transferGame);
+                navigate(`/game/${transferGame.slug}`, {
+                  state: { game: transferGame },
+                });
+                setLeavePopup(false);
+                window.location.reload();
+                // window.location.reload()
+              }}
+            >
+              YES
+            </button>
+            {/* </Link> */}
+            <button
+              onClick={() => {
+                setLeavePopup(false);
+                console.log("hello");
+              }}
+            >
+              NO
+            </button>
+          </div>
         </div>
-      </div> : ""}
+      ) : (
+        ""
+      )}
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
-            <button style={{pointerEvents:gamePlayStatus?"none":"visible"}}
+            <button
+              style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
               onClick={() => {
                 if (gamePlayStatus === true) {
                   setActive(true);
                 }
                 if (gamePlayStatus === false) {
                   setActive(false);
-                  navigate("/prizes",{state:{category:GameData.category}});
+                  navigate("/prizes", {
+                    state: { category: GameData.category },
+                  });
                 }
-                console.log(GameData)
+                console.log(GameData);
               }}
             >
               EXIT GAME
@@ -1513,45 +1574,45 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                 // <div
                 //   to={`/game/${game.id}`}
                 //   state={{ game: game }}
-                  //  onClick={()=>{
-                    //   window.location.reload()
-                    // }}>
-                    // >
-                  <div className={style.Game}
-                  onClick={()=>{
-                    setLeavePopup(true)
-                    setTransferGame(game)
+                //  onClick={()=>{
+                //   window.location.reload()
+                // }}>
+                // >
+                <div
+                  className={style.Game}
+                  onClick={() => {
+                    setLeavePopup(true);
+                    setTransferGame(game);
                   }}
-                  
+
                   // style={{
                   //   pointerEvents: gamePlayStatus ? "none" : "visible",
                   //   cursor: gamePlayStatus ? "not-allowed" : "pointer",
                   // }}
-                  >
-                     
-                    <div className={style.Image}>
-                      <img src={game.featured_image.large} alt="" />
+                >
+                  <div className={style.Image}>
+                    <img src={game.featured_image.large} alt="" />
+                  </div>
+                  <div className={style.GameContent}>
+                    <div className={style.GameName}>
+                      <p>{game.title}</p>
                     </div>
-                    <div className={style.GameContent}>
-                      <div className={style.GameName}>
-                        <p>{game.title}</p>
+                    <div className={style.TicketPrice}>
+                      <div
+                        className={style.Ticket}
+                        onClick={() => {
+                          setPopup(true);
+                        }}
+                      >
+                        <img src={assets.ticketIcon} alt="" />
                       </div>
-                      <div className={style.TicketPrice}>
-                        <div
-                          className={style.Ticket}
-                          onClick={() => {
-                            setPopup(true);
-                          }}
-                        >
-                          <img src={assets.ticketIcon} alt="" />
-                        </div>
 
-                        <div className={style.Price}>
-                          <p>{game.price === "0" ? "FREE" : game.price}</p>
-                        </div>
+                      <div className={style.Price}>
+                        <p>{game.price === "0" ? "FREE" : game.price}</p>
                       </div>
                     </div>
                   </div>
+                </div>
                 // </div>
               );
             })}
@@ -1562,18 +1623,17 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
             <div className={style.videoStarting}>
               {/* <p>Please wait while we get the video for you!</p> */}
               <div className={style.LoaderDivSection}>
-            <div className={style.LoaderAnime}>
-              <Lotties animationData={AllAnimation.Loader} />
-            </div>
-              <p>Make Sure you have stable internet connection</p>
-            </div>
+                <div className={style.LoaderAnime}>
+                  <Lotties animationData={AllAnimation.Loader} />
+                </div>
+                <p>Make Sure you have stable internet connection</p>
+              </div>
             </div>
           ) : (
             ""
           )}
-            <div className={style.Screen}>
-          <div className={style.AllGameSectin}>
-             
+          <div className={style.Screen}>
+            <div className={style.AllGameSectin}>
               <div className={style.Icons}>
                 <div className={style.queStatus}>
                   <img src={assets.userView} alt="" />
@@ -1584,190 +1644,231 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                   <span>{viewCount ? viewCount : 0}</span>
                 </div>
               </div>
-              {game &&
-              game.camera_data &&
-              game.camera_data[0] &&
-              game.camera_data[0].camera_id === "1" ? (
-                // direction&&direction[1]==="Left"?
-                <div className={style.AllVideoSection}>
-                  <div
-                    className={camera === true ? style.hideVideo : style.video}
+              {
+                game &&
+                game.camera_data &&
+                game.camera_data[0] &&
+                game.camera_data[0].camera_id === "1" ? (
+                  // direction&&direction[1]==="Left"?
+                  <div className={style.AllVideoSection}>
+                    <div
+                      className={
+                        camera === true ? style.hideVideo : style.video
+                      }
                     >
-                    {timeoutStatus ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.timeout}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-               {playAgain ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.missed}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-                    <Screen
-                      sessionId={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[0] &&
-                        game.camera_data[0].session
+                      {timeoutStatus ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.timeout}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {playAgain ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.missed}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {currentPrizeMove||game.price_move_status===true?
+                      <div className={style.PrizeMove}>
+                        <img src={prizeMove} alt="" />
+                      </div>
+                      
+                       :""} 
+                      <Screen
+                        sessionId={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[0] &&
+                          game.camera_data[0].session
+                        }
+                        token={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[0] &&
+                          game.camera_data[0].token
+                        }
+                        setVideoGot={setVideoGot}
+                        videoGot={videoGot}
+                      />
+                    </div>
+                    
+                    <div
+                      className={
+                        camera === true ? style.video : style.hideVideo
                       }
-                      token={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[0] &&
-                        game.camera_data[0].token
-                      }
-                      setVideoGot={setVideoGot}
-                      videoGot={videoGot}
-                    />
-                  </div>
-                  <div
-                    className={camera === true ? style.video : style.hideVideo}
-                  >
-                    {timeoutStatus ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.timeout}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-               {playAgain ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.missed}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-                    <Screen
-                      sessionId={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[1] &&
-                        game.camera_data[1].session
-                      }
-                      token={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[1] &&
-                        game.camera_data[1].token
-                      }
-                      setVideoGot={setVideoGot}
-                      videoGot={videoGot}
-                    />
-                  </div>
-                </div>
-              ) : 
-              game &&
-              game.camera_data &&
-              game.camera_data[0] &&
-              game.camera_data[0].camera_id === "2"?
-              <div className={style.AllVideoSection}>
-                  <div
-                    className={camera === true ? style.hideVideo : style.video}
                     >
-                    {timeoutStatus ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.timeout}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-               {playAgain ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.missed}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-                    <Screen
-                      sessionId={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[0] &&
-                        game.camera_data[0].session
-                      }
-                      token={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[0] &&
-                        game.camera_data[0].token
-                      }
-                      setVideoGot={setVideoGot}
-                      videoGot={videoGot}
-                    />
+                      {timeoutStatus ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.timeout}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {playAgain ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.missed}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {currentPrizeMove||game.price_move_status===true?
+                      <div className={style.PrizeMove}>
+                        <img src={prizeMove} alt="" />
+                      </div>
+                      
+                       :""} 
+                      <Screen
+                        sessionId={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[1] &&
+                          game.camera_data[1].session
+                        }
+                        token={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[1] &&
+                          game.camera_data[1].token
+                        }
+                        setVideoGot={setVideoGot}
+                        videoGot={videoGot}
+                      />
+                    </div>
                   </div>
-                  <div
-                    className={camera === true ? style.video : style.hideVideo}
-                  >
-                    {timeoutStatus ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.timeout}
-                     loop={false}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-               {playAgain ? (
-                 <div className={style.TimeoutAnimation}>
-                   <Lotties
-                     animationData={AllAnimation.missed}
-                     loop={true}
-                     onComplete={() => {}}
-                   />
-                 </div>
-               ) : (
-                 ""
-               )}
-                    <Screen
-                      sessionId={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[1] &&
-                        game.camera_data[1].session
+                ) : game &&
+                  game.camera_data &&
+                  game.camera_data[0] &&
+                  game.camera_data[0].camera_id === "2" ? (
+                  <div className={style.AllVideoSection}>
+                    <div
+                      className={
+                        camera === true ? style.hideVideo : style.video
                       }
-                      token={
-                        game &&
-                        game.camera_data &&
-                        game.camera_data[1] &&
-                        game.camera_data[1].token
+                    >
+                      {currentPrizeMove||game.price_move_status===true === false ? (
+                        <div className={style.PrizeMove}>
+                          <img src={prizeMove} alt="" />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {timeoutStatus ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.timeout}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {playAgain ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.missed}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {currentPrizeMove||game.price_move_status===true?
+                      <div className={style.PrizeMove}>
+                        <img src={prizeMove} alt="" />
+                      </div>
+                      
+                       :""} 
+                      <Screen
+                        sessionId={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[0] &&
+                          game.camera_data[0].session
+                        }
+                        token={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[0] &&
+                          game.camera_data[0].token
+                        }
+                        setVideoGot={setVideoGot}
+                        videoGot={videoGot}
+                      />
+                    </div>
+                    <div
+                      className={
+                        camera === true ? style.video : style.hideVideo
                       }
-                      setVideoGot={setVideoGot}
-                      videoGot={videoGot}
-                    />
+                    >
+                      {timeoutStatus ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.timeout}
+                            loop={false}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {playAgain ? (
+                        <div className={style.TimeoutAnimation}>
+                          <Lotties
+                            animationData={AllAnimation.missed}
+                            loop={true}
+                            onComplete={() => {}}
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {currentPrizeMove||game.price_move_status===true?
+                      <div className={style.PrizeMove}>
+                        <img src={prizeMove} alt="" />
+                      </div>
+                      
+                       :""} 
+                      <Screen
+                        sessionId={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[1] &&
+                          game.camera_data[1].session
+                        }
+                        token={
+                          game &&
+                          game.camera_data &&
+                          game.camera_data[1] &&
+                          game.camera_data[1].token
+                        }
+                        setVideoGot={setVideoGot}
+                        videoGot={videoGot}
+                      />
+                    </div>
                   </div>
-                </div>
-              :""// :direction&&direction[1]==="Right"?
-             
+                ) : (
+                  ""
+                ) // :direction&&direction[1]==="Right"?
               }
               <div className={style.Controls}>
                 <div className={style.Left}>
@@ -1793,6 +1894,7 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                         <button
                           onClick={() => {
                             setPrizeResetActive(true);
+                            setPlayAgain(false);
 
                             // prizeReset()
                           }}
@@ -1814,476 +1916,682 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                       <img src={assets.GamePricePng} alt="" />
                       <span>{GameData?.price}</span>
                     </div>
-                   {gamePlayStatus?
-                   que==="0"?
-                   wait===true?
-                   <Lotties
-                      animationData={AllAnimation.waitPulse}
-                      loop={false}
-                      onComplete={() => {
-                        PointDebit();
-                      }}
-                    />
-                   :
-                   firstStep?
-                   game.camera_data[0].camera_id === "1"?
-                   direction&&direction[1] === "Right"?
-                   <div className={style.ArrowBothButtons}>
-                   <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                    <Lotties
-                      animationData={AllAnimation.Progress}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setFirstStep(false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                      ref={animeRef}
-                    />
-                    <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt="" onMouseDown={() => {
-                                  FirstArrowPress("RIGHT");
-                                  console.log(animeRef)
-                                  setCameraState1(true)
-                                }}
-                                onMouseUp={() => {
-                                  FirstArrowRelease("RL_STOP");
-                                  setCameraState1(false)
-                                }}/>
+                    {gamePlayStatus ? (
+                      que === "0" ? (
+                        wait === true ? (
+                          <Lotties
+                            animationData={AllAnimation.waitPulse}
+                            loop={false}
+                            onComplete={() => {
+                              PointDebit();
+                            }}
+                          />
+                        ) : firstStep ? (
+                          game.camera_data[0].camera_id === "1" ? (
+                            direction && direction[1] === "Right" ? (
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                    ref={animeRef}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                    ref={animeRef}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.RightArrowPressed
+                                        : assets.RightArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState2(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState2(false);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : direction && direction[1] === "Left" ? (
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log(animeRef.current);
+                                      console.log("clicked");
+                                      setCameraState2(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState2(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                    // isPaused={animeRef}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.LeftArrowPressed
+                                        : assets.LeftArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      // console.log(cameraState1)
+                                      setCameraState1(true);
+                                      // console.log(animeRef.current)
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : (
+                              ""
+                            )
+                          ) : game.camera_data[0].camera_id === "2" ? (
+                            direction && direction[1] === "Right" ? (
+                              //  <div className={style.playImageLoader}>
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.RightArrowPressed
+                                        : assets.RightArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState2(false);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState2(true);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : direction && direction[1] === "Left" ? (
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.LeftArrowPressed
+                                        : assets.LeftArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      setCameraState2(false);
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      setCameraState2(true);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : (
+                              ""
+                            )
+                          ) : (
+                            <button>
+                              <Lotties
+                                animationData={AllAnimation.ReverseWait}
+                                loop={false}
+                              />
+                            </button>
+                          )
+                        ) : secondStep ? (
+                          game.camera_data[0].camera_id === "1" ? (
+                            direction && direction[1] === "Right" ? (
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.LeftArrowPressed
+                                        : assets.LeftArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : direction && direction[1] === "Left" ? (
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.RightArrowPressed
+                                        : assets.RightArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : (
+                              <button>
+                                <img src={waitStatic} alt="" />
+                              </button>
+                            )
+                          ) : game.camera_data[0].camera_id === "2" ? (
+                            direction && direction[1] === "Right" ? (
+                              //  <div className={style.playImageLoader}>
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left true");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                      console.log(cameraState2);
+                                    }}
+                                    onMouseUp={() => {
+                                      setCameraState2(false);
+                                      console.log(cameraState2);
 
-                    </div>
-                   <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                    <Lotties
-                      animationData={AllAnimation.Progress}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setFirstStep(false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                      ref={animeRef}
-                    />
-                    <img src={cameraState2?assets.RightArrowPressed:assets.RightArrow} alt="" onMouseDown={() => {
-                                  FirstArrowPress("RIGHT");
-                                  console.log(animeRef)
-                                  setCameraState2(true)
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      console.log("second arrow left false");
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.LeftArrowPressed
+                                        : assets.LeftArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
+                                      //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      console.log(
+                                        "second release arrow left false"
+                                      );
 
-
-                                }}
-                                onMouseUp={() => {
-                                  FirstArrowRelease("RL_STOP");
-                                  setCameraState2(false)
-
-                                }}/>
-
-                    </div>
-                  </div>
-                   :direction&&direction[1] === "Left"? 
-                    <div className={style.ArrowBothButtons}>
-                   <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                    <Lotties
-                      animationData={AllAnimation.Progress}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setFirstStep(false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState2?assets.UpArrowPressed:assets.UpArrow} alt="" onMouseDown={() => {
-                                    FirstArrowPress("LEFT");
-                                  console.log(animeRef.current)
-                                  console.log("clicked");
-                                  setCameraState2(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    FirstArrowRelease("LR_STOP");
-                                    console.log("released");
-                                  console.log(animeRef.current)
-                                  setCameraState2(false)
-
-
-                                  }}/>
-
-                    </div>
-                   <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                    <Lotties
-                      animationData={AllAnimation.Progress}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setFirstStep(false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                      // isPaused={animeRef}
-
-                    />
-                    <img src={cameraState1?assets.LeftArrowPressed:assets.LeftArrow} alt="" onMouseDown={() => {
-                                    FirstArrowPress("LEFT");
-                                    console.log("clicked");
-                                    // console.log(cameraState1)
-                                    setCameraState1(true)
-                                  // console.log(animeRef.current)
-
-                                  }}
-                                  onMouseUp={() => {
-                                    FirstArrowRelease("LR_STOP");
-                                    console.log("released");
-                                  console.log(animeRef.current)
-                                  setCameraState1(false)
-
-
-                                  }}/>
-
-                    </div>
-                  </div>:
-                   ""
-                   :game.camera_data[0].camera_id === "2"?
-                   direction&&direction[1] === "Right"?
-                  //  <div className={style.playImageLoader}>
-                  <div className={style.ArrowBothButtons}>
-                  <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                   <Lotties
-                     animationData={AllAnimation.Progress}
-                     loop={false}
-                     onComplete={() => {
-                      timeOut(userId, false);
-                      setFirstStep(false);
-                      setSecondStep(false);
-                      setTimeoutStatus(true);
-                    }}
-                   />
-                   <img src={cameraState1?assets.RightArrowPressed:assets.RightArrow} alt="" onMouseDown={() => {
-                                  FirstArrowPress("RIGHT");
-                                  setCameraState1(true)
-
-                                }}
-                                onMouseUp={() => {
-                                  FirstArrowRelease("RL_STOP");
-                                  setCameraState1(false)
-
-                                }}/>
-
-                   </div>
-                  <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                   <Lotties
-                     animationData={AllAnimation.Progress}
-                     loop={false}
-                     onComplete={() => {
-                      timeOut(userId, false);
-                      setFirstStep(false);
-                      setSecondStep(false);
-                      setTimeoutStatus(true);
-                    }}
-                   />
-                   <img src={cameraState2?assets.UpArrowPressed:assets.UpArrow} alt="" onMouseDown={() => {
-                                  FirstArrowPress("RIGHT");
-                                  setCameraState2(false)
-
-                                }}
-                                onMouseUp={() => {
-                                  FirstArrowRelease("RL_STOP");
-                                  setCameraState2(true)
-
-                                }} />
-
-                   </div>
-                 </div>
-                   :direction&&direction[1] === "Left"?
-                   <div className={style.ArrowBothButtons}>
-                   <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                    <Lotties
-                      animationData={AllAnimation.Progress}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setFirstStep(false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState1?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
-                                    FirstArrowPress("LEFT");
-                                    console.log("clicked");
-                                  setCameraState1(true)
-
-                                  }}
-                                  onMouseUp={() => {
-                                    FirstArrowRelease("LR_STOP");
-                                    console.log("released");
-                                  setCameraState1(false)
-
-                                  }}/>
-
-                    </div>
-                   <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                    <Lotties
-                      animationData={AllAnimation.Progress}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setFirstStep(false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState2?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
-                                    FirstArrowPress("LEFT");
-                                    console.log("clicked");
-                                  setCameraState2(false)
-
-                                  }}
-                                  onMouseUp={() => {
-                                    FirstArrowRelease("LR_STOP");
-                                    console.log("released");
-                                  setCameraState2(true)
-
-                                  }}/>
-
-                    </div>
-                  </div>:
-                   ""
-                   :<button>
-                   <Lotties
-                     animationData={AllAnimation.ReverseWait}
-                     loop={false}
-                   />
-                 </button>
-                   :secondStep?
-                   game.camera_data[0].camera_id === "1"?
-                   direction&&direction[1] === "Right"?
-                   <div className={style.ArrowBothButtons}>
-                   <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                    <Lotties
-                      animationData={AllAnimation.Progress1}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState1?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
-                                    console.log("second arrow left false");
-                                    SecondArrowPress();
-                                    setCameraState1(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    SecondArrowRelease();
-                                    setCameraState1(false)
-                                  }}/>
-
-                    </div>
-                   <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                    <Lotties
-                      animationData={AllAnimation.Progress1}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState2?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
-                                    console.log("second arrow left false");
-                                    SecondArrowPress();
-                                    setCameraState2(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    SecondArrowRelease();
-                                    setCameraState2(false)
-                                  }}/>
-
-                    </div>
-                  </div>
-                   :direction&&direction[1] === "Left"? 
-                    <div className={style.ArrowBothButtons}>
-                   <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                    <Lotties
-                      animationData={AllAnimation.Progress1}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState1?assets.RightArrowPressed:assets.RightArrow} alt=""  onMouseDown={() => {
-                                    console.log("second arrow left false");
-                                    SecondArrowPress();
-                                    setCameraState1(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    SecondArrowRelease();
-                                    setCameraState1(false)
-                                  }}/>
-
-                    </div>
-                   <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                    <Lotties
-                      animationData={AllAnimation.Progress1}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState2?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
-                                    console.log("second arrow left false");
-                                    SecondArrowPress();
-                                    setCameraState2(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    SecondArrowRelease();
-                                    setCameraState2(false)
-                                  }}/>
-
-                    </div>
-                  </div>:
-                   <button>
-                    <img src={waitStatic} alt="" />
-                   </button>
-                   :game.camera_data[0].camera_id === "2"?
-                   direction&&direction[1] === "Right"?
-                  //  <div className={style.playImageLoader}>
-                  <div className={style.ArrowBothButtons}>
-                  <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                   <Lotties
-                     animationData={AllAnimation.Progress1}
-                     loop={false}
-                     onComplete={() => {
-                      timeOut(userId, false);
-                      setSecondStep(false);
-                      setTimeoutStatus(true);
-                    }}
-                   />
-                   <img src={cameraState2?assets.UpArrowPressed:assets.UpArrow} alt="" onMouseDown={() => {
-                  //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
-                    console.log("second arrow left true");
-                    SecondArrowPress();
-                    setCameraState1(true)
-      console.log(cameraState2)
-
-                                  }}
-                                  onMouseUp={() => {
-                                    setCameraState2(false)
-      console.log(cameraState2)
-
-                                    SecondArrowRelease();
-                                    setCameraState2(false)
-                                    console.log("second arrow left false");
-
-                                  }}/>
-
-                   </div>
-                  <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                   <Lotties
-                     animationData={AllAnimation.Progress1}
-                     loop={false}
-                     onComplete={() => {
-                      timeOut(userId, false);
-                      setSecondStep(false);
-                      setTimeoutStatus(true);
-                    }}
-                   />
-                   <img src={cameraState1?assets.LeftArrowPressed:assets.LeftArrow} alt="" onMouseDown={() => {
-                  //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
-                  //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
-                    console.log("second arrow left false");
-                    SecondArrowPress();
-                    setCameraState1(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    console.log("second release arrow left false");
-                                    
-                                    SecondArrowRelease();
-                                    setCameraState1(false)
-                                  }}
-                                  onDragStart={preventDragHandler}/>
-
-                   </div>
-                 </div>
-                   :direction&&direction[1] === "Left"?
-                   <div className={style.ArrowBothButtons}>
-                   <div className={camera?style.playImageLoader:style.playImageLoaderActive}>
-                    <Lotties
-                      animationData={AllAnimation.Progress1}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
-                                    console.log("second arrow left false");
-                                    SecondArrowPress();
-                                    setCameraState1(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    SecondArrowRelease();
-                                    setCameraState1(false)
-                                  }}/>
-
-                    </div>
-                   <div className={camera?style.playImageLoaderActive:style.playImageLoader}>
-                    <Lotties
-                      animationData={AllAnimation.Progress1}
-                      loop={false}
-                      onComplete={() => {
-                        timeOut(userId, false);
-                        setSecondStep(false);
-                        setTimeoutStatus(true);
-                      }}
-                    />
-                    <img src={cameraState2?assets.RightArrowPressed:assets.RightArrow} alt=""  onMouseDown={() => {
-                                    console.log("second arrow left false");
-                                    SecondArrowPress();
-                                    setCameraState2(true)
-                                  }}
-                                  onMouseUp={() => {
-                                    SecondArrowRelease();
-                                    setCameraState2(false)
-                                  }}/>
-
-                    </div>
-                  </div>:
-                   <button>
-                   <img src={waitStatic} alt="" />
-                  </button>
-                   :<button>
-                   <Lotties
-                     animationData={AllAnimation.ArrowLeft}
-                     loop={false}
-                   />
-                 </button>:
-                  timeoutStatus?
-                  <button>
-                  <img src={assets.timeOutImage} alt="" />
-                </button>
-                   :<button>
-                   <Lotties
-                     animationData={waitAnimation}
-                     loop={false}
-                     onComplete={() => {
-                       setGamePlayStatus(false);
-                       setGamePlay(false);
-                       setPlayAgain(true);
-                     }}
-                   />
-                 </button>
-                   :<button>
-                   <Lotties
-                     animationData={AllAnimation.wait_50}
-                     loop={false}
-                   />
-                 </button>
-                   :playAgain?
-                   <button
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                    onDragStart={preventDragHandler}
+                                  />
+                                </div>
+                              </div>
+                            ) : direction && direction[1] === "Left" ? (
+                              <div className={style.ArrowBothButtons}>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoader
+                                      : style.playImageLoaderActive
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState1
+                                        ? assets.UpArrowPressed
+                                        : assets.UpArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                  />
+                                </div>
+                                <div
+                                  className={
+                                    camera
+                                      ? style.playImageLoaderActive
+                                      : style.playImageLoader
+                                  }
+                                >
+                                  <Lotties
+                                    animationData={AllAnimation.Progress1}
+                                    loop={false}
+                                    onComplete={() => {
+                                      timeOut(userId, false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
+                                    }}
+                                  />
+                                  <img
+                                    src={
+                                      cameraState2
+                                        ? assets.RightArrowPressed
+                                        : assets.RightArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            ) : (
+                              <button>
+                                <img src={waitStatic} alt="" />
+                              </button>
+                            )
+                          ) : (
+                            <button>
+                              <Lotties
+                                animationData={AllAnimation.ArrowLeft}
+                                loop={false}
+                              />
+                            </button>
+                          )
+                        ) : timeoutStatus ? (
+                          <button>
+                            <img src={assets.timeOutImage} alt="" />
+                          </button>
+                        ) : (
+                          <button>
+                            <Lotties
+                              animationData={waitAnimation}
+                              loop={false}
+                              onComplete={() => {
+                                setGamePlayStatus(false);
+                                setGamePlay(false);
+                                setPlayAgain(true);
+                              }}
+                            />
+                          </button>
+                        )
+                      ) : (
+                        <button>
+                          <Lotties
+                            animationData={AllAnimation.wait_50}
+                            loop={false}
+                          />
+                        </button>
+                      )
+                    ) : playAgain ? (
+                      <button
                         onClick={() => {
                           setWait(true);
                           setGamePlayStatus(true);
@@ -2307,8 +2615,8 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                         <Lotties
                           animationData={AllAnimation.ReversePlay}
                           loop={false}
-                          onLoad={()=>{
-                            playAudio(music.Woohoo)
+                          onLoad={() => {
+                            playAudio(music.Woohoo);
                           }}
                           // pause={prizeResetActive}
                           onComplete={() => {
@@ -2317,16 +2625,18 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                           }}
                         />
                       </button>
-                   :
-                   <button
-                   onClick={(e) => {
-                     gameJoin(e);
-                   }}
-                 >
-                   <img src={assets.PlayImage} alt="" />
-                 </button>}
+                    ) : (
+                      <button
+                        onClick={(e) => {
+                          gameJoin(e);
+                        }}
+                      >
+                        <img src={assets.PlayImage} alt="" />
+                      </button>
+                    )}
                   </div>
-                  <div className={style.Report}
+                  <div
+                    className={style.Report}
                     style={{
                       pointerEvents: gamePlayStatus ? "none" : "visible",
                     }}
@@ -2340,7 +2650,8 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                     </button>
                   </div>
                 </div>
-                <div className={style.Right}
+                <div
+                  className={style.Right}
                   style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
                 >
                   <div className={style.LastWin}>
@@ -2391,7 +2702,8 @@ const Description = ({ gameMusic, setGameMusic, gameSound, setGameSound,active, 
                 <p>{GameData?.title}</p>
               </div>
               <div className={style.CloseIcon}>
-                <IoIosArrowDown                  onClick={() => {
+                <IoIosArrowDown
+                  onClick={() => {
                     setminimized(true);
                   }}
                 />

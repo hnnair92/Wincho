@@ -546,12 +546,14 @@ const Games = () => {
               setCountSection(0)
               setPopup(false);
               console.log(imageGallery)
+             
             }}>
 
             </div>
             <div
               className={style.Popup}
               onClick={() => {
+                console.log(gameData.content.length)
                 setPopup(true);
               }}
             >

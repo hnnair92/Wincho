@@ -312,6 +312,13 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         navigate(`/${MMenu.url}`);
                       }}
                     />
+                    {MMenu.Badge === true ? (
+                    <span className={style.CartBadge}>
+                      {cart && cart.length ? cart && cart.length : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                   </div>
                 );
               })}
@@ -401,6 +408,13 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                             ? ""
                             : menu.Name}
                         </p>
+                        {menu.Badge === true ? (
+                    <span className={style.CartBadge}>
+                      {cart && cart.length ? cart && cart.length : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                         {/* <p className={id===menu.id&&menu.name!="Logout"&&menu.name!="Login/Register"?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p> */}
                         {menu.Name === "Music" ? (
                           <div className={style.Music}>
@@ -652,6 +666,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         }}
                       >
                         {/* if(menu.Name) */}
+                        
                         <p
                           className={
                             id === menu.id ? style.ActiveUrl : style.NormalUrl
@@ -664,6 +679,13 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                             ? ""
                             : menu.Name}
                         </p>
+                        {menu.Badge === true ? (
+                    <span className={style.CartBadge}>
+                      {cart && cart.length ? cart && cart.length : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                         {/* {userId===null?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl> menu.Name==="Login/Register"?menu.Name:menu.Name==="Logout"?menu.Name?menu.Name:""</p>} */}
                         {/* // :<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name==="Logout"?menu.Name:""}</p>} */}
                         {/* {userId===null?menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:"":menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:""} */}

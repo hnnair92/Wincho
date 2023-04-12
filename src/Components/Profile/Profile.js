@@ -15,11 +15,21 @@ import { assets } from "../Description/assests";
 import eye from "../../assests/Password Eye.png";
 import info from "../../assests/Information Icon.png";
 import icon from "../../assests/Wincha Support Icon.png";
+import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png"
+import FreeplaySection from "../../assests/Artboard 48 Freeplay Icon and TEXT.png"
+import NotificationSection from "../../assests/Artboard 48 Notification Icon and TEXT.png"
+import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.png"
+import CloseImage from "../../assests/Artboard 48 X.png"
+import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
+import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
+import Lottie from "lottie-react";
+import { AllAnimation } from "../../Animation/allAnimation";
 const Profile = () => {
   const baseUrl = "https://uat.wincha-online.com";
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [premiumPopup, setPremiumPopup] = useState(false);
   const [password, setPassword] = useState("");
   const [subscription, setSubscription] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -72,8 +82,111 @@ const Profile = () => {
       setResendEmail(true);
     }
   }, []);
+  const [loading,setLoading] = useState(false)
+  async function resendEmailApi(){
+    setLoading(true)
+    await fetch(`${baseUrl}/user/verification/resend`, {
+      method: "POST",
+      body: JSON.stringify({
+        user_id: userId,
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false)
+        setResendEmail(false)
+      });
+  }
   return (
     <div className={style.Container}>
+    {premiumPopup?
+      <div className={style.clubHousePopup}>
+        <div className={style.ClubHouse}>
+            <div className={style.TopImage}>
+          <div className={style.clubHouseClose} onClick={()=>{
+            setPremiumPopup(false)
+          }}>
+            {/* <MdClose/> */}
+            <img src={CloseImage} alt="" />
+          </div>
+              <img src={Upper} alt="" />
+            </div>
+            <div className={style.BottomContents}>
+              {/* <div className={style.LowerImg}>
+                <img src={Lower} alt="" />
+              </div> */}
+              <div className={style.BonusPoints}>
+                  <div className={style.Bonus}>
+                    <p>{configuration.VIP_BONUS_POINT}W</p>
+                  </div>
+                  <div className={style.BonusText}>
+                    <p>Sign Up Bonus!</p>
+                  </div>
+              </div>
+              <div className={style.benefits}>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={ShippingSection} alt="" />
+
+                  </div>
+                  
+                </div>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={BundleSection} alt="" />
+
+                  </div>
+                  
+                </div>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={NotificationSection} alt="" />
+
+                  </div>
+                  
+                </div>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={FreeplaySection} alt="" />
+
+                  </div>
+                  
+                </div>
+              </div>
+              <div className={style.SubscribeButton}>
+                <button>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+              </div>
+              <div className={style.CancelSubscription}>
+                <p>Cancel any time</p>
+              </div>
+            </div>
+            <div className={style.TermsAndPolicy}>
+              <div className={style.Terms} onClick={()=>{
+                window.open(
+                  `${ configuration.terms}`,
+                  "_blank"
+                );
+              }}>
+                <p>Subscription Terms</p>
+              </div>
+              <div className={style.Policy} onClick={()=>{
+                window.open(
+                  `${ configuration.privacy}`,
+                  "_blank"
+                );
+              }}>
+                <p>Privacy Policy</p>
+              </div>
+            </div>
+        </div>
+
+      </div>
+      
+      :""}
       <div className={style.Profile}>
         {passIcon ? (
           <div className={style.Passpopup}>
@@ -236,6 +349,9 @@ const Profile = () => {
         )}
         {resendEmail ? (
           <div className={style.popup}>
+          {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""}
             <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
@@ -243,14 +359,18 @@ const Profile = () => {
               <p>Awaiting player verification</p>
             </div>
             <div className={style.popupButton}>
-              <Link
-                to="/tickets"
+              <div
+                // to="/tickets"
                 onClick={() => {
-                  setResendEmail(false);
+                  // setResendEmail(false);
+                  // resendEmailApi()
                 }}
               >
-                <button>RESEND EMAIL</button>
-              </Link>
+                <button  onClick={() => {
+                  // setResendEmail(false);
+                  resendEmailApi();
+                }}>RESEND EMAIL</button>
+              </div>
             </div>
           </div>
         ) : (

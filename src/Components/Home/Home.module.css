@@ -276,6 +276,9 @@
 }
 
 @media(max-width:1065px){
+    .ContactSection{
+        width: 100%;
+    }
     .Home{
         display: none;
     }
@@ -332,6 +335,19 @@
     }
 }
 @media(max-width:767px){
+    .ContactSection p{
+            /* text-align: left; */
+    font-family: drumshake_italic;
+    font-size: 9rem;
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+    font-weight: 500;
+    }
+    .ContactSection .StrokeContact{
+        font-size: 4rem;
+    }
+
     .Ticket a,.TicketTop a{
         position: -webkit-fixed;
         position: fixed;
@@ -462,6 +478,7 @@
     border-radius: 25px;
     font-family: myraidproregular;
     color: #1b8fe7;
+    resize: none;
 }
 .popupText form input::-webkit-input-placeholder,.popupText form textarea::-webkit-input-placeholder{
     color: #1b8fe7;

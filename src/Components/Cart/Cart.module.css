@@ -899,3 +899,7 @@ video{
 .AddressEditBtn{
     cursor: pointer;
 }
+.AddressSection input::-webkit-input-placeholder{
+    opacity: 1;
+    color: gray;
+}
