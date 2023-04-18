@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
+import { AboutBg } from './AboutImage';
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     const[scrollNav,setScrollNav] = useState(false);
@@ -255,7 +256,38 @@ const Home = () => {
                         <img src="" alt="" />
                     </div>
             </div>
-            <div className={style.MAbout}></div>
+            <div className={style.MAbout}>
+            {/* <div className={style.About} id="about"> */}
+                <div className={style.Image}>
+                {/* <img src={AppStore} alt="" className={style.AppStore}/> */}
+                    <div className={style.LeftIcons}>
+                        <span><HiOutlineChevronLeft onClick={()=>{
+                            leftHandle()
+                        }}/></span>
+                    </div>
+                    <div className={style.Slider}>
+                        <img src={AboutBg[id]} alt="" />
+                    </div>
+                    <div className={style.Slidernav}>
+                        {AboutBg.map((item,index)=>{
+                            return(
+                                <div className={style.CircleNav}>
+                                    <button onClick={()=>{
+                                        setId(index)
+                                    }} className={id===index?style.Active:style.NonActive}></button>
+                                </div>
+                            )
+                        })}
+                    </div>
+                    <div className={style.RightIcons}>
+                        <span><HiOutlineChevronRight onClick={()=>{
+                            rightHandle()
+                        }}/></span>
+                    </div>
+                </div>
+            {/* </div> */}
+
+            </div>
             <div className={style.MWatch}>
             <img src={WatchData[0]} alt="" />
             </div>

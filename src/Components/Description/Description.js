@@ -21,6 +21,7 @@ import { music } from "../../assests/Musics/allMusic.js";
 import waitStatic from "../../assests/Wait Pressed Button.png";
 import Lottie from "lottie-web";
 import prizeMove from "../../assests/43 POP UP Full.png";
+import overlayImage from '../../assests/Asset 1.png'
 const Description = ({
   gameMusic,
   setGameMusic,
@@ -46,7 +47,7 @@ const Description = ({
   console.log(state);
   // const location = useLocation()
   useEffect(() => {
-    if (GameData.content.length < 75) {
+    if (GameData?.content?.length < 75) {
       console.log(GameData.content);
     }
   });
@@ -96,7 +97,8 @@ const Description = ({
   // console.log(vidRef.current&&vidRef.current.play())
   // console.log(vidRef.current)
   // console.log(vidRef)
-
+  const [overlay,setOverlay] = useState(true);
+  const [sendCategory,setSendCategory] = useState("")
   const [lastWin, setLastWin] = useState(false);
   const [minimized, setminimized] = useState(false);
   const [timeoutStatus, setTimeoutStatus] = useState(false);
@@ -161,6 +163,12 @@ const Description = ({
   const { products } = useSelector((state) => state.collectionProducts);
 
   //   sockets
+  useEffect(()=>{
+    if(GameData.category){
+      const datas = GameData.category.split(",")
+      setSendCategory(datas[0])
+    }
+  })
   useEffect(() => {
     checkFreePlay();
     socket.on("connect", () => {
@@ -180,6 +188,10 @@ const Description = ({
       checkAnime();
     }
   }, []);
+  useEffect(()=>{
+    console.log(currentPrizeMove)
+    console.log(game.price_move_status)
+  },[camera])
   useEffect(() => {
     socket.on("game_que_count", (res) => {
       const splitRes = res.split("|");
@@ -240,6 +252,7 @@ const Description = ({
       const splitRes = res.split("|");
       const data = splitRes[splitRes.length - 1];
       const splitId = splitRes[1].split(":");
+      const machineId = splitRes[1].split(":")
       const user = splitRes[0].split(":")
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
         setPlayAgain(false);
@@ -251,7 +264,7 @@ const Description = ({
       }
       if (
         data === "RH_POSITION_CHANGED" &&
-        GameData.machine_code === splitId[1]
+        GameData.machine_code === machineId[1]
       ) {
         setCurrentPrizeMove(false);
         socket.emit("sent_help_status", `${baseMessage}|RECEIVED`);
@@ -260,7 +273,7 @@ const Description = ({
           `${baseMessage}|RH_POSITION_CHANGED`
         );
         if(user[1]===userId){
-
+        setCurrentPrizeMove(false);
           setGamePlayStatus(true);
           setGamePlay(true);
           setWait(true);
@@ -334,6 +347,14 @@ const Description = ({
     // }
     // console.log(gameMusic)
   }, [gameMusic]);
+  useEffect(()=>{
+    console.log(videoGot)
+    if(videoGot===true){
+    setTimeout(()=>{
+        setOverlay(false)
+      },3000)
+    }
+  },[videoGot])
   useEffect(() => {
     console.log(gameMusic === "true", "gameSound");
     console.log(typeof gameMusic, "gameMusic");
@@ -745,16 +766,17 @@ const Description = ({
     setTimeoutStatus(true);
     setTimeout(async () => {
       await gameLeave(userId, timeout_status);
-      EntryRequest.replay = true;
-      dispatch(gameEntry(EntryRequest));
-      setTimeoutStatus(false);
+      // EntryRequest.replay = true;
+      // dispatch(gameEntry(EntryRequest));
+      // setTimeoutStatus(false);
+      navigate("/prizes",{state:{category:sendCategory}})
     }, 5000);
   }
   async function replayTimeout(id) {
     setId(id);
     gameLeave(id, false);
     setPlayAgain(false);
-    navigate("/prizes", { state: { category: GameData.category } });
+    navigate("/prizes", { state: { category: sendCategory } });
   }
   async function checkAnime() {
     switch (game.machine_delay_time) {
@@ -1062,7 +1084,10 @@ const Description = ({
             );
           }, 1000);
           setTimeoutStatus(false);
-          window.location.reload();
+          if(timeoutStatus===true){
+            window.location.reload();
+
+          }
         }
       });
   }
@@ -1193,7 +1218,7 @@ const Description = ({
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Woah there you haven't got enough tickets</p>
+            <p>Shall we move the prize to an easier position</p>
           </div>
           <div className={style.popupButton}>
             {/* <Link
@@ -1485,7 +1510,7 @@ const Description = ({
             <div
               className={style.popupPlayNow}
               onClick={() => {
-                navigate(`/game/${SelGameData.id}`, {
+                navigate(`/game/${SelGameData.slug}`, {
                   state: { game: SelGameData },
                 });
               }}
@@ -1556,7 +1581,7 @@ const Description = ({
                 if (gamePlayStatus === false) {
                   setActive(false);
                   navigate("/prizes", {
-                    state: { category: GameData.category },
+                    state: { category: sendCategory },
                   });
                 }
                 console.log(GameData);
@@ -1580,6 +1605,7 @@ const Description = ({
                 // >
                 <div
                   className={style.Game}
+                  style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
                   onClick={() => {
                     setLeavePopup(true);
                     setTransferGame(game);
@@ -1656,6 +1682,18 @@ const Description = ({
                         camera === true ? style.hideVideo : style.video
                       }
                     >
+                      {overlay?
+                      
+                      <div className={style.gameGuideOverlay}>
+                        <div className={style.GameFullOverlay} onClick={()=>{
+                          setOverlay(false)
+                        }}>
+
+                        </div>
+                      <img src={overlayImage} alt="" />
+                    </div>
+                  :""}
+                      
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -1678,7 +1716,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove||game.price_move_status===true?
+                      {currentPrizeMove===true||game.price_move_status===true?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
@@ -1707,6 +1745,17 @@ const Description = ({
                         camera === true ? style.video : style.hideVideo
                       }
                     >
+                     {overlay?
+                      
+                      <div className={style.gameGuideOverlay}>
+                        <div className={style.GameFullOverlay} onClick={()=>{
+                          setOverlay(false)
+                        }}>
+
+                        </div>
+                      <img src={overlayImage} alt="" />
+                    </div>
+                  :""}
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -1729,7 +1778,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove||game.price_move_status===true?
+                      {currentPrizeMove===true||game.price_move_status===true?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
@@ -1763,7 +1812,18 @@ const Description = ({
                         camera === true ? style.hideVideo : style.video
                       }
                     >
-                      {currentPrizeMove||game.price_move_status===true === false ? (
+                     {overlay?
+                      
+                      <div className={style.gameGuideOverlay}>
+                        <div className={style.GameFullOverlay} onClick={()=>{
+                          setOverlay(false)
+                        }}>
+
+                        </div>
+                      <img src={overlayImage} alt="" />
+                    </div>
+                  :""}
+                      {currentPrizeMove===true||game.price_move_status===true ? (
                         <div className={style.PrizeMove}>
                           <img src={prizeMove} alt="" />
                         </div>
@@ -1792,7 +1852,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove||game.price_move_status===true?
+                      {currentPrizeMove===true||game.price_move_status===true?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
@@ -1820,6 +1880,17 @@ const Description = ({
                         camera === true ? style.video : style.hideVideo
                       }
                     >
+                      {overlay?
+                      
+                      <div className={style.gameGuideOverlay}>
+                        <div className={style.GameFullOverlay} onClick={()=>{
+                          setOverlay(false)
+                        }}>
+
+                        </div>
+                      <img src={overlayImage} alt="" />
+                    </div>
+                  :""}
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -1842,7 +1913,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove||game.price_move_status===true?
+                      {currentPrizeMove===true||game.price_move_status===true?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>

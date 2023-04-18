@@ -148,6 +148,7 @@
 .email::-webkit-input-placeholder{
     text-align: center;
     text-transform: uppercase;
+    
 }
 .loginError{
     text-align: left;
@@ -193,7 +194,7 @@
     border:none;
     outline:none;
     font-family: "Poppins";
-    width: 100%;
+
     font-size: 3rem;
     background-color: #fff;
     /* height: 5.68rem; */
@@ -214,6 +215,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    z-index: 9;
 }
 .content{
     margin: 10% 0;
@@ -223,6 +225,12 @@
     flex-direction: column;
     list-style: circle;
     font-size: 2rem;
+}
+.content ul p{
+    
+    color: #fff;
+    padding: 7px 0;
+    text-align: center;
 }
 .content ul li{
     margin: 7px 0px;
@@ -311,6 +319,19 @@
 .PasswordError{
     color: red;
 }
+@media(min-width:510px) and (max-width:1056px){
+    .Login{
+        justify-content: center;
+    }
+    .popup{
+        width: 60%;
+        
+    }
+    .content ul{
+        font-size: 3rem;
+    }
+    
+}
 @media(max-width:500px){
     .Left{
         display: none;
@@ -345,18 +366,23 @@
         margin: 0.56rem; */
     }
     .email{
-        height: 6.11rem;
-        font-size: 2.7rem;
+        height: 5.11rem;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    .passwordInput::-webkit-input-placeholder{
+        font-size: 2rem;
+        font-weight: 500;
     }
     .Btns button{
         font-size: 2.0rem;
         font-weight: 500;
         height: 5.11rem;
     }
-}
-@media(min-width:550px) and (max-width:1056px){
-    .Login{
-        justify-content: center;
+    .popup{
+        width: 90%;
+        padding: 30px;
+       
     }
 }
 @media(max-width:1065px){

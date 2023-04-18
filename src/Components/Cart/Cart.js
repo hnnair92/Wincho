@@ -25,7 +25,7 @@ import CloseImage from "../../assests/Artboard 48 X.png";
 import Lower from "../../assests/Artboard 48 - Lower Image Split.png";
 import Upper from "../../assests/Artboard 48 - Upper Image Split.png";
 import { updateProfile } from "../../actions/user";
-
+import {FaChevronDown} from 'react-icons/fa'
 const Cart = () => {
   const dispatch = useDispatch();
   // const[prime,setPrime] = useState(true)
@@ -51,7 +51,11 @@ const Cart = () => {
   const [zipcode, setZipCode] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [number, setNumber] = useState("");
+  const [firstName,setFirstName] = useState("")
+  const [lastName,setLastName] = useState("")
   // UseState
+  const[allState,setAllState] = useState([])
+  const[selectState,setSelectState] = useState(false)
   const [userCountry, setUserCountry] = useState("");
   const [showVideo, setShowVideo] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
@@ -75,40 +79,55 @@ const Cart = () => {
     state: "",
     zipcode: "",
   });
+  const[errors,setError] = useState("")
+    const[checkError,setCheckError] = useState(false)
   const [count, setCount] = useState(1);
   // End
+  const checkState=(state,e)=>{
+    e.preventDefault()
+    if(state.status===false){
+        setCheckError(true)
+        setState("")
+        setSelectState(false)
+
+    }
+    else{
+        setState(state)
+        setSelectState(false)
+    }
+}
   const handlePlayVideo = () => {
     vidRef.current.play();
   };
   const handlePauseVideo = () => {
     vidRef.current.pause();
   };
-  useEffect(() => {
+  const checkCounts = ()=>{
+    const parsedPoint = user && parseInt(user.point);
+    const parsedPrice =
+      configuration &&
+      parseInt(configuration.STANDARD_SHIPPING_PRICE);
     if (saved === "true") {
       console.log(typeof saved);
       // setCount(1)
     } else {
       console.log(typeof saved);
-      setCount(1);
+      return setCount(1);
     }
     if (user && user.vip === true) {
-      setCount(1);
+      return setCount(1);
       console.log(user && user.vip);
     } else {
       console.log(user && user.vip);
       setCount(2);
     }
     if (
-      user &&
-      user.point < configuration &&
-      configuration.STANDARD_SHIPPING_PRICE &&
+      parsedPoint < parsedPrice &&
       user.vip === false
     ) {
-      setCount(2);
+      return setCount(2);
     } else if (
-      user &&
-      user.point > configuration &&
-      configuration.STANDARD_SHIPPING_PRICE &&
+      parsedPoint > parsedPrice &&
       user.vip === false
     ) {
       // if(parsedPoint>parsedPrice){
@@ -122,17 +141,21 @@ const Cart = () => {
       setCount(1);
     }
     if (user && user.line1 === "") {
-      setCount(3);
+      return setCount(3);
     } else {
       setCount(4);
     }
     if (user && user.vip === true) {
-      setCount(1);
+      return setCount(1);
       console.log(user && user.vip);
-    } else {
-      console.log(user && user.vip);
-      setCount(2);
-    }
+    } 
+    // else {
+    //   console.log(user && user.vip);
+    //   setCount(2);
+    // }
+  }
+  useEffect(() => {
+    checkCounts()
   }, [user, configuration]);
   useEffect(() => {
     console.log(vipMessage, "count from useEffect");
@@ -144,6 +167,7 @@ const Cart = () => {
   async function fetchCart() {
     await fetch(`${baseUrl}/cart/collection`, {
       method: "POST",
+      // mode:"no-cors",
       body: JSON.stringify({
         user_id: userId,
       }),
@@ -176,36 +200,71 @@ const Cart = () => {
   useEffect(()=>{
     console.log(products)
   },[products])
-  function addAddress() {
-    if (configuration.COUNTRY_CODE === "UK") {
+  async function addAddress() {
+    if (configuration.COUNTRY_CODE === "44") {
       setUserCountry("county");
     } else {
       setUserCountry("state");
     }
-    fetch(`${baseUrl}/user/shipping/details/update`, {
-      method: "POST",
-      body: JSON.stringify({
-        id: "632966a3276161e78911c3ca",
-        username: user.username,
-        first_name: "Dora",
-        last_name: "S",
-        phone: number,
-        addressline1: line1,
-        addressline2: line2,
-        city: city,
-        userCountry: state,
-        zipcode: zipcode,
-        coutrycode: configuration.COUNTRY_CODE,
-        coutryname: configuration.COUNTRY_CODE,
-      }),
+    const body = {
+      id: userId,
+      username: user.username,
+      first_name: firstName,
+      last_name: lastName,
+      phone: number,
+      addressline1: line1,
+      addressline2: line2,
+      city: city,
+      county: state,
+      zipcode: zipcode,
+      coutrycode: configuration.COUNTRY_CODE,
+      coutryname: configuration.COUNTRY_NAME,
+    }
+    if(configuration.COUNTRY_CODE==="1"){
+      body = {
+      id: userId,
+      username: user.username,
+      first_name: firstName,
+      last_name: lastName,
+      phone: `${number}`,
+      addressline1: line1,
+      addressline2: line2,
+      city: city,
+      state: state,
+      zipcode: zipcode,
+      coutrycode: configuration.COUNTRY_CODE,
+      coutryname: configuration.COUNTRY_NAME,
+      }
+    }
+  //   {
+  //     "id":"632966a3276161e78911c3ca",
+  //     "username":"Dora",
+  //     "first_name":"Dora",
+  //     "last_name":"S",
+  //     "phone":"8089511826",
+  //     "addressline1":"Line 1 ",
+  //     "addressline2":"Line 2s",
+  //     "city":"Test City ",
+  //     "county":"testCounty",
+  //     "zipcode":"PR40ET ",
+  //     "coutrycode":"44",
+  //     "coutryname":"UK"
+  //  }
+  console.log(body)
+    await fetch(`${baseUrl}/user/shipping/details/update`, {
+      method: "PUT",
+      body: JSON.stringify(body),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         dispatch(updateProfile());
-      });
+      }).catch((err)=>{
+        console.log(err)
+      })
   }
   function getVipDetails() {
     fetch(`${baseUrl}/user/vip/shipping/status`, {
@@ -231,7 +290,7 @@ const Cart = () => {
       method: "POST",
       body: JSON.stringify({
         user: userId,
-        number: number,
+        number: `${configuration.COUNTRY_CODE}${number}`,
       }),
       headers: {
         "Content-type": "application/json",
@@ -239,6 +298,7 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         if (data.status === true) {
           postCodeCheck();
         }
@@ -257,12 +317,14 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        addAddress();
+        if(data.status==="True"){
+          addAddress();
+        }
         console.log(data);
       });
   }
   async function checkoutAPi() {
-    await fetch(`${baseUrl}/configurations/code/check`, {
+    await fetch(`${baseUrl}/cart/checkout`, {
       method: "POST",
       body: JSON.stringify({
         address_1: user.addressline1,
@@ -284,9 +346,16 @@ const Cart = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate("/order-confirmed");
+        setProducts([])
+        console.log(data.data[0])
+        if(data.status==="True"){
+
+          navigate("/order-confirmed");
+        }
         console.log(data);
-      });
+      }).catch((err)=>{
+        console.log(err)
+      })
   }
   // function get
   useEffect(() => {
@@ -699,6 +768,28 @@ const Cart = () => {
               type="text"
               name=""
               id=""
+              value={firstName}
+              placeholder="FIRST NAME"
+              onChange={(e) => {
+                setFirstName(e.target.value);
+                //  line2 = e.target.value
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={lastName}
+              placeholder="LAST NAME"
+              onChange={(e) => {
+                setLastName(e.target.value);
+                //  line2 = e.target.value
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
               value={line1}
               placeholder="LINE 1"
               onChange={(e) => {
@@ -739,19 +830,42 @@ const Cart = () => {
                 //  line2 = e.target.value
               }}
             />
-            {configuration.COUNTRY_CODE === "USA" ? (
-              <input
-                type="text"
-                name=""
-                id=""
-                value={state}
-                readOnly
-                placeholder="STATE/PROVINCE"
-                onChange={(e) => {
-                  setState(e.target.value);
-                  //  line2 = e.st.value
-                }}
-              />
+            {user.coutrycode === "1" ? (
+              // <input
+              //   type="text"
+              //   name=""
+              //   id=""
+              //   value={state}
+              //   readOnly
+              //   placeholder="STATE/PROVINCE"
+              //   onChange={(e) => {
+              //     setState(e.target.value);
+              //     //  line2 = e.st.value
+              //   }}
+              // />
+              <div className={`${style.input} ${style.selectInput}`}>
+
+                    {state.state?<input type="text" readOnly value={state.state} className={style.StateSelect}/>:
+                    <input type="text" readOnly className={style.StateSelectCenter} placeholder="SELECT STATE"/>}
+                    {/* <input type="text" readOnly value={state.state||"Select a State"} className={state.state?style.StateSelectHide:style.StateSelect}/> */}
+                    <FaChevronDown onClick={()=>{
+                        selectState?
+                            setSelectState(false):setSelectState(true)
+                    }}/>
+                    {selectState?
+                    <div className={selectState?style.AllState:style.stateUp}>
+                        
+                    {allState.map((stateItem)=>{
+                        return(
+                            <input type="text" name="state" id="state" readOnly value={stateItem.state} onClick={(e)=>{
+                                checkState(stateItem,e)
+                            }}/>
+                        )
+                    })}
+                </div>
+                    :""}
+                    
+                </div>
             ) : (
               <input
                 type="text"
@@ -765,15 +879,15 @@ const Cart = () => {
                 }}
               />
             )}
-            {configuration.COUNTRY_CODE === "UK" ? (
+            {user.coutrycode === "44" ? (
               <input
                 type="text"
                 name=""
                 id=""
-                value={state}
+                value={zipcode}
                 placeholder="POSTCODE"
                 onChange={(e) => {
-                  state(e.target.value);
+                  setZipCode(e.target.value);
                   //  line2 = e.target.value
                 }}
               />
@@ -1050,7 +1164,7 @@ const Cart = () => {
           </div>
         </div>
         <div className={style.Checkout}>
-          <button
+          <button style={{filter:loading||user?.addressline1===""||count>4?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||loading?"none":"visible"}}
             onClick={() => {
               const parsedPoint = user && parseInt(user.point);
               const parsedPrice =

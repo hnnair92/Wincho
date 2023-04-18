@@ -155,7 +155,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   >
                     {menu.Name}
                   </p>
-                  {menu.Badge === true ? (
+                  {menu.Badge === true&&menu.item==="Basket" ? (
                     <span className={style.CartBadge}>
                       {cart && cart.length ? cart && cart.length : "0"}
                     </span>
@@ -408,9 +408,16 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                             ? ""
                             : menu.Name}
                         </p>
-                        {menu.Badge === true ? (
+                        {menu.Badge === true&&menu.Name==="Basket" ? (
                     <span className={style.CartBadge}>
                       {cart && cart.length ? cart && cart.length : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                        {menu.Badge === true&&menu.Name==="Notifications" ? (
+                    <span className={style.CartBadge}>
+                      {notification && notification.notification_count ? notification && notification.notification_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -679,9 +686,16 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                             ? ""
                             : menu.Name}
                         </p>
-                        {menu.Badge === true ? (
+                        {menu.Badge === true&&menu.Name==="Basket" ? (
                     <span className={style.CartBadge}>
                       {cart && cart.length ? cart && cart.length : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                        {menu.Badge === true&&menu.Name==="Notifications" ? (
+                    <span className={style.CartBadge}>
+                      {notification && notification.notification_count ? notification && notification.notification_count : "0"}
                     </span>
                   ) : (
                     ""

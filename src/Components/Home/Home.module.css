@@ -290,6 +290,7 @@
         height: 100vh;
         width: 100%;
         position: relative;
+        margin-top: -9%;
     }
     .MTransitionBg{
         width: 100%;
@@ -335,6 +336,10 @@
     }
 }
 @media(max-width:767px){
+    .Slider img{
+        height: 100%;
+        object-fit: cover;
+    }
     .ContactSection p{
             /* text-align: left; */
     font-family: drumshake_italic;
@@ -484,3 +489,11 @@
     color: #1b8fe7;
     opacity: 1;
 }
+/* 
+@media(max-width:1065px){
+    .Slider img{
+        height: 100%;
+        object-fit: cover;
+    }
+
+} */

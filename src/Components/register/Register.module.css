@@ -131,7 +131,7 @@
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border:0.3rem solid gray;
-    color: #333
+   
 
 
 
@@ -406,6 +406,11 @@ input::-webkit-input-placeholder{
     list-style: circle;
     font-size: 2rem;
 }
+.content ul p{
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+}
 .content ul li{
     margin: 7px 0px;
     color: #fff;
@@ -458,6 +463,60 @@ input::-webkit-input-placeholder{
 .StateSelectCenter::-webkit-input-placeholder{
     color: #3333338e !important;
 }
+.DataInput{
+    color: #000;
+    text-align: left;
+    position: relative;
+}
+.hideDate{
+    width: 100%;
+    font-family: "Poppins";
+    height: 7.5rem;
+    padding: 1.13rem;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    margin: 1.13rem;
+    margin-left: 0;
+    border-radius: 1.13rem;
+    margin-right: auto;
+    border:0.3rem solid gray;
+    text-align: center;
+    color: #3334;
+    position: relative;
+   
+}
+.DataInput::-webkit-calendar-picker-indicator{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+    opacity: 0;
+
+}
+.hideDate::-webkit-calendar-picker-indicator{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+    opacity: 0;
+}
+@media(min-width:767px) and (max-width:1056px){
+    .Container{
+        width: 100%;
+        padding: 1.70rem;
+        justify-content: center;
+    }
+    .Register{
+        width: 60%;
+    }
+    .popup{
+        width: 50%;
+    }
+    .hideDate,.input,.password,.DataInput{
+        height: 6.5;
+    }
+    
+}
 @media(max-width:767px){
     .Container{
         padding: 1.70rem;
@@ -487,6 +546,9 @@ input::-webkit-input-placeholder{
     .Terms p{
         font-size: 1.36rem;
     }
+    .Terms p a{
+        font-size: 1.36rem;
+    }
     .btnDisabled,.formBtn{
         font-size: 2.0rem;
         font-weight: 500;
@@ -496,36 +558,31 @@ input::-webkit-input-placeholder{
         font-size: 1.7rem;
         height: 5.11rem;
     }
+    .hideDate{
+        height: 5rem;
+        font-size: 1.70rem;
+       font-weight: 600;
+    }
+    .popup{
+        width: 90%;
+        padding: 20px;
+    }
+    .content ul li{
+        margin: 7px 10px;
+        
+    
+    }
 }
+
 @media(max-height:630px){
     .Container{
         height: 100%;
         padding:5.68rem;
     }
+    
 
 }
-@media(min-height:630px){
-    .Container{
-        /* height: 100vh; */
-    }
-    
-}
-@media(min-width:767px) and (max-width:1056px){
-    .Container{
-        width: 100%;
-        padding: 1.70rem;
-        justify-content: center;
-    }
-    .Register{
-        width: 60%;
-    }
-    
-}
-@media(max-width:350px){
-    .Register{
-        width: 100%;
-    }
-}
+
 .DataInput{
     color: #000;
     text-align: left;
@@ -573,13 +630,16 @@ input::-webkit-input-placeholder{
 box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
     }
     .hideDate,.input,.password,.DataInput{
-        height: 6.11rem;
+        height: 8rem;
         font-size: 2.7rem;
         font-weight: normal;
     }
     .hideDate,.input input,.password input,.DataInput{
         /* height: 6.11rem; */
         font-size: 2.7rem;
+    }
+    .info{
+        width: 14%;
     }
     /* .DataInput{
 
@@ -602,7 +662,7 @@ box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
         font-size: 2.7rem;
         opacity: 1;
         text-transform: uppercase;
-       
+       font-weight: 500;
     }
     .EmailInput label,.PasswordInput label{
         font-size: 1.5rem;
@@ -627,11 +687,53 @@ box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
         font-size: 1.5rem;
     }
     label{
-        font-size: 1.5rem;
+        font-size: 1.75rem;
+        font-weight: 600;
     }
+    .hideDate{
+        color: gray;
+    }
+   
 }
 @media(max-width:765px){
     .popup{
         width: 85%;
     }
+    .hideDate{
+        color: gray;
+    }
 }
+@media(max-width:712px){
+    .info{
+        width: 10%; 
+    }
+    .eyeIcon{
+        width: 12%; 
+    }
+    .popup{
+        width: 50%;
+    }
+    .content{
+        margin: 13% 0;
+    }
+    .input::-webkit-input-placeholder{
+        font-weight: normal;
+    }
+}
+
+@media(max-width:599px){
+    .popup{
+        width: 90%;
+       
+    }
+    .hideDate,.input,.password,.DataInput{
+        height: 6rem;
+        font-size: 2.7rem;
+        font-weight: normal;
+    }
+    }
+    @media(max-width:350px){
+        .Register{
+            width: 100%;
+        }
+    }

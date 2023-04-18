@@ -151,7 +151,7 @@
 
     .Container {
         height: 100%;
-        padding: 25px;
+        padding: 10rem 5rem;
     }
 
     .Footer {
@@ -196,58 +196,7 @@
     }
 }
 
-@media(max-width:767px) {
-    .FooterDetails {
-        width: 100%;
-        padding: 0;
-    }
 
-    .Container {
-        height: 100%;
-        padding: 25px;
-    }
-
-    .Footer {
-        flex-direction: column-reverse;
-    }
-
-    .Logo,
-    .Menu,
-    .Address {
-        width: 100%;
-        padding: 0;
-    }
-
-    .Logo img {
-        width: 100%;
-    }
-
-    .Title {
-        font-size: 2.5rem;
-    }
-
-    .Menu ul li {
-        font-size: 1.75rem;
-        padding: 15px 0;
-    }
-
-    .SocialMedia {
-        width: 100%;
-        margin: 25px 0;
-    }
-
-    .SocialMedia svg {
-        font-size: 3rem;
-    }
-
-    .Copyright {
-        margin: 15px 0;
-    }
-
-    .bandaiLogo {
-        display: none;
-    }
-}
 
 .bandaiLogo {
     width: 40%;
@@ -281,7 +230,7 @@
 
 @media(max-width:1065px) {
     .Container {
-        padding-top: 10px;
+        /* padding-top: 10px; */
     }
 
     .Footer {
@@ -327,7 +276,7 @@
 
     .TermsAndPrivacyText a {
         text-decoration: underline;
-        font-size: 1.55rem;
+        font-size: 2rem;
         margin: 3px 0;
     }
 
@@ -339,4 +288,75 @@
     .MbandaiLogo img {
         width: 100%;
     }
+    .Copyright p{
+        font-size: 2rem;
+    }
 }
+@media(max-width:767px) {
+    .FooterDetails {
+        width: 100%;
+        padding: 0;
+    }
+
+    .Container {
+        height: 100%;
+        padding: 6rem 0;
+        
+    }
+
+    .Footer {
+        flex-direction: column-reverse;
+    }
+
+    .Logo,
+    .Menu,
+    .Address {
+        width: 100%;
+        padding: 0;
+    }
+
+    .Logo img {
+        width: 100%;
+    }
+
+    .Title {
+        font-size: 2.5rem;
+    }
+
+    .Menu ul li {
+        font-size: 1.75rem;
+        padding: 15px 0;
+    }
+
+    .SocialMedia {
+        width: 100%;
+        margin: 25px 0;
+    }
+
+    .SocialMedia svg {
+        font-size: 3rem;
+    }
+
+    .Copyright {
+        margin: 15px 0;
+    }
+
+    .bandaiLogo {
+        display: none;
+    }
+    .SocialMedia{
+        width: 75%;
+    }
+}
+@media(max-width:599px){
+    .Copyright p{
+        font-size: 1.7rem;
+       /* white-space: nowrap; */
+    } 
+    .TermsAndPrivacyText a{
+        font-size: 1.7rem;
+    }
+    .Container{
+        padding:2rem 0;
+    }
+} 

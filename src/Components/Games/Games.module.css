@@ -14,6 +14,9 @@
 .Section{
     /* max-width: 1600px; */
 }
+.Container::-webkit-scrollbar{
+    display: none;
+}
 .Categories{
     width: 100%;
     display: flex;
@@ -369,6 +372,77 @@
         width: 35%;
     }
 }
+@media(min-width:767px) and (max-width:1056px){
+    .Games a{
+        width:25%;
+    }
+    .Categories{
+        /* flex-wrap: wrap; */
+        overflow-x: scroll;
+        justify-content: center;
+    }
+}
+
+
+.Search,.MSearch{
+    width: 30%;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background-color: #e1f5fb;
+    border: 2px solid #efeef1;
+}
+.SearchIcon,.EmptySearch{
+    width: 7.5%;
+}
+.SearchIcon img,.EmptySearch img{
+    width: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+.EmptySearch img{
+    width: 80%;
+}
+.Search input,.MSearch input{
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border:none;
+    color: #2d2d2d;
+    font-size: 2.25rem;
+    padding: 0px 10px;
+    font-weight: 500;
+}
+.CategoriesSection,.AllCategories{
+    width: 92.5%;
+    display: flex;
+    flex-direction: row;
+    padding: 1.13rem;
+
+    justify-content: space-between;
+}
+.popupOverlay{
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    background-color: #fff;
+    padding: 20px;
+    z-index: 9999;
+
+}
+.ticketIconDiv{
+    width: 40%;
+}
+.ticketIcon{
+    justify-content: flex-start;
+}
+.free,.Price{
+    margin: 0 5px;
+}
 @media(max-width:767px){
     
     .PriceDiv,.infoIcon a,.DetailTitle{
@@ -385,9 +459,10 @@
         justify-content: flex-start;
     }
     .category,.active{
-        font-size: 1.36rem;
+        font-size: 1.75rem;
         width: fit-content;
         padding: .56rem 1.70rem;
+        margin-left: 2%;
     }
     ::-webkit-scrollbar{
         display: none;
@@ -444,20 +519,30 @@
         font-size: 1.75rem;
     }
     .Popup{
-        width: 75%;
+        width: 50%;
     }
+    
 }
 @media(min-width:767px) and (max-width:1056px){
     .Games .Game{
         width:25%;
     }
-    .Categories{
-        /* flex-wrap: wrap; */
-        overflow-x: scroll;
-        justify-content: center;
+    .category,.active{
+        
+        font-size: 2rem;
+        padding: .5rem 1rem;
+       
+    }
+    .CategoriesSection,.AllCategories{
+        width: 92.5%;
+        display: flex;
+        flex-direction: row;
+        padding: 1.13rem;
+    
+        justify-content: space-between;
     }
 }
-.Search{
+.Search,.MSearch{
     width: 30%;
     display: flex;
     align-items: center;
@@ -470,7 +555,7 @@
 
 }
 .SearchIcon,.EmptySearch{
-    width: 7.5%;
+    width: 15%;
 }
 .SearchIcon img,.EmptySearch img{
     width: 100%;
@@ -480,7 +565,7 @@
 .EmptySearch img{
     width: 80%;
 }
-.Search input{
+.Search input,.MSearch input{
     background-color: transparent;
     width: 100%;
     height: 100%;
@@ -491,7 +576,7 @@
     padding: 0px 10px;
     font-weight: 500;
 }
-.CategoriesSection{
+.CategoriesSection,.AllCategories{
     width: 92.5%;
     display: flex;
     flex-direction: row;
@@ -530,8 +615,8 @@
 }
 
 @media(max-width:1065px){
-    .CategoriesSection{
-        margin-left: 15%;
+    .CategoriesSection,.AllCategories{
+        margin-left: 8%;
     }
     .Games{
         grid-template-columns: repeat(4, 1fr);
@@ -540,8 +625,16 @@
         width: 95%;
     }
 }
-
-@media(max-width:765px){
+.MSearch{
+    display: none;
+}
+@media(max-width:1065px){
+    .Search{
+        display: none;
+    }
+    .MSearch{
+        display: flex;
+    }
     /* .CategoriesSection{
         margin-left: 15%;
     } */
@@ -551,8 +644,30 @@
     .Games .Game{
         width: 95%;
     }
+    .Search,.MSearch{
+        width: fit-content;
+        z-index: 99999;
+    }
+    .Search input,.MSearch input{
+        width: 200px;
+    }
+    .SearchIcon,.EmptySearch{
+        width: 15px;
+    }
+    .CategoriesSection{
+        width: fit-content;
+        flex-direction: row-reverse;
+        margin-left: 0;
+    }
+    .AllCategories{
+        margin-left: 0;
+    }
 }
-
+@media(max-width:599px){
+    .Popup{
+        width: 75%;
+    }
+}
 @media(max-width:400px){
     /* .CategoriesSection{
         margin-left: 15%;
@@ -561,6 +676,11 @@
         grid-template-columns: repeat(2, 1fr);
     }
     .Games .Game{
-        width: 95%;
+        width: 90%;
     }
+    .category,.active{
+        font-size: 1.5rem;
+        margin-left: 0;
+    }
+    
 }

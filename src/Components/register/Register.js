@@ -225,7 +225,9 @@ const[passIcon,setPassIcon] = useState(false)
             <img src={wincha} alt="" />
         </div>
         <div className={style.content}>
+           
             <ul>
+            <p>Password must include:</p>
                 <li>8-20 Characters</li>
                 <li>At least 1 capital letter</li>
                 <li>At least 1 number</li>

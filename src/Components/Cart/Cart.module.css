@@ -637,8 +637,8 @@ video{
     border: 0.15rem solid #333333c1;
     }
     .VideoSection{
-        width: 90%;
-        height: 250px;
+        width:500px;
+        height: 400px;
         border-width:5px ;
         outline-width: 5px;
     }
@@ -740,6 +740,12 @@ video{
     .price p{
         margin-right: 15px;
     } */
+}
+@media(max-width:599px){
+    .VideoSection{
+        width: 90%;
+        height: 250px;
+    }
 }
 .clubHousePopup{
     position: fixed;

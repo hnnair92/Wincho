@@ -20,13 +20,14 @@ const Games = () => {
   const [gameData, setGameData] = useState({});
   const userId = JSON.parse(localStorage.getItem("user"));
   const { user } = useSelector((state) => state.profile);
+  const [searchIconStatus,setSearchIconStatus]= useState(false)
   const userDatas = JSON.parse(localStorage.getItem("user"));
   //   console.log(userDatas);
   const navigate = useNavigate();
   const [topup,setTopup] = useState(false)
   const [search, setSearch] = useState("");
   const [searchArray, setSearchArray] = useState(false);
-  const [category, setCategory] = useState(state?.category?state?.category:"free");
+  const [category, setCategory] = useState(state&&state.category?state.category:"free");
   const [history, setHistory] = useState(false);
   const [ids, setId] = useState("");
   const [imageGallery,setImageGallery] = useState([])
@@ -46,6 +47,14 @@ const Games = () => {
       setImageGallery([])
     }
   },[popup])
+  // useEffect(()=>{
+  //   if(window.innerWidth<=767){
+  //     setSearchIconStatus(false)
+  //   }
+  //   else{
+  //     setSearchIconStatus(true)
+  //   }
+  // },[window.innerWidth])
   useEffect(() => {
     if(popup){
       document.body.style.overflow = 'hidden';
@@ -161,36 +170,41 @@ const Games = () => {
         {}
         <div className={style.Categories}>
           <div className={style.CategoriesSection}>
-            {categories.map((categoryItem, index) => {
-              return (
-                <button
-                  key={index}
-                  value={categoryItem.value}
-                  className={
-                    category === categoryItem.value
-                      ? style.active
-                      : style.category
-                  }
-                  onClick={(e) => {
-                    if (searchArray.length > 0) {
-                      setCategory("");
-                    } else {
-                      // setCategory(category)
-                      setCategory(categoryItem.value);
+          <div className={style.AllCategories}>
+              {categories.map((categoryItem, index) => {
+                return (
+                  <button
+                    key={index}
+                    value={categoryItem.value}
+                    className={
+                      category === categoryItem.value
+                        ? style.active
+                        : style.category
                     }
-                    setAllCategory("");
+                    onClick={(e) => {
+                      if (searchArray.length > 0) {
+                        setCategory("");
+                      } else {
+                        // setCategory(category)
+                        setCategory(categoryItem.value);
+                      }
+                      setAllCategory("");
 
-                    // setAllCategory(categoryItem.title)
-                  }}
-                >
-                  {categoryItem.title}
-                </button>
-              );
-            })}
+                      // setAllCategory(categoryItem.title)
+                    }}
+                  >
+                    {categoryItem.title}
+                  </button>
+                );
+              })}
+          </div>
             <div className={style.Search}>
-              <div className={style.SearchIcon}>
+              <div className={style.SearchIcon} onClick={()=>{
+                setSearchIconStatus(true)
+              }}>
                 <img src={searchIcon} alt="" />
               </div>
+              
               <input
                 type="text"
                 name=""
@@ -201,15 +215,52 @@ const Games = () => {
                   setSearch(e.target.value);
                 }}
               />
+           
               <div className={style.EmptySearch}>
                 <img
                   src={closeIcon}
                   alt=""
                   onClick={() => {
                     setSearch("");
+                    setSearchIconStatus(false)
                   }}
                 />
               </div>
+            
+            </div>
+            <div className={style.MSearch}>
+              <div className={style.SearchIcon} onClick={()=>{
+                setSearchIconStatus(true)
+              }}>
+                <img src={searchIcon} alt="" />
+              </div>
+              {searchIconStatus?
+              
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="Search..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                }}
+              />
+            :""
+            }
+              {searchIconStatus?
+              <div className={style.EmptySearch}>
+                <img
+                  src={closeIcon}
+                  alt=""
+                  onClick={() => {
+                    setSearch("");
+                    setSearchIconStatus(false)
+                  }}
+                />
+              </div>
+            :""
+            }
             </div>
           </div>
 
@@ -589,7 +640,7 @@ const Games = () => {
               <div
                 className={style.popupPlayNow}
                 onClick={() => {
-                  navigate(`/game/${gameData.slug}`, { state: { game: gameData ,user:user} });
+                  navigate(`/game/${gameData.slug}`, { state: { game: gameData ,user:user,cateogry:category} });
                 }}
               >
                 {/* <button></button> */}

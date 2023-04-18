@@ -54,6 +54,9 @@
     color: #fff;
     /* overflow-x:scroll; */
 }
+.InputSection input{
+    text-overflow: ellipsis;
+}
 .title p{
     font-size: 2.5rem;
     font-weight: 500;
@@ -211,6 +214,7 @@
 }
 .myDetails .Password .InputSection input{
     border-bottom: none;
+    
 }
 .myDetails .Password .InputSection{
     border-bottom :2px solid #000;
@@ -218,6 +222,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items:center;
+    
 }
 .myDetails .Password .InputSection img{
     width: 7.5%;
@@ -251,28 +256,7 @@
     align-items: center;
     border-bottom: 2px solid #000;
 }
-@media(max-width:599px){
-    .Profile{
-        width: 100%;
-    }
-    .ProfileImage{
-        padding: 1rem;
-    }
-    .TabBtnActive,.TabBtb{
-        font-size: 4rem;
-        height: 7rem;
-        border-width: 4px;
-    }
-    .ProfileBtn,.history,.Faq,.Deactivate{
-        font-size: 2.5rem;
-    }
-    .title p{
-        font-size: 1.75rem;
-    }
-    .InputSection input{
-        font-size: 1.75rem;
-    }
-}
+
 .popup {
     position: absolute;
     font-family: myraidproregular !important;
@@ -437,9 +421,7 @@ popupInput{
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border:.25rem solid #333333c1;
-    /* outline:.25rem solid #000; */
-
-    
+    /* outline:.25rem solid #000; */   
 }
 .AddressSection form input:focus{
     outline:.25rem solid #1b8fe7;
@@ -502,6 +484,7 @@ popupInput{
     border: none;
     background-color: transparent;
     outline: none;
+   
 }
 .Passpopup{
     width: 65%;
@@ -524,6 +507,12 @@ popupInput{
     flex-direction: column;
     list-style: circle;
     font-size: 2rem;
+}
+.content ul p{
+    color: #fff;
+    text-align: center;
+   margin-bottom: 2rem;
+   white-space: nowrap;
 }
 .content ul li{
     margin: 7px 0px;
@@ -584,19 +573,23 @@ popupInput{
     }
     .AddressSection form{
         width: 100%;
+        
     }
     .AddressSection form input,.email{
         font-family: "Poppins";
     width: 100%;
     font-size: 2rem;
     background-color: #fff;
-    height: 5.5rem;
+    height: 7.5rem;
     /* height: 5.68rem; */
     padding: 1.13rem 1.26rem;
     text-align: left;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border: 0.15rem solid #333333c1;
+    }
+    .info{
+        width: 14%;
     }
     .VideoSection{
         width: 90%;
@@ -625,11 +618,63 @@ popupInput{
     .Passpopup{
         width: 90%;
     }
+    .popup{
+        width: 40rem;
+    }
 }
 @media(max-width:1065px){
     .Container{
-        height: 90vh;
+        height: 89vh;
     }
+}
+@media(max-width:599px){
+    .Profile{
+        width: 100%;
+    }
+    .ProfileImage{
+        width: 47%;
+    }
+    .TabBtnActive,.TabBtb{
+        font-size: 4rem;
+        height: 7rem;
+        border-width: 4px;
+    }
+    .ProfileBtn,.history,.Faq,.Deactivate{
+        font-size: 2.5rem;
+        width: 100%;
+        height: 3.5rem; 
+    }
+    
+    .title p{
+        font-size: 1.75rem;
+    }
+    .InputSection input{
+        font-size: 1.75rem;
+    }
+    .AddressSection form input,.email{
+        height: 5.5rem;
+    }
+    .info{
+        width: 15%;
+    }
+    .popup{
+        width: 30rem;
+        padding:.5rem 1rem ;
+       
+    }
+    .popupText textarea{
+        font-size: 1.5rem;
+    }
+    .ReportPopupButton button ,.ReportPopupButtonCategory button{
+        font-size: 1.5rem;
+        
+       
+    }
+    .popupSubmit button{
+        font-size: 1.5rem;
+        padding: .5rem 1.5rem;
+    }
+    
 }
 
 .clubHousePopup{
@@ -780,4 +825,187 @@ popupInput{
     text-decoration: underline;
     cursor: pointer;
 
+}
+@media(max-width:280px){
+    .Container{
+        height: 87vh;
+    }
+    .Deactivate{
+       font-size: 2.25rem;
+    }
+    
+}
+.clubHousePopup{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 999999;
+}
+.ClubHouse{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 90%;
+    background: #fff;
+    border:3px solid #fff;
+    height: auto;
+    border-radius: 30px;
+    /* height: 80vh; */
+}
+.TopImage{
+    width: 100%;
+    position: relative;
+}
+.TopImage img{
+    width: 100%;
+}
+.clubHouseClose{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    width: 7.5%;
+    cursor: pointer;
+}
+.clubHouseClose img{
+    width: 100%;
+}
+.BottomContents{
+    width: 100%;
+    position: relative;
+    padding-bottom: 5px;
+    min-height: 180px;
+    background-image: url("../../assests/Artboard 48 - Lower Image Split.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+.LowerImg{
+    z-index: 9;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.LowerImg img{
+    width: 100%;
+}
+.BonusPoints{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 99;
+    align-items: center;
+    justify-content: center;
+
+}
+.Bonus p{
+    font-size: 8rem;
+    font-family: drumshake_italic;
+    color: #fff;
+    -webkit-text-stroke: 2px #000;
+}
+.BonusText{
+    margin: 0px 20px;
+}
+.BonusText p{
+    font-style: italic;
+    color: #000;
+    /* font-family: myraidproregular; */
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+.benefits{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    z-index: 99;
+}
+.benefit{
+    width: 100%;
+}
+.benefitImage{
+    width: 100%;
+}
+.benefitImage img{
+    width: 100%;
+}
+.SubscribeButton{
+    /* width: 100%; */
+    margin: 25px auto;
+    position: relative;
+    z-index: 99;
+    background-color: #1b8fe7;
+    border-radius: 30px;
+    border:1.5px solid #fff;
+    padding:10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    /* margin-bottom: 20px; */
+    
+}
+.SubscribeButton button{
+    width: fit-content;
+    font-size: 2.25rem;
+    color: #fff;
+    font-family: myraidproregular;
+}
+.CancelSubscription{
+    position: relative;
+    z-index: 99;
+}
+.CancelSubscription p{
+    text-align: center;
+    color: #1b8fe7;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 10px 0px;
+}
+.TermsAndPolicy{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+}
+.Terms p,.Policy p{
+    font-size: 2rem;
+    color: #1b8fe7;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+
+}
+.replay img,.share img{
+    cursor: pointer;
+}
+.Circle,.CircleActive{
+    cursor: pointer;
+}
+.AddressEditBtn{
+    cursor: pointer;
+}
+.AddressSection input::-webkit-input-placeholder{
+    opacity: 1;
+    color: gray;
+}
+@media(max-width:768px){
+    .Bonus{
+        width: 60%;
+    }
+
+    .Bonus p{
+        text-align: end;
+    }
+    .Terms p,.Policy p{
+        font-size: 1.25rem;
+    }
 }

@@ -103,6 +103,7 @@ const Profile = () => {
   }
   return (
     <div className={style.Container}>
+      <div className={style.Profile}>
     {premiumPopup?
       <div className={style.clubHousePopup}>
         <div className={style.ClubHouse}>
@@ -187,7 +188,6 @@ const Profile = () => {
       </div>
       
       :""}
-      <div className={style.Profile}>
         {passIcon ? (
           <div className={style.Passpopup}>
             <div className={style.image}>
@@ -195,6 +195,7 @@ const Profile = () => {
             </div>
             <div className={style.content}>
               <ul>
+                <p>Password must include:</p>
                 <li>8-20 Characters</li>
                 <li>At least 1 capital letter</li>
                 <li>At least 1 number</li>
@@ -216,6 +217,7 @@ const Profile = () => {
         ) : (
           ""
         )}
+       
         {updatePassword ? (
           <div className={style.AddressSection}>
             <div className={style.AddressTitle}></div>
@@ -607,7 +609,9 @@ const Profile = () => {
                   </div>
                   <div className={style.InputSection}>
                     <input type="text" value={subscription} readOnly />
-                    <img src={shippingInfo} alt="" />
+                    <img src={shippingInfo} alt="" onClick={()=>{
+                      setPremiumPopup(true)
+                    }}/>
                     {/* <input type="text" value={subscription} onChange={(e)=>{
                                 setSubscription(e.target.value)
                             }}/> */}
