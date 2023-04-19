@@ -57,6 +57,15 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
   //   dispatch(cartAction())
   // },[])
   useEffect(()=>{
+    console.log(notification)
+    // if(notification){
+    // console.log(notification,"from useEffect")
+    // dispatch(updateProfile(userData.user));
+    // dispatch(cartAction());
+    // dispatch(notificationAction());
+  // }
+},[notification,user])
+  useEffect(()=>{
     console.log(gameSound,"gameSound")
     console.log(gameMusic,"gameMusic")
   },[gameMusic,gameSound])
@@ -1084,6 +1093,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
           <div className={style.Points}>
             <p>{(user && user.point) || "0"}</p>
           </div>
+          <Link to="/tickets">
           <div className={style.Plus}>
             <button onClick={()=>{
               navigate("/tickets")
@@ -1091,6 +1101,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
               <img src={plus} alt="" />
             </button>
           </div>
+          </Link>
         </div>
       :
       ""}

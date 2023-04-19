@@ -588,6 +588,7 @@
     padding: 1.13rem;
     /* max-width: 1600px; */
     justify-content: space-between;
+    margin-left: 2%;
 }
 .popupOverlay{
     width: 100%;

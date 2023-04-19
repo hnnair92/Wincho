@@ -320,7 +320,7 @@ const Games = () => {
                   setCategory("")
               }}>All</button> */}
         </div>
-        {premiumPopup?
+        {premiumPopup&&user&&user.vip===false?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
@@ -502,9 +502,9 @@ const Games = () => {
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                             }
-                            else{
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            }
+                            // else{
+                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            // }
                             if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                               
@@ -618,11 +618,9 @@ const Games = () => {
                          <div className={style.SingleGameOverlay} onClick={()=>{
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
+                              console.log("not verified")
                             }
-                            else{
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            }
-                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                               
                             }
@@ -633,6 +631,9 @@ const Games = () => {
                             else{
                               navigate("/login")
                             }
+                            // else{
+                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            // }
                             console.log(user.profile_status,"status")
                           }}>
 
@@ -738,9 +739,9 @@ const Games = () => {
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                             }
-                            else{
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            }
+                            // else{
+                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            // }
                             if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                               

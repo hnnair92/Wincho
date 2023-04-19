@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { configutation, gameEntry, getAllGames } from "../../actions/product";
-import { updateProfile } from "../../actions/user";
+import { cartAction, notificationAction, updateProfile } from "../../actions/user";
 import style from "./Description.module.css";
 import Screen from "./Screen";
 import { socket } from "../../socket";
@@ -137,6 +137,7 @@ const Description = ({
       ? JSON.parse(localStorage.getItem("times"))
       : 0
   );
+  const [prizeCount,setPrizeCount] = useState(0)
   const [gamePlayStatus, setGamePlayStatus] = useState(false);
   const [playAgain, setPlayAgain] = useState(false);
   const [que, setQue] = useState("");
@@ -151,6 +152,7 @@ const Description = ({
   const [prizeMoveStatus, setPrizeMoveStatus] = useState(false);
   const [exitPopupOpen,setExitPopupOpen] = useState(false)
   const [isTimeout, setisTimeout] = useState(false);
+  const [hideEverything,setHideEverything] = useState(false)
   const [report, setReport] = useState({
     Title: "",
     Content: "",
@@ -256,6 +258,7 @@ const Description = ({
       console.log(res);
     });
     socket.on("sensor_message", (res) => {
+      setPrizeCount(prizeCount=>prizeCount+1)
       const splitRes = res.split("|");
       const data = splitRes[splitRes.length - 1];
       const splitId = splitRes[1].split(":");
@@ -279,24 +282,39 @@ const Description = ({
           "confirm_move",
           `${baseMessage}|RH_POSITION_CHANGED`
         );
-        if(user[1]===userId){
-        setCurrentPrizeMove(false);
-          setGamePlayStatus(true);
-          setGamePlay(true);
-          setWait(true);
-          socket.emit(
-            "socket_connect",
-            JSON.stringify({
-              user_id: userId,
-              socket_id: socket.id,
-              machineCode: GameData.machine_code,
-            })
-          );
-          let message = `${baseMessage}|P_RESTARTED`;
-          socket.emit("peer_message", message);
-          message = `${baseMessage}|G_CONNECTED`;
-          socket.emit("peer_message", message);
-            console.log(currentPrizeMove)
+        if(user[1]===userId&&que==="0"){
+          // if(que==="0"){
+            console.log(prizeCount)
+          console.log(count,"count from prize move")
+          // }
+
+        // setCurrentPrizeMove(false);
+        // if(que==="0"&&gamePlayStatus===false){
+        // setGamePlayStatus(true)
+        // setWait(true)
+        // setQue("0")
+        setHideEverything(true)
+        setPlayAgain(true)
+        setCount(count=>count+1)
+        // }
+        //   setGamePlayStatus(true);
+        //   setGamePlay(true);
+        //   setWait(true);
+        //   socket.emit(
+        //     "socket_connect",
+        //     JSON.stringify({
+        //       user_id: userId,
+        //       socket_id: socket.id,
+        //       machineCode: GameData.machine_code,
+        //     })
+        //   );
+        //   let message = `${baseMessage}|P_RESTARTED`;
+        //   socket.emit("peer_message", message);
+        //   message = `${baseMessage}|G_CONNECTED`;
+        //   socket.emit("peer_message", message);
+        //     console.log(currentPrizeMove)
+        // setPlayAgain(true)
+        console.log(que,"que from prize move")
           // gameStart()
         }
         // :UK|M:UK-WH1-NID1-101|PRIZE_WON
@@ -564,6 +582,11 @@ const Description = ({
   useEffect(() => {
     console.log("camera status", camera);
   }, [camera]);
+  useEffect(()=>{
+    if(wait===true){
+      setPlayAgain(false)
+    }
+  },[wait])
   // popups
   async function movePrize() {
     return (
@@ -1129,6 +1152,8 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        dispatch(cartAction())
+        dispatch(notificationAction())
         navigate("/win-screen");
         gameLeave();
         socket.disconnect();
@@ -1776,7 +1801,10 @@ const Description = ({
                       
                       <div className={style.gameGuideOverlay}>
                         <div className={style.GameFullOverlay} onClick={()=>{
-                          setOverlay(false)
+                          setTimeout(()=>{
+                          setOverlay(false) 
+
+                          },3000)
                         }}>
 
                         </div>
@@ -1795,7 +1823,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {playAgain ? (
+                      {playAgain===true&&hideEverything===false ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
                             animationData={AllAnimation.missed}
@@ -1839,7 +1867,10 @@ const Description = ({
                       
                       <div className={style.gameGuideOverlay}>
                         <div className={style.GameFullOverlay} onClick={()=>{
-                          setOverlay(false)
+                           setTimeout(()=>{
+                          setOverlay(false) 
+
+                          },3000)
                         }}>
 
                         </div>
@@ -1857,7 +1888,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {playAgain ? (
+                      {playAgain===true&&hideEverything===false? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
                             animationData={AllAnimation.missed}
@@ -1906,7 +1937,10 @@ const Description = ({
                       
                       <div className={style.gameGuideOverlay}>
                         <div className={style.GameFullOverlay} onClick={()=>{
-                          setOverlay(false)
+                           setTimeout(()=>{
+                          setOverlay(false) 
+
+                          },3000)
                         }}>
 
                         </div>
@@ -1931,7 +1965,7 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {playAgain ? (
+                      {playAgain===true&&hideEverything===false ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
                             animationData={AllAnimation.missed}
@@ -1974,7 +2008,10 @@ const Description = ({
                       
                       <div className={style.gameGuideOverlay}>
                         <div className={style.GameFullOverlay} onClick={()=>{
-                          setOverlay(false)
+                           setTimeout(()=>{
+                          setOverlay(false) 
+
+                          },3000)
                         }}>
 
                         </div>
@@ -1992,11 +2029,11 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {playAgain ? (
+                      {playAgain===true&&hideEverything===false ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
                             animationData={AllAnimation.missed}
-                            loop={true}
+                            loop={false}
                             onComplete={() => {}}
                           />
                         </div>
@@ -2051,7 +2088,7 @@ const Description = ({
                         <button>
                           <img src={assets.GrayPrizeMove} alt="" />
                         </button>
-                      ) : (
+                      ) :hideEverything===false? 
                         <button
                           onClick={() => {
                             setPrizeResetActive(true);
@@ -2062,7 +2099,7 @@ const Description = ({
                         >
                           <img src={assets.greenPrizeMove} alt="" />
                         </button>
-                      )
+                      :""
                     ) : (
                       ""
                     )}
@@ -2757,6 +2794,7 @@ const Description = ({
                           setWait(true);
                           setGamePlayStatus(true);
                           setGamePlay(true);
+                          setPlayAgain(false);
                           socket.emit(
                             "socket_connect",
                             JSON.stringify({
@@ -2770,7 +2808,6 @@ const Description = ({
                           message = `${baseMessage}|G_CONNECTED`;
                           socket.emit("peer_message", message);
                           // gameStart()
-                          setPlayAgain(false);
                         }}
                       >
                         <Lotties

@@ -33,6 +33,7 @@ export const loginAction=(data)=>async(disptach)=>{
                 payload:data
                 // payload:userData
             })
+            window.location.reload()
             }
             else{
                 // localStorage.removeItem("user")
@@ -148,6 +149,7 @@ export const notificationAction=()=>async(dispatch)=>{
                 "Content-type":"application/json"
             }
         }).then(res=>res.json()).then((data)=>{
+            console.log(data.data)
             dispatch({
                 type:NOTIFICATION_SUCCESS,
                 payload:data.data[0]

@@ -360,3 +360,8 @@
         padding:2rem 0;
     }
 } 
+@media(max-width:280px){
+.Copyright p{
+    font-size: 1.45rem;
+}
+}

@@ -454,7 +454,7 @@ const Cart = () => {
             //   playing={true}
             //   controls={true}
             //   />\
-            <video ref={vidRef}>
+            <video autoPlay muted={true}>
               <source src={url} type="video/mp4" />
             </video>
           )}
@@ -618,7 +618,7 @@ const Cart = () => {
               //   playing={true}
               //   controls={true}
               //   />\
-              <video ref={vidRef} autoplay>
+              <video autoPlay muted={true}>
                 <source src={url} type="video/mp4" />
               </video>
             )}
