@@ -497,3 +497,70 @@
         height: 180px;
     }
 }
+.ResendPopup{
+    position: absolute;
+    font-family: myraidproregular !important;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    width: -moz-fit-content;
+    width: fit-content;
+    transform: translate(-50%, -50%);
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    background-color: #1b8fe7;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 15%; */
+    width: 300px;
+
+}
+.ResendpopupImage{
+    width: 40%;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+    /* width: 50%; */
+}
+.ResendpopupImage img{
+    width: 100%;
+}
+.ResendpopupText{
+    margin-top: 15%;
+}
+.ResendpopupText p{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    line-height: 25px;
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+.ResendpopupButton{
+    width: 100%;
+
+}
+.ResendpopupButton button{
+    margin: 1.5rem 0;
+    padding: 1rem 0rem;
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    font-family: myraidproregular;
+}
+.popupOverlaySection{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 9999;
+    /* background-color: #00000055; */
+}

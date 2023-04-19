@@ -98,8 +98,10 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem("user");
+    // console.log(window.location.pathname.split("/"))
     localStorage.removeItem("SaveShipping");
-    navigate("/");
+    localStorage.removeItem("times");
+    // navigate("/");
     window.location.reload();
   };
   function checkGameOn() {
@@ -148,16 +150,17 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     }
                   }}
                 >
+                  
                   <p
-                    className={
-                      id === menu.id ? style.ActiveUrl : style.NormalUrl
-                    }
-                  >
+                          className={
+                            menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+                          }
+                        >
                     {menu.Name}
                   </p>
                   {menu.Badge === true&&menu.item==="Basket" ? (
                     <span className={style.CartBadge}>
-                      {cart && cart.length ? cart && cart.length : "0"}
+                      {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -186,113 +189,13 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
 
   return (
     <div className={style.Container}>
-      <audio ref={audioRefHeader}></audio>
-      <div className={style.MobileTopNav}>
-        <div className={style.MLogo}>
-          <img src={logo} alt="" />
-        </div>
-        <div className={style.MBandaiLogo}>
-          <img src={bandaiLogo} alt="" />
-        </div>
-        <div className={style.MCredits}>
-          <div className={style.MTicket}>
-            <img src={ticket} alt="" />
-          </div>
-          <div className={style.MPoints}>
-            <p>{(user && user.point) || "0"}</p>
-          </div>
-          <div className={style.MPlus}>
-            <button>
-              <img src={plus} alt="" />
-            </button>
-          </div>
-        </div>
-      </div>
-      {active ? (
-        <div className={style.PopupContainer}>
-          <div className={style.popup}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.popupText}>
-              <p>Do you want to exit the game</p>
-            </div>
-            <div className={style.popupButton}>
-              <button
-                onClick={() => {
-                  {
-                    gamePlay === true && active === false
-                      ? setActive(false)
-                      : console.log("cancelled");
-                  }
-                }}
-              >
-                CANCEL
-              </button>
-              <button
-                onClick={() => {
-                  // {  gamePlay===true&&active===false?
-                  //   setActive(true)
-                  //   :
-                  navigate("/prizes");
-                  // callback(false)
-                  setActive(false);
-                  setGamePlay(false);
-                  console.log("Exits");
-                }}
-              >
-                OK
-              </button>
-              {/* <button
-              to="/tickets"
-              onClick={() => {
-                setTopup(false);
-              }}
-            >
-              <button>TOP UP</button>
-            </button> */}
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      {popup ? (
-        <div className={style.Section}>
-          <div className={style.popup}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.popupText}>
-              {/* <p>{vipData.vip_discription}</p> */}
-              <p>Are you sure you want to logout?</p>
-              {/* <p>fhf</p> */}
-            </div>
-            <div className={style.ReportPopupButton}>
-              <button
-                onClick={(e) => {
-                  handleLogout(e);
-                }}
-              >
-                YES
-              </button>
-              <button
-                onClick={() => {
-                  setPopup(false);
-                }}
-              >
-                NO
-              </button>
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      {toggle ? (
-        <MobileFunc />
-      ) : (
-        <div className={style.MobileMenu}>
+      {setting?
+      <div className={style.SettingsOverlay} onClick={()=>{
+        setSetting(false)
+      }}></div>
+      
+    :""}
+     <div className={style.MobileMenu}>
           <div className={style.Menu}>
             {/* <HiMenu className={style.menuIcon}  onClick={()=>{
               {  gamePlay===true&&active===false?
@@ -314,7 +217,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     />
                     {MMenu.Badge === true ? (
                     <span className={style.CartBadge}>
-                      {cart && cart.length ? cart && cart.length : "0"}
+                      {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -360,7 +263,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     return (
                       <div
                         className={style.MenuSection}
-                        onClick={() => {
+                        onClick={(e) => {
+              e.preventDefault()
+
                           setId(menu.id);
                           {
                             gamePlay === true && active === false
@@ -382,23 +287,26 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                               "_blank"
                             );
                           }
-                          if (menu.Name === "Logout") {
-                            setPopup(true);
-                          }
                           if (menu.Name === "Sound" || menu.Name === "Music") {
                             // navigate(``)
                             setSetting(true);
 
                             // navigate(`/${menu.url}`)
-                          } else {
+                          } else if(menu.Name!=="Logout"){
                             navigate(`/${menu.url}`);
+                          }
+                          if (menu.Name === "Logout") {
+                            e.preventDefault()
+                            navigate(`${window.location.pathname}`)
+                            setPopup(true);
                           }
                         }}
                       >
                         {/* if(menu.Name) */}
-                        <p
+                        
+                  <p
                           className={
-                            id === menu.id ? style.ActiveUrl : style.NormalUrl
+                            menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                           }
                         >
                           {menu.Name === "Sound" ||
@@ -410,7 +318,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         </p>
                         {menu.Badge === true&&menu.Name==="Basket" ? (
                     <span className={style.CartBadge}>
-                      {cart && cart.length ? cart && cart.length : "0"}
+                      {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -512,9 +420,12 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         ) : (
                           ""
                         )}
-                        <p className={
-                            id === menu.id ? style.ActiveUrl : style.NormalUrl
-                          }>
+                        
+                  <p
+                          className={
+                            menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+                          }
+                        >
                           {userId === null
                             ? menu.Name === "Login/Register"
                               ? menu.Name
@@ -533,13 +444,576 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
             )}
           </div>
         </div>
+      {setting?
+      <div className={style.Settings}>
+        <ul>
+          {settingsMenu.map((menu) => {
+            return (
+              <div
+                className={style.MenuSection}
+                onClick={(e) => {
+                  e.preventDefault()
+                  // setId(menu.id);
+                  // {
+                  //   gamePlay === true && active === false
+                  //     ? setActive(false)
+                  //     : // ""
+                  //       setSetting(false);
+                  // }
+                  // if (
+                  //   menu.Name === "Terms of Use" ||
+                  //   menu.Name === "Privacy Policy"
+                  // ) {
+                  //   window.open(
+                  //     `${
+                  //       menu.Name === "Terms of Use"
+                  //         ? configuration.terms
+                  //         : menu.Name === "Privacy Policy"
+                  //         ? configuration.privacy
+                  //         : ""
+                  //     }`,
+                  //     "_blank"
+                  //   );
+                  // }
+                  if (menu.Name === "Sound" || menu.Name === "Music") {
+                    // navigate(``)
+                    setSetting(true);
+
+                    // navigate(`/${menu.url}`)
+                  } 
+                  else if(menu.Name!=="Logout"){
+                    navigate(`/${menu.url}`);
+                    setSetting(true);
+
+                  }
+                  if (menu.Name === "Logout") {
+                    e.preventDefault()
+                    navigate(`${window.location.pathname}`)
+                    setPopup(true);
+                    setSetting(true);
+
+                  }
+                  console.log(menu.Name.toLowerCase())
+                  console.log(window.location.pathname.split("/")[1])
+                }}
+              >
+                {/* if(menu.Name) */}
+                
+                
+          <p
+                  className={
+                    menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+                  }
+                >
+                {/* <p
+                  className={
+                    id === menu.id ? style.ActiveUrl : style.NormalUrl
+                  }
+                > */}
+                  {menu.Name === "Sound" ||
+                  menu.Name === "Music" ||
+                  menu.Name === "Logout" ||
+                  menu.Name === "Login/Register"
+                    ? ""
+                    : menu.Name}
+                </p>
+                {menu.Badge === true&&menu.Name==="Basket" ? (
+            <span className={style.CartBadge}>
+              {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
+            </span>
+          ) : (
+            ""
+          )}
+                {menu.Badge === true&&menu.Name==="Notifications" ? (
+            <span className={style.CartBadge}>
+              {notification && notification.notification_count ? notification && notification.notification_count : "0"}
+            </span>
+          ) : (
+            ""
+          )}
+                {/* {userId===null?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl> menu.Name==="Login/Register"?menu.Name:menu.Name==="Logout"?menu.Name?menu.Name:""</p>} */}
+                {/* // :<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name==="Logout"?menu.Name:""}</p>} */}
+                {/* {userId===null?menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:"":menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:""} */}
+                {menu.Name === "Music" ? (
+                  <div className={style.Music}>
+                    <li>Music</li>
+                    <div
+                      className={
+                        gameMusic === true||gameMusic==="true"
+                          ? style.ActiveSlider
+                          : style.Slider
+                      }
+                      onClick={() => {
+                        setMusicId(menu.id);
+                        gameMusic===true?setGameMusic(false):setGameMusic(true)
+                        // sliderSction
+                        //   ? setSliderAction(false)
+                        //   : setSliderAction(true);
+                        // if (sliderSction === true) {
+                        // setGameSound(false)
+
+                        //   localStorage.setItem(
+                        //     "music",
+                        //     JSON.stringify(false)
+                        //   );
+                        // } else {
+                        // setGameSound(true)
+
+                        //   localStorage.setItem(
+                        //     "music",
+                        //     JSON.stringify(true)
+                        //   );
+                        // }
+                      }}
+                    >
+                      <div
+                        className={
+                          gameMusic === true||gameMusic==="true"
+                            ? style.ActiveSliderBtn
+                            : style.SliderBtn
+                        }
+                      ></div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                {menu.Name === "Sound" ? (
+                  <div className={style.Sound}>
+                    <li>Sound</li>
+                    <div
+                      className={
+                        gameSound === true||gameSound==="true"
+                          ? style.ActiveSlider
+                          : style.Slider
+                      }
+                      onClick={() => {
+                        setAudioId(menu.id);
+                        gameSound===true?setGameSound(false):setGameSound(true)
+                        // sliderSction
+                        //   ? setSliderAction(false)
+                        //   : setSliderAction(true);
+                        // if (sliderSction === true) {
+                        // setGameSound(false)
+
+                        //   localStorage.setItem(
+                        //     "sound",
+                        //     JSON.stringify(false)
+                        //   );
+                        // } else {
+                        // setGameSound(true)
+
+                        //   localStorage.setItem(
+                        //     "sound",
+                        //     JSON.stringify(true)
+                          
+                        //   );
+                        // }
+                      }}
+                    >
+                      <div
+                        className={
+                          gameSound === true||gameSound==="true"
+                            ? style.ActiveSliderBtn
+                            : style.SliderBtn
+                        }
+                      ></div>
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                
+          <p
+                  className={
+                    menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+                  }
+                >
+                  {userId === null
+                    ? menu.Name === "Login/Register"
+                      ? menu.Name
+                      : ""
+                    : menu.Name === "Logout"
+                    ? menu.Name
+                    : ""}
+                </p>
+              </div>
+            );
+          })}
+        </ul>
+      </div>:""
+      }
+      <audio ref={audioRefHeader}></audio>
+      <div className={style.MobileTopNav}>
+        <div className={style.MLogo}>
+          <img src={logo} alt="" />
+        </div>
+        <div className={style.MBandaiLogo}>
+          <img src={bandaiLogo} alt="" />
+        </div>
+        <div className={style.MCredits}>
+          <div className={style.MTicket}>
+            <img src={ticket} alt="" />
+          </div>
+          <div className={style.MPoints}>
+            <p>{(user && user.point) || "0"}</p>
+          </div>
+          <div className={style.MPlus}>
+            <button onClick={()=>{
+              navigate("/tickets")
+            }}>
+              <img src={plus} alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+      {active ? (
+        <div className={style.PopupContainer}>
+          <div className={style.popup}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.popupText}>
+              <p>Do you want to exit the game</p>
+            </div>
+            <div className={style.popupButton}>
+              <button
+                onClick={() => {
+                  {
+                    gamePlay === true && active === false
+                      ? setActive(false)
+                      : console.log("cancelled");
+                  }
+                }}
+              >
+                CANCEL
+              </button>
+              <button
+                onClick={() => {
+                  // {  gamePlay===true&&active===false?
+                  //   setActive(true)
+                  //   :
+                  navigate("/prizes");
+                  // callback(false)
+                  setActive(false);
+                  setGamePlay(false);
+                  console.log("Exits");
+                }}
+              >
+                OK
+              </button>
+              {/* <button
+              to="/tickets"
+              onClick={() => {
+                setTopup(false);
+              }}
+            >
+              <button>TOP UP</button>
+            </button> */}
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {popup ? (
+        <div className={style.Section}>
+          <div className={style.popup}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.popupText}>
+              {/* <p>{vipData.vip_discription}</p> */}
+              <p>Are you sure you want to logout?</p>
+              {/* <p>fhf</p> */}
+            </div>
+            <div className={style.ReportPopupButton}>
+              <button
+                onClick={(e) => {
+              e.preventDefault()
+
+                  handleLogout(e);
+                }}
+              >
+                YES
+              </button>
+              <button
+                onClick={(e) => {
+              e.preventDefault()
+
+                  setPopup(false);
+                }}
+              >
+                NO
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {toggle ? (
+        <MobileFunc />
+      ) : (
+        // <div className={style.MobileMenu}>
+        //   <div className={style.Menu}>
+        //     {/* <HiMenu className={style.menuIcon}  onClick={()=>{
+        //       {  gamePlay===true&&active===false?
+        //         setActive(true)
+        //         :
+               
+        //         setToggle(true)}
+        //       }}/> */}
+        //     <div className={style.HomeMenuIcons}>
+        //       {MainMenu.map((MMenu) => {
+        //         return (
+        //           <div className={style.BottomMenuIcon}>
+        //             <img
+        //               src={MMenu.icon}
+        //               alt=""
+        //               onClick={() => {
+        //                 navigate(`/${MMenu.url}`);
+        //               }}
+        //             />
+        //             {MMenu.Badge === true ? (
+        //             <span className={style.CartBadge}>
+        //               {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
+        //             </span>
+        //           ) : (
+        //             ""
+        //           )}
+        //           </div>
+        //         );
+        //       })}
+        //       <HiMenu
+        //         onClick={() => {
+        //           // setSetting(true)
+        //           setting ? setSetting(false) : setSetting(true);
+        //         }}
+        //       />
+        //       {/* <div className={style.BottomMenuIcon}>
+        //           <img src={} alt="" />
+        //         </div>
+        //         <div className={style.BottomMenuIcon}>
+        //           <img src={} alt="" />
+        //         </div>
+        //         <div className={style.BottomMenuIcon}>
+        //           <img src={} alt="" />
+        //         </div> */}
+        //     </div>
+        //   </div>
+        //   <div className={style.HamBurgerMenu}>
+        //     {setting ? (
+        //       <div className={style.Settings}>
+        //         <AiOutlineClose
+        //           className={style.closeIcon}
+        //           onClick={() => {
+        //             setId("");
+
+        //             {
+        //               gamePlay === true && active === false
+        //                 ? setActive(true)
+        //                 : setSetting(false);
+        //             }
+        //           }}
+        //         />
+        //         {/* {isUser? */}
+        //         <ul>
+        //           {settingsMenu.map((menu) => {
+        //             return (
+        //               <div
+        //                 className={style.MenuSection}
+        //                 onClick={(e) => {
+        //       e.preventDefault()
+
+        //                   setId(menu.id);
+        //                   {
+        //                     gamePlay === true && active === false
+        //                       ? setActive(true)
+        //                       : setSetting(false);
+        //                   }
+        //                   if (
+        //                     menu.Name === "Terms of Use" ||
+        //                     menu.Name === "Privacy Policy"
+        //                   ) {
+        //                     window.open(
+        //                       `${
+        //                         menu.Name === "Terms of Use"
+        //                           ? configuration.terms
+        //                           : menu.Name === "Privacy Policy"
+        //                           ? configuration.privacy
+        //                           : ""
+        //                       }`,
+        //                       "_blank"
+        //                     );
+        //                   }
+        //                   if (menu.Name === "Sound" || menu.Name === "Music") {
+        //                     // navigate(``)
+        //                     setSetting(true);
+
+        //                     // navigate(`/${menu.url}`)
+        //                   } else if(menu.Name!=="Logout"){
+        //                     navigate(`/${menu.url}`);
+        //                   }
+        //                   if (menu.Name === "Logout") {
+        //                     e.preventDefault()
+        //                     navigate(`${window.location.pathname}`)
+        //                     setPopup(true);
+        //                   }
+        //                 }}
+        //               >
+        //                 {/* if(menu.Name) */}
+                        
+        //           <p
+        //                   className={
+        //                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+        //                   }
+        //                 >
+        //                   {menu.Name === "Sound" ||
+        //                   menu.Name === "Music" ||
+        //                   menu.Name === "Logout" ||
+        //                   menu.Name === "Login/Register"
+        //                     ? ""
+        //                     : menu.Name}
+        //                 </p>
+        //                 {menu.Badge === true&&menu.Name==="Basket" ? (
+        //             <span className={style.CartBadge}>
+        //               {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
+        //             </span>
+        //           ) : (
+        //             ""
+        //           )}
+        //                 {menu.Badge === true&&menu.Name==="Notifications" ? (
+        //             <span className={style.CartBadge}>
+        //               {notification && notification.notification_count ? notification && notification.notification_count : "0"}
+        //             </span>
+        //           ) : (
+        //             ""
+        //           )}
+        //                 {/* <p className={id===menu.id&&menu.name!="Logout"&&menu.name!="Login/Register"?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p> */}
+        //                 {menu.Name === "Music" ? (
+        //                   <div className={style.Music}>
+        //                   <li>Music</li>
+        //                   <div
+        //                     className={
+        //                       gameMusic === true||gameMusic==="true"
+        //                         ? style.ActiveSlider
+        //                         : style.Slider
+        //                     }
+        //                     onClick={() => {
+        //                       setMusicId(menu.id);
+        //                       gameMusic===true?setGameMusic(false):setGameMusic(true)
+        //                       // sliderSction
+        //                       //   ? setSliderAction(false)
+        //                       //   : setSliderAction(true);
+        //                       // if (sliderSction === true) {
+        //                       // setGameSound(false)
+
+        //                       //   localStorage.setItem(
+        //                       //     "music",
+        //                       //     JSON.stringify(false)
+        //                       //   );
+        //                       // } else {
+        //                       // setGameSound(true)
+
+        //                       //   localStorage.setItem(
+        //                       //     "music",
+        //                       //     JSON.stringify(true)
+        //                       //   );
+        //                       // }
+        //                     }}
+        //                   >
+        //                     <div
+        //                       className={
+        //                         gameMusic === true||gameMusic==="true"
+        //                           ? style.ActiveSliderBtn
+        //                           : style.SliderBtn
+        //                       }
+        //                     ></div>
+        //                   </div>
+        //                 </div>
+        //                 ) : (
+        //                   ""
+        //                 )}
+        //                 {menu.Name === "Sound" ? (
+        //                    <div className={style.Sound}>
+        //                    <li>Sound</li>
+        //                    <div
+        //                      className={
+        //                        gameSound === true||gameSound==="true"
+        //                          ? style.ActiveSlider
+        //                          : style.Slider
+        //                      }
+        //                      onClick={() => {
+        //                        setAudioId(menu.id);
+        //                        gameSound===true?setGameSound(false):setGameSound(true)
+        //                        // sliderSction
+        //                        //   ? setSliderAction(false)
+        //                        //   : setSliderAction(true);
+        //                        // if (sliderSction === true) {
+        //                        // setGameSound(false)
+
+        //                        //   localStorage.setItem(
+        //                        //     "sound",
+        //                        //     JSON.stringify(false)
+        //                        //   );
+        //                        // } else {
+        //                        // setGameSound(true)
+
+        //                        //   localStorage.setItem(
+        //                        //     "sound",
+        //                        //     JSON.stringify(true)
+                                 
+        //                        //   );
+        //                        // }
+        //                      }}
+        //                    >
+        //                      <div
+        //                        className={
+        //                          gameSound === true||gameSound==="true"
+        //                            ? style.ActiveSliderBtn
+        //                            : style.SliderBtn
+        //                        }
+        //                      ></div>
+        //                    </div>
+        //                  </div>
+        //                 ) : (
+        //                   ""
+        //                 )}
+                        
+        //           <p
+        //                   className={
+        //                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+        //                   }
+        //                 >
+        //                   {userId === null
+        //                     ? menu.Name === "Login/Register"
+        //                       ? menu.Name
+        //                       : ""
+        //                     : menu.Name === "Logout"
+        //                     ? menu.Name
+        //                     : ""}
+        //                 </p>
+        //               </div>
+        //             );
+        //           })}
+        //         </ul>
+        //       </div>
+        //     ) : (
+        //       ""
+        //     )}
+        //   </div>
+        // </div>
+        ""
       )}
 
       <div className={style.Header}>
         <div className={style.Logo}>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault()
               {
+
                 gamePlay === true && active === false
                   ? setActive(true)
                   : setActive(false);
@@ -560,6 +1034,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
+                    e.preventDefault()
                     // eslint-disable-next-line no-lone-blocks
                     setId(menu.id);
                     playAudio(music.Click);
@@ -583,15 +1058,15 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   {/* <audio ref={audioRefHeader}></audio> */}
 
                   <p
-                    className={
-                      id === menu.id ? style.ActiveUrl : style.NormalUrl
-                    }
-                  >
+                          className={
+                            menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+                          }
+                        >
                     {menu.Name}
                   </p>
                   {menu.Badge === true ? (
                     <span className={style.CartBadge}>
-                      {cart && cart.length ? cart && cart.length : "0"}
+                      {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -610,7 +1085,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
             <p>{(user && user.point) || "0"}</p>
           </div>
           <div className={style.Plus}>
-            <button>
+            <button onClick={()=>{
+              navigate("/tickets")
+            }}>
               <img src={plus} alt="" />
             </button>
           </div>
@@ -630,184 +1107,201 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
               }}
             />
             {setting ? (
-              <div className={style.Settings}>
-                <ul>
-                  {settingsMenu.map((menu) => {
-                    return (
-                      <div
-                        className={style.MenuSection}
-                        onClick={() => {
-                          setId(menu.id);
-                          {
-                            gamePlay === true && active === false
-                              ? setActive(false)
-                              : // ""
-                                setSetting(false);
-                          }
-                          if (
-                            menu.Name === "Terms of Use" ||
-                            menu.Name === "Privacy Policy"
-                          ) {
-                            window.open(
-                              `${
-                                menu.Name === "Terms of Use"
-                                  ? configuration.terms
-                                  : menu.Name === "Privacy Policy"
-                                  ? configuration.privacy
-                                  : ""
-                              }`,
-                              "_blank"
-                            );
-                          }
-                          if (menu.Name === "Logout") {
-                            setPopup(true);
-                          }
-                          if (menu.Name === "Sound" || menu.Name === "Music") {
-                            // navigate(``)
-                            setSetting(true);
+              // <div className={style.Settings}>
+              // <div className={style.SettingsOverlay}></div>
+              //   <ul>
+              //     {settingsMenu.map((menu) => {
+              //       return (
+              //         <div
+              //           className={style.MenuSection}
+              //           onClick={(e) => {
+              //             e.preventDefault()
+              //             // setId(menu.id);
+              //             // {
+              //             //   gamePlay === true && active === false
+              //             //     ? setActive(false)
+              //             //     : // ""
+              //             //       setSetting(false);
+              //             // }
+              //             // if (
+              //             //   menu.Name === "Terms of Use" ||
+              //             //   menu.Name === "Privacy Policy"
+              //             // ) {
+              //             //   window.open(
+              //             //     `${
+              //             //       menu.Name === "Terms of Use"
+              //             //         ? configuration.terms
+              //             //         : menu.Name === "Privacy Policy"
+              //             //         ? configuration.privacy
+              //             //         : ""
+              //             //     }`,
+              //             //     "_blank"
+              //             //   );
+              //             // }
+              //             if (menu.Name === "Sound" || menu.Name === "Music") {
+              //               // navigate(``)
+              //               setSetting(true);
 
-                            // navigate(`/${menu.url}`)
-                          } else {
-                            navigate(`/${menu.url}`);
-                          }
-                        }}
-                      >
-                        {/* if(menu.Name) */}
+              //               // navigate(`/${menu.url}`)
+              //             } 
+              //             else if(menu.Name!=="Logout"){
+              //               navigate(`/${menu.url}`);
+              //             }
+              //             if (menu.Name === "Logout") {
+              //               e.preventDefault()
+              //               navigate(`${window.location.pathname}`)
+              //               setPopup(true);
+              //             }
+              //             console.log(menu.Name.toLowerCase())
+              //             console.log(window.location.pathname.split("/")[1])
+              //           }}
+              //         >
+              //           {/* if(menu.Name) */}
                         
-                        <p
-                          className={
-                            id === menu.id ? style.ActiveUrl : style.NormalUrl
-                          }
-                        >
-                          {menu.Name === "Sound" ||
-                          menu.Name === "Music" ||
-                          menu.Name === "Logout" ||
-                          menu.Name === "Login/Register"
-                            ? ""
-                            : menu.Name}
-                        </p>
-                        {menu.Badge === true&&menu.Name==="Basket" ? (
-                    <span className={style.CartBadge}>
-                      {cart && cart.length ? cart && cart.length : "0"}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                        {menu.Badge === true&&menu.Name==="Notifications" ? (
-                    <span className={style.CartBadge}>
-                      {notification && notification.notification_count ? notification && notification.notification_count : "0"}
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                        {/* {userId===null?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl> menu.Name==="Login/Register"?menu.Name:menu.Name==="Logout"?menu.Name?menu.Name:""</p>} */}
-                        {/* // :<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name==="Logout"?menu.Name:""}</p>} */}
-                        {/* {userId===null?menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:"":menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:""} */}
-                        {menu.Name === "Music" ? (
-                          <div className={style.Music}>
-                            <li>Music</li>
-                            <div
-                              className={
-                                gameMusic === true||gameMusic==="true"
-                                  ? style.ActiveSlider
-                                  : style.Slider
-                              }
-                              onClick={() => {
-                                setMusicId(menu.id);
-                                gameMusic===true?setGameMusic(false):setGameMusic(true)
-                                // sliderSction
-                                //   ? setSliderAction(false)
-                                //   : setSliderAction(true);
-                                // if (sliderSction === true) {
-                                // setGameSound(false)
+                        
+              //     <p
+              //             className={
+              //               menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+              //             }
+              //           >
+              //           {/* <p
+              //             className={
+              //               id === menu.id ? style.ActiveUrl : style.NormalUrl
+              //             }
+              //           > */}
+              //             {menu.Name === "Sound" ||
+              //             menu.Name === "Music" ||
+              //             menu.Name === "Logout" ||
+              //             menu.Name === "Login/Register"
+              //               ? ""
+              //               : menu.Name}
+              //           </p>
+              //           {menu.Badge === true&&menu.Name==="Basket" ? (
+              //       <span className={style.CartBadge}>
+              //         {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
+              //       </span>
+              //     ) : (
+              //       ""
+              //     )}
+              //           {menu.Badge === true&&menu.Name==="Notifications" ? (
+              //       <span className={style.CartBadge}>
+              //         {notification && notification.notification_count ? notification && notification.notification_count : "0"}
+              //       </span>
+              //     ) : (
+              //       ""
+              //     )}
+              //           {/* {userId===null?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl> menu.Name==="Login/Register"?menu.Name:menu.Name==="Logout"?menu.Name?menu.Name:""</p>} */}
+              //           {/* // :<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name==="Logout"?menu.Name:""}</p>} */}
+              //           {/* {userId===null?menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:"":menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:""} */}
+              //           {menu.Name === "Music" ? (
+              //             <div className={style.Music}>
+              //               <li>Music</li>
+              //               <div
+              //                 className={
+              //                   gameMusic === true||gameMusic==="true"
+              //                     ? style.ActiveSlider
+              //                     : style.Slider
+              //                 }
+              //                 onClick={() => {
+              //                   setMusicId(menu.id);
+              //                   gameMusic===true?setGameMusic(false):setGameMusic(true)
+              //                   // sliderSction
+              //                   //   ? setSliderAction(false)
+              //                   //   : setSliderAction(true);
+              //                   // if (sliderSction === true) {
+              //                   // setGameSound(false)
 
-                                //   localStorage.setItem(
-                                //     "music",
-                                //     JSON.stringify(false)
-                                //   );
-                                // } else {
-                                // setGameSound(true)
+              //                   //   localStorage.setItem(
+              //                   //     "music",
+              //                   //     JSON.stringify(false)
+              //                   //   );
+              //                   // } else {
+              //                   // setGameSound(true)
 
-                                //   localStorage.setItem(
-                                //     "music",
-                                //     JSON.stringify(true)
-                                //   );
-                                // }
-                              }}
-                            >
-                              <div
-                                className={
-                                  gameMusic === true||gameMusic==="true"
-                                    ? style.ActiveSliderBtn
-                                    : style.SliderBtn
-                                }
-                              ></div>
-                            </div>
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                        {menu.Name === "Sound" ? (
-                          <div className={style.Sound}>
-                            <li>Sound</li>
-                            <div
-                              className={
-                                gameSound === true||gameSound==="true"
-                                  ? style.ActiveSlider
-                                  : style.Slider
-                              }
-                              onClick={() => {
-                                setAudioId(menu.id);
-                                gameSound===true?setGameSound(false):setGameSound(true)
-                                // sliderSction
-                                //   ? setSliderAction(false)
-                                //   : setSliderAction(true);
-                                // if (sliderSction === true) {
-                                // setGameSound(false)
+              //                   //   localStorage.setItem(
+              //                   //     "music",
+              //                   //     JSON.stringify(true)
+              //                   //   );
+              //                   // }
+              //                 }}
+              //               >
+              //                 <div
+              //                   className={
+              //                     gameMusic === true||gameMusic==="true"
+              //                       ? style.ActiveSliderBtn
+              //                       : style.SliderBtn
+              //                   }
+              //                 ></div>
+              //               </div>
+              //             </div>
+              //           ) : (
+              //             ""
+              //           )}
+              //           {menu.Name === "Sound" ? (
+              //             <div className={style.Sound}>
+              //               <li>Sound</li>
+              //               <div
+              //                 className={
+              //                   gameSound === true||gameSound==="true"
+              //                     ? style.ActiveSlider
+              //                     : style.Slider
+              //                 }
+              //                 onClick={() => {
+              //                   setAudioId(menu.id);
+              //                   gameSound===true?setGameSound(false):setGameSound(true)
+              //                   // sliderSction
+              //                   //   ? setSliderAction(false)
+              //                   //   : setSliderAction(true);
+              //                   // if (sliderSction === true) {
+              //                   // setGameSound(false)
 
-                                //   localStorage.setItem(
-                                //     "sound",
-                                //     JSON.stringify(false)
-                                //   );
-                                // } else {
-                                // setGameSound(true)
+              //                   //   localStorage.setItem(
+              //                   //     "sound",
+              //                   //     JSON.stringify(false)
+              //                   //   );
+              //                   // } else {
+              //                   // setGameSound(true)
 
-                                //   localStorage.setItem(
-                                //     "sound",
-                                //     JSON.stringify(true)
+              //                   //   localStorage.setItem(
+              //                   //     "sound",
+              //                   //     JSON.stringify(true)
                                   
-                                //   );
-                                // }
-                              }}
-                            >
-                              <div
-                                className={
-                                  gameSound === true||gameSound==="true"
-                                    ? style.ActiveSliderBtn
-                                    : style.SliderBtn
-                                }
-                              ></div>
-                            </div>
-                          </div>
-                        ) : (
-                          ""
-                        )}
-                        <p className={
-                            id === menu.id ? style.ActiveUrl : style.NormalUrl
-                          }>
-                          {userId === null
-                            ? menu.Name === "Login/Register"
-                              ? menu.Name
-                              : ""
-                            : menu.Name === "Logout"
-                            ? menu.Name
-                            : ""}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </ul>
-              </div>
+              //                   //   );
+              //                   // }
+              //                 }}
+              //               >
+              //                 <div
+              //                   className={
+              //                     gameSound === true||gameSound==="true"
+              //                       ? style.ActiveSliderBtn
+              //                       : style.SliderBtn
+              //                   }
+              //                 ></div>
+              //               </div>
+              //             </div>
+              //           ) : (
+              //             ""
+              //           )}
+                        
+              //     <p
+              //             className={
+              //               menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
+              //             }
+              //           >
+              //             {userId === null
+              //               ? menu.Name === "Login/Register"
+              //                 ? menu.Name
+              //                 : ""
+              //               : menu.Name === "Logout"
+              //               ? menu.Name
+              //               : ""}
+              //           </p>
+              //         </div>
+              //       );
+              //     })}
+              //   </ul>
+              // </div>
+              ""
             ) : (
               ""
             )}

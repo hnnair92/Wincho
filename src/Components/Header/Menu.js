@@ -60,7 +60,7 @@ export const settingsMenu = [
     {
         id:"14",
         Name:"Notifications",
-        url:"notification",
+        url:"notifications",
         slider:false,
         Badge:true,
     },

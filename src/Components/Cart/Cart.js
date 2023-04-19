@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import { AllAnimation } from "../../Animation/allAnimation";
-import { MdClose, MdFacebook } from "react-icons/md";
+import { MdClose, MdEmail, MdFacebook } from "react-icons/md";
 import playVideo from "../../assests/PlayButton.png";
 import { AiFillYoutube, AiOutlineInstagram } from "react-icons/ai";
 import { FaTiktok } from "react-icons/fa";
@@ -266,6 +266,28 @@ const Cart = () => {
         console.log(err)
       })
   }
+  async function createPayment(){
+    await fetch(`${baseUrl}/points/create-checkout-session`, {
+      method: "POST",
+      body: JSON.stringify({
+        mode: "subscription",
+        amount: parseInt(configuration.VIP_SUBSCRIPTION) * 100,
+        quantity: 1,
+        currency: configuration.CURRENCY_CODE,
+        product: "Vip",
+        success_url: "http://localhost:3000/tickets",
+        cancel_url: "http://game.wincha-online.com/payment/cancel",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.open(`${data.data[0].url}`);
+      });
+  }
   function getVipDetails() {
     fetch(`${baseUrl}/user/vip/shipping/status`, {
       method: "POST",
@@ -508,7 +530,9 @@ const Cart = () => {
                 </div>
               </div>
               <div className={style.SubscribeButton}>
-                <button>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+                <button onClick={()=>{
+                  createPayment()
+                }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
                 <p>Cancel any time</p>
@@ -550,7 +574,7 @@ const Cart = () => {
               setOnPlay(false);
             }}
           ></div>
-          <div className={style.PlayIcon}>
+          {/* <div className={style.PlayIcon}>
             {onPlay === true && url === "" ? (
               <button
                 onClick={() => {
@@ -572,7 +596,7 @@ const Cart = () => {
                 <img src={playVideo} alt="" />
               </button>
             )}
-          </div>
+          </div> */}
           <div className={style.VideoSection}>
             <MdClose
               onClick={() => {
@@ -594,7 +618,7 @@ const Cart = () => {
               //   playing={true}
               //   controls={true}
               //   />\
-              <video ref={vidRef}>
+              <video ref={vidRef} autoplay>
                 <source src={url} type="video/mp4" />
               </video>
             )}
@@ -992,6 +1016,9 @@ const Cart = () => {
                           <div className={style.ShareIcon}>
                             <AiFillYoutube />
                           </div>
+                          <div className={style.ShareIcon}>
+                            <MdEmail />
+                          </div>
                         </div>
                       ) : (
                         ""
@@ -1025,7 +1052,7 @@ const Cart = () => {
               <div
                 className={style.shippingIcon}
                 onClick={() => {
-                  if (user?.vip === false) {
+                  if (user&&user.vip === false) {
                     setPremiumPopup(true);
                   }
                 }}
@@ -1041,11 +1068,18 @@ const Cart = () => {
                   <span
                     className={style.CircleActive}
                     onClick={() => {
+                      if (user&&user.vip === false) {
+                    setPremiumPopup(true);
+                  }
                       // setPrime(false);
                     }}
                   ></span>
                 ) : (
-                  <span className={style.Circle} onClick={() => {}}></span>
+                  <span className={style.Circle} onClick={() => {
+                     if (user&&user.vip === false) {
+                    setPremiumPopup(true);
+                  }
+                  }}></span>
                 )}
               </div>
             </div>
@@ -1164,7 +1198,7 @@ const Cart = () => {
           </div>
         </div>
         <div className={style.Checkout}>
-          <button style={{filter:loading||user?.addressline1===""||count>4?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||loading?"none":"visible"}}
+          <button style={{filter:loading||user?.addressline1===""||count>4||cartData.length<=0?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||cartData.length<=0||loading?"none":"visible"}}
             onClick={() => {
               const parsedPoint = user && parseInt(user.point);
               const parsedPrice =

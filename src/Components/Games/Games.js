@@ -9,7 +9,20 @@ import Loader from "../Loader/Loader";
 import labelNew from "../../assests/New Banner.png";
 import closeIcon from "../../assests/Search X.png";
 import searchIcon from "../../assests/Search Icon.png";
+import eye from "../../assests/Password Eye.png";
+// import info from "../../assests/Information Icon.png";
+import icon from "../../assests/Wincha Support Icon.png";
+import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png"
+import FreeplaySection from "../../assests/Artboard 48 Freeplay Icon and TEXT.png"
+import NotificationSection from "../../assests/Artboard 48 Notification Icon and TEXT.png"
+import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.png"
+import CloseImage from "../../assests/Artboard 48 X.png"
+import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
+import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
 import {assets} from '../Description/assests'
+import Lottie from 'lottie-react'
+import { AllAnimation } from "../../Animation/allAnimation";
+
 const Games = () => {
   const { id } = useParams();
   const location = useLocation()
@@ -17,7 +30,9 @@ const Games = () => {
   const baseUrl = "https://uat.wincha-online.com";
   let { products, loading } = useSelector((state) => state.collectionProducts);
   const [popup, setPopup] = useState(false);
+  const [resendEmail,setResendEmail] = useState(false)
   const [gameData, setGameData] = useState({});
+  const [premiumPopup, setPremiumPopup] = useState(false);
   const userId = JSON.parse(localStorage.getItem("user"));
   const { user } = useSelector((state) => state.profile);
   const [searchIconStatus,setSearchIconStatus]= useState(false)
@@ -31,6 +46,7 @@ const Games = () => {
   const [history, setHistory] = useState(false);
   const [ids, setId] = useState("");
   const [imageGallery,setImageGallery] = useState([])
+  const [loadingScreen,setLoadingScreen] = useState(false)
   const [countSection,setCountSection] = useState(0)
   const times = localStorage.getItem("times")
   useEffect(()=>{
@@ -42,6 +58,24 @@ const Games = () => {
   //     setTopup(true)
   //   }
   // })
+  async function resendEmailApi(){
+    setLoadingScreen(true)
+    await fetch(`${baseUrl}/user/verification/resend`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: userId,
+        source: "web",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoadingScreen(false)
+        setResendEmail(false)
+      });
+  }
   useEffect(()=>{
     if(popup===false){
       setImageGallery([])
@@ -55,6 +89,15 @@ const Games = () => {
   //     setSearchIconStatus(true)
   //   }
   // },[window.innerWidth])
+  useEffect(()=>{
+    const premiumData = localStorage.getItem("premium")
+    if(premiumData===null||premiumData===undefined){
+      setPremiumPopup(true)
+    }
+    else{
+      setPremiumPopup(false)
+    }
+  },[])
   useEffect(() => {
     if(popup){
       document.body.style.overflow = 'hidden';
@@ -161,6 +204,14 @@ const Games = () => {
       id: 7,
     },
   ];
+  useEffect(()=>{
+    if(search!==""){
+      setCategory("")
+    }
+    else{
+      setCategory("free")
+    }
+  },[search])
   // const[active,setActive]= useState(false)
   const [allCategory, setAllCategory] = useState("");
   // const[getAllCategory,setGetAllCategory] = useState("")
@@ -269,7 +320,131 @@ const Games = () => {
                   setCategory("")
               }}>All</button> */}
         </div>
+        {premiumPopup?
+      <div className={style.clubHousePopup}>
+      <div className={style.OverlayBg} onClick={()=>{
+            setPremiumPopup(false)
+            localStorage.setItem("premium",JSON.stringify(true))
+        }}>
 
+        </div>
+        <div className={style.ClubHouse}>
+            <div className={style.TopImage}>
+          <div className={style.clubHouseClose} onClick={()=>{
+            localStorage.setItem("premium",JSON.stringify(true))
+            setPremiumPopup(false)
+          }}>
+            {/* <MdClose/> */}
+            <img src={CloseImage} alt="" />
+          </div>
+              <img src={Upper} alt="" />
+            </div>
+            <div className={style.BottomContents}>
+              {/* <div className={style.LowerImg}>
+                <img src={Lower} alt="" />
+              </div> */}
+              <div className={style.BonusPoints}>
+                  <div className={style.Bonus}>
+                    <p>{configuration.VIP_BONUS_POINT}W</p>
+                  </div>
+                  <div className={style.BonusText}>
+                    <p>Sign Up Bonus!</p>
+                  </div>
+              </div>
+              <div className={style.benefits}>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={ShippingSection} alt="" />
+
+                  </div>
+                  
+                </div>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={BundleSection} alt="" />
+
+                  </div>
+                  
+                </div>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={NotificationSection} alt="" />
+
+                  </div>
+                  
+                </div>
+                <div className={style.benefit}>
+                  <div className={style.benefitImage}>
+                  <img src={FreeplaySection} alt="" />
+
+                  </div>
+                  
+                </div>
+              </div>
+              <div className={style.SubscribeButton}>
+                <button>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+              </div>
+              <div className={style.CancelSubscription}>
+                <p>Cancel any time</p>
+              </div>
+            </div>
+            <div className={style.TermsAndPolicy}>
+              <div className={style.Terms} onClick={()=>{
+                window.open(
+                  `${ configuration.terms}`,
+                  "_blank"
+                );
+              }}>
+                <p>Subscription Terms</p>
+              </div>
+              <div className={style.Policy} onClick={()=>{
+                window.open(
+                  `${ configuration.privacy}`,
+                  "_blank"
+                );
+              }}>
+                <p>Privacy Policy</p>
+              </div>
+            </div>
+        </div>
+
+      </div>
+      
+      :""}
+      {resendEmail ? (
+          <div className={style.ResendPopup}>
+            <div className={style.popupOverlaySection} onClick={()=>{
+              setResendEmail(false)
+            }}>
+
+            </div>
+          {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
+            <div className={style.ResendpopupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.ResendpopupText}>
+              <p>Awaiting player verification</p>
+            </div>
+            <div className={style.ResendpopupButton}>
+              <div
+                // to="/tickets"
+                onClick={() => {
+                  // setResendEmail(false);
+                  // resendEmailApi()
+                }}
+              >
+                <button  onClick={() => {
+                  // setResendEmail(false);
+                  resendEmailApi();
+                }}>RESEND EMAIL</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         {loading ? (
           <Loader />
         ) : (
@@ -303,7 +478,8 @@ const Games = () => {
 
                     return (
                       
-                        <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/register"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{
+                        // <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{
+                        <div className={style.Game} key={index} onClick={(event)=>{
                           console.log("Div")
                           console.log(userId)
                           
@@ -317,8 +493,33 @@ const Games = () => {
                             // }
                           // }
                           // else if(user)
-                        }}>
-  
+                        }} 
+                        // className={style.parentGame}
+                        >
+                         {/* <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{ */}
+
+                          <div className={style.SingleGameOverlay} onClick={()=>{
+                            if(user&&user.profile_status===false&&game.price!=="0"){
+                              setResendEmail(true)
+                            }
+                            else{
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            }
+                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                              
+                            }
+                            else if(userId!=null){
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                            }
+                            else{
+                              navigate("/login")
+                            }
+                            console.log(user.profile_status,"status")
+                          }}>
+
+                          </div>
                           {game.new_item === true ? (
                             <div className={style.Label}>
                               {/* <p>New</p> */}
@@ -391,14 +592,15 @@ const Games = () => {
                               </div>
                             </div>
                           </div>
-                        </Link>
+                        </div>
                       
                     );
                   }
                   else{
                     return (
                       
-                      <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/register"} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
+                      // <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/register"} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
+                      <div  className={style.Game} key={index} onClick={(event)=>{
                         console.log("Div")
                         console.log(userId)
                         
@@ -413,6 +615,28 @@ const Games = () => {
                         // }
                         // else if(user)
                       }}>
+                         <div className={style.SingleGameOverlay} onClick={()=>{
+                            if(user&&user.profile_status===false&&game.price!=="0"){
+                              setResendEmail(true)
+                            }
+                            else{
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            }
+                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                              
+                            }
+                            else if(userId!=null){
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                            }
+                            else{
+                              navigate("/login")
+                            }
+                            console.log(user.profile_status,"status")
+                          }}>
+
+</div>
 
                         {game.new_item === true ? (
                           <div className={style.Label}>
@@ -486,7 +710,7 @@ const Games = () => {
                             </div>
                           </div>
                         </div>
-                      </Link>
+                      </div>
                     
                   );
                   }
@@ -494,7 +718,8 @@ const Games = () => {
               : searchArray &&
                 searchArray.map((game, index) => {
                   return (
-                    <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:""} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
+                    // <div to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:""} state={{game:game}} className={style.Game} key={index} onClick={(event)=>{
+                    <div  className={style.Game} key={index} onClick={(event)=>{
                       console.log("Div")
                       console.log(userId)
                       
@@ -509,6 +734,28 @@ const Games = () => {
                       // }
                       // else if(user)
                     }}>
+                       <div className={style.SingleGameOverlay} onClick={()=>{
+                            if(user&&user.profile_status===false&&game.price!=="0"){
+                              setResendEmail(true)
+                            }
+                            else{
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            }
+                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                              
+                            }
+                            else if(userId!=null){
+                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                            }
+                            else{
+                              navigate("/login")
+                            }
+                            console.log(user.profile_status,"status")
+                          }}>
+
+</div>
                       {/* <div className={style.Game} key={index}> */}
                         {game.new_item === true ? (
                           <div className={style.Label}>
@@ -577,7 +824,7 @@ const Games = () => {
                           </div>
                         </div>
                       {/* </div> */}
-                    </Link>
+                    </div>
                   );
                 })}
           </div>
@@ -587,7 +834,7 @@ const Games = () => {
 
         </div>
       :""}
-        {popup && ids ? 
+        {popup===true && ids ? 
           <div
             className={style.PopupSection}
             
@@ -640,7 +887,13 @@ const Games = () => {
               <div
                 className={style.popupPlayNow}
                 onClick={() => {
-                  navigate(`/game/${gameData.slug}`, { state: { game: gameData ,user:user,cateogry:category} });
+                  if(user&&user.profile_status===false&&gameData.price!="0"){
+                    setPopup(false)
+                    setResendEmail(true)
+                  }
+                  else{
+                    navigate(`/game/${gameData.slug}`, { state: { game: gameData ,user:user,cateogry:category} });
+                  }
                 }}
               >
                 {/* <button></button> */}

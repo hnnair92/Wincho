@@ -26,6 +26,7 @@ const Notification = () => {
         }).then(res=>res.json()).then((data)=>{
             setNotificationData(data.data[0])
             setLoading(false)
+            console.log(data)
             console.log(notificationData.notifications.length)
             // setProduct(data.data[0].notifications.[])
         })
@@ -59,7 +60,7 @@ const Notification = () => {
             <div className={style.Head}>
                 <p>NOTIFICATIONS</p>
             </div>
-            {loading===false?notificationData?.notifications?.length>1?notificationData?.notifications?.map((notification)=>{
+            {loading===false?notificationData?.notifications?.length>0?notificationData?.notifications?.map((notification)=>{
                 {/* console.log(notification.product[0]) */}
                 return(
                     <div className={style.Notification} onClick={()=>{

@@ -63,7 +63,7 @@
     color: #fff;
 }
 .ProfileImage{
-    width: 50%;
+    width: 40%;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -325,7 +325,7 @@
 .popupButtonSubmit button{
     border-width: 1.5px;
 }
-popupInput{
+.popupInput{
     width: 100%;
 }
 .popupInput textarea {
@@ -1008,4 +1008,17 @@ popupInput{
     .Terms p,.Policy p{
         font-size: 1.25rem;
     }
+}
+.Shipping .Phone .InputSection .phoneInputSection{
+    color: #fff;
+}
+.Shipping .Phone .InputSection .phoneInputSection::-webkit-input-placeholder{
+    opacity: 1;
+    color: #000;
+}
+.OverlayBg{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: transparent;
 }

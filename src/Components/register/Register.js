@@ -343,7 +343,7 @@ const[passIcon,setPassIcon] = useState(false)
                     }}>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-                {eligible&&terms===true&&password===confirmPassword&&password.length>8&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
+                {eligible&&terms===true&&password===confirmPassword&&password.length>7&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
                 
                 <div className={style.checkUser}>{error&&error.status==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div>
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}

@@ -26,6 +26,7 @@
     margin-left: auto;
     margin-right: auto;
     background-color: #fff;
+    overflow-x: scroll;
     /* border-top: 7px solid #ab2b29; */
 }
 .category,.active{
@@ -138,6 +139,7 @@
     width: 85%;
     margin: 0.56rem auto;
     margin-bottom: 0;
+    height: 35%;
 }
 .Name{
     font-size: 1.75rem;
@@ -193,10 +195,12 @@
 }
 .Image{
     width: 100%;
+    height: 65%;
     /* height: 50%; */
 }
 .Image img{
     width: 100%;
+    height: 100%;
     border-top-right-radius: 2.26rem;
     border-top-left-radius: 2.26rem;
 }
@@ -373,7 +377,7 @@
     }
 }
 @media(min-width:767px) and (max-width:1056px){
-    .Games a{
+    .Games .Game{
         width:25%;
     }
     .Categories{
@@ -567,7 +571,7 @@
 }
 .Search input,.MSearch input{
     background-color: transparent;
-    width: 100%;
+    width: 300px;
     height: 100%;
     outline: none;
     border:none;
@@ -575,6 +579,7 @@
     font-size: 2.25rem;
     padding: 0px 10px;
     font-weight: 500;
+
 }
 .CategoriesSection,.AllCategories{
     width: 92.5%;
@@ -683,4 +688,276 @@
         margin-left: 0;
     }
     
+}
+.clubHousePopup{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 999999;
+}
+.ClubHouse{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 50rem;
+    background: #fff;
+    border:3px solid #fff;
+    height: auto;
+    border-radius: 30px;
+    /* height: 80vh; */
+}
+.TopImage{
+    width: 100%;
+    position: relative;
+}
+.TopImage img{
+    width: 100%;
+}
+.clubHouseClose{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    width: 7.5%;
+    cursor: pointer;
+}
+.clubHouseClose img{
+    width: 100%;
+}
+.BottomContents{
+    width: 100%;
+    position: relative;
+    padding-bottom: 5px;
+    min-height: 180px;
+    background-image: url("../../assests/Artboard 48 - Lower Image Split.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+.LowerImg{
+    z-index: 9;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.LowerImg img{
+    width: 100%;
+}
+.BonusPoints{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    z-index: 99;
+    align-items: center;
+    justify-content: center;
+
+}
+.Bonus p{
+    font-size: 8rem;
+    font-family: drumshake_italic;
+    color: #fff;
+    -webkit-text-stroke: 2px #000;
+}
+.BonusText{
+    margin: 0px 20px;
+}
+.BonusText p{
+    font-style: italic;
+    color: #000;
+    /* font-family: myraidproregular; */
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+.benefits{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+    z-index: 99;
+}
+.benefit{
+    width: 100%;
+}
+.benefitImage{
+    width: 100%;
+}
+.benefitImage img{
+    width: 100%;
+}
+.SubscribeButton{
+    /* width: 100%; */
+    margin: 25px auto;
+    position: relative;
+    z-index: 99;
+    background-color: #1b8fe7;
+    border-radius: 30px;
+    border:1.5px solid #fff;
+    padding:10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    /* margin-bottom: 20px; */
+    
+}
+.SubscribeButton button{
+    width: fit-content;
+    font-size: 2.25rem;
+    color: #fff;
+    font-family: myraidproregular;
+}
+.CancelSubscription{
+    position: relative;
+    z-index: 99;
+}
+.CancelSubscription p{
+    text-align: center;
+    color: #1b8fe7;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 10px 0px;
+}
+.TermsAndPolicy{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    margin: 10px;
+}
+.Terms p,.Policy p{
+    font-size: 2rem;
+    color: #1b8fe7;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+
+}
+.replay img,.share img{
+    cursor: pointer;
+}
+.Circle,.CircleActive{
+    cursor: pointer;
+}
+.AddressEditBtn{
+    cursor: pointer;
+}
+.AddressSection input::-webkit-input-placeholder{
+    opacity: 1;
+    color: gray;
+}
+@media(max-width:768px){
+    .Bonus{
+        width: 60%;
+    }
+
+    .Bonus p{
+        text-align: end;
+    }
+    .Terms p,.Policy p{
+        font-size: 1.25rem;
+    }
+}
+.Shipping .Phone .InputSection .phoneInputSection{
+    color: #fff;
+}
+.Shipping .Phone .InputSection .phoneInputSection::-webkit-input-placeholder{
+    opacity: 1;
+    color: #000;
+}
+.OverlayBg{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: transparent;
+}
+.SingleGameOverlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 99;
+}
+.ticketIcon{
+    position: relative;
+    z-index: 9;
+}
+.infoIcon{
+    z-index: 999;
+}
+.PopupSection{
+    z-index: 9999;
+}
+.ResendPopup{
+    position: absolute;
+    font-family: myraidproregular !important;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    width: -moz-fit-content;
+    width: fit-content;
+    transform: translate(-50%, -50%);
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    background-color: #1b8fe7;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 15%; */
+    width: 300px;
+
+}
+.ResendpopupImage{
+    width: 40%;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+    /* width: 50%; */
+}
+.ResendpopupImage img{
+    width: 100%;
+}
+.ResendpopupText{
+    margin-top: 15%;
+}
+.ResendpopupText p{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    line-height: 25px;
+    font-size: 2.25rem;
+    font-weight: 500;
+}
+.ResendpopupButton{
+    width: 100%;
+
+}
+.ResendpopupButton button{
+    margin: 1.5rem 0;
+    padding: 1rem 0rem;
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    font-family: myraidproregular;
+}
+.popupOverlaySection{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 9999;
 }

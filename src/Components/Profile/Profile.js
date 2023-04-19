@@ -64,6 +64,7 @@ const Profile = () => {
         console.log(data);
       });
   }
+  
   useEffect(() => {
     if (user) {
       // const date = user.dob.split("-");
@@ -88,11 +89,11 @@ const Profile = () => {
     await fetch(`${baseUrl}/user/verification/resend`, {
       method: "POST",
       body: JSON.stringify({
-        user_id: userId,
+        user: userId,
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
@@ -106,6 +107,11 @@ const Profile = () => {
       <div className={style.Profile}>
     {premiumPopup?
       <div className={style.clubHousePopup}>
+      <div className={style.OverlayBg} onClick={()=>{
+            setPremiumPopup(false)
+        }}>
+
+        </div>
         <div className={style.ClubHouse}>
             <div className={style.TopImage}>
           <div className={style.clubHouseClose} onClick={()=>{
@@ -190,6 +196,11 @@ const Profile = () => {
       :""}
         {passIcon ? (
           <div className={style.Passpopup}>
+          <div className={style.OverlayBg} onClick={()=>{
+            setPassIcon(false)
+        }}>
+
+        </div>
             <div className={style.image}>
               <img src={icon} alt="" />
             </div>
@@ -220,6 +231,11 @@ const Profile = () => {
        
         {updatePassword ? (
           <div className={style.AddressSection}>
+          <div className={style.OverlayBg} onClick={()=>{
+            setUpdatePassword(false)
+        }}>
+
+        </div>
             <div className={style.AddressTitle}></div>
             <form action="">
               {/* <h1>Shipping Address</h1> */}
@@ -317,6 +333,11 @@ const Profile = () => {
         )}
         {Deactivate ? (
           <div className={style.popup}>
+          <div className={style.OverlayBg} onClick={()=>{
+            setDeactivate(false)
+        }}>
+
+        </div>
             <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
@@ -457,7 +478,7 @@ const Profile = () => {
                     <p>Phone Number</p>
                   </div>
                   <div className={style.InputSection}>
-                    <input
+                    <input className={style.phoneInputSection}
                       type="text"
                       value={user?.phone}
                       placeholder="Please Enter"
@@ -470,12 +491,12 @@ const Profile = () => {
                     <p>Shipping</p>
                   </div>
                   <div className={style.InputSection}>
-                    <input
+                    {/* <input
                       type="text"
                       value={user?.username || ""}
                       readOnly
                       placeholder="Username"
-                    />
+                    /> */}
                     <input
                       type="text"
                       value={user?.addressline1 || ""}
@@ -499,7 +520,7 @@ const Profile = () => {
                         type="text"
                         value={user?.county || ""}
                         readOnly
-                        placeholder="Country"
+                        placeholder="County"
                       />
                     ) : user && user.coutryname === "USA" ? (
                       <input

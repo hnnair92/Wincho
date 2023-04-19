@@ -14,6 +14,10 @@ import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.pn
 import CloseImage from "../../assests/Artboard 48 X.png"
 import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
 import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
+import { assets } from '../Description/assests'
+import Lottie from "lottie-react";
+import { AllAnimation } from '../../Animation/allAnimation'
+
 const Ticket = () => {
     const [popup, setPopup] = useState(false);
     // const navigate = useNavigate()
@@ -22,8 +26,10 @@ const Ticket = () => {
     const { configuration } = useSelector((state) => state.configuration);
     const[ tickets,setTickets] = useState([])
     const userId  = JSON.parse(localStorage.getItem("user"))
+    const [resendEmail, setResendEmail] = useState(false);
+    const [loading,setLoading] = useState(false)
     // const ticket
-    
+    const {user} = useSelector((state)=>state.profile)
     const baseUrl = "https://uat.wincha-online.com";
     const navigate = useNavigate();
     async function fetchTickets() {
@@ -58,6 +64,11 @@ const Ticket = () => {
     useEffect(()=>{
       fetchTickets()
     },[])
+    useEffect(()=>{
+        if(user&&user.profile_status===false){
+            setResendEmail(true)
+        }
+    },[user])
     const showPopup = () => {
       return (
         <div
@@ -113,6 +124,46 @@ const Ticket = () => {
           window.open(`${data.data[0].url}`);
         });
     }
+    async function createPayment(){
+        await fetch(`${baseUrl}/points/create-checkout-session`, {
+          method: "POST",
+          body: JSON.stringify({
+            mode: "payment",
+            amount: parseInt(configuration.VIP_SUBSCRIPTION) * 100,
+            quantity: 1,
+            currency: configuration.CURRENCY_CODE,
+            product: "Vip",
+            success_url: "http://localhost:3000/tickets",
+            cancel_url: "http://game.wincha-online.com/payment/cancel",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            window.open(`${data.data[0].url}`);
+          });
+      }
+      async function resendEmailApi(){
+        setLoading(true)
+        await fetch(`${baseUrl}/user/verification/resend`, {
+          method: "POST",
+          body: JSON.stringify({
+            user: userId,
+            source: "web",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setLoading(false)
+            setResendEmail(false)
+          });
+      }
   return (
     <div className={style.Container}>
      {premiumPopup?
@@ -170,7 +221,9 @@ const Ticket = () => {
                 </div>
               </div>
               <div className={style.SubscribeButton}>
-                <button>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+                <button onClick={()=>{
+                  createPayment()
+                }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
                 <p>Cancel any time</p>
@@ -199,6 +252,39 @@ const Ticket = () => {
       </div>
       
       :""}
+      {resendEmail ? (
+          <div className={style.ResendPopup}>
+          <div className={style.popupOverlaySection} onClick={()=>{
+            setResendEmail(false)
+          }}></div>
+
+          {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
+            <div className={style.ResendpopupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.ResendpopupText}>
+              <p>Awaiting player verification</p>
+            </div>
+            <div className={style.ResendpopupButton}>
+              <div
+                // to="/tickets"
+                onClick={() => {
+                  // setResendEmail(false);
+                  // resendEmailApi()
+                }}
+              >
+                <button  onClick={() => {
+                  // setResendEmail(false);
+                  resendEmailApi();
+                }}>RESEND EMAIL</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         {popup?showPopup():""}
         <div className={style.redBox}>
             <img src={GoldTicket} alt=""/>
@@ -220,9 +306,14 @@ const Ticket = () => {
                             </div>
                             {/* <Link to="#popup"> */}
                                 <button className={style.price} onClick={()=>{
-                                    setPopup(true)
-                                    setTicketItem(item)
-                                    console.log(ticketItem)
+                                    if(user&&user.profile_status===false){
+                                        setResendEmail(true)
+                                    }
+                                    else{
+                                        setPopup(true)
+                                        setTicketItem(item)
+                                        console.log(ticketItem)
+                                    }
                                 }}>{item.currency_symbol}
                   {item.token_point}</button>
                             {/* </Link> */}

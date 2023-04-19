@@ -609,7 +609,7 @@ video{
     padding: 5px 10px;
     left: 0;
     top: 0;
-    transform: translate(-75%,-150%);
+    transform: translate(-75%,-125%);
 }
 .ShareIcon svg{
     margin: 0px 7px;

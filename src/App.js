@@ -122,7 +122,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/order-confirmed" element={<OrderConfirmed />} />
-          <Route path="/notification" element={<Notification />} />
+          <Route path="/notifications" element={<Notification />} />
           <Route path="/Demo" element={<Demo />} />
           <Route path="/win-screen" element={<WinScreen />} />
           {/* <Route path="/socket" element={<Socket/>}/> */}

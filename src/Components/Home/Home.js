@@ -16,6 +16,7 @@ import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
 import { AboutBg } from './AboutImage';
+import winchaIcons from '../../assests/Wincha HomePage Logo.png'
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     const[scrollNav,setScrollNav] = useState(false);
@@ -133,7 +134,7 @@ const Home = () => {
                 </Link>
                 <div className={style.Crane}>
                     {/* <Lottie animationData={WinchaIcon} loop={false} />; */}
-                    <img src="" alt="" />
+                    <img src={winchaIcons} alt="" />
                 
                 </div>
                 
@@ -206,6 +207,11 @@ const Home = () => {
         </div>
         {isAddress? (
         <div className={style.popup}>
+        <div className={style.Overlay} onClick={()=>{
+            setIsAddress(false)
+        }}>
+
+        </div>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
@@ -253,7 +259,7 @@ const Home = () => {
                     </div>
                 </div>
                     <div className={style.MCrane}>
-                        <img src="" alt="" />
+                        <img src={winchaIcons} alt="" />
                     </div>
             </div>
             <div className={style.MAbout}>
