@@ -144,6 +144,8 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
+                    setSetting(false)
+
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
                     playAudio(music.Click);
@@ -231,6 +233,8 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                       src={MMenu.icon}
                       alt=""
                       onClick={() => {
+                    setSetting(false)
+
                     active?setActive(true):setActive(true)
 
                         // navigate(`/${MMenu.url}`);
@@ -287,6 +291,8 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         className={style.MenuSection}
                         onClick={(e) => {
               e.preventDefault()
+              setSetting(false)
+
 
                           setId(menu.id);
                           // {
@@ -476,6 +482,8 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                 className={style.MenuSection}
                 onClick={(e) => {
                   e.preventDefault()
+                  setSetting(false)
+
                   // setId(menu.id);
                   // {
                   //   gamePlay === true && active === false
@@ -1010,6 +1018,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
+                    setSetting(false)
                     // e.preventDefault()
                     // setActive(true)
                     active?setActive(true):setActive(true)

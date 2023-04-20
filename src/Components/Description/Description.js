@@ -8,7 +8,8 @@ import Screen from "./Screen";
 import { socket } from "../../socket";
 // import React, { useEffect, useState } from 'react'
 import { OTSession, OTPublisher, OTStreams, OTSubscriber } from "opentok-react";
-import Lotties from "lottie-react";
+import Lotties from 'lottie-react'
+// import Lotties from 'react-lottie'
 import lottie from "lottie-web";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { AllAnimation } from "../../Animation/allAnimation";
@@ -1196,6 +1197,8 @@ const Description = ({
   async function PointDebit() {
     const userPointInt = parseInt(user.point);
     const gamePriceInt = parseInt(GameData&&GameData.price);
+    console.log(gamePriceInt)
+    console.log(userPointInt)
     if (userPointInt < gamePriceInt) {
       // return navigate("/prizes")
       return setTopup(true);
@@ -1215,6 +1218,8 @@ const Description = ({
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
+        console.log(data)
         if (GameData.price === "0") {
           setFreePlay(freePlay + 1);
         }
@@ -2859,6 +2864,7 @@ const Description = ({
                         <Lotties
                           animationData={AllAnimation.ReversePlay}
                           loop={false}
+                          duration={20}
                           onLoad={() => {
                             playAudio(music.Woohoo);
                           }}

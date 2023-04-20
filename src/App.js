@@ -50,39 +50,7 @@ function App() {
     }
 }, [ ])
   const[countryCode,setCountryCode] = useState("")
-  // const {user} = useSelector((state)=>state.userData)
-  // let data = {
-  //   user_id: user&&user.user_id,
-  //   socket_id: "g07wnxHwDJre_l5pAADJ",
-  //   machineCode: "UK-WH1-NID1-201",
-  // }
-  // let emits = {
-  //   P:"63ebd13d45a883626f85348e"|M:6318a00045546b21bcf681af|QUE:0
 
-  // }
-  // useEffect(() => {
-    // socket.on('connect', () => {
-    //   console.log("connected");
-    // });
-    // socket.EVENT_CONNECT('connect',()=>)
-    // socket.on("connect", () => socket.emit("hello", `Hi there! I am ${window.navigator.userAgent}`));
-    // socket.emit("socket_connect",data)
-    // socket.on("sent_que_status",()=>{
-    //   console.log("reached")
-    // })
-    // socket.on("game_que_count",(datas)=>{
-    //   console.log(datas,"ques")
-    // })
-    // socket.on("watchers_count",(datsas)=>{
-    //   console.log(datsas,"ques")
-    // })
-    // return ()=>{
-    //   socket.off("socket_connect")
-    //   socket.off("connect")
-    //   socket.off("game_que_count")
-    // }
-  // },[socket]);
-  
   const state = async()=>{
     try {
     //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
@@ -107,6 +75,10 @@ function App() {
   useEffect(()=>{
     console.log(active,"active from APP.JS");
   },[active])
+  let value = new Date().getTimezoneOffset()
+let time = new Date().valueOf();
+let id = time*value
+console.log(id)
   // console.log(localStorage.getItem("user"))
   return (
     <div className="App">

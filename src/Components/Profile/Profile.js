@@ -332,12 +332,14 @@ const Profile = () => {
           ""
         )}
         {Deactivate ? (
-          <div className={style.popup}>
-          <div className={style.OverlayBg} onClick={()=>{
+          <div className={style.DeactivatePopup}>
+            <div className={style.DeacOverlayBg} onClick={()=>{
             setDeactivate(false)
         }}>
 
         </div>
+          <div className={style.popup}>
+          
             <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
@@ -366,6 +368,7 @@ const Profile = () => {
                 SEND
               </button>
             </div>
+          </div>
           </div>
         ) : (
           ""

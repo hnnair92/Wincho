@@ -1016,9 +1016,13 @@
     opacity: 1;
     color: #000;
 }
-.OverlayBg{
+.OverlayBg,.DeacOverlayBg{
     width: 100vw;
     height: 100vh;
     position: absolute;
     background-color: transparent;
+    z-index: 9;
+}
+.DeacOverlayBg{
+    z-index: 99999;
 }
