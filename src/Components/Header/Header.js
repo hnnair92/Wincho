@@ -144,10 +144,11 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
                     playAudio(music.Click);
-                    {
-                      gamePlay === true && active === false
-                        ? setActive(true)
-                        : checkGameOn();
+                    // {
+                    //   gamePlay === true && active === false
+                    //     ? 
+                        setActive(true)
+                         checkGameOn();
                       setToggle(false);
                       if (menu.Name === "Support") {
                         setToggle(false);
@@ -156,7 +157,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                       if (menu.Name != "Support") {
                         navigate(`/${menu.url}`);
                       }
-                    }
+                    // }
                   }}
                 >
                   
@@ -184,11 +185,17 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
           <AiOutlineClose
             className={style.closeIcon}
             onClick={() => {
-              {
-                gamePlay === true && active === false
-                  ? setActive(true)
-                  : setToggle(false);
-              }
+              // {
+              //   gamePlay === true && active === false
+              //     ? 
+                  setActive(true)
+              //     : setToggle(false);
+              // }
+              // {
+              //   gamePlay === true && active === false
+              //     ? setActive(true)
+              //     : setToggle(false);
+              // }
             }}
           />
         </div>
@@ -259,11 +266,12 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   onClick={() => {
                     setId("");
 
-                    {
-                      gamePlay === true && active === false
-                        ? setActive(true)
-                        : setSetting(false);
-                    }
+                    // {
+                    //   gamePlay === true && active === false
+                        // ? 
+                        setActive(true)
+                    //     : setSetting(false);
+                    // }
                   }}
                 />
                 {/* {isUser? */}
@@ -276,11 +284,12 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
               e.preventDefault()
 
                           setId(menu.id);
-                          {
-                            gamePlay === true && active === false
-                              ? setActive(true)
-                              : setSetting(false);
-                          }
+                          // {
+                            // gamePlay === true && active === false
+                              // ? 
+                              setActive(true)
+                              // : setSetting(false);
+                          // }
                           if (
                             menu.Name === "Terms of Use" ||
                             menu.Name === "Privacy Policy"
@@ -676,55 +685,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
           </div>
         </div>
       </div>
-      {active ? (
-        <div className={style.PopupContainer}>
-          <div className={style.popup}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.popupText}>
-              <p>Do you want to exit the game</p>
-            </div>
-            <div className={style.popupButton}>
-              <button
-                onClick={() => {
-                  {
-                    gamePlay === true && active === false
-                      ? setActive(false)
-                      : console.log("cancelled");
-                  }
-                }}
-              >
-                CANCEL
-              </button>
-              <button
-                onClick={() => {
-                  // {  gamePlay===true&&active===false?
-                  //   setActive(true)
-                  //   :
-                  navigate("/prizes");
-                  // callback(false)
-                  setActive(false);
-                  setGamePlay(false);
-                  console.log("Exits");
-                }}
-              >
-                OK
-              </button>
-              {/* <button
-              to="/tickets"
-              onClick={() => {
-                setTopup(false);
-              }}
-            >
-              <button>TOP UP</button>
-            </button> */}
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
+     
       {popup ? (
         <div className={style.Section}>
           <div className={style.popup}>
@@ -1023,9 +984,10 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
               e.preventDefault()
               {
 
-                gamePlay === true && active === false
-                  ? setActive(true)
-                  : setActive(false);
+                // gamePlay === true && active === false
+                  // ? 
+                  setActive(true)
+                  // : setActive(false);
                 navigate("/");
               }
             }}
@@ -1044,6 +1006,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   className={style.MenuSection}
                   onClick={(e) => {
                     e.preventDefault()
+                    setActive(true)
                     // eslint-disable-next-line no-lone-blocks
                     setId(menu.id);
                     playAudio(music.Click);
@@ -1056,9 +1019,10 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         setToggle(false);
                         handleId(e);
                       }
-                      if (menu.Name != "Support") {
-                        navigate(`/${menu.url}`);
-                      }
+
+                      // if (menu.Name != "Support") {
+                      //   navigate(`/${menu.url}`);
+                      // }
                       // audioRefHeader.current.src = music.Click
                       // audioRefHeader.current.play()
                     }

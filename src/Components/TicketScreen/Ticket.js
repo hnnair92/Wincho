@@ -300,7 +300,18 @@ const Ticket = () => {
             <div className={style.Tickets}>
                 {tickets.map((item,index)=>{
                     return(
-                        <div className={style.TicketItem} key={index}>
+                        <div className={style.TicketItem} key={index}
+                             onClick={()=>{
+                                    if(user&&user.profile_status===false){
+                                        setResendEmail(true)
+                                    }
+                                    else{
+                                        setPopup(true)
+                                        setTicketItem(item)
+                                        console.log(ticketItem)
+                                    }
+                            
+                        }}>
                             <div className={style.image}>
                                 <img src={item.token_image} alt="" />
                             </div>

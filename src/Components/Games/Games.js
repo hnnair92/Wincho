@@ -111,13 +111,27 @@ const Games = () => {
     country_code: "UK",
     user_id: user && user.user_id,
   };
+  // useEffect(()=>{
+  //   if(search!==""){
+  //     setCategory("")
+  //   }
+  //   else{
+  //     setCategory("free")
+  //   }
+  // },[search])
   useEffect(() => {
-    if (searchArray.length > 0) {
+    if (searchArray.length >0) {
       setCategory("");
-    } else {
-      setCategory(category);
     }
   }, [category]);
+  // useEffect(() => {
+  //   if (search!=="") {
+  //     setCategory("");
+  //   } 
+  //   else{
+  //     setCategory(state?state.category:"free")
+  //   }
+  // }, []);
   const searchApi = async () => {
     loading = true
     await fetch(`${baseUrl}/product/search`, {
@@ -204,14 +218,7 @@ const Games = () => {
       id: 7,
     },
   ];
-  useEffect(()=>{
-    if(search!==""){
-      setCategory("")
-    }
-    else{
-      setCategory("free")
-    }
-  },[search])
+
   // const[active,setActive]= useState(false)
   const [allCategory, setAllCategory] = useState("");
   // const[getAllCategory,setGetAllCategory] = useState("")
@@ -228,7 +235,7 @@ const Games = () => {
                     key={index}
                     value={categoryItem.value}
                     className={
-                      category === categoryItem.value
+                      category?.toLowerCase() === categoryItem?.value?.toLowerCase()
                         ? style.active
                         : style.category
                     }
@@ -883,7 +890,8 @@ const Games = () => {
                 <p>{gameData.title}</p>
               </div>
               <div className={style.popupDescription}>
-                <p>{gameData.content}</p>
+                {/* <p>{gameData.content}</p> */}
+                <p>{gameData.content.length > 10 ? gameData.content.substring(0, 125) + "..." : gameData.content}</p>
               </div>
               <div
                 className={style.popupPlayNow}

@@ -46,11 +46,17 @@ const Description = ({
   const animeRef = useRef(null);
   console.log(state);
   // const location = useLocation()
-  useEffect(() => {
-    if (GameData?.content?.length < 75) {
-      console.log(GameData.content);
-    }
-  });
+  // useEffect(() => {
+  //   if (GameData?.content?.length < 75) {
+  //     console.log(GameData.content);
+  //   }
+  // },[]);
+  // useEffect(() => {
+  //   console.log(active, "active from description");
+  //   if(active===true){
+  //     setExitPopupOpen(true)
+  //   }
+  // },[active]);
 
   //  Hard coded Datas
   const reportCategories = [
@@ -79,6 +85,7 @@ const Description = ({
     // console.log("Tab is blurred", e);
     // alert("DO you wana exist this page");
   };
+
   useEffect(() => {
     console.log(navigator.onLine);
   }, [navigator]);
@@ -139,6 +146,7 @@ const Description = ({
   );
   const [prizeCount,setPrizeCount] = useState(0)
   const [gamePlayStatus, setGamePlayStatus] = useState(false);
+  const [prizeDate,setPrizeDate] = useState("")
   const [playAgain, setPlayAgain] = useState(false);
   const [que, setQue] = useState("");
   const [direction, setDirection] = useState([]);
@@ -265,8 +273,11 @@ const Description = ({
       const machineId = splitRes[1].split(":")
       const user = splitRes[0].split(":")
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
-        setPlayAgain(false);
-        return addToCart();
+        if(userId===user){
+          setPrizeDate(data)
+          setPlayAgain(false);
+          return addToCart();
+        }
       }
       if (data === "PRIZE_LOST" && GameData.machine_code === splitId[1]) {
         // setPlayAgain(true);
@@ -1154,9 +1165,12 @@ const Description = ({
         console.log(data);
         dispatch(cartAction())
         dispatch(notificationAction())
-        navigate("/win-screen");
-        gameLeave();
-        socket.disconnect();
+        // setInterval(()=>{
+        //   if()
+        // })
+        // navigate("/win-screen");
+        // gameLeave();
+        // socket.disconnect();
       });
   }
   //   async function ApiLog(){
@@ -1179,7 +1193,7 @@ const Description = ({
       method: "PUT",
       body: JSON.stringify({
         user_id: user._id,
-        point: GameData.price === "0" ? "" : GameData.price,
+        point: GameData.price === "0" ? "0" : GameData.price,
         credicts: "false",
         source: "web",
       }),
@@ -1566,7 +1580,8 @@ const Description = ({
               <p>{SelGameData.title}</p>
             </div>
             <div className={style.popupDescription}>
-              <p>{SelGameData.content}</p>
+              {/* <p>{SelGameData.content}</p> */}
+              <p>{SelGameData.content.length > 10 ? SelGameData.content.substring(0, 10) + "..." : SelGameData.content}</p>
             </div>
             <div
               className={style.popupPlayNow}
@@ -1612,6 +1627,8 @@ const Description = ({
               onClick={() => {
                 console.log(transferGame);
                 setExitPopupOpen(false);
+                gameLeave();
+                socket.disconnect();
                 // window.location.reload();
                 navigate(`/prizes`, {
                   state: { category: sendCategory },
@@ -1659,10 +1676,12 @@ const Description = ({
               onClick={() => {
                 console.log(transferGame);
                 setLeavePopup(false);
+                gameLeave();
+                socket.disconnect();
                 navigate(`/game/${transferGame.slug}`, {
                   state: { game: transferGame,category:transferGame.category},
                 });
-                window.location.reload();
+                // window.location.reload();
                 // window.location.reload()
               }}
             >
@@ -2773,9 +2792,22 @@ const Description = ({
                               animationData={waitAnimation}
                               loop={false}
                               onComplete={() => {
+                                  console.log(prizeDate)
+                                if(prizeDate==="PRIZE_WON"){
+                                  console.log(prizeDate)
+                                   navigate("/win-screen",{state:{game:GameData}});
+                                    gameLeave();
+                                    socket.disconnect();
+                                    setGamePlayStatus(false);
+                                setGamePlay(false);
+                                setPlayAgain(false);
+                                }
+                                else{
                                 setGamePlayStatus(false);
                                 setGamePlay(false);
                                 setPlayAgain(true);
+
+                                }
                               }}
                             />
                           </button>

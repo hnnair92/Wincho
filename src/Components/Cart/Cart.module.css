@@ -366,14 +366,17 @@ video{
 .Address{
     width: 68rem;
     position: fixed;
-    top: 50%;
+    top: 15%;
+    /* height: 70%; */
     left: 50%;
+    height: 100vh;
     z-index: 9;
-    transform: translate(-50%,-50%);
+    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* /* overflow-y: scroll !important; */
 }
 .Address form{
     background-color: #fff;
@@ -381,6 +384,8 @@ video{
     border-radius:20px;
     width: 75%;
     display: flex;
+    position: relative;
+    z-index: 99;
     flex-direction: column;
 
 }
@@ -908,4 +913,11 @@ video{
 .AddressSection input::-webkit-input-placeholder{
     opacity: 1;
     color: gray;
+}
+.AddressTitleOverlay{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    z-index: 1;
 }

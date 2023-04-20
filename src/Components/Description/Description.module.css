@@ -327,7 +327,7 @@ video {
 .popup {
     position: fixed;
     font-family: myraidproregular !important;
-    z-index: 99999;
+    z-index: 999999;
     top: 50%;
     left: 50%;
     width: fit-content;

@@ -785,7 +785,9 @@ const Cart = () => {
       {isAddressField === true ? (
         // {isAddressField===true || isAddressFieldShown === false ? (
         <div className={style.Address}>
-          <div className={style.AddressTitle}></div>
+          <div className={style.AddressTitleOverlay} onClick={()=>{
+            setisAddressField(false)
+          }}></div>
           <form action="">
             <h1>Shipping Address</h1>
             <input
