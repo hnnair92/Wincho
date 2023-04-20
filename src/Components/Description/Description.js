@@ -273,11 +273,11 @@ const Description = ({
       const machineId = splitRes[1].split(":")
       const user = splitRes[0].split(":")
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
-        if(userId===user){
+        // if(userId===user){
           setPrizeDate(data)
           setPlayAgain(false);
           return addToCart();
-        }
+        // }
       }
       if (data === "PRIZE_LOST" && GameData.machine_code === splitId[1]) {
         // setPlayAgain(true);
@@ -1183,7 +1183,7 @@ const Description = ({
   //   }
   async function PointDebit() {
     const userPointInt = parseInt(user.point);
-    const gamePriceInt = parseInt(GameData.price);
+    const gamePriceInt = parseInt(GameData&&GameData.price);
     if (userPointInt < gamePriceInt) {
       // return navigate("/prizes")
       return setTopup(true);

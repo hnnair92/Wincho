@@ -131,9 +131,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
     useEffect(() => {
       console.log(id);
     }, [id]);
-    useEffect(() => {
-      console.log(active);
-    }, [active]);
+    // useEffect(() => {
+    //   console.log(active);
+    // }, [active]);
   
     return (
       <div className={style.mobileFullMenu}>
@@ -157,9 +157,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         setToggle(false);
                         handleId(e);
                       }
-                      if (menu.Name != "Support") {
-                        navigate(`/${menu.url}`);
-                      }
+                      // if (menu.Name != "Support") {
+                      //   navigate(`/${menu.url}`);
+                      // }
                     // }
                   }}
                 >
@@ -231,7 +231,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                       src={MMenu.icon}
                       alt=""
                       onClick={() => {
-                        navigate(`/${MMenu.url}`);
+                    active?setActive(true):setActive(true)
+
+                        // navigate(`/${MMenu.url}`);
                       }}
                     />
                     {MMenu.Badge === true ? (
@@ -1009,14 +1011,19 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   className={style.MenuSection}
                   onClick={(e) => {
                     // e.preventDefault()
-                    setActive(true)
+                    // setActive(true)
+                    active?setActive(true):setActive(true)
                     // eslint-disable-next-line no-lone-blocks
                     setId(menu.id);
+                    if(id===menu.id){
+                      setActive(true)
+                    }
                     playAudio(music.Click);
-                    {
-                      gamePlay === true && leave === true
-                        ? setLeave(false)
-                        : checkGameOn();
+                    // {
+                    //   gamePlay === true && leave === true
+                    //     ? setLeave(false)
+                    //     : 
+                        checkGameOn();
                       setToggle(false);
                       if (menu.Name === "Support") {
                         setToggle(false);
@@ -1028,7 +1035,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                       // }
                       // audioRefHeader.current.src = music.Click
                       // audioRefHeader.current.play()
-                    }
+                    // }
                   }}
                 >
                   {/* <audio ref={audioRefHeader}></audio> */}

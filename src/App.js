@@ -102,9 +102,12 @@ function App() {
     state()
     
   },[dispatch,countryCode])
-  // console.log(localStorage.getItem("user"))
   const [active,setActive] = useState(false)
   const [gamePlay,setGamePlay] = useState(false)
+  useEffect(()=>{
+    console.log(active,"active from APP.JS");
+  },[active])
+  // console.log(localStorage.getItem("user"))
   return (
     <div className="App">
       <Router>

@@ -100,6 +100,7 @@ export const gameEntry=(data)=>async(dispatch)=>{
 }
 export const configutation =()=>async(dispatch)=>{
     // console.log(countryCode);
+    // let countryCode = ""
     try {
         await fetch(`http://ip-api.com//json`).then(res=>res.json()).then((data)=>{
         // console.log(data)
@@ -117,10 +118,22 @@ export const configutation =()=>async(dispatch)=>{
             headers:{
                 "Content-type":"application/json"
             }
-        }).then(res=>res.json()).then((data)=>{
+        }).then(res=>res.json()).then((datas)=>{
+            console.log(datas.data[0].COUNTRY_CODE)
+            if(datas.data[0].COUNTRY_CODE==="GB"){
+                datas.data[0].COUNTRY_CODE = "44"
+                datas.data[0].COUNTRY_NAME = "UK"
+                // console.log("changed ")
+            }
+            if(datas.data[0].COUNTRY_CODE==="US"||datas.data[0].COUNTRY_CODE==="USA"){
+                datas.data[0].COUNTRY_CODE = "1"
+                datas.data[0].COUNTRY_NAME = "USA"
+
+                // console.log("changed ")
+            }
             dispatch({
                 type:CONFIGURATION_SUCCESS,
-                payload:data.data[0],
+                payload:datas.data[0],
             })
         })
       })

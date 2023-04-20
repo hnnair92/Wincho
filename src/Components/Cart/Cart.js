@@ -346,10 +346,8 @@ const Cart = () => {
       });
   }
   async function checkoutAPi() {
-    await fetch(`${baseUrl}/cart/checkout`, {
-      method: "POST",
-      body: JSON.stringify({
-        address_1: user.addressline1,
+    const sendData = {
+      address_1: user.addressline1,
         address_2: user.addressline2,
         city: user.city,
         company: "",
@@ -361,13 +359,17 @@ const Cart = () => {
         products: products,
         state: user.state,
         user_id: userId,
-      }),
+    }
+    await fetch(`${baseUrl}/cart/checkout`, {
+      method: "POST",
+      body: JSON.stringify(sendData),
       headers: {
         "Content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(sendData)
         setProducts([])
         console.log(data.data[0])
         if(data.status==="True"){
@@ -1054,6 +1056,10 @@ const Cart = () => {
               <div
                 className={style.shippingIcon}
                 onClick={() => {
+                  if(vipData.status === true &&
+                vipData.data[0].vip_token === false){
+                  setPremiumPopup(true)
+                }
                   if (user&&user.vip === false) {
                     setPremiumPopup(true);
                   }
@@ -1070,11 +1076,14 @@ const Cart = () => {
                   <span
                     className={style.CircleActive}
                     onClick={() => {
-                      if (user&&user.vip === false) {
+                  if(vipData.status === true &&
+                vipData.data[0].vip_token === false){
+                  setPremiumPopup(true)
+                }
+                  if (user&&user.vip === false) {
                     setPremiumPopup(true);
                   }
-                      // setPrime(false);
-                    }}
+                }}
                   ></span>
                 ) : (
                   <span className={style.Circle} onClick={() => {
