@@ -351,7 +351,7 @@ const Cart = () => {
         address_2: user.addressline2,
         city: user.city,
         company: "",
-        country: configuration.COUNTRY_CODE,
+        country: configuration.COUNTRY_NAME,
         email: user.email,
         first_name: user.username,
         phone: user.phone,

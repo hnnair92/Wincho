@@ -109,6 +109,7 @@ const Description = ({
   const [sendCategory,setSendCategory] = useState("")
   const [lastWin, setLastWin] = useState(false);
   const [minimized, setminimized] = useState(false);
+  const [cartCheck,setCartCheck] = useState(false)
   const [timeoutStatus, setTimeoutStatus] = useState(false);
   const [gameFailed, setGameFailed] = useState(false);
   const [cameraState1, setCameraState1] = useState(false);
@@ -267,16 +268,19 @@ const Description = ({
     });
     socket.on("sensor_message", (res) => {
       setPrizeCount(prizeCount=>prizeCount+1)
+      setCartCheck(true)
       const splitRes = res.split("|");
       const data = splitRes[splitRes.length - 1];
       const splitId = splitRes[1].split(":");
       const machineId = splitRes[1].split(":")
       const user = splitRes[0].split(":")
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
+        console.log(prizeCount);
         // if(userId===user){
           setPrizeDate(data)
           setPlayAgain(false);
-          return addToCart();
+          // if(cartCheck===true){
+          // }
         // }
       }
       if (data === "PRIZE_LOST" && GameData.machine_code === splitId[1]) {
@@ -958,6 +962,9 @@ const Description = ({
         // console.log(firstStep)
       });
   }
+  useEffect(()=>{
+    console.log(startGame)
+  },[startGame])
   async function FirstArrowPress(command) {
     console.log("reached Press");
 
@@ -1050,19 +1057,20 @@ const Description = ({
         setSecondStep(false);
         setTimeout(() => {
           gameStatus();
-          gameSession();
+          // gameSession();
         }, game.get_status_time * 1000);
       });
   }
   async function gameStatus() {
     console.log(userId);
+    const sessionData = {
+      playerID: userId,
+      machineCode: game.machineCode,
+      source: "web",
+    }
     await fetch(`${baseUrl}/game/status`, {
       method: "POST",
-      body: JSON.stringify({
-        playerID: userId,
-        machineCode: game.machineCode,
-        source: "web",
-      }),
+      body: JSON.stringify(sessionData),
       headers: {
         "Content-type": "application/json",
       },
@@ -1070,30 +1078,34 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
+        console.log(sessionData,"sessionData");
         setStatus(data.status);
+          gameSession(data.status);
       });
   }
-  async function gameSession() {
+  async function gameSession(statusCode) {
     console.log("session");
     // setStatus(true)
+    const sessionData = {
+      user_id: user._id,
+        machineID: game._id,
+        game_status: statusCode,
+        product_id: GameData.id,
+        game_session_id: startGame.game_session_id,
+        source: "web",
+    }
     await fetch(`${baseUrl}/game/session/status`, {
       method: "POST",
-      body: JSON.stringify({
-        user_id: user._id,
-        machineID: game._id,
-        game_status: status,
-        product_id: GameData.id,
-        game_session_id: gameStart.game_session_id,
-        source: "web",
-      }),
+      body: JSON.stringify(sessionData),
       headers: {
         "Content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data)
+        console.log(startGame)
+        console.log(sessionData,"sessionData");
 
         setSession(data.data);
         if (status === true) {
@@ -2794,7 +2806,9 @@ const Description = ({
                               onComplete={() => {
                                   console.log(prizeDate)
                                 if(prizeDate==="PRIZE_WON"){
+                                  console.log(prizeCount)
                                   console.log(prizeDate)
+                                     addToCart();
                                    navigate("/win-screen",{state:{game:GameData}});
                                     gameLeave();
                                     socket.disconnect();

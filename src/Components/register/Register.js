@@ -102,6 +102,9 @@ const Register = () => {
         // }
     },[userId,dispatch])
     // const[chec]
+    useEffect(()=>{
+        console.log(state)
+    },[state])
     const handleRegister=(e)=>{
         e.preventDefault()
         console.log("reached");
@@ -112,8 +115,13 @@ const Register = () => {
             email:email,
             password:password,
             dob:date,
-            country:location.country
+            country:location.country,
+            state:state.state,
+            countrycode:configuration.COUNTRY_CODE,
+            countryname:configuration.COUNTRY_NAME
         }
+        console.log(data)
+        console.log(configuration)
         if(eligible===true&&password===confirmPassword){
             dispatch(registerAction(data))
         }
@@ -225,9 +233,7 @@ const[passIcon,setPassIcon] = useState(false)
             <img src={wincha} alt="" />
         </div>
         <div className={style.content}>
-           
             <ul>
-            <p>Password must include:</p>
                 <li>8-20 Characters</li>
                 <li>At least 1 capital letter</li>
                 <li>At least 1 number</li>
@@ -343,7 +349,7 @@ const[passIcon,setPassIcon] = useState(false)
                     }}>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-                {eligible&&terms===true&&password===confirmPassword&&password.length>7&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
+                {eligible&&terms===true&&password===confirmPassword&&password.length>8&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
                 
                 <div className={style.checkUser}>{error&&error.status==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div>
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}
