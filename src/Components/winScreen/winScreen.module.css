@@ -22,4 +22,13 @@
 }
 .WinGame img{
     width: 100%;
+}.FreeWinGame{
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-10%,75%);
+}
+.FreeWinGame img{
+    width: 100%;
 }

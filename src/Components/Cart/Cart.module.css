@@ -365,7 +365,7 @@ video{
 }
 .Address{
     width: 68rem;
-    position: fixed;
+    position: absolute;
     top: 15%;
     /* height: 70%; */
     left: 50%;

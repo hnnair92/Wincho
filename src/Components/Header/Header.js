@@ -51,7 +51,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
     }
   }, [setting]);
   useEffect(() => {
-    console.log(active, "active from description");
+    console.log(active, "active from header");
   }, [active]);
   // useEffect(()=>{
   //   dispatch(cartAction())
@@ -131,7 +131,10 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
     useEffect(() => {
       console.log(id);
     }, [id]);
-
+    useEffect(() => {
+      console.log(active);
+    }, [active]);
+  
     return (
       <div className={style.mobileFullMenu}>
         <div className={style.Menu}>
@@ -1005,7 +1008,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
-                    e.preventDefault()
+                    // e.preventDefault()
                     setActive(true)
                     // eslint-disable-next-line no-lone-blocks
                     setId(menu.id);
