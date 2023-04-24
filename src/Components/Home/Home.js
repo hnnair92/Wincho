@@ -16,7 +16,7 @@ import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
 import { AboutBg } from './AboutImage';
-// import videoSrc from '../../assests/video/Wincha_60s_Final_16-9.mp4';
+import videoSrc from '../../assests/video/wincha.mp4';
 import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
@@ -179,22 +179,22 @@ const Home = () => {
                         }}/></button>
                     </div> */}
                 <div className={style.Slider}>
-                    {/* {showVideo?""
-                    : */}
+                    {showVideo?""
+                    :
                     <div className={`${style.sliderOverlay} ${showVideo===true?style.HideVideo:""}`}>
                         <img src={WatchData[0]} alt="" onClick={()=>{
                             setShowVideo(true);
                         }}/>
 
                     </div>
-                {/* } */}
-                {/* {showVideo? */}
-                    {/* <video autoPlay muted={true} className={showVideo===true?"":style.HideVideo} onClick={()=>{
+                }
+                {showVideo?
+                    <video autoPlay muted={true} className={showVideo===true?"":style.HideVideo} onClick={()=>{
                             setShowVideo(false);
                         }}>
                     <source src={videoSrc} type="video/mp4" />
-                </video> */}
-                 {/* :""} */}
+                </video>
+                 :""}
                 </div>
                 {/* <div className={style.WRightIcons}>
                         <button disabled={aboutId===AboutData.length-1} className={aboutId===AboutData.length-1?style.Disable:""}><HiOutlineChevronRight onClick={()=>{
@@ -312,10 +312,10 @@ const Home = () => {
 
             </div>
             <div className={style.MWatch}>
-            <img src={WatchData[0]} alt="" />
-            {/* <video>
+            {/* <img src={WatchData[0]} alt="" /> */}
+            <video>
                 <source src={videoSrc}/>
-            </video> */}
+            </video>
             </div>
             <div className={style.MSupport}>
                 {/* <div className={style.MSupportBg}>

@@ -54,17 +54,8 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
           </div>
         </div>
         :""} */}
-        {popup?
+       
           <OTSession
-      // connectionCreated={getlog}
-      // connectionDestroyed={getlog}
-      // sessionConnected={getlog}
-      // sessionDisconnected={getlog}
-      // // sessionReconnected={getlog}
-      // connectionCreated={ console.log("connection created")}
-      // connectionDestroyed={console.log("connection destroyed")}
-      // sessionConnected={console.log("Client connect to a session")}
-      // sessionDisconnected={console.log("Client disConnect to a session")}
        apiKey={apiKey} sessionId={sessionId} token={token} >
             
             <OTStreams >
@@ -78,33 +69,18 @@ const Screen = ({sessionId,token,setVideoGot,videoGot}) => {
             </OTStreams>
           </OTSession>
         
-        :
-          <OTSession
-      // connectionCreated={getlog}
-      // connectionDestroyed={getlog}
-      // sessionConnected={getlog}
-      // sessionDisconnected={getlog}
-      // // sessionReconnected={getlog}
-      // connectionCreated={ console.log("connection created")}
-      // connectionDestroyed={console.log("connection destroyed")}
-      // sessionConnected={console.log("Client connect to a session")}
-      // sessionDisconnected={console.log("Client disConnect to a session")}
-       apiKey={apiKey} sessionId={sessionId} token={token} >
-            
-            <OTStreams >
-              <OTSubscriber onSubscribe={(e)=>{
-                console.log(e);
-                setVideoGot(true)
-                console.log("gotted");
-              }} onError={(error)=>{
-                console.log("Exited",error)
-              }}/>
-            </OTStreams>
-          </OTSession>
         
-        }
     </div>
   )
 }
 
 export default Screen
+// connectionCreated={getlog}
+// connectionDestroyed={getlog}
+// sessionConnected={getlog}
+// sessionDisconnected={getlog}
+// // sessionReconnected={getlog}
+// connectionCreated={ console.log("connection created")}
+// connectionDestroyed={console.log("connection destroyed")}
+// sessionConnected={console.log("Client connect to a session")}
+// sessionDisconnected={console.log("Client disConnect to a session")}
