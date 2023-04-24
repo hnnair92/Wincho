@@ -182,9 +182,11 @@ const Cart = () => {
         console.log(data);
         [...data.data].forEach((cart) => {
           setProducts(products=>[...products,{
-            id:cart.id,
+            id:`${cart.id}`,
             is_Egifting:cart.is_Egifting,
-            quantity:1
+            quantity:"1",
+            cart_id:cart.cart_id
+            
           }])
           if (cart.is_Egifting === false) {
             setEGifting(false);

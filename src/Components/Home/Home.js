@@ -10,17 +10,19 @@ import ticketImage from '../../assests/Floating Tab Gold Ticket.png'
 import supportContact from '../../assests/Full Support Box.png'
 import WinchaIcon from '../../Api/WinchaIcon.json'
 import AppStore from '../../assests/pngwing.com (4).png'
-import playBtn from '../../assests/Play Button.png'
+import playBtn from '../../assests/Asset 602-300ppi.png'
 import { Link } from 'react-router-dom';
 import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
 import { AboutBg } from './AboutImage';
-import winchaIcons from '../../assests/Wincha HomePage Logo.png'
+import videoSrc from '../../assests/video/Wincha_60s_Final_16-9.mp4';
+import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
     const[scrollNav,setScrollNav] = useState(false);
     const [isAddress, setIsAddress] = useState(false);
+    const [showVideo,setShowVideo] = useState(false)
     // var apiKey = "47498471"; // Replace with your API key. See https://tokbox.com/account
     // var sessionID = "2_MX40NzQ5ODQ3MX5-MTY3NzY0MzU3MTUxMX5OQkNMYWxtc3ZKVXN2d3hlbmE0cG1IMER-fn4"; // Replace with your own session ID.
     //                     // See https://tokbox.com/developer/guides/create-session/.
@@ -177,7 +179,22 @@ const Home = () => {
                         }}/></button>
                     </div> */}
                 <div className={style.Slider}>
-                    <img src={WatchData[0]} alt="" />
+                    {/* {showVideo?""
+                    : */}
+                    <div className={`${style.sliderOverlay} ${showVideo===true?style.HideVideo:""}`}>
+                        <img src={WatchData[0]} alt="" onClick={()=>{
+                            setShowVideo(true);
+                        }}/>
+
+                    </div>
+                {/* } */}
+                {/* {showVideo? */}
+                    <video autoPlay muted={true} className={showVideo===true?"":style.HideVideo} onClick={()=>{
+                            setShowVideo(false);
+                        }}>
+                    <source src={videoSrc} type="video/mp4" />
+                </video>
+                 {/* :""} */}
                 </div>
                 {/* <div className={style.WRightIcons}>
                         <button disabled={aboutId===AboutData.length-1} className={aboutId===AboutData.length-1?style.Disable:""}><HiOutlineChevronRight onClick={()=>{
@@ -295,7 +312,10 @@ const Home = () => {
 
             </div>
             <div className={style.MWatch}>
-            <img src={WatchData[0]} alt="" />
+            {/* <img src={WatchData[0]} alt="" /> */}
+            <video>
+                <source src={videoSrc}/>
+            </video>
             </div>
             <div className={style.MSupport}>
                 {/* <div className={style.MSupportBg}>

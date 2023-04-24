@@ -708,3 +708,6 @@
 .Contact img{
     cursor: pointer;
 }
+.HideVideo{
+    display: none;
+}

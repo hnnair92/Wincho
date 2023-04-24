@@ -16,7 +16,7 @@ import {
   REGISTER_SUCCESS,
 } from "../constants/user";
 
-export const userReducer = (state = { user: [] }, action) => {
+export const userReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case REGISTER_REQUEST:
@@ -30,7 +30,7 @@ export const userReducer = (state = { user: [] }, action) => {
     case PROFILE_SUCCESS:
       return {
         loading: false,
-        user: action.payload.data,
+        users: action.payload.data,
         status: action.payload.status,
         authenticated: true,
       };
@@ -48,7 +48,7 @@ export const userReducer = (state = { user: [] }, action) => {
       };
   }
 };
-export const profileReducer = (state = { profile: [] }, action) => {
+export const profileReducer = (state = { user: [] }, action) => {
   switch (action.type) {
     case PROFILE_REQUEST:
       return {

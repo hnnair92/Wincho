@@ -21,7 +21,8 @@ import { MdClose, MdPauseCircleFilled } from "react-icons/md";
 import { music } from "../../assests/Musics/allMusic.js";
 import waitStatic from "../../assests/Wait Pressed Button.png";
 import Lottie from "lottie-web";
-import prizeMove from "../../assests/43 POP UP Full.png";
+import prizeMove from "../../assests/43 POP UP Full Squared.png";
+import prizeMoveUser from "../../assests/43 POP UP Full for Viewers Squared.png";
 import overlayImage from '../../assests/Asset 1.png'
 const Description = ({
   gameMusic,
@@ -124,6 +125,7 @@ const Description = ({
   const [count, setCount] = useState(4);
   const [viewCount, setViewCount] = useState("");
   const [onPlay, setOnPlay] = useState(false);
+  const [prizeId,setPrizeID] = useState("")
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
@@ -298,8 +300,9 @@ const Description = ({
           "confirm_move",
           `${baseMessage}|RH_POSITION_CHANGED`
         );
-        if(user[1]===userId&&que==="0"){
+        if(user[1]===userId){
           // if(que==="0"){
+            setPrizeID(user[1])
             console.log(prizeCount)
           console.log(count,"count from prize move")
           // }
@@ -1281,7 +1284,49 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {});
   }
+  // useEffect(() => {
+    // if(gamePlayStatus===true){
 
+      // window.addEventListener('beforeunload', alertUser)
+      // window.addEventListener('unload', handleTabClosing)
+    //   window.onbeforeunload = function() {
+    //     var message = 'Do you want to leave this page?';
+    //     return message;
+    // }
+      // return () => {
+      //     window.removeEventListener('beforeunload', alertUser)
+      //     window.removeEventListener('unload', handleTabClosing)
+      // }
+    // }
+// })
+useEffect(() => {
+  console.log(window)
+  // window.onbeforeunload = setExitPopupOpen(true);
+  // function confirmExit()
+  window.addEventListener('beforeunload',()=>{
+    setExitPopupOpen(true)
+  })
+  // {
+  //   return "show warning";
+  // }x
+})
+
+const handleTabClosing = (event) => {
+    // removePlayerFromGame()
+    // console.log("exiting")\
+    // gameLeave()
+    // event.preventDefault();
+    setExitPopupOpen(true);
+
+}
+
+const alertUser = (event:any) => {
+  console.log(event)
+ event.preventDefault();
+ 
+ event.returnValue = setExitPopupOpen(true);
+  // alert("helo")
+}
   return (
     <div className={style.Container}>
       <audio ref={audioRef}></audio>
@@ -1645,7 +1690,8 @@ const Description = ({
                 console.log(transferGame);
                 setExitPopupOpen(false);
                 gameLeave();
-                socket.disconnect();
+                // socket.disconnect();
+                
                 // window.location.reload();
                 navigate(`/prizes`, {
                   state: { category: sendCategory },
@@ -1694,11 +1740,11 @@ const Description = ({
                 console.log(transferGame);
                 setLeavePopup(false);
                 gameLeave();
-                socket.disconnect();
+                // socket.disconnect();
                 navigate(`/game/${transferGame.slug}`, {
                   state: { game: transferGame,category:transferGame.category},
                 });
-                // window.location.reload();
+                window.location.reload();
                 // window.location.reload()
               }}
             >
@@ -1870,11 +1916,16 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove===true||game.price_move_status===true?
+                      {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
+                       :""} 
+                       {game.price_move_status===true||currentPrizeMove===true?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
                        :""} 
                       <Screen
                         sessionId={
@@ -1935,12 +1986,18 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove===true||game.price_move_status===true?
+                     {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
+                       {game.price_move_status===true||currentPrizeMove===true?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""}  
+                       prizeMoveUser
                       <Screen
                         sessionId={
                           game &&
@@ -1983,13 +2040,17 @@ const Description = ({
                       <img src={overlayImage} alt="" />
                     </div>
                   :""}
-                      {currentPrizeMove===true||game.price_move_status===true ? (
+                 {currentPrizeMove===true&&prizeId===userId?
+                      <div className={style.PrizeMove}>
+                        <img src={prizeMove} alt="" />
+                      </div>
+                      
+                       :""} 
+                       {game.price_move_status===true||currentPrizeMove===true?
                         <div className={style.PrizeMove}>
-                          <img src={prizeMove} alt="" />
-                        </div>
-                      ) : (
-                        ""
-                      )}
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""} 
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -2012,11 +2073,16 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove===true||game.price_move_status===true?
+                     {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
+                       :""} 
+                       {game.price_move_status===true||currentPrizeMove===true?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
                        :""} 
                       <Screen
                         sessionId={
@@ -2076,11 +2142,16 @@ const Description = ({
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove===true||game.price_move_status===true?
+                      {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
+                       :""} 
+                       {game.price_move_status===true||currentPrizeMove===true?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
                        :""} 
                       <Screen
                         sessionId={
