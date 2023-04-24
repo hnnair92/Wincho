@@ -16,7 +16,7 @@ import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
 import { AboutBg } from './AboutImage';
-import videoSrc from '../../assests/video/Wincha_60s_Final_16-9.mp4';
+// import videoSrc from '../../assests/video/Wincha_60s_Final_16-9.mp4';
 import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 // import {OT,subscriber} from 'openTok'
 const Home = () => {
@@ -312,10 +312,10 @@ const Home = () => {
 
             </div>
             <div className={style.MWatch}>
-            {/* <img src={WatchData[0]} alt="" /> */}
-            <video>
+            <img src={WatchData[0]} alt="" />
+            {/* <video>
                 <source src={videoSrc}/>
-            </video>
+            </video> */}
             </div>
             <div className={style.MSupport}>
                 {/* <div className={style.MSupportBg}>
