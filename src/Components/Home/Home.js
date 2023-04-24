@@ -189,11 +189,11 @@ const Home = () => {
                     </div>
                 {/* } */}
                 {/* {showVideo? */}
-                    <video autoPlay muted={true} className={showVideo===true?"":style.HideVideo} onClick={()=>{
+                    {/* <video autoPlay muted={true} className={showVideo===true?"":style.HideVideo} onClick={()=>{
                             setShowVideo(false);
                         }}>
                     <source src={videoSrc} type="video/mp4" />
-                </video>
+                </video> */}
                  {/* :""} */}
                 </div>
                 {/* <div className={style.WRightIcons}>
