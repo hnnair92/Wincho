@@ -30,8 +30,6 @@ const Description = ({
   gameSound,
   setGameSound,
   active,
-  pageUrl,
-  setPageUrl,
   setActive,
   setGamePlay,
   gamePlay,
@@ -61,10 +59,7 @@ const Description = ({
   //     setExitPopupOpen(true)
   //   }
   // },[active]);
-  useEffect(()=>{
-  console.log(active)
 
-  },[active])
   //  Hard coded Datas
   const reportCategories = [
     {
@@ -232,13 +227,6 @@ const Description = ({
       console.log(res);
       const data = res.split("|")
       const progress = data[data.length-1]
-      const splitId = data[0].split(":");
-      console.log(splitId[1])
-      console.log(userId)
-      console.log(splitId[1]===userId)
-      if(splitId[1]===userId){
-        setPrizeID(userId)
-      }
       if(progress==="INPROGRESS"){
         setCurrentPrizeMove(true)
       }
@@ -289,9 +277,6 @@ const Description = ({
       const splitId = splitRes[1].split(":");
       const machineId = splitRes[1].split(":")
       const user = splitRes[0].split(":")
-      console.log(user[1])
-      console.log(userId)
-      console.log(userId===user[1])
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
         console.log(prizeCount);
         // if(userId===user){
@@ -316,9 +301,8 @@ const Description = ({
           `${baseMessage}|RH_POSITION_CHANGED`
         );
         if(user[1]===userId){
-          console.log(user[1])
           // if(que==="0"){
-            // setPrizeID(user[1])
+            setPrizeID(user[1])
             console.log(prizeCount)
           console.log(count,"count from prize move")
           // }
@@ -956,7 +940,7 @@ const Description = ({
     // localStorage.setItem("times",JSON.stringify(freePlay))
     // const freePl = JSON.parse(localStorage.getItem("times"))
     // console.log(freePl);
-    setFreePlay(freePlay+1)
+    // setFreePlay(freePlay+1)
     console.log(direction);
     socket.emit("peer_message", `${baseMessage}|P_STARTED`);
 
@@ -1300,58 +1284,49 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {});
   }
-  useEffect(() => {
-    if(gamePlayStatus===true){
+  // useEffect(() => {
+    // if(gamePlayStatus===true){
 
-      window.addEventListener('beforeunload', alertUser)
-      window.addEventListener('unload', handleTabClosing)
-      window.onbeforeunload = function() {
-        var message = 'Do you want to leave this page?';
-        return message;
-    }
-      return () => {
-          window.removeEventListener('beforeunload', alertUser)
-          window.removeEventListener('unload', handleTabClosing)
-      }
-      
-      
-    }
-})
-// useEffect(() => {
-//   console.log(window)
-//   // window.onbeforeunload = setExitPopupOpen(true);
-//   // function confirmExit()
-//   window.addEventListener('beforeunload',(event)=>{
-//     event.preventDefault();
-//     event.returnValue = ''
-
-    
-//   })
-
+      // window.addEventListener('beforeunload', alertUser)
+      // window.addEventListener('unload', handleTabClosing)
+    //   window.onbeforeunload = function() {
+    //     var message = 'Do you want to leave this page?';
+    //     return message;
+    // }
+      // return () => {
+      //     window.removeEventListener('beforeunload', alertUser)
+      //     window.removeEventListener('unload', handleTabClosing)
+      // }
+    // }
 // })
+useEffect(() => {
+  console.log(window)
+  // window.onbeforeunload = setExitPopupOpen(true);
+  // function confirmExit()
+  window.addEventListener('beforeunload',()=>{
+    setExitPopupOpen(true)
+  })
+  // {
+  //   return "show warning";
+  // }x
+})
 
 const handleTabClosing = (event) => {
     // removePlayerFromGame()
     // console.log("exiting")\
     // gameLeave()
-    event.preventDefault();
-    event.returnValue ='';
-    // setExitPopupOpen(true);
+    // event.preventDefault();
+    setExitPopupOpen(true);
 
 }
 
 const alertUser = (event:any) => {
   console.log(event)
-  gameLeave()
  event.preventDefault();
  
-//  event.returnValue = setExitPopupOpen(true);
+ event.returnValue = setExitPopupOpen(true);
   // alert("helo")
 }
-useEffect(()=>{
-  console.log(userId)
-  console.log(prizeId)
-},[prizeId,currentPrizeMove])
   return (
     <div className={style.Container}>
       <audio ref={audioRef}></audio>
@@ -1789,56 +1764,6 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {active&&gamePlay===true? (
-        <div className={style.popup}>
-        <div className={style.OverlayBg} onClick={()=>{
-            setLeavePopup(false)
-        }}>
-
-        </div>
-          <div className={style.popupImage}>
-            <img src={assets.winchaPopup} alt="" />
-          </div>
-          <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?</p>
-          </div>
-          <div className={style.ExitpopupButton}>
-            {/* <Link
-            to="/tickets"
-            onClick={() => {
-              setLeavePopup(false);
-            }}
-          > */}
-            <button
-              onClick={() => {
-                // console.log(transferGame);
-                setActive(false);
-                gameLeave();
-                // socket.disconnect();
-                // navigate(`/game/${transferGame.slug}`, {
-                //   state: { game: transferGame,category:transferGame.category},
-                // });
-                navigate(`/${pageUrl}`)
-                // window.location.reload();
-                // window.location.reload()
-              }}
-            >
-              YES
-            </button>
-            {/* </Link> */}
-            <button
-              onClick={() => {
-                setActive(false);
-                console.log("hello");
-              }}
-            >
-              NO
-            </button>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
@@ -1991,17 +1916,17 @@ useEffect(()=>{
                       ) : (
                         ""
                       )}
-                    {currentPrizeMove===true&&prizeId===userId?
+                      {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                       {game.price_move_status===true||currentPrizeMove===true?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}  
+                       :""} 
                       <Screen
                         sessionId={
                           game &&
@@ -2061,14 +1986,13 @@ useEffect(()=>{
                       ) : (
                         ""
                       )}
-                     
-                       {currentPrizeMove===true&&prizeId===userId?
+                     {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                       {game.price_move_status===true||currentPrizeMove===true?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
@@ -2116,17 +2040,17 @@ useEffect(()=>{
                       <img src={overlayImage} alt="" />
                     </div>
                   :""}
-               {currentPrizeMove===true&&prizeId===userId?
+                 {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                       {game.price_move_status===true||currentPrizeMove===true?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}  
+                       :""} 
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -2149,18 +2073,17 @@ useEffect(()=>{
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove===true&&prizeId===userId?
+                     {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                       {game.price_move_status===true||currentPrizeMove===true?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}  
-                      
+                       :""} 
                       <Screen
                         sessionId={
                           game &&
@@ -2219,17 +2142,17 @@ useEffect(()=>{
                       ) : (
                         ""
                       )}
-                     {currentPrizeMove===true&&prizeId===userId?
+                      {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                       {game.price_move_status===true||currentPrizeMove===true?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}  
+                       :""} 
                       <Screen
                         sessionId={
                           game &&
@@ -2971,7 +2894,7 @@ useEffect(()=>{
                                 }
                                 else{
                                 setGamePlayStatus(false);
-                                // setGamePlay(false);
+                                setGamePlay(false);
                                 setPlayAgain(true);
 
                                 }
@@ -2992,7 +2915,7 @@ useEffect(()=>{
                         onClick={() => {
                           setWait(true);
                           setGamePlayStatus(true);
-                          // setGamePlay(true);
+                          setGamePlay(true);
                           setPlayAgain(false);
                           socket.emit(
                             "socket_connect",
