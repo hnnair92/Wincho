@@ -33,12 +33,12 @@ const Profile = () => {
   const [password, setPassword] = useState("");
   const [subscription, setSubscription] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [myDetails, setmyDetails] = useState(false);
+  const [myDetails, setmyDetails] = useState(true);
   const { user } = useSelector((state) => state.profile);
   const { configuration } = useSelector((state) => state.configuration);
   const [updatePassword, setUpdatePassword] = useState(false);
   const [Deactivate, setDeactivate] = useState(false);
-  const [resendEmail, setResendEmail] = useState(false);
+  const [resendEmail, setResendEmail] = useState(user && user.profile_status===false?true:false);
   const [message, setMessage] = useState(false);
   const [type, setType] = useState(true);
   const userId = JSON.parse(localStorage.getItem("user"));
@@ -375,9 +375,10 @@ const Profile = () => {
         )}
         {resendEmail ? (
           <div className={style.popup}>
-          {loading?
-          <Lottie animationData={AllAnimation.Loader}/>
-          :""}
+          <div className={style.popupOverlay} onClick={()=>{
+            setResendEmail(false)
+          }}></div>
+          <div className={style.popupContent}>
             <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
@@ -398,6 +399,10 @@ const Profile = () => {
                 }}>RESEND EMAIL</button>
               </div>
             </div>
+          </div>
+          {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
           </div>
         ) : (
           ""

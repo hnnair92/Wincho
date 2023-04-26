@@ -30,6 +30,8 @@ const Description = ({
   gameSound,
   setGameSound,
   active,
+  pageUrl,
+  setPageUrl,
   setActive,
   setGamePlay,
   gamePlay,
@@ -46,7 +48,18 @@ const Description = ({
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);
   const animeRef = useRef(null);
+  const newDate = new Date()
+  const month = newDate.getMonth()
+  const year = newDate.getFullYear()
+  const date = newDate.getDate()
+  const day = newDate.getDay()
+  const CustomDate = new Date(year,month+1,0)
+  const lastDateOfTheMonth = CustomDate.getDate()
+  const utc = newDate.getUTCMilliseconds()
+  const milliseconds = newDate.getTime()
   console.log(state);
+  const localDate = JSON.parse(localStorage.getItem("dates"))
+  const [checkDateCount,setCheckDateCount] = useState(localStorage.getItem("checkPlay")?JSON.parse(localStorage.getItem("checkPlay")):localStorage.setItem("checkPlay",JSON.stringify(0)))
   // const location = useLocation()
   // useEffect(() => {
   //   if (GameData?.content?.length < 75) {
@@ -59,7 +72,10 @@ const Description = ({
   //     setExitPopupOpen(true)
   //   }
   // },[active]);
+  useEffect(()=>{
+  console.log(active)
 
+  },[active])
   //  Hard coded Datas
   const reportCategories = [
     {
@@ -108,6 +124,7 @@ const Description = ({
   // console.log(vidRef)
   const [premiumPopup, setPremiumPopup] = useState(false);
   const [overlay,setOverlay] = useState(true);
+  const [reloadStatus,setReloadStatus] = useState(false)
   const [sendCategory,setSendCategory] = useState("")
   const [lastWin, setLastWin] = useState(false);
   const [minimized, setminimized] = useState(false);
@@ -116,6 +133,7 @@ const Description = ({
   const [gameFailed, setGameFailed] = useState(false);
   const [cameraState1, setCameraState1] = useState(false);
   const [cameraState2, setCameraState2] = useState(false);
+  const [howToPlayStatus, setHowToPlayStatus] = useState(false);
   const [session, setSession] = useState({});
   const [firstStep, setFirstStep] = useState(false);
   const [freePlayNotReg, setFreePlayNotReg] = useState(false);
@@ -137,6 +155,7 @@ const Description = ({
   const [reportConfirm, setReportConfirm] = useState(false);
   const [category, setCategory] = useState("");
   const [reportText, setReportText] = useState("");
+  const [prizeResetStatus,setPrizeResetStatus] = useState("")
   const [ifPerson, setIfPerson] = useState(
     JSON.parse(localStorage.getItem("tabsOpen"))
   );
@@ -227,6 +246,13 @@ const Description = ({
       console.log(res);
       const data = res.split("|")
       const progress = data[data.length-1]
+      const splitId = data[0].split(":");
+      console.log(splitId[1])
+      console.log(userId)
+      console.log(splitId[1]===userId)
+      if(splitId[1]===userId){
+        setPrizeID(userId)
+      }
       if(progress==="INPROGRESS"){
         setCurrentPrizeMove(true)
       }
@@ -268,6 +294,11 @@ const Description = ({
     });
     socket.on("prize_reset", (res) => {
       console.log(res);
+      const splitData = res.split("|")
+      const resetData = splitData[splitData.length-1]
+      if(resetData==="RESET"){
+        setPrizeResetStatus(resetData)
+      }
     });
     socket.on("sensor_message", (res) => {
       setPrizeCount(prizeCount=>prizeCount+1)
@@ -277,6 +308,9 @@ const Description = ({
       const splitId = splitRes[1].split(":");
       const machineId = splitRes[1].split(":")
       const user = splitRes[0].split(":")
+      console.log(user[1])
+      console.log(userId)
+      console.log(userId===user[1])
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
         console.log(prizeCount);
         // if(userId===user){
@@ -301,8 +335,9 @@ const Description = ({
           `${baseMessage}|RH_POSITION_CHANGED`
         );
         if(user[1]===userId){
+          console.log(user[1])
           // if(que==="0"){
-            setPrizeID(user[1])
+            // setPrizeID(user[1])
             console.log(prizeCount)
           console.log(count,"count from prize move")
           // }
@@ -581,6 +616,9 @@ const Description = ({
     checkFreePlay();
   }, [gamePlayStatus]);
   useEffect(() => {
+    changeFreePlayDaily();
+  }, [checkDateCount]);
+  useEffect(() => {
     if (
       game &&
       game.camera_data &&
@@ -778,7 +816,7 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-
+        // changeFreePlayDaily()
         localStorage.getItem("timesall")
           ? localStorage.setItem(
               "timesall",
@@ -786,6 +824,19 @@ const Description = ({
             )
           : localStorage.setItem("timesall", 0);
       });
+  }
+  async function changeFreePlayDaily(){
+    console.log(milliseconds*utc)
+    console.log(checkDateCount)
+    if(checkDateCount===1){
+      localStorage.setItem("dates",parseInt(date))
+    }
+    else if(localDate<date){
+        localStorage.setItem("dates",parseInt(date))
+        localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+      }
+    
+    console.log(lastDateOfTheMonth)
   }
   async function sendReport() {
     await fetch(`${baseUrl}/game/issue/report`, {
@@ -824,6 +875,7 @@ const Description = ({
     socket.emit(`${baseMessage}|P_ENDED`);
     socket.emit(`${baseMessage}|G_DISCONNECTED`);
     setTimeoutStatus(true);
+    setReloadStatus(false)
     setTimeout(async () => {
       await gameLeave(userId, timeout_status);
       setTimeoutStatus(false);
@@ -893,6 +945,7 @@ const Description = ({
       });
   }
   async function gameJoin(e) {
+    console.log(GameData.price)
     playAudio(music.Wincha);
     setDirection(game.movement.split("-"));
     e.preventDefault();
@@ -924,7 +977,7 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         setGamePlayStatus(true);
-        setGamePlay(true);
+        // setReloadStatus(true)
         console.log(data);
         if (que === "0") {
           console.log(que);
@@ -940,7 +993,10 @@ const Description = ({
     // localStorage.setItem("times",JSON.stringify(freePlay))
     // const freePl = JSON.parse(localStorage.getItem("times"))
     // console.log(freePl);
-    // setFreePlay(freePlay+1)
+    setFreePlay(freePlay+1)
+    if(GameData.price==="0"){
+      setCheckDateCount(checkDateCount+1)
+    }
     console.log(direction);
     socket.emit("peer_message", `${baseMessage}|P_STARTED`);
 
@@ -963,6 +1019,8 @@ const Description = ({
         setWait(false);
         setStartGame(data.data[0]);
         setFirstStep(true);
+        setGamePlay(true);
+        setReloadStatus(true)
         // console.log(firstStep)
       });
   }
@@ -1139,6 +1197,7 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(id);
+        setReloadStatus(false)
         if (User === userId) {
           socket.disconnect();
           setTimeout(() => {
@@ -1153,6 +1212,7 @@ const Description = ({
             );
           }, 1000);
           setTimeoutStatus(false);
+
           // if(timeoutStatus===true){
             window.location.reload();
 
@@ -1284,53 +1344,80 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {});
   }
-  // useEffect(() => {
-    // if(gamePlayStatus===true){
+  useEffect(() => {
+    // if(reloadStatus===true){
 
-      // window.addEventListener('beforeunload', alertUser)
-      // window.addEventListener('unload', handleTabClosing)
-    //   window.onbeforeunload = function() {
-    //     var message = 'Do you want to leave this page?';
-    //     return message;
+      window.addEventListener('beforeunload', alertUser)
+      window.addEventListener('unload', handleTabClosing)
+      window.onbeforeunload = function() {
+    if(reloadStatus===true){
+
+          var message = 'Do you want to leave this page?';
+          return message}
+      }
+      return () => {
+          window.removeEventListener('beforeunload', alertUser)
+          window.removeEventListener('unload', handleTabClosing)
+          window.onbeforeunload = function() {
+    if(reloadStatus===true){
+
+            var message = 'Do you want to leave this page?';
+            return message;
+    }
+        }
+      }
+      
+      
     // }
-      // return () => {
-      //     window.removeEventListener('beforeunload', alertUser)
-      //     window.removeEventListener('unload', handleTabClosing)
-      // }
-    // }
+},[window,reloadStatus])
+useEffect(()=>{
+  console.log(reloadStatus)
+},[reloadStatus])
+// useEffect(() => {
+//   console.log(window)
+//   // window.onbeforeunload = setExitPopupOpen(true);
+//   // function confirmExit()
+//   window.addEventListener('beforeunload',(event)=>{
+//     event.preventDefault();
+//     event.returnValue = ''
+
+    
+//   })
+
 // })
-useEffect(() => {
-  console.log(window)
-  // window.onbeforeunload = setExitPopupOpen(true);
-  // function confirmExit()
-  window.addEventListener('beforeunload',()=>{
-    setExitPopupOpen(true)
-  })
-  // {
-  //   return "show warning";
-  // }x
-})
 
 const handleTabClosing = (event) => {
     // removePlayerFromGame()
     // console.log("exiting")\
     // gameLeave()
-    // event.preventDefault();
-    setExitPopupOpen(true);
+    if(reloadStatus===true){
+
+    event.preventDefault();
+    event.returnValue ='';
+    }
+    // setExitPopupOpen(true);
 
 }
 
 const alertUser = (event:any) => {
+    if(reloadStatus===true){
+
   console.log(event)
- event.preventDefault();
+  // gameLeave()
+ event.preventDefault()
+    }
  
- event.returnValue = setExitPopupOpen(true);
+//  event.returnValue = setExitPopupOpen(true);
   // alert("helo")
 }
+useEffect(()=>{
+  console.log(userId)
+  console.log(prizeId)
+},[prizeId,currentPrizeMove])
   return (
     <div className={style.Container}>
       <audio ref={audioRef}></audio>
-      <audio ref={audioRefHome}></audio>
+      <audio ref={audioRefHome} loop></audio>
       {/* <audio ref={audioRefHome} onEnded={audioEnded(music.Game)}></audio> */}
       {prizeResetActive ? (
         <div className={style.popup}>
@@ -1764,6 +1851,56 @@ const alertUser = (event:any) => {
       ) : (
         ""
       )}
+      {active&&gamePlay===true? (
+        <div className={style.popup}>
+        <div className={style.OverlayBg} onClick={()=>{
+            setLeavePopup(false)
+        }}>
+
+        </div>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Are you sure you want to leave this game?</p>
+          </div>
+          <div className={style.ExitpopupButton}>
+            {/* <Link
+            to="/tickets"
+            onClick={() => {
+              setLeavePopup(false);
+            }}
+          > */}
+            <button
+              onClick={() => {
+                // console.log(transferGame);
+                setActive(false);
+                gameLeave();
+                // socket.disconnect();
+                // navigate(`/game/${transferGame.slug}`, {
+                //   state: { game: transferGame,category:transferGame.category},
+                // });
+                navigate(`/${pageUrl}`)
+                // window.location.reload();
+                // window.location.reload()
+              }}
+            >
+              YES
+            </button>
+            {/* </Link> */}
+            <button
+              onClick={() => {
+                setActive(false);
+                console.log("hello");
+              }}
+            >
+              NO
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
@@ -1842,6 +1979,18 @@ const alertUser = (event:any) => {
           </div>
         </div>
         <div className={style.GameScreen}>
+        {howToPlayStatus?
+                       <div className={style.howToPlay}>
+                        <div className={style.HowToPlayOverlay} onClick={()=>{
+                          setHowToPlayStatus(false)
+                        }}>
+
+                        </div>
+                        <div className={style.HowToPlayPopup}>
+                          <Lotties animationData={AllAnimation.howToPlay}/>
+                        </div>
+                       </div>
+                       :""}
           {videoGot === false ? (
             <div className={style.videoStarting}>
               {/* <p>Please wait while we get the video for you!</p> */}
@@ -1916,17 +2065,23 @@ const alertUser = (event:any) => {
                       ) : (
                         ""
                       )}
-                      {currentPrizeMove===true&&prizeId===userId?
+                     {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                       {game.price_move_status===true||currentPrizeMove===true?
+                        
+                        {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""} 
+                       :""}
+                    {game.price_move_status===true&&prizeId!=userId||currentPrizeMove===true&&prizeId!=userId?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""}  
                       <Screen
                         sessionId={
                           game &&
@@ -1986,18 +2141,25 @@ const alertUser = (event:any) => {
                       ) : (
                         ""
                       )}
-                     {currentPrizeMove===true&&prizeId===userId?
+                     
+                        {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                       {game.price_move_status===true||currentPrizeMove===true?
+                        
+                        {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""}
+                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}  
-                       prizeMoveUser
+                        
                       <Screen
                         sessionId={
                           game &&
@@ -2032,7 +2194,6 @@ const alertUser = (event:any) => {
                         <div className={style.GameFullOverlay} onClick={()=>{
                            setTimeout(()=>{
                           setOverlay(false) 
-
                           },3000)
                         }}>
 
@@ -2040,17 +2201,23 @@ const alertUser = (event:any) => {
                       <img src={overlayImage} alt="" />
                     </div>
                   :""}
-                 {currentPrizeMove===true&&prizeId===userId?
+               {/*  {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                       {game.price_move_status===true||currentPrizeMove===true?
+                        
+                        {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""} 
+                       :""}
+                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""}   */}
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -2073,17 +2240,25 @@ const alertUser = (event:any) => {
                       ) : (
                         ""
                       )}
-                     {currentPrizeMove===true&&prizeId===userId?
+                       {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                         <img src={prizeMove} alt="" />
                       </div>
                       
                        :""} 
-                       {game.price_move_status===true||currentPrizeMove===true?
+                        
+                        {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""} 
+                       :""}
+                     
+                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""}  
+                      
                       <Screen
                         sessionId={
                           game &&
@@ -2148,11 +2323,18 @@ const alertUser = (event:any) => {
                       </div>
                       
                        :""} 
-                       {game.price_move_status===true||currentPrizeMove===true?
+                        
+                       {/*   */}
+                       {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""} 
+                       :""}
+                    {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
+                        <div className={style.PrizeMove}>
+                        <img src={prizeMoveUser} alt="" />
+                      </div>
+                       :""}  
                       <Screen
                         sessionId={
                           game &&
@@ -2228,6 +2410,7 @@ const alertUser = (event:any) => {
                             animationData={AllAnimation.waitPulse}
                             loop={false}
                             onComplete={() => {
+                              setReloadStatus(true)
                               PointDebit();
                             }}
                           />
@@ -2885,16 +3068,20 @@ const alertUser = (event:any) => {
                                   console.log(prizeCount)
                                   console.log(prizeDate)
                                      addToCart();
-                                   navigate("/win-screen",{state:{game:GameData}});
                                     gameLeave();
-                                    socket.disconnect();
+                                   navigate("/win-screen",{state:{game:GameData}});
+                                    // socket.disconnect();
                                     setGamePlayStatus(false);
                                 setGamePlay(false);
                                 setPlayAgain(false);
+                            setReloadStatus(false)
+
                                 }
                                 else{
                                 setGamePlayStatus(false);
-                                setGamePlay(false);
+                            // setReloadStatus(false)
+
+                                // setGamePlay(false);
                                 setPlayAgain(true);
 
                                 }
@@ -2916,6 +3103,10 @@ const alertUser = (event:any) => {
                           setWait(true);
                           setGamePlayStatus(true);
                           setGamePlay(true);
+
+                          // setReloadStatus(false)
+                          setReloadStatus(true)
+                          // setGamePlay(true);
                           setPlayAgain(false);
                           socket.emit(
                             "socket_connect",
@@ -2941,7 +3132,9 @@ const alertUser = (event:any) => {
                           }}
                           // pause={prizeResetActive}
                           onComplete={() => {
+                            setReloadStatus(false)
                             gameLeave(userId, false);
+                            setGamePlay(false);
                             setPlayAgain(false);
                             navigate("/prizes",{state:{category:sendCategory}})
 
@@ -2987,7 +3180,9 @@ const alertUser = (event:any) => {
                     </button>
                   </div>
                   <div className={style.Guide}>
-                    <button>
+                    <button onClick={()=>{
+                      setHowToPlayStatus(true)
+                    }}>
                       <img src={assets.Guide} alt="" />
                     </button>
                   </div>

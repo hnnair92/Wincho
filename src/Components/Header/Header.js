@@ -20,7 +20,7 @@ import bandaiLogo from "../../assests/Bandai Namco Logo.png";
 import { MainMenu, settingsMenu } from "./Menu";
 import { music } from "../../assests/Musics/allMusic";
 // import { useSelector } from 'react-redux'
-const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
+const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
   const dispatch = useDispatch();
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
@@ -152,12 +152,23 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     // {
                     //   gamePlay === true && active === false
                     //     ? 
-                        setActive(true)
+                        // setActive(true)
                          checkGameOn();
                       setToggle(false);
-                      if (menu.Name === "Support") {
+                      if(gamePlay===false){
+                setActive(true)
+              }
+                    setPageUrl(menu.url)
+                    // active?setActive(true):setActive(true)
+
+                        // navigate(`/${MMenu.url}`);
+                        if (menu.Name === "Support"&&gamePlay===false) {
                         setToggle(false);
                         handleId(e);
+                      }
+
+                      if (menu.Name != "Support"&&gamePlay===false) {
+                        navigate(`/${menu.url}`);
                       }
                       // if (menu.Name != "Support") {
                       //   navigate(`/${menu.url}`);
@@ -173,9 +184,16 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         >
                     {menu.Name}
                   </p>
-                  {menu.Badge === true&&menu.item==="Basket" ? (
+                  {menu.Badge === true&&menu.item==="Basket"&&notification && notification.basket_item_count>0&&notification!==undefined ? (
                     <span className={style.CartBadge}>
                       {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  {menu.Badge === true&&menu.item==="Notifications"&&notification && notification.notification_count>0 &&notification!==undefined ? (
+                    <span className={style.CartBadge}>
+                      {notification && notification.basket_item_count ? notification && notification.notification_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -193,7 +211,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
               // {
               //   gamePlay === true && active === false
               //     ? 
-                  setActive(true)
+              if(gamePlay===false){
+                setActive(true)
+              }
               //     : setToggle(false);
               // }
               // {
@@ -232,17 +252,36 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     <img
                       src={MMenu.icon}
                       alt=""
-                      onClick={() => {
+                      onClick={(e) => {
                     setSetting(false)
-
-                    active?setActive(true):setActive(true)
+                    if(gamePlay===false){
+                setActive(true)
+              }
+                    setPageUrl(MMenu.url)
+                    // active?setActive(true):setActive(true)
 
                         // navigate(`/${MMenu.url}`);
+                        if (MMenu.Name === "Support"&&gamePlay===false) {
+                        setToggle(false);
+                        handleId(e);
+                      }
+
+                      if (MMenu.Name != "Support"&&gamePlay===false) {
+                        navigate(`/${MMenu.url}`);
+                      }
                       }}
+
                     />
-                    {MMenu.Badge === true ? (
+                    {MMenu.Badge === true &&notification && notification.basket_item_count>0&&notification!==undefined&&MMenu.Name==="Basket"?(
                     <span className={style.CartBadge}>
                       {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                    {MMenu.Badge === true &&notification && notification.notification_count>0&&MMenu.Name==="Notifications"&&notification!==undefined?(
+                    <span className={style.CartBadge}>
+                      {notification && notification.notification_count ? notification && notification.notification_count : "0"}
                     </span>
                   ) : (
                     ""
@@ -278,7 +317,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     // {
                     //   gamePlay === true && active === false
                         // ? 
-                        setActive(true)
+                        // setActive(true)
                     //     : setSetting(false);
                     // }
                   }}
@@ -292,18 +331,33 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         onClick={(e) => {
               e.preventDefault()
               setSetting(false)
+              if(gamePlay===false){
+                setActive(true)
+              }
+                    setPageUrl(menu.url)
+                    // active?setActive(true):setActive(true)
+
+                        // navigate(`/${MMenu.url}`);
+                      //   if (MMenu.Name === "Support"&&gamePlay===false) {
+                      //   setToggle(false);
+                      //   handleId(e);
+                      // }
+
+                      // if (MMenu.Name != "Support"&&gamePlay===false) {
+                      //   navigate(`/${MMenu.url}`);
+                      // }
 
 
                           setId(menu.id);
                           // {
                             // gamePlay === true && active === false
                               // ? 
-                              setActive(true)
+                              // setActive(true)
                               // : setSetting(false);
                           // }
                           if (
-                            menu.Name === "Terms of Use" ||
-                            menu.Name === "Privacy Policy"
+                            menu.Name === "Terms of Use" &&gamePlay===false||
+                            menu.Name === "Privacy Policy"&&gamePlay===false
                           ) {
                             window.open(
                               `${
@@ -321,13 +375,13 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                             setSetting(true);
 
                             // navigate(`/${menu.url}`)
-                          } else if(menu.Name!=="Logout"){
+                          } else if(menu.Name!=="Logout"&&gamePlay===false){
                             navigate(`/${menu.url}`);
                           }
-                          if (menu.Name === "Logout") {
+                          if (menu.Name === "Logout"&&gamePlay===false) {
                             e.preventDefault()
                             navigate(`${window.location.pathname}`)
-                            setPopup(true);
+                            // setPopup(true);
                           }
                         }}
                       >
@@ -345,14 +399,14 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                             ? ""
                             : menu.Name}
                         </p>
-                        {menu.Badge === true&&menu.Name==="Basket" ? (
+                        {menu.Badge === true&&menu.Name==="Basket"&&notification && notification.basket_item_count>0&&notification!==undefined ? (
                     <span className={style.CartBadge}>
                       {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
                     </span>
                   ) : (
                     ""
                   )}
-                        {menu.Badge === true&&menu.Name==="Notifications" ? (
+                        {menu.Badge === true&&menu.Name==="Notifications"&&notification && notification.notification_count>0 &&notification!==undefined ? (
                     <span className={style.CartBadge}>
                       {notification && notification.notification_count ? notification && notification.notification_count : "0"}
                     </span>
@@ -483,6 +537,10 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                 onClick={(e) => {
                   e.preventDefault()
                   setSetting(false)
+                  if(gamePlay===false){
+                setActive(true)
+              }
+                  setPageUrl(menu.url)
 
                   // setId(menu.id);
                   // {
@@ -491,37 +549,37 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   //     : // ""
                   //       setSetting(false);
                   // }
-                  // if (
-                  //   menu.Name === "Terms of Use" ||
-                  //   menu.Name === "Privacy Policy"
-                  // ) {
-                  //   window.open(
-                  //     `${
-                  //       menu.Name === "Terms of Use"
-                  //         ? configuration.terms
-                  //         : menu.Name === "Privacy Policy"
-                  //         ? configuration.privacy
-                  //         : ""
-                  //     }`,
-                  //     "_blank"
-                  //   );
-                  // }
+                  if (
+                    menu.Name === "Terms of Use" &&gamePlay===false||
+                    menu.Name === "Privacy Policy" &&gamePlay===false
+                  ) {
+                    window.open(
+                      `${
+                        menu.Name === "Terms of Use"
+                          ? configuration.terms
+                          : menu.Name === "Privacy Policy"
+                          ? configuration.privacy
+                          : ""
+                      }`,
+                      "_blank"
+                    );
+                  }
                   if (menu.Name === "Sound" || menu.Name === "Music") {
                     // navigate(``)
                     setSetting(true);
 
                     // navigate(`/${menu.url}`)
                   } 
-                  else if(menu.Name!=="Logout"){
+                  else if(menu.Name!=="Logout"&&gamePlay===false){
                     navigate(`/${menu.url}`);
-                    setSetting(true);
+                    // setSetting(true);
 
                   }
-                  if (menu.Name === "Logout") {
+                  if (menu.Name === "Logout"&&gamePlay===false) {
                     e.preventDefault()
                     navigate(`${window.location.pathname}`)
                     setPopup(true);
-                    setSetting(true);
+                    // setSetting(true);
 
                   }
                   console.log(menu.Name.toLowerCase())
@@ -548,14 +606,14 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                     ? ""
                     : menu.Name}
                 </p>
-                {menu.Badge === true&&menu.Name==="Basket" ? (
+                {menu.Badge === true&&menu.Name==="Basket"&&notification && notification.basket_item_count>0&&notification!==undefined ? (
             <span className={style.CartBadge}>
               {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
             </span>
           ) : (
             ""
           )}
-                {menu.Badge === true&&menu.Name==="Notifications" ? (
+                {menu.Badge === true&&menu.Name==="Notifications" &&notification && notification.notification_count>0 &&notification!==undefined ? (
             <span className={style.CartBadge}>
               {notification && notification.notification_count ? notification && notification.notification_count : "0"}
             </span>
@@ -738,255 +796,7 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
       {toggle ? (
         <MobileFunc />
       ) : (
-        // <div className={style.MobileMenu}>
-        //   <div className={style.Menu}>
-        //     {/* <HiMenu className={style.menuIcon}  onClick={()=>{
-        //       {  gamePlay===true&&active===false?
-        //         setActive(true)
-        //         :
-               
-        //         setToggle(true)}
-        //       }}/> */}
-        //     <div className={style.HomeMenuIcons}>
-        //       {MainMenu.map((MMenu) => {
-        //         return (
-        //           <div className={style.BottomMenuIcon}>
-        //             <img
-        //               src={MMenu.icon}
-        //               alt=""
-        //               onClick={() => {
-        //                 navigate(`/${MMenu.url}`);
-        //               }}
-        //             />
-        //             {MMenu.Badge === true ? (
-        //             <span className={style.CartBadge}>
-        //               {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
-        //             </span>
-        //           ) : (
-        //             ""
-        //           )}
-        //           </div>
-        //         );
-        //       })}
-        //       <HiMenu
-        //         onClick={() => {
-        //           // setSetting(true)
-        //           setting ? setSetting(false) : setSetting(true);
-        //         }}
-        //       />
-        //       {/* <div className={style.BottomMenuIcon}>
-        //           <img src={} alt="" />
-        //         </div>
-        //         <div className={style.BottomMenuIcon}>
-        //           <img src={} alt="" />
-        //         </div>
-        //         <div className={style.BottomMenuIcon}>
-        //           <img src={} alt="" />
-        //         </div> */}
-        //     </div>
-        //   </div>
-        //   <div className={style.HamBurgerMenu}>
-        //     {setting ? (
-        //       <div className={style.Settings}>
-        //         <AiOutlineClose
-        //           className={style.closeIcon}
-        //           onClick={() => {
-        //             setId("");
-
-        //             {
-        //               gamePlay === true && active === false
-        //                 ? setActive(true)
-        //                 : setSetting(false);
-        //             }
-        //           }}
-        //         />
-        //         {/* {isUser? */}
-        //         <ul>
-        //           {settingsMenu.map((menu) => {
-        //             return (
-        //               <div
-        //                 className={style.MenuSection}
-        //                 onClick={(e) => {
-        //       e.preventDefault()
-
-        //                   setId(menu.id);
-        //                   {
-        //                     gamePlay === true && active === false
-        //                       ? setActive(true)
-        //                       : setSetting(false);
-        //                   }
-        //                   if (
-        //                     menu.Name === "Terms of Use" ||
-        //                     menu.Name === "Privacy Policy"
-        //                   ) {
-        //                     window.open(
-        //                       `${
-        //                         menu.Name === "Terms of Use"
-        //                           ? configuration.terms
-        //                           : menu.Name === "Privacy Policy"
-        //                           ? configuration.privacy
-        //                           : ""
-        //                       }`,
-        //                       "_blank"
-        //                     );
-        //                   }
-        //                   if (menu.Name === "Sound" || menu.Name === "Music") {
-        //                     // navigate(``)
-        //                     setSetting(true);
-
-        //                     // navigate(`/${menu.url}`)
-        //                   } else if(menu.Name!=="Logout"){
-        //                     navigate(`/${menu.url}`);
-        //                   }
-        //                   if (menu.Name === "Logout") {
-        //                     e.preventDefault()
-        //                     navigate(`${window.location.pathname}`)
-        //                     setPopup(true);
-        //                   }
-        //                 }}
-        //               >
-        //                 {/* if(menu.Name) */}
-                        
-        //           <p
-        //                   className={
-        //                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
-        //                   }
-        //                 >
-        //                   {menu.Name === "Sound" ||
-        //                   menu.Name === "Music" ||
-        //                   menu.Name === "Logout" ||
-        //                   menu.Name === "Login/Register"
-        //                     ? ""
-        //                     : menu.Name}
-        //                 </p>
-        //                 {menu.Badge === true&&menu.Name==="Basket" ? (
-        //             <span className={style.CartBadge}>
-        //               {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
-        //             </span>
-        //           ) : (
-        //             ""
-        //           )}
-        //                 {menu.Badge === true&&menu.Name==="Notifications" ? (
-        //             <span className={style.CartBadge}>
-        //               {notification && notification.notification_count ? notification && notification.notification_count : "0"}
-        //             </span>
-        //           ) : (
-        //             ""
-        //           )}
-        //                 {/* <p className={id===menu.id&&menu.name!="Logout"&&menu.name!="Login/Register"?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p> */}
-        //                 {menu.Name === "Music" ? (
-        //                   <div className={style.Music}>
-        //                   <li>Music</li>
-        //                   <div
-        //                     className={
-        //                       gameMusic === true||gameMusic==="true"
-        //                         ? style.ActiveSlider
-        //                         : style.Slider
-        //                     }
-        //                     onClick={() => {
-        //                       setMusicId(menu.id);
-        //                       gameMusic===true?setGameMusic(false):setGameMusic(true)
-        //                       // sliderSction
-        //                       //   ? setSliderAction(false)
-        //                       //   : setSliderAction(true);
-        //                       // if (sliderSction === true) {
-        //                       // setGameSound(false)
-
-        //                       //   localStorage.setItem(
-        //                       //     "music",
-        //                       //     JSON.stringify(false)
-        //                       //   );
-        //                       // } else {
-        //                       // setGameSound(true)
-
-        //                       //   localStorage.setItem(
-        //                       //     "music",
-        //                       //     JSON.stringify(true)
-        //                       //   );
-        //                       // }
-        //                     }}
-        //                   >
-        //                     <div
-        //                       className={
-        //                         gameMusic === true||gameMusic==="true"
-        //                           ? style.ActiveSliderBtn
-        //                           : style.SliderBtn
-        //                       }
-        //                     ></div>
-        //                   </div>
-        //                 </div>
-        //                 ) : (
-        //                   ""
-        //                 )}
-        //                 {menu.Name === "Sound" ? (
-        //                    <div className={style.Sound}>
-        //                    <li>Sound</li>
-        //                    <div
-        //                      className={
-        //                        gameSound === true||gameSound==="true"
-        //                          ? style.ActiveSlider
-        //                          : style.Slider
-        //                      }
-        //                      onClick={() => {
-        //                        setAudioId(menu.id);
-        //                        gameSound===true?setGameSound(false):setGameSound(true)
-        //                        // sliderSction
-        //                        //   ? setSliderAction(false)
-        //                        //   : setSliderAction(true);
-        //                        // if (sliderSction === true) {
-        //                        // setGameSound(false)
-
-        //                        //   localStorage.setItem(
-        //                        //     "sound",
-        //                        //     JSON.stringify(false)
-        //                        //   );
-        //                        // } else {
-        //                        // setGameSound(true)
-
-        //                        //   localStorage.setItem(
-        //                        //     "sound",
-        //                        //     JSON.stringify(true)
-                                 
-        //                        //   );
-        //                        // }
-        //                      }}
-        //                    >
-        //                      <div
-        //                        className={
-        //                          gameSound === true||gameSound==="true"
-        //                            ? style.ActiveSliderBtn
-        //                            : style.SliderBtn
-        //                        }
-        //                      ></div>
-        //                    </div>
-        //                  </div>
-        //                 ) : (
-        //                   ""
-        //                 )}
-                        
-        //           <p
-        //                   className={
-        //                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
-        //                   }
-        //                 >
-        //                   {userId === null
-        //                     ? menu.Name === "Login/Register"
-        //                       ? menu.Name
-        //                       : ""
-        //                     : menu.Name === "Logout"
-        //                     ? menu.Name
-        //                     : ""}
-        //                 </p>
-        //               </div>
-        //             );
-        //           })}
-        //         </ul>
-        //       </div>
-        //     ) : (
-        //       ""
-        //     )}
-        //   </div>
-        // </div>
+       
         ""
       )}
 
@@ -999,7 +809,9 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
 
                 // gamePlay === true && active === false
                   // ? 
-                  setActive(true)
+                  if(gamePlay===false){
+                setActive(true)
+              }
                   // : setActive(false);
                 navigate("/");
               }
@@ -1019,35 +831,30 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                   className={style.MenuSection}
                   onClick={(e) => {
                     setSetting(false)
-                    // e.preventDefault()
-                    // setActive(true)
-                    active?setActive(true):setActive(true)
-                    // eslint-disable-next-line no-lone-blocks
+                    
+                  
                     setId(menu.id);
-                    if(id===menu.id){
-                      setActive(true)
-                    }
+                   
+                    if(gamePlay===false){
+                setActive(true)
+              }
+                    setPageUrl(menu.url)
                     playAudio(music.Click);
-                    // {
-                    //   gamePlay === true && leave === true
-                    //     ? setLeave(false)
-                    //     : 
+                   
                         checkGameOn();
                       setToggle(false);
-                      if (menu.Name === "Support") {
+                      if (menu.Name === "Support"&&gamePlay===false) {
                         setToggle(false);
                         handleId(e);
                       }
 
-                      // if (menu.Name != "Support") {
-                      //   navigate(`/${menu.url}`);
-                      // }
-                      // audioRefHeader.current.src = music.Click
-                      // audioRefHeader.current.play()
-                    // }
+                      if (menu.Name != "Support"&&gamePlay===false) {
+                        navigate(`/${menu.url}`);
+                      }
+                    
                   }}
                 >
-                  {/* <audio ref={audioRefHeader}></audio> */}
+                  
 
                   <p
                           className={
@@ -1056,13 +863,21 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
                         >
                     {menu.Name}
                   </p>
-                  {menu.Badge === true ? (
+                  {menu.Badge === true&&menu.Name==="Basket"&&notification!==undefined&&notification&&notification.basket_item_count>0? (
                     <span className={style.CartBadge}>
                       {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
                     </span>
                   ) : (
                     ""
                   )}
+                  {menu.Badge === true&&menu.Name==="Notifications" &&notification && notification.notification_count>0 &&notification!==undefined ? (
+            <span className={style.CartBadge}>
+              {notification && notification.notification_count ? notification && notification.notification_count : "0"}
+            </span>
+          ) : (
+            ""
+          )}
+                 
                 </div>
               );
             })}
@@ -1101,200 +916,6 @@ const Header = ({ gameMusic, setGameMusic, gameSound, setGameSound,setActive, ac
               }}
             />
             {setting ? (
-              // <div className={style.Settings}>
-              // <div className={style.SettingsOverlay}></div>
-              //   <ul>
-              //     {settingsMenu.map((menu) => {
-              //       return (
-              //         <div
-              //           className={style.MenuSection}
-              //           onClick={(e) => {
-              //             e.preventDefault()
-              //             // setId(menu.id);
-              //             // {
-              //             //   gamePlay === true && active === false
-              //             //     ? setActive(false)
-              //             //     : // ""
-              //             //       setSetting(false);
-              //             // }
-              //             // if (
-              //             //   menu.Name === "Terms of Use" ||
-              //             //   menu.Name === "Privacy Policy"
-              //             // ) {
-              //             //   window.open(
-              //             //     `${
-              //             //       menu.Name === "Terms of Use"
-              //             //         ? configuration.terms
-              //             //         : menu.Name === "Privacy Policy"
-              //             //         ? configuration.privacy
-              //             //         : ""
-              //             //     }`,
-              //             //     "_blank"
-              //             //   );
-              //             // }
-              //             if (menu.Name === "Sound" || menu.Name === "Music") {
-              //               // navigate(``)
-              //               setSetting(true);
-
-              //               // navigate(`/${menu.url}`)
-              //             } 
-              //             else if(menu.Name!=="Logout"){
-              //               navigate(`/${menu.url}`);
-              //             }
-              //             if (menu.Name === "Logout") {
-              //               e.preventDefault()
-              //               navigate(`${window.location.pathname}`)
-              //               setPopup(true);
-              //             }
-              //             console.log(menu.Name.toLowerCase())
-              //             console.log(window.location.pathname.split("/")[1])
-              //           }}
-              //         >
-              //           {/* if(menu.Name) */}
-                        
-                        
-              //     <p
-              //             className={
-              //               menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
-              //             }
-              //           >
-              //           {/* <p
-              //             className={
-              //               id === menu.id ? style.ActiveUrl : style.NormalUrl
-              //             }
-              //           > */}
-              //             {menu.Name === "Sound" ||
-              //             menu.Name === "Music" ||
-              //             menu.Name === "Logout" ||
-              //             menu.Name === "Login/Register"
-              //               ? ""
-              //               : menu.Name}
-              //           </p>
-              //           {menu.Badge === true&&menu.Name==="Basket" ? (
-              //       <span className={style.CartBadge}>
-              //         {notification && notification.basket_item_count ? notification && notification.basket_item_count : "0"}
-              //       </span>
-              //     ) : (
-              //       ""
-              //     )}
-              //           {menu.Badge === true&&menu.Name==="Notifications" ? (
-              //       <span className={style.CartBadge}>
-              //         {notification && notification.notification_count ? notification && notification.notification_count : "0"}
-              //       </span>
-              //     ) : (
-              //       ""
-              //     )}
-              //           {/* {userId===null?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl> menu.Name==="Login/Register"?menu.Name:menu.Name==="Logout"?menu.Name?menu.Name:""</p>} */}
-              //           {/* // :<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name==="Logout"?menu.Name:""}</p>} */}
-              //           {/* {userId===null?menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:"":menu.Name==="Login/Register"?<p className={id===menu.id?style.ActiveUrl:style.NormalUrl}>{menu.Name}</p>:""} */}
-              //           {menu.Name === "Music" ? (
-              //             <div className={style.Music}>
-              //               <li>Music</li>
-              //               <div
-              //                 className={
-              //                   gameMusic === true||gameMusic==="true"
-              //                     ? style.ActiveSlider
-              //                     : style.Slider
-              //                 }
-              //                 onClick={() => {
-              //                   setMusicId(menu.id);
-              //                   gameMusic===true?setGameMusic(false):setGameMusic(true)
-              //                   // sliderSction
-              //                   //   ? setSliderAction(false)
-              //                   //   : setSliderAction(true);
-              //                   // if (sliderSction === true) {
-              //                   // setGameSound(false)
-
-              //                   //   localStorage.setItem(
-              //                   //     "music",
-              //                   //     JSON.stringify(false)
-              //                   //   );
-              //                   // } else {
-              //                   // setGameSound(true)
-
-              //                   //   localStorage.setItem(
-              //                   //     "music",
-              //                   //     JSON.stringify(true)
-              //                   //   );
-              //                   // }
-              //                 }}
-              //               >
-              //                 <div
-              //                   className={
-              //                     gameMusic === true||gameMusic==="true"
-              //                       ? style.ActiveSliderBtn
-              //                       : style.SliderBtn
-              //                   }
-              //                 ></div>
-              //               </div>
-              //             </div>
-              //           ) : (
-              //             ""
-              //           )}
-              //           {menu.Name === "Sound" ? (
-              //             <div className={style.Sound}>
-              //               <li>Sound</li>
-              //               <div
-              //                 className={
-              //                   gameSound === true||gameSound==="true"
-              //                     ? style.ActiveSlider
-              //                     : style.Slider
-              //                 }
-              //                 onClick={() => {
-              //                   setAudioId(menu.id);
-              //                   gameSound===true?setGameSound(false):setGameSound(true)
-              //                   // sliderSction
-              //                   //   ? setSliderAction(false)
-              //                   //   : setSliderAction(true);
-              //                   // if (sliderSction === true) {
-              //                   // setGameSound(false)
-
-              //                   //   localStorage.setItem(
-              //                   //     "sound",
-              //                   //     JSON.stringify(false)
-              //                   //   );
-              //                   // } else {
-              //                   // setGameSound(true)
-
-              //                   //   localStorage.setItem(
-              //                   //     "sound",
-              //                   //     JSON.stringify(true)
-                                  
-              //                   //   );
-              //                   // }
-              //                 }}
-              //               >
-              //                 <div
-              //                   className={
-              //                     gameSound === true||gameSound==="true"
-              //                       ? style.ActiveSliderBtn
-              //                       : style.SliderBtn
-              //                   }
-              //                 ></div>
-              //               </div>
-              //             </div>
-              //           ) : (
-              //             ""
-              //           )}
-                        
-              //     <p
-              //             className={
-              //               menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
-              //             }
-              //           >
-              //             {userId === null
-              //               ? menu.Name === "Login/Register"
-              //                 ? menu.Name
-              //                 : ""
-              //               : menu.Name === "Logout"
-              //               ? menu.Name
-              //               : ""}
-              //           </p>
-              //         </div>
-              //       );
-              //     })}
-              //   </ul>
-              // </div>
               ""
             ) : (
               ""

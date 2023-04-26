@@ -15,13 +15,14 @@
     position: absolute;
     bottom: 10%;
     right: 5%;
-    border:4px solid #fff;
-    border-radius: 25px;
+
     overflow: hidden;
     width: 25%;
 }
 .WinGame img{
     width: 100%;
+    border:4px solid #fff;
+    border-radius: 25px;
 }.FreeWinGame{
     width: 50%;
     position: absolute;

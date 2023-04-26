@@ -272,7 +272,7 @@ const Cart = () => {
     await fetch(`${baseUrl}/points/create-checkout-session`, {
       method: "POST",
       body: JSON.stringify({
-        mode: "subscription",
+        mode: "payment",
         amount: parseInt(configuration.VIP_SUBSCRIPTION) * 100,
         quantity: 1,
         currency: configuration.CURRENCY_CODE,
@@ -486,6 +486,11 @@ const Cart = () => {
     <div className={style.Container}>
       {premiumPopup ? (
         <div className={style.clubHousePopup}>
+          <div className={style.clubHouseOverlay} onClick={() => {
+                  setPremiumPopup(false);
+                }}>
+
+          </div>
           <div className={style.ClubHouse}>
             <div className={style.TopImage}>
               <div
@@ -1005,6 +1010,11 @@ const Cart = () => {
                       />
                     </div>
                     <div className={style.share}>
+                    {shareIcons && shareId === cart.id * index ? 
+                    <div className={style.ShareOverlay} onClick={()=>{
+                      setShareIcons(false)
+                    }}></div>
+                    :""}
                       {shareIcons && shareId === cart.id * index ? (
                         <div className={style.ShareDiv}>
                           <div className={style.ShareIcon}>
@@ -1078,10 +1088,10 @@ const Cart = () => {
                   <span
                     className={style.CircleActive}
                     onClick={() => {
-                  if(vipData.status === true &&
-                vipData.data[0].vip_token === false){
-                  setPremiumPopup(true)
-                }
+                //   if(vipData.status === true &&
+                // vipData.data[0].vip_token === false){
+                //   setPremiumPopup(true)
+                // }
                   if (user&&user.vip === false) {
                     setPremiumPopup(true);
                   }
@@ -1092,6 +1102,13 @@ const Cart = () => {
                      if (user&&user.vip === false) {
                     setPremiumPopup(true);
                   }
+                  if(vipData.status === true &&
+                    vipData.data[0].vip_token === false){
+                      setPremiumPopup(true)
+                    }
+                      if (user&&user.vip === false) {
+                        setPremiumPopup(true);
+                      }
                   }}></span>
                 )}
               </div>

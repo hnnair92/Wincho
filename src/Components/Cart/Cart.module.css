@@ -607,6 +607,7 @@ video{
 .ShareDiv{
     position: absolute;
     display: flex;
+    z-index: 9999;
     flex-direction: row;
     justify-content: space-between;
     background-color: #1b8fe7;
@@ -620,6 +621,7 @@ video{
     margin: 0px 7px;
     color: #fff;
     font-size: 2.5rem;
+    cursor: pointer;
 }
 @media(max-width:1065px){
     .Address form{
@@ -759,6 +761,7 @@ video{
     z-index: 9999;
 }
 .ClubHouse{
+    z-index: 9999;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -920,4 +923,18 @@ video{
     height: 100vh;
     background-color: transparent;
     z-index: 1;
+}
+.ShareOverlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+.clubHouseOverlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 9;
 }

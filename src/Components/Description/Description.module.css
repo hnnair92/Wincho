@@ -1298,6 +1298,7 @@ video {
     width: 100%;
     height: 100%;
     top: 0;left: 0;
+    /* height: 100%; */
 }
 .PrizeMove img{
     width: 100%;
@@ -1375,4 +1376,16 @@ video {
     .LeftSide{
         display: none;
     }
+}
+.HowToPlayOverlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 9;
+}
+.howToPlay{
+    width: 100%;
+    /* height: 100%; */
+    position: absolute;
+    z-index: 99999;
 }

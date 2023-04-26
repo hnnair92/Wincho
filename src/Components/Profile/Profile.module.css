@@ -257,7 +257,7 @@
     border-bottom: 2px solid #000;
 }
 
-.popup {
+.popup,.popupContent {
     position: absolute;
     font-family: myraidproregular !important;
     z-index: 99999;
@@ -618,7 +618,7 @@
     .Passpopup{
         width: 90%;
     }
-    .popup{
+    .popup,.popupContent{
         width: 40rem;
     }
 }
@@ -657,7 +657,7 @@
     .info{
         width: 15%;
     }
-    .popup{
+    .popup,.popupContent{
         width: 30rem;
         padding:.5rem 1rem ;
        
@@ -1025,4 +1025,13 @@
 }
 .DeacOverlayBg{
     z-index: 99999;
+}
+.popupContent{
+    z-index: 999999;
+}
+.popupOverlay{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 9;
 }

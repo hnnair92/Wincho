@@ -259,6 +259,7 @@
     position: absolute;
     z-index: 99;
     left: 0%;
+    width: 80%;
     top: 0;
      transform:translateX(24%) !important;
 }
@@ -703,7 +704,7 @@
     width: 51%;
 }
 .MCrane img{
-    width: 75%;
+    width: 100%;
 }
 .Contact img{
     cursor: pointer;

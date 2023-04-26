@@ -222,7 +222,18 @@ const Ticket = () => {
               </div>
               <div className={style.SubscribeButton}>
                 <button onClick={()=>{
-                  createPayment()
+                  if(Object.keys(user).length === 0){
+                    navigate("/login")
+                  }
+                  else if(user&&user.profile_status===false){
+                      setResendEmail(true)
+                  }
+                  else{
+                      createPayment()
+                      // setPopup(true)
+                      // setTicketItem(item)
+                      // console.log(ticketItem)
+                  }
                 }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
@@ -302,7 +313,11 @@ const Ticket = () => {
                     return(
                         <div className={style.TicketItem} key={index}
                              onClick={()=>{
-                                    if(user&&user.profile_status===false){
+                                      console.log(user)
+                                    if(Object.keys(user).length === 0){
+                                      navigate("/login")
+                                    }
+                                    else if(user&&user.profile_status===false){
                                         setResendEmail(true)
                                     }
                                     else{

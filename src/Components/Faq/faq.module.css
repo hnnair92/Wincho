@@ -67,6 +67,7 @@
 .FaqCategory svg{
     font-size: 5rem;
     -webkit-text-stroke: 1px #fff;
+    cursor: pointer;
 }
 .FaqCategory button{
     font-family: drumshake_italic;
@@ -74,7 +75,7 @@
     width: 100%;
     font-size: 10rem;
     -webkit-text-stroke: 2px #fff;
-
+    cursor: auto;
     margin-left: auto;
     margin-right: auto;
     background-color: transparent;
@@ -109,9 +110,11 @@
     font-family: drumshake_italic;
     font-size: 3.2rem;
     text-align: left;
+    cursor: auto;
 }
 .FaqQuestion svg{
     font-size: 4rem;
+    cursor: pointer;
 }
 .FaqQuestion{
     width: 100%;
