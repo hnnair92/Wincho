@@ -19,7 +19,7 @@ import Lottie from "lottie-react";
 import { AllAnimation } from '../../Animation/allAnimation'
 import { music } from '../../assests/Musics/allMusic'
 import { baseUrl } from "../url";
-const stripe = require('stripe')('sk_test_51KH6LrDFlyHfJhCKutntRoVoTa8XYpTO87SE2DBpDEt4Ene6ywOnPcXz4oW365YMN9ibO8PbYfPXEebiYcxPxq2y00hZn8LeYf');
+// const stripe = require('stripe')('sk_test_51KH6LrDFlyHfJhCKutntRoVoTa8XYpTO87SE2DBpDEt4Ene6ywOnPcXz4oW365YMN9ibO8PbYfPXEebiYcxPxq2y00hZn8LeYf');
 
 const Ticket = ({ gameMusic,
   setGameMusic,
