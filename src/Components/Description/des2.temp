@@ -25,7 +25,10 @@ console.log(active,"active from description");
   const navigate = useNavigate();
   const state = location.state;
   const GameData = state&&state.game;
-  const baseUrl = "https://uat.wincha-online.com";
+  //const baseUrl = "https://uat.wincha-online.com/"
+const baseUrl = "https://uat.wincha-online.com/"
+//const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com";
   const onFocus = (e) => {};
   console.log(GameData)
 // const location = useLocation()

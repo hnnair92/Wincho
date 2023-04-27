@@ -1,42 +1,110 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "./faq.module.css";
 import faqDataCategory from "../../Api/FaqCategory";
 // import faqData from "../../Api/faq";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import { AllAnimation } from "../../Animation/allAnimation";
 import Lottie from "lottie-react";
-const Faq = () => {
-  const[faqData,setFaqData] = useState([])
-  const [faqCat, setFaqCat] = useState("Registration");
-  const [status, setStatus] = useState(true);
-  const [catId, setCatId] = useState("");
-  const [id, setId] = useState("");
-  const [loading,setLoading] = useState(true)
-  const [faqStatus, setFaqStatus] = useState(false);
-  const baseUrl = "https://uat.wincha-online.com"
-  const faqApi = async()=>{
-    await fetch(`${baseUrl}/game/faq`).then(res=>res.json()).then((data)=>{
-      setFaqStatus(true)
-      setFaqData(data.data[0].faq_sections)
-      // console.log(data.data[0].faq_sections[0].faqs[0].q)
-      setFaqCat(data.data[0].faq_sections[0].section)
-      setId(data.data[0].faq_sections[0].faqs[0].q)
-      setLoading(false)
-    })
+import { music } from "../../assests/Musics/allMusic";
+import { baseUrl } from "../url";
+const Faq = ({ gameMusic,
+  setGameMusic,
+  gameSound,
+  setGameSound,}) => {
+      const [musicStatus, setMusicStatus] = useState(
+          localStorage.getItem("music")
+            ? localStorage.getItem("music")
+            : localStorage.setItem("music", JSON.stringify(false))
+        );
+const audioRefHome = useRef(null);
+useEffect(() => {
+  console.log(gameMusic === "true", "gameSound");
+  console.log(typeof gameMusic, "gameMusic");
+  if (gameMusic === "true" || gameMusic === true) {
+    console.log(audioRefHome.current.volume);
+    audioRefHome.current.volume = 1;
+    console.log("true for gameMusic");
+    console.log(audioRefHome.current.volume);
+    playAudioBg();
+  } else {
+    audioRefHome.current.volume = 0;
+    console.log(typeof gameMusic);
+    console.log("not reached");
   }
-  useEffect(()=>{
-    faqApi()
-    if(faqData){
-      // setFaqCat(faqData[0].section)
-      
-    }
-  },[])
+  console.log(typeof gameMusic);
+}, [gameMusic]);
+useEffect(() => {
+  if (gameMusic === "true" || gameMusic === true) {
+    console.log(audioRefHome.current.volume);
+    audioRefHome.current.volume = 1;
+    playAudioBg();
+  } else {
+    console.log(typeof gameMusic);
+    console.log("not reached");
+  }
+ 
+  console.log(typeof gameMusic);
+  // console.log()
+}, []);
+async function audioEnded(src) {
+  if (musicStatus === "true") {
+    // audioRefHome.current.unmute()
+    audioRefHome.current.volume = 1;
+    audioRefHome.current.src = src;
+    audioRefHome.current.play();
+  } else {
+    audioRefHome.current.volume = 0;
+    // audioRefHome.current.mute()
+  }
+}
+async function playAudioBg() {
+  console.log(musicStatus, "musicStatus");
+  // if(musicStatus==="true"){
+  console.log(audioRefHome.current.play(), "from its function");
+  // audioRefHome.current.volume=1;
+  audioRefHome.current.src = music.Menu;
+  audioRefHome.current.play();
+  console.log(audioRefHome.current.volume, "from its function");
+
+  // }
+  // else{
+  //   audioRefHome.current.volume = 0;
+
+  // }
+}
+const[faqData,setFaqData] = useState([])
+const [faqCat, setFaqCat] = useState("Registration");
+const [status, setStatus] = useState(true);
+const [catId, setCatId] = useState("");
+const [id, setId] = useState("");
+const [loading,setLoading] = useState(true)
+const [faqStatus, setFaqStatus] = useState(false);
+// const baseUrl = process.env.REACT_APP_BASEURL
+const faqApi = async()=>{
+  await fetch(`${baseUrl}/game/faq`).then(res=>res.json()).then((data)=>{
+    setFaqStatus(true)
+    setFaqData(data.data[0].faq_sections)
+    // console.log(data.data[0].faq_sections[0].faqs[0].q)
+    setFaqCat(data.data[0].faq_sections[0].section)
+    setId(data.data[0].faq_sections[0].faqs[0].q)
+    setLoading(false)
+  })
+}
+useEffect(()=>{
+  faqApi()
+  if(faqData){
+    // setFaqCat(faqData[0].section)
+    
+  }
+},[])
+console.log(baseUrl)
   console.log(faqData)
   console.log(faqCat)
   console.log(faqStatus)
   console.log(id)
   return (
     <div className={style.Container}>
+    <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
       <div className={style.Faq}>
         <button className={style.FaqBtn}>FAQ</button>
         <div className={style.AllFaqSection}>

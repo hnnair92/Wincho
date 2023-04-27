@@ -22,6 +22,7 @@ import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
 import {assets} from '../Description/assests'
 import Lottie from 'lottie-react'
 import { AllAnimation } from "../../Animation/allAnimation";
+import { baseUrl } from "../url";
 import { music } from "../../assests/Musics/allMusic";
 
 const Games = ({ gameMusic,
@@ -31,12 +32,17 @@ const Games = ({ gameMusic,
   const { id } = useParams();
   const location = useLocation()
   const state = location.state
-  const baseUrl = "https://uat.wincha-online.com";
+//   const baseUrl = "https://uat.wincha-online.com"
+// // const baseUrl = "https://uat.wincha-online.com";
+const {configuration} = useSelector((state)=>state.configuration)
+
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
       : localStorage.setItem("music", JSON.stringify(false))
   );
+  const [ termsVersion,setTermsVersion] = useState(false)
+  const [verifyEmail,setVerifyMails] = useState(false)
   let { products, loading } = useSelector((state) => state.collectionProducts);
   const [popup, setPopup] = useState(false);
   const audioRefHome = useRef(null);
@@ -73,7 +79,7 @@ const Games = ({ gameMusic,
     // if(musicStatus==="true"){
     console.log(audioRefHome.current.play(), "from its function");
     // audioRefHome.current.volume=1;
-    audioRefHome.current.src = music.Game;
+    audioRefHome.current.src = music.Menu;
     audioRefHome.current.play();
     console.log(audioRefHome.current.volume, "from its function");
 
@@ -173,7 +179,7 @@ const Games = ({ gameMusic,
   const dispatch = useDispatch();
   const response = {
     category_id: category,
-    country_code: "UK",
+    country_code: configuration.COUNTRY_NAME,
     user_id: user && user.user_id,
   };
   // useEffect(()=>{
@@ -232,7 +238,6 @@ const Games = ({ gameMusic,
       // navigate("/login");
     }
   }, [dispatch, category, id]);
-  const {configuration} = useSelector((state)=>state.configuration)
   const categories = [
     {
       title: "Free",
@@ -512,6 +517,76 @@ const Games = ({ gameMusic,
                   // setResendEmail(false);
                   resendEmailApi();
                 }}>RESEND EMAIL</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      {verifyEmail ? (
+          <div className={style.ResendPopup}>
+            <div className={style.popupOverlaySection} onClick={()=>{
+              setResendEmail(false)
+            }}>
+
+            </div>
+          {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
+            <div className={style.ResendpopupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.ResendpopupText}>
+              <p>We need to verift your email address in order to complete your setup<br/>Please check your inbox</p>
+            </div>
+            <div className={style.ResendpopupButton}>
+              <div
+                // to="/tickets"
+                onClick={() => {
+                  // setResendEmail(false);
+                  // resendEmailApi()
+                }}
+              >
+                <button  onClick={() => {
+                  // setResendEmail(false);
+                  setVerifyMails(false)
+                  resendEmailApi();
+                }}>OK</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+      {termsVersion ? (
+          <div className={style.ResendPopup}>
+            <div className={style.popupOverlaySection} onClick={()=>{
+              setResendEmail(false)
+            }}>
+
+            </div>
+          {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
+            <div className={style.ResendpopupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.ResendpopupText}>
+              <p>We have changed our terms of Use and Privacy Policy. Please review the change(s).</p>
+            </div>
+            <div className={style.ResendpopupButton}>
+              <div
+                // to="/tickets"
+                onClick={() => {
+                  setTermsVersion(false)
+                  // setResendEmail(false);
+                  // resendEmailApi()
+                }}
+              >
+                <button  onClick={() => {
+                  // setResendEmail(false);
+                  resendEmailApi();
+                }}>ACCEPT</button>
               </div>
             </div>
           </div>

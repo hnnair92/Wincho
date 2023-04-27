@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { configutation, gameEntry, getAllGames } from "../../actions/product";
-import { cartAction, notificationAction, updateProfile } from "../../actions/user";
+import { cartAction, notificationAction, registerAction, updateProfile } from "../../actions/user";
 import style from "./Description.module.css";
 import Screen from "./Screen";
 import { socket } from "../../socket";
@@ -24,6 +24,7 @@ import Lottie from "lottie-web";
 import prizeMove from "../../assests/43 POP UP Full Squared.png";
 import prizeMoveUser from "../../assests/43 POP UP Full for Viewers Squared.png";
 import overlayImage from '../../assests/Asset 1.png'
+import { baseUrl } from "../url";
 const Description = ({
   gameMusic,
   setGameMusic,
@@ -43,7 +44,9 @@ const Description = ({
   const navigate = useNavigate();
   const state = location.state;
   const GameData = state && state.game;
-  const baseUrl = "https://uat.wincha-online.com";
+  // const baseUrl = process.env.REACT_APP_BASEURL
+
+
   const onFocus = (e) => {};
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);
@@ -59,6 +62,7 @@ const Description = ({
   const milliseconds = newDate.getTime()
   console.log(state);
   const localDate = JSON.parse(localStorage.getItem("dates"))
+  const deviceId = JSON.parse(localStorage.getItem("deviceId"))
   const [checkDateCount,setCheckDateCount] = useState(localStorage.getItem("checkPlay")?JSON.parse(localStorage.getItem("checkPlay")):localStorage.setItem("checkPlay",JSON.stringify(0)))
   // const location = useLocation()
   // useEffect(() => {
@@ -150,6 +154,7 @@ const Description = ({
       : localStorage.setItem("music", JSON.stringify(false))
   );
   const [startGame, setStartGame] = useState({});
+  const [prizeMoveIcon,setPrizeMoveIcon] = useState(false)
   const [reportIssueCategories, setReportIssueCategories] = useState(false);
   const [reportContent, setReportContent] = useState(false);
   const [reportConfirm, setReportConfirm] = useState(false);
@@ -167,6 +172,7 @@ const Description = ({
       ? JSON.parse(localStorage.getItem("times"))
       : 0
   );
+
   const [prizeCount,setPrizeCount] = useState(0)
   const [gamePlayStatus, setGamePlayStatus] = useState(false);
   const [prizeDate,setPrizeDate] = useState("")
@@ -190,6 +196,7 @@ const Description = ({
   });
   const [status, setStatus] = useState({});
   const [videoGot, setVideoGot] = useState(false);
+  const [checkPlayArray, setCheckPlayArray] = useState([]);
 
   // Redux UseSelectors
   const { game, loading } = useSelector((state) => state.gameEntry);
@@ -204,6 +211,12 @@ const Description = ({
       setSendCategory(datas[0])
     }
   },[GameData])
+  useEffect(()=>{
+    console.log(leavePopup)
+  },[leavePopup])
+  useEffect(()=>{
+    console.log(exitPopupOpen)
+  },[exitPopupOpen])
   useEffect(() => {
     checkFreePlay();
     socket.on("connect", () => {
@@ -228,6 +241,25 @@ const Description = ({
       navigate("/login")
     }
   },[])
+  useEffect(()=>{
+    const userRegAnom = {
+      username:"",
+      email:"",
+      password:"",
+      dob:"",
+      country:"",
+      state:"",
+      countrycode:configuration.COUNTRY_CODE,
+      countryname:configuration.COUNTRY_NAME,
+      user_type:"anonymous",
+      device_id:deviceId?deviceId:""
+      
+  }
+    if(userId===null){
+      // localStorage.setItem("user",JSON.stringify(milliseconds*utc))
+      dispatch(registerAction(userRegAnom))
+    }
+  },[userId])
   useEffect(()=>{
     console.log(currentPrizeMove)
     console.log(game.price_move_status)
@@ -329,6 +361,8 @@ const Description = ({
         GameData.machine_code === machineId[1]
       ) {
         setCurrentPrizeMove(false);
+        setPrizeMoveIcon(false);
+
         socket.emit("sent_help_status", `${baseMessage}|RECEIVED`);
         socket.emit(
           "confirm_move",
@@ -532,7 +566,7 @@ const Description = ({
     if (GameData) {
       EntryRequest = {
         catalog: GameData && GameData.id,
-        playerID: userId,
+        playerID: userId===null||userId===undefined?milliseconds*utc:userId,
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
@@ -546,6 +580,20 @@ const Description = ({
     }
     // dispatch(updateProfile());
   }, [dispatch]);
+  useEffect(() => {
+    const userPlayCount = {
+      userId:userId,
+      count:checkDateCount,
+      date:date
+    }
+    setCheckPlayArray((checkPlayArray=>[...checkPlayArray,userPlayCount]))
+    localStorage.getItem("checkPlay")
+      ? localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray))
+      : localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray));
+    if(localDate<date){
+      localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray))
+    }
+  }, [checkDateCount]);
   useEffect(() => {
     localStorage.getItem("times")
       ? localStorage.setItem("times", freePlay)
@@ -828,13 +876,15 @@ const Description = ({
   async function changeFreePlayDaily(){
     console.log(milliseconds*utc)
     console.log(checkDateCount)
-    if(checkDateCount===1){
+    if(checkDateCount<=0){
       localStorage.setItem("dates",parseInt(date))
     }
     else if(localDate<date){
         localStorage.setItem("dates",parseInt(date))
+        localStorage.setItem("checkPlay",0)
         localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
       }
+
     
     console.log(lastDateOfTheMonth)
   }
@@ -892,6 +942,7 @@ const Description = ({
     navigate("/prizes", { state: { category: sendCategory } });
   }
   async function checkAnime() {
+    console.log(game.machine_delay_time)
     switch (game.machine_delay_time) {
       case 10:
         setWaitAnimation(AllAnimation.wait_10);
@@ -945,6 +996,7 @@ const Description = ({
       });
   }
   async function gameJoin(e) {
+    checkAnime();
     console.log(GameData.price)
     playAudio(music.Wincha);
     setDirection(game.movement.split("-"));
@@ -966,7 +1018,7 @@ const Description = ({
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: userId,
         freeplay: false,
         source: "web",
       }),
@@ -989,13 +1041,30 @@ const Description = ({
       });
   }
   async function gameStart() {
+    if (
+      game &&
+      game.camera_data &&
+      game.camera_data[0] &&
+      game.camera_data[0].camera_id === "1"
+    ) {
+      setCamera(false);
+    }
+    if (
+      game &&
+      game.camera_data &&
+      game.camera_data[1] &&
+      game.camera_data[1].camera_id === "1"
+    ) {
+      setCamera(true);
+    }
     // console.log(freePlay)
     // localStorage.setItem("times",JSON.stringify(freePlay))
     // const freePl = JSON.parse(localStorage.getItem("times"))
     // console.log(freePl);
     setFreePlay(freePlay+1)
-    if(GameData.price==="0"){
+    if(GameData.price==="0"&&user.vip===false){
       setCheckDateCount(checkDateCount+1)
+      // localStorage.setItem("checkPlay",checkDateCount)
     }
     console.log(direction);
     socket.emit("peer_message", `${baseMessage}|P_STARTED`);
@@ -1003,7 +1072,7 @@ const Description = ({
     await fetch(`${baseUrl}/game/start`, {
       method: "POST",
       body: JSON.stringify({
-        playerID: user._id,
+        playerID: userId,
         machineCode: game.machineCode,
         source: "web",
       }),
@@ -1021,6 +1090,7 @@ const Description = ({
         setFirstStep(true);
         setGamePlay(true);
         setReloadStatus(true)
+
         // console.log(firstStep)
       });
   }
@@ -1040,7 +1110,7 @@ const Description = ({
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: userId,
         command:
           command === "LEFT" ? "LEFT" : command === "RIGHT" ? "RIGHT" : "",
         source: "web",
@@ -1064,7 +1134,7 @@ const Description = ({
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: userId,
         command: command,
         source: "web",
       }),
@@ -1086,7 +1156,7 @@ const Description = ({
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: userId,
         command: "P_FW",
         source: "web",
       }),
@@ -1104,7 +1174,7 @@ const Description = ({
       method: "POST",
       body: JSON.stringify({
         machineCode: game.machineCode,
-        playerID: user._id,
+        playerID: userId,
         command: "FW_STOP",
         source: "web",
       }),
@@ -1149,7 +1219,7 @@ const Description = ({
     console.log("session");
     // setStatus(true)
     const sessionData = {
-      user_id: user._id,
+      user_id: userId,
         machineID: game._id,
         game_status: statusCode,
         product_id: GameData.id,
@@ -1182,6 +1252,8 @@ const Description = ({
       });
   }
   async function gameLeave(User, timeout_status) {
+    setReloadStatus(false)
+
     await fetch(`${baseUrl}/game/leave`, {
       method: "POST",
       body: JSON.stringify({
@@ -1270,7 +1342,7 @@ const Description = ({
     await fetch(`${baseUrl}/points/update`, {
       method: "PUT",
       body: JSON.stringify({
-        user_id: user._id,
+        user_id: userId,
         point: GameData.price === "0" ? "0" : GameData.price,
         credicts: "false",
         source: "web",
@@ -1316,7 +1388,7 @@ const Description = ({
     await fetch(`${baseUrl}/game/issue/report`, {
       method: "POST",
       body: JSON.stringify({
-        playerID: user._id,
+        playerID: userId,
         machineID: game._id,
         productID: GameData.id,
         title: report.Title,
@@ -1334,7 +1406,7 @@ const Description = ({
     await fetch(`${baseUrl}`, {
       method: "POST",
       body: JSON.stringify({
-        playerID: user._id,
+        playerID: userId,
         machineID: game._id,
       }),
       headers: {
@@ -1345,7 +1417,7 @@ const Description = ({
       .then((data) => {});
   }
   useEffect(() => {
-    // if(reloadStatus===true){
+    if(reloadStatus===true){
 
       window.addEventListener('beforeunload', alertUser)
       window.addEventListener('unload', handleTabClosing)
@@ -1368,8 +1440,9 @@ const Description = ({
       }
       
       
-    // }
-},[window,reloadStatus])
+    }
+    console.log(reloadStatus)
+},[reloadStatus])
 useEffect(()=>{
   console.log(reloadStatus)
 },[reloadStatus])
@@ -1400,12 +1473,12 @@ const handleTabClosing = (event) => {
 }
 
 const alertUser = (event:any) => {
-    if(reloadStatus===true){
+    // if(reloadStatus===true){
 
   console.log(event)
   // gameLeave()
  event.preventDefault()
-    }
+    // }
  
 //  event.returnValue = setExitPopupOpen(true);
   // alert("helo")
@@ -1623,6 +1696,7 @@ useEffect(()=>{
               to="/prizes"
               onClick={() => {
                 setFreeLimitPopup(false);
+                gameLeave()
               }}
             >
               <button>OK</button>
@@ -1763,7 +1837,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?</p>
+            <p>Are you sure you want to leave this game exit?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -1802,7 +1876,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {leavePopup ? (
+      {leavePopup &&gamePlayStatus===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -1987,7 +2061,9 @@ useEffect(()=>{
 
                         </div>
                         <div className={style.HowToPlayPopup}>
-                          <Lotties animationData={AllAnimation.howToPlay}/>
+                          <Lotties animationData={AllAnimation.howToPlay} loop={false} onComplete={()=>{
+                            setHowToPlayStatus(false)
+                          }}/>
                         </div>
                        </div>
                        :""}
@@ -2373,15 +2449,20 @@ useEffect(()=>{
                     {count % configuration.FREE_PLAY_LIMIT === 0 &&
                     playAgain &&
                     count != 0 ? (
-                      prizeResetActive ? (
+                      prizeMoveIcon===true ? (
+                      // prizeResetActive ? (
                         <button>
                           <img src={assets.GrayPrizeMove} alt="" />
                         </button>
-                      ) :hideEverything===false? 
+                      ) :
+                      // hideEverything===false
+                      prizeMoveIcon===false
+                      ? 
                         <button
                           onClick={() => {
                             setPrizeResetActive(true);
                             setPlayAgain(false);
+                            setPrizeMoveIcon(true)
 
                             // prizeReset()
                           }}
@@ -3092,7 +3173,7 @@ useEffect(()=>{
                       ) : (
                         <button>
                           <Lotties
-                            animationData={AllAnimation.wait_50}
+                            animationData={AllAnimation.ReverseWait}
                             loop={false}
                           />
                         </button>

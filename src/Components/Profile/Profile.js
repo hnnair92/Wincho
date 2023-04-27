@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MdArrowRight, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useSelector } from "react-redux";
 import profile from "../../assests/Wincha Profile Icon.png";
@@ -24,8 +24,75 @@ import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
 import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
 import Lottie from "lottie-react";
 import { AllAnimation } from "../../Animation/allAnimation";
-const Profile = () => {
-  const baseUrl = "https://uat.wincha-online.com";
+import { music } from "../../assests/Musics/allMusic";
+import { baseUrl } from "../url";
+const Profile = ({ gameMusic,
+  setGameMusic,
+  gameSound,
+  setGameSound,}) => {
+      const [musicStatus, setMusicStatus] = useState(
+          localStorage.getItem("music")
+            ? localStorage.getItem("music")
+            : localStorage.setItem("music", JSON.stringify(false))
+        );
+const audioRefHome = useRef(null);
+useEffect(() => {
+  console.log(gameMusic === "true", "gameSound");
+  console.log(typeof gameMusic, "gameMusic");
+  if (gameMusic === "true" || gameMusic === true) {
+    console.log(audioRefHome.current.volume);
+    audioRefHome.current.volume = 1;
+    console.log("true for gameMusic");
+    console.log(audioRefHome.current.volume);
+    playAudioBg();
+  } else {
+    audioRefHome.current.volume = 0;
+    console.log(typeof gameMusic);
+    console.log("not reached");
+  }
+  console.log(typeof gameMusic);
+}, [gameMusic]);
+useEffect(() => {
+  if (gameMusic === "true" || gameMusic === true) {
+    console.log(audioRefHome.current.volume);
+    audioRefHome.current.volume = 1;
+    playAudioBg();
+  } else {
+    console.log(typeof gameMusic);
+    console.log("not reached");
+  }
+ 
+  console.log(typeof gameMusic);
+  // console.log()
+}, []);
+async function audioEnded(src) {
+  if (musicStatus === "true") {
+    // audioRefHome.current.unmute()
+    audioRefHome.current.volume = 1;
+    audioRefHome.current.src = src;
+    audioRefHome.current.play();
+  } else {
+    audioRefHome.current.volume = 0;
+    // audioRefHome.current.mute()
+  }
+}
+async function playAudioBg() {
+  console.log(musicStatus, "musicStatus");
+  // if(musicStatus==="true"){
+  console.log(audioRefHome.current.play(), "from its function");
+  // audioRefHome.current.volume=1;
+  audioRefHome.current.src = music.Menu;
+  audioRefHome.current.play();
+  console.log(audioRefHome.current.volume, "from its function");
+
+  // }
+  // else{
+  //   audioRefHome.current.volume = 0;
+
+  // }
+}
+  // const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com"
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -43,6 +110,9 @@ const Profile = () => {
   const [type, setType] = useState(true);
   const userId = JSON.parse(localStorage.getItem("user"));
   const [passIcon, setPassIcon] = useState(false);
+  const [checkMail, setCheckMail] = useState(false);
+  const resendLocal = localStorage.getItem("resend")
+
   async function deactivateAccount() {
     await fetch(`${baseUrl}/user/vip/shipping/status`, {
       method: "POST",
@@ -78,11 +148,19 @@ const Profile = () => {
       setSubscription(user.vip ? "Yes" : "No");
     }
   });
-  useEffect(() => {
-    if (user && user.profile_status === false) {
-      setResendEmail(true);
+  // useEffect(() => {
+  //   if (user && user.profile_status === false) {
+  //     setResendEmail(true);
+  //   }
+  // }, []);
+  useEffect(()=>{
+    console.log(resendLocal,"resendLocal")
+    // const resendLocal = localStorage.getItem("resend")
+    if(resendLocal===true){
+      setResendEmail(false)
+      setCheckMail(true)
     }
-  }, []);
+  },[resendLocal,user])
   const [loading,setLoading] = useState(false)
   async function resendEmailApi(){
     setLoading(true)
@@ -98,13 +176,34 @@ const Profile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        localStorage.setItem("resend",true)
         setLoading(false)
         setResendEmail(false)
+        setCheckMail(true)
       });
   }
   return (
     <div className={style.Container}>
-      <div className={style.Profile}>
+      <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
+      <div className={style.Profile} onClick={()=>{
+        console.log(resendLocal)
+        console.log(user && user.profile_status===false&&checkMail===false&&resendLocal===false||resendLocal===undefined,"chekcing intense")
+        if(resendLocal===true){
+          setResendEmail(false)
+
+          setCheckMail(true)
+        }
+        if(user && user.profile_status===false&&checkMail===false&&resendLocal!==true){
+          setResendEmail(true)
+        console.log(resendLocal,"true")
+
+        }
+        else{
+          setResendEmail(false)
+
+        }
+       
+      }}>
     {premiumPopup?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
@@ -376,7 +475,12 @@ const Profile = () => {
         {resendEmail ? (
           <div className={style.popup}>
           <div className={style.popupOverlay} onClick={()=>{
-            setResendEmail(false)
+             if(resendLocal===true){
+              setResendEmail(false)
+    
+              setCheckMail(true)
+            }
+            // setResendEmail(false)
           }}></div>
           <div className={style.popupContent}>
             <div className={style.popupImage}>
@@ -394,9 +498,43 @@ const Profile = () => {
                 }}
               >
                 <button  onClick={() => {
+
                   // setResendEmail(false);
                   resendEmailApi();
                 }}>RESEND EMAIL</button>
+              </div>
+            </div>
+          </div>
+          {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
+          </div>
+        ) : (
+          ""
+        )}
+        {checkMail ? (
+          <div className={style.popup}>
+          <div className={style.popupOverlay} onClick={()=>{
+            // setResendEmail(false)
+          }}></div>
+          <div className={style.popupContent}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.popupText}>
+              <p>Please check your mail and refresh the page</p>
+            </div>
+            <div className={style.popupButton}>
+              <div
+                // to="/tickets"
+                onClick={() => {
+                  // setResendEmail(false);
+                  // resendEmailApi()
+                }}
+              >
+                {/* <button  onClick={() => {
+                  resendEmailApi();
+                }}>RESEND EMAIL</button> */}
               </div>
             </div>
           </div>

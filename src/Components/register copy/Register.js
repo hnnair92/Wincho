@@ -13,7 +13,10 @@ const Register = () => {
             navigate("/")
         }
     },[navigate,authenticated])
-    const baseUrl = "https://uat.wincha-online.com"
+    //const baseUrl = "https://uat.wincha-online.com/"
+const baseUrl = "https://uat.wincha-online.com/"
+//const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com"
     const[terms,setTerms] = useState(false)
     const[passwordType,setPasswordType] = useState("password")
     // const[showPassword,setShowPassword] = useState(false)

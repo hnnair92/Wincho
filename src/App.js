@@ -26,6 +26,7 @@ import { socket } from "./socket";
 import { useDispatch, useSelector } from "react-redux";
 import { configutation } from "./actions/product";
 import WinScreen from "./Components/winScreen/winScreen";
+import Success from "./Components/successPage/success";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
@@ -92,15 +93,17 @@ console.log(id)
           {/* <Route path="/:category" element={<Games/>}/> */}
           {/* <Route path="/load" element={<Loader/>}/> */}
           <Route path="/register" element={<Register />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart  setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           <Route path="/login" element={<Login />} />
-          <Route path="/tickets" element={<Ticket />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/faq" element={<Faq />} />
+          <Route path="/tickets" element={<Ticket  setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
+          <Route path="/profile" element={<Profile  setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
+          <Route path="/faq" element={<Faq  setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           <Route path="/order-confirmed" element={<OrderConfirmed />} />
-          <Route path="/notifications" element={<Notification />} />
-          <Route path="/Demo" element={<Demo />} />
+          <Route path="/notifications" element={<Notification  setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
+          {/* <Route path="/Demo" element={<Demo />} /> */}
           <Route path="/win-screen" element={<WinScreen />} />
+          <Route path="/payment/success" element={<Success />} />
+          <Route path="/payment/cancel" element={<Ticket />} />
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
         <Footer />

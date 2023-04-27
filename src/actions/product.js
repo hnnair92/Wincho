@@ -1,5 +1,7 @@
 import { CONFIGURATION_FAILED, CONFIGURATION_REQUEST, CONFIGURATION_SUCCESS, GAME_ENTRY_FAILED, GAME_ENTRY_REQUEST, GAME_ENTRY_SUCCESS, GET_ALL_GAMES_FAIL, GET_ALL_GAMES_REQUEST, GET_ALL_GAMES_SUCCESS, GET_ALL_PRODUCT_BY_COLLECTION_FAILED, GET_ALL_PRODUCT_BY_COLLECTION_REQUEST,GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS } from "../constants/product"
-const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com/"
+import { baseUrl } from "../Components/url";
+// const baseUrl = "https://uat.wincha-online.com"
 export const getProductByCollection=(request)=>async(dispatch)=>{
     console.log(request);
     try {
@@ -65,7 +67,7 @@ export const getAllGames=(user)=>async(dispatch)=>{
     }
 }
 export const gameEntry=(data)=>async(dispatch)=>{
-    // console.log(data)
+    console.log(data)
     try {
         dispatch({
             type:GAME_ENTRY_REQUEST

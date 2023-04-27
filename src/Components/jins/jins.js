@@ -3,7 +3,10 @@ import style from './jins.module.css'
 const Jins = () => {
     const[state,setState] = useState("Select a State")
     const[allState,setAllState] = useState([])
-    const baseUrl = "https://uat.wincha-online.com"
+    //const baseUrl = "https://uat.wincha-online.com/"
+const baseUrl = "https://uat.wincha-online.com/"
+//const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com"
     const fetchLocation = async()=>{
         fetch(`${baseUrl}/configurations/state/collections`,{ 
             method: 'get',

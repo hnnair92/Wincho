@@ -21,11 +21,11 @@ const InitialState = {
     //     user:JSON.parse(localStorage.getItem("user")),
     //     authenticated:true
     // }:[],
-    userData:localStorage.getItem("user")?{
-        loading:false,
-        user:JSON.parse(localStorage.getItem("user")),
-        authenticated:true
-    }:[]
+    // userData:localStorage.getItem("user")?{
+    //     loading:false,
+    //     user:localStorage.getItem("user")!==null||localStorage.getItem("user")!==undefined?JSON.parse(localStorage.getItem("user")):"",
+    //     authenticated:true
+    // }:[]
 }
 const store = createStore(reducers,InitialState, composeWithDevTools(applyMiddleware(...middleware)))
 

@@ -11,14 +11,15 @@ import Select from 'react-select';
 import {FaChevronDown} from 'react-icons/fa'
 import info from '../../assests/Information Icon.png'
 import { configutation } from '../../actions/product';
-
+import { baseUrl } from "../url";
 const Register = () => {
     const[errors,setError] = useState("")
     const[checkError,setCheckError] = useState(false)
     const[password,setPassword] = useState("")
     // const[error,setError] = useState(true)
     const[location,setLocation] = useState("")
-    const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com"
     const[terms,setTerms] = useState(false)
     const[passwordType,setPasswordType] = useState("password")
     // const[showPassword,setShowPassword] = useState(false)
@@ -118,7 +119,8 @@ const Register = () => {
             country:location.country,
             state:state.state,
             countrycode:configuration.COUNTRY_CODE,
-            countryname:configuration.COUNTRY_NAME
+            countryname:configuration.COUNTRY_NAME,
+            user_type:"common_user"
         }
         console.log(data)
         console.log(configuration)
@@ -303,7 +305,7 @@ const[passIcon,setPassIcon] = useState(false)
                         </div>
                     <input type={passwordType} required placeholder='password' value={password} className={style.input} onChange={(e)=>{
                         setPassword(e.target.value)
-                        console.log("lenght",password.length>8&&password.length<15)
+                        console.log("lenght",password.length>7&&password.length<15)
                     }}/>
                     {passwordType==="text"?<img className={style.eyeIcon} src={eye} onClick={()=>{
                         
@@ -349,7 +351,7 @@ const[passIcon,setPassIcon] = useState(false)
                     }}>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-                {eligible&&terms===true&&password===confirmPassword&&password.length>8&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
+                {eligible&&terms===true&&password===confirmPassword&&password.length>7&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
                 
                 <div className={style.checkUser}>{error&&error.status==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div>
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}

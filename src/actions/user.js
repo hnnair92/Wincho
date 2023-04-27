@@ -16,7 +16,10 @@ import {
     REGISTER_SUCCESS,
   } from "../constants/user";
   import { configutation } from "./product";
-  const baseUrl = "https://uat.wincha-online.com";
+  // const baseUrl = process.env.REACT_APP_BASEURL
+  import { baseUrl } from "../Components/url";
+
+//const baseUrl = "https://uat.wincha-online.com
   
   export const loginAction = (data) => async (disptach) => {
     console.log("reached", data);
@@ -90,8 +93,8 @@ import {
           coutrycode: data.countrycode,
           coutryname: data.countryname,
           accountstatus: "",
-          device_id: "",
-          user_type: "common_user",
+          device_id: data.device_id?data.device_id:"",
+          user_type: data.user_type,
         }),
         headers: {
           "Content-Type": "application/json",

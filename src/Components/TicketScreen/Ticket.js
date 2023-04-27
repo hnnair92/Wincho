@@ -1,10 +1,10 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect, useRef } from 'react'
 import style from './Ticket.module.css'
 import Banner from '../../assests/Clubhouse Cashier without Button.png'
 import Tickets from '../../Api/Tickets'
 import {BsCreditCardFill} from 'react-icons/bs'
 import GoldTicket from '../../assests/Floating Tab Gold Ticket.png'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import icon from "../../assests/Wincha Support Icon.png";
 import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png"
@@ -17,8 +17,85 @@ import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
 import { assets } from '../Description/assests'
 import Lottie from "lottie-react";
 import { AllAnimation } from '../../Animation/allAnimation'
+import { music } from '../../assests/Musics/allMusic'
+import { baseUrl } from "../url";
+const stripe = require('stripe')('sk_test_51KH6LrDFlyHfJhCKutntRoVoTa8XYpTO87SE2DBpDEt4Ene6ywOnPcXz4oW365YMN9ibO8PbYfPXEebiYcxPxq2y00hZn8LeYf');
 
-const Ticket = () => {
+const Ticket = ({ gameMusic,
+  setGameMusic,
+  gameSound,
+  setGameSound,}) => {
+      const [musicStatus, setMusicStatus] = useState(
+          localStorage.getItem("music")
+            ? localStorage.getItem("music")
+            : localStorage.setItem("music", JSON.stringify(false))
+        );
+const audioRefHome = useRef(null);
+useEffect(() => {
+  console.log(gameMusic === "true", "gameSound");
+  console.log(typeof gameMusic, "gameMusic");
+  if (gameMusic === "true" || gameMusic === true) {
+    console.log(audioRefHome.current.volume);
+    audioRefHome.current.volume = 1;
+    console.log("true for gameMusic");
+    console.log(audioRefHome.current.volume);
+    playAudioBg();
+  } else {
+    audioRefHome.current.volume = 0;
+    console.log(typeof gameMusic);
+    console.log("not reached");
+  }
+  console.log(typeof gameMusic);
+}, [gameMusic]);
+useEffect(() => {
+  if (gameMusic === "true" || gameMusic === true) {
+    console.log(audioRefHome.current.volume);
+    audioRefHome.current.volume = 1;
+    playAudioBg();
+  } else {
+    console.log(typeof gameMusic);
+    console.log("not reached");
+  }
+ 
+  console.log(typeof gameMusic);
+  // console.log()
+}, []);
+async function audioEnded(src) {
+  if (musicStatus === "true") {
+    // audioRefHome.current.unmute()
+    audioRefHome.current.volume = 1;
+    audioRefHome.current.src = src;
+    audioRefHome.current.play();
+  } else {
+    audioRefHome.current.volume = 0;
+    // audioRefHome.current.mute()
+  }
+}
+async function playAudioBg() {
+  console.log(musicStatus, "musicStatus");
+  // if(musicStatus==="true"){
+  console.log(audioRefHome.current.play(), "from its function");
+  // audioRefHome.current.volume=1;
+  audioRefHome.current.src = music.Menu;
+  audioRefHome.current.play();
+  console.log(audioRefHome.current.volume, "from its function");
+
+  // }
+  // else{
+  //   audioRefHome.current.volume = 0;
+
+  // }
+}
+  const {search} = useLocation()
+  async function checkoutStripe(){
+    // const splitData = id.split("?")
+    const checkoutId = search.split("=")
+    console.log(search)
+    console.log(checkoutId[checkoutId.length-1])
+  }
+  useEffect(()=>{
+    checkoutStripe()
+  })
     const [popup, setPopup] = useState(false);
     // const navigate = useNavigate()
     const [premiumPopup,setPremiumPopup] = useState(false)
@@ -30,8 +107,10 @@ const Ticket = () => {
     const [loading,setLoading] = useState(false)
     // const ticket
     const {user} = useSelector((state)=>state.profile)
-    const baseUrl = "https://uat.wincha-online.com";
+    // const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com";
     const navigate = useNavigate();
+    console.log(window)
     async function fetchTickets() {
       await fetch(`${baseUrl}/token/collection`, {
         method: "POST",
@@ -50,6 +129,9 @@ const Ticket = () => {
     }
     useEffect(()=>{
         const query = new URLSearchParams(window.location.search);
+        console.log(window.GetParams())
+        console.log(window.GetParams)
+        console.log(window.location)
       console.log(query,"query");
       if (query.get("success")) {
           console.log("Order placed! You will receive an email confirmation.");
@@ -103,17 +185,23 @@ const Ticket = () => {
       );
     };
     async function checkoutApi() {
+      const numberInt = Number(ticketItem.token_amount).toFixed(2)
+      console.log(parseFloat(Number(ticketItem.token_amount).toFixed(2)))
+      console.log(parseFloat(ticketItem.token_amount))
+      console.log(typeof numberInt)
+      const requestData = {
+        mode: "payment",
+        amount: parseFloat(ticketItem.token_amount).toFixed(2) * 100,
+        quantity: 1,
+        currency: configuration.CURRENCY_CODE,
+        product: ticketItem.token_point,
+        // success_url: "http://localhost:3000/payment/success",
+        success_url: "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
+      }
       await fetch(`${baseUrl}/points/create-checkout-session`, {
         method: "POST",
-        body: JSON.stringify({
-          mode: "payment",
-          amount: parseInt(ticketItem.token_amount) * 100,
-          quantity: 1,
-          currency: configuration.CURRENCY_CODE,
-          product: "Tickets",
-          success_url: "http://localhost:3000/tickets",
-          cancel_url: "http://game.wincha-online.com/payment/cancel",
-        }),
+        body: JSON.stringify(requestData),
         headers: {
           "Content-Type": "application/json",
         },
@@ -121,6 +209,7 @@ const Ticket = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          console.log(requestData);
           window.open(`${data.data[0].url}`);
         });
     }
@@ -129,12 +218,12 @@ const Ticket = () => {
           method: "POST",
           body: JSON.stringify({
             mode: "payment",
-            amount: parseInt(configuration.VIP_SUBSCRIPTION) * 100,
+            amount: parseFloat(configuration.VIP_SUBSCRIPTION) * 100,
             quantity: 1,
             currency: configuration.CURRENCY_CODE,
             product: "Vip",
-            success_url: "http://localhost:3000/tickets",
-            cancel_url: "http://game.wincha-online.com/payment/cancel",
+            success_url: "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
           }),
           headers: {
             "Content-Type": "application/json",
@@ -146,6 +235,9 @@ const Ticket = () => {
             window.open(`${data.data[0].url}`);
           });
       }
+      // async function getData(){
+      //   fetch("https://api.stripe.com/v1/checkout/sessions/cs_test_a1Med9ooCbQKaLK8ifXMZCxfwkT3WYWdBzWs25kNQF1GiJDssMY9v7vFou")
+      // }
       async function resendEmailApi(){
         setLoading(true)
         await fetch(`${baseUrl}/user/verification/resend`, {
@@ -166,6 +258,7 @@ const Ticket = () => {
       }
   return (
     <div className={style.Container}>
+    <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
      {premiumPopup?
       <div className={style.clubHousePopup}>
         <div className={style.ClubHouse}>
@@ -341,7 +434,7 @@ const Ticket = () => {
                                         console.log(ticketItem)
                                     }
                                 }}>{item.currency_symbol}
-                  {item.token_point}</button>
+                  {item.token_amount}</button>
                             {/* </Link> */}
                             
 

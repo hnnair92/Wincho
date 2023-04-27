@@ -7,11 +7,11 @@ import { loginAction, updateProfile } from "../../actions/user";
 import eye from "../../assests/Password Eye.png";
 import info from "../../assests/Information Icon.png";
 import icon from "../../assests/Wincha Support Icon.png";
+import { baseUrl } from "../url";
 const Login = () => {
   // const user = JSON.parse(localStorage.getItem("user"))
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const baseUrl = "https://uat.wincha-online.com";
   const { error, user, authenticated } = useSelector((state) => state.userData);
   const userId = JSON.parse(localStorage.getItem("user"));
   const [type, setType] = useState(true);

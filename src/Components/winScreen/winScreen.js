@@ -11,6 +11,7 @@ const WinScreen = () => {
   const data = state?.game;
   const navigate = useNavigate()
   console.log(data);
+  console.log(window)
   const [linkStatus,setLinkStatus] = useState(false)
   console.log(data.category)
   useEffect(()=>{

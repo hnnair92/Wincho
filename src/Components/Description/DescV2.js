@@ -26,7 +26,10 @@ const Description = ({ active, setActive, setGamePlay, gamePlay }) => {
   const navigate = useNavigate();
   const state = location.state;
   const GameData = state && state.game;
-  const baseUrl = "https://uat.wincha-online.com";
+  //const baseUrl = "https://uat.wincha-online.com/"
+const baseUrl = "https://uat.wincha-online.com/"
+//const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com";
   const onFocus = (e) => {};
   const audioRef = useRef(null)
   const audioRefHome = useRef(null)

@@ -18,7 +18,10 @@ const Cart = () => {
     const [showVideo,setShowVideo] = useState(false)
     const [saveShipping,setSaveShipping] = useState(false)
     const [isLowPoint,setIsLowPoint] = useState(false)
-    const baseUrl = "https://uat.wincha-online.com";
+    //const baseUrl = "https://uat.wincha-online.com/"
+const baseUrl = "https://uat.wincha-online.com/"
+//const baseUrl = "https://uat.wincha-online.com"
+// const baseUrl = "https://uat.wincha-online.com";
     const userId = JSON.parse(localStorage.getItem("user"))
     const{configuration} = useSelector((state)=>state.configuration)
     const{user} = useSelector((state)=>state.profile)
