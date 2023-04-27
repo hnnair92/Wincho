@@ -106,7 +106,7 @@ console.log(id)
           <Route path="/payment/cancel" element={<Ticket />} />
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
-        <Footer />
+        <Footer setGamePlay={setGamePlay} gamePlay={gamePlay}/>
       </Router>
 
       {/* <Games/> */}

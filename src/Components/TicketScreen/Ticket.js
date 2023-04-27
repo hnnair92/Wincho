@@ -112,7 +112,7 @@ async function playAudioBg() {
     const navigate = useNavigate();
     console.log(window)
     async function fetchTickets() {
-      await fetch(`${baseUrl}/token/collection`, {
+       await fetch(`${baseUrl}/token/collection`, {
         method: "POST",
         body: JSON.stringify({
           user_id: userId,

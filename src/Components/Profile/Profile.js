@@ -343,6 +343,8 @@ async function playAudioBg() {
                 name=""
                 id=""
                 // value={line1}
+                readOnly
+                value={user.username}
                 placeholder="USERNAME"
                 onChange={(e) => {
                   // setLine1(e.target.value);
@@ -398,6 +400,9 @@ async function playAudioBg() {
                 name=""
                 id=""
                 // value={city}
+                value={user.email}
+                readOnly
+
                 placeholder="EMAIL"
                 onChange={(e) => {
                   // setCity(e.target.value)

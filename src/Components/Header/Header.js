@@ -138,7 +138,7 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
     return (
       <div className={style.mobileFullMenu}>
         <div className={style.Menu}>
-          <ul>
+          <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
             {MainMenu.map((menu) => {
               return (
                 <div
@@ -149,17 +149,14 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
                     playAudio(music.Click);
-                    // {
-                    //   gamePlay === true && active === false
-                    //     ? 
-                        // setActive(true)
+                    
                          checkGameOn();
                       setToggle(false);
-                      if(gamePlay===false){
+                      if(gamePlay===true){
                 setActive(true)
               }
                     setPageUrl(menu.url)
-                    // active?setActive(true):setActive(true)
+                   
 
                         // navigate(`/${MMenu.url}`);
                         if (menu.Name === "Support"&&gamePlay===false) {
@@ -208,19 +205,11 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
           <AiOutlineClose
             className={style.closeIcon}
             onClick={() => {
-              // {
-              //   gamePlay === true && active === false
-              //     ? 
-              if(gamePlay===false){
+             
+              if(gamePlay===true){
                 setActive(true)
               }
-              //     : setToggle(false);
-              // }
-              // {
-              //   gamePlay === true && active === false
-              //     ? setActive(true)
-              //     : setToggle(false);
-              // }
+            
             }}
           />
         </div>
@@ -229,22 +218,16 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
   };
 
   return (
-    <div className={style.Container}>
+    <div className={style.Container}  style={{pointerEvents:gamePlay?"none":"visible"}}>
       {setting?
       <div className={style.SettingsOverlay} onClick={()=>{
         setSetting(false)
       }}></div>
       
     :""}
-     <div className={style.MobileMenu}>
+     <div className={style.MobileMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}>
           <div className={style.Menu}>
-            {/* <HiMenu className={style.menuIcon}  onClick={()=>{
-              {  gamePlay===true&&active===false?
-                setActive(true)
-                :
-               
-                setToggle(true)}
-              }}/> */}
+         
             <div className={style.HomeMenuIcons}>
               {MainMenu.map((MMenu) => {
                 return (
@@ -254,13 +237,11 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                       alt=""
                       onClick={(e) => {
                     setSetting(false)
-                    if(gamePlay===false){
+                    if(gamePlay===true){
                 setActive(true)
               }
                     setPageUrl(MMenu.url)
-                    // active?setActive(true):setActive(true)
-
-                        // navigate(`/${MMenu.url}`);
+                   
                         if (MMenu.Name === "Support"&&gamePlay===false) {
                         setToggle(false);
                         handleId(e);
@@ -306,7 +287,7 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                 </div> */}
             </div>
           </div>
-          <div className={style.HamBurgerMenu}>
+          <div className={style.HamBurgerMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}>
             {setting ? (
               <div className={style.Settings}>
                 <AiOutlineClose
@@ -314,16 +295,11 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                   onClick={() => {
                     setId("");
 
-                    // {
-                    //   gamePlay === true && active === false
-                        // ? 
-                        // setActive(true)
-                    //     : setSetting(false);
-                    // }
+                    
                   }}
                 />
                 {/* {isUser? */}
-                <ul>
+                <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
                   {settingsMenu.map((menu) => {
                     return (
                       <div
@@ -331,11 +307,11 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                         onClick={(e) => {
               e.preventDefault()
               setSetting(false)
-              if(gamePlay===false){
+              if(gamePlay===true){
                 setActive(true)
               }
                     setPageUrl(menu.url)
-                    // active?setActive(true):setActive(true)
+                   
 
                         // navigate(`/${MMenu.url}`);
                       //   if (MMenu.Name === "Support"&&gamePlay===false) {
@@ -349,12 +325,7 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
 
 
                           setId(menu.id);
-                          // {
-                            // gamePlay === true && active === false
-                              // ? 
-                              // setActive(true)
-                              // : setSetting(false);
-                          // }
+                         
                           if (
                             menu.Name === "Terms of Use" &&gamePlay===false||
                             menu.Name === "Privacy Policy"&&gamePlay===false
@@ -528,8 +499,8 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
           </div>
         </div>
       {setting?
-      <div className={style.Settings}>
-        <ul>
+      <div className={style.Settings}  style={{pointerEvents:gamePlay?"none":"visible"}}>
+        <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
           {settingsMenu.map((menu) => {
             return (
               <div
@@ -537,9 +508,9 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                 onClick={(e) => {
                   e.preventDefault()
                   setSetting(false)
-                  if(gamePlay===false){
-                setActive(true)
-              }
+                  if(gamePlay===true){
+                  setActive(true)
+                  }
                   setPageUrl(menu.url)
 
                   // setId(menu.id);
@@ -733,9 +704,14 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
       </div>:""
       }
       <audio ref={audioRefHeader}></audio>
-      <div className={style.MobileTopNav}>
+      <div className={style.MobileTopNav} style={{pointerEvents:gamePlay?"none":"visible"}}>
         <div className={style.MLogo}>
-          <img src={logo} alt="" />
+          <img src={logo} alt="" onClick={(e) => {
+            if(gamePlay===true){
+            setActive(true)
+            }
+            setPageUrl("/")
+          }}/>
         </div>
         <div className={style.MBandaiLogo}>
           <img src={bandaiLogo} alt="" />
@@ -800,31 +776,35 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
         ""
       )}
 
-      <div className={style.Header}>
+      <div className={style.Header} style={{pointerEvents:gamePlay?"none":"visible"}}>
         <div className={style.Logo}>
           <button
             onClick={(e) => {
               e.preventDefault()
+              //
+            setPageUrl("/")
               {
 
-                // gamePlay === true && active === false
-                  // ? 
-                  if(gamePlay===false){
+                
+                  if(gamePlay===true){
                 setActive(true)
               }
-                  // : setActive(false);
+                 
                 navigate("/");
               }
             }}
           >
-            <img src={logo} alt="" />
+            <img src={logo} alt=""
+        
+
+          />
           </button>
         </div>
         <div className={style.bandaiLogo}>
           <img src={bandaiLogo} alt="" />
         </div>
         <div className={style.Menu}>
-          <ul>
+          <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
             {MainMenu.map((menu) => {
               return (
                 <div
@@ -835,7 +815,7 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                   
                     setId(menu.id);
                    
-                    if(gamePlay===false){
+                    if(gamePlay===true){
                 setActive(true)
               }
                     setPageUrl(menu.url)

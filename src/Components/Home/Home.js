@@ -179,7 +179,7 @@ const Home = () => {
                         }}/></button>
                     </div> */}
                 <div className={style.Slider}>
-                    {showVideo?""
+                    {/* {showVideo?""
                     :
                     <div className={`${style.sliderOverlay} ${showVideo===true?style.HideVideo:""}`}>
                         <img src={WatchData[0]} alt="" onClick={()=>{
@@ -187,14 +187,12 @@ const Home = () => {
                         }}/>
 
                     </div>
-                }
-                {showVideo?
-                    <video autoPlay muted={true} className={showVideo===true?"":style.HideVideo} onClick={()=>{
-                            setShowVideo(false);
-                        }}>
+                } */}
+                {/* {showVideo? */}
+                    <video autoPlay muted={true} loop>
                     <source src={videoSrc} type="video/mp4" />
                 </video>
-                 :""}
+                 {/* :""} */}
                 </div>
                 {/* <div className={style.WRightIcons}>
                         <button disabled={aboutId===AboutData.length-1} className={aboutId===AboutData.length-1?style.Disable:""}><HiOutlineChevronRight onClick={()=>{
@@ -313,7 +311,7 @@ const Home = () => {
             </div>
             <div className={style.MWatch}>
             {/* <img src={WatchData[0]} alt="" /> */}
-            <video>
+            <video autoPlay muted={true} loop>
                 <source src={videoSrc}/>
             </video>
             </div>
@@ -338,18 +336,16 @@ const Home = () => {
             </div>
         </div>
 
-        {scrollNav
+        {/* {scrollNav
         ?
         <div className={style.TicketTop}>
             <Link to="/tickets">
                 <div className={style.TicketIcon}>
                 <img src={ticketImage} alt="" />
 
-                    {/* <Lottie animationData={ticketIcon} loop={true} />; */}
-                        
+                    
                 </div>
                 <div className={style.TicketText}>
-                        {/* <p>20% OFF TICKETS!</p> */}
                         <img src={imageDiv} alt="" />
                 </div>
             </Link>
@@ -361,16 +357,15 @@ const Home = () => {
             <Link to="/tickets">
                 <div className={style.TicketIcon}>
                 <img src={ticketImage} alt="" />
-                    {/* <Lottie animationData={ticketIcon} loop={true} />; */}
+                    
                         
                 </div>
                 <div className={style.TicketText}>
-                        {/* <p>20% OFF TICKETS!</p> */}
                         <img src={imageDiv} alt="" />
                 </div>
             </Link>
             
-        </div>}
+        </div>} */}
         {/* <div className={style.Ticket} style={{top:scrollNav?"0px":"80px"}}>
             <Link to="/tickets">
                 <div className={style.TicketIcon}>

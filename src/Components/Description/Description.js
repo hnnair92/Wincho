@@ -78,6 +78,10 @@ const Description = ({
   // },[active]);
   useEffect(()=>{
   console.log(active)
+  if(active===true&&pageUrl!==""){
+    // gameLeave(userId,false)
+    setExitPopupOpen(true)
+  }
 
   },[active])
   //  Hard coded Datas
@@ -172,7 +176,12 @@ const Description = ({
       ? JSON.parse(localStorage.getItem("times"))
       : 0
   );
-
+    useEffect(()=>{
+      console.log(gamePlay)
+    },[gamePlay])
+    useEffect(()=>{
+      console.log(active)
+    },[active])
   const [prizeCount,setPrizeCount] = useState(0)
   const [gamePlayStatus, setGamePlayStatus] = useState(false);
   const [prizeDate,setPrizeDate] = useState("")
@@ -236,6 +245,11 @@ const Description = ({
       checkAnime();
     }
   }, []);
+ useEffect(()=>{
+  if(active===true&&gamePlay===false){
+    console.log("not reached")
+  }
+ },[active,gamePlay])
   useEffect(()=>{
     if(GameData&&GameData.price!=="0"&&userId===null){
       navigate("/login")
@@ -552,6 +566,10 @@ const Description = ({
       // playAudio(music.Whoops);
     }
   }, [playAgain]);
+  const setPlayBack = () => {
+    vidRef.current.playbackRate = 1.5;
+  };
+
   useEffect(() => {
     if (freePlay >= configuration.FREE_PLAY_LIMIT) {
       setFreePlayNotReg(true);
@@ -925,6 +943,7 @@ const Description = ({
     socket.emit(`${baseMessage}|P_ENDED`);
     socket.emit(`${baseMessage}|G_DISCONNECTED`);
     setTimeoutStatus(true);
+    localStorage.setItem("reload",false)
     setReloadStatus(false)
     setTimeout(async () => {
       await gameLeave(userId, timeout_status);
@@ -956,7 +975,7 @@ const Description = ({
       case 25:
         setWaitAnimation(AllAnimation.wait_25);
         break;
-      case 20:
+      case 30:
         setWaitAnimation(AllAnimation.wait_30);
         break;
       case 35:
@@ -1090,6 +1109,7 @@ const Description = ({
         setFirstStep(true);
         setGamePlay(true);
         setReloadStatus(true)
+        localStorage.setItem("reload",true)
 
         // console.log(firstStep)
       });
@@ -1269,7 +1289,11 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(id);
-        setReloadStatus(false)
+        // setReloadStatus(false)
+        localStorage.setItem("reload",false)
+        // window.removeEventListener("beforeunload", handleTabClosing);
+        window.removeEventListener('beforeunload', alertUser)
+        window.removeEventListener('unload', handleTabClosing)
         if (User === userId) {
           socket.disconnect();
           setTimeout(() => {
@@ -1417,32 +1441,36 @@ const Description = ({
       .then((data) => {});
   }
   useEffect(() => {
-    if(reloadStatus===true){
+    const reloadLocal = localStorage.getItem("reload")
+    if(reloadLocal===null||reloadLocal===undefined){
+      localStorage.setItem("reload",false)
+    }
+    if(reloadLocal==="true"){
 
       window.addEventListener('beforeunload', alertUser)
       window.addEventListener('unload', handleTabClosing)
       window.onbeforeunload = function() {
-    if(reloadStatus===true){
+    
 
           var message = 'Do you want to leave this page?';
           return message}
-      }
-      return () => {
-          window.removeEventListener('beforeunload', alertUser)
-          window.removeEventListener('unload', handleTabClosing)
-          window.onbeforeunload = function() {
-    if(reloadStatus===true){
+      
+      // return () => {
+      //     window.removeEventListener('beforeunload', alertUser)
+      //     window.removeEventListener('unload', handleTabClosing)
+      //     window.onbeforeunload = function() {
 
-            var message = 'Do you want to leave this page?';
-            return message;
-    }
-        }
-      }
+      //       var message = 'Do you want to leave this page?';
+      //       return message;
+    
+      //   }
+      // }
       
       
     }
-    console.log(reloadStatus)
-},[reloadStatus])
+    console.log(reloadLocal)
+    console.log(typeof reloadLocal)
+})
 useEffect(()=>{
   console.log(reloadStatus)
 },[reloadStatus])
@@ -1550,6 +1578,7 @@ useEffect(()=>{
             <Link
               to="/tickets"
               onClick={() => {
+                gameLeave(userId,false)
                 setTopup(false);
               }}
             >
@@ -1696,7 +1725,7 @@ useEffect(()=>{
               to="/prizes"
               onClick={() => {
                 setFreeLimitPopup(false);
-                gameLeave()
+                gameLeave(userId,false)
               }}
             >
               <button>OK</button>
@@ -1768,7 +1797,7 @@ useEffect(()=>{
               //   playing={true}
               //   controls={true}
               //   />\
-              <video ref={vidRef} autoPlay muted={true}>
+              <video ref={vidRef} autoPlay muted={true}  onCanPlay={() => setPlayBack()}>
                 <source src={game.last_win_url} type="video/mp4" />
               </video>
             )}
@@ -1850,7 +1879,7 @@ useEffect(()=>{
               onClick={() => {
                 console.log(transferGame);
                 setExitPopupOpen(false);
-                gameLeave();
+                gameLeave(userId,false);
                 // socket.disconnect();
                 
                 // window.location.reload();
@@ -1900,7 +1929,7 @@ useEffect(()=>{
               onClick={() => {
                 console.log(transferGame);
                 setLeavePopup(false);
-                gameLeave();
+                gameLeave(userId,false);
                 // socket.disconnect();
                 navigate(`/game/${transferGame.slug}`, {
                   state: { game: transferGame,category:transferGame.category},
@@ -1925,7 +1954,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {active&&gamePlay===true? (
+      {active===true&&gamePlay===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -1936,7 +1965,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?</p>
+            <p>Are you sure you want to leave this gameasd?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -1949,7 +1978,7 @@ useEffect(()=>{
               onClick={() => {
                 // console.log(transferGame);
                 setActive(false);
-                gameLeave();
+                gameLeave(userId,false);
                 // socket.disconnect();
                 // navigate(`/game/${transferGame.slug}`, {
                 //   state: { game: transferGame,category:transferGame.category},
@@ -2449,14 +2478,14 @@ useEffect(()=>{
                     {count % configuration.FREE_PLAY_LIMIT === 0 &&
                     playAgain &&
                     count != 0 ? (
-                      prizeMoveIcon===true ? (
-                      // prizeResetActive ? (
+                      // prizeMoveIcon===true ? (
+                      prizeResetActive ? (
                         <button>
                           <img src={assets.GrayPrizeMove} alt="" />
                         </button>
                       ) :
-                      // hideEverything===false
-                      prizeMoveIcon===false
+                      hideEverything===false
+                      // prizeMoveIcon===false
                       ? 
                         <button
                           onClick={() => {
@@ -2491,6 +2520,7 @@ useEffect(()=>{
                             animationData={AllAnimation.waitPulse}
                             loop={false}
                             onComplete={() => {
+                              // localStorage.setItem("reload",false)
                               setReloadStatus(true)
                               PointDebit();
                             }}
@@ -3214,6 +3244,7 @@ useEffect(()=>{
                           // pause={prizeResetActive}
                           onComplete={() => {
                             setReloadStatus(false)
+                            localStorage.setItem("reload",false)
                             gameLeave(userId, false);
                             setGamePlay(false);
                             setPlayAgain(false);

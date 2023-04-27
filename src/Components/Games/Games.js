@@ -24,6 +24,7 @@ import Lottie from 'lottie-react'
 import { AllAnimation } from "../../Animation/allAnimation";
 import { baseUrl } from "../url";
 import { music } from "../../assests/Musics/allMusic";
+import { updateProfile } from "../../actions/user";
 
 const Games = ({ gameMusic,
   setGameMusic,
@@ -41,7 +42,7 @@ const {configuration} = useSelector((state)=>state.configuration)
       ? localStorage.getItem("music")
       : localStorage.setItem("music", JSON.stringify(false))
   );
-  const [ termsVersion,setTermsVersion] = useState(false)
+  const [termsVersion,setTermsVersion] = useState(false)
   const [verifyEmail,setVerifyMails] = useState(false)
   let { products, loading } = useSelector((state) => state.collectionProducts);
   const [popup, setPopup] = useState(false);
@@ -288,7 +289,34 @@ const {configuration} = useSelector((state)=>state.configuration)
       id: 7,
     },
   ];
+useEffect(()=>{
+  console.log(typeof user?.tc_version);
+  console.log(typeof configuration?.TC_VERSION);
+  console.log(user?.tc_version<configuration?.TC_VERSION)
+  if(user?.tc_version<configuration?.TC_VERSION){
+    setTermsVersion(true)
+  }
+},[user,configuration])
+useEffect(()=>{
+  console.log(termsVersion)
+},[termsVersion])
+async function updateTermsAndConditions(){
+  await fetch(`${baseUrl}/user/tc/version/update`,{
+    method:"POST",
+    body:JSON.stringify({
+      "playerID":userId,
+      "tc_version":configuration?.TC_VERSION,
+    }),
+    headers:{
+      "Content-type":"application/json"
+    }
+  }).then(res=>res.json()).then((data)=>{
+    console.log(data)
+    dispatch(updateProfile())
+    setTermsVersion(false)
 
+  })
+}
   // const[active,setActive]= useState(false)
   const [allCategory, setAllCategory] = useState("");
   // const[getAllCategory,setGetAllCategory] = useState("")
@@ -358,6 +386,7 @@ const {configuration} = useSelector((state)=>state.configuration)
             
             </div>
             <div className={style.MSearch}>
+            {/* <div className={style.MSearch} style={{backgroundColor:searchIconStatus===false?"transparent":"#e1f5fb",border:searchIconStatus===false?"none":"2px solid #efeef1"}}> */}
               <div className={style.SearchIcon} onClick={()=>{
                 setSearchIconStatus(true)
               }}>
@@ -565,30 +594,33 @@ const {configuration} = useSelector((state)=>state.configuration)
             }}>
 
             </div>
+            <div className={style.ResendPopupDiv}>
+              <div className={style.ResendpopupImage}>
+                <img src={assets.winchaPopup} alt="" />
+              </div>
+              <div className={style.ResendpopupText}>
+                <p>We have changed our terms of Use and Privacy Policy. Please review the change(s).</p>
+              </div>
+              <div className={style.ResendpopupButton}>
+                <div
+                  // to="/tickets"
+                  onClick={() => {
+                    updateTermsAndConditions()
+                    // setResendEmail(false);
+                    // resendEmailApi()
+                  }}
+                >
+                  <button  onClick={() => {
+                    // setResendEmail(false);
+                    resendEmailApi();
+                  }}>ACCEPT</button>
+                </div>
+              </div>
+
+            </div>
           {/* {loading?
           <Lottie animationData={AllAnimation.Loader}/>
           :""} */}
-            <div className={style.ResendpopupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.ResendpopupText}>
-              <p>We have changed our terms of Use and Privacy Policy. Please review the change(s).</p>
-            </div>
-            <div className={style.ResendpopupButton}>
-              <div
-                // to="/tickets"
-                onClick={() => {
-                  setTermsVersion(false)
-                  // setResendEmail(false);
-                  // resendEmailApi()
-                }}
-              >
-                <button  onClick={() => {
-                  // setResendEmail(false);
-                  resendEmailApi();
-                }}>ACCEPT</button>
-              </div>
-            </div>
           </div>
         ) : (
           ""
@@ -887,6 +919,7 @@ const {configuration} = useSelector((state)=>state.configuration)
                         // else if(user)
                       }}>
                          <div className={style.SingleGameOverlay} onClick={()=>{
+                          
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                               console.log("not verified")

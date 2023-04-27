@@ -146,10 +146,18 @@ async function playAudioBg() {
     state: "",
     zipcode: "",
   });
+  const setPlayBack = () => {
+    vidRef.current.playbackRate = 1.5;
+  };
+
+  const videoRef = useRef(null)
   const[errors,setError] = useState("")
     const[checkError,setCheckError] = useState(false)
   const [count, setCount] = useState(1);
   // End
+  // useEffect(()=>{
+  //   videoRef?.current?.playbackRate = 1.5;
+  // },[videoRef,showVideo])
   const checkState=(state,e)=>{
     e.preventDefault()
     if(state.status===false){
@@ -470,7 +478,7 @@ async function playAudioBg() {
   }
   function Popup(url) {
     console.log(url);
-
+    // videoRef?.current?.playbackRate = 1.5;
     return (
       <div
         className={showVideo ? style.LastWinPopup : style.hideVideopopup}
@@ -525,7 +533,7 @@ async function playAudioBg() {
             //   playing={true}
             //   controls={true}
             //   />\
-            <video autoPlay muted={true}>
+            <video autoPlay muted={true} ref={videoRef} onCanPlay={() => setPlayBack()}>
               <source src={url} type="video/mp4" />
             </video>
           )}

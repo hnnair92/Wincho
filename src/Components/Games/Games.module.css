@@ -551,7 +551,7 @@
     display: flex;
     align-items: center;
     border-radius: 20px;
-    padding: 5px 15px;
+    padding: 7.5px 15px;
     background-color: #e1f5fb;
     border: 2px solid #efeef1;
 
@@ -576,7 +576,7 @@
     outline: none;
     border:none;
     color: #2d2d2d;
-    font-size: 2.25rem;
+    font-size: 1.5rem;
     padding: 0px 10px;
     font-weight: 500;
 
@@ -653,6 +653,7 @@
     .Search,.MSearch{
         width: fit-content;
         z-index: 99999;
+        height: fit-content;
     }
     .Search input,.MSearch input{
         width: 200px;
@@ -664,6 +665,7 @@
         width: fit-content;
         flex-direction: row-reverse;
         margin-left: 0;
+        align-items: center;
     }
     .AllCategories{
         margin-left: 0;
@@ -896,7 +898,7 @@
 .PopupSection{
     z-index: 9999;
 }
-.ResendPopup{
+.ResendPopup,.ResendPopupDiv{
     position: fixed;
     font-family: myraidproregular !important;
     z-index: 99999;
@@ -961,4 +963,7 @@
     height: 100vh;
     background-color: transparent;
     z-index: 9999;
+}
+.ResendPopupDiv{
+    z-index: 99999;
 }
