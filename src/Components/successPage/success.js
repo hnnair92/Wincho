@@ -19,19 +19,21 @@ const {configuration}= useSelector((state)=>state.configuration)
         }
     })
     async function addVip(){
+      const vipData = {
+        "user_id":userId,
+        "vip": true,
+        "source":"web",
+        "amount":`${configuration.VIP_SUBSCRIPTION}`,
+        "gateway":"stripe"
+        }
       await fetch(`${baseUrl}/user/membership/add`,{
         method:"PUT",
-        body:JSON.stringify({
-          "user_id":userId,
-          "vip": true,
-          "source":"web",
-          "amount":configuration.VIP_SUBSCRIPTION,
-          "gateway":"stripe"
-          }),
+        body:JSON.stringify(vipData),
         headers:{
             "Content-Type":"application/json"
         }
     }).then(res=>res.json()).then((data)=>{
+      console.log(vipData)
         // const paymentSuccess = data.data[data.data.length-1].status
         // const product = data.data[data.data.length-1].product
         // if(paymentSuccess==="succeeded"){
@@ -76,7 +78,7 @@ const {configuration}= useSelector((state)=>state.configuration)
     async function addPoint(point){
       const poointBody = {
         user_id: userId,
-        point: point,
+        point: `${point}`,
         credicts: "true",
         source: "web",
       }
