@@ -30,6 +30,7 @@ import Success from "./Components/successPage/success";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
+  const [userJoined,setUserJoined] = useState(false)
   const [pageUrl,setPageUrl] = useState("")
   const [gameMusic,setGameMusic] = useState(localStorage.getItem("music")?localStorage.getItem("music"):localStorage.setItem("music",JSON.stringify(true)))
   const [gameSound,setGameSound] = useState(localStorage.getItem("sound")?localStorage.getItem("sound"):localStorage.setItem("sound",JSON.stringify(true)))
@@ -85,11 +86,11 @@ console.log(id)
   return (
     <div className="App">
       <Router>
-        <Header setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
+        <Header userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/prizes/" element={<Games  setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
-          <Route path="/game/:id" element={<Description setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active}  setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
+          <Route path="/prizes/" element={<Games userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
+          <Route path="/game/:id" element={<Description userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active}  setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           {/* <Route path="/:category" element={<Games/>}/> */}
           {/* <Route path="/load" element={<Loader/>}/> */}
           <Route path="/register" element={<Register />} />

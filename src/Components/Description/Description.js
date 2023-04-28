@@ -36,6 +36,8 @@ const Description = ({
   setActive,
   setGamePlay,
   gamePlay,
+  userJoined,
+  setUserJoined
 }) => {
   console.log(localStorage);
   console.log(active, "active from description");
@@ -45,9 +47,28 @@ const Description = ({
   const state = location.state;
   const GameData = state && state.game;
   // const baseUrl = process.env.REACT_APP_BASEURL
+  const [userFocusCheck,setUserFocusCheck] = useState(true)
 
 
-  const onFocus = (e) => {};
+  const onFocus = (e) => {
+    const timeoutId = JSON.parse(localStorage.getItem("timeoutId"))
+    localStorage.setItem("blur",JSON.stringify(false))
+    console.log("focus")
+    console.log(isUserFocus)
+    setUserFocusCheck(true)
+    let blurCheck = localStorage.getItem("blur")?JSON.parse(localStorage.getItem("blur")):""
+    // console.log(blurCheck,"checking")
+    if(blurCheck===false){
+      console.log(timeoutId)
+      clearTimeout(timeoutId)
+      window.removeEventListener("blur",(e)=>{
+        onBlur(e,false)
+      })
+    }
+    setUserFocusCheck(false)
+    // setIsUserFocus("FOCUS")
+    
+  };
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);
   const animeRef = useRef(null);
@@ -63,7 +84,12 @@ const Description = ({
   console.log(state);
   const localDate = JSON.parse(localStorage.getItem("dates"))
   const deviceId = JSON.parse(localStorage.getItem("deviceId"))
-  const [checkDateCount,setCheckDateCount] = useState(localStorage.getItem("checkPlay")?JSON.parse(localStorage.getItem("checkPlay")):localStorage.setItem("checkPlay",JSON.stringify(0)))
+  // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))?JSON.parse(localStorage.getItem("checkPlay")):[]
+  // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))?JSON.parse(localStorage.getItem("checkPlay")):[]
+  const [checkDateCount,setCheckDateCount] = useState(0)
+  // const checkUserArray = []
+  // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))
+  // const [checkDateCount,setCheckDateCount] = useState(localStorage.getItem("checkPlay")?JSON.parse(localStorage.getItem("checkPlay")):localStorage.setItem("checkPlay",JSON.stringify(0)))
   // const location = useLocation()
   // useEffect(() => {
   //   if (GameData?.content?.length < 75) {
@@ -80,7 +106,7 @@ const Description = ({
   console.log(active)
   if(active===true&&pageUrl!==""){
     // gameLeave(userId,false)
-    setExitPopupOpen(true)
+    // setExitPopupOpen(true)
   }
 
   },[active])
@@ -107,14 +133,74 @@ const Description = ({
       category: "OTHER",
     },
   ];
-  const onBlur = (e) => {
-    // console.log("Tab is blurred", e);
+  const onBlur = (e,check) => {
+    localStorage.setItem("blur",JSON.stringify(true))    // setIsUserFocus("BLUR")
+    console.log("Tab is blurred", e);
+    let blurCheck = localStorage.getItem("blur")?JSON.parse(localStorage.getItem("blur")):""
+    setUserFocusCheck(false)
+    // if(t)
+    let timeoutId = setTimeout(()=>{
+      blurCheck =  localStorage.getItem("blur")?JSON.parse(localStorage.getItem("blur")):""
+
+      if(check===false&&blurCheck===true){
+      // if(check===false&&userFocusCheck===false&&isUserFocus===""){
+        setIsUserFocus(timeoutId)
+        console.log("navigated with userFocusCheck")
+        console.log(blurCheck)
+        gameLeave(userId,false)
+        navigate("/prizes",{state:{category:sendCategory}})
+      }
+      else{
+        clearTimeout(timeoutId)
+        console.log(blurCheck)
+        
+        console.log("timeout cleared")
+
+      }
+      // if(check===false&&userFocusCheck===false&&isUserFocus===""){
+      //   clearTimeout(timeoutId)
+      //   console.log(userFocusCheck)
+        
+      //   console.log("timeout cleared")
+        
+      // }
+      // else{
+      //   setIsUserFocus(timeoutId)
+      //   console.log("navigated with userFocusCheck")
+      //   console.log(userFocusCheck)
+      //   navigate("/prizes",{state:{category:sendCategory}})
+
+      // }
+      localStorage.setItem("timeoutId",JSON.stringify(timeoutId))
+      return timeoutId;
+
+      // console.log("navigated")
+    },10000)
+    
     // alert("DO you wana exist this page");
   };
-
+  useEffect(()=>{
+    let checkIsUser =JSON.parse(localStorage.getItem("userJoined"))
+    if(checkIsUser===false){
+      let timeoutCheckuser = setTimeout(()=>{
+        checkIsUser =JSON.parse(localStorage.getItem("userJoined"))
+        if(checkIsUser===false){
+          gameLeave(userId,false)
+          navigate("/prizes",{state:{category:sendCategory}})
+          console.log("yes exiting");
+          console.log(userJoined,"userJoined");
+          
+        }
+        else{
+          clearTimeout(timeoutCheckuser)
+        }
+      },120000)
+    }
+  },[userJoined])
   useEffect(() => {
     console.log(navigator.onLine);
   }, [navigator]);
+ 
   //   console.log(GameData);
   const videoRef = useRef();
   const userId = JSON.parse(localStorage.getItem("user"));
@@ -197,6 +283,7 @@ const Description = ({
   const [currentPrizeMove, setCurrentPrizeMove] = useState(false);
   const [prizeMoveStatus, setPrizeMoveStatus] = useState(false);
   const [exitPopupOpen,setExitPopupOpen] = useState(false)
+  const [showGrayPrizeIcon,setShowGrayPrizeIcon] = useState(false)
   const [isTimeout, setisTimeout] = useState(false);
   const [hideEverything,setHideEverything] = useState(false)
   const [report, setReport] = useState({
@@ -206,7 +293,7 @@ const Description = ({
   const [status, setStatus] = useState({});
   const [videoGot, setVideoGot] = useState(false);
   const [checkPlayArray, setCheckPlayArray] = useState([]);
-
+  const [isUserFocus,setIsUserFocus] = useState("")
   // Redux UseSelectors
   const { game, loading } = useSelector((state) => state.gameEntry);
   const { user } = useSelector((state) => state.profile);
@@ -220,12 +307,19 @@ const Description = ({
       setSendCategory(datas[0])
     }
   },[GameData])
-  useEffect(()=>{
+  useEffect(()=>{                                                                                                                                  
     console.log(leavePopup)
   },[leavePopup])
   useEffect(()=>{
     console.log(exitPopupOpen)
   },[exitPopupOpen])
+  // useEffect(() => {
+  //   console.log(isUserFocus);
+  //   if(isUserFocus==="FOCUS"){
+  //     clearTimeout()
+  //   }
+  //   else if(is)
+  // }, [isUserFocus])
   useEffect(() => {
     checkFreePlay();
     socket.on("connect", () => {
@@ -375,6 +469,7 @@ const Description = ({
         GameData.machine_code === machineId[1]
       ) {
         setCurrentPrizeMove(false);
+        setShowGrayPrizeIcon(false)
         setPrizeMoveIcon(false);
 
         socket.emit("sent_help_status", `${baseMessage}|RECEIVED`);
@@ -549,6 +644,9 @@ const Description = ({
     console.log(cameraState1);
   }, [cameraState1]);
   useEffect(() => {
+    console.log(showGrayPrizeIcon);
+  }, [showGrayPrizeIcon]);
+  useEffect(() => {
     console.log(cameraState2);
   }, [cameraState2]);
   useEffect(() => {
@@ -598,20 +696,34 @@ const Description = ({
     }
     // dispatch(updateProfile());
   }, [dispatch]);
+
+
   useEffect(() => {
     const userPlayCount = {
       userId:userId,
       count:checkDateCount,
       date:date
     }
-    setCheckPlayArray((checkPlayArray=>[...checkPlayArray,userPlayCount]))
-    localStorage.getItem("checkPlay")
-      ? localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray))
-      : localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray));
-    if(localDate<date){
-      localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray))
+  const checkUserArray = localStorage.getItem("checkPlay")
+
+    if(checkUserArray===null||checkUserArray===undefined){
+      setCheckPlayArray((checkPlayArray=>[...checkPlayArray,userPlayCount]))
+      console.log(userPlayCount)
+      console.log(typeof checkUserArray)
+      localStorage.setItem("checkPlay",checkPlayArray)
+      console.log(checkPlayArray)
+      
     }
-  }, [checkDateCount]);
+    // setCheckPlayArray((checkPlayArray=>[...checkPlayArray,userPlayCount]))
+    // localStorage.getItem("checkPlay")
+    //   ? localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray))
+    //   : localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray));
+    // if(localDate<date){
+    //   localStorage.setItem("checkPlay", JSON.stringify(checkPlayArray))
+    // }
+  }, []);
+
+
   useEffect(() => {
     localStorage.getItem("times")
       ? localStorage.setItem("times", freePlay)
@@ -621,7 +733,9 @@ const Description = ({
   useEffect(() => {
     console.log(window.navigator);
     window.addEventListener("focus", onFocus);
-    window.addEventListener("blur", onBlur);
+    window.addEventListener("blur", (e)=>{
+      onBlur(e,false)
+    });
     window.addEventListener("offline", () => {
       console.log("I am offline.");
     });
@@ -630,7 +744,7 @@ const Description = ({
       console.log("I am back online.");
     });
 
-    onFocus();
+    // onFocus();
     return () => {
       // usePrompt("Hello from usePrompt -- Are you sure you want to leave?", isBlocking);
       window.addEventListener("offline", () => {
@@ -641,9 +755,11 @@ const Description = ({
         console.log("I am back online.");
       });
       window.removeEventListener("focus", onFocus);
-      window.removeEventListener("blur", onBlur);
+      window.removeEventListener("blur", (e)=>{
+        onBlur(e,false)
+      });
     };
-  }, [window]);
+  });
   // useEffect(() => {
   //   if (game) {
   //     if (
@@ -899,7 +1015,7 @@ const Description = ({
     }
     else if(localDate<date){
         localStorage.setItem("dates",parseInt(date))
-        localStorage.setItem("checkPlay",0)
+        // localStorage.setItem("checkPlay",0)
         localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
       }
 
@@ -1015,6 +1131,7 @@ const Description = ({
       });
   }
   async function gameJoin(e) {
+    setActive(false)
     checkAnime();
     console.log(GameData.price)
     playAudio(music.Wincha);
@@ -1023,9 +1140,9 @@ const Description = ({
     socket.emit("peer_message", `${baseMessage}|G_CONNECTED`);
     await socket.on("game_que_count", (queCount) => {
       console.log(queCount);
-
+      
       const splitWord = queCount.split("|");
-
+      
       const splitQue = splitWord[splitWord.length - 1].split(":");
       const splitId = splitWord[0].split(":");
       console.log(typeof splitQue[1]);
@@ -1045,8 +1162,10 @@ const Description = ({
         "Content-type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
+    .then((res) => res.json())
+    .then((data) => {
+        setUserJoined(true)
+        localStorage.setItem("userJoined",JSON.stringify(true))
         setGamePlayStatus(true);
         // setReloadStatus(true)
         console.log(data);
@@ -1059,7 +1178,19 @@ const Description = ({
         }
       });
   }
+  useEffect(()=>{
+    console.log(userJoined)
+  },[userJoined])
+  useEffect(()=>{
+    console.log(gamePlay)
+  },[gamePlay])
+  useEffect(()=>{
+    console.log(active)
+  },[active])
+
+
   async function gameStart() {
+    console.log("started")
     if (
       game &&
       game.camera_data &&
@@ -1102,7 +1233,7 @@ const Description = ({
       .then((res) => res.json())
       .then((data) => {
         console.log("direction", game.camera_data[0].camera_id);
-
+        console.log(data)
         localStorage.setItem("inGame", true);
         setWait(false);
         setStartGame(data.data[0]);
@@ -1308,7 +1439,7 @@ const Description = ({
             );
           }, 1000);
           setTimeoutStatus(false);
-
+          localStorage.setItem("userJoined",JSON.stringify(false))
           // if(timeoutStatus===true){
             window.location.reload();
 
@@ -1449,24 +1580,28 @@ const Description = ({
 
       window.addEventListener('beforeunload', alertUser)
       window.addEventListener('unload', handleTabClosing)
-      window.onbeforeunload = function() {
+      // window.onbeforeunload = function() {
     
 
-          var message = 'Do you want to leave this page?';
-          return message}
+      //     var message = 'Do you want to leave this page?';
+      //     return message}
       
-      // return () => {
-      //     window.removeEventListener('beforeunload', alertUser)
-      //     window.removeEventListener('unload', handleTabClosing)
-      //     window.onbeforeunload = function() {
+      return () => {
+          window.removeEventListener('beforeunload', alertUser)
+          window.removeEventListener('unload', handleTabClosing)
+        //   window.onbeforeunload = function() {
 
-      //       var message = 'Do you want to leave this page?';
-      //       return message;
+        //     var message = 'Do you want to leave this page?';
+        //     return message;
     
-      //   }
-      // }
+        // }
+      }
       
       
+    }
+    if(reloadLocal==="false"){
+      window.removeEventListener('beforeunload', alertUser)
+      window.removeEventListener('unload', handleTabClosing)
     }
     console.log(reloadLocal)
     console.log(typeof reloadLocal)
@@ -1487,15 +1622,16 @@ useEffect(()=>{
 
 // })
 
-const handleTabClosing = (event) => {
+const handleTabClosing = async(event) => {
     // removePlayerFromGame()
     // console.log("exiting")\
-    // gameLeave()
-    if(reloadStatus===true){
+    await gameLeave(userId,false)
+    // console.log(closing)
+    // if(reloadStatus===true){
 
-    event.preventDefault();
-    event.returnValue ='';
-    }
+    // event.preventDefault();
+    // event.returnValue ='';
+    // }
     // setExitPopupOpen(true);
 
 }
@@ -1508,7 +1644,7 @@ const alertUser = (event:any) => {
  event.preventDefault()
     // }
  
-//  event.returnValue = setExitPopupOpen(true);
+ event.returnValue = ''
   // alert("helo")
 }
 useEffect(()=>{
@@ -1523,7 +1659,7 @@ useEffect(()=>{
       {prizeResetActive ? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
-            setPrizeResetActive(false)
+            // setPrizeResetActive(false)
         }}>
 
         </div>
@@ -1954,7 +2090,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {active===true&&gamePlay===false? (
+      {active===true&&gamePlay===false&&userJoined===true? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -1965,7 +2101,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this gameasd?</p>
+            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2008,7 +2144,7 @@ useEffect(()=>{
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
             <button
-              style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
+              style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
               onClick={() => {
                 if (gamePlayStatus === true) {
                   setActive(true);
@@ -2042,7 +2178,7 @@ useEffect(()=>{
                 // >
                 <div
                   className={style.Game}
-                  style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
+                  style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
                   onClick={() => {
                     setLeavePopup(true);
                     setTransferGame(game);
@@ -2172,6 +2308,7 @@ useEffect(()=>{
                       )}
                      {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
@@ -2179,11 +2316,14 @@ useEffect(()=>{
                         
                         {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}
                     {game.price_move_status===true&&prizeId!=userId||currentPrizeMove===true&&prizeId!=userId?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}  
@@ -2249,6 +2389,7 @@ useEffect(()=>{
                      
                         {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
@@ -2256,11 +2397,13 @@ useEffect(()=>{
                         
                         {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}
                     {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}  
@@ -2308,6 +2451,7 @@ useEffect(()=>{
                   :""}
                {/*  {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
@@ -2315,11 +2459,13 @@ useEffect(()=>{
                         
                         {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}
                     {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}   */}
@@ -2347,6 +2493,7 @@ useEffect(()=>{
                       )}
                        {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
@@ -2354,12 +2501,14 @@ useEffect(()=>{
                         
                         {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}
                      
                     {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}  
@@ -2424,6 +2573,7 @@ useEffect(()=>{
                       )}
                       {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
@@ -2432,11 +2582,13 @@ useEffect(()=>{
                        {/*   */}
                        {game.prize_reset_status===true&&prizeResetStatus!=="RESET"?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}
                     {game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}  
@@ -2479,7 +2631,8 @@ useEffect(()=>{
                     playAgain &&
                     count != 0 ? (
                       // prizeMoveIcon===true ? (
-                      prizeResetActive ? (
+                      // prizeResetActive||
+                      showGrayPrizeIcon===true ? (
                         <button>
                           <img src={assets.GrayPrizeMove} alt="" />
                         </button>
@@ -2492,7 +2645,7 @@ useEffect(()=>{
                             setPrizeResetActive(true);
                             setPlayAgain(false);
                             setPrizeMoveIcon(true)
-
+                            setShowGrayPrizeIcon(true)
                             // prizeReset()
                           }}
                         >
@@ -3254,7 +3407,10 @@ useEffect(()=>{
                         />
                       </button>
                     ) : (
-                      <button
+                      <button 
+                      style={{
+                        pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
+                      }}
                         onClick={(e) => {
                           gameJoin(e);
                         }}
@@ -3266,7 +3422,7 @@ useEffect(()=>{
                   <div
                     className={style.Report}
                     style={{
-                      pointerEvents: gamePlayStatus ? "none" : "visible",
+                      pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
                     }}
                   >
                     <button
@@ -3280,7 +3436,7 @@ useEffect(()=>{
                 </div>
                 <div
                   className={style.Right}
-                  style={{ pointerEvents: gamePlayStatus ? "none" : "visible" }}
+                  style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId? "none" : "visible" }}
                 >
                   <div className={style.LastWin}>
                     <button

@@ -109,6 +109,104 @@ async function playAudioBg() {
     const {user} = useSelector((state)=>state.profile)
     // const baseUrl = "https://uat.wincha-online.com"
 // const baseUrl = "https://uat.wincha-online.com";
+const ticket =  [
+  {
+      "_id": "6309fa7cc4bb207d7529f39d",
+      "token_image": "https://ocp-tokens.s3.amazonaws.com/Artboard+11+-+ICON+-+500W+ticket.png",
+      "token_amount": "3.59",
+      "token_point": "500",
+      "token_code": "ocp_token_500w_200720220502",
+      "name": "500w_200720220502",
+      "value": "",
+      "currency_symbol": "£",
+      "status": "active",
+      "countrycode": "UK",
+      "type": "web",
+      "createdAt": "2022-08-27T11:05:32.186Z",
+      "updatedAt": "2022-08-27T11:05:32.186Z",
+      "__v": 0
+  },
+  {
+      "_id": "6309faff3d41ae9ad7d1e21c",
+      "token_image": "https://ocp-tokens.s3.amazonaws.com/Artboard+11+-+ICON+-+1000W+ticket.png",
+      "token_amount": "6.39",
+      "token_point": "1000",
+      "token_code": "ocp_token_1000w_200720220503",
+      "name": "1000w_200720220503",
+      "value": "",
+      "currency_symbol": "£",
+      "status": "active",
+      "countrycode": "UK",
+      "type": "web",
+      "createdAt": "2022-08-27T11:05:32.186Z",
+      "updatedAt": "2022-08-27T11:05:32.186Z",
+      "__v": 0
+  },
+  {
+      "_id": "6309fbe43d41ae9ad7d1e21d",
+      "token_image": "https://ocp-tokens.s3.amazonaws.com/Artboard+11+-+ICON+-+2000W+ticket.png",
+      "token_amount": "11.99",
+      "token_point": "2000",
+      "token_code": "ocp_token_2000w_200720220504",
+      "name": "2000w_200720220504",
+      "value": "",
+      "currency_symbol": "£",
+      "status": "active",
+      "countrycode": "UK",
+      "type": "web",
+      "createdAt": "2022-08-27T11:05:32.186Z",
+      "updatedAt": "2022-08-27T11:05:32.186Z",
+      "__v": 0
+  },
+  {
+      "_id": "6309fc523d41ae9ad7d1e21e",
+      "token_image": "https://ocp-tokens.s3.amazonaws.com/Artboard+11+-+ICON+-+3000W+ticket.png",
+      "token_amount": "15.99",
+      "token_point": "3000",
+      "token_code": "ocp_token_3000w_200720220505",
+      "name": "3000w_200720220505",
+      "value": "",
+      "currency_symbol": "£",
+      "status": "active",
+      "countrycode": "UK",
+      "type": "web",
+      "createdAt": "2022-08-27T11:05:32.186Z",
+      "updatedAt": "2022-08-27T11:05:32.186Z",
+      "__v": 0
+  },
+  {
+      "_id": "6309fcdf3d41ae9ad7d1e21f",
+      "token_image": "https://ocp-tokens.s3.amazonaws.com/Artboard+11+-+ICON+-+5000W+ticket.png",
+      "token_amount": "27.99",
+      "token_point": "5000",
+      "token_code": "ocp_token_5000w_200720220506",
+      "name": "5000w_200720220506",
+      "value": "",
+      "currency_symbol": "£",
+      "status": "active",
+      "countrycode": "UK",
+      "type": "web",
+      "createdAt": "2022-08-27T11:05:32.186Z",
+      "updatedAt": "2022-08-27T11:05:32.186Z",
+      "__v": 0
+  },
+  {
+      "_id": "6309fd833d41ae9ad7d1e220",
+      "token_image": "https://ocp-tokens.s3.amazonaws.com/Artboard+11+-+ICON+-+10000W+ticket.png",
+      "token_amount": "39.99",
+      "token_point": "10000",
+      "token_code": "ocp_token_10000w_200720220507",
+      "name": "10000w_200720220507",
+      "value": "",
+      "currency_symbol": "£",
+      "status": "active",
+      "countrycode": "UK",
+      "type": "web",
+      "createdAt": "2022-08-27T11:05:32.186Z",
+      "updatedAt": "2022-08-27T11:05:32.186Z",
+      "__v": 0
+  }
+]
     const navigate = useNavigate();
     console.log(window)
     async function fetchTickets() {
@@ -129,8 +227,8 @@ async function playAudioBg() {
     }
     useEffect(()=>{
         const query = new URLSearchParams(window.location.search);
-        console.log(window.GetParams())
-        console.log(window.GetParams)
+        // console.log(window.GetParams())
+        // console.log(window.GetParams)
         console.log(window.location)
       console.log(query,"query");
       if (query.get("success")) {
@@ -402,7 +500,7 @@ async function playAudioBg() {
                 }}>{configuration.CURRENCY_SYMBOL} {configuration.VIP_SUBSCRIPTION} / {configuration.VIP_SUBSCRIPTION_PERIOD}</button>
             </div>
             <div className={style.Tickets}>
-                {tickets.map((item,index)=>{
+                {ticket.map((item,index)=>{
                     return(
                         <div className={style.TicketItem} key={index}
                              onClick={()=>{

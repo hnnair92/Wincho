@@ -10,7 +10,7 @@ import shippingGray from "../../assests/Shipping Unselected Tab.png";
 import myDetailsGray from "../../assests/My Details Unselected Tab.png";
 import shippingBlue from "../../assests/Shipping Selected Tab.png";
 import { configutation } from "../../actions/product";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../Description/assests";
 import eye from "../../assests/Password Eye.png";
 import info from "../../assests/Information Icon.png";
@@ -30,6 +30,7 @@ const Profile = ({ gameMusic,
   setGameMusic,
   gameSound,
   setGameSound,}) => {
+    const navigate = useNavigate()
       const [musicStatus, setMusicStatus] = useState(
           localStorage.getItem("music")
             ? localStorage.getItem("music")
@@ -114,7 +115,7 @@ async function playAudioBg() {
   const resendLocal = localStorage.getItem("resend")
 
   async function deactivateAccount() {
-    await fetch(`${baseUrl}/user/vip/shipping/status`, {
+    await fetch(`${baseUrl}/game/issue/report`, {
       method: "POST",
       body: JSON.stringify({
         playerID: userId,
@@ -132,6 +133,15 @@ async function playAudioBg() {
       .then((data) => {
         // setVipData(data);
         console.log(data);
+        // e.preventDefault();
+        localStorage.removeItem("user");
+        // console.log(window.location.pathname.split("/"))
+        localStorage.removeItem("SaveShipping");
+        localStorage.removeItem("times");
+        // navigate("/");
+        window.location.reload();
+        navigate("/")
+
       });
   }
   

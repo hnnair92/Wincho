@@ -20,7 +20,7 @@ import bandaiLogo from "../../assests/Bandai Namco Logo.png";
 import { MainMenu, settingsMenu } from "./Menu";
 import { music } from "../../assests/Musics/allMusic";
 // import { useSelector } from 'react-redux'
-const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
+const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
   const dispatch = useDispatch();
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
@@ -148,25 +148,26 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
 
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
-                    playAudio(music.Click);
+                    // playAudio(music.Click);
                     
                          checkGameOn();
                       setToggle(false);
-                      if(gamePlay===true){
+                       // if(gamePlay===true){
                 setActive(true)
-              }
-                    setPageUrl(menu.url)
-                   
-
-                        // navigate(`/${MMenu.url}`);
-                        if (menu.Name === "Support"&&gamePlay===false) {
+                // }
+                      setPageUrl(menu.url)
+                      playAudio(music.Click);
+                     
+                          checkGameOn();
                         setToggle(false);
-                        handleId(e);
-                      }
-
-                      if (menu.Name != "Support"&&gamePlay===false) {
-                        navigate(`/${menu.url}`);
-                      }
+                        if (menu.Name === "Support"&&gamePlay===false&&userJoined===false) {
+                          setToggle(false);
+                          handleId(e);
+                        }
+  
+                        if (menu.Name != "Support"&&gamePlay===false&&userJoined===false) {
+                          navigate(`/${menu.url}`);
+                        }
                       // if (menu.Name != "Support") {
                       //   navigate(`/${menu.url}`);
                       // }
@@ -237,19 +238,22 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                       alt=""
                       onClick={(e) => {
                     setSetting(false)
-                    if(gamePlay===true){
+                       // if(gamePlay===true){
                 setActive(true)
-              }
-                    setPageUrl(MMenu.url)
-                   
-                        if (MMenu.Name === "Support"&&gamePlay===false) {
+                // }
+                      setPageUrl(MMenu.url)
+                      playAudio(music.Click);
+                     
+                          checkGameOn();
                         setToggle(false);
-                        handleId(e);
-                      }
-
-                      if (MMenu.Name != "Support"&&gamePlay===false) {
-                        navigate(`/${MMenu.url}`);
-                      }
+                        if (MMenu.Name === "Support"&&gamePlay===false&&userJoined===false) {
+                          setToggle(false);
+                          handleId(e);
+                        }
+  
+                        if (MMenu.Name != "Support"&&gamePlay===false&&userJoined===false) {
+                          navigate(`/${MMenu.url}`);
+                        }
                       }}
 
                     />
@@ -307,28 +311,28 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                         onClick={(e) => {
               e.preventDefault()
               setSetting(false)
-              if(gamePlay===true){
-                setActive(true)
-              }
-                    setPageUrl(menu.url)
-                   
-
-                        // navigate(`/${MMenu.url}`);
-                      //   if (MMenu.Name === "Support"&&gamePlay===false) {
-                      //   setToggle(false);
-                      //   handleId(e);
-                      // }
-
-                      // if (MMenu.Name != "Support"&&gamePlay===false) {
-                      //   navigate(`/${MMenu.url}`);
-                      // }
-
-
+              // if(gamePlay===true){
+                // }
+                setPageUrl(menu.url)
+                
+                
+                // navigate(`/${MMenu.url}`);
+                //   if (MMenu.Name === "Support"&&gamePlay===false) {
+                  //   setToggle(false);
+                  //   handleId(e);
+                  // }
+                  
+                  // if (MMenu.Name != "Support"&&gamePlay===false) {
+                    //   navigate(`/${MMenu.url}`);
+                    // }
+                    
+                    
+                    setActive(true)
                           setId(menu.id);
                          
                           if (
-                            menu.Name === "Terms of Use" &&gamePlay===false||
-                            menu.Name === "Privacy Policy"&&gamePlay===false
+                            menu.Name === "Terms of Use" &&gamePlay===false&&userJoined===false||
+                            menu.Name === "Privacy Policy"&&gamePlay===false&&userJoined===false
                           ) {
                             window.open(
                               `${
@@ -346,10 +350,10 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                             setSetting(true);
 
                             // navigate(`/${menu.url}`)
-                          } else if(menu.Name!=="Logout"&&gamePlay===false){
+                          } else if(menu.Name!=="Logout"&&gamePlay===false&&userJoined===false){
                             navigate(`/${menu.url}`);
                           }
-                          if (menu.Name === "Logout"&&gamePlay===false) {
+                          if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
                             e.preventDefault()
                             navigate(`${window.location.pathname}`)
                             // setPopup(true);
@@ -508,9 +512,9 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                 onClick={(e) => {
                   e.preventDefault()
                   setSetting(false)
-                  if(gamePlay===true){
-                  setActive(true)
-                  }
+                  // if(gamePlay===true){
+                  // setActive(true)
+                  // }
                   setPageUrl(menu.url)
 
                   // setId(menu.id);
@@ -520,9 +524,12 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                   //     : // ""
                   //       setSetting(false);
                   // }
+                  setActive(true)
+                  setId(menu.id);
+                 
                   if (
-                    menu.Name === "Terms of Use" &&gamePlay===false||
-                    menu.Name === "Privacy Policy" &&gamePlay===false
+                    menu.Name === "Terms of Use" &&gamePlay===false&&userJoined===false||
+                    menu.Name === "Privacy Policy"&&gamePlay===false&&userJoined===false
                   ) {
                     window.open(
                       `${
@@ -540,21 +547,14 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                     setSetting(true);
 
                     // navigate(`/${menu.url}`)
-                  } 
-                  else if(menu.Name!=="Logout"&&gamePlay===false){
+                  } else if(menu.Name!=="Logout"&&gamePlay===false&&userJoined===false){
                     navigate(`/${menu.url}`);
-                    // setSetting(true);
-
                   }
-                  if (menu.Name === "Logout"&&gamePlay===false) {
+                  if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
                     e.preventDefault()
                     navigate(`${window.location.pathname}`)
-                    setPopup(true);
-                    // setSetting(true);
-
+                    // setPopup(true);
                   }
-                  console.log(menu.Name.toLowerCase())
-                  console.log(window.location.pathname.split("/")[1])
                 }}
               >
                 {/* if(menu.Name) */}
@@ -707,9 +707,9 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
       <div className={style.MobileTopNav} style={{pointerEvents:gamePlay?"none":"visible"}}>
         <div className={style.MLogo}>
           <img src={logo} alt="" onClick={(e) => {
-            if(gamePlay===true){
+            // if(gamePlay===true){
             setActive(true)
-            }
+            // }
             setPageUrl("/")
           }}/>
         </div>
@@ -786,9 +786,9 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
               {
 
                 
-                  if(gamePlay===true){
+                  // if(gamePlay===true){
                 setActive(true)
-              }
+              // }
                  
                 navigate("/");
               }
@@ -815,20 +815,20 @@ const Header = ({ pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGame
                   
                     setId(menu.id);
                    
-                    if(gamePlay===true){
+                    // if(gamePlay===true){
                 setActive(true)
-              }
+              // }
                     setPageUrl(menu.url)
                     playAudio(music.Click);
                    
                         checkGameOn();
                       setToggle(false);
-                      if (menu.Name === "Support"&&gamePlay===false) {
+                      if (menu.Name === "Support"&&gamePlay===false&&userJoined===false) {
                         setToggle(false);
                         handleId(e);
                       }
 
-                      if (menu.Name != "Support"&&gamePlay===false) {
+                      if (menu.Name != "Support"&&gamePlay===false&&userJoined===false) {
                         navigate(`/${menu.url}`);
                       }
                     

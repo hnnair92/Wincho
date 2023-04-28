@@ -1392,3 +1392,23 @@ video {
     position: absolute;
     z-index: 99999;
 }
+.PrizeMoveOverlay{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999999;
+}
+@media(max-width:765px){
+    .video .gameGuideOverlay img{
+        border-radius: 30px;
+        border-width: 3px;
+    
+    }
+}
+@media(max-width:1065px){
+    .video .gameGuideOverlay img{
+        border-radius: 30px;
+        /* border-width: 3px; */
+    
+    }
+}

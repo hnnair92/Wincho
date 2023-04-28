@@ -559,7 +559,7 @@
 
 }
 .SearchIcon,.EmptySearch{
-    width: 15%;
+    width: 8%;
 }
 .SearchIcon img,.EmptySearch img{
     width: 100%;
@@ -580,6 +580,9 @@
     padding: 0px 10px;
     font-weight: 500;
 
+}
+.Search input{
+    font-size: 2rem;
 }
 .CategoriesSection,.AllCategories{
     width: 92.5%;

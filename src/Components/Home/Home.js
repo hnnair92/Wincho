@@ -11,7 +11,7 @@ import supportContact from '../../assests/Full Support Box.png'
 import WinchaIcon from '../../Api/WinchaIcon.json'
 import AppStore from '../../assests/pngwing.com (4).png'
 import playBtn from '../../assests/Asset 602-300ppi.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import imageDiv from '../../assests/TEXTOff Tickets.png'
 import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
@@ -35,6 +35,7 @@ const Home = () => {
     // console.log(subscriber)
     // });
     // session.connect(token);
+    const navigate  = useNavigate()
     const chnageNav=()=>{
         if(window.scrollY >= 80){
           setScrollNav(true)
@@ -264,7 +265,9 @@ const Home = () => {
                 </div>
                 <div className={style.MTransitionContent}>
                     {/* <link> */}
-                        <div className={style.MPlayBtn}>
+                        <div className={style.MPlayBtn} onClick={()=>{
+                            navigate("/prizes")
+                        }}>
                             <img src={playBtn} alt="" />
                         </div>
                     
