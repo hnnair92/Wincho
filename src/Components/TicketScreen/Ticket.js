@@ -107,6 +107,7 @@ async function playAudioBg() {
     const [loading,setLoading] = useState(false)
     // const ticket
     const {user} = useSelector((state)=>state.profile)
+    console.log(window.location)
     // const baseUrl = "https://uat.wincha-online.com"
 // const baseUrl = "https://uat.wincha-online.com";
 const ticket =  [
@@ -294,8 +295,8 @@ const ticket =  [
         currency: configuration.CURRENCY_CODE,
         product: ticketItem.token_point,
         // success_url: "http://localhost:3000/payment/success",
-        success_url: "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
+        success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
       }
       await fetch(`${baseUrl}/points/create-checkout-session`, {
         method: "POST",
@@ -320,8 +321,8 @@ const ticket =  [
             quantity: 1,
             currency: configuration.CURRENCY_CODE,
             product: "Vip",
-            success_url: "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
+            success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
           }),
           headers: {
             "Content-Type": "application/json",

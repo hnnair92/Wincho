@@ -39,7 +39,7 @@ const {configuration}= useSelector((state)=>state.configuration)
         // }
         // if(product==="Vip"){
         //   addVip()
-        addPoint("500")
+        // addPoint("500")
         // }
 
         console.log(data.data[data.data.length-1].status)
@@ -93,7 +93,6 @@ const {configuration}= useSelector((state)=>state.configuration)
               console.log(poointBody)
               dispatch(updateProfile())
               navigate("/tickets")
-              // window.location.reload()
             });
     }
     useEffect(()=>{
