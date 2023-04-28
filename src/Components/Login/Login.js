@@ -20,14 +20,26 @@ const Login = () => {
   const [passError, setPassError] = useState({});
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      dispatch(updateProfile(userId));
+      // dispatch(updateProfile(userId));
     }
-    if (localStorage.getItem("user")) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
+    // if (localStorage.getItem("user")) {
+    //   navigate("/");
+    // } else {
+    //   navigate("/login");
+    // }
   }, [dispatch, userId]);
+  useEffect(()=>{
+    if(user){
+
+    
+    if(user.username!==""){
+        // dispatch(updateProfile(userId))
+        navigate("/")
+    }
+}
+    // if(userId!==null){
+    // }
+},[user,dispatch])
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -39,6 +51,9 @@ const Login = () => {
     };
     e.preventDefault();
     dispatch(loginAction(data));
+    dispatch(updateProfile(userId));
+    navigate("/")
+
   };
   const forgotPassword = (e) => {
     e.preventDefault();

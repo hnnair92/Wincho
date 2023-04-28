@@ -705,13 +705,18 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
       }
       <audio ref={audioRefHeader}></audio>
       <div className={style.MobileTopNav} style={{pointerEvents:gamePlay?"none":"visible"}}>
-        <div className={style.MLogo}>
-          <img src={logo} alt="" onClick={(e) => {
-            // if(gamePlay===true){
-            setActive(true)
-            // }
-            setPageUrl("/")
-          }}/>
+        <div className={style.MLogo}onClick={(e) => {
+            //  setActive(true)
+             // }
+                   setPageUrl("/")
+                 // if(gamePlay===true){
+               setActive(true)
+             // }
+                if(gamePlay===false&&userJoined===false){
+                  navigate("/");
+                }
+          }}>
+          <img src={logo} alt="" />
         </div>
         <div className={style.MBandaiLogo}>
           <img src={bandaiLogo} alt="" />
@@ -785,12 +790,15 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
             setPageUrl("/")
               {
 
-                
+                setActive(true)
+              // }
+                    setPageUrl("/")
                   // if(gamePlay===true){
                 setActive(true)
               // }
-                 
-                navigate("/");
+                 if(gamePlay===false&&userJoined===false){
+                   navigate("/");
+                 }
               }
             }}
           >

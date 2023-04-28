@@ -8,11 +8,12 @@ const Login = () => {
     // const user = JSON.parse(localStorage.getItem("user"))
     const navigate = useNavigate()
     const{error,user,authenticated} = useSelector((state)=>state.userData)
+    const userId = JSON.parse(localStorage.getItem("user"))
     useEffect(()=>{
-        if(authenticated){
+        if(user?.username!==""){
             navigate("/")
         }
-    },[navigate,authenticated])
+    },[])
     const [username,setUsername] = useState("")
     const[password,setPassword] = useState("")
     const dispatch = useDispatch()
