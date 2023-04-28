@@ -192,6 +192,28 @@ async function playAudioBg() {
         setCheckMail(true)
       });
   }
+  async function updatePasswordFunc(){
+    await fetch(`${baseUrl}/user/profile/update`, {
+      method: "POST",
+      body: JSON.stringify({
+        id: userId,
+        username:user.username,
+        password:password,
+        source: "web",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // localStorage.setItem("resend",true)
+        // setLoading(false)
+        // setResendEmail(false)
+        // setCheckMail(true)
+        console.log(data)
+      });
+  }
   return (
     <div className={style.Container}>
       <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
@@ -435,6 +457,7 @@ async function playAudioBg() {
                   // numberValidation()
                   // setCount(4)
                   // console.log(addressObj);
+                  updatePasswordFunc()
                 }}
                 // disabled={ line1===""|| line2===""|| city===""|| state===""|| zipcode===""}
               >

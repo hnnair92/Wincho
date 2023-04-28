@@ -686,7 +686,7 @@ const Description = ({
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
-        freeplay: false,
+        freeplay:GameData.price="0"?true:false,
       };
       dispatch(gameEntry(EntryRequest));
       dispatch(configutation());
@@ -1155,7 +1155,7 @@ const Description = ({
       body: JSON.stringify({
         machineCode: game.machineCode,
         playerID: userId,
-        freeplay: false,
+        freeplay:GameData.price="0"?true:false,
         source: "web",
       }),
       headers: {
@@ -1225,6 +1225,7 @@ const Description = ({
         playerID: userId,
         machineCode: game.machineCode,
         source: "web",
+        freeplay:GameData.price="0"?true:false,
       }),
       headers: {
         "Content-type": "application/json",
