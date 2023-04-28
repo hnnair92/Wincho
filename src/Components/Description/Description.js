@@ -175,7 +175,7 @@ const Description = ({
       return timeoutId;
 
       // console.log("navigated")
-    },10000)
+    },25000)
     
     // alert("DO you wana exist this page");
   };
