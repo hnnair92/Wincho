@@ -95,17 +95,13 @@ const Register = () => {
     const navigate = useNavigate()
     const{error,user,authenticated} = useSelector((state)=>state.userData)
     useEffect(()=>{
-        if(user){
-
-        
-        if(user.username!==""){
-            // dispatch(updateProfile(userId))
+        if(userId!==null){
+            dispatch(updateProfile(userId))
             navigate("/")
         }
-    }
         // if(userId!==null){
         // }
-    },[user,dispatch])
+    },[userId,dispatch])
     // const[chec]
     useEffect(()=>{
         console.log(state)
@@ -130,8 +126,6 @@ const Register = () => {
         console.log(configuration)
         if(eligible===true&&password===confirmPassword){
             dispatch(registerAction(data))
-            dispatch(updateProfile())
-            window.location.reload()
         }
     }
     const checkUsername = async()=>{
