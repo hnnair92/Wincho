@@ -91,7 +91,7 @@ const {configuration}= useSelector((state)=>state.configuration)
             .then((data) => {
               console.log(data)
               console.log(poointBody)
-              dispatch(updateProfile())
+              dispatch(updateProfile(userId))
               navigate("/tickets")
             });
     }
@@ -99,7 +99,7 @@ const {configuration}= useSelector((state)=>state.configuration)
       checkoutStripe()
     },[])
   return (
-    <div>success</div>
+    <div style={{}}>success</div>
   )
 }
 

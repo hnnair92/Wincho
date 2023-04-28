@@ -489,10 +489,10 @@ const ticket =  [
           ""
         )}
         {popup?showPopup():""}
-        <div className={style.redBox}>
+        {/* <div className={style.redBox}>
             <img src={GoldTicket} alt=""/>
            <h2> 20% OFF TICKETS!</h2>
-        </div>
+        </div> */}
         <div className={style.Ticket}>
             <div className={style.Banner}>
                 <img src={Banner} alt="" />

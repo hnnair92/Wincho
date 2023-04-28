@@ -234,7 +234,7 @@ const Description = ({
   const [secondStep, setSecondStep] = useState(false);
   const [wait, setWait] = useState(false);
   const [camera, setCamera] = useState(false);
-  const [count, setCount] = useState(4);
+  const [count, setCount] = useState(0);
   const [viewCount, setViewCount] = useState("");
   const [onPlay, setOnPlay] = useState(false);
   const [prizeId,setPrizeID] = useState("")
@@ -686,7 +686,7 @@ const Description = ({
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
-        freeplay:GameData.price="0"?true:false,
+        freeplay:GameData.price==="0"?true:false,
       };
       dispatch(gameEntry(EntryRequest));
       dispatch(configutation());
@@ -1155,7 +1155,7 @@ const Description = ({
       body: JSON.stringify({
         machineCode: game.machineCode,
         playerID: userId,
-        freeplay:GameData.price="0"?true:false,
+        freeplay:GameData.price==="0"?true:false,
         source: "web",
       }),
       headers: {
@@ -1225,7 +1225,7 @@ const Description = ({
         playerID: userId,
         machineCode: game.machineCode,
         source: "web",
-        freeplay:GameData.price="0"?true:false,
+        freeplay:GameData.price==="0"?true:false,
       }),
       headers: {
         "Content-type": "application/json",
@@ -1486,12 +1486,12 @@ const Description = ({
   //     })
   //   }
   async function PointDebit() {
-    const userPointInt = parseInt(user.point);
-    const gamePriceInt = parseInt(GameData&&GameData.price);
+    const userPointInt = parseInt(user?.point);
+    const gamePriceInt = parseInt(GameData?.price);
     console.log(gamePriceInt)
     console.log(userPointInt)
+    console.log(userPointInt < gamePriceInt)
     if (userPointInt < gamePriceInt) {
-      // return navigate("/prizes")
       return setTopup(true);
     }
 
@@ -1526,6 +1526,7 @@ const Description = ({
         gameStart();
       });
   }
+  // console.log(GameData?.price)
   async function freeplayCheck() {
     await fetch(`${baseUrl}`, {
       method: "POST",
@@ -2628,7 +2629,7 @@ useEffect(()=>{
                     </button>
                   </div>
                   <div className={style.PrizeReset}>
-                    {count % configuration.FREE_PLAY_LIMIT === 0 &&
+                    {count % parseInt(configuration.GamePlayCount) === 0 &&
                     playAgain &&
                     count != 0 ? (
                       // prizeMoveIcon===true ? (
