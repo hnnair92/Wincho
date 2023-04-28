@@ -356,7 +356,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                           if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
                             e.preventDefault()
                             navigate(`${window.location.pathname}`)
-                            // setPopup(true);
+                            setPopup(true);
                           }
                         }}
                       >
@@ -553,7 +553,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                   if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
                     e.preventDefault()
                     navigate(`${window.location.pathname}`)
-                    // setPopup(true);
+                    setPopup(true);
                   }
                 }}
               >

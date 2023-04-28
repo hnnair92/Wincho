@@ -682,7 +682,7 @@ const Description = ({
     if (GameData) {
       EntryRequest = {
         catalog: GameData && GameData.id,
-        playerID: userId===null||userId===undefined?milliseconds*utc:userId,
+        playerID: userId===null||userId===undefined?milliseconds*utc: userId,
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
@@ -700,7 +700,7 @@ const Description = ({
 
   useEffect(() => {
     const userPlayCount = {
-      userId:userId,
+      userId: userId,
       count:checkDateCount,
       date:date
     }
