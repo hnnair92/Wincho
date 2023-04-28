@@ -61,7 +61,7 @@ const {configuration}= useSelector((state)=>state.configuration)
         }
     }).then(res=>res.json()).then((data)=>{
         const paymentSuccess = data.data[data.data.length-1].status
-        if(paymentSuccess==="succeeded"){
+        if(paymentSuccess==="succeeded"||paymentSuccess==="complete"){
             addPoint(data.data[data.data.length-1].product)
         }
         const product = data.data[data.data.length-1].product
@@ -91,9 +91,9 @@ const {configuration}= useSelector((state)=>state.configuration)
             .then((data) => {
               console.log(data)
               console.log(poointBody)
-              // dispatch(updateProfile())
-              window.location.reload()
+              dispatch(updateProfile())
               navigate("/tickets")
+              // window.location.reload()
             });
     }
     useEffect(()=>{
