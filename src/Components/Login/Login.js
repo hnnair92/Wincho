@@ -53,6 +53,8 @@ const Login = () => {
     dispatch(loginAction(data));
     dispatch(updateProfile(userId));
     navigate("/")
+    window.location.reload()
+
 
   };
   const forgotPassword = (e) => {

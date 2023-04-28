@@ -131,6 +131,7 @@ const Register = () => {
         if(eligible===true&&password===confirmPassword){
             dispatch(registerAction(data))
             dispatch(updateProfile())
+            window.location.reload()
         }
     }
     const checkUsername = async()=>{
