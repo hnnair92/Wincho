@@ -484,7 +484,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                             menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                           }
                         >
-                          {userId === null
+                          {userId === null&&user?.username===""
                             ? menu.Name === "Login/Register"
                               ? menu.Name
                               : ""
@@ -689,7 +689,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                   }
                 >
-                  {userId === null
+                  {userId === null&&user?.username===""
                     ? menu.Name === "Login/Register"
                       ? menu.Name
                       : ""
@@ -863,7 +863,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
             })}
           </ul>
         </div>
-        {userId!==null?
+        {userId!==null&&user?.username!==""?
         <div className={style.Credits}>
           <div className={style.Ticket}>
             <img src={ticket} alt="" />
@@ -883,7 +883,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
         </div>
       :
       ""}
-      {userId!==null?
+      {userId!==null&&user?.username!==""?
         <div className={style.Profile}>
           <p className={style.Username}>
             {(user && user.username) || "username"}
