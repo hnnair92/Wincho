@@ -292,9 +292,9 @@ const ticket =  [
         mode: "payment",
         amount: parseFloat(ticketItem.token_amount).toFixed(2) * 100,
         quantity: 1,
+        user_id:userId,
         currency: configuration.CURRENCY_CODE,
         product: ticketItem.token_point,
-        // success_url: "http://localhost:3000/payment/success",
         success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
       }
@@ -321,6 +321,7 @@ const ticket =  [
             quantity: 1,
             currency: configuration.CURRENCY_CODE,
             product: "Vip",
+            user_id:userId,
             success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
           }),
@@ -494,12 +495,14 @@ const ticket =  [
            <h2> 20% OFF TICKETS!</h2>
         </div> */}
         <div className={style.Ticket}>
+        {user?.profile_status===false?
             <div className={style.Banner}>
                 <img src={Banner} alt="" />
                 <button onClick={()=>{
                     setPremiumPopup(true)
                 }}>{configuration.CURRENCY_SYMBOL} {configuration.VIP_SUBSCRIPTION} / {configuration.VIP_SUBSCRIPTION_PERIOD}</button>
             </div>
+        :""}
             <div className={style.Tickets}>
                 {ticket.map((item,index)=>{
                     return(

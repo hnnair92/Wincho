@@ -66,6 +66,9 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    position: absolute;
+    top: 0;
+    transform: translateY(7.5%);
     /* height: 90%; */
 }
 
@@ -121,7 +124,7 @@
 .Camera,
 .PrizeReset,
 .LastWin {
-    width: 55%;
+    width: 65%;
     margin: 0 auto;
 }
 .PrizeReset{
@@ -165,7 +168,7 @@ button {
 }
 
 .Controls .Guide {
-    width: 75%;
+    width: 100%;
     margin: 0 auto;
     height: auto;
 }
@@ -177,7 +180,7 @@ button {
 
 .LastWin {
     margin: 0 auto;
-    width: 55%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -605,7 +608,7 @@ video {
 
 .PlayImage {
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
     position: relative;
 }
 

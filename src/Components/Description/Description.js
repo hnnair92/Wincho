@@ -146,9 +146,9 @@ const Description = ({
       // if(check===false&&userFocusCheck===false&&isUserFocus===""){
         setIsUserFocus(timeoutId)
         console.log("navigated with userFocusCheck")
-        console.log(blurCheck)
-        gameLeave(userId,false)
-        navigate("/prizes",{state:{category:sendCategory}})
+        // console.log(blurCheck)
+        // gameLeave(userId,false)
+        // navigate("/prizes",{state:{category:sendCategory}})
       }
       else{
         clearTimeout(timeoutId)
@@ -185,8 +185,8 @@ const Description = ({
       let timeoutCheckuser = setTimeout(()=>{
         checkIsUser =JSON.parse(localStorage.getItem("userJoined"))
         if(checkIsUser===false){
-          gameLeave(userId,false)
-          navigate("/prizes",{state:{category:sendCategory}})
+          // gameLeave(userId,false)
+          // navigate("/prizes",{state:{category:sendCategory}})
           console.log("yes exiting");
           console.log(userJoined,"userJoined");
           
@@ -686,7 +686,7 @@ const Description = ({
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
-        freeplay:GameData.price==="0"?true:false,
+        freeplay:false,
       };
       dispatch(gameEntry(EntryRequest));
       dispatch(configutation());
@@ -1132,6 +1132,7 @@ const Description = ({
   }
   async function gameJoin(e) {
     setActive(false)
+    console.log(EntryRequest)
     checkAnime();
     console.log(GameData.price)
     playAudio(music.Wincha);
@@ -1150,14 +1151,16 @@ const Description = ({
         setQue(splitQue[1]);
       }
     });
+    const joinBody = {
+      machineCode: game.machineCode,
+      playerID: userId,
+      // freeplay:GameData.price==="0"?true:false,
+      freeplay:false,
+      source: "web",
+    }
     await fetch(`${baseUrl}/game/join`, {
       method: "POST",
-      body: JSON.stringify({
-        machineCode: game.machineCode,
-        playerID: userId,
-        freeplay:GameData.price==="0"?true:false,
-        source: "web",
-      }),
+      body: JSON.stringify(joinBody),
       headers: {
         "Content-type": "application/json",
       },
@@ -1169,6 +1172,7 @@ const Description = ({
         setGamePlayStatus(true);
         // setReloadStatus(true)
         console.log(data);
+        console.log(joinBody,"joinBody");
         if (que === "0") {
           console.log(que);
         } else {
@@ -1218,15 +1222,16 @@ const Description = ({
     }
     console.log(direction);
     socket.emit("peer_message", `${baseMessage}|P_STARTED`);
-
+    const startBody = {
+      playerID: userId,
+      machineCode: game.machineCode,
+      source: "web",
+      freeplay:false,
+      // freeplay:false,
+    }
     await fetch(`${baseUrl}/game/start`, {
       method: "POST",
-      body: JSON.stringify({
-        playerID: userId,
-        machineCode: game.machineCode,
-        source: "web",
-        freeplay:GameData.price==="0"?true:false,
-      }),
+      body: JSON.stringify(startBody),
       headers: {
         "Content-type": "application/json",
       },
@@ -1235,6 +1240,7 @@ const Description = ({
       .then((data) => {
         console.log("direction", game.camera_data[0].camera_id);
         console.log(data)
+        console.log(startBody,"startBody")
         localStorage.setItem("inGame", true);
         setWait(false);
         setStartGame(data.data[0]);

@@ -385,8 +385,8 @@ async function updateTermsAndConditions(){
               </div>
             
             </div>
-            <div className={style.MSearch}>
-            {/* <div className={style.MSearch} style={{backgroundColor:searchIconStatus===false?"transparent":"#e1f5fb",border:searchIconStatus===false?"none":"2px solid #efeef1"}}> */}
+            {/* <div className={style.MSearch}> */}
+            <div className={style.MSearch} style={{backgroundColor:searchIconStatus===false?"transparent":"#e1f5fb",border:searchIconStatus===false?"none":"2px solid #efeef1"}}>
               <div className={style.SearchIcon} onClick={()=>{
                 setSearchIconStatus(true)
               }}>
@@ -1421,7 +1421,8 @@ async function updateTermsAndConditions(){
               </div>
               <div className={style.popupDescription}>
                 {/* <p>{gameData.content}</p> */}
-                <p>{gameData.content.length > 10 ? gameData.content.substring(0, 125) + "..." : gameData.content}</p>
+                {/* <p>{gameData.content.length > 10 ? gameData.content.substring(0, 125) + "..." : gameData.content}</p> */}
+                <p>{gameData.content}</p>
               </div>
               <div
                 className={style.popupPlayNow}
