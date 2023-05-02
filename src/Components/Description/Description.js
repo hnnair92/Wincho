@@ -1216,7 +1216,7 @@ const Description = ({
     // const freePl = JSON.parse(localStorage.getItem("times"))
     // console.log(freePl);
     setFreePlay(freePlay+1)
-    if(GameData.price==="0"&&user.vip===false){
+    if(GameData.price==="0"&&user?.vip===false){
       setCheckDateCount(checkDateCount+1)
       // localStorage.setItem("checkPlay",checkDateCount)
     }
@@ -1523,13 +1523,15 @@ const Description = ({
         if (
           freePlay >= configuration.FREE_PLAY_LIMIT &&
           GameData.price === "0"
-        ) {
-          return setFreeLimitPopup(true);
-        }
-        setCount(count + 1);
-        playAudio(music.CoinDrop);
-        dispatch(updateProfile());
-        gameStart();
+          ) {
+            return setFreeLimitPopup(true);
+          }
+          setCount(count + 1);
+          playAudio(music.CoinDrop);
+          console.log(data)
+          dispatch(updateProfile());
+          gameStart();
+          console.log(data)
       });
   }
   // console.log(GameData?.price)
@@ -1856,7 +1858,7 @@ useEffect(()=>{
         ""
       )}
 
-      {freeLimitPopup && user&&user.vip === false ? (
+      {freeLimitPopup &&user?.vip === false ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />

@@ -40,7 +40,7 @@
 }
 
 .GameScreen {
-    width: 40%;
+    width: 45%;
     /* min-height: 100vh; */
     padding-top: 0rem;
     position: relative;
@@ -68,7 +68,7 @@
     margin: 0 auto;
     position: absolute;
     top: 0;
-    transform: translateY(7.5%);
+    transform: translateY(5%);
     /* height: 90%; */
 }
 
