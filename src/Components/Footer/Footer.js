@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './Footer.module.css'
 import Logo from '../../assests/Wincha Bird Footer.png'
 import {FaFacebook} from 'react-icons/fa'
@@ -11,9 +11,18 @@ import youtube from '../../assests/YouTube Icon.png'
 import { Link, useNavigate } from 'react-router-dom'
 import bandaiLogo from '../../assests/Bandai Namco Logo.png'
 import { useSelector } from 'react-redux'
+import playBtn from '../../assests/Asset 602-300ppi.png'
+// import { Link, useNavigate } from 'react-router-dom';
+import imageDiv from '../../assests/TEXTOff Tickets.png'
+// import {bgImage} from './BgImage.js'
+import { assets } from '../Description/assests'
+// import { AboutBg } from './AboutImage';
+import videoSrc from '../../assests/video/wincha.mp4';
+import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 // import {} from 'react-icons/ai'
 const Footer = ({gamePlay,setGamePlay}) => {
     const navigate = useNavigate();
+    const [isAddress, setIsAddress] = useState(false);
     const {configuration} = useSelector((state)=>state.configuration)
     const handleId = (e,title) => {
         e.preventDefault();
@@ -27,8 +36,46 @@ const Footer = ({gamePlay,setGamePlay}) => {
           }, 100);
         }
       };
+      console.log(window.location)
   return (
     <div className={style.Container} style={{pointerEvents:gamePlay?"none":"visible"}}>
+      {isAddress? (
+        <div className={style.popup}>
+        <div className={style.Overlay} onClick={()=>{
+            setIsAddress(false)
+        }}>
+
+        </div>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            {/* <p>{vipData.vip_discription}</p> */}
+            <form action="">
+                <input type="text" placeholder='Name'/>
+                <input type="text" placeholder="Email"/>
+                <input type="text" placeholder="Phone Number"/>
+                <textarea name="" id="" cols="30" rows="10"  placeholder="Email"></textarea>
+            </form>
+            {/* <p>fhf</p> */}
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                // setisAddressField(true);
+                // setIsAddressShown(true);
+                // setIsAddress(false);
+                setIsAddress(false)
+                //  setCount
+              }}
+            >
+              SEND
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
         <div className={style.Footer}>
             <div className={style.Logo}>
                 <img src={Logo} alt="" />
@@ -38,19 +85,29 @@ const Footer = ({gamePlay,setGamePlay}) => {
                 <ul>
                 <p className={style.Title}>LINKS</p>
                     <li onClick={(e)=>{
-                        handleId(e,"home")
+                        // handleId(e,"home")
+                        navigate("/")
                     }}>Home</li>
                     <li onClick={(e)=>{
-                        handleId(e,"about")
-                    }}>About</li>
+                        // handleId(e,"about")
+                        navigate("/prizes")
+                    }}>Prizes</li>
                     <li onClick={(e)=>{
-                        handleId(e,"watch")
-                    }}>Watch</li>
-                    <Link to="/tickets"><li>Store</li></Link>
+                        if(window.location.pathname!=="/"){
+                        setIsAddress(true)
+                        }
+                        else{
+                        handleId(e,"support")
+
+                        }
+                    }}>Support</li>
+                    {/* <Link to="/tickets"><li>Store</li></Link> */}
                     
                     <li onClick={(e)=>{
-                        handleId(e,"support")
-                    }}>Support</li>
+                        // handleId(e,"support")
+                        navigate("/cart")
+
+                    }}>Basket</li>
                 </ul>
             </div>
             <div className={style.Address}>
@@ -63,10 +120,10 @@ const Footer = ({gamePlay,setGamePlay}) => {
                         window.open("https://www.facebook.com/WinchaOnline/")
                     }}/>
                     <img src={twitter} alt=""  onClick={()=>{
-                        window.open("https://www.instagram.com/winchaonline/")
+                        window.open("https://twitter.com/winchaonline")
                     }}/>
                     <img src={instagram} alt=""  onClick={()=>{
-                        window.open("https://twitter.com/winchaonline")
+                        window.open("https://www.instagram.com/winchaonline/")
                     }}/>
                     <img src={tiktok} alt=""  onClick={()=>{
                         window.open("https://www.tiktok.com/@winchaonline")

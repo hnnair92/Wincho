@@ -33,6 +33,8 @@ const Games = ({ gameMusic,
   const { id } = useParams();
   const location = useLocation()
   const state = location.state
+  const audioRef = useRef(null);
+  let audioStatus = localStorage.getItem("sound");
 //   const baseUrl = "https://uat.wincha-online.com"
 // // const baseUrl = "https://uat.wincha-online.com";
 const {configuration} = useSelector((state)=>state.configuration)
@@ -90,6 +92,59 @@ const {configuration} = useSelector((state)=>state.configuration)
 
     // }
   }
+  useEffect(() => {
+    console.log(gameSound === "true", "gameSound");
+    console.log(typeof gameSound, "gameMusic");
+    if (gameSound === "true" || gameSound === true) {
+      console.log(audioRef.current.volume);
+      audioRef.current.volume = 1;
+      console.log("true for gameMusic");
+      console.log(audioRef.current.volume);
+    } else {
+      audioRef.current.volume = 0;
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    console.log(typeof setGameSound);
+  }, [gameSound]);
+
+  useEffect(() => {
+    if (gameMusic === "true" || gameMusic === true) {
+      console.log(audioRefHome.current.volume);
+      audioRefHome.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    if (gameSound === "true" || gameSound === true) {
+      console.log(audioRef.current.volume);
+      audioRef.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    console.log(typeof gameMusic);
+    // console.log()
+  }, []);
+  
+async function playAudio(src) {
+    console.log(audioStatus, "audioStatus");
+    if (audioStatus === "true") {
+      console.log("reached here");
+      audioRef.current.volume = 1;
+      audioRef.current.src = src;
+      audioRef.current.play();
+    } else {
+      audioRef.current.volume = 0;
+    }
+  }
+  // audioRef.current.volume = 1
+  // console.log(audioRef.current.volume);
+  // audioRefHome.current.mute()
+  // console.log(audioStatus);
+
   useEffect(() => {
     console.log(gameMusic === "true", "gameSound");
     console.log(typeof gameMusic, "gameMusic");
@@ -323,6 +378,7 @@ async function updateTermsAndConditions(){
   return (
     <div className={style.Container}>
      <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
+     <audio ref={audioRef}></audio>
       {/* <div className={style.Section}> */}
         {}
         <div className={style.Categories}>
@@ -1161,6 +1217,8 @@ async function updateTermsAndConditions(){
                       // else if(user)
                     }}>
                        <div className={style.SingleGameOverlay} onClick={()=>{
+                            playAudio(music.Menu)
+
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                             }
@@ -1272,6 +1330,8 @@ async function updateTermsAndConditions(){
                       // else if(user)
                     }}>
                        <div className={style.SingleGameOverlay} onClick={()=>{
+                        // audioRef.current.src = music.Menu
+                        playAudio(music.Menu)
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                             }

@@ -1,0 +1,84 @@
+<style>
+    @font-face {
+       font-family: 'Drum Shake';
+       src: url('https://wincha-online.com/wp-content/plugins/home_page/font/drumshake_italic.otf');
+   }
+   .ring {
+          border: 20px solid rgb(211, 211, 211);
+          position: absolute;
+          left: 45%;
+          border-radius: 50%;
+          border-top: 20px solid red;
+          width: 120px;
+          height: 120px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+</style>
+<div id="user_not_exists_view" style="display: none;margin:auto;" align="center">
+    <h1 >Sorry!!!.. Invalid User</h1>
+    
+</div>
+<div marginWidth='0' marginHeight='0' id="user_exists_view" style="display: none; background-color: #cecece;height: 100%;">
+   <!--<img src="https://dev_wp.wincha-online.com/wp-content/uploads/welcome/Account_Successfully_Created.png" style="height:100%;width: 100%;">-->
+    <div style="display: flex;flex-direction: column;flex-wrap: nowrap;align-items: center;">
+		<div style="background-color:#ffffff;padding:1% 4%;margin-top: 3%;display: flex;    flex-direction: column;align-items: center;">
+			<img src="https://wincha-online.com/wp-content/uploads/2023/04/tick-icon.PNG" style="margin-bottom: -7%;margin-top: 10%;">
+			<p style="font-size: 60px;font-family: Drum Shake;text-align: center;">YOUR ACCOUNT HAS BEEN<br>SUCCESSFULLY CREATED</p>
+		</div>
+	</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    function getParamValuesByName (querystring) {
+                var qstring = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for (var i = 0; i < qstring.length; i++) {
+                    var urlparam = qstring[i].split('=');
+                    if (urlparam[0] == querystring) {
+                        return urlparam[1];
+                    }
+                }
+    }
+    $( document ).ready(function() {
+        var user_id = getParamValuesByName('id');
+        $.ajax({
+            type: "POST",
+            url: "https://uat.wincha-online.com/user/account/verify",
+            data:{
+                "user_id":user_id
+            },
+            success:function(responseData){
+               
+                if(responseData.status == 200){
+                    $("#user_name").html(responseData.user );
+                    $("#user_exists_view").show();
+                }
+                else if(responseData.status == 404){
+                    $("#user_not_exists_view").show();
+                }
+            }
+        });
+        // getdata();
+    });
+    
+    function getdata(){
+        // alert(user_id)
+        $.ajax({
+            type: "GET",
+            url: "https://uat.wincha-online.com/user/"+user_id,
+            success:function(responseData){
+                // console.log(responseData);
+            }
+        });
+    }
+    </script>
+

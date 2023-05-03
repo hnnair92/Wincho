@@ -206,7 +206,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
           <AiOutlineClose
             className={style.closeIcon}
             onClick={() => {
-             
+             setSetting(false)
               if(gamePlay===true){
                 setActive(true)
               }
@@ -297,6 +297,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                 <AiOutlineClose
                   className={style.closeIcon}
                   onClick={() => {
+                    setSetting(false)
                     setId("");
 
                     
@@ -308,6 +309,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                     return (
                       <div
                         className={style.MenuSection}
+                        style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px"}}
+                        // style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px",marginBottom:userId!==null&&menu.Name==="Logout"&&menu.Name!=="Logout"?"30px":"15px"}}
                         onClick={(e) => {
               e.preventDefault()
               setSetting(false)
@@ -484,7 +487,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                             menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                           }
                         >
-                          {userId === null&&user?.username===""
+                          {userId === null
                             ? menu.Name === "Login/Register"
                               ? menu.Name
                               : ""
@@ -705,18 +708,41 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
       }
       <audio ref={audioRefHeader}></audio>
       <div className={style.MobileTopNav} style={{pointerEvents:gamePlay?"none":"visible"}}>
-        <div className={style.MLogo}onClick={(e) => {
-            //  setActive(true)
-             // }
-                   setPageUrl("/")
-                 // if(gamePlay===true){
-               setActive(true)
-             // }
-                if(gamePlay===false&&userJoined===false){
-                  navigate("/");
-                }
-          }}>
-          <img src={logo} alt="" />
+        <div className={style.MLogo}
+        // onClick={(e) => {
+        //     //  setActive(true)
+        //      // }
+        //            setPageUrl("/")
+        //          // if(gamePlay===true){
+        //        setActive(true)
+        //      // }
+        //         if(gamePlay===false&&userJoined===false){
+        //           navigate("/");
+        //         }
+        //   }}
+          >
+          <img src={logo} alt=""   onClick={(e) => {
+            console.log("clicked")
+            console.log(gamePlay)
+            console.log(userJoined)
+            console.log(active)
+            e.preventDefault()
+            //
+          setPageUrl("/")
+            {
+
+              setActive(true)
+            // }
+                  setPageUrl("/")
+                // if(gamePlay===true){
+              setActive(true)
+            // }
+               if(gamePlay===false&&userJoined===false){
+                 navigate("/");
+               }
+            }
+          }}
+ />
         </div>
         <div className={style.MBandaiLogo}>
           <img src={bandaiLogo} alt="" />
@@ -784,26 +810,30 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
       <div className={style.Header} style={{pointerEvents:gamePlay?"none":"visible"}}>
         <div className={style.Logo}>
           <button
-            onClick={(e) => {
-              e.preventDefault()
-              //
-            setPageUrl("/")
-              {
-
-                setActive(true)
-              // }
-                    setPageUrl("/")
-                  // if(gamePlay===true){
-                setActive(true)
-              // }
-                 if(gamePlay===false&&userJoined===false){
-                   navigate("/");
-                 }
-              }
-            }}
+            
           >
             <img src={logo} alt=""
-        
+          onClick={(e) => {
+            console.log("clicked")
+            console.log(gamePlay)
+            console.log(userJoined)
+            console.log(active)
+            e.preventDefault()
+            //
+          setPageUrl("/")
+            {
+
+              setActive(true)
+            // }
+                  setPageUrl("/")
+                // if(gamePlay===true){
+              setActive(true)
+            // }
+               if(gamePlay===false&&userJoined===false){
+                 navigate("/");
+               }
+            }
+          }}
 
           />
           </button>

@@ -164,7 +164,10 @@ button {
 }
 
 .Controls>div {
-    width: 30%;
+    width: 35%;
+}
+.Controls .Center{
+    width: 37%;
 }
 
 .Controls .Guide {
@@ -1067,7 +1070,7 @@ video {
 }
 
 .Section {
-    overflow: scroll;
+    /* overflow: scroll; */
 
 }
 
@@ -1361,13 +1364,13 @@ video {
     height: 35%;
 } */
 .Image{
-    height: 55%;
+    height: 65%;
 }
 .Image img{
     height: 100%;
 }
 .GameContent{
-    height: 45%;
+    height: 35%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

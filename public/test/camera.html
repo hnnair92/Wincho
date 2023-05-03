@@ -1,0 +1,220 @@
+<html>
+<body>
+	
+<!-- OpenTok.js library -->
+<input type="hidden" id="validity">
+<script src="https://static.opentok.com/v2/js/opentok.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"></script>
+<script>
+	const socket = io("https://socket.wincha-online.com/");
+	console.log(socket);
+
+// credentials
+var apiKey = ''; 
+var session;
+var audioInputDevices;
+var videoInputDevices;
+var deviceId;
+var publisher='';
+function getParamValuesByName (querystring) {
+	var qstring = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	for (var i = 0; i < qstring.length; i++) {
+		var urlparam = qstring[i].split('=');
+		if (urlparam[0] == querystring) {
+			return urlparam[1];
+		}
+	}
+}
+
+var camera_id = getParamValuesByName('cid');
+var machine_code = getParamValuesByName('mcode');
+console.log(camera_id);
+console.log(machine_code);
+// socket.on('refresh',function(data) {
+// 	location.reload();
+// });
+socket.on('video_publish',function(data) {
+	console.log('Message coming back from server to client :');
+	let text = data;
+	const myArray = text.split("|");
+	machineCode = myArray[0];
+	command = myArray[1];
+
+	// publish publisher
+
+	if(videoInputDevices.length>0){
+		if(command =="PUB_START" && machine_code==machineCode){
+			console.log(machineCode+"|PUB_STARTED|C"+camera_id)
+			socket.emit("sent_browser_status",machineCode+"|PUB_STARTED|C"+camera_id);
+
+			var pubOptions =
+			{
+				publishAudio : false,
+				publishVideo : true,
+				videoSource: videoInputDevices[camera_id-1].deviceId,
+				resolution: "640x480",
+				frameRate: 15,
+				showControls: false,
+				preload: false,
+				autoplay:true,
+				muted:true,
+				audioFallbackEnabled:false
+			};
+
+			// create publisher
+
+			//var publisher = OT.initPublisher();
+			// console.log("publisher=>"+publisher)
+			if(publisher==''){
+				socket.emit("sent_browser_status",machineCode+"|PUB_STARTED|C"+camera_id);
+				console.log(machineCode+"|PUB_STARTED|C"+camera_id)
+				console.log("publisher=>"+publisher)
+				console.log("Publisher not exists")
+				
+				try {
+					publisher = OT.initPublisher(null, pubOptions, function(error) {
+					// console.log("OT.initPublisher error: ", error);
+					// location.reload();
+					});
+					session_start = session.publish(publisher);
+
+					console.log(session_start);
+				}
+				catch(err) {
+					console.log("error");
+					location.reload();
+				}
+				
+				console.log("Machine Code =>"+machineCode,"Command=>"+command);	
+						
+			}	
+				
+			// console.log("Publisher  exists")
+			
+		}
+		else if(command =="PUB_STOP" && machine_code==machineCode){
+			console.log("publisher"+publisher);
+			if(publisher !=null && publisher !=undefined && publisher !=""){
+				session.unpublish(publisher);
+				socket.emit("sent_browser_status",machineCode+"|PUB_STOPED|C"+camera_id);
+				console.log(machineCode+"|PUB_STOPED|C"+camera_id)
+				
+			}
+			publisher='';
+			console.log("publisher=>"+publisher)
+			console.log("Machine Code =>"+machineCode,"Command=>"+command);
+		}
+		else if(command =="refresh" && machine_code==machineCode){
+			// location.reload();
+		}
+	
+	}
+	
+});
+// connect to session
+getdata();
+
+function getdata(){
+	$.ajax({
+		type: "POST",
+		url: "https://uat.wincha-online.com/game/machine/camera/session/detail",
+		data:{
+			"machine_code":machine_code,
+			"camera_id":camera_id	
+		},
+		success:function(responseData){
+			if(responseData ==0 || responseData==null || responseData==undefined){
+
+			}
+			else{
+				var json_obj = responseData.data;
+				console.log(json_obj[0]["apikey"]);
+				var apiKey = json_obj[0]["apikey"];
+				var sessionId = json_obj[0]["session"];
+				var token = json_obj[0]["token"];
+				var validity = json_obj[0]["validity"];
+				// var update = json_obj["update"];
+				// $.ajax({
+				// 	type: "POST",
+				// 	data:{
+				// 		"machine_code":machine_code,
+				// 		"camera_id":camera_id,
+				// 		"project_code":"OCP",
+				// 		"session":sessionId,
+				// 		"token":token,
+				// 		"validity":validity
+				// 	},
+				// 	url: "https://uat.wincha-online.com/game/machine/camera/session/update",
+				// 	success:function(responseData){
+				// 		console.log(responseData)
+				// 	}
+				// });
+				$("#validity").val(validity);
+				//return apiKey; return sessionId; return token;
+				session = OT.initSession(apiKey, sessionId); 
+				OT.getDevices(function(error, devices) {
+					audioInputDevices = devices.filter(function(element) {
+						return element.kind == "audioInput";
+					});
+					videoInputDevices = devices.filter(function(element) {
+						return element.kind == "videoInput";
+					});
+					// console.log(devices)
+					for (var i = 0; i < audioInputDevices.length; i++) {
+						console.log("audio input device: ", audioInputDevices[i].deviceId);
+					}
+					for (i = 0; i < videoInputDevices.length; i++) {
+						console.log("video input device: ", videoInputDevices[i].deviceId);
+					}
+
+					console.log(videoInputDevices)
+					session.connect(token, function(err) {
+						// publish publisher
+						// alert(session)
+						// session.publish(publisher);
+					}); 
+
+				});
+				// if(update==0){
+					
+				// }
+				// else{
+				// 	location.reload();
+				// }
+				// location.reload();
+			}
+							
+		}
+
+	});
+
+}
+$(document).ready(function() {
+	setInterval(function(){ 
+		var validity = $("#validity").val();
+		console.log(validity)
+		const unixTimestamp = validity;
+
+		const milliseconds = validity * 1000 // 1575909015000
+
+		const dateObject_validity = new Date(milliseconds);
+		console.log(dateObject_validity);
+		var currentTime = new Date().getTime()/1000;
+		// const dateObject_current = new Date(currentTime);
+		// console.log("current time"+dateObject_current)
+		var difference = validity-currentTime;
+		// console.log(difference);
+		var difference_minutes = difference/60;
+		console.log(difference_minutes);
+		if(difference_minutes < 30){
+		
+		getdata();
+			
+		}
+	}, 1800000);
+});
+
+</script>
+</body>
+</html>

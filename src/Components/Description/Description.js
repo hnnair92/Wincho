@@ -401,11 +401,14 @@ const Description = ({
       const splitRes = res.split("|");
       const splitViews = splitRes[splitRes.length - 1].split(":");
       const splitId = splitRes[0].split(":");
-      if (game.machineCode === splitId[1]) {
+      if (GameData.machine_code === splitId[1]) {
         console.log(splitViews[splitViews.length - 1]);
         setViewCount(splitViews[splitViews.length - 1]);
       }
       console.log(res);
+      console.log(GameData.machine_code===splitId[1]);
+      console.log(GameData.machine_code);
+      console.log(splitId[1]);
       //   setViewCount();
     });
     socket.on("get_machine_status", (res) => {
@@ -522,7 +525,9 @@ const Description = ({
       console.log(res);
     });
   }, [socket, que]);
-
+useEffect(()=>{
+  console.log(viewCount)
+},[viewCount])
   let EntryRequest = {};
 
   // Redux Dispatch and React UseEffect
