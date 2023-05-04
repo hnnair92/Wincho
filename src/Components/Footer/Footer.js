@@ -55,7 +55,7 @@ const Footer = ({gamePlay,setGamePlay}) => {
                 <input type="text" placeholder='Name'/>
                 <input type="text" placeholder="Email"/>
                 <input type="text" placeholder="Phone Number"/>
-                <textarea name="" id="" cols="30" rows="10"  placeholder="Email"></textarea>
+                <textarea name="" id="" cols="30" rows="10"  placeholder="Message"></textarea>
             </form>
             {/* <p>fhf</p> */}
           </div>
