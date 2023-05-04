@@ -648,6 +648,24 @@ useEffect(()=>{
     // console.log()
   }, []);
   useEffect(()=>{
+    // count % parseInt(configuration.GamePlayCount) === 0 &&
+    //                 playAgain &&
+    //                 count != 0 ? 
+    //                   hideEverything===false? 
+    console.log(count)
+    console.log(count%parseInt(configuration.GamePlayCount))
+    console.log(count%parseInt(configuration.GamePlayCount)===0)
+  },[count])
+  useEffect(()=>{
+    console.log(parseInt(configuration.GamePlayCount))
+    // consle.log(parseInt(configuration.GamePlayCount))
+    console.log(parseInt(count%configuration.GamePlayCount))
+    console.log(parseInt(count%configuration.GamePlayCount)===0)
+  },[configuration])
+  useEffect(()=>{
+    console.log(hideEverything)
+  },[hideEverything])
+  useEffect(()=>{
     const premiumData = JSON.parse(localStorage.getItem("premium"))
     if(premiumData===null||premiumData===undefined){
       setPremiumPopup(true)
@@ -2671,17 +2689,8 @@ useEffect(()=>{
                   <div className={style.PrizeReset}>
                     {count % parseInt(configuration.GamePlayCount) === 0 &&
                     playAgain &&
-                    count != 0 ? (
-                      // prizeMoveIcon===true ? (
-                      // prizeResetActive||
-                      showGrayIcon===true ? (
-                        <button>
-                          <img src={assets.GrayPrizeMove} alt="" />
-                        </button>
-                      ) :
-                      hideEverything===false
-                      // prizeMoveIcon===false
-                      ? 
+                    count != 0 ? 
+                      hideEverything===false? 
                         <button
                           onClick={() => {
                             playAudio(music.Chime);
@@ -2696,17 +2705,20 @@ useEffect(()=>{
                         >
                           <img src={assets.greenPrizeMove} alt="" />
                         </button>
-                      :""
-                    ) : (
-                      showGrayIcon===true ? (
+                      // :""
+                     : 
+                      showGrayIcon===true ?
                         <button>
                           <img src={assets.GrayPrizeMove} alt="" />
                         </button>
-                      ):""
-                    )}
-                    {/* <button>
-                  <img src={assets.greenPrizeMove} alt="" />
-                </button> */}
+                      :""
+                      : showGrayIcon===true ?
+                      <button>
+                        <img src={assets.GrayPrizeMove} alt="" />
+                      </button>
+                    :""
+                    }
+                   
                   </div>
                 </div>
                 {/* <span>{GameData&&GameData.price}</span> */}
@@ -3419,7 +3431,7 @@ useEffect(()=>{
                           setWait(true);
                           setGamePlayStatus(true);
                           setGamePlay(true);
-
+                          setHideEverything(false)
                           // setReloadStatus(false)
                           setReloadStatus(true)
                           // setGamePlay(true);
