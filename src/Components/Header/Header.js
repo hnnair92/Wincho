@@ -28,7 +28,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const userData = useSelector((state) => state.userData);
   const { user } = useSelector((state) => state.profile);
   const [music, setMusic] = useState(true);
-  const isUser = JSON.parse(localStorage.getItem("user"));
+  const isUser = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
+  // const isUser = JSON.parse(localStorage.getItem("user"));
   const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
   const [id, setId] = useState("");
@@ -37,7 +38,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [sliderSction, setSliderAction] = useState(false);
   const { notification } = useSelector((state) => state.notification);
   let inGame = localStorage.getItem("inGame");
-  let userId = localStorage.getItem("user");
+  let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
   const audioRefHeader = useRef(null);
   async function playAudio(src) {

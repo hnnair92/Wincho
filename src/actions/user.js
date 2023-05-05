@@ -133,7 +133,7 @@ import {
       dispatch({
         type: PROFILE_REQUEST,
       });
-      const userId = JSON.parse(localStorage.getItem("user"));
+      const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
       await fetch(`${baseUrl}/user/profile/details`, {
         method: "POST",
         body: JSON.stringify({
@@ -167,7 +167,7 @@ import {
       dispatch({
         type: NOTIFICATION_REQUEST,
       });
-      const userId = JSON.parse(localStorage.getItem("user"));
+      const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
       await fetch(`${baseUrl}/user/notifications/get`, {
         method: "POST",
         body: JSON.stringify({
@@ -196,7 +196,7 @@ import {
       dispatch({
         type: CART_REQUEST,
       });
-      const userId = JSON.parse(localStorage.getItem("user"));
+      const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
       await fetch(`${baseUrl}/cart/collection`, {
         method: "POST",
         body: JSON.stringify({

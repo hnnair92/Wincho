@@ -13,7 +13,9 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { error, user, authenticated } = useSelector((state) => state.userData);
-  const userId = JSON.parse(localStorage.getItem("user"));
+  // const userId = JSON.parse(localStorage.getItem("user"));
+  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+
   const [type, setType] = useState(true);
   const [passIcon, setPassIcon] = useState(false);
   const [forgotPass, setForgotPass] = useState(false);

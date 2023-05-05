@@ -223,8 +223,8 @@ button {
     background-color: #fd8204;
     color: #fff;
     padding: 10px 0;
-    width: 100%;
-    border-radius: 20px;
+    width: 90%;
+    border-radius: 15px;
     border: 2px solid #fff;
     outline: none;
 }
@@ -1423,4 +1423,8 @@ video {
 }
 .AllVideoSection{
     width: 100%;
+}
+.ExtraButton{
+    display: flex;
+    justify-content: center;
 }

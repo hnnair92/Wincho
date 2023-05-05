@@ -99,7 +99,9 @@ async function playAudioBg() {
   const [cartData, setCartData] = useState([]);
   const [premiumPopup, setPremiumPopup] = useState(false);
   // const baseUrl = process.env.REACT_APP_BASEURL
-  const userId = JSON.parse(localStorage.getItem("user"));
+  // const userId = JSON.parse(localStorage.getItem("user"));
+  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+
   const { configuration } = useSelector((state) => state.configuration);
   const { user } = useSelector((state) => state.profile);
   let saved = localStorage.getItem("SaveShipping");

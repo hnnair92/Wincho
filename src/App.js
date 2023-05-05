@@ -32,12 +32,22 @@ function App() {
   const dispatch = useDispatch()
   const [userJoined,setUserJoined] = useState(false)
   const [pageUrl,setPageUrl] = useState("")
+  // const navigate = useNavigate()
+  const [count,setCount] = useState(0)
   const [gameMusic,setGameMusic] = useState(localStorage.getItem("music")?localStorage.getItem("music"):localStorage.setItem("music",JSON.stringify(true)))
   const [gameSound,setGameSound] = useState(localStorage.getItem("sound")?localStorage.getItem("sound"):localStorage.setItem("sound",JSON.stringify(true)))
+  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
   useEffect(()=>{
     localStorage.setItem("music",gameMusic)
     console.log(typeof gameMusic)
   },[gameMusic])
+  useEffect(()=>{
+    if(userId===undefined||userId===null||userId===""){
+      localStorage.removeItem("user")
+      // window.location="/login";
+      
+    }
+  },[])
   useEffect(()=>{
     localStorage.setItem("sound",gameSound)
     console.log(typeof gameSound)
@@ -69,10 +79,31 @@ function App() {
       console.log(error)
     } 
   }
+  const ipAdd = async()=>{
+    setCount(count+1)
+    try {
+    //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    //  .catch(() => console.log('Network request failed, adblock is enabled'));
+      await fetch(`https://api.ipify.org/?format=json`).then(res=>res.json()).then((data)=>{
+        console.log(data,count)
+        // setCountryCode(data.countryCode)
+        // dispatch(configutation(data.countryCode))
+      }).catch((err)=>{
+        console.log(err)
+      })
+    } catch (error) {
+      console.log(error)
+    } 
+  }
   useEffect(()=>{
     state()
     
   },[dispatch,countryCode])
+  useEffect(()=>{
+    // setInterval(()=>{
+      ipAdd()
+    // },1)
+  },[])
   const [active,setActive] = useState(false)
   const [gamePlay,setGamePlay] = useState(false)
   useEffect(()=>{

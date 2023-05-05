@@ -25,6 +25,7 @@ import prizeMove from "../../assests/43 POP UP Full Squared.png";
 import prizeMoveUser from "../../assests/43 POP UP Full for Viewers Squared.png";
 import overlayImage from '../../assests/Asset 1.png'
 import { baseUrl } from "../url";
+
 const Description = ({
   gameMusic,
   setGameMusic,
@@ -203,7 +204,9 @@ const Description = ({
  
   //   console.log(GameData);
   const videoRef = useRef();
-  const userId = JSON.parse(localStorage.getItem("user"));
+  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+  // const userId = JSON.parse(localStorage.getItem("user"));
+  // localStorage.getItem("user")?localStorage.getItem("user"):localStorage.setItem("user","")
   const baseMessage = `${userId}|${GameData?.machine_code}`;
   const vidRef = useRef(null);
 
@@ -217,6 +220,7 @@ const Description = ({
   // console.log(vidRef.current)
   // console.log(vidRef)
   const [premiumPopup, setPremiumPopup] = useState(false);
+  const [showUserPopup,setShowUserPopup] = useState(false)
   const [overlay,setOverlay] = useState(true);
   const [reloadStatus,setReloadStatus] = useState(false)
   const [sendCategory,setSendCategory] = useState("")
@@ -399,6 +403,7 @@ const Description = ({
       console.log(splitId[1]===userId)
       if(splitId[1]===userId){
         setPrizeID(userId)
+        setShowUserPopup(true)
       }
       if(progress==="INPROGRESS"){
         setCurrentPrizeMove(true)
@@ -479,6 +484,7 @@ const Description = ({
         GameData.machine_code === machineId[1]
       ) {
         setCurrentPrizeMove(false);
+        setShowUserPopup(false)
         setShowGrayPrizeIcon(false)
         setPrizeMoveIcon(false);
         setShowGrayIcon(false)
@@ -1721,7 +1727,9 @@ useEffect(()=>{
               onClick={() => {
                 prizeReset();
                 setPrizeResetActive(false);
-                setCurrentPrizeMove(true);
+                // setCurrentPrizeMove(true);
+                // setShowUserPopup(true)
+                // if(prize)
               }}
             >
               YES
@@ -2205,7 +2213,7 @@ useEffect(()=>{
             </button>
           </div>
           <div className={style.Description}>
-            <p>YOU MIGHT ALSO LIKE</p>
+            <p>YOU MIGHT ALSO LIKE...</p>
           </div>
           <div className={style.AllGames}>
             {products.length>0&&products.map((game) => {
@@ -2365,7 +2373,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true?
+                    {game.price_move_status===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2449,7 +2457,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true?
+                    {game.price_move_status===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2515,12 +2523,12 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true?
+                    {game.price_move_status===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}    */}
+                       :""}    
                       {timeoutStatus ? (
                         <div className={style.TimeoutAnimation}>
                           <Lotties
@@ -2561,7 +2569,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true?
+                    {game.price_move_status===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2646,7 +2654,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true?
+                    {game.price_move_status===true&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2687,7 +2695,8 @@ useEffect(()=>{
                     </button>
                   </div>
                   <div className={style.PrizeReset}>
-                    {count % parseInt(configuration.GamePlayCount) === 0 &&
+                    {count % 1 === 0 &&
+                    // {count % parseInt(configuration.GamePlayCount) === 0 &&
                     playAgain &&
                     count != 0 ? 
                       hideEverything===false? 

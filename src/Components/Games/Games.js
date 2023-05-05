@@ -52,10 +52,12 @@ const {configuration} = useSelector((state)=>state.configuration)
   const [resendEmail,setResendEmail] = useState(false)
   const [gameData, setGameData] = useState({});
   const [premiumPopup, setPremiumPopup] = useState(false);
-  const userId = JSON.parse(localStorage.getItem("user"));
+  // const userId = JSON.parse(localStorage.getItem("user"));
   const { user } = useSelector((state) => state.profile);
   const [searchIconStatus,setSearchIconStatus]= useState(false)
-  const userDatas = JSON.parse(localStorage.getItem("user"));
+  // const userDatas = JSON.parse(localStorage.getItem("user"));
+  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+
   //   console.log(userDatas);
   const navigate = useNavigate();
   const [topup,setTopup] = useState(false)
@@ -483,7 +485,7 @@ async function updateTermsAndConditions(){
                   setCategory("")
               }}>All</button> */}
         </div>
-        {premiumPopup&&user&&user.vip===false?
+        {premiumPopup&&user?.vip===false&&gameData.price!=="0"?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
