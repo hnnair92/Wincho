@@ -187,6 +187,7 @@ async function playAudio(src) {
       // audioRefHome.current.mute()
     }
   }
+
   async function resendEmailApi(){
     setLoadingScreen(true)
     await fetch(`${baseUrl}/user/verification/resend`, {
@@ -397,6 +398,7 @@ async function updateTermsAndConditions(){
                         : style.category
                     }
                     onClick={(e) => {
+                      playAudio(music.Pop)
                       if (searchArray.length > 0) {
                         setCategory("");
                       } else {
@@ -977,7 +979,7 @@ async function updateTermsAndConditions(){
                         // else if(user)
                       }}>
                          <div className={style.SingleGameOverlay} onClick={()=>{
-                          
+                          // playAudio(music.Pop)
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                               console.log("not verified")
@@ -1097,7 +1099,10 @@ async function updateTermsAndConditions(){
                         // else if(user)
                       }}>
                          <div className={style.SingleGameOverlay} onClick={()=>{
+                        // playAudio(music.Menu)
+
                             if(user&&user.profile_status===false&&game.price!=="0"){
+                              
                               setResendEmail(true)
                               console.log("not verified")
                             }
@@ -1219,7 +1224,7 @@ async function updateTermsAndConditions(){
                       // else if(user)
                     }}>
                        <div className={style.SingleGameOverlay} onClick={()=>{
-                            playAudio(music.Menu)
+                            // playAudio(music.Menu)
 
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
@@ -1333,7 +1338,7 @@ async function updateTermsAndConditions(){
                     }}>
                        <div className={style.SingleGameOverlay} onClick={()=>{
                         // audioRef.current.src = music.Menu
-                        playAudio(music.Menu)
+                        // playAudio(music.Menu)
                             if(user&&user.profile_status===false&&game.price!=="0"){
                               setResendEmail(true)
                             }

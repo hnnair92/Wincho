@@ -68,8 +68,7 @@ function App() {
     try {
     //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
     //  .catch(() => console.log('Network request failed, adblock is enabled'));
-      await fetch(`http://ip-api.com//json`).then(res=>res.json()).then((data)=>{
-        // console.log(data)
+      await fetch(`https://pro.ip-api.com/json/8.8.8.8?key=cHngsdONXseEb0x`).then(res=>res.json()).then((data)=>{
         setCountryCode(data.countryCode)
         dispatch(configutation(data.countryCode))
       }).catch((err)=>{
@@ -79,31 +78,27 @@ function App() {
       console.log(error)
     } 
   }
-  const ipAdd = async()=>{
-    setCount(count+1)
-    try {
-    //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
-    //  .catch(() => console.log('Network request failed, adblock is enabled'));
-      await fetch(`https://api.ipify.org/?format=json`).then(res=>res.json()).then((data)=>{
-        console.log(data,count)
-        // setCountryCode(data.countryCode)
-        // dispatch(configutation(data.countryCode))
-      }).catch((err)=>{
-        console.log(err)
-      })
-    } catch (error) {
-      console.log(error)
-    } 
-  }
+  // const ipAdd = async()=>{
+  //   setCount(count+1)
+  //   try {
+  //   //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+  //   //  .catch(() => console.log('Network request failed, adblock is enabled'));
+  //     await fetch(`https://api.ipify.org/?format=json`).then(res=>res.json()).then((data)=>{
+  //       console.log(data,count)
+  //       // setCountryCode(data.countryCode)
+  //       // dispatch(configutation(data.countryCode))
+  //     }).catch((err)=>{
+  //       console.log(err)
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //   } 
+  // }
   useEffect(()=>{
     state()
     
   },[dispatch,countryCode])
-  useEffect(()=>{
-    // setInterval(()=>{
-      ipAdd()
-    // },1)
-  },[])
+
   const [active,setActive] = useState(false)
   const [gamePlay,setGamePlay] = useState(false)
   useEffect(()=>{

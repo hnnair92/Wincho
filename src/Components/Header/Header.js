@@ -27,7 +27,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [setting, setSetting] = useState(false);
   const userData = useSelector((state) => state.userData);
   const { user } = useSelector((state) => state.profile);
-  const [music, setMusic] = useState(true);
+  // const [music, setMusic] = useState(true);
   const isUser = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   // const isUser = JSON.parse(localStorage.getItem("user"));
   const { configuration } = useSelector((state) => state.configuration);
@@ -40,17 +40,117 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   let inGame = localStorage.getItem("inGame");
   let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
-  const audioRefHeader = useRef(null);
-  async function playAudio(src) {
-    console.log(src);
-    audioRefHeader.current.src = src;
-    audioRefHeader.current.play();
+  const audioRef = useRef(null);
+  const audioRefHome = useRef(null);  
+  let audioStatus = localStorage.getItem("sound");
+  const [musicStatus, setMusicStatus] = useState(
+    localStorage.getItem("music")
+      ? localStorage.getItem("music")
+      : localStorage.setItem("music", JSON.stringify(false))
+  );
+
+
+
+  async function playAudioBg() {
+    console.log(musicStatus, "musicStatus");
+  
+    // console.log(audioRefHome.current.play(), "from its function");
+   
+    // audioRefHome.current.src = music.Menu;
+    // audioRefHome.current.play();
+    // console.log(audioRefHome.current.volume, "from its function");
   }
   useEffect(() => {
-    if (setting === true) {
-      playAudio(music.Click);
+    console.log(gameSound === "true", "gameSound");
+    console.log(typeof gameSound, "gameMusic");
+    if (gameSound === "true" || gameSound === true) {
+      console.log(audioRef.current.volume);
+      audioRef.current.volume = 1;
+      console.log("true for gameMusic");
+      console.log(audioRef.current.volume);
+    } else {
+      audioRef.current.volume = 0;
+      console.log(typeof gameMusic);
+      console.log("not reached");
     }
-  }, [setting]);
+    console.log(typeof setGameSound);
+  }, [gameSound]);
+
+  useEffect(() => {
+    if (gameMusic === "true" || gameMusic === true) {
+      // console.log(audioRefHome.current.volume);
+      // audioRefHome.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    if (gameSound === "true" || gameSound === true) {
+      console.log(audioRef.current.volume);
+      audioRef.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    console.log(typeof gameMusic);
+    // console.log()
+  }, []);
+  
+  useEffect(() => {
+    console.log(gameMusic === "true", "gameSound");
+    console.log(typeof gameMusic, "gameMusic");
+    if (gameMusic === "true" || gameMusic === true) {
+      // console.log(audioRefHome.current.volume);
+      // audioRefHome.current.volume = 1;
+      console.log("true for gameMusic");
+      // console.log(audioRefHome.current.volume);
+    //   playAudioBg();
+    } else {
+      // audioRefHome.current.volume = 0;
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+    console.log(typeof gameMusic);
+  }, [gameMusic]);
+  useEffect(() => {
+    if (gameMusic === "true" || gameMusic === true) {
+      // console.log(audioRefHome.current.volume);
+      // audioRefHome.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
+   
+    console.log(typeof gameMusic);
+    // console.log()
+  }, []);
+async function playAudio(src) {
+    console.log(audioStatus, "audioStatus");
+    if (audioStatus === "true") {
+      console.log("reached here");
+      audioRef.current.volume = 1;
+      audioRef.current.src = src;
+      audioRef.current.play();
+    } else {
+      audioRef.current.volume = 0;
+    }
+  }
+
+  async function audioEnded(src) {
+    if (musicStatus === "true") {
+      // audioRefHome.current.unmute()
+      // audioRefHome.current.volume = 1;
+      // audioRefHome.current.src = src;
+      // audioRefHome.current.play();
+    } else {
+      // audioRefHome.current.volume = 0;
+      // audioRefHome.current.mute()
+    }
+  }
+
+
   useEffect(() => {
     console.log(active, "active from header");
   }, [active]);
@@ -66,21 +166,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
     // dispatch(notificationAction());
   // }
 },[notification,user])
-  useEffect(()=>{
-    console.log(gameSound,"gameSound")
-    console.log(gameMusic,"gameMusic")
-  },[gameMusic,gameSound])
-  useEffect(() => {
-    inGame = localStorage.getItem("inGame");
-    if (inGame === null || inGame === undefined) {
-      localStorage.setItem("inGame", false);
-    }
-  }, [localStorage]);
-  async function playAudio(src) {
-    console.log(src);
-    audioRefHeader.current.src = src;
-    audioRefHeader.current.play();
-  }
+
   const { cart } = useSelector((state) => state.cart);
   useEffect(() => {
     dispatch(updateProfile(userData.user));
@@ -135,7 +221,17 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
     // useEffect(() => {
     //   console.log(active);
     // }, [active]);
-  
+  // useEffect(()=>{
+  //   if(active===true&&setting===false){
+  //     playAudio(music.Pop)
+  //   }
+  //   else if(active===true&&setting===true){
+  //     playAudio(music.Chime)
+
+  //   }
+  //   console.log(setting)
+  //   console.log(active)
+  // },[setting,active])
     return (
       <div className={style.mobileFullMenu}>
         <div className={style.Menu}>
@@ -145,6 +241,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
+                    playAudio(music.Click)
                     setSetting(false)
 
                     setId(menu.id);
@@ -238,6 +335,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                       src={MMenu.icon}
                       alt=""
                       onClick={(e) => {
+                        playAudio(music.Click)
                     setSetting(false)
                        // if(gamePlay===true){
                 setActive(true)
@@ -314,6 +412,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                         // style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px",marginBottom:userId!==null&&menu.Name==="Logout"&&menu.Name!=="Logout"?"30px":"15px"}}
                         onClick={(e) => {
               e.preventDefault()
+              playAudio(music.Boing)
               setSetting(false)
               // if(gamePlay===true){
                 // }
@@ -515,6 +614,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                 className={style.MenuSection}
                 onClick={(e) => {
                   e.preventDefault()
+              playAudio(music.Boing)
+
                   setSetting(false)
                   // if(gamePlay===true){
                   // setActive(true)
@@ -707,7 +808,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
         </ul>
       </div>:""
       }
-      <audio ref={audioRefHeader}></audio>
+      <audio ref={audioRef}></audio>
       <div className={style.MobileTopNav} style={{pointerEvents:gamePlay?"none":"visible"}}>
         <div className={style.MLogo}
         // onClick={(e) => {
@@ -844,11 +945,14 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
         </div>
         <div className={style.Menu}>
           <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
+            {/* desktop main header */}
             {MainMenu.map((menu) => {
               return (
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
+                    playAudio(music.Click)
+                    // console.log(music)
                     setSetting(false)
                     
                   
@@ -858,7 +962,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
                 setActive(true)
               // }
                     setPageUrl(menu.url)
-                    playAudio(music.Click);
+                    // playAudio(music.Click);
                    
                         checkGameOn();
                       setToggle(false);

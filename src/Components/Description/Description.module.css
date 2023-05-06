@@ -1428,3 +1428,8 @@ video {
     display: flex;
     justify-content: center;
 }
+@media(max-width:1065px){
+    .GameScreen .Screen {
+        position: relative;
+    }
+}

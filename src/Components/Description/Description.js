@@ -249,6 +249,7 @@ const Description = ({
       : localStorage.setItem("music", JSON.stringify(false))
   );
   const [startGame, setStartGame] = useState({});
+  const [gameStartStatus, setGameStartStatus] = useState(false);
   const [prizeMoveIcon,setPrizeMoveIcon] = useState(false)
   const [reportIssueCategories, setReportIssueCategories] = useState(false);
   const [reportContent, setReportContent] = useState(false);
@@ -1275,6 +1276,7 @@ useEffect(()=>{
     })
       .then((res) => res.json())
       .then((data) => {
+        setGameStartStatus(true)
         console.log("direction", game.camera_data[0].camera_id);
         console.log(data)
         console.log(startBody,"startBody")
@@ -2040,7 +2042,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {exitPopupOpen ? (
+      {exitPopupOpen&& gameStartStatus===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setExitPopupOpen(false)
@@ -2090,7 +2092,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {leavePopup &&gamePlayStatus===false? (
+      {leavePopup &&gameStartStatus===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -2139,7 +2141,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {active===true&&gamePlay===false&&userJoined===true? (
+      {active===true&&gameStartStatus===false&&userJoined===true? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -2193,7 +2195,7 @@ useEffect(()=>{
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
             <button
-              style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
+              style={{ pointerEvents: gameStartStatus===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
               onClick={() => {
                 if (gamePlayStatus === true) {
                   setActive(true);
@@ -2227,7 +2229,7 @@ useEffect(()=>{
                 // >
                 <div
                   className={style.Game}
-                  style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
+                  style={{ pointerEvents: gameStartStatus===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
                   onClick={() => {
                     setLeavePopup(true);
                     setTransferGame(game);
