@@ -495,7 +495,7 @@ const ticket =  [
            <h2> 20% OFF TICKETS!</h2>
         </div> */}
         <div className={style.Ticket}>
-        {user?.vip===false?
+        {user&&user.vip===false||user===undefined||user===null?
             <div className={style.Banner}>
                 <img src={Banner} alt="" />
                 <button onClick={()=>{

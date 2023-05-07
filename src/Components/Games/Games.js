@@ -222,12 +222,18 @@ async function playAudio(src) {
   useEffect(()=>{
     const premiumData = localStorage.getItem("premium")
     if(premiumData===null||premiumData===undefined){
-      setPremiumPopup(true)
+      if(category==="free"||category==="Free"){
+        setPremiumPopup(false)
+      }
+      else{
+      // else if(category==="free"||category==="Free"){
+        setPremiumPopup(true)
+      }
     }
     else{
       setPremiumPopup(false)
     }
-  },[])
+  },[category])
   useEffect(() => {
     if(popup){
       document.body.style.overflow = 'hidden';

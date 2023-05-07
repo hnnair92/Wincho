@@ -589,7 +589,11 @@ useEffect(()=>{
     // }
     // console.log(gameMusic)
   }, [gameMusic]);
-  
+  useEffect(()=>{
+    if(game&&game.price_move_status){
+      setCurrentPrizeMove(true)
+    }
+  })
   useEffect(()=>{
     console.log(videoGot)
     if(videoGot===true){
@@ -2375,7 +2379,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true&&prizeId!==userId?
+                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />

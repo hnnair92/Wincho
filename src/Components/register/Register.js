@@ -95,7 +95,7 @@ const Register = () => {
     const navigate = useNavigate()
     const{error,user,authenticated} = useSelector((state)=>state.userData)
     useEffect(()=>{
-        if(userId!==null){
+        if(userId!==null||userId!==undefined){
             dispatch(updateProfile(userId))
             navigate("/")
         }
