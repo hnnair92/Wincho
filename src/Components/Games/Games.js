@@ -56,7 +56,7 @@ const {configuration} = useSelector((state)=>state.configuration)
   const { user } = useSelector((state) => state.profile);
   const [searchIconStatus,setSearchIconStatus]= useState(false)
   // const userDatas = JSON.parse(localStorage.getItem("user"));
-  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+  const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
 
   //   console.log(userDatas);
   const navigate = useNavigate();

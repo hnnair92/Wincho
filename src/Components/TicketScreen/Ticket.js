@@ -102,7 +102,7 @@ async function playAudioBg() {
     const [ticketItem, setTicketItem] = useState();
     const { configuration } = useSelector((state) => state.configuration);
     const[ tickets,setTickets] = useState([])
-    const userId  = JSON.parse(localStorage.getItem("user"))
+    const userId  = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
     const [resendEmail, setResendEmail] = useState(false);
     const [loading,setLoading] = useState(false)
     // const ticket

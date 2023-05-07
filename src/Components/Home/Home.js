@@ -145,7 +145,9 @@ const Home = () => {
             </div>
             <div className={style.About} id="about">
                 <div className={style.Image}>
-                <img src={AppStore} alt="" className={style.AppStore}/>
+                <img src={AppStore} alt="" className={style.AppStore} onClick={()=>{
+                            window.open("https://apps.apple.com/us/app/wincha/id1604147807")
+                        }}/>
                     <div className={style.LeftIcons}>
                         <span><HiOutlineChevronLeft onClick={()=>{
                             leftHandle()
@@ -273,7 +275,9 @@ const Home = () => {
                     
                     {/* </link>  */}
                     <div className={style.MAppStore}>
-                        <img src={AppStore} alt="" />
+                        <img src={AppStore} alt="" onClick={()=>{
+                            window.open("https://apps.apple.com/us/app/wincha/id1604147807")
+                        }}/>
                     </div>
                 </div>
                     <div className={style.MCrane}>

@@ -204,7 +204,7 @@ const Description = ({
  
   //   console.log(GameData);
   const videoRef = useRef();
-  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+  const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   // const userId = JSON.parse(localStorage.getItem("user"));
   // localStorage.getItem("user")?localStorage.getItem("user"):localStorage.setItem("user","")
   const baseMessage = `${userId}|${GameData?.machine_code}`;

@@ -36,7 +36,7 @@ function App() {
   const [count,setCount] = useState(0)
   const [gameMusic,setGameMusic] = useState(localStorage.getItem("music")?localStorage.getItem("music"):localStorage.setItem("music",JSON.stringify(true)))
   const [gameSound,setGameSound] = useState(localStorage.getItem("sound")?localStorage.getItem("sound"):localStorage.setItem("sound",JSON.stringify(true)))
-  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
+  const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   useEffect(()=>{
     localStorage.setItem("music",gameMusic)
     console.log(typeof gameMusic)

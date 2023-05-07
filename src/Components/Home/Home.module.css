@@ -715,3 +715,6 @@
 .HideVideo{
     display: none;
 }
+.AppStore,.MAppStore img{
+    cursor: pointer;
+}

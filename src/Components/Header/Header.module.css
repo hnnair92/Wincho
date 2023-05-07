@@ -321,7 +321,7 @@
     margin: 1rem;
 }
 .popup{
-    position: absolute;
+    position: fixed;
     z-index: 999999;
     top: 50%;
     left: 50%;

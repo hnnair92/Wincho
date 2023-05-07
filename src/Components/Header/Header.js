@@ -210,6 +210,9 @@ async function playAudio(src) {
     }
   }
   const [toggle, setToggle] = useState(false);
+  useEffect(()=>{
+    console.log(userId)
+  },[])
   const MobileFunc = () => {
     useEffect(() => {
       document.body.style.overflow = "hidden";
@@ -1026,7 +1029,7 @@ async function playAudio(src) {
         </div>
       :
       ""}
-      {userId!==null&&user?.username!==""?
+      {userId!==null||userId!==""||userId!==undefined||user?.username!==""?
         <div className={style.Profile}>
           <p className={style.Username}>
             {(user && user.username) || "username"}
