@@ -590,7 +590,8 @@ async function playAudio(src) {
                             menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                           }
                         >
-                          {userId === null
+                          {userId === null&&user===null||user===undefined
+                          // {userId === null&&userId.username===""||userId === undefined
                             ? menu.Name === "Login/Register"
                               ? menu.Name
                               : ""
@@ -797,7 +798,7 @@ async function playAudio(src) {
                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                   }
                 >
-                  {userId === null&&user?.username===""
+                  {userId === null&&user===null||user===undefined
                     ? menu.Name === "Login/Register"
                       ? menu.Name
                       : ""
@@ -1009,7 +1010,7 @@ async function playAudio(src) {
             })}
           </ul>
         </div>
-        {userId!==null&&user?.username!==""?
+        {userId !== null||user!==null||user!==undefined?
         <div className={style.Credits}>
           <div className={style.Ticket}>
             <img src={ticket} alt="" />
@@ -1029,7 +1030,8 @@ async function playAudio(src) {
         </div>
       :
       ""}
-      {userId!==null||userId!==""||userId!==undefined||user?.username!==""?
+      {userId !== null||user!==null||user!==undefined?
+      // {userId!==null||userId!==""||userId!==undefined||user?.username!==""?
         <div className={style.Profile}>
           <p className={style.Username}>
             {(user && user.username) || "username"}
