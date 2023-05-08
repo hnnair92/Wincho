@@ -19,6 +19,18 @@ const {configuration}= useSelector((state)=>state.configuration)
         }
     })
     async function addVip(){
+      const vipData2 = {
+      "mode":"payment",
+      "amount":`${configuration.VIP_SUBSCRIPTION}`,
+      "quantity":1,
+      "success_url":"http://localhost:8980/sucess",
+      "cancel_url":"http://localhost:8980/sucess",
+      "currency":"usd",
+      "product":"vip",
+      "payment_mode":"vip",
+      "user_id":userId,
+      "credict_point":""
+      }
       const vipData = {
         "user_id":userId,
         "vip": true,
@@ -28,7 +40,7 @@ const {configuration}= useSelector((state)=>state.configuration)
         }
       await fetch(`${baseUrl}/user/membership/add`,{
         method:"PUT",
-        body:JSON.stringify(vipData),
+        body:JSON.stringify(vipData2),
         headers:{
             "Content-Type":"application/json"
         }
@@ -53,24 +65,34 @@ const {configuration}= useSelector((state)=>state.configuration)
       // const splitData = id.split("?")
     //   console.log(search)
     //   console.log(checkoutId[checkoutId.length-1])
-    await fetch("https://uat.wincha-online.com/points/check/stripe/status",{
+    const vipData2 = {
+      "mode":"payment",
+      "amount":`${configuration.VIP_SUBSCRIPTION}`,
+      "quantity":1,
+      "success_url":"http://localhost:8980/sucess",
+      "cancel_url":"http://localhost:8980/sucess",
+      "currency":"usd",
+      "product":"vip",
+      "payment_mode":"vip",
+      "user_id":userId,
+      "credict_point":""
+      }
+    await fetch(`${baseUrl}/points/check/stripe/status`,{
         method:"POST",
-        body:JSON.stringify({
-            "id":sessionId
-        }),
+        body:JSON.stringify(vipData2),
         headers:{
             "Content-Type":"application/json"
         }
     }).then(res=>res.json()).then((data)=>{
-        const paymentSuccess = data.data[data.data.length-1].status
-        if(paymentSuccess==="succeeded"||paymentSuccess==="complete"){
-            addPoint(data.data[data.data.length-1].product)
-        }
-        const product = data.data[data.data.length-1].product
-         if(product==="Vip"){
-          addVip()
-        }
-        console.log(data.data[data.data.length-1].status)
+        // const paymentSuccess = data.data[data.data.length-1].status
+        // if(paymentSuccess==="succeeded"||paymentSuccess==="complete"){
+        //     addPoint(data.data[data.data.length-1].product)
+        // }
+        // const product = data.data[data.data.length-1].product
+        //  if(product==="Vip"){
+        //   addVip()
+        // }
+        // console.log(data.data[data.data.length-1].status)
         console.log(data)
 
     })
@@ -98,7 +120,7 @@ const {configuration}= useSelector((state)=>state.configuration)
             });
     }
     useEffect(()=>{
-      checkoutStripe()
+      // checkoutStripe()
     },[])
   return (
     <div style={{}}>success</div>

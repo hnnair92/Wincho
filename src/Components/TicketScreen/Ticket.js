@@ -102,7 +102,8 @@ async function playAudioBg() {
     const [ticketItem, setTicketItem] = useState();
     const { configuration } = useSelector((state) => state.configuration);
     const[ tickets,setTickets] = useState([])
-    const userId  = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
+    const userId  = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
+    // const userId  = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
     const [resendEmail, setResendEmail] = useState(false);
     const [loading,setLoading] = useState(false)
     // const ticket
@@ -298,9 +299,21 @@ const ticket =  [
         success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
       }
+      const requestData2 ={
+        "mode":"payment",
+        "amount":parseFloat(ticketItem.token_amount).toFixed(2) * 100,
+        "quantity":1,
+        success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+        "currency": configuration.CURRENCY_CODE,
+        "product":ticketItem.token_point,
+        "payment_mode":"point",
+        "user_id":userId,
+        "credict_point":ticketItem.token_point,
+      }
       await fetch(`${baseUrl}/points/create-checkout-session`, {
         method: "POST",
-        body: JSON.stringify(requestData),
+        body: JSON.stringify(requestData2),
         headers: {
           "Content-Type": "application/json",
         },
@@ -308,23 +321,36 @@ const ticket =  [
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          console.log(requestData);
+          console.log(requestData2);
           window.open(`${data.data[0].url}`);
         });
     }
     async function createPayment(){
+      const requestData1 = {
+        mode: "payment",
+        amount: parseFloat(configuration.VIP_SUBSCRIPTION) * 100,
+        quantity: 1,
+        currency: configuration.CURRENCY_CODE,
+        product: "Vip",
+        user_id:userId,
+        success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+      }
+      const requestData2 ={
+        "mode":"payment",
+        "amount":`${configuration.VIP_SUBSCRIPTION}`,
+        "quantity":1,
+        success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+        "currency":configuration.CURRENCY_CODE,
+        "product":"vip",
+        "payment_mode":"vip",
+        "user_id":userId,
+        "credict_point":""
+      }
         await fetch(`${baseUrl}/points/create-checkout-session`, {
           method: "POST",
-          body: JSON.stringify({
-            mode: "payment",
-            amount: parseFloat(configuration.VIP_SUBSCRIPTION) * 100,
-            quantity: 1,
-            currency: configuration.CURRENCY_CODE,
-            product: "Vip",
-            user_id:userId,
-            success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
-          }),
+          body: JSON.stringify(requestData2),
           headers: {
             "Content-Type": "application/json",
           },
