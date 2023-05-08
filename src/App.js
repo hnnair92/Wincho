@@ -42,11 +42,11 @@ function App() {
     console.log(typeof gameMusic)
   },[gameMusic])
   useEffect(()=>{
-    if(userId===undefined||userId===null||userId===""){
-      localStorage.removeItem("user")
-      // window.location="/login";
+    // if(userId===undefined||userId===null||userId===""){
+    //   localStorage.removeItem("user")
+    //   // window.location="/login";
       
-    }
+    // }
   },[])
   useEffect(()=>{
     localStorage.setItem("sound",gameSound)

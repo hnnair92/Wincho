@@ -28,7 +28,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const userData = useSelector((state) => state.userData);
   const { user } = useSelector((state) => state.profile);
   // const [music, setMusic] = useState(true);
-  const isUser = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
+  // const isUser = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   // const isUser = JSON.parse(localStorage.getItem("user"));
   const { configuration } = useSelector((state) => state.configuration);
   const navigate = useNavigate();
@@ -38,7 +38,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [sliderSction, setSliderAction] = useState(false);
   const { notification } = useSelector((state) => state.notification);
   let inGame = localStorage.getItem("inGame");
-  let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
+  let userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
+  // let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);  
@@ -411,7 +412,7 @@ async function playAudio(src) {
                     return (
                       <div
                         className={style.MenuSection}
-                        style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px"}}
+                        style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
                         // style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px",marginBottom:userId!==null&&menu.Name==="Logout"&&menu.Name!=="Logout"?"30px":"15px"}}
                         onClick={(e) => {
               e.preventDefault()
@@ -590,7 +591,8 @@ async function playAudio(src) {
                             menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                           }
                         >
-                          {userId === null&&user===null||user===undefined
+                          {userId === null
+                          // {userId === null&&user===null||user===undefined
                           // {userId === null&&userId.username===""||userId === undefined
                             ? menu.Name === "Login/Register"
                               ? menu.Name
@@ -616,6 +618,7 @@ async function playAudio(src) {
             return (
               <div
                 className={style.MenuSection}
+                style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
                 onClick={(e) => {
                   e.preventDefault()
               playAudio(music.Boing)
@@ -798,7 +801,7 @@ async function playAudio(src) {
                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                   }
                 >
-                  {userId === null&&user===null||user===undefined
+                  {userId === null
                     ? menu.Name === "Login/Register"
                       ? menu.Name
                       : ""
@@ -1030,7 +1033,8 @@ async function playAudio(src) {
         </div>
       :
       ""}
-      {userId !== null||user!==null||user!==undefined?
+      {userId !== null?
+      // {userId !== null||user!==null||user!==undefined?
       // {userId!==null||userId!==""||userId!==undefined||user?.username!==""?
         <div className={style.Profile}>
           <p className={style.Username}>
@@ -1063,6 +1067,19 @@ async function playAudio(src) {
           }}>
            Register
           </p>
+          <div className={style.HamBurgerMenu}>
+            <FiMenu
+              onClick={() => {
+                // setSetting(true)
+                setting ? setSetting(false) : setSetting(true);
+              }}
+            />
+            {setting ? (
+              ""
+            ) : (
+              ""
+            )}
+          </div>
           
         </div>
     }
