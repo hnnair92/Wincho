@@ -290,6 +290,31 @@ async function playAudio(src) {
   //     setCategory(state?state.category:"free")
   //   }
   // }, []);
+  async function checkFreePlay() {
+    const userBody={
+      user: userId,
+      device_id: "",
+    }
+    await fetch(`${baseUrl}/game/freeplay/limit`, {
+      method: "POST",
+      body: JSON.stringify(userBody),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        console.log(userBody);
+        // changeFreePlayDaily()
+        localStorage.getItem("times")
+          ? localStorage.setItem(
+              "times",
+              parseInt(data.data[0].freeplay_limit)
+            )
+          : localStorage.setItem("times", parseInt(data.data[0].freeplay_limit));
+      });
+  }
   const searchApi = async () => {
     loading = true
     await fetch(`${baseUrl}/product/search`, {
@@ -324,6 +349,7 @@ async function playAudio(src) {
     if (user === undefined) {
       // navigate("/login");
     }
+    freePlay()
   }, [dispatch, category, id]);
   const categories = [
     {

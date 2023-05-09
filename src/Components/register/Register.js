@@ -93,15 +93,34 @@ const Register = () => {
         console.log(errors)
     },[password])
     const navigate = useNavigate()
-    const{error,user,authenticated} = useSelector((state)=>state.userData)
+    const{error,user} = useSelector((state)=>state.profile)
     useEffect(()=>{
-        if(userId!==null&&user&&user.username!==""){
-            dispatch(updateProfile(userId))
-            navigate("/")
-        }
+        // if(userId!==null&&user&&user.username!==""){
+        //     dispatch(updateProfile(userId))
+        //     navigate("/")
+        // }
+        
         // if(userId!==null){
         // }
     },[userId,dispatch,user])
+    useEffect(()=>{
+        if(user&&user.username!==""){
+          navigate("/")
+        }else {
+          navigate("/register");
+        }
+      },[user])
+      useEffect(() => {
+        if (localStorage.getItem("user")) {
+          dispatch(updateProfile(userId));
+        }
+        if (localStorage.getItem("user")) {
+          navigate("/");
+        } else {
+          navigate("/register");
+        }
+        console.log(user)
+      }, [dispatch, userId]);
     // const[chec]
     useEffect(()=>{
         console.log(state)

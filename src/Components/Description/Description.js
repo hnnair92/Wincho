@@ -1082,7 +1082,7 @@ useEffect(()=>{
         console.log(data);
         console.log(userBody);
         // changeFreePlayDaily()
-        localStorage.getItem("timesall")
+        localStorage.getItem("times")
           ? localStorage.setItem(
               "times",
               parseInt(data.data[0].freeplay_limit)
