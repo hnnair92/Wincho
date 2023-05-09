@@ -51,11 +51,16 @@
     border-radius: 20px;
     margin: 10px auto;;
 }
+.Title{
+    margin: 20px;
+    margin-top: 0px;
+}
 .Title p{
     font-family: drumshake_italic;
     font-size: 5.5rem;
     /* font-size: calc(2vw + 2em); */
     text-align: center;
+    line-height: 30px;
 }
 .Description{
     text-align: center;

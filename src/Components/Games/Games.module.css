@@ -975,3 +975,23 @@
 .ResendPopupDiv{
     z-index: 99999;
 }
+.ClubHouse{
+    position: fixed;
+}
+@media(min-width:600px){
+    .ClubHouse{
+        width: 50rem;
+    }
+}
+@media(max-width:599px){
+    .ClubHouse{
+        transform: translate(-50%,-50%);
+        width: 80%;
+    }
+}
+@media(max-width:450px){
+    .ClubHouse{
+        transform: translate(-50%,-50%);
+        width: 95%;
+    }
+}

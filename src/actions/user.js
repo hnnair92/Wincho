@@ -103,8 +103,9 @@ import {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === "True") {
-            console.log(data)
+            console.log(data.data.user_id)
             // if(data.data.)
+            // console.log
             // localStorage.setItem("user",JSON.stringify(data))
             localStorage.setItem("user", JSON.stringify(data.data.user_id));
             updateProfile(data.data.user_id);

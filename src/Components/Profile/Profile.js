@@ -141,7 +141,7 @@ async function playAudioBg() {
         localStorage.removeItem("times");
         // navigate("/");
         window.location.reload();
-        navigate("/")
+        // navigate("/")
 
       });
   }

@@ -333,6 +333,9 @@
     
 }
 @media(max-width:500px){
+    .Container{
+        height: 90vh;
+    }
     .Left{
         display: none;
     }

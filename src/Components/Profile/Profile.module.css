@@ -850,10 +850,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 90%;
+    width: 50rem;
     background: #fff;
     border:3px solid #fff;
     height: auto;
+    z-index: 999;
     border-radius: 30px;
     /* height: 80vh; */
 }

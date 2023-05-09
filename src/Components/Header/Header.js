@@ -25,6 +25,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
   const [setting, setSetting] = useState(false);
+  const [isAddress, setIsAddress] = useState(false);
+
   const userData = useSelector((state) => state.userData);
   const { user } = useSelector((state) => state.profile);
   // const [music, setMusic] = useState(true);
@@ -328,6 +330,45 @@ async function playAudio(src) {
       }}></div>
       
     :""}
+    {isAddress? (
+        <div className={`${style.popup} ${style.addressPopup}`}>
+        <div className={style.Overlay} onClick={()=>{
+            setIsAddress(false)
+        }}>
+
+        </div>
+        <div className={style.popupSection}>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            {/* <p>{vipData.vip_discription}</p> */}
+            <form action="">
+                <input type="text" placeholder='Name'/>
+                <input type="text" placeholder="Email"/>
+                <input type="text" placeholder="Phone Number"/>
+                <textarea name="" id="" cols="30" rows="10"  placeholder="Message"></textarea>
+            </form>
+            {/* <p>fhf</p> */}
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                // setisAddressField(true);
+                // setIsAddressShown(true);
+                // setIsAddress(false);
+                setIsAddress(false)
+                //  setCount
+              }}
+            >
+              SEND
+            </button>
+          </div>
+        </div>
+        </div>
+      ) : (
+        ""
+      )}
      <div className={style.MobileMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}>
           <div className={style.Menu}>
          
@@ -351,7 +392,9 @@ async function playAudio(src) {
                         setToggle(false);
                         if (MMenu.Name === "Support"&&gamePlay===false&&userJoined===false) {
                           setToggle(false);
-                          handleId(e);
+                          // handleId(e);
+                          setIsAddress(true)
+                          
                         }
   
                         if (MMenu.Name != "Support"&&gamePlay===false&&userJoined===false) {
@@ -1033,7 +1076,7 @@ async function playAudio(src) {
         </div>
       :
       ""}
-      {userId !== null?
+      {userId !== null &&user&&user.username!==""?
       // {userId !== null||user!==null||user!==undefined?
       // {userId!==null||userId!==""||userId!==undefined||user?.username!==""?
         <div className={style.Profile}>

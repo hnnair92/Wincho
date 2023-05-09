@@ -12,7 +12,7 @@ const Login = () => {
   // const user = JSON.parse(localStorage.getItem("user"))
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, user, authenticated } = useSelector((state) => state.userData);
+  const { error, user, authenticated } = useSelector((state) => state.profile);
   // const userId = JSON.parse(localStorage.getItem("user"));
   const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
 
@@ -20,6 +20,13 @@ const Login = () => {
   const [passIcon, setPassIcon] = useState(false);
   const [forgotPass, setForgotPass] = useState(false);
   const [passError, setPassError] = useState({});
+  useEffect(()=>{
+    if(user&&user.username!==""){
+      navigate("/")
+    }else {
+      navigate("/login");
+    }
+  },[user])
   useEffect(() => {
     if (localStorage.getItem("user")) {
       dispatch(updateProfile(userId));
@@ -29,6 +36,7 @@ const Login = () => {
     } else {
       navigate("/login");
     }
+    console.log(user)
   }, [dispatch, userId]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

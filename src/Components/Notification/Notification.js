@@ -130,7 +130,7 @@ const Notification = ({ gameMusic,
             <div className={style.Head}>
                 <p>NOTIFICATIONS</p>
             </div>
-            {loading===false?notification?.notification_count>0&&notificationData?.notifications?.length>0?notificationData?.notifications?.map((notificationItem)=>{
+            {loading===false?notification?.notification_count>0&&notificationData?.notifications.length>0?notificationData?.notifications.map((notificationItem)=>{
                 {/* console.log(notification.product[0]) */}
                 return(
                     <div className={style.Notification} onClick={()=>{

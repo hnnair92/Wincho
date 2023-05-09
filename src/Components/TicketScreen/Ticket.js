@@ -346,7 +346,7 @@ const ticket =  [
         "product":"vip",
         "payment_mode":"vip",
         "user_id":userId,
-        "credict_point":""
+        "credict_point":"0"
       }
         await fetch(`${baseUrl}/points/create-checkout-session`, {
           method: "POST",
@@ -358,6 +358,7 @@ const ticket =  [
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+            console.log(requestData2)
             window.open(`${data.data[0].url}`);
           });
       }

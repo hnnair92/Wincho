@@ -804,3 +804,163 @@
     /* background-color: red; */
     z-index: 999;
 }
+.popup.addressPopup{
+    position: fixed;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1b8fe7;
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    padding:2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+
+    /* width: 15%; */
+}
+.Overlay{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: transparent;
+}
+.popupSection .popupImage{
+    width: 40%;
+    position: absolute;
+    top: 0;
+    transform: translateY(-50%);
+}
+.popupSection .popupImage img{
+    width: 100%;
+    object-fit: contain;
+}
+.popupSection .popupText{
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.popupSection .popupText p{
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    width: 300px;
+    font-weight: 500;
+    /* word-wrap: break-word; */
+    line-height: 25px;
+
+}
+/* .popupButton button{
+    margin: 1.5rem;
+    width: fit-content;
+    padding: 1rem 3rem;
+    background-color: transparent;
+    border:3px solid #fff;
+    outline:none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+} */
+.popupSection .ReportPopupButton{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+    width: 100%;
+}
+.popupSection .ReportPopupButton button{
+    width: fit-content;
+    margin: 1.5rem;
+    padding: 1rem 3rem;
+    background-color: transparent;
+    border:1.75px solid #fff;
+    outline:none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 500;
+    border-radius: 30px;
+}
+/* .popupInput textarea{
+    width: 95%;
+    padding:2rem 2rem;
+    border-radius: 30px;
+    color: #1b8fe7;
+
+    outline:none;
+    margin: 1rem;
+} */
+.popupSection .popupText form{
+    display: flex;
+    flex-direction: column;
+
+}
+.popupSection .popupText form input,.popupSection .popupText form textarea{
+    border:none;
+    outline:none;
+    border-radius:40px;
+    margin: 5px 0px;
+    padding:10px 20px;
+    font-family: myraidproregular;
+    color: #1b8fe7;
+    font-size: 2rem;
+}
+.popupSection .popupText form textarea{
+    border-radius: 25px;
+    font-family: myraidproregular;
+    color: #1b8fe7;
+    resize: none;
+}
+.popupSection .popupText form input::-webkit-input-placeholder,.popupSection .popupText form textarea::-webkit-input-placeholder{
+    color: #1b8fe7;
+    opacity: 1;
+}
+.popupSection .popupText form input,.popupSection .popupText form textarea{
+    margin: 6px 0px;
+    padding:10px 40px;
+    font-size: 2.5rem;
+}
+@media(max-width:599px){
+  
+    .popup.addressPopup{ 
+    padding:1rem;
+    width: 30rem;
+    height: 50rem;
+    }
+    .popupSection .popupText form input,.popupText form textarea{
+        
+        margin: 5px 0px;
+        padding:10px 10px;
+        font-size: 1.5rem;
+    }
+    .popupSection .ReportPopupButton button{
+       
+        margin: 1.5rem;
+        padding: 1rem 3rem;
+        font-size: 1.5rem;   
+    }
+    /* .Contact{
+        margin-top: 50%;
+    } */
+}
+@media(max-width:280px){
+    /* .ContactSection p{
+        font-size: 9rem;
+        margin-bottom: 1rem;
+    }
+    .ContactSection .StrokeContact{
+        font-size: 3.5rem;
+    } */
+    
+}
+.popupSection{
+    position: relative;
+    z-index: 999;
+    
+}

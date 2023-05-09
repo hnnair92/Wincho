@@ -70,6 +70,9 @@ const {configuration} = useSelector((state)=>state.configuration)
   const [loadingScreen,setLoadingScreen] = useState(false)
   const [countSection,setCountSection] = useState(0)
   const times = localStorage.getItem("times")
+  const checkPlayArray = localStorage.getItem("checkPlay")&&JSON.parse(localStorage.getItem("checkPlay"))
+
+  // const checkPlayArray = localStorage.getItem("checkPlay")&& JSON.parse(localStorage.getItem("checkPlay"))
   useEffect(()=>{
     console.log(state)
   },[state])
@@ -94,6 +97,25 @@ const {configuration} = useSelector((state)=>state.configuration)
 
     // }
   }
+  async function freePlay(){
+    // const 
+    console.log(checkPlayArray,"checkPlayArray 1")
+    console.log(checkPlayArray.length,"checkPlayArray 1")
+   checkPlayArray.map((freePlayData)=>{
+        console.log(freePlayData,"freePlayData out")
+        if(freePlayData.id===userId){
+          console.log(freePlayData,"freePlayData in")
+          // console.log("Same Person")
+        }
+        else{
+
+        }
+      })
+    
+  }
+  useEffect(()=>{
+    freePlay()
+  },[])
   useEffect(() => {
     console.log(gameSound === "true", "gameSound");
     console.log(typeof gameSound, "gameMusic");

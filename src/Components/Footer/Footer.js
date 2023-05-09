@@ -46,6 +46,7 @@ const Footer = ({gamePlay,setGamePlay}) => {
         }}>
 
         </div>
+        <div className={style.popupSection}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
@@ -72,6 +73,7 @@ const Footer = ({gamePlay,setGamePlay}) => {
               SEND
             </button>
           </div>
+        </div>
         </div>
       ) : (
         ""
