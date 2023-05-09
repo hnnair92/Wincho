@@ -104,9 +104,9 @@ export const configutation =()=>async(dispatch)=>{
     // console.log(countryCode);
     // let countryCode = ""
     try {
-        await fetch(`https://pro.ip-api.com/json/8.8.8.8?key=cHngsdONXseEb0x`).then(res=>res.json()).then((data)=>{
+        await fetch(`https://pro.ip-api.com/json/?key=cHngsdONXseEb0x`).then(res=>res.json()).then((data)=>{
         // console.log(data)
-        // setCountryCode(data.countryCode)
+        console.log(data)
         dispatch({
             type:CONFIGURATION_REQUEST
         })

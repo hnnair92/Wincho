@@ -338,7 +338,7 @@ const ticket =  [
       }
       const requestData2 ={
         "mode":"payment",
-        "amount":`${configuration.VIP_SUBSCRIPTION}`,
+        "amount":parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
         "quantity":1,
         success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
@@ -346,7 +346,7 @@ const ticket =  [
         "product":"vip",
         "payment_mode":"vip",
         "user_id":userId,
-        "credict_point":"0"
+        "credict_point":`${configuration.VIP_BONUS_POINT}`
       }
         await fetch(`${baseUrl}/points/create-checkout-session`, {
           method: "POST",

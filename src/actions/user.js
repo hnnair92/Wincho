@@ -102,6 +102,9 @@ import {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data.data.user_id)
+          console.log(data.data)
+          console.log(data)
           if (data.status === "True") {
             console.log(data.data.user_id)
             // if(data.data.)

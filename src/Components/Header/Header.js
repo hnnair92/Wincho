@@ -331,7 +331,7 @@ async function playAudio(src) {
       
     :""}
     {isAddress? (
-        <div className={`${style.popup} ${style.addressPopup}`}>
+        <div className={` ${style.addressPopup}`}>
         <div className={style.Overlay} onClick={()=>{
             setIsAddress(false)
         }}>

@@ -475,15 +475,19 @@ const Description = ({
       console.log(res);
       const splitRes = res.split("|");
       const data = splitRes[splitRes.length - 1];
-      console.log(res)
+      console.log(data)
       setCheckPrizeWon(data)
+      setPrizeDate(data)
     });
     socket.on("prize_reset", (res) => {
       console.log(res);
       const splitData = res.split("|")
       const resetData = splitData[splitData.length-1]
+      console.log(resetData)
+      console.log(typeof resetData)
       if(resetData==="RESET"){
         setPrizeResetStatus(resetData)
+        setPrizeDate(resetData)
       }
     });
     socket.on("sensor_message", (res) => {
@@ -761,7 +765,9 @@ useEffect(()=>{
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
-        freeplay:false,
+        // freeplay:false,
+      freeplay:GameData.price==="0"?true:false,
+
       };
       dispatch(gameEntry(EntryRequest));
       dispatch(configutation());
@@ -1060,12 +1066,13 @@ useEffect(()=>{
 
   // All Game Screen API's
   async function checkFreePlay() {
+    const userBody={
+      user: userId,
+      device_id: "",
+    }
     await fetch(`${baseUrl}/game/freeplay/limit`, {
       method: "POST",
-      body: JSON.stringify({
-        user: userId,
-        device_id: "",
-      }),
+      body: JSON.stringify(userBody),
       headers: {
         "Content-type": "application/json",
       },
@@ -1073,13 +1080,14 @@ useEffect(()=>{
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        console.log(userBody);
         // changeFreePlayDaily()
         localStorage.getItem("timesall")
           ? localStorage.setItem(
-              "timesall",
+              "times",
               parseInt(data.data[0].freeplay_limit)
             )
-          : localStorage.setItem("timesall", 0);
+          : localStorage.setItem("times", 0);
       });
   }
   async function changeFreePlayDaily(){
@@ -1230,8 +1238,8 @@ useEffect(()=>{
     const joinBody = {
       machineCode: game.machineCode,
       playerID: userId,
-      // freeplay:GameData.price==="0"?true:false,
-      freeplay:false,
+      freeplay:GameData.price==="0"?true:false,
+      // freeplay:false,
       source: "web",
     }
     await fetch(`${baseUrl}/game/join`, {
@@ -1302,7 +1310,9 @@ useEffect(()=>{
       playerID: userId,
       machineCode: game.machineCode,
       source: "web",
-      freeplay:false,
+      // freeplay:false,
+      freeplay:GameData.price==="0"?true:false,
+
       // freeplay:false,
     }
     await fetch(`${baseUrl}/game/start`, {
@@ -2420,7 +2430,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true?
+                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2516,7 +2526,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true?
+                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2594,7 +2604,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true?
+                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2652,7 +2662,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                     {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true?
+                     {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2749,7 +2759,7 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                   {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true?
+                   {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
