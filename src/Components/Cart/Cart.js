@@ -381,8 +381,8 @@ async function playAudioBg() {
       .then((res) => res.json())
       .then((data) => {
         setVipData(data);
-        const message = data.data[0].vip_discription.split("\n");
-        setVipMessage(message);
+        // const message = data.data[0].vip_discription.split("\n");
+        // setVipMessage(message);
         console.log(data);
         // console.log(data.data[0].vip_discription.split("\n"))
       });

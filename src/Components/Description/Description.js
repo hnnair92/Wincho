@@ -203,6 +203,11 @@ const Description = ({
   }, [navigator]);
   const videoRef = useRef();
   const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
+  useEffect(()=>{
+    if(userId===undefined||userId==="undefined"){
+      localStorage.removeItem("user")
+    }
+  })
   // const userId = JSON.parse(localStorage.getItem("user"));
   // localStorage.getItem("user")?localStorage.getItem("user"):localStorage.setItem("user","")
   const baseMessage = `${userId}|${GameData?.machine_code}`;
