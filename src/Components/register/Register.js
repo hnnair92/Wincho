@@ -93,7 +93,8 @@ const Register = () => {
         console.log(errors)
     },[password])
     const navigate = useNavigate()
-    const{error,user} = useSelector((state)=>state.profile)
+    const {user, authenticated } = useSelector((state) => state.profile);
+    const { error } = useSelector((state) => state.userData);
     useEffect(()=>{
         // if(userId!==null&&user&&user.username!==""){
         //     dispatch(updateProfile(userId))

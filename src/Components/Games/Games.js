@@ -69,13 +69,28 @@ const {configuration} = useSelector((state)=>state.configuration)
   const [imageGallery,setImageGallery] = useState([])
   const [loadingScreen,setLoadingScreen] = useState(false)
   const [countSection,setCountSection] = useState(0)
-  const times = localStorage.getItem("times")
+  const [times,setTimes] = useState(JSON.parse(localStorage.getItem("times"))||0)
+  // const times = JSON.parse(localStorage.getItem("times"))
   const checkPlayArray = localStorage.getItem("checkPlay")&&JSON.parse(localStorage.getItem("checkPlay"))
 
   // const checkPlayArray = localStorage.getItem("checkPlay")&& JSON.parse(localStorage.getItem("checkPlay"))
   useEffect(()=>{
     console.log(state)
   },[state])
+  useEffect(()=>{
+    const checkEmailVerify = JSON.parse(localStorage.getItem("verifyCheck"))
+    if(checkEmailVerify){
+      if(checkEmailVerify===true){
+        setVerifyMails(false)
+      }
+      else if(checkEmailVerify===false){
+        setVerifyMails(true)
+      }
+      else{
+        localStorage.removeItem("verifyCheck")
+      }
+    }
+  })
   // console.log(imageGallery)
   // useEffect(()=>{
   //   if(times>=configuration.FREE_PLAY_LIMIT){
@@ -308,11 +323,11 @@ async function playAudio(src) {
         console.log(userBody);
         // changeFreePlayDaily()
         localStorage.getItem("times")
-          ? localStorage.setItem(
+          ?  setTimes(localStorage.setItem(
               "times",
-              parseInt(data.data[0].freeplay_limit)
+             JSON.stringify(data.data[0].freeplay_limit))
             )
-          : localStorage.setItem("times", parseInt(data.data[0].freeplay_limit));
+          : setTimes(localStorage.setItem("times", JSON.stringify(data.data[0].freeplay_limit)))
       });
   }
   const searchApi = async () => {
@@ -349,7 +364,7 @@ async function playAudio(src) {
     if (user === undefined) {
       // navigate("/login");
     }
-    freePlay()
+    checkFreePlay()
   }, [dispatch, category, id]);
   const categories = [
     {
@@ -405,7 +420,7 @@ useEffect(()=>{
   console.log(typeof user?.tc_version);
   console.log(typeof configuration?.TC_VERSION);
   console.log(user?.tc_version<configuration?.TC_VERSION)
-  if(user?.tc_version<configuration?.TC_VERSION){
+  if(user?.tc_version<configuration?.TC_VERSION&&user&&user.username!==""){
     setTermsVersion(true)
   }
 },[user,configuration])
@@ -839,7 +854,7 @@ async function updateTermsAndConditions(){
                             <div className={style.PriceDiv}>
                               <div className={style.ticketIcon}>
                                 <div className={style.ticketIconDiv}>
-                                  {times>=configuration.FREE_PLAY_LIMIT&&game.price==="0"&&user&&user.vip===false?
+                                  {parseInt(times)>configuration.FREE_PLAY_LIMIT&&game.price==="0"&&user&&user.vip===false?
                                   <img src={Ticket} alt="" className={style.icon} style={{filter:"grayScale(1)"}}/>
                                   :
                                   <img src={Ticket} alt="" className={style.icon} style={{filter:"grayScale(0)"}}/>

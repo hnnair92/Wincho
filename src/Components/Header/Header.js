@@ -200,6 +200,7 @@ async function playAudio(src) {
     // console.log(window.location.pathname.split("/"))
     localStorage.removeItem("SaveShipping");
     localStorage.removeItem("times");
+    localStorage.removeItem("premium");
     // navigate("/");
     window.location.reload();
   };
@@ -908,7 +909,20 @@ async function playAudio(src) {
           </div>
           <div className={style.MPlus}>
             <button onClick={()=>{
-              navigate("/tickets")
+              // navigate("/tickets")
+              setPageUrl("/tickets")
+              {
+  
+                setActive(true)
+              // }
+                    setPageUrl("/tickets")
+                  // if(gamePlay===true){
+                setActive(true)
+              // }
+                 if(gamePlay===false&&userJoined===false){
+                   navigate("/tickets");
+                 }
+              }
             }}>
               <img src={plus} alt="" />
             </button>
@@ -1067,7 +1081,18 @@ async function playAudio(src) {
           <Link to="/tickets">
           <div className={style.Plus}>
             <button onClick={()=>{
-              navigate("/tickets")
+                setPageUrl("/tickets")
+                
+    
+                  setActive(true)
+                // }
+                      setPageUrl("/tickets")
+                    // if(gamePlay===true){
+                  setActive(true)
+                // }
+                   if(gamePlay===false&&userJoined===false){
+                     navigate("/tickets");
+                   }
             }}>
               <img src={plus} alt="" />
             </button>

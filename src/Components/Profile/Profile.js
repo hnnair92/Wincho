@@ -135,12 +135,16 @@ async function playAudioBg() {
         // setVipData(data);
         console.log(data);
         // e.preventDefault();
-        localStorage.removeItem("user");
         // console.log(window.location.pathname.split("/"))
+        // navigate("/");
+
+        // 
+        localStorage.removeItem("user");
         localStorage.removeItem("SaveShipping");
         localStorage.removeItem("times");
-        // navigate("/");
         window.location.reload();
+        // 
+
         // navigate("/")
 
       });
@@ -193,9 +197,10 @@ async function playAudioBg() {
         setCheckMail(true)
       });
   }
-  async function updatePasswordFunc(){
+  async function updatePasswordFunc(e){
+    e.preventDefault()
     await fetch(`${baseUrl}/user/profile/update`, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify({
         id: userId,
         username:user.username,
@@ -445,7 +450,7 @@ async function playAudioBg() {
 
               <button
                 type="submit"
-                onClick={() => {
+                onClick={(e) => {
                   // setIsAddressFieldShown(true);
                   // setisAddressField(false);
                   // setAddressObj({
@@ -458,7 +463,7 @@ async function playAudioBg() {
                   // numberValidation()
                   // setCount(4)
                   // console.log(addressObj);
-                  updatePasswordFunc()
+                  updatePasswordFunc(e)
                 }}
                 // disabled={ line1===""|| line2===""|| city===""|| state===""|| zipcode===""}
               >
