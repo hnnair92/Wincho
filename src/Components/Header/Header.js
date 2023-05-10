@@ -226,6 +226,9 @@ async function playAudio(src) {
     useEffect(() => {
       console.log(id);
     }, [id]);
+    useEffect(()=>{
+      console.log(gamePlay)
+    },[gamePlay])
     // useEffect(() => {
     //   console.log(active);
     // }, [active]);

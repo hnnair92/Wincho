@@ -442,7 +442,7 @@ const ticket =  [
               </div>
               <div className={style.SubscribeButton}>
                 <button onClick={()=>{
-                  if(Object.keys(user).length === 0){
+                  if(Object.keys(user).length === 0||userId===null){
                     navigate("/login")
                   }
                   else if(user&&user.profile_status===false){
@@ -522,7 +522,7 @@ const ticket =  [
            <h2> 20% OFF TICKETS!</h2>
         </div> */}
         <div className={style.Ticket}>
-        {user&&user.vip===false||user===undefined||user===null?
+        {user&&user.vip===false||user===undefined||userId===null?
             <div className={style.Banner}>
                 <img src={Banner} alt="" />
                 <button onClick={()=>{

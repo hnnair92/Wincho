@@ -159,11 +159,26 @@ const Footer = ({gamePlay,setGamePlay}) => {
                     {/* <FaFacebook/>
                     <AiOutlineInstagram/>
                     <AiFillTwitterCircle/> */}
-                    <img src={facebook} alt="" />
+                    {/* <img src={facebook} alt="" />
                     <img src={twitter} alt="" />
                     <img src={instagram} alt="" />
                     <img src={tiktok} alt="" />
-                    <img src={youtube} alt="" />
+                    <img src={youtube} alt="" /> */}
+                      <img src={facebook} alt="" onClick={()=>{
+                        window.open("https://www.facebook.com/WinchaOnline/")
+                    }}/>
+                    <img src={twitter} alt=""  onClick={()=>{
+                        window.open("https://twitter.com/winchaonline")
+                    }}/>
+                    <img src={instagram} alt=""  onClick={()=>{
+                        window.open("https://www.instagram.com/winchaonline/")
+                    }}/>
+                    <img src={tiktok} alt=""  onClick={()=>{
+                        window.open("https://www.tiktok.com/@winchaonline")
+                    }}/>
+                    <img src={youtube} alt=""  onClick={()=>{
+                        window.open("https://youtube.com/@bandainamcoae")
+                    }}/>
 
                 </div>
                 <div className={style.Copyright}>

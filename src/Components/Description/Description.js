@@ -488,6 +488,7 @@ const Description = ({
       console.log(data)
       setCheckPrizeWon(data)
       setPrizeDate(data)
+      setCurrentPrizeMove(true)
     });
     socket.on("prize_reset", (res) => {
       console.log(res);
@@ -498,6 +499,7 @@ const Description = ({
       if(resetData==="RESET"){
         setPrizeResetStatus(resetData)
         setPrizeDate(resetData)
+        setCurrentPrizeMove(false)
         dispatch(gameEntry(EntryRequest))
 
       }
@@ -2262,7 +2264,7 @@ useEffect(()=>{
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>
             <button
-              style={{ pointerEvents: gameStartStatus===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
+              style={{ pointerEvents: gamePlay===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
               onClick={() => {
                 if (gamePlayStatus === true) {
                   setActive(true);
@@ -2296,7 +2298,7 @@ useEffect(()=>{
                 // >
                 <div
                   className={style.Game}
-                  style={{ pointerEvents: gameStartStatus===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
+                  style={{ pointerEvents: gamePlay===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
                   onClick={() => {
                     setLeavePopup(true);
                     setTransferGame(game);
@@ -2733,7 +2735,7 @@ useEffect(()=>{
                         <img src={prizeMove} alt="" />
                       </div>
                       
-                       :currentPrizeMove===true&&prizeId!==userId ?
+                       :currentPrizeMove===true&&prizeId!==userId&&prizeDate!=="RESET" ?
                        <div className={style.PrizeMove}>
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
@@ -2840,6 +2842,10 @@ useEffect(()=>{
                               setReloadStatus(true)
                               PointDebit();
                             }}
+                            onClick={()=>{
+                              setReloadStatus(true)
+                              PointDebit();
+                            }}
                           />
                         ) : firstStep ? (
                           game.camera_data[0].camera_id === "1" ? (
@@ -2879,6 +2885,15 @@ useEffect(()=>{
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                     }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -2912,6 +2927,15 @@ useEffect(()=>{
                                       setCameraState2(true);
                                     }}
                                     onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState2(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(false);
                                     }}
@@ -2956,6 +2980,18 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       setCameraState2(false);
                                     }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log(animeRef.current);
+                                      console.log("clicked");
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState2(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -2991,6 +3027,19 @@ useEffect(()=>{
                                       // console.log(animeRef.current)
                                     }}
                                     onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState1(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      // console.log(cameraState1)
+                                      setCameraState1(true);
+                                      // console.log(animeRef.current)
+                                    }}
+                                    onPointerUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
@@ -3038,6 +3087,14 @@ useEffect(()=>{
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                     }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -3069,6 +3126,14 @@ useEffect(()=>{
                                       setCameraState2(false);
                                     }}
                                     onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState2(false);
+                                    }}
+                                    onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
                                     }}
@@ -3111,6 +3176,16 @@ useEffect(()=>{
                                       console.log("released");
                                       setCameraState1(false);
                                     }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      setCameraState1(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -3143,6 +3218,16 @@ useEffect(()=>{
                                       setCameraState2(false);
                                     }}
                                     onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      setCameraState2(false);
+                                    }}
+                                    onPointerUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState2(true);
@@ -3197,6 +3282,15 @@ useEffect(()=>{
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                     }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -3228,6 +3322,15 @@ useEffect(()=>{
                                       setCameraState2(true);
                                     }}
                                     onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                     }}
@@ -3268,6 +3371,15 @@ useEffect(()=>{
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                     }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -3299,6 +3411,15 @@ useEffect(()=>{
                                       setCameraState2(true);
                                     }}
                                     onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                     }}
@@ -3352,6 +3473,21 @@ useEffect(()=>{
                                       setCameraState2(false);
                                       console.log("second arrow left false");
                                     }}
+                                    onPointerDown={() => {
+                                      //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left true");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                      console.log(cameraState2);
+                                    }}
+                                    onPointerUp={() => {
+                                      setCameraState2(false);
+                                      console.log(cameraState2);
+
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      console.log("second arrow left false");
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -3385,6 +3521,21 @@ useEffect(()=>{
                                       setCameraState1(true);
                                     }}
                                     onMouseUp={() => {
+                                      console.log(
+                                        "second release arrow left false"
+                                      );
+
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
+                                      //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
                                       console.log(
                                         "second release arrow left false"
                                       );
@@ -3430,6 +3581,15 @@ useEffect(()=>{
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                     }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
                                   />
                                 </div>
                                 <div
@@ -3464,6 +3624,15 @@ useEffect(()=>{
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                     }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                    }}
                                   />
                                 </div>
                               </div>
@@ -3491,24 +3660,28 @@ useEffect(()=>{
                               loop={false}
                               onComplete={() => {
                                   console.log(prizeDate)
+                                  // setActive(false)
+                                  setGamePlay(false);
+                                  setGamePlayStatus(false);
+                                  setGameStartStatus(false)
+                                  // setUserJoined(false)
                                 if(prizeDate==="PRIZE_WON"){
                                   console.log(prizeCount)
                                   console.log(prizeDate)
                                   playAudio(music.Woohoo)
                                      addToCart();
                                     gameLeave();
-                                   navigate("/win-screen",{state:{game:GameData}});
                                     // socket.disconnect();
                                     setGamePlayStatus(false);
-                                setGamePlay(false);
-                                setPlayAgain(false);
-                            setReloadStatus(false)
+                                    // setGamePlay(false);
+                                    setPlayAgain(false);
+                                    setReloadStatus(false)
+                                    navigate("/win-screen",{state:{game:GameData}});
 
                                 }
                                 else{
                                   playAudio(music.Whoops);
 
-                                setGamePlayStatus(false);
                             // setReloadStatus(false)
 
                                 // setGamePlay(false);
@@ -3532,7 +3705,7 @@ useEffect(()=>{
                         onClick={() => {
                           setWait(true);
                           setGamePlayStatus(true);
-                          setGamePlay(true);
+                        
                           setHideEverything(false)
                           // setReloadStatus(false)
                           setReloadStatus(true)

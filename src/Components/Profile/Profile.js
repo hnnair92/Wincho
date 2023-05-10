@@ -111,6 +111,7 @@ async function playAudioBg() {
   const [type, setType] = useState(true);
   // const userId = JSON.parse(localStorage.getItem("user"));
   const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
+  console.log(userId)
   const [passIcon, setPassIcon] = useState(false);
   const [checkMail, setCheckMail] = useState(false);
   const resendLocal = localStorage.getItem("resend")
@@ -302,7 +303,11 @@ async function playAudioBg() {
                 </div>
               </div>
               <div className={style.SubscribeButton}>
-                <button>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+                <button onClick={()=>{
+                 if(userId===null){
+                  return navigate("/login")
+                }
+                }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
                 <p>Cancel any time</p>
@@ -405,9 +410,10 @@ async function playAudioBg() {
                   type={type ? "password" : "text"}
                   name=""
                   id="password"
+                  autocomplete="off"
                   className={style.passwordInput}
                   value={password}
-                  placeholder="password"
+                  placeholder="NEW PASSWORD"
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -426,6 +432,7 @@ async function playAudioBg() {
                 type="text"
                 name=""
                 id=""
+                autocomplete="off"
                 // value={number}
                 placeholder="REPEAT NEW PASSWORD"
                 onChange={(e) => {
@@ -498,7 +505,7 @@ async function playAudioBg() {
                 onChange={(e) => {
                   setMessage(e.target.value);
                 }}
-                placeholder="If you can please tell us why you're leaving"
+                placeholder="If you can please tell us why you're leaving..."
               ></textarea>
             </div>
             <div className={style.popupSubmit}>
@@ -820,9 +827,11 @@ async function playAudioBg() {
                   </div>
                   <div className={style.InputSection}>
                     <input type="text" value={subscription} readOnly />
-                    <img src={shippingInfo} alt="" onClick={()=>{
+                    {user&&user.vip===false||userId===null?<img src={shippingInfo} alt="" onClick={()=>{
                       setPremiumPopup(true)
-                    }}/>
+                    }}/>:""
+                   
+                  }
                     {/* <input type="text" value={subscription} onChange={(e)=>{
                                 setSubscription(e.target.value)
                             }}/> */}

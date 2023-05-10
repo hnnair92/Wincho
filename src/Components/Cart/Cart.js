@@ -619,6 +619,9 @@ async function playAudioBg() {
               </div>
               <div className={style.SubscribeButton}>
                 <button onClick={()=>{
+                  if(userId===null){
+                    return navigate("/login")
+                  }
                   createPayment()
                 }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
@@ -1097,22 +1100,34 @@ async function playAudioBg() {
                       {shareIcons && shareId === cart.id * index ? (
                         <div className={style.ShareDiv}>
                           <div className={style.ShareIcon}>
-                            <MdFacebook />
+                            <MdFacebook onClick={()=>{
+                              window.open("https://www.facebook.com/")
+                            }}/>
                           </div>
                           <div className={style.ShareIcon}>
-                            <AiOutlineInstagram />
+                            <AiOutlineInstagram  onClick={()=>{
+                              window.open("https://www.instagram.com/")
+                            }}/>
                           </div>
                           <div className={style.ShareIcon}>
-                            <TfiTwitter />
+                            <TfiTwitter  onClick={()=>{
+                              window.open("https://twitter.com/home")
+                            }}/>
                           </div>
                           <div className={style.ShareIcon}>
-                            <FaTiktok />
+                            <FaTiktok  onClick={()=>{
+                              window.open("https://www.tiktok.com/about/")
+                            }}/>
                           </div>
                           <div className={style.ShareIcon}>
-                            <AiFillYoutube />
+                            <AiFillYoutube  onClick={()=>{
+                              window.open("https://www.youtube.com/")
+                            }}/>
                           </div>
                           <div className={style.ShareIcon}>
-                            <MdEmail />
+                            <MdEmail onClick={()=>{
+                              window.open("https://mail.google.com/mail/u/0/#inbox?compose=new")
+                            }}/>
                           </div>
                         </div>
                       ) : (
@@ -1167,6 +1182,9 @@ async function playAudioBg() {
                   <span
                     className={style.CircleActive}
                     onClick={() => {
+                      // if(userId===null){
+                      //   return navigate("/login")
+                      // }
                 //   if(vipData.status === true &&
                 // vipData.data[0].vip_token === false){
                 //   setPremiumPopup(true)
@@ -1177,7 +1195,11 @@ async function playAudioBg() {
                 }}
                   ></span>
                 ) : (
-                  <span className={style.Circle} onClick={() => {
+                  <span className={style.Circle}  onClick={() => {
+
+                    if(userId===null){
+                      return navigate("/login")
+                    }
                      if (user&&user.vip === false) {
                     setPremiumPopup(true);
                   }
