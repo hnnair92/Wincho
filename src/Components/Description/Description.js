@@ -87,6 +87,11 @@ const Description = ({
   const deviceId = JSON.parse(localStorage.getItem("deviceId"))
   // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))?JSON.parse(localStorage.getItem("checkPlay")):[]
   // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))?JSON.parse(localStorage.getItem("checkPlay")):[]
+  useEffect(()=>{
+    if(deviceId===null){
+      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+    }
+  })
   const [checkDateCount,setCheckDateCount] = useState(0)
   // const checkUserArray = []
   // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))
@@ -207,7 +212,7 @@ const Description = ({
     if(userId===undefined||userId==="undefined"){
       localStorage.removeItem("user")
     }
-  })
+  },[userId])
   // const userId = JSON.parse(localStorage.getItem("user"));
   // localStorage.getItem("user")?localStorage.getItem("user"):localStorage.setItem("user","")
   const baseMessage = `${userId}|${GameData?.machine_code}`;
@@ -367,14 +372,14 @@ const Description = ({
       dob:"",
       country:"",
       state:"",
-      countrycode:configuration.COUNTRY_CODE,
-      countryname:configuration.COUNTRY_NAME,
+      countrycode:configuration&&configuration.COUNTRY_CODE,
+      countryname:configuration&&configuration.COUNTRY_NAME,
       user_type:"anonymous",
       device_id:deviceId?deviceId:""
       
   }
     if(userId===null){
-      // localStorage.setItem("user",JSON.stringify(milliseconds*utc))
+      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
       if(userId===undefined){
         localStorage.removeItem("user")
       }
@@ -396,11 +401,11 @@ const Description = ({
       device_id:deviceId?deviceId:""
       
   }
-    if(userId===undefined){
+    if(userId===undefined||userId==="undefined"){
       // localStorage.setItem("user",JSON.stringify(milliseconds*utc))
-      if(userId===undefined){
+      // if(userId===undefined){
         localStorage.removeItem("user")
-      }
+      // }
       dispatch(registerAction(userRegAnom))
     }
   },[userId])
@@ -493,6 +498,8 @@ const Description = ({
       if(resetData==="RESET"){
         setPrizeResetStatus(resetData)
         setPrizeDate(resetData)
+        dispatch(gameEntry(EntryRequest))
+
       }
     });
     socket.on("sensor_message", (res) => {
@@ -2423,31 +2430,20 @@ useEffect(()=>{
                         <img src={prizeMove} alt="" />
                       </div>
                       
-                       :currentPrizeMove===true&&prizeId!==userId ?<div className={style.PrizeMove}>
+                       :currentPrizeMove===true&&prizeId!==userId ?
+                       <div className={style.PrizeMove}>
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
-                        
-                        {/* {game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}
-                     */}
-                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
+                       
+                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                   
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}   
-                   {checkPrizeWon==="PRIZE_WON"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}   
-                    {prizeDate!=="RESET"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
+                   {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2513,42 +2509,31 @@ useEffect(()=>{
                         ""
                       )}
                      
-                        {currentPrizeMove===true&&prizeId===userId?
+                     {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
-                       :currentPrizeMove===true&&prizeId!==userId ?<div className={style.PrizeMove}>
+                       :currentPrizeMove===true&&prizeId!==userId ?
+                       <div className={style.PrizeMove}>
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
-                        
-                        {/* {game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}
-                     */}
-                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
+                       
+                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                   
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}   
-                   {checkPrizeWon==="PRIZE_WON"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
+                   {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
-                    {prizeDate!=="RESET"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}     
+                       :""}    
                         
                       <Screen
                         sessionId={
@@ -2609,19 +2594,26 @@ useEffect(()=>{
                       </div>
                        :""}
                      */}
-                    {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
+                    {currentPrizeMove===true&&prizeId===userId?
+                      <div className={style.PrizeMove}>
+                          <div className={style.PrizeMoveOverlay}></div>
+                        <img src={prizeMove} alt="" />
+                      </div>
+                      
+                       :currentPrizeMove===true&&prizeId!==userId ?
+                       <div className={style.PrizeMove}>
+                       <div className={style.PrizeMoveOverlay}></div>
+                     <img src={prizeMoveUser} alt="" />
+                   </div>:""} 
+                       
+                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                   
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}   
-                   {checkPrizeWon==="PRIZE_WON"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}   
-                    {prizeDate!=="RESET"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
+                   {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2649,37 +2641,26 @@ useEffect(()=>{
                       ) : (
                         ""
                       )}
-                       {currentPrizeMove===true&&prizeId===userId?
+                      {currentPrizeMove===true&&prizeId===userId?
                       <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMove} alt="" />
                       </div>
                       
-                       :currentPrizeMove===true&&prizeId!==userId ?<div className={style.PrizeMove}>
+                       :currentPrizeMove===true&&prizeId!==userId ?
+                       <div className={style.PrizeMove}>
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
-                        
-                        {/* {game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}
-                     */}
-                     {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"?
+                       
+                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                   
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}   
-                   {checkPrizeWon==="PRIZE_WON"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}   
-                    {prizeDate!=="RESET"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
+                   {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -2752,31 +2733,20 @@ useEffect(()=>{
                         <img src={prizeMove} alt="" />
                       </div>
                       
-                       :currentPrizeMove===true&&prizeId!==userId ?<div className={style.PrizeMove}>
+                       :currentPrizeMove===true&&prizeId!==userId ?
+                       <div className={style.PrizeMove}>
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
-                        
-                        {/* {game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}
-                     */}
-                   {game.price_move_status===true&&prizeId!==userId&&currentPrizeMove===true&&prizeDate!=="RESET"&&prizeDate!=="RESET"?
+                       
+                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                   
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
                        :""}   
-                    {checkPrizeWon==="PRIZE_WON"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"&&prizeDate!=="RESET"?
-                        <div className={style.PrizeMove}>
-                          <div className={style.PrizeMoveOverlay}></div>
-                        <img src={prizeMoveUser} alt="" />
-                      </div>
-                       :""}   
-                    {prizeDate!=="RESET"&&prizeId!==userId&&currentPrizeMove===true&&prizeResetStatus!=="RESET"?
+                   {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
@@ -3524,6 +3494,7 @@ useEffect(()=>{
                                 if(prizeDate==="PRIZE_WON"){
                                   console.log(prizeCount)
                                   console.log(prizeDate)
+                                  playAudio(music.Woohoo)
                                      addToCart();
                                     gameLeave();
                                    navigate("/win-screen",{state:{game:GameData}});

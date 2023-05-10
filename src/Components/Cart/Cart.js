@@ -1307,7 +1307,7 @@ async function playAudioBg() {
           </div>
         </div>
         <div className={style.Checkout}>
-          <button style={{filter:loading||user?.addressline1===""||count>4||cartData.length<=0?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||cartData.length<=0||loading?"none":"visible"}}
+          <button style={{filter:loading||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.zipcode===""||user?.first_name===""||count>4||cartData.length<=0?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.zipcode===""||user?.first_name===""||cartData.length<=0||loading?"none":"visible"}}
             onClick={() => {
               const parsedPoint = user && parseInt(user.point);
               const parsedPrice =
@@ -1418,6 +1418,7 @@ async function playAudioBg() {
               }
             }}
             disabled={loading}
+            // disabled={loading||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.state===""||user?.zipcode===""||user?.first_name===""}
           >
             CHECKOUT
           </button>

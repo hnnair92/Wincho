@@ -40,6 +40,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [sliderSction, setSliderAction] = useState(false);
   const { notification } = useSelector((state) => state.notification);
   let inGame = localStorage.getItem("inGame");
+  // let userId = JSON.parse(localStorage.getItem("user"))||
   let userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   // let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
@@ -912,13 +913,9 @@ async function playAudio(src) {
               // navigate("/tickets")
               setPageUrl("/tickets")
               {
-  
                 setActive(true)
-              // }
                     setPageUrl("/tickets")
-                  // if(gamePlay===true){
                 setActive(true)
-              // }
                  if(gamePlay===false&&userJoined===false){
                    navigate("/tickets");
                  }
@@ -1078,15 +1075,15 @@ async function playAudio(src) {
           <div className={style.Points}>
             <p>{(user && user.point) || "0"}</p>
           </div>
-          <Link to="/tickets">
+          {/* <Link to="/tickets"> */}
           <div className={style.Plus}>
             <button onClick={()=>{
-                setPageUrl("/tickets")
+                setPageUrl("tickets")
                 
     
                   setActive(true)
                 // }
-                      setPageUrl("/tickets")
+                      // setPageUrl("tickets")
                     // if(gamePlay===true){
                   setActive(true)
                 // }
@@ -1097,7 +1094,7 @@ async function playAudio(src) {
               <img src={plus} alt="" />
             </button>
           </div>
-          </Link>
+          {/* </Link> */}
         </div>
       :
       ""}

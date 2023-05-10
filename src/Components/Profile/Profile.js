@@ -110,7 +110,7 @@ async function playAudioBg() {
   const [message, setMessage] = useState(false);
   const [type, setType] = useState(true);
   // const userId = JSON.parse(localStorage.getItem("user"));
-  const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):"";
+  const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   const [passIcon, setPassIcon] = useState(false);
   const [checkMail, setCheckMail] = useState(false);
   const resendLocal = localStorage.getItem("resend")

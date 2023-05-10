@@ -72,30 +72,32 @@ import {
   
   export const registerAction = (data) => async (dispatch) => {
     console.log(data);
+    const deviceId = JSON.parse(localStorage.getItem("userId"))
+    const registerData = {
+      username: data.username,
+      email: data.email,
+      password: data.password,
+      dob: data.dob,
+      source: "web",
+      phone: "",
+      addressline1: "",
+      addressline2: "",
+      city: "",
+      state: data.countryname==="USA"?data.state:"",
+      zipcode: "",
+      coutrycode: data.countrycode,
+      coutryname: data.countryname,
+      accountstatus: "",
+      device_id: deviceId,
+      user_type: data.user_type,
+    }
     try {
       dispatch({
         type: REGISTER_REQUEST,
       });
       await fetch(`${baseUrl}/user/account/signup`, {
         method: "POST",
-        body: JSON.stringify({
-          username: data.username,
-          email: data.email,
-          password: data.password,
-          dob: data.dob,
-          source: "web",
-          phone: "",
-          addressline1: "",
-          addressline2: "",
-          city: "",
-          state: data.countryname==="USA"?data.state:"",
-          zipcode: "",
-          coutrycode: data.countrycode,
-          coutryname: data.countryname,
-          accountstatus: "",
-          device_id: data.device_id?data.device_id:"",
-          user_type: data.user_type,
-        }),
+        body: JSON.stringify(registerData),
         headers: {
           "Content-Type": "application/json",
         },
@@ -105,10 +107,11 @@ import {
           console.log(data.data.user_id)
           console.log(data.data)
           console.log(data)
+          console.log(registerData)
           if (data.status === "True") {
             console.log(data.data.user_id)
             // if(data.data.)
-            // console.log
+            // console.log(data)
             // localStorage.setItem("user",JSON.stringify(data))
             localStorage.setItem("user", JSON.stringify(data.data.user_id));
             updateProfile(data.data.user_id);
@@ -200,6 +203,7 @@ import {
       dispatch({
         type: CART_REQUEST,
       });
+      // const userId = JSON.parse(localStorage.getItem("user"))||""
       const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
       await fetch(`${baseUrl}/cart/collection`, {
         method: "POST",

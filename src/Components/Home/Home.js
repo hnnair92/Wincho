@@ -230,6 +230,7 @@ const Home = () => {
         }}>
 
         </div>
+        <div className={style.popupSection}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
@@ -256,6 +257,7 @@ const Home = () => {
               SEND
             </button>
           </div>
+        </div>
         </div>
       ) : (
         ""

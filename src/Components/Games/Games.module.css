@@ -205,8 +205,8 @@
 .Image img{
     width: 100%;
     height: 100%;
-    border-top-right-radius: 2.26rem;
-    border-top-left-radius: 2.26rem;
+    border-top-right-radius: 2rem;
+    border-top-left-radius: 2rem;
 }
 /* .categoryActive{
     background-color: #af000f !important;
@@ -659,7 +659,7 @@
     }
     .Search,.MSearch{
         width: fit-content;
-        z-index: 99999;
+        z-index: 9999;
         height: fit-content;
     }
     .Search input,.MSearch input{
@@ -693,6 +693,7 @@
     .Games .Game{
         width: 90%;
     }
+   
     .category,.active{
         font-size: 1.5rem;
         margin-left: 0;
@@ -994,4 +995,7 @@
         transform: translate(-50%,-50%);
         width: 95%;
     }
+}
+.category{
+    color: #000;
 }
