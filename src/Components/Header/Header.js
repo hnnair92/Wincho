@@ -328,7 +328,8 @@ async function playAudio(src) {
   };
 
   return (
-    <div className={style.Container}  style={{pointerEvents:gamePlay?"none":"visible"}}>
+    <div className={style.Container}>
+    {/* <div className={style.Container}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
       {setting?
       <div className={style.SettingsOverlay} onClick={()=>{
         setSetting(false)
@@ -442,7 +443,8 @@ async function playAudio(src) {
                 </div> */}
             </div>
           </div>
-          <div className={style.HamBurgerMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}>
+          <div className={style.HamBurgerMenu} >
+          {/* <div className={style.HamBurgerMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
             {setting ? (
               <div className={style.Settings}>
                 <AiOutlineClose
@@ -455,12 +457,14 @@ async function playAudio(src) {
                   }}
                 />
                 {/* {isUser? */}
-                <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
+                <ul>
                   {settingsMenu.map((menu) => {
                     return (
                       <div
                         className={style.MenuSection}
-                        style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
+                        style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
+                
+                        // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
                         // style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px",marginBottom:userId!==null&&menu.Name==="Logout"&&menu.Name!=="Logout"?"30px":"15px"}}
                         onClick={(e) => {
               e.preventDefault()
@@ -660,13 +664,14 @@ async function playAudio(src) {
           </div>
         </div>
       {setting?
-      <div className={style.Settings}  style={{pointerEvents:gamePlay?"none":"visible"}}>
-        <ul style={{pointerEvents:gamePlay===true?"none":"visible"}}>
+      <div className={style.Settings} >
+      {/* <div className={style.Settings}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
+        <ul>
           {settingsMenu.map((menu) => {
             return (
               <div
                 className={style.MenuSection}
-                style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
+                style={{margin:menu.Name==="Logout"&&userId===null&&menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
                 onClick={(e) => {
                   e.preventDefault()
               playAudio(music.Boing)
@@ -973,7 +978,8 @@ async function playAudio(src) {
         ""
       )}
 
-      <div className={style.Header} style={{pointerEvents:gamePlay?"none":"visible"}}>
+      <div className={style.Header} >
+      {/* <div className={style.Header} style={{pointerEvents:gamePlay?"none":"visible"}}> */}
         <div className={style.Logo}>
           <button
             

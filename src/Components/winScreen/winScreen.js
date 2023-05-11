@@ -19,6 +19,7 @@ const WinScreen = ({pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGa
     setTimeout(()=>{
       if(linkStatus===false){
         navigate("/prizes",{state:{category:data.category}})
+        window.location.reload()
       }
     },5000)
   })

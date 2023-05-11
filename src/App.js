@@ -138,7 +138,7 @@ console.log(id)
           <Route path="/payment/cancel" element={<Ticket />} />
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
-        <Footer setGamePlay={setGamePlay} gamePlay={gamePlay}/>
+        <Footer userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
       </Router>
 
       {/* <Games/> */}

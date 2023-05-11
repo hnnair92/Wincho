@@ -73,6 +73,7 @@ const Description = ({
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);
   const animeRef = useRef(null);
+  const animeRef2 = useRef(null);
   const newDate = new Date()
   const month = newDate.getMonth()
   const year = newDate.getFullYear()
@@ -443,6 +444,7 @@ const Description = ({
         setShowUserPopup(true)
       }
       if(progress==="INPROGRESS"){
+        setPrizeDate("PRIZE_WON")
         setCurrentPrizeMove(true)
       }
     });
@@ -537,7 +539,7 @@ const Description = ({
         setShowGrayPrizeIcon(false)
         setPrizeMoveIcon(false);
         setShowGrayIcon(false)
-
+        setPrizeDate("RESET")
         socket.emit("sent_help_status", `${baseMessage}|RECEIVED`);
         socket.emit(
           "confirm_move",
@@ -638,13 +640,34 @@ useEffect(()=>{
     // console.log(gameMusic)
   }, [gameMusic]);
   useEffect(()=>{
-    if(game&&game.price_move_status){
+    if(game&&game.prize_reset_status===false){
+      setCurrentPrizeMove(false)
+      setPrizeDate("RESET")
+
+    }
+    if(game&&game.price_move_status===false){
+      setCurrentPrizeMove(false)
+      setPrizeDate("RESET")
+    }
+    if(game&&game.price_move_status===true){
       setCurrentPrizeMove(true)
+      setPrizeDate("PRIZE_WON")
     }
     if(game&&game.prize_reset_status===true){
       setCurrentPrizeMove(true)
+      setPrizeDate("PRIZE_WON")
+
     }
-  })
+  },[game])
+  useEffect(()=>{
+    console.log(prizeDate)
+  },[prizeDate])
+  useEffect(()=>{
+    console.log(currentPrizeMove)
+  },[currentPrizeMove])
+  useEffect(()=>{
+    console.log(currentPrizeMove)
+  },[currentPrizeMove])
   useEffect(()=>{
     console.log(videoGot)
     if(videoGot===true){
@@ -742,6 +765,13 @@ useEffect(()=>{
   useEffect(() => {
     console.log(cameraState2);
   }, [cameraState2]);
+  useEffect(() => {
+    console.log(freePlay);
+    console.log(freePlay >= configuration.FREE_PLAY_LIMIT &&
+      GameData.price === "0"&&user&&user.vip===false);
+    console.log(  freePlay >= configuration.FREE_PLAY_LIMIT &&
+      GameData.price === "0")
+  }, [freePlay]);
   useEffect(() => {
     console.log(musicStatus, "musicStatus from Desc");
 
@@ -1623,18 +1653,25 @@ useEffect(()=>{
         if (GameData.price === "0") {
           setFreePlay(freePlay + 1);
         }
+        console.log(user.vip)
         if (
           freePlay >= configuration.FREE_PLAY_LIMIT &&
-          GameData.price === "0"
+          GameData.price === "0"&&user.vip===false
           ) {
             return setFreeLimitPopup(true);
           }
-          setCount(count + 1);
-          // playAudio(music.CoinDrop);
-          console.log(data)
-          dispatch(updateProfile());
-          gameStart();
-          console.log(data)
+          else{
+            setCount(count + 1);
+            // playAudio(music.CoinDrop);
+            console.log(data)
+            console.log(freePlay)
+            console.log(configuration.FREE_PLAY_LIMIT)
+            console.log(GameData.price)
+            console.log(user.vip)
+            dispatch(updateProfile());
+            gameStart();
+            console.log(data)
+          }
       });
   }
   // console.log(GameData?.price)
@@ -1722,6 +1759,18 @@ useEffect(()=>{
 useEffect(()=>{
   console.log(reloadStatus)
 },[reloadStatus])
+useEffect(()=>{
+  console.log(currentPrizeMove)
+},[currentPrizeMove])
+useEffect(()=>{
+  console.log(prizeId)
+},[prizeId])
+useEffect(()=>{
+  console.log(userId)
+},[userId])
+useEffect(()=>{
+  console.log(prizeDate)
+},[prizeDate])
 // useEffect(() => {
 //   console.log(window)
 //   // window.onbeforeunload = setExitPopupOpen(true);
@@ -1734,7 +1783,9 @@ useEffect(()=>{
 //   })
 
 // })
-
+useEffect(()=>{
+  console.log(animeRef)
+},[animeRef])
 const handleTabClosing = async(event) => {
     // removePlayerFromGame()
     // console.log("exiting")\
@@ -2359,7 +2410,7 @@ useEffect(()=>{
                 <div className={style.LoaderAnime}>
                   <Lotties animationData={AllAnimation.Loader} />
                 </div>
-                <p>Make Sure you have stable internet connection</p>
+                <p>Please wait whilst we connect you to your game</p>
               </div>
             </div>
           ) : (
@@ -2438,13 +2489,13 @@ useEffect(()=>{
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
                        
-                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                    {/* {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
                    
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
+                       :""}    */}
                    {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
@@ -2523,13 +2574,13 @@ useEffect(()=>{
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
                        
-                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                    {/* {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
                    
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
+                       :""}    */}
                    {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
@@ -2608,13 +2659,13 @@ useEffect(()=>{
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
                        
-                    {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
+                    {/* {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
                    
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
+                       :""}    */}
                    {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
@@ -2654,14 +2705,14 @@ useEffect(()=>{
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
-                       
+{/*                        
                     {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
                    
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
+                       :""}    */}
                    {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
@@ -2740,20 +2791,22 @@ useEffect(()=>{
                        <div className={style.PrizeMoveOverlay}></div>
                      <img src={prizeMoveUser} alt="" />
                    </div>:""} 
-                       
+{/*                        
                     {game.price_move_status===true&&prizeId!==userId&&prizeDate!=="RESET"?
                    
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
+                       :""}    */}
                    {prizeDate==="PRIZE_WON"&&prizeId!==userId?
                         <div className={style.PrizeMove}>
                           <div className={style.PrizeMoveOverlay}></div>
                         <img src={prizeMoveUser} alt="" />
                       </div>
-                       :""}   
+                       :""}  
+                       
+                        
                       <Screen
                         sessionId={
                           game &&
@@ -2846,6 +2899,7 @@ useEffect(()=>{
                               setReloadStatus(true)
                               PointDebit();
                             }}
+                             
                           />
                         ) : firstStep ? (
                           game.camera_data[0].camera_id === "1" ? (
@@ -2867,7 +2921,9 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
-                                    ref={animeRef}
+                                     
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -2880,19 +2936,30 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -2912,7 +2979,9 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
-                                    ref={animeRef}
+                                     
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -2925,19 +2994,32 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(false);
+                                      // animeRef.current.play()
+
+                                      
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(false);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -2960,6 +3042,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -2973,11 +3057,16 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       console.log("clicked");
                                       setCameraState2(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
+                                      // animeRef.current.play()
                                       setCameraState2(false);
                                     }}
                                     onPointerDown={() => {
@@ -2985,12 +3074,18 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       console.log("clicked");
                                       setCameraState2(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
                                       setCameraState2(false);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3010,6 +3105,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef}
+                                     
                                     // isPaused={animeRef}
                                   />
                                   <img
@@ -3024,6 +3121,10 @@ useEffect(()=>{
                                       console.log("clicked");
                                       // console.log(cameraState1)
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                       // console.log(animeRef.current)
                                     }}
                                     onMouseUp={() => {
@@ -3031,10 +3132,16 @@ useEffect(()=>{
                                       console.log("released");
                                       console.log(animeRef.current);
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                       // console.log(cameraState1)
                                       setCameraState1(true);
                                       // console.log(animeRef.current)
@@ -3044,6 +3151,8 @@ useEffect(()=>{
                                       console.log("released");
                                       console.log(animeRef.current);
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3071,6 +3180,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -3082,18 +3193,30 @@ useEffect(()=>{
                                     onMouseDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3113,6 +3236,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -3124,18 +3249,30 @@ useEffect(()=>{
                                     onMouseDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState2(false);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
+                                      // animeRef.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
-                                      setCameraState2(false);
+                                      setCameraState2(false)
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+                                      ;
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3158,6 +3295,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -3170,21 +3309,33 @@ useEffect(()=>{
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState1(true);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState1(false);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3204,6 +3355,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef}
+                                     
                                   />
                                   <img
                                     src={
@@ -3216,21 +3369,33 @@ useEffect(()=>{
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState2(false);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState2(true);
+                                      // animeRef.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState2(false);
+                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState2(true);
+                                      // animeRef.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3265,6 +3430,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                     
                                   />
                                   <img
                                     src={
@@ -3277,19 +3444,31 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef)
+
                                     }}
                                     onMouseUp={() => {
                                       SecondArrowRelease();
                                       setCameraState1(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState1(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3308,6 +3487,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                     
                                   />
                                   <img
                                     src={
@@ -3320,19 +3501,31 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onMouseUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3354,6 +3547,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                      
                                   />
                                   <img
                                     src={
@@ -3366,19 +3561,31 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onMouseUp={() => {
                                       SecondArrowRelease();
                                       setCameraState1(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState1(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3397,6 +3604,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                     
                                   />
                                   <img
                                     src={
@@ -3409,19 +3618,31 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onMouseUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3450,6 +3671,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                     
                                   />
                                   <img
                                     src={
@@ -3464,10 +3687,16 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                       console.log(cameraState2);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onMouseUp={() => {
                                       setCameraState2(false);
                                       console.log(cameraState2);
+                                      // animeRef2.current.play()
+
 
                                       SecondArrowRelease();
                                       setCameraState2(false);
@@ -3479,10 +3708,15 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                       console.log(cameraState2);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       setCameraState2(false);
                                       console.log(cameraState2);
+                                      // animeRef2.current.play()
 
                                       SecondArrowRelease();
                                       setCameraState2(false);
@@ -3505,6 +3739,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                     
                                   />
                                   <img
                                     src={
@@ -3518,12 +3754,17 @@ useEffect(()=>{
                                       //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                       setCameraState1(true);
                                     }}
                                     onMouseUp={() => {
                                       console.log(
                                         "second release arrow left false"
                                       );
+                                      // animeRef2.current.play()
 
                                       SecondArrowRelease();
                                       setCameraState1(false);
@@ -3534,11 +3775,16 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       console.log(
                                         "second release arrow left false"
                                       );
+                                      // animeRef2.current.play()
 
                                       SecondArrowRelease();
                                       setCameraState1(false);
@@ -3564,6 +3810,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                     
                                   />
                                   <img
                                     src={
@@ -3576,19 +3824,31 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onMouseUp={() => {
                                       SecondArrowRelease();
                                       setCameraState1(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState1(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3607,6 +3867,8 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    lottieRef={animeRef2}
+                                  
                                   />
                                   <img
                                     src={
@@ -3619,19 +3881,34 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
+                                      //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      console.log(animeRef2.current.setSpeed)
+                                      // console.log(animeRef)
+                                      console.log(animeRef2)
+
                                     }}
                                     onMouseUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                     onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
+                                          // // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          //  animeRef2.current.goToAndStop(animeRef2.current.animationItem.currentFrame,true)
+                                      // console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
                                     }}
                                     onPointerUp={() => {
                                       SecondArrowRelease();
                                       setCameraState2(false);
+                                      // animeRef2.current.play()
+
                                     }}
                                   />
                                 </div>
@@ -3748,7 +4025,10 @@ useEffect(()=>{
                     ) : (
                       <button 
                       style={{
-                        pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
+                      // pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||currentPrizeMove===true&&prizeId!==userId||prizeDate==="PRIZE_WON"&&prizeId!==userId? "none" : "visible",
+
+                        // pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
+                        // pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
                       }}
                         onClick={(e) => {
                           gameJoin(e);
@@ -3761,7 +4041,9 @@ useEffect(()=>{
                   <div
                     className={style.Report}
                     style={{
-                      pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
+                      // pointerEvents:prizeId===userId&&prizeId!==userId||prizeId!==userId ? "none" : "visible",
+                      // pointerEvents:prizeId===userId&&prizeId!==userId||prizeId!==userId ? "none" : "visible",
+                      pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId? "none" : "visible",
                     }}
                   >
                     <button
@@ -3776,7 +4058,9 @@ useEffect(()=>{
                 </div>
                 <div
                   className={style.Right}
-                  style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId? "none" : "visible" }}
+                  style={{                       pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId? "none" : "visible",
+                }}
+                  // style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId? "none" : "visible" }}
                 >
                   <div className={style.LastWin}>
                     <button

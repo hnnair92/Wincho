@@ -227,10 +227,6 @@ async function playAudioBg() {
       return setCount(1);
       console.log(user && user.vip);
     } 
-    // else {
-    //   console.log(user && user.vip);
-    //   setCount(2);
-    // }
   }
   useEffect(() => {
     checkCounts()

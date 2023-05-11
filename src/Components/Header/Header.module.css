@@ -921,7 +921,7 @@
 .addressPopup .popupSection .popupText form input,.popupSection .popupText form textarea{
     border:none;
     outline:none;
-    border-radius:40px;
+    border-radius:15px;
     margin: 5px 0px;
     padding:10px 20px;
     font-family: myraidproregular;
@@ -929,7 +929,7 @@
     font-size: 2rem;
 }
 .addressPopup .popupSection .popupText form textarea{
-    border-radius: 25px;
+    /* border-radius: 25px; */
     font-family: myraidproregular;
     color: #1b8fe7;
     resize: none;

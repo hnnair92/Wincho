@@ -20,7 +20,7 @@ import { assets } from '../Description/assests'
 import videoSrc from '../../assests/video/wincha.mp4';
 import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 // import {} from 'react-icons/ai'
-const Footer = ({gamePlay,setGamePlay}) => {
+const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
     const navigate = useNavigate();
     const [isAddress, setIsAddress] = useState(false);
     const {configuration} = useSelector((state)=>state.configuration)
@@ -88,18 +88,58 @@ const Footer = ({gamePlay,setGamePlay}) => {
                 <p className={style.Title}>LINKS</p>
                     <li onClick={(e)=>{
                         // handleId(e,"home")
-                        navigate("/")
+                        setPageUrl("")
+                        {
+
+                          setActive(true)
+                        // }
+                              setPageUrl("")
+                            // if(gamePlay===true){
+                          setActive(true)
+                        // }
+                          if(gamePlay===false&&userJoined===false){
+                            navigate("/");
+                          }
+                        }
                     }}>Home</li>
                     <li onClick={(e)=>{
                         // handleId(e,"about")
-                        navigate("/prizes")
+                        // navigate("/prizes")
+                        setPageUrl("prizes")
+                        {
+
+                          setActive(true)
+                        // }
+                              setPageUrl("prizes")
+                            // if(gamePlay===true){
+                          setActive(true)
+                        // }
+                          if(gamePlay===false&&userJoined===false){
+                            navigate("/prizes");
+                          }
+                        }
                     }}>Prizes</li>
                     <li onClick={(e)=>{
                         if(window.location.pathname!=="/"){
                         setIsAddress(true)
                         }
                         else{
+                        // handleId(e,"support")
+                        // setPageUrl("/")
+                        {
+
+                          setActive(true)
+                        // }
+                              // setPageUrl("/")
+                            // if(gamePlay===true){
+                          setActive(true)
+                        // }
+                          if(gamePlay===false&&userJoined===false){
+                            // navigate("/");
                         handleId(e,"support")
+
+                          }
+                        }
 
                         }
                     }}>Support</li>
@@ -107,14 +147,27 @@ const Footer = ({gamePlay,setGamePlay}) => {
                     
                     <li onClick={(e)=>{
                         // handleId(e,"support")
-                        navigate("/cart")
+                        // navigate("/cart")
+                        setPageUrl("cart")
+                        {
+
+                          setActive(true)
+                        // }
+                              setPageUrl("cart")
+                            // if(gamePlay===true){
+                          setActive(true)
+                        // }
+                          if(gamePlay===false&&userJoined===false){
+                            navigate("/cart");
+                          }
+                        }
 
                     }}>Basket</li>
                 </ul>
             </div>
             <div className={style.Address}>
                 <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
-                <div className={style.SocialMedia}>
+                <div className={style.SocialMedia} style={{pointerEvents:gamePlay?"none":"visible"}}>
                     {/* <FaFacebook/>
                     <AiOutlineInstagram/>
                     <AiFillTwitterCircle/> */}
@@ -153,9 +206,9 @@ const Footer = ({gamePlay,setGamePlay}) => {
             
         </div>
         <div className={style.MFooter}>
-        <div className={style.Address}>
+        <div className={style.Address} >
                 {/* <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p> */}
-                <div className={style.SocialMedia}>
+                <div className={style.SocialMedia} style={{pointerEvents:gamePlay?"none":"visible"}}>
                     {/* <FaFacebook/>
                     <AiOutlineInstagram/>
                     <AiFillTwitterCircle/> */}
@@ -186,7 +239,7 @@ const Footer = ({gamePlay,setGamePlay}) => {
                     <p>&copy; Bandai Namco Amusement Europe Ltd.</p>
                 </div>
                 <div className={style.TermsAndPrivacy}>
-                <div className={style.TermsAndPrivacyText}>
+                <div className={style.TermsAndPrivacyText} style={{pointerEvents:gamePlay?"none":"visible"}}>
                     <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
                     <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
                 </div>

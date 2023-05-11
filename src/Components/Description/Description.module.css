@@ -1046,7 +1046,7 @@ video {
     }
     .GameScreen{
         width: 100%;
-        margin-top: 4.5rem;
+        margin-top: 3.5rem;
     }
     .VideoSection{
         width: 90%;
@@ -1237,13 +1237,14 @@ video {
     transform: translate(-50%,-100%);
 }
 .videoStarting .LoaderDivSection p{
-    font-size: 2.5rem;
+    font-size: 2rem;
     position: absolute;
     top: 50%;
+    font-family: sans-serif;
     left: 50%;
     transform: translate(-50%,-60%);
     font-weight: normal;
-    color: #000;
+    color: #fff;
 
 }
 .ArrowBothButtons .playImageLoader{
