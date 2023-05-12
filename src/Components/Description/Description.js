@@ -2849,7 +2849,7 @@ useEffect(()=>{
                       hideEverything===false? 
                         <button
                           onClick={() => {
-                            playAudio(music.Chime);
+                            // playAudio(music.Chime);
 
                             setPrizeResetActive(true);
                             setPlayAgain(false);

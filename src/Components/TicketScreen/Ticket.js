@@ -483,7 +483,7 @@ const ticket =  [
       </div>
       
       :""}
-      {resendEmail ? (
+      {resendEmail&&userId!==null ? (
           <div className={style.ResendPopup}>
           <div className={style.popupOverlaySection} onClick={()=>{
             setResendEmail(false)

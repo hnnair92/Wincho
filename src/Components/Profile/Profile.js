@@ -336,7 +336,7 @@ async function playAudioBg() {
       </div>
       
       :""}
-        {passIcon ? (
+        {passIcon&&userId!==null? (
           <div className={style.Passpopup}>
           <div className={style.OverlayBg} onClick={()=>{
             setPassIcon(false)
@@ -371,7 +371,7 @@ async function playAudioBg() {
           ""
         )}
        
-        {updatePassword ? (
+        {updatePassword&&userId!==null? (
           <div className={style.AddressSection}>
           <div className={style.OverlayBg} onClick={()=>{
             setUpdatePassword(false)
@@ -481,7 +481,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {Deactivate ? (
+        {Deactivate&&userId!==null? (
           <div className={style.DeactivatePopup}>
             <div className={style.DeacOverlayBg} onClick={()=>{
             setDeactivate(false)
@@ -505,7 +505,7 @@ async function playAudioBg() {
                 onChange={(e) => {
                   setMessage(e.target.value);
                 }}
-                placeholder="If you can please tell us why you're leaving..."
+                placeholder="If you can, please tell us why you're leaving..."
               ></textarea>
             </div>
             <div className={style.popupSubmit}>
@@ -523,7 +523,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {resendEmail ? (
+        {resendEmail&&userId!==null ? (
           <div className={style.popup}>
           <div className={style.popupOverlay} onClick={()=>{
              if(resendLocal===true){
@@ -563,7 +563,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {checkMail ? (
+        {checkMail&&userId!==null ? (
           <div className={style.popup}>
           <div className={style.popupOverlay} onClick={()=>{
             // setResendEmail(false)
@@ -611,7 +611,9 @@ async function playAudioBg() {
             <button
               className={style.Deactivate}
               onClick={() => {
+                if(userId!==null){
                 setDeactivate(true);
+                }
               }}
             >
               DEACTIVATE ACCOUNT
