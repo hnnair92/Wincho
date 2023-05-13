@@ -111,6 +111,7 @@ async function playAudioBg() {
     console.log(window.location)
     // const baseUrl = "https://uat.wincha-online.com"
 // const baseUrl = "https://uat.wincha-online.com";
+console.log(user)
 const ticket =  [
   {
       "_id": "6309fa7cc4bb207d7529f39d",
@@ -303,7 +304,7 @@ const ticket =  [
         "mode":"payment",
         "amount":parseFloat(ticketItem.token_amount).toFixed(2) * 100,
         "quantity":1,
-        success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${window.location.origin}/prizes`,
         cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
         "currency": configuration.CURRENCY_CODE,
         "product":ticketItem.token_point,
@@ -322,7 +323,7 @@ const ticket =  [
         .then((data) => {
           console.log(data);
           console.log(requestData2);
-          window.open(`${data.data[0].url}`);
+          window.location.assign(`${data.data[0].url}`);
         });
     }
     async function createPayment(){
@@ -340,7 +341,7 @@ const ticket =  [
         "mode":"payment",
         "amount":parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
         "quantity":1,
-        success_url: `${window.location.origin}/payment/success/?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${window.location.origin}/prizes`,
     cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
         "currency":configuration.CURRENCY_CODE,
         "product":"vip",
@@ -359,7 +360,9 @@ const ticket =  [
           .then((data) => {
             console.log(data);
             console.log(requestData2)
-            window.open(`${data.data[0].url}`);
+            // window.open(`${data.data[0].url}`);
+          window.location.assign(`${data.data[0].url}`);
+
           });
       }
       // async function getData(){
@@ -483,7 +486,7 @@ const ticket =  [
       </div>
       
       :""}
-      {resendEmail&&userId!==null ? (
+      {resendEmail&&userId!==null&&user&&user.username!=="" ? (
           <div className={style.ResendPopup}>
           <div className={style.popupOverlaySection} onClick={()=>{
             setResendEmail(false)
@@ -539,6 +542,12 @@ const ticket =  [
                                     if(Object.keys(user).length === 0){
                                       navigate("/login")
                                     }
+                                    else if(user&&user.username===""){
+                                        // setResendEmail(true)
+                                      navigate("/login")
+                                      console.log(user.username)
+
+                                    }
                                     else if(user&&user.profile_status===false){
                                         setResendEmail(true)
                                     }
@@ -554,7 +563,13 @@ const ticket =  [
                             </div>
                             {/* <Link to="#popup"> */}
                                 <button className={style.price} onClick={()=>{
-                                    if(user&&user.profile_status===false){
+                                      if(user&&user.username===""){
+                                        // setResendEmail(true)
+                                      navigate("/login")
+                                      console.log(user.username)
+
+                                    }
+                                    else if(user&&user.profile_status===false){
                                         setResendEmail(true)
                                     }
                                     else{

@@ -596,7 +596,7 @@
     .HomeMenuIcons svg{
         /* width: 100%; */
         color: #fff;
-        font-size: 7rem;
+        font-size: 12rem;
     }
     .MobileMenu{
         padding:5px 7.5px;
@@ -784,7 +784,7 @@
     z-index: 999;
 } */
 .Settings{
-    z-index: 999999;
+    z-index: 9999999;
 }
 .Header{
     z-index: 999;
@@ -981,4 +981,126 @@
     position: relative;
     z-index: 999;
     width: 100%;
+}
+.ShowCartHistory{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    z-index: 9999;
+
+}
+.cartHistoryOverlay{
+    position: absolute;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+
+}
+.CartHistory{
+    /* height: 100%; */
+    position: absolute;
+    width: 35%;
+    top: 50%;
+    left: 50%;
+    /* height: 60%; */
+
+    /* width: 35%; */
+    transform: translate(-50%,-65%);
+    border-radius: 30px;
+    background-color: red;
+    border:.5rem solid #fff;
+    z-index: 999;
+    
+}
+.CartProducts{
+    width: 100%;
+    
+    padding: 15px;
+    /* background-color: #fff; */
+    display:grid;
+    overflow: scroll;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+    height: 48vh;
+}
+.CartProduct{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    border:.75rem #fff solid;
+    /* overflow: hidden; */
+}
+.CartImage{
+    width: 100%;
+    border-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+overflow: hidden;
+
+}
+.CartImage img{
+    width: 100%;
+}
+.CartContent{
+    text-align: center;
+}
+.CartContent p{
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 15px;
+
+}
+.CartTitle{
+    font-size: 4.25rem;
+    color: #fff;
+    font-family: drumshake_italic;
+    text-align: center;
+}
+.histoyImageDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 10px;
+}
+.cartTitleImage{
+    width: 30%;
+}
+@media(min-width:1560px){
+    .CartHistory{
+        width: 30%;
+        transform: translate(-50%,-50%);
+    }
+    .CartProducts{
+        /* width: 40%; */
+        height: 55vh;
+
+    }
+}
+@media(max-width:1065px){
+    .CartHistory{
+        width: 65%;
+        transform: translate(-50%,-50%);
+    }
+    .CartProducts{
+        max-height: 50vh;
+        height: fit-content;
+        /* width: 40%; */
+        grid-template-columns: repeat(3,1fr);
+        /* height: 50vh; */
+
+    }
+}
+@media(max-width:767px){
+    .CartHistory{
+        width: 95%;
+        transform: translate(-50%,-50%);
+    }
+    .CartProducts{
+        /* width: 40%; */
+        height: 55vh;
+
+    }
 }

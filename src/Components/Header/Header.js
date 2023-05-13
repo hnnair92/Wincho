@@ -16,9 +16,11 @@ import {
   notificationAction,
   updateProfile,
 } from "../../actions/user";
+import historyTitle from '../../assests/History Title.png'
 import bandaiLogo from "../../assests/Bandai Namco Logo.png";
 import { MainMenu, settingsMenu } from "./Menu";
 import { music } from "../../assests/Musics/allMusic";
+import { baseUrl } from "../url";
 // import { useSelector } from 'react-redux'
 const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
   const dispatch = useDispatch();
@@ -36,6 +38,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [musicId, setMusicId] = useState("");
+  const [history,setHistory] = useState([])
+  const [historyPopup,setHistoryPopup] = useState(false)
   const [audioId, setAudioId] = useState("");
   const [sliderSction, setSliderAction] = useState(false);
   const { notification } = useSelector((state) => state.notification);
@@ -54,7 +58,23 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   );
 
 
-
+  async function getHistory(){
+    await fetch(`${baseUrl}/cart/history`,{
+      method:"POST",
+      body:JSON.stringify({
+        user_id:userId
+      }),
+      headers:{
+        "Content-Type":"application/json"
+      }
+    }).then(res=>res.json()).then((data)=>{
+      console.log(data)
+      setHistory(data.data)
+    })
+  }
+  useEffect(()=>{
+    getHistory()
+  },[])
   async function playAudioBg() {
     console.log(musicStatus, "musicStatus");
   
@@ -243,6 +263,10 @@ async function playAudio(src) {
   //   console.log(setting)
   //   console.log(active)
   // },[setting,active])
+  useEffect(()=>{
+    console.log(userId)
+    console.log(user?.username)
+  })
     return (
       <div className={style.mobileFullMenu}>
         <div className={style.Menu}>
@@ -335,6 +359,36 @@ async function playAudio(src) {
         setSetting(false)
       }}></div>
       
+    :""}
+    {historyPopup?<div className={style.ShowCartHistory}>
+      <div className={style.cartHistoryOverlay} onClick={()=>{
+        setHistoryPopup(false)
+      }}>
+
+      </div>
+      <div className={style.CartHistory}>
+        {/* <p className={style.CartTitle}>HISTORY</p> */}
+        <div className={style.histoyImageDiv}>
+        <img src={historyTitle} alt="" className={style.cartTitleImage}/>
+        </div>
+        <div className={style.CartProducts}>
+          {history.length>0&&history!==null&history!==undefined&&history.map((item)=>{
+            console.log(item)
+            return(
+          <div className={style.CartProduct}>
+            <div className={style.CartImage}>
+              <img src={item.featured_image.large} alt="" />
+            </div>
+            <div className={style.CartContent}>
+              <p>{item.title}</p>
+            </div>
+          </div>
+
+            )
+          })}
+        </div>
+      </div>
+    </div>
     :""}
     {isAddress? (
         <div className={` ${style.addressPopup}`}>
@@ -462,11 +516,16 @@ async function playAudio(src) {
                     return (
                       <div
                         className={style.MenuSection}
-                        style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
+                        // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Logout"&&user?.username!==""||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
+                        style={{margin:menu.Name==="Logout"&&userId===null&&user?.username===""||menu.Name==="Logout"&&user?.username===""||menu.Name==="Login/Register"&&userId!==null&&user?.username!==""?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
                 
                         // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
                         // style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px",marginBottom:userId!==null&&menu.Name==="Logout"&&menu.Name!=="Logout"?"30px":"15px"}}
                         onClick={(e) => {
+                          // if(menu.Name==="Logout"){
+                    console.log(userId)
+                    console.log(user?.username)
+                  // }
               e.preventDefault()
               playAudio(music.Boing)
               setSetting(false)
@@ -504,12 +563,15 @@ async function playAudio(src) {
                               "_blank"
                             );
                           }
+                          if(menu.Name==="History"){
+                            setHistoryPopup(true)
+                          }
                           if (menu.Name === "Sound" || menu.Name === "Music") {
                             // navigate(``)
                             setSetting(true);
 
                             // navigate(`/${menu.url}`)
-                          } else if(menu.Name!=="Logout"&&gamePlay===false&&userJoined===false){
+                          } else if(menu.Name!=="Logout"&&menu.Name!=="History"&&gamePlay===false&&userJoined===false){
                             navigate(`/${menu.url}`);
                           }
                           if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
@@ -643,7 +705,7 @@ async function playAudio(src) {
                             menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                           }
                         >
-                          {userId === null
+                          {userId === null&&user?.username!==""
                           // {userId === null&&user===null||user===undefined
                           // {userId === null&&userId.username===""||userId === undefined
                             ? menu.Name === "Login/Register"
@@ -671,8 +733,12 @@ async function playAudio(src) {
             return (
               <div
                 className={style.MenuSection}
-                style={{margin:menu.Name==="Logout"&&userId===null&&menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
+                style={{margin:menu.Name==="Logout"&&userId===null&&user?.username===""||menu.Name==="Logout"&&user?.username===""||menu.Name==="Login/Register"&&userId!==null&&user?.username!==""?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
                 onClick={(e) => {
+                  if(menu.Name==="Logout"){
+                    console.log(userId)
+                    console.log(user?.username)
+                  }
                   e.preventDefault()
               playAudio(music.Boing)
 
@@ -707,12 +773,15 @@ async function playAudio(src) {
                       "_blank"
                     );
                   }
+                  if(menu.Name==="History"){
+                    setHistoryPopup(true)
+                  }
                   if (menu.Name === "Sound" || menu.Name === "Music") {
                     // navigate(``)
                     setSetting(true);
 
                     // navigate(`/${menu.url}`)
-                  } else if(menu.Name!=="Logout"&&gamePlay===false&&userJoined===false){
+                  } else if(menu.Name!=="Logout"&&menu.Name!=="History"&&gamePlay===false&&userJoined===false){
                     navigate(`/${menu.url}`);
                   }
                   if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
@@ -854,7 +923,7 @@ async function playAudio(src) {
                     menu.Name.toLowerCase() === window.location.pathname.split("/")[1]||menu.Name==="Home"&&window.location.pathname.split("/")[1]===""||menu.Name==="Support"&&window.location.pathname.split("/")[2]==="support"||menu.Name==="Basket"&&window.location.pathname.split("/")[1]==="cart"||menu.Name==="Cashier"&&window.location.pathname.split("/")[1]==="tickets"? style.ActiveUrl : style.NormalUrl
                   }
                 >
-                  {userId === null
+                  {userId === null&&user?.username!==""
                     ? menu.Name === "Login/Register"
                       ? menu.Name
                       : ""

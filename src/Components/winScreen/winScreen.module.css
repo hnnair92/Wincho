@@ -33,3 +33,18 @@
 .FreeWinGame img{
     width: 100%;
 }
+@media(min-width:1065px){
+    .Banner{
+        height: 90vh;
+    }
+    .WinGame img{
+        object-fit: cover;
+    }
+    .Background img{
+        height: 100%;
+        object-fit: cover;
+    }
+    .Background {
+        height: 100%;
+    }
+}

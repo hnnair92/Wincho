@@ -444,6 +444,12 @@ async function updateTermsAndConditions(){
 
   })
 }
+useEffect(()=>{
+  console.log(imageGallery.length)
+})
+useEffect(()=>{
+  console.log(countSection)
+})
   // const[active,setActive]= useState(false)
   const [allCategory, setAllCategory] = useState("");
   // const[getAllCategory,setGetAllCategory] = useState("")
@@ -556,7 +562,7 @@ async function updateTermsAndConditions(){
                   setCategory("")
               }}>All</button> */}
         </div>
-        {premiumPopup&&user?.vip===false&&gameData.price!=="0"?
+        {premiumPopup&&user?.vip===false&&user?.username!==""&&gameData.price!=="0"?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
@@ -647,7 +653,7 @@ async function updateTermsAndConditions(){
       </div>
       
       :""}
-      {resendEmail ? (
+      {resendEmail&&userId!==null ? (
           <div className={style.ResendPopup}>
             <div className={style.popupOverlaySection} onClick={()=>{
               setResendEmail(false)
@@ -808,7 +814,7 @@ async function updateTermsAndConditions(){
                          {/* <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{ */}
 
                           <div className={style.SingleGameOverlay} onClick={()=>{
-                            if(user&&user.profile_status===false&&game.price!=="0"){
+                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                               setResendEmail(true)
                             }
                             // else{
@@ -1049,7 +1055,7 @@ async function updateTermsAndConditions(){
                       }}>
                          <div className={style.SingleGameOverlay} onClick={()=>{
                           // playAudio(music.Pop)
-                            if(user&&user.profile_status===false&&game.price!=="0"){
+                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                               setResendEmail(true)
                               console.log("not verified")
                             }
@@ -1170,7 +1176,7 @@ async function updateTermsAndConditions(){
                          <div className={style.SingleGameOverlay} onClick={()=>{
                         // playAudio(music.Menu)
 
-                            if(user&&user.profile_status===false&&game.price!=="0"){
+                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                               
                               setResendEmail(true)
                               console.log("not verified")
@@ -1295,7 +1301,7 @@ async function updateTermsAndConditions(){
                        <div className={style.SingleGameOverlay} onClick={()=>{
                             // playAudio(music.Menu)
 
-                            if(user&&user.profile_status===false&&game.price!=="0"){
+                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                               setResendEmail(true)
                             }
                             // else{
@@ -1408,7 +1414,7 @@ async function updateTermsAndConditions(){
                        <div className={style.SingleGameOverlay} onClick={()=>{
                         // audioRef.current.src = music.Menu
                         // playAudio(music.Menu)
-                            if(user&&user.profile_status===false&&game.price!=="0"){
+                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                               setResendEmail(true)
                             }
                             // else{
@@ -1534,7 +1540,7 @@ async function updateTermsAndConditions(){
                           <img src={gameData.featured_image.large} alt="" />
                         
                           :
-                          <img src={imageGallery[countSection]&&imageGallery[countSection].src} alt="" />
+                          <img src={imageGallery[(imageGallery.length-1)-countSection]&&imageGallery[(imageGallery.length-1)-countSection].src} alt="" />
 
                           }
                 {gameData.product_gallery.length===0?"":

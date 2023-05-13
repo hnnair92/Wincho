@@ -336,7 +336,7 @@ async function playAudioBg() {
       </div>
       
       :""}
-        {passIcon&&userId!==null? (
+        {passIcon&&userId!==null&&user&&user.username!==""? (
           <div className={style.Passpopup}>
           <div className={style.OverlayBg} onClick={()=>{
             setPassIcon(false)
@@ -371,7 +371,7 @@ async function playAudioBg() {
           ""
         )}
        
-        {updatePassword&&userId!==null? (
+        {updatePassword&&userId!==null&&user&&user.username!==""? (
           <div className={style.AddressSection}>
           <div className={style.OverlayBg} onClick={()=>{
             setUpdatePassword(false)
@@ -481,7 +481,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {Deactivate&&userId!==null? (
+        {Deactivate&&userId!==null&&user&&user.username!==""? (
           <div className={style.DeactivatePopup}>
             <div className={style.DeacOverlayBg} onClick={()=>{
             setDeactivate(false)
@@ -523,7 +523,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {resendEmail&&userId!==null ? (
+        {resendEmail&&userId!==null&&user&&user.username!=="" ? (
           <div className={style.popup}>
           <div className={style.popupOverlay} onClick={()=>{
              if(resendLocal===true){
@@ -563,7 +563,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {checkMail&&userId!==null ? (
+        {checkMail&&userId!==null&&user&&user.username!=="" ? (
           <div className={style.popup}>
           <div className={style.popupOverlay} onClick={()=>{
             // setResendEmail(false)
@@ -611,7 +611,7 @@ async function playAudioBg() {
             <button
               className={style.Deactivate}
               onClick={() => {
-                if(userId!==null){
+                if(userId!==null&&user&&user.username!==""){
                 setDeactivate(true);
                 }
               }}

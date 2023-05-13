@@ -236,6 +236,7 @@ const Description = ({
   const [sendCategory,setSendCategory] = useState("")
   const [lastWin, setLastWin] = useState(false);
   const [minimized, setminimized] = useState(false);
+  const [kickout,setKickOut] = useState(false)
   const [cartCheck,setCartCheck] = useState(false)
   const [timeoutStatus, setTimeoutStatus] = useState(false);
   const [gameFailed, setGameFailed] = useState(false);
@@ -320,6 +321,7 @@ const Description = ({
   useEffect(()=>{
     if(GameData&&GameData.category){
       const datas = GameData.category.split(",")
+      console.log(datas)
       setSendCategory(datas[0])
     }
   },[GameData])
@@ -385,7 +387,10 @@ const Description = ({
         localStorage.removeItem("user")
       }
       dispatch(registerAction(userRegAnom))
+      dispatch(updateProfile())
     }
+    dispatch(updateProfile())
+
   },[userId])
   useEffect(()=>{
     console.log(userId)
@@ -408,7 +413,10 @@ const Description = ({
         localStorage.removeItem("user")
       // }
       dispatch(registerAction(userRegAnom))
+    dispatch(updateProfile())
+      
     }
+    dispatch(updateProfile())
   },[userId])
 
   useEffect(()=>{
@@ -1189,12 +1197,19 @@ useEffect(()=>{
     setTimeoutStatus(true);
     localStorage.setItem("reload",false)
     setReloadStatus(false)
+    localStorage.setItem("timeoutState",JSON.stringify(true))
+    
     setTimeout(async () => {
       await gameLeave(userId, timeout_status);
       setTimeoutStatus(false);
-      window.location.reload()
-      EntryRequest.replay = true;
-      dispatch(gameEntry(EntryRequest));
+      setKickOut(true)
+      setPlayAgain(false)
+      setGamePlayStatus(false)
+      setGamePlay(false)
+      setUserJoined(false)
+      // window.location.reload()
+      // EntryRequest.replay = true;
+      // dispatch(gameEntry(EntryRequest));
       // navigate("/prizes",{state:{category:sendCategory}})
     }, 5000);
   }
@@ -1544,7 +1559,7 @@ useEffect(()=>{
   }
   async function gameLeave(User, timeout_status) {
     setReloadStatus(false)
-
+    const checkTime = JSON.parse(localStorage.getItem("timeoutState"))||false
     await fetch(`${baseUrl}/game/leave`, {
       method: "POST",
       body: JSON.stringify({
@@ -1581,7 +1596,10 @@ useEffect(()=>{
           setTimeoutStatus(false);
           localStorage.setItem("userJoined",JSON.stringify(false))
           // if(timeoutStatus===true){
-            window.location.reload();
+            if(checkTime===false){
+              window.location.reload();
+            }
+            localStorage.setItem("timeoutState",JSON.stringify(false))
 
           // }
         }
@@ -2212,6 +2230,25 @@ useEffect(()=>{
       ) : (
         ""
       )}
+      {kickout?<div className={style.kickoutPopupAll}>
+        <div className={style.KickoutOverlay}>
+
+        </div>
+        <div className={style.kickoutPopup}>
+        <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <p className={style.KickoutMessage}>You have been kicked out of the game </p>
+          <div className={style.KickoutBtn}>
+            <button onClick={()=>{
+                    window.location.reload()
+      EntryRequest.replay = true;
+      dispatch(gameEntry(EntryRequest));
+            }}>EXIT</button>
+          </div>
+        </div>
+      </div>
+      :""}
       {leavePopup &&gameStartStatus===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
@@ -2319,9 +2356,13 @@ useEffect(()=>{
               onClick={() => {
                 if (gamePlayStatus === true) {
                   setActive(true);
+                  // setPageUrl("prizes",{state:{category:sendCategory}})
+                  setPageUrl("prizes",{state:{category:sendCategory}})
                 }
                 if (gamePlayStatus === false) {
                   setActive(false);
+                  // setPageUrl("prizes",{state:{category:sendCategory}})
+                  setPageUrl("prizes",{state:{category:sendCategory}})
                   setExitPopupOpen(true);
                   // navigate("/prizes", {
                   //   state: { category: sendCategory },

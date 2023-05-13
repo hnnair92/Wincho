@@ -1040,3 +1040,25 @@
     position: fixed;
     z-index: 9;
 }
+@media(max-width:768px){
+    .ClubHouse{
+        width: 65%;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+    .Bonus p{
+        font-size: 5rem;
+    }
+    .BonusText p{
+        font-size: 1.5rem;
+    }
+    .SubscribeButton button{
+        font-size: 1.75rem;
+    }
+    .CancelSubscription P{
+        font-size: 1rem;
+    }
+    .Terms p,.Policy p{
+        font-size: 1rem;
+    }
+}
