@@ -907,7 +907,7 @@
 .PopupSection{
     z-index: 9999;
 }
-.ResendPopup,.ResendPopupDiv{
+.ResendPopup,.ResendPopupDiv,.resendPopupFirst,.resendPopupBottomSection{
     position: fixed;
     font-family: myraidproregular !important;
     z-index: 99999;
@@ -998,4 +998,10 @@
 }
 .category{
     color: #000;
+}
+.resendPopupFirst{
+    z-index: 999999;
+}
+.resendPopupBottomSection{
+    z-index: 99999;
 }

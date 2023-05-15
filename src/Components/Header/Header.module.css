@@ -596,7 +596,7 @@
     .HomeMenuIcons svg{
         /* width: 100%; */
         color: #fff;
-        font-size: 12rem;
+        font-size: 9rem;
     }
     .MobileMenu{
         padding:5px 7.5px;
@@ -1010,6 +1010,7 @@
     background-color: red;
     border:.5rem solid #fff;
     z-index: 999;
+    padding-bottom: 25px;
     
 }
 .CartProducts{
@@ -1022,6 +1023,7 @@
     grid-template-columns: repeat(2,1fr);
     gap: 15px;
     height: 48vh;
+
 }
 .CartProduct{
     width: 100%;
@@ -1081,19 +1083,34 @@ overflow: hidden;
 }
 @media(max-width:1065px){
     .CartHistory{
-        width: 65%;
+        width: 40%;
         transform: translate(-50%,-50%);
     }
     .CartProducts{
         max-height: 50vh;
         height: fit-content;
         /* width: 40%; */
-        grid-template-columns: repeat(3,1fr);
+        grid-template-columns: repeat(2,1fr);
         /* height: 50vh; */
 
     }
 }
-@media(max-width:767px){
+@media(max-width:1064px){
+    .CartHistory{
+        width: 50%;
+        transform: translate(-50%,-50%);
+
+    }
+    .CartProducts{
+        /* width: 40%; */
+        height: 55vh;
+        /* padding-bottom: 25px; */
+        grid-template-columns: repeat(2,1fr);
+
+
+    }
+}
+@media(max-width:400px){
     .CartHistory{
         width: 95%;
         transform: translate(-50%,-50%);
@@ -1101,6 +1118,26 @@ overflow: hidden;
     .CartProducts{
         /* width: 40%; */
         height: 55vh;
+        grid-template-columns: repeat(2,1fr);
 
+
+    }
+}
+.historyEmptyText{
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    text-transform: capitalize;
+    /* margin-top: 20%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+@media(max-width:765px){
+    .historyEmptyText{
+        font-size: 1.75rem;
+        
     }
 }

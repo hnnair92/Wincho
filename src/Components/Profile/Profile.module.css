@@ -1045,6 +1045,7 @@
         width: 65%;
         overflow: hidden;
         border-radius: 20px;
+        position: fixed;
     }
     .Bonus p{
         font-size: 5rem;

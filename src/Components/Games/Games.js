@@ -38,7 +38,11 @@ const Games = ({ gameMusic,
 //   const baseUrl = "https://uat.wincha-online.com"
 // // const baseUrl = "https://uat.wincha-online.com";
 const {configuration} = useSelector((state)=>state.configuration)
-
+// useEffect(()=>{
+//   if(user){
+//     user.tc_version = 5
+//   }
+// },[])
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
@@ -46,6 +50,7 @@ const {configuration} = useSelector((state)=>state.configuration)
   );
   const [termsVersion,setTermsVersion] = useState(false)
   const [verifyEmail,setVerifyMails] = useState(false)
+  // const [verifyEmail,setVerifyMails] = useState(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(true)))
   let { products, loading } = useSelector((state) => state.collectionProducts);
   const [popup, setPopup] = useState(false);
   const audioRefHome = useRef(null);
@@ -69,14 +74,40 @@ const {configuration} = useSelector((state)=>state.configuration)
   const [imageGallery,setImageGallery] = useState([])
   const [loadingScreen,setLoadingScreen] = useState(false)
   const [countSection,setCountSection] = useState(0)
-  const [times,setTimes] = useState(JSON.parse(localStorage.getItem("times"))||0)
+  const [times,setTimes] = useState(localStorage.getItem("times")||0)
   // const times = JSON.parse(localStorage.getItem("times"))
   const checkPlayArray = localStorage.getItem("checkPlay")&&JSON.parse(localStorage.getItem("checkPlay"))
-
+    const verifiedEmail = JSON.parse(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(false)))
   // const checkPlayArray = localStorage.getItem("checkPlay")&& JSON.parse(localStorage.getItem("checkPlay"))
+  // console.log(verifiedEmail)
   useEffect(()=>{
-    console.log(state)
-  },[state])
+    console.log(times)
+    console.log(typeof times)
+  })
+  useEffect(()=>{
+    if(verifiedEmail===false||verifiedEmail==="false"){
+      setVerifyMails(true)
+    }
+    else{
+      setVerifyMails(false)
+    }
+    console.log(verifiedEmail)
+  },[])
+  useEffect(()=>{
+    if(verifiedEmail){
+      localStorage.setItem("verfiedEmail",JSON.stringify(verifiedEmail))
+    }
+  },[verifiedEmail])
+  useEffect(()=>{
+    console.log(verifyEmail)
+  },[verifyEmail])
+  useEffect(()=>{
+    const getTimes =localStorage.getItem("times")
+    if(getTimes===null||getTimes===undefined||getTimes==="undefined"){
+
+      localStorage.setItem("times",0)
+    }
+  })
   useEffect(()=>{
     const checkEmailVerify = JSON.parse(localStorage.getItem("verifyCheck"))
     if(checkEmailVerify){
@@ -257,9 +288,11 @@ async function playAudio(src) {
   //   }
   // },[window.innerWidth])
   useEffect(()=>{
-    const premiumData = localStorage.getItem("premium")
+    const premiumData = JSON.parse(localStorage.getItem("premium"))
     if(premiumData===null||premiumData===undefined){
+      localStorage.setItem("premium",JSON.stringify(false))
       if(category==="free"||category==="Free"){
+
         setPremiumPopup(false)
       }
       else{
@@ -366,6 +399,10 @@ async function playAudio(src) {
     }
     checkFreePlay()
   }, [dispatch, category, id]);
+  useEffect(()=>{
+    console.log(user&&user.username.length)
+    console.log("hello world!")
+  })
   const categories = [
     {
       title: "Free",
@@ -421,7 +458,9 @@ useEffect(()=>{
   console.log(typeof configuration?.TC_VERSION);
   console.log(user?.tc_version<configuration?.TC_VERSION)
   if(user?.tc_version<configuration?.TC_VERSION&&user&&user.username!==""){
-    setTermsVersion(true)
+    if(verifyEmail===false){
+      setTermsVersion(true)
+    }
   }
 },[user,configuration])
 useEffect(()=>{
@@ -562,7 +601,8 @@ useEffect(()=>{
                   setCategory("")
               }}>All</button> */}
         </div>
-        {premiumPopup&&user?.vip===false&&user?.username!==""&&gameData.price!=="0"?
+        {/* {verifyEmail?"":""} */}
+        {premiumPopup&&user?.vip===false&&user?.profile_status===true&&user?.username!==""&&gameData.price!=="0"?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
@@ -687,16 +727,17 @@ useEffect(()=>{
         ) : (
           ""
         )}
-      {verifyEmail ? (
-          <div className={style.ResendPopup}>
+      {verifyEmail===true&&user?.profile_status===false ? (
+          <div className={`${style.ResendPopup} ${style.resendPopupFirst}`}>
             <div className={style.popupOverlaySection} onClick={()=>{
-              setResendEmail(false)
+              setVerifyMails(false)
             }}>
 
             </div>
           {/* {loading?
           <Lottie animationData={AllAnimation.Loader}/>
           :""} */}
+          <div className={style.resendPopupBottomSection}>
             <div className={style.ResendpopupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
@@ -712,12 +753,21 @@ useEffect(()=>{
                 }}
               >
                 <button  onClick={() => {
+                  // localStorage.setItem("music", JSON.stringify(false))
+                  localStorage.setItem("verfiedEmail",JSON.stringify(true))
+                  // localStorage.setItem("verfiedEmail",JSON.stringify(true))
                   // setResendEmail(false);
                   setVerifyMails(false)
                   resendEmailApi();
+                  if(user?.tc_version<configuration?.TC_VERSION&&user&&user.username!==""){
+                    // if(verifyEmail===false){
+                      setTermsVersion(true)
+                    // }
+                  }
                 }}>OK</button>
               </div>
             </div>
+          </div>
           </div>
         ) : (
           ""
@@ -820,13 +870,19 @@ useEffect(()=>{
                             // else{
                             //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                             // }
-                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                           if(user&&user.username===""&&game.price!=="0"){
+                              navigate("/login")
+                            }
+                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                               
                             }
                             else if(userId!=null){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
 
+                            }
+                            else if(user?.username===""){
+                              navigate("/login")
                             }
                             else{
                               navigate("/login")
@@ -935,23 +991,29 @@ useEffect(()=>{
                        {/* <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{ */}
 
                         <div className={style.SingleGameOverlay} onClick={()=>{
-                          if(user&&user.profile_status===false&&game.price!=="0"){
-                            setResendEmail(true)
-                          }
-                          // else{
-                          //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                          // }
-                          if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
-                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            
-                          }
-                          else if(userId!=null){
-                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                         if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
+                          setResendEmail(true)
+                        }
+                        // else{
+                        //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                        // }
+                       if(user&&user.username===""&&game.price!=="0"){
+                          navigate("/login")
+                        }
+                        else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          
+                        }
+                        else if(userId!=null){
+                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
 
-                          }
-                          else{
-                            navigate("/login")
-                          }
+                        }
+                        else if(user?.username===""){
+                          navigate("/login")
+                        }
+                        else{
+                          navigate("/login")
+                        }
                           console.log(user.profile_status,"status")
                         }}>
 
@@ -1055,24 +1117,29 @@ useEffect(()=>{
                       }}>
                          <div className={style.SingleGameOverlay} onClick={()=>{
                           // playAudio(music.Pop)
-                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
-                              setResendEmail(true)
-                              console.log("not verified")
-                            }
-                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                              
-                            }
-                            else if(userId!=null){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
+                            setResendEmail(true)
+                          }
+                          // else{
+                          //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          // }
+                         if(user&&user.username===""&&game.price!=="0"){
+                            navigate("/login")
+                          }
+                          else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            
+                          }
+                          else if(userId!=null){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
 
-                            }
-                            else{
-                              navigate("/login")
-                            }
-                            // else{
-                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            // }
+                          }
+                          else if(user?.username===""){
+                            navigate("/login")
+                          }
+                          else{
+                            navigate("/login")
+                          }
                             console.log(user.profile_status,"status")
                           }}>
 
@@ -1176,23 +1243,29 @@ useEffect(()=>{
                          <div className={style.SingleGameOverlay} onClick={()=>{
                         // playAudio(music.Menu)
 
-                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
-                              
-                              setResendEmail(true)
-                              console.log("not verified")
-                            }
-                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                              
-                            }
-                            else if(userId!=null){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                        if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
+                          setResendEmail(true)
+                        }
+                        // else{
+                        //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                        // }
+                       if(user&&user.username===""&&game.price!=="0"){
+                          navigate("/login")
+                        }
+                        else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          
+                        }
+                        else if(userId!=null){
+                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
 
-                            }
-                            else{
-                              navigate("/login")
-                            }
-                            // else{
+                        }
+                        else if(user?.username===""){
+                          navigate("/login")
+                        }
+                        else{
+                          navigate("/login")
+                        }
                             //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                             // }
                             console.log(user.profile_status,"status")
@@ -1307,13 +1380,19 @@ useEffect(()=>{
                             // else{
                             //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                             // }
-                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
+                           if(user&&user.username===""&&game.price!=="0"){
+                              navigate("/login")
+                            }
+                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                               
                             }
                             else if(userId!=null){
                               navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
 
+                            }
+                            else if(user?.username===""){
+                              navigate("/login")
                             }
                             else{
                               navigate("/login")
@@ -1414,23 +1493,29 @@ useEffect(()=>{
                        <div className={style.SingleGameOverlay} onClick={()=>{
                         // audioRef.current.src = music.Menu
                         // playAudio(music.Menu)
-                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
-                              setResendEmail(true)
-                            }
-                            // else{
-                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            // }
-                            if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                              
-                            }
-                            else if(userId!=null){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                        if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
+                          setResendEmail(true)
+                        }
+                        // else{
+                        //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                        // }
+                       if(user&&user.username===""&&game.price!=="0"){
+                          navigate("/login")
+                        }
+                        else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          
+                        }
+                        else if(userId!=null){
+                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
 
-                            }
-                            else{
-                              navigate("/login")
-                            }
+                        }
+                        else if(user?.username===""){
+                          navigate("/login")
+                        }
+                        else{
+                          navigate("/login")
+                        }
                             console.log(user.profile_status,"status")
                           }}>
 

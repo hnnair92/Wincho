@@ -371,6 +371,7 @@ async function playAudio(src) {
         <div className={style.histoyImageDiv}>
         <img src={historyTitle} alt="" className={style.cartTitleImage}/>
         </div>
+        {history.length<1?<p className={style.historyEmptyText}>history is empty</p>:""}
         <div className={style.CartProducts}>
           {history.length>0&&history!==null&history!==undefined&&history.map((item)=>{
             console.log(item)
@@ -517,7 +518,7 @@ async function playAudio(src) {
                       <div
                         className={style.MenuSection}
                         // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Logout"&&user?.username!==""||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
-                        style={{margin:menu.Name==="Logout"&&userId===null&&user?.username===""||menu.Name==="Logout"&&user?.username===""||menu.Name==="Login/Register"&&userId!==null&&user?.username!==""?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
+                        style={{margin:menu.Name==="Logout"&&userId===null&&user?.username===""||menu.Name==="Logout"&&user?.username===""||menu.Name==="Login/Register"&&userId!==null&&user?.username===""?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
                 
                         // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px"}}
                         // style={{margin:menu.Name==="Logout"&&userId===null?"0":"15px 0px",marginBottom:userId!==null&&menu.Name==="Logout"&&menu.Name!=="Logout"?"30px":"15px"}}

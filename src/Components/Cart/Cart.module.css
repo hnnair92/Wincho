@@ -938,3 +938,45 @@ video{
     position: fixed;
     z-index: 9;
 }
+.CartEmptyText{
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    text-transform: capitalize;
+    /* margin-top: 20%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+.Bonus{
+    width: 60%;
+}
+.BonusText{
+    margin: 0px 20px;
+}
+@media(max-width:765px){
+    .CartEmptyText{
+        font-size: 1.75rem;
+        
+    }
+    .ClubHouse{
+        width: 65%;
+        overflow: hidden;
+        border-radius: 20px;
+        position: fixed;
+    }
+    .Bonus p{
+        font-size: 5rem;
+    }
+    .BonusText p{
+        font-size: 1.5rem;
+    }
+    .SubscribeButton button{
+        font-size: 1.75rem;
+    }
+    .CancelSubscription p,.TermsAndPolicy p {
+        font-size: 1rem;
+    }
+}

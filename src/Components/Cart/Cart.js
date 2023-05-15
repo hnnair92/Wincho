@@ -1057,6 +1057,7 @@ async function playAudioBg() {
         {/* {loading? */}
 
         <div className={style.Carts}>
+        {cartData.length<1?<p className={style.CartEmptyText}>Cart is empty!</p>:""}
           {loading ? (
             <div className={style.LoaderDiv}>
               <div className={style.LoaderAnime}>
