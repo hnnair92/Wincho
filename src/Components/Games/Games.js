@@ -131,11 +131,11 @@ const {configuration} = useSelector((state)=>state.configuration)
   async function playAudioBg() {
     console.log(musicStatus, "musicStatus");
     // if(musicStatus==="true"){
-    console.log(audioRefHome.current.play(), "from its function");
+    // console.log(audioRefHome.current.play(), "from its function");
     // audioRefHome.current.volume=1;
     audioRefHome.current.src = music.Menu;
     audioRefHome.current.play();
-    console.log(audioRefHome.current.volume, "from its function");
+    // console.log(audioRefHome.current.volume, "from its function");
 
     // }
     // else{
@@ -146,17 +146,17 @@ const {configuration} = useSelector((state)=>state.configuration)
   async function freePlay(){
     // const 
     console.log(checkPlayArray,"checkPlayArray 1")
-    console.log(checkPlayArray.length,"checkPlayArray 1")
-   checkPlayArray.map((freePlayData)=>{
-        console.log(freePlayData,"freePlayData out")
-        if(freePlayData.id===userId){
-          console.log(freePlayData,"freePlayData in")
-          // console.log("Same Person")
-        }
-        else{
+    // console.log(checkPlayArray.length,"checkPlayArray 1")
+  //  checkPlayArray.map((freePlayData)=>{
+  //       console.log(freePlayData,"freePlayData out")
+  //       if(freePlayData.id===userId){
+  //         console.log(freePlayData,"freePlayData in")
+  //         // console.log("Same Person")
+  //       }
+  //       else{
 
-        }
-      })
+  //       }
+  //     })
     
   }
   useEffect(()=>{
@@ -400,7 +400,7 @@ async function playAudio(src) {
     checkFreePlay()
   }, [dispatch, category, id]);
   useEffect(()=>{
-    console.log(user&&user.username.length)
+    // console.log(user&&user.username.length)
     console.log("hello world!")
   })
   const categories = [
