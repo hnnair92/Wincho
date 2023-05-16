@@ -56,7 +56,7 @@ const {configuration} = useSelector((state)=>state.configuration)
   const audioRefHome = useRef(null);
   const [resendEmail,setResendEmail] = useState(false)
   const [gameData, setGameData] = useState({});
-  const [premiumPopup, setPremiumPopup] = useState(false);
+  const [premiumPopup, setPremiumPopup] = useState(true);
   // const userId = JSON.parse(localStorage.getItem("user"));
   const { user } = useSelector((state) => state.profile);
   const [searchIconStatus,setSearchIconStatus]= useState(false)
@@ -289,6 +289,10 @@ async function playAudio(src) {
   // },[window.innerWidth])
   useEffect(()=>{
     const premiumData = JSON.parse(localStorage.getItem("premium"))
+    console.log(premiumData)
+    console.log(premiumPopup&&user?.vip===false)
+    console.log(user?.profile_status===true)
+    console.log(user?.username!=="")
     if(premiumData===null||premiumData===undefined){
       localStorage.setItem("premium",JSON.stringify(false))
       if(category==="free"||category==="Free"){
@@ -301,7 +305,14 @@ async function playAudio(src) {
       }
     }
     else{
-      setPremiumPopup(false)
+      if(premiumData==="true"||premiumData===true){
+        setPremiumPopup(false)
+
+      }
+      else if(premiumData==="false"||premiumData===false){
+        setPremiumPopup(true)
+
+      }
     }
   },[category])
   useEffect(() => {
@@ -602,7 +613,7 @@ useEffect(()=>{
               }}>All</button> */}
         </div>
         {/* {verifyEmail?"":""} */}
-        {premiumPopup&&user?.vip===false&&user?.profile_status===true&&user?.username!==""&&gameData.price!=="0"?
+        {premiumPopup&&user?.vip===false&&user?.profile_status===false&&user?.username!==""?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
@@ -727,7 +738,7 @@ useEffect(()=>{
         ) : (
           ""
         )}
-      {verifyEmail===true&&user?.profile_status===false ? (
+      {verifyEmail===true&&user?.profile_status===false&&user?.username!=="" ? (
           <div className={`${style.ResendPopup} ${style.resendPopupFirst}`}>
             <div className={style.popupOverlaySection} onClick={()=>{
               setVerifyMails(false)

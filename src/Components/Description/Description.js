@@ -3000,7 +3000,8 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
                                     }}
@@ -3014,7 +3015,8 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3062,7 +3064,8 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3078,7 +3081,8 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3127,7 +3131,8 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       console.log("clicked");
                                       setCameraState2(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3144,7 +3149,8 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       console.log("clicked");
                                       setCameraState2(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3193,7 +3199,8 @@ useEffect(()=>{
                                       console.log("clicked");
                                       // console.log(cameraState1)
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3210,7 +3217,8 @@ useEffect(()=>{
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3267,7 +3275,8 @@ useEffect(()=>{
                                     onMouseDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3281,7 +3290,8 @@ useEffect(()=>{
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3325,7 +3335,8 @@ useEffect(()=>{
                                     onMouseDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState2(false);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3339,7 +3350,8 @@ useEffect(()=>{
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState2(false)
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
                                       ;
@@ -3387,7 +3399,8 @@ useEffect(()=>{
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3403,7 +3416,8 @@ useEffect(()=>{
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState1(true);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3449,7 +3463,8 @@ useEffect(()=>{
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState2(false);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3465,7 +3480,8 @@ useEffect(()=>{
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState2(false);
-                                          // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3527,7 +3543,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3543,7 +3559,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3588,7 +3604,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState2(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3604,7 +3620,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState2(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3652,7 +3668,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3668,7 +3684,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3713,7 +3729,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState2(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3729,7 +3745,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState2(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
 
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
@@ -3787,7 +3803,7 @@ useEffect(()=>{
                                       setCameraState1(true);
                                       console.log(cameraState2);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3809,7 +3825,7 @@ useEffect(()=>{
                                       setCameraState1(true);
                                       console.log(cameraState2);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3858,7 +3874,7 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3880,7 +3896,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3917,6 +3933,7 @@ useEffect(()=>{
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}
+                                    // playSpeed={0}
                                     lottieRef={animeRef2}
                                      
                                   />
@@ -3932,7 +3949,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3948,7 +3965,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState1(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
@@ -3993,7 +4010,7 @@ useEffect(()=>{
                                       SecondArrowPress();
                                       setCameraState2(true);
                                      setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                       console.log(animeRef2.current.setSpeed)
                                       // console.log(animeRef)
                                       console.log(animeRef2)
@@ -4009,13 +4026,14 @@ useEffect(()=>{
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
-                                          // // animeRef.current.goToAndStop(animeRef.current.animationItem.currentFrame,true)
+                                          // // animeRef.current.pause()
                                         //  setAnimeStopStatus(false)
-                                        //   animeRef2.current.setSpeed(0)
+                                        //   animeRef.current.pause()
                                           setAnimeStopStatus(false)
-                                          animeRef2.current.setSpeed(0)
+                                          animeRef.current.pause()
                                           
-                                      // console.log(animeRef.current.setSpeed)
+                                      // animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
                                       console.log(animeRef2.current.setSpeed)
                                       console.log(animeRef2)
 
