@@ -943,15 +943,16 @@
 .addressPopup .popupSection .popupText form input,.addressPopup .popupSection .popupText form textarea{
     margin: 6px 0px;
     padding:10px 10px;
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 @media(max-width:599px){
   
-    /* .addressPopup{ 
-    padding:1rem;
-    width: 30rem;
+    .addressPopup{ 
+    
+    width: 35rem;
     height: 50rem;
-    } */
+    padding: 1.5rem;
+    }
     .addressPopup .popupSection .popupText form input,.popupText form textarea{
         
         margin: 5px 0px;
@@ -963,6 +964,10 @@
         margin: 1.5rem;
         padding: 1rem 3rem;
         font-size: 1.5rem;   
+    }
+    .addressPopup .popupSection .popupText form textarea{
+        height: 180px;
+        font-size: 1.5rem;
     }
     /* .Contact{
         margin-top: 50%;
@@ -976,6 +981,11 @@
     .ContactSection .StrokeContact{
         font-size: 3.5rem;
     } */
+    .addressPopup{ 
+    
+        width: 30rem;
+        
+        }
     
 }
 .addressPopup .popupSection{
@@ -1099,12 +1109,13 @@ overflow: hidden;
 @media(max-width:1064px){
     .CartHistory{
         width: 50%;
+        height: 55vh;
         transform: translate(-50%,-50%);
 
     }
     .CartProducts{
         /* width: 40%; */
-        height: 55vh;
+        /* height: 55vh; */
         /* padding-bottom: 25px; */
         grid-template-columns: repeat(2,1fr);
 
@@ -1141,4 +1152,82 @@ overflow: hidden;
         font-size: 1.75rem;
         
     }
+}
+.kickoutPopupAll{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 9999999;
+}
+.KickoutOverlay{
+    position: fixed;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000034;
+}
+.kickoutPopup{
+    position: fixed;
+    font-family: myraidproregular !important;
+    z-index: 99999999;
+    top: 50%;
+    left: 50%;
+    width: fit-content;
+    transform: translate(-50%, -50%);
+    border: 1rem solid #949393;
+    border-radius: 30px;
+    background-color: #1b8fe7;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 15%; */
+    width: 300px;
+}
+.KickoutBtn{
+    width: 100%;
+    position: relative;
+    z-index: 999;
+    padding:0rem 2rem;
+
+}
+.KickoutBtn{
+    display: flex;
+    flex-direction: row;
+}
+.KickoutBtn button{
+    width: 100%;
+}
+
+.KickoutBtn button{
+    margin: 1.5rem .5rem;
+    padding: 1rem 0rem;
+    width: 100%;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    border-radius: 30px;
+    font-family: myraidproregular;
+}
+.popupText {
+    margin-top: 15%;
+    position: relative;
+    z-index: 99;
+    padding:0rem 2rem;
+}
+
+.KickoutMessage{
+    margin-top: 17.5%;
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    line-height: 25px;
+    font-size:2.25rem;
+    font-weight: 500;
+
 }

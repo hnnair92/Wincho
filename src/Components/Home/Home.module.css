@@ -360,14 +360,15 @@
     .ContactSection p{
             /* text-align: left; */
     font-family: drumshake_italic;
-    font-size: 9rem;
+    font-size: 19rem;
     margin: 0;
     line-height: 50px;
     text-align: center;
     font-weight: 500;
     }
     .ContactSection .StrokeContact{
-        font-size: 4rem;
+        font-size: 9rem;
+        margin-top: 5rem;
     }
 
     .Ticket a,.TicketTop a{
@@ -391,6 +392,15 @@
     .TicketTop a{
         top: 2%;
         /* right: 0; */
+    }
+    .SupportContent{
+        align-items:normal;
+    }
+    .ContactSection{
+       margin-top: 5rem;
+    }
+    .Contact{
+        margin-top: 30rem;
     }
 }
 .Support{
@@ -662,19 +672,21 @@
     }
 @media(max-width:599px){
     .ContactSection{
-        margin-top: 2rem;
+        /* margin-top: 2rem; */
     }
     .SupportContent{
         line-height: normal;
     }
     .ContactSection p{
         font-size: 11.5rem;
-        margin-bottom: 0;
+       
     }
     .ContactSection .StrokeContact{
-        font-size: 4.5rem;
+        font-size: 5rem;
         font-weight: 500;
+        margin-top: 3rem;
     }
+    
     .popup{ 
     padding:1rem;
     width: 90%;
@@ -699,7 +711,7 @@
         font-size: 1.5rem;   
     }
     .Contact{
-        margin-top: 20%;
+        margin-top: 20rem;
     }
 }
 @media(max-width:280px){

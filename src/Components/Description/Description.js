@@ -492,6 +492,15 @@ const Description = ({
     });
     socket.on("get_machine_status", (res) => {
       console.log(res);
+      const resData = res.split("|")
+      const socketData = resData[resData.length-1]
+      console.log(socketData)
+      console.log(resData)
+      if(socketData==="inactive"){
+        localStorage.setItem("reload",false)
+        setKickOut(true)
+        setVideoGot(false)
+      }
     });
     socket.on("first_move", (res) => {
       console.log(res);
@@ -1223,6 +1232,7 @@ useEffect(()=>{
       await gameLeave(userId, timeout_status);
       setTimeoutStatus(false);
       setKickOut(true)
+      setVideoGot(false)
       setPlayAgain(false)
       setGamePlayStatus(false)
       setGamePlay(false)
@@ -2262,9 +2272,10 @@ useEffect(()=>{
           <p className={style.KickoutMessage}>Whoops! There seems to be an issue with this prize.<br/>Please try again or select another prize </p>
           <div className={style.KickoutBtn}>
             <button onClick={()=>{
-                    window.location.reload()
-      EntryRequest.replay = true;
-      dispatch(gameEntry(EntryRequest));
+                  navigate("/prizes",{state:{category:sendCategory}})
+                  window.location.reload()
+      // EntryRequest.replay = true;
+      // dispatch(gameEntry(EntryRequest));
             }}>OK</button>
           </div>
         </div>
@@ -3929,7 +3940,7 @@ useEffect(()=>{
                                     onComplete={() => {
                                       if(animeStopStatus===false){
                                         timeOut(userId, false);
-                                      }
+                                    }
                                       setSecondStep(false);
                                       setTimeoutStatus(true);
                                     }}

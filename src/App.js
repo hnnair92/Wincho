@@ -21,7 +21,7 @@ import OrderConfirmed from "./Components/OrderConfirmed/OrderConfirmed";
 import Notification from "./Components/Notification/Notification";
 import Cart from "./Components/Cart/Cart";
 import Demo from "./Components/Description/Screen";
-import Jins from "./Components/jins/jins";
+// import Jins from "./Components/jins/jins";
 import { socket } from "./socket";
 import { useDispatch, useSelector } from "react-redux";
 import { configutation } from "./actions/product";
@@ -70,7 +70,7 @@ function App() {
 }, [ ])
   const[countryCode,setCountryCode] = useState("")
 
-  const state = async()=>{
+  const getCountryCode = async()=>{
     try {
     //   fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
     //  .catch(() => console.log('Network request failed, adblock is enabled'));
@@ -101,7 +101,7 @@ function App() {
   //   } 
   // }
   useEffect(()=>{
-    state()
+    getCountryCode()
     
   },[dispatch,countryCode])
 

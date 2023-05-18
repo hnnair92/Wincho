@@ -162,6 +162,9 @@ const {configuration} = useSelector((state)=>state.configuration)
   useEffect(()=>{
     freePlay()
   },[])
+  useEffect(()=>{
+    console.log(state)
+  },[state])
   useEffect(() => {
     console.log(gameSound === "true", "gameSound");
     console.log(typeof gameSound, "gameMusic");

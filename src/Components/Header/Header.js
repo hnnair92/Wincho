@@ -6,7 +6,7 @@ import { FiMenu } from "react-icons/fi";
 import { MdOutlineSettings } from "react-icons/md";
 import ticket from "../../assests/Floating Tab Gold Ticket.png";
 import plus from "../../assests/Header Add Value.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { HiMenu } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -21,20 +21,24 @@ import bandaiLogo from "../../assests/Bandai Namco Logo.png";
 import { MainMenu, settingsMenu } from "./Menu";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
+import { socket } from "../../socket";
 // import { useSelector } from 'react-redux'
 const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
   const dispatch = useDispatch();
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
+  const [kickout,setKickout] = useState(false)
   const [setting, setSetting] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
 
   const userData = useSelector((state) => state.userData);
   const { user } = useSelector((state) => state.profile);
+  const urlState = window.location
   // const [music, setMusic] = useState(true);
   // const isUser = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   // const isUser = JSON.parse(localStorage.getItem("user"));
   const { configuration } = useSelector((state) => state.configuration);
+  const { game } = useSelector((state) => state.gameEntry);
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [musicId, setMusicId] = useState("");
@@ -44,6 +48,9 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [sliderSction, setSliderAction] = useState(false);
   const { notification } = useSelector((state) => state.notification);
   let inGame = localStorage.getItem("inGame");
+  const placeId = urlState.pathname.split("/")
+  console.log(urlState)
+  console.log(placeId[1])
   // let userId = JSON.parse(localStorage.getItem("user"))||
   let userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   // let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
@@ -241,6 +248,79 @@ async function playAudio(src) {
   useEffect(()=>{
     console.log(user)
   })
+  const handleTabClosing = async(event) => {
+    // removePlayerFromGame()
+    // console.log("exiting")\
+    await gameLeave(userId,false)
+    // console.log(closing)
+    // if(reloadStatus===true){
+
+    // event.preventDefault();
+    // event.returnValue ='';
+    // }
+    // setExitPopupOpen(true);
+
+}
+const alertUser = (event:any) => {
+  // if(reloadStatus===true){
+
+console.log(event)
+// gameLeave()
+event.preventDefault()
+  // }
+
+event.returnValue = ''
+// alert("helo")
+}
+  async function gameLeave(){
+    const checkTime = JSON.parse(localStorage.getItem("timeoutState"))||false
+    await fetch(`${baseUrl}/game/leave`, {
+      method: "POST",
+      body: JSON.stringify({
+        machineCode: game.machineCode,
+        playerID: userId,
+        timeout_status: false,
+        source: "web",
+      }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(id);
+        // setReloadStatus(false)
+        localStorage.setItem("reload",false)
+        // window.removeEventListener("beforeunload", handleTabClosing);
+        window.removeEventListener('beforeunload', alertUser)
+        window.removeEventListener('unload', handleTabClosing)
+        // if (User === userId) {
+          socket.disconnect();
+          setTimeout(() => {
+            socket.connect({ forceNew: true });
+            socket.on("connect", () => {});
+            socket.emit(
+              JSON.stringify({
+                user_id: userId,
+                socket_id: socket.id,
+                machineCode: game.machine_code,
+              })
+            );
+          }, 1000);
+          // setTimeoutStatus(false);
+          localStorage.setItem("userJoined",JSON.stringify(false))
+          // if(timeoutStatus===true){
+            if(checkTime===false){
+              window.location.reload();
+            }
+            localStorage.setItem("timeoutState",JSON.stringify(false))
+
+          // }
+        }
+      // }
+      );
+  }
+
   const MobileFunc = () => {
     useEffect(() => {
       document.body.style.overflow = "hidden";
@@ -394,6 +474,27 @@ async function playAudio(src) {
       </div>
     </div>
     :""}
+    {kickout?<div className={style.kickoutPopupAll}>
+        <div className={style.KickoutOverlay}>
+
+        </div>
+        <div className={style.kickoutPopup}>
+        <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <p className={style.KickoutMessage}>Whoops! There seems to be an issue with this prize.<br/>Please try again or select another prize </p>
+          <div className={style.KickoutBtn}>
+            <button onClick={()=>{
+                    window.location.reload()
+                    navigate("/prizes",{state:{category:""}})
+                    setHistoryPopup(true)
+      // EntryRequest.replay = true;
+      // dispatch(gameEntry(EntryRequest));
+            }}>OK</button>
+          </div>
+        </div>
+      </div>
+      :""}
     {isAddress? (
         <div className={` ${style.addressPopup}`}>
         <div className={style.Overlay} onClick={()=>{
@@ -553,7 +654,21 @@ async function playAudio(src) {
                     
                     setActive(true)
                           setId(menu.id);
-                         
+                         if(menu.Name==="History"){
+                          // setKickout(true)
+                          if(placeId[1]==="game"){
+                            // setActive(true)
+                            if(userJoined===true&&active===true){
+                              gameLeave(userId,false)
+                            }
+                            navigate("/prizes",{state:{category:""}})
+                            setHistoryPopup(true)
+
+                          }
+                          else{
+                            setHistoryPopup(true)
+                          }
+                         }
                           if (
                             menu.Name === "Terms of Use" &&gamePlay===false&&userJoined===false||
                             menu.Name === "Privacy Policy"&&gamePlay===false&&userJoined===false
@@ -569,9 +684,7 @@ async function playAudio(src) {
                               "_blank"
                             );
                           }
-                          if(menu.Name==="History"){
-                            setHistoryPopup(true)
-                          }
+                          
                           if (menu.Name === "Sound" || menu.Name === "Music") {
                             // navigate(``)
                             setSetting(true);
@@ -767,7 +880,7 @@ async function playAudio(src) {
                   // }
                   setActive(true)
                   setId(menu.id);
-                 
+                  
                   if (
                     menu.Name === "Terms of Use" &&gamePlay===false&&userJoined===false||
                     menu.Name === "Privacy Policy"&&gamePlay===false&&userJoined===false
@@ -783,9 +896,23 @@ async function playAudio(src) {
                       "_blank"
                     );
                   }
-                  if(menu.Name==="History"){
-                    setHistoryPopup(true)
-                  }
+                 
+                    // setHistoryPopup(true)
+                    if(menu.Name==="History"){
+                          // setKickout(true)
+                          if(placeId[1]==="game"){
+                            // setActive(true)
+                            if(userJoined===true&&active===true){
+                              gameLeave(userId,false)
+                            }
+                            navigate("/prizes",{state:{category:""}})
+                            setHistoryPopup(true)
+
+                          }
+                          else{
+                            setHistoryPopup(true)
+                          }
+                         }
                   if (menu.Name === "Sound" || menu.Name === "Music") {
                     // navigate(``)
                     setSetting(true);

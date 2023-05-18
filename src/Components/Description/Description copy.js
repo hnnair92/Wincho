@@ -488,6 +488,9 @@ const Description = ({
     });
     socket.on("get_machine_status", (res) => {
       console.log(res);
+      const resData = res.split("|")
+      const socketData = resData[resData.lenght-1]
+      console.log(socketData)
     });
     socket.on("first_move", (res) => {
       console.log(res);

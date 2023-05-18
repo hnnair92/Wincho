@@ -234,10 +234,13 @@
         width: 50%;
     }
     .selection .price p{
-        font-size: 1.5rem;
+        font-size: 2.5rem;
+    }
+    .price p{
+        margin-right: 10px;
     }
     .shippingIcon p{
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
     .selection{
         width: 30%;
@@ -246,11 +249,11 @@
         width: 37%;
     }
     .ticket{
-        width: 3rem;
+        width: 5rem;
     }
     .CircleActive,.Circle{
-        width: 3rem;
-        height: 3rem;
+        width: 4rem;
+        height: 4rem;
     }
 }
 .Popup{
@@ -752,6 +755,31 @@ video{
     .VideoSection{
         width: 90%;
         height: 250px;
+    }
+    .selection .price p{
+        font-size: 1.5rem;
+    }
+    .price p{
+        margin-right: 0;
+    }
+    .shippingIcon p{
+        font-size: 1.5rem;
+    }
+    .selection{
+        width: 30%;
+    }
+    .FreeShipping .selection{
+        width: 37%;
+    }
+    .ticket{
+        width: 3rem;
+    }
+    .CircleActive,.Circle{
+        width: 3rem;
+        height: 3rem;
+    }
+    .Shipping{
+        padding: 20px;
     }
 }
 .clubHousePopup{
