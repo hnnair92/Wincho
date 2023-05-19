@@ -222,6 +222,8 @@ async function playAudio(src) {
       }, 100);
     }
   };
+  console.log(window.location.pathname.split("/")[1])
+
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem("user");
@@ -545,6 +547,8 @@ event.returnValue = ''
                       src={MMenu.icon}
                       alt=""
                       onClick={(e) => {
+                        console.log(window.location.pathname.split("/")[1])
+
                         playAudio(music.Click)
                     setSetting(false)
                        // if(gamePlay===true){
@@ -556,9 +560,15 @@ event.returnValue = ''
                           checkGameOn();
                         setToggle(false);
                         if (MMenu.Name === "Support"&&gamePlay===false&&userJoined===false) {
+                          console.log(window.location.pathname.split("/"))
+                          if(window.location.pathname.split("/")[1]===""){
+                          handleId(e);
+                          }
+                          else{
                           setToggle(false);
-                          // handleId(e);
                           setIsAddress(true)
+
+                          }
                           
                         }
   

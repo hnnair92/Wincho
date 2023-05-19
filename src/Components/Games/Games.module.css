@@ -1,6 +1,8 @@
 .Container{
     width: 100%;
     height: 100vh;
+    /* min-height: 100vh; */
+    overflow:hidden;
     overflow-y: scroll;
     margin-left: auto;
     margin-right: auto;
@@ -61,6 +63,7 @@
     grid-template-columns: repeat(5, 1fr);
     /* max-width: 1600px; */
     margin: 0 auto;
+    /* overflow-y: scroll; */
 }
 .Games .Game {
     position: relative;
@@ -452,6 +455,9 @@
     margin: 0 5px;
 }
 @media(max-width:767px){
+    .Container{
+        min-height: 100vh;
+    }
     
     .PriceDiv,.infoIcon a,.DetailTitle{
         display: flex;
@@ -992,8 +998,10 @@
 }
 @media(max-width:450px){
     .ClubHouse{
-        transform: translate(-50%,-50%);
-        width: 95%;
+        width: 65%;
+    overflow: hidden;
+    border-radius: 20px;
+    position: fixed;
     }
 }
 .category{
@@ -1004,4 +1012,58 @@
 }
 .resendPopupBottomSection{
     z-index: 99999;
+}
+@media(max-width:767px){
+    .AddressSection input{
+        font-size: 1.75rem;
+    }
+    .AddressTitle p{
+        font-size: 1.75rem;
+    }
+    .DeliveryAddress{
+        padding: 25px 10px;
+        width: 100%;
+    }
+    .AddressEditBtn button{
+        background-color: #1b8fe7;
+        border: 1.5px solid #fff;
+        outline: none;
+        font-size: 1.5rem;
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 30px;
+        margin: 20px 0;
+        font-weight: 700;
+    }
+    /* .Circle{
+        margin-left: 0;
+    }
+    .price p{
+        margin-right: 15px;
+    } */
+}
+@media(max-width:765px){
+    .CartEmptyText{
+        font-size: 1.75rem;
+        
+    }
+    .ClubHouse{
+        width: 65%;
+        overflow: hidden;
+        border-radius: 20px;
+        position: fixed;
+    }
+    .Bonus p{
+        font-size: 5rem;
+        text-align: end;
+    }
+    .BonusText p{
+        font-size: 1.5rem;
+    }
+    .SubscribeButton button{
+        font-size: 1.75rem;
+    }
+    .CancelSubscription p,.TermsAndPolicy p {
+        font-size: 1rem;
+    }
 }

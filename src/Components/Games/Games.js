@@ -77,7 +77,8 @@ const {configuration} = useSelector((state)=>state.configuration)
   const [times,setTimes] = useState(localStorage.getItem("times")||0)
   // const times = JSON.parse(localStorage.getItem("times"))
   const checkPlayArray = localStorage.getItem("checkPlay")&&JSON.parse(localStorage.getItem("checkPlay"))
-    const verifiedEmail = JSON.parse(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(false)))
+    const verifiedEmail = JSON.parse(localStorage.getItem("verfiedEmail"))&&JSON.parse(localStorage.getItem("verfiedEmail"))
+    // const verifiedEmail = JSON.parse(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(false)))
   // const checkPlayArray = localStorage.getItem("checkPlay")&& JSON.parse(localStorage.getItem("checkPlay"))
   // console.log(verifiedEmail)
   useEffect(()=>{
@@ -93,6 +94,14 @@ const {configuration} = useSelector((state)=>state.configuration)
     }
     console.log(verifiedEmail)
   },[])
+  useEffect(()=>{
+    if(user?.profile_status===true||user?.profile_status==="false"){
+      localStorage.setItem("verfiedEmail",JSON.stringify(true))
+    }
+    // else{
+    //   localStorage.setItem("verfiedEmail",JSON.stringify(true))
+    // }
+  },[user])
   useEffect(()=>{
     if(verifiedEmail){
       localStorage.setItem("verfiedEmail",JSON.stringify(verifiedEmail))
@@ -290,8 +299,8 @@ async function playAudio(src) {
   //     setSearchIconStatus(true)
   //   }
   // },[window.innerWidth])
+  const premiumData = JSON.parse(localStorage.getItem("premium"))
   useEffect(()=>{
-    const premiumData = JSON.parse(localStorage.getItem("premium"))
     console.log(premiumData)
     console.log(premiumPopup&&user?.vip===false)
     console.log(user?.profile_status===true)
@@ -304,16 +313,30 @@ async function playAudio(src) {
       }
       else{
       // else if(category==="free"||category==="Free"){
-        setPremiumPopup(true)
+        // setPremiumPopup(true)
       }
     }
     else{
       if(premiumData==="true"||premiumData===true){
-        setPremiumPopup(false)
+        if(category==="free"||category==="Free"){
+
+          setPremiumPopup(false)
+        }
+        else{
+        // else if(category==="free"||category==="Free"){
+          setPremiumPopup(false)
+        }
 
       }
       else if(premiumData==="false"||premiumData===false){
-        setPremiumPopup(true)
+        if(category==="free"||category==="Free"){
+
+          setPremiumPopup(false)
+        }
+        else{
+        // else if(category==="free"||category==="Free"){
+          // setPremiumPopup(true)
+        }
 
       }
     }
@@ -616,7 +639,7 @@ useEffect(()=>{
               }}>All</button> */}
         </div>
         {/* {verifyEmail?"":""} */}
-        {premiumPopup&&user?.vip===false&&user?.profile_status===false&&user?.username!==""?
+        {premiumPopup&&user?.vip===false&&user?.profile_status===true&&user?.username!==""?
       <div className={style.clubHousePopup}>
       <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
@@ -773,10 +796,8 @@ useEffect(()=>{
                   // setResendEmail(false);
                   setVerifyMails(false)
                   resendEmailApi();
-                  if(user?.tc_version<configuration?.TC_VERSION&&user&&user.username!==""){
-                    // if(verifyEmail===false){
+                  if(user?.tc_version<configuration?.TC_VERSION&&user&&user.username!==""){        
                       setTermsVersion(true)
-                    // }
                   }
                 }}>OK</button>
               </div>
@@ -855,9 +876,7 @@ useEffect(()=>{
                 products.map((game, index) => {
                   if(category==="all"&&game.category!="free"){
                     if(user&&user.vip===false&&game.is_vip_product===false){
-                    return (
-                      
-                        // <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{
+                    return (                    
                         <div className={style.Game} key={index} onClick={(event)=>{
                           console.log("Div")
                           console.log(userId)
@@ -878,29 +897,43 @@ useEffect(()=>{
                          {/* <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{ */}
 
                           <div className={style.SingleGameOverlay} onClick={()=>{
-                            if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
-                              setResendEmail(true)
-                            }
-                            // else{
-                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            // }
-                           if(user&&user.username===""&&game.price!=="0"){
-                              navigate("/login")
-                            }
-                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                              
-                            }
-                            else if(userId!=null){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                           if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
 
-                            }
-                            else if(user?.username===""){
-                              navigate("/login")
-                            }
-                            else{
-                              navigate("/login")
-                            }
+                        }
+                         else if(user&&user.profile_status===false&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                        // else if(premiumData===false&&user?.vip===false){
+                        //   setPremiumPopup(true)
+                        // }
+                        else if(premiumData===false&&user?.vip===false&&game.price!=="0"){
+                          setPremiumPopup(true)
+                        }
+                        else{
+                          console.log("verified faking")
+                        if(user&&user.username===""&&game.price!=="0"){
+                            navigate("/login")
+                          }
+                          else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            
+                          }
+                          else if(userId!=null){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                          }
+                          else if(user?.username===""){
+                            navigate("/login")
+                          }
+                          else{
+                            navigate("/login")
+                          }
+
+                        }
                             console.log(user.profile_status,"status")
                           }}>
 
@@ -1005,28 +1038,39 @@ useEffect(()=>{
                        {/* <Link to ={game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined?`/game/${game.slug}`:userId!=null?`/game/${game.slug}`:"/login"} state={{game:game,user:user}} className={style.Game} key={index} onClick={(event)=>{ */}
 
                         <div className={style.SingleGameOverlay} onClick={()=>{
-                         if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
+                        if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                           setResendEmail(true)
-                        }
-                        // else{
-                        //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                        // }
-                       if(user&&user.username===""&&game.price!=="0"){
-                          navigate("/login")
-                        }
-                        else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
-                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                          
-                        }
-                        else if(userId!=null){
-                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          console.log("not verified")
 
                         }
-                        else if(user?.username===""){
-                          navigate("/login")
+                         else if(user&&user.profile_status===false&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                        else if(premiumData===false&&user?.vip===false&&game.price!=="0"){
+                          setPremiumPopup(true)
                         }
                         else{
-                          navigate("/login")
+                          console.log("verified faking")
+                        if(user&&user.username===""&&game.price!=="0"){
+                            navigate("/login")
+                          }
+                          else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            
+                          }
+                          else if(userId!=null){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                          }
+                          else if(user?.username===""){
+                            navigate("/login")
+                          }
+                          else{
+                            navigate("/login")
+                          }
+
                         }
                           console.log(user.profile_status,"status")
                         }}>
@@ -1132,12 +1176,21 @@ useEffect(()=>{
                          <div className={style.SingleGameOverlay} onClick={()=>{
                           // playAudio(music.Pop)
                           if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
-                            setResendEmail(true)
-                          }
-                          // else{
-                          //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                          // }
-                         if(user&&user.username===""&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                         else if(user&&user.profile_status===false&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                        else if(premiumData===false&&user?.vip===false&&game.price!=="0"){
+                          setPremiumPopup(true)
+                        }
+                        else{
+                          console.log("verified faking")
+                        if(user&&user.username===""&&game.price!=="0"){
                             navigate("/login")
                           }
                           else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
@@ -1154,6 +1207,8 @@ useEffect(()=>{
                           else{
                             navigate("/login")
                           }
+
+                        }
                             console.log(user.profile_status,"status")
                           }}>
 
@@ -1259,26 +1314,37 @@ useEffect(()=>{
 
                         if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                           setResendEmail(true)
-                        }
-                        // else{
-                        //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                        // }
-                       if(user&&user.username===""&&game.price!=="0"){
-                          navigate("/login")
-                        }
-                        else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
-                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                          
-                        }
-                        else if(userId!=null){
-                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          console.log("not verified")
 
                         }
-                        else if(user?.username===""){
-                          navigate("/login")
+                         else if(user&&user.profile_status===false&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                        else if(premiumData===false&&user?.vip===false&&game.price!=="0"){
+                          setPremiumPopup(true)
                         }
                         else{
-                          navigate("/login")
+                          console.log("verified faking")
+                        if(user&&user.username===""&&game.price!=="0"){
+                            navigate("/login")
+                          }
+                          else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            
+                          }
+                          else if(userId!=null){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                          }
+                          else if(user?.username===""){
+                            navigate("/login")
+                          }
+                          else{
+                            navigate("/login")
+                          }
+
                         }
                             //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                             // }
@@ -1389,28 +1455,39 @@ useEffect(()=>{
                             // playAudio(music.Menu)
 
                             if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
-                              setResendEmail(true)
-                            }
-                            // else{
-                            //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                            // }
-                           if(user&&user.username===""&&game.price!=="0"){
-                              navigate("/login")
-                            }
-                            else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                              
-                            }
-                            else if(userId!=null){
-                              navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                          setResendEmail(true)
+                          console.log("not verified")
 
-                            }
-                            else if(user?.username===""){
-                              navigate("/login")
-                            }
-                            else{
-                              navigate("/login")
-                            }
+                        }
+                         else if(user&&user.profile_status===false&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                        else if(premiumData===false&&user?.vip===false&&game.price!=="0"){
+                          setPremiumPopup(true)
+                        }
+                        else{
+                          console.log("verified faking")
+                        if(user&&user.username===""&&game.price!=="0"){
+                            navigate("/login")
+                          }
+                          else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            
+                          }
+                          else if(userId!=null){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                          }
+                          else if(user?.username===""){
+                            navigate("/login")
+                          }
+                          else{
+                            navigate("/login")
+                          }
+
+                        }
                             console.log(user.profile_status,"status")
                           }}>
 
@@ -1509,27 +1586,41 @@ useEffect(()=>{
                         // playAudio(music.Menu)
                         if(user&&user.profile_status===false&&user.username!==""&&game.price!=="0"){
                           setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                         else if(user&&user.profile_status===false&&game.price!=="0"){
+                          setResendEmail(true)
+                          console.log("not verified")
+
+                        }
+                        else if(premiumData===false&&user?.vip===false&&game.price!=="0"){
+                          setPremiumPopup(true)
+                        }
+                        else{
+                          console.log("verified faking")
+                        if(user&&user.username===""&&game.price!=="0"){
+                            navigate("/login")
+                          }
+                          else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+                            
+                          }
+                          else if(userId!=null){
+                            navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
+
+                          }
+                          else if(user?.username===""){
+                            navigate("/login")
+                          }
+                          else{
+                            navigate("/login")
+                          }
+
                         }
                         // else{
                         //   navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
                         // }
-                       if(user&&user.username===""&&game.price!=="0"){
-                          navigate("/login")
-                        }
-                        else if(game.price==="0"&&userId===""||game.price==="0"&&userId===null||game.price==="0"&&userId===undefined&&user?.username!==""){
-                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-                          
-                        }
-                        else if(userId!=null){
-                          navigate(`/game/${game.slug}`, { state: { game: game ,user:user,cateogry:category} });
-
-                        }
-                        else if(user?.username===""){
-                          navigate("/login")
-                        }
-                        else{
-                          navigate("/login")
-                        }
                             console.log(user.profile_status,"status")
                           }}>
 
@@ -1668,7 +1759,7 @@ useEffect(()=>{
               <div
                 className={style.popupPlayNow}
                 onClick={() => {
-                  if(user&&user.profile_status===false&&gameData.price!="0"){
+                  if(user&&user.profile_status===false&&gameData.price!=="0"){
                     setPopup(false)
                     setResendEmail(true)
                   }

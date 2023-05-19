@@ -27,6 +27,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { configutation } from "./actions/product";
 import WinScreen from "./Components/winScreen/winScreen";
 import Success from "./Components/successPage/success";
+import Test from "./Components/Description/test";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
@@ -137,6 +138,7 @@ console.log(id)
           <Route path="/win-screen" element={<WinScreen setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           <Route path="/payment/success" element={<Success />} />
           <Route path="/payment/cancel" element={<Ticket />} />
+          <Route path="/test" element={<Test />} />
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
         <Footer userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>

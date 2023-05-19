@@ -838,15 +838,21 @@ useEffect(()=>{
       playAudio(music.Chime);
     }
   }, [reportIssueCategories]);
+  useEffect(()=>{
+    console.log(GameData.price==="0")
+    console.log(typeof GameData.price)
+
+  },[])
   useEffect(() => {
     if (GameData) {
+      
       EntryRequest = {
         catalog: GameData && GameData.id,
         playerID: userId===null||userId===undefined?milliseconds*utc: userId,
         machineCode: GameData && GameData.machine_code,
         source: "web",
         replay: false,
-        // freeplay:false,
+        //  ,
       freeplay:GameData.price==="0"?true:false,
 
       };
@@ -1307,7 +1313,7 @@ useEffect(()=>{
     setActive(false)
     console.log(EntryRequest)
     checkAnime();
-    console.log(GameData.price)
+    console.log(typeof GameData.price)
     playAudio(music.Wincha);
     setDirection(game.movement.split("-"));
     e.preventDefault();
@@ -1328,7 +1334,7 @@ useEffect(()=>{
       machineCode: game.machineCode,
       playerID: userId,
       freeplay:GameData.price==="0"?true:false,
-      // freeplay:false,
+      //  ,
       source: "web",
     }
     await fetch(`${baseUrl}/game/join`, {
@@ -1399,10 +1405,10 @@ useEffect(()=>{
       playerID: userId,
       machineCode: game.machineCode,
       source: "web",
-      // freeplay:false,
+      //  ,
       freeplay:GameData.price==="0"?true:false,
 
-      // freeplay:false,
+      //  ,
     }
     await fetch(`${baseUrl}/game/start`, {
       method: "POST",

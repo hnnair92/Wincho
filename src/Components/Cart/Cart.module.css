@@ -997,6 +997,7 @@ video{
     }
     .Bonus p{
         font-size: 5rem;
+        text-align: end;
     }
     .BonusText p{
         font-size: 1.5rem;

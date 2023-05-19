@@ -114,6 +114,7 @@ import {
             // console.log(data)
             // localStorage.setItem("user",JSON.stringify(data))
             localStorage.setItem("user", JSON.stringify(data.data.user_id));
+            localStorage.setItem("verfiedEmail",JSON.stringify(false))
             updateProfile(data.data.user_id);
             dispatch({
               type: REGISTER_SUCCESS,

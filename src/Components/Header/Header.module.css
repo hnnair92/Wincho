@@ -52,7 +52,8 @@
     align-items: center;
 }
 .MenuSection .NormalUrl{
-    font-size: 2.25rem;
+    /* font-size: 2.25rem; */
+    font-size: 18px;
     color: #fff;
     font-weight: 600;
     /* margin: 15px; */
@@ -72,7 +73,8 @@
 }
 .MenuSection .ActiveUrl{
     color: #1b8fe7;
-    font-size: 2.25rem;
+    /* font-size: 2.25rem; */
+    font-size: 18px;
     /* color: #fff; */
     font-weight: 600;
     cursor: pointer;
@@ -81,7 +83,7 @@
 }
 .MenuSection .NormalUrl:hover{
     color:#1b8fe7;
-    font-size: 2.25rem;
+    font-size: 18px;
     /* color: #fff; */
     font-weight: 600;
     cursor: pointer;
@@ -170,7 +172,7 @@
 }
 .Settings ul{
     width: 100%;
-    height: 100%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     transition: all 0.2s ease-in-out;
@@ -181,7 +183,8 @@
     color: #fff;
     list-style: none;
     font-weight: 600;
-    font-size: 2.25rem;
+    /* font-size: 2.25rem; */
+    font-size: 18px;
     /* margin: 15px; */
     transition: all 0.2s ease-in-out;
 
@@ -651,7 +654,7 @@
     .Container{
         position: sticky;
         top: 0;
-        z-index: 99999;
+        z-index: 99999999;
     }
     .MobileMenu{
         /* display: block; */
@@ -709,7 +712,7 @@
     .MobileMenu .HamBurgerMenu .Settings{
         /* width: 100%; */
         height: fit-content;
-        padding-bottom: 25%;
+        padding-bottom: 45%;
         top: 0;
         border-radius: 0;
         /* position: relative; */
@@ -798,6 +801,8 @@
     }
     .MobileMenu .HamBurgerMenu .Settings{
         display: flex;
+        height: 85vh;
+overflow-y: scroll;
     }
 }
 .SettingsOverlay{
@@ -996,7 +1001,7 @@
 .ShowCartHistory{
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     z-index: 9999;
 
 }
@@ -1126,6 +1131,7 @@ overflow: hidden;
     .CartHistory{
         width: 95%;
         transform: translate(-50%,-50%);
+        overflow: hidden;
     }
     .CartProducts{
         /* width: 40%; */
