@@ -366,6 +366,35 @@ video{
     outline:none;
     margin: 1rem;
 }
+.postpopup{
+    position: fixed;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1b8fe7;
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    padding:2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+    height: 20rem;
+}
+.popupbutton button{
+    /* margin: 2.5rem; */
+    padding: .5rem 4.5rem;
+    background-color: transparent;
+    border:2px solid #fff;
+    outline:none;
+    color:#fff;
+    font-size: 1.75rem;
+    font-weight: 600;
+    border-radius: 30px;
+    margin-top: 3rem;
+}
 .Address{
     width: 68rem;
     position: absolute;

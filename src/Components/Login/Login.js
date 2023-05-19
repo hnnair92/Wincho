@@ -152,7 +152,7 @@ const Login = () => {
         <div className={style.Right}>
           <form action="" className={style.form} onSubmit={handleLogin}>
             {error && error.status === "False" ? (
-              <p className={style.loginError}>invalid Crediantials</p>
+              <p className={style.loginError}>invalid Credentials</p>
             ) : (
               ""
             )}

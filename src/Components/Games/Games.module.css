@@ -64,6 +64,7 @@
     /* max-width: 1600px; */
     margin: 0 auto;
     /* overflow-y: scroll; */
+    padding-right: 4px;
 }
 .Games .Game {
     position: relative;
@@ -659,6 +660,7 @@
     } */
     .Games{
         grid-template-columns: repeat(3, 1fr);
+        margin-right: 5px;
     }
     .Games .Game{
         width: 95%;
@@ -684,9 +686,18 @@
         margin-left: 0;
     }
 }
+@media(max-width:712px){
+    .Games{
+        margin-right: 0;
+        padding-right: 8px;
+    }
+}
 @media(max-width:599px){
     .Popup{
         width: 75%;
+    }
+    .Games{
+        padding-right: 0;
     }
 }
 @media(max-width:450px){

@@ -774,6 +774,11 @@
     .HomeMenuIcons svg{
         font-size: 4rem;
     }
+    .MobileMenu{
+        bottom: 0;
+        position: fixed;
+        left: 0;
+    }
 }
 .SettingsOverlay{
     position: fixed;
@@ -954,9 +959,9 @@ overflow-y: scroll;
   
     .addressPopup{ 
     
-    width: 35rem;
+    width: 32rem;
     height: 50rem;
-    padding: 1.5rem;
+    padding: 1rem;
     }
     .addressPopup .popupSection .popupText form input,.popupText form textarea{
         

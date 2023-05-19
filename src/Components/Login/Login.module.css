@@ -387,6 +387,11 @@
         padding: 30px;
        
     }
+    .info{
+        text-align: center;
+        align-items: center;
+        margin: 0;
+    }
 }
 @media(max-width:1065px){
 

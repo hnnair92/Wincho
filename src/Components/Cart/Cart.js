@@ -123,6 +123,7 @@ async function playAudioBg() {
   const [number, setNumber] = useState("");
   const [firstName,setFirstName] = useState("")
   const [lastName,setLastName] = useState("")
+  const [postcodetrue,setPostcodeTrue]=useState(false)
   // UseState
   const[allState,setAllState] = useState([])
   const[selectState,setSelectState] = useState(false)
@@ -417,6 +418,9 @@ async function playAudioBg() {
       .then((data) => {
         if(data.status==="True"){
           addAddress();
+        }
+        else{
+          setPostcodeTrue(true)
         }
         console.log(data);
       });
@@ -1173,7 +1177,7 @@ async function playAudioBg() {
               </div>
               <div className={style.selection}>
                 <div className={style.price}>
-                  <p>Free</p>
+                  <p>FREE</p>
                 </div>
                 {vipData.status === true &&
                 vipData.data[0].vip_token === true ? (
@@ -1326,6 +1330,24 @@ async function playAudioBg() {
             />
           </div>
         </div>
+        {postcodetrue?
+        <div className={style.postpopup}>
+           <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.popupText}>
+              <p>
+               Postal code not matching
+              </p>
+            </div>
+            <div className={style.popupbutton}>
+              <button onClick={()=>{
+                setPostcodeTrue(false)
+                setisAddressField(true)
+              }}>Ok</button>
+            </div>
+        </div>:
+        ''  }
         <div className={style.Checkout}>
           <button style={{filter:loading||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.zipcode===""||user?.first_name===""||count>4||cartData.length<=0?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.zipcode===""||user?.first_name===""||cartData.length<=0||loading?"none":"visible"}}
             onClick={() => {
