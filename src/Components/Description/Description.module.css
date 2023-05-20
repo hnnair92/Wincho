@@ -871,7 +871,7 @@ video {
         left: 5%;
     }
     .GameScreen{
-        margin-top: 5rem;
+        margin-top: 4.25rem;
     }
 }
 
@@ -928,7 +928,7 @@ video {
     }
 
     .GameScreen {
-        margin-top:8rem;
+        margin-top:6rem;
     }
 
     .NowPlaying {
@@ -1047,8 +1047,7 @@ video {
     .spectator span {
         font-size: 1.25rem;
         padding: 1px 4px;
-        text-align: center;
-        align-items: center;
+
     }
     .GameScreen{
         width: 100%;
@@ -1058,6 +1057,10 @@ video {
         width: 90%;
         height: 250px;
     }
+    .ExtraButton button {
+        width: 60%;
+    }
+    
 }
 .isLogged {
     width: 100vh;
@@ -1517,4 +1520,18 @@ video {
     font-size:2.25rem;
     font-weight: 500;
 
+}
+@media(max-width:599px){
+    .LoaderAnime{
+        width: 12rem;
+    }
+    .Camera button,
+    .PrizeReset button,
+    .LastWin button {
+        width:8rem;
+    }
+    .Report button{
+        width: 70%;
+    }
+    
 }

@@ -391,6 +391,10 @@
         text-align: center;
         align-items: center;
         margin: 0;
+        width: 14%;
+    }
+    .eye{
+        width: 17%;
     }
 }
 @media(max-width:1065px){

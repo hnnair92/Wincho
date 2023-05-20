@@ -699,23 +699,28 @@
     .Games{
         padding-right: 0;
     }
+    
 }
 @media(max-width:450px){
-    /* .CategoriesSection{
-        margin-left: 15%;
-    } */
+    .CategoriesSection{
+      height: 6rem;
+      margin-left: 3rem;
+    }
     .Games{
         grid-template-columns: repeat(2, 1fr);
     }
     .Games .Game{
         width: 90%;
+        padding: .5rem;
     }
    
     .category,.active{
         font-size: 1.5rem;
         margin-left: 0;
     }
-    
+    .Image{
+       height: 70%;
+    }
 }
 .clubHousePopup{
     position: absolute;

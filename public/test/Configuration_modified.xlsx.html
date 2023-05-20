@@ -39,6 +39,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
     function getParamValuesByName (querystring) {
                 var qstring = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
                 for (var i = 0; i < qstring.length; i++) {
