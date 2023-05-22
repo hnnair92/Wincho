@@ -266,7 +266,7 @@ const Home = () => {
                 <source src={videoSrc}/>
             </video>
             </div>
-            <div className={style.MSupport}>
+            <div className={style.MSupport} id="supports">
               
                 <div className={style.SupportContent}>
                     <div className={style.ContactSection}>

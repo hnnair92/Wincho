@@ -25,84 +25,64 @@ import CloseImage from "../../assests/Artboard 48 X.png";
 import Lower from "../../assests/Artboard 48 - Lower Image Split.png";
 import Upper from "../../assests/Artboard 48 - Upper Image Split.png";
 import { updateProfile } from "../../actions/user";
-import {FaChevronDown} from 'react-icons/fa'
+import { FaChevronDown } from "react-icons/fa";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
-// baseUrl
-const Cart = ({ gameMusic,
-  setGameMusic,
-  gameSound,
-  setGameSound,}) => {
-      const [musicStatus, setMusicStatus] = useState(
-          localStorage.getItem("music")
-            ? localStorage.getItem("music")
-            : localStorage.setItem("music", JSON.stringify(false))
-        );
-const audioRefHome = useRef(null);
-useEffect(() => {
-  console.log(gameMusic === "true", "gameSound");
-  console.log(typeof gameMusic, "gameMusic");
-  if (gameMusic === "true" || gameMusic === true) {
-    console.log(audioRefHome.current.volume);
-    audioRefHome.current.volume = 1;
-    console.log("true for gameMusic");
-    console.log(audioRefHome.current.volume);
-    playAudioBg();
-  } else {
-    audioRefHome.current.volume = 0;
+const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
+  const [musicStatus, setMusicStatus] = useState(
+    localStorage.getItem("music")
+      ? localStorage.getItem("music")
+      : localStorage.setItem("music", JSON.stringify(false))
+  );
+  const audioRefHome = useRef(null);
+  useEffect(() => {
+    console.log(gameMusic === "true", "gameSound");
+    console.log(typeof gameMusic, "gameMusic");
+    if (gameMusic === "true" || gameMusic === true) {
+      console.log(audioRefHome.current.volume);
+      audioRefHome.current.volume = 1;
+      console.log("true for gameMusic");
+      console.log(audioRefHome.current.volume);
+      playAudioBg();
+    } else {
+      audioRefHome.current.volume = 0;
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
     console.log(typeof gameMusic);
-    console.log("not reached");
-  }
-  console.log(typeof gameMusic);
-}, [gameMusic]);
-useEffect(() => {
-  if (gameMusic === "true" || gameMusic === true) {
-    console.log(audioRefHome.current.volume);
-    audioRefHome.current.volume = 1;
-    playAudioBg();
-  } else {
+  }, [gameMusic]);
+  useEffect(() => {
+    if (gameMusic === "true" || gameMusic === true) {
+      console.log(audioRefHome.current.volume);
+      audioRefHome.current.volume = 1;
+      playAudioBg();
+    } else {
+      console.log(typeof gameMusic);
+      console.log("not reached");
+    }
     console.log(typeof gameMusic);
-    console.log("not reached");
+  }, []);
+  async function audioEnded(src) {
+    if (musicStatus === "true") {
+      audioRefHome.current.volume = 1;
+      audioRefHome.current.src = src;
+      audioRefHome.current.play();
+    } else {
+      audioRefHome.current.volume = 0;
+    }
   }
- 
-  console.log(typeof gameMusic);
-  // console.log()
-}, []);
-async function audioEnded(src) {
-  if (musicStatus === "true") {
-    // audioRefHome.current.unmute()
-    audioRefHome.current.volume = 1;
-    audioRefHome.current.src = src;
+  async function playAudioBg() {
+    console.log(musicStatus, "musicStatus");
+    console.log(audioRefHome.current.play(), "from its function");
+    audioRefHome.current.src = music.Menu;
     audioRefHome.current.play();
-  } else {
-    audioRefHome.current.volume = 0;
-    // audioRefHome.current.mute()
+    console.log(audioRefHome.current.volume, "from its function");
   }
-}
-async function playAudioBg() {
-  console.log(musicStatus, "musicStatus");
-  // if(musicStatus==="true"){
-  console.log(audioRefHome.current.play(), "from its function");
-  // audioRefHome.current.volume=1;
-  audioRefHome.current.src = music.Menu;
-  audioRefHome.current.play();
-  console.log(audioRefHome.current.volume, "from its function");
-
-  // }
-  // else{
-  //   audioRefHome.current.volume = 0;
-
-  // }
-}
   const dispatch = useDispatch();
-  // const[prime,setPrime] = useState(true)
   const [cartData, setCartData] = useState([]);
   const [premiumPopup, setPremiumPopup] = useState(false);
-  // const baseUrl = process.env.REACT_APP_BASEURL
-  // const userId = JSON.parse(localStorage.getItem("user"));
-  const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
-  // const userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","");
-
+  const userId =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
   const { configuration } = useSelector((state) => state.configuration);
   const { user } = useSelector((state) => state.profile);
   let saved = localStorage.getItem("SaveShipping");
@@ -121,12 +101,11 @@ async function playAudioBg() {
   const [zipcode, setZipCode] = useState("");
   const [countryCode, setCountryCode] = useState("");
   const [number, setNumber] = useState("");
-  const [firstName,setFirstName] = useState("")
-  const [lastName,setLastName] = useState("")
-  const [postcodetrue,setPostcodeTrue]=useState(false)
-  // UseState
-  const[allState,setAllState] = useState([])
-  const[selectState,setSelectState] = useState(false)
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [postcodetrue, setPostcodeTrue] = useState(false);
+  const [allState, setAllState] = useState([]);
+  const [selectState, setSelectState] = useState(false);
   const [userCountry, setUserCountry] = useState("");
   const [showVideo, setShowVideo] = useState(false);
   const [emptyCart, setEmptyCart] = useState(false);
@@ -142,7 +121,7 @@ async function playAudioBg() {
   const [isAddressField, setisAddressField] = useState(false);
   const [isAddressFieldShown, setIsAddressFieldShown] = useState(false);
   const [vipMessage, setVipMessage] = useState([]);
-  const [products,setProducts] = useState([])
+  const [products, setProducts] = useState([]);
   const [addressObj, setAddressObj] = useState({
     line1: "",
     line2: "",
@@ -153,42 +132,33 @@ async function playAudioBg() {
   const setPlayBack = () => {
     vidRef.current.playbackRate = 1.5;
   };
-
-  const videoRef = useRef(null)
-  const[errors,setError] = useState("")
-    const[checkError,setCheckError] = useState(false)
+  const videoRef = useRef(null);
+  const [errors, setError] = useState("");
+  const [checkError, setCheckError] = useState(false);
   const [count, setCount] = useState(1);
-  // End
-  // useEffect(()=>{
-  //   videoRef?.current?.playbackRate = 1.5;
-  // },[videoRef,showVideo])
-  const checkState=(state,e)=>{
-    e.preventDefault()
-    if(state.status===false){
-        setCheckError(true)
-        setState("")
-        setSelectState(false)
-
+  const checkStateExits = (state, e) => {
+    e.preventDefault();
+    if (state.status === false) {
+      setCheckError(true);
+      setState("");
+      setSelectState(false);
+    } else {
+      setState(state);
+      setSelectState(false);
     }
-    else{
-        setState(state)
-        setSelectState(false)
-    }
-}
+  };
   const handlePlayVideo = () => {
     vidRef.current.play();
   };
   const handlePauseVideo = () => {
     vidRef.current.pause();
   };
-  const checkCounts = ()=>{
+  const checkCounts = () => {
     const parsedPoint = user && parseInt(user.point);
     const parsedPrice =
-      configuration &&
-      parseInt(configuration.STANDARD_SHIPPING_PRICE);
+      configuration && parseInt(configuration.STANDARD_SHIPPING_PRICE);
     if (saved === "true") {
       console.log(typeof saved);
-      // setCount(1)
     } else {
       console.log(typeof saved);
       return setCount(1);
@@ -200,22 +170,12 @@ async function playAudioBg() {
       console.log(user && user.vip);
       setCount(2);
     }
-    if (
-      parsedPoint < parsedPrice &&
-      user.vip === false
-    ) {
+    if (parsedPoint < parsedPrice && user.vip === false) {
       return setCount(2);
-    } else if (
-      parsedPoint > parsedPrice &&
-      user.vip === false
-    ) {
-      // if(parsedPoint>parsedPrice){
-      // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
+    } else if (parsedPoint > parsedPrice && user.vip === false) {
       setIsAddress(true);
-
       setCount(3);
       console.log("count jumbed 2");
-      // }
     } else {
       setCount(1);
     }
@@ -227,22 +187,14 @@ async function playAudioBg() {
     if (user && user.vip === true) {
       return setCount(1);
       console.log(user && user.vip);
-    } 
-  }
+    }
+  };
   useEffect(() => {
-    checkCounts()
+    checkCounts();
   }, [user, configuration]);
-  useEffect(() => {
-    console.log(vipMessage, "count from useEffect");
-  }, [vipMessage]);
-  useEffect(() => {
-    console.log(isAddress, "address from useEffect");
-    console.log(count, "count from useEffect");
-  }, [isAddress]);
   async function fetchCart() {
     await fetch(`${baseUrl}/cart/collection`, {
       method: "POST",
-      // mode:"no-cors",
       body: JSON.stringify({
         user_id: userId,
       }),
@@ -256,27 +208,22 @@ async function playAudioBg() {
         setLoading(false);
         console.log(data);
         [...data.data].forEach((cart) => {
-          setProducts(products=>[...products,{
-            id:`${cart.id}`,
-            is_Egifting:cart.is_Egifting,
-            quantity:"1",
-            cart_id:cart.cart_id
-            
-          }])
+          setProducts((products) => [
+            ...products,
+            {
+              id: `${cart.id}`,
+              is_Egifting: cart.is_Egifting,
+              quantity: "1",
+              cart_id: cart.cart_id,
+            },
+          ]);
           if (cart.is_Egifting === false) {
             setEGifting(false);
             console.log(cart);
           }
         });
-        // for(const cart of cardData){
-        //     console.log(cart)
-        // }
-        // console.log(eGifting)
       });
   }
-  useEffect(()=>{
-    console.log(products)
-  },[products])
   async function addAddress() {
     if (configuration.COUNTRY_CODE === "44") {
       setUserCountry("county");
@@ -296,38 +243,23 @@ async function playAudioBg() {
       zipcode: zipcode,
       coutrycode: configuration.COUNTRY_CODE,
       coutryname: configuration.COUNTRY_NAME,
-    }
-    if(configuration.COUNTRY_CODE==="1"){
+    };
+    if (configuration.COUNTRY_CODE === "1") {
       body = {
-      id: userId,
-      username: user.username,
-      first_name: firstName,
-      last_name: lastName,
-      phone: `${number}`,
-      addressline1: line1,
-      addressline2: line2,
-      city: city,
-      state: state,
-      zipcode: zipcode,
-      coutrycode: configuration.COUNTRY_CODE,
-      coutryname: configuration.COUNTRY_NAME,
-      }
+        id: userId,
+        username: user.username,
+        first_name: firstName,
+        last_name: lastName,
+        phone: `${number}`,
+        addressline1: line1,
+        addressline2: line2,
+        city: city,
+        state: state,
+        zipcode: zipcode,
+        coutrycode: configuration.COUNTRY_CODE,
+        coutryname: configuration.COUNTRY_NAME,
+      };
     }
-  //   {
-  //     "id":"632966a3276161e78911c3ca",
-  //     "username":"Dora",
-  //     "first_name":"Dora",
-  //     "last_name":"S",
-  //     "phone":"8089511826",
-  //     "addressline1":"Line 1 ",
-  //     "addressline2":"Line 2s",
-  //     "city":"Test City ",
-  //     "county":"testCounty",
-  //     "zipcode":"PR40ET ",
-  //     "coutrycode":"44",
-  //     "coutryname":"UK"
-  //  }
-  console.log(body)
     await fetch(`${baseUrl}/user/shipping/details/update`, {
       method: "PUT",
       body: JSON.stringify(body),
@@ -337,13 +269,14 @@ async function playAudioBg() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         dispatch(updateProfile());
-      }).catch((err)=>{
-        console.log(err)
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  async function createPayment(){
+  async function vipPayment() {
     await fetch(`${baseUrl}/points/create-checkout-session`, {
       method: "POST",
       body: JSON.stringify({
@@ -352,8 +285,10 @@ async function playAudioBg() {
         quantity: 1,
         currency: configuration.CURRENCY_CODE,
         product: "Vip",
-        success_url: "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url: "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
+        success_url:
+          "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url:
+          "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
       }),
       headers: {
         "Content-Type": "application/json",
@@ -381,7 +316,6 @@ async function playAudioBg() {
         const message = data.data[0].vip_discription.split("\n");
         setVipMessage(message);
         console.log(data);
-        // console.log(data.data[0].vip_discription.split("\n"))
       });
   }
   async function numberValidation() {
@@ -397,7 +331,7 @@ async function playAudioBg() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         if (data.status === true) {
           postCodeCheck();
         }
@@ -416,11 +350,10 @@ async function playAudioBg() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.status==="True"){
+        if (data.status === "True") {
           addAddress();
-        }
-        else{
-          setPostcodeTrue(true)
+        } else {
+          setPostcodeTrue(true);
         }
         console.log(data);
       });
@@ -428,18 +361,18 @@ async function playAudioBg() {
   async function checkoutAPi() {
     const sendData = {
       address_1: user.addressline1,
-        address_2: user.addressline2,
-        city: user.city,
-        company: "",
-        country: configuration.COUNTRY_NAME,
-        email: user.email,
-        first_name: user.username,
-        phone: user.phone,
-        postcode: user.zipcode,
-        products: products,
-        state: user.state,
-        user_id: userId,
-    }
+      address_2: user.addressline2,
+      city: user.city,
+      company: "",
+      country: configuration.COUNTRY_NAME,
+      email: user.email,
+      first_name: user.username,
+      phone: user.phone,
+      postcode: user.zipcode,
+      products: products,
+      state: user.state,
+      user_id: userId,
+    };
     await fetch(`${baseUrl}/cart/checkout`, {
       method: "POST",
       body: JSON.stringify(sendData),
@@ -449,20 +382,19 @@ async function playAudioBg() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(sendData)
-        setProducts([])
-        console.log(data.data[0])
-        if(data.status==="True"){
-
+        console.log(sendData);
+        setProducts([]);
+        console.log(data.data[0]);
+        if (data.status === "True") {
           navigate("/order-confirmed");
-          dispatch(updateProfile())
+          dispatch(updateProfile());
         }
         console.log(data);
-      }).catch((err)=>{
-        console.log(err)
       })
+      .catch((err) => {
+        console.log(err);
+      });
   }
-  // function get
   useEffect(() => {
     console.log(saved);
     fetchCart();
@@ -482,7 +414,6 @@ async function playAudioBg() {
   }
   function Popup(url) {
     console.log(url);
-    // videoRef?.current?.playbackRate = 1.5;
     return (
       <div
         className={showVideo ? style.LastWinPopup : style.hideVideopopup}
@@ -528,24 +459,18 @@ async function playAudioBg() {
               <p>Whoops! Video unavailable Please try again later.</p>
             </div>
           ) : (
-            // <ReactPlayer
-            // ref={videoRef2}
-            //   url={url}
-            //   width="100%"
-            //   height="500px"
-            //   playIcon={<button>Play</button>}
-            //   playing={true}
-            //   controls={true}
-            //   />\
-            <video autoPlay muted={true} ref={videoRef} onCanPlay={() => setPlayBack()}>
+            <video
+              autoPlay
+              muted={true}
+              ref={videoRef}
+              onCanPlay={() => setPlayBack()}
+            >
               <source src={url} type="video/mp4" />
             </video>
           )}
-          {/* <video src=""></video> */}
-          {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
-          {/* <video ref ={videoRef}>
-                <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
-            </video> */}
+          {}
+          {}
+        
         </div>
       </div>
     );
@@ -555,22 +480,21 @@ async function playAudioBg() {
     const priceInt = parseInt(configuration.STANDARD_SHIPPING_PRICE);
     if (pointInt < priceInt) {
       setIsTopup(true);
-      // setCount()
     } else {
       setCount(3);
     }
   }
-
   return (
     <div className={style.Container}>
       <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
       {premiumPopup ? (
         <div className={style.clubHousePopup}>
-          <div className={style.clubHouseOverlay} onClick={() => {
-                  setPremiumPopup(false);
-                }}>
-
-          </div>
+          <div
+            className={style.clubHouseOverlay}
+            onClick={() => {
+              setPremiumPopup(false);
+            }}
+          ></div>
           <div className={style.ClubHouse}>
             <div className={style.TopImage}>
               <div
@@ -579,15 +503,13 @@ async function playAudioBg() {
                   setPremiumPopup(false);
                 }}
               >
-                {/* <MdClose/> */}
+                {}
                 <img src={CloseImage} alt="" />
               </div>
               <img src={Upper} alt="" />
             </div>
             <div className={style.BottomContents}>
-              {/* <div className={style.LowerImg}>
-                <img src={Lower} alt="" />
-              </div> */}
+             
               <div className={style.BonusPoints}>
                 <div className={style.Bonus}>
                   <p>{configuration.VIP_BONUS_POINT}W</p>
@@ -619,12 +541,14 @@ async function playAudioBg() {
                 </div>
               </div>
               <div className={style.SubscribeButton}>
-                <button onClick={()=>{
-                  if(userId===null){
-                    return navigate("/login")
-                  }
-                  createPayment()
-                }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+                <button
+                  onClick={() => {
+                    if (userId === null) {
+                      return navigate("/login");
+                    }
+                    vipPayment();
+                  }}
+                >{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
                 <p>Cancel any time</p>
@@ -654,7 +578,6 @@ async function playAudioBg() {
         ""
       )}
       {showVideo ? (
-        // <Popup/>
         <div
           className={showVideo ? style.LastWinPopup : style.hideVideopopup}
           onClick={() => {}}
@@ -666,29 +589,6 @@ async function playAudioBg() {
               setOnPlay(false);
             }}
           ></div>
-          {/* <div className={style.PlayIcon}>
-            {onPlay === true && url === "" ? (
-              <button
-                onClick={() => {
-                  setOnPlay(false);
-                  handlePauseVideo();
-                }}
-              >
-                <img src={assets.PlayImage} alt="" />
-              </button>
-            ) : url === "" ? (
-              ""
-            ) : (
-              <button
-                onClick={() => {
-                  setOnPlay(true);
-                  handlePlayVideo();
-                }}
-              >
-                <img src={playVideo} alt="" />
-              </button>
-            )}
-          </div> */}
           <div className={style.VideoSection}>
             <MdClose
               onClick={() => {
@@ -701,44 +601,25 @@ async function playAudioBg() {
                 <p>Whoops! Video unavailable Please try again later.</p>
               </div>
             ) : (
-              // <ReactPlayer
-              // ref={videoRef2}
-              //   url={url}
-              //   width="100%"
-              //   height="500px"
-              //   playIcon={<button>Play</button>}
-              //   playing={true}
-              //   controls={true}
-              //   />\
               <video autoPlay muted={true}>
                 <source src={url} type="video/mp4" />
               </video>
             )}
-            {/* <video src=""></video> */}
-            {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
-            {/* <video ref ={videoRef}>
-                <source src={`${configuration.LAST_WIN_VIDEO}`} type="video/mp4"/>
-            </video> */}
+            {}
+            {}
+           
           </div>
         </div>
       ) : (
         ""
       )}
-
       {isVip && isVipShown === false ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            {/* <p>{vipData.vip_discription}</p> */}
-            {/* <p>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: vipData.data[0].vip_discription,
-                }}
-              ></div>
-            </p> */}
+           
             {vipMessage.map((text) => {
               console.log(text);
               return (
@@ -748,7 +629,7 @@ async function playAudioBg() {
               );
             })}
             <p></p>
-            {/* <p>fhf</p> */}
+            {}
           </div>
           <div className={style.ReportPopupButton}>
             <button
@@ -757,19 +638,15 @@ async function playAudioBg() {
                 const parsedPrice =
                   configuration &&
                   parseInt(configuration.STANDARD_SHIPPING_PRICE);
-                // localStorage.setItem("saveShipping",true)\
                 setIsVip(false);
-                // setIsVipShown(true);
                 setCount(2);
                 if (parsedPoint > parsedPrice) {
                   setIsAddress(true);
-
                   setCount(4);
                   console.log("count jumbed 2");
                 }
                 if (user && user.addressline1 === "") {
                   setIsAddress(true);
-
                   setCount(3);
                   console.log("count jumbed 2");
                 } else {
@@ -790,9 +667,9 @@ async function playAudioBg() {
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            {/* <p>{vipData.vip_discription}</p> */}
+            {}
             <p>Whoops! We need your shipping details</p>
-            {/* <p>fhf</p> */}
+            {}
           </div>
           <div className={style.ReportPopupButton}>
             <button
@@ -800,7 +677,6 @@ async function playAudioBg() {
                 setisAddressField(true);
                 setIsAddressShown(true);
                 setIsAddress(false);
-                //  setCount
               }}
             >
               ADD DETAILS
@@ -829,16 +705,12 @@ async function playAudioBg() {
                 } else {
                   setCount(2);
                 }
-                // setIsReminderShown(true);
                 setIsBundleReminder(false);
               }}
             >
               OK
             </button>
-            {/* <button>CAMERA</button>
-        <button>PAYMENT</button>
-        <button>DELAY</button>
-        <button>OTHER</button> */}
+            
           </div>
         </div>
       ) : (
@@ -855,31 +727,27 @@ async function playAudioBg() {
           <div className={style.ReportPopupButton}>
             <button
               onClick={() => {
-                // localStorage.setItem("saveShipping",true)
                 navigate("/tickets");
-                // setIsLowPoint(false)
                 setCount(3);
                 setIsTopup(false);
               }}
             >
               TOP UP
             </button>
-            {/* <button>CAMERA</button>
-        <button>PAYMENT</button>
-        <button>DELAY</button>
-        <button>OTHER</button> */}
+           
           </div>
         </div>
       ) : (
         ""
       )}
-
       {isAddressField === true ? (
-        // {isAddressField===true || isAddressFieldShown === false ? (
         <div className={style.Address}>
-          <div className={style.AddressTitleOverlay} onClick={()=>{
-            setisAddressField(false)
-          }}></div>
+          <div
+            className={style.AddressTitleOverlay}
+            onClick={() => {
+              setisAddressField(false);
+            }}
+          ></div>
           <form action="">
             <h1>Shipping Address</h1>
             <input
@@ -890,7 +758,6 @@ async function playAudioBg() {
               placeholder="FIRST NAME"
               onChange={(e) => {
                 setFirstName(e.target.value);
-                //  line2 = e.target.value
               }}
             />
             <input
@@ -901,7 +768,6 @@ async function playAudioBg() {
               placeholder="LAST NAME"
               onChange={(e) => {
                 setLastName(e.target.value);
-                //  line2 = e.target.value
               }}
             />
             <input
@@ -912,7 +778,6 @@ async function playAudioBg() {
               placeholder="LINE 1"
               onChange={(e) => {
                 setLine1(e.target.value);
-                //  line2 = e.target.value
               }}
             />
             <input
@@ -923,7 +788,6 @@ async function playAudioBg() {
               placeholder="LINE 2"
               onChange={(e) => {
                 setLine2(e.target.value);
-                //  line2 = e.target.value
               }}
             />
             <input
@@ -934,7 +798,6 @@ async function playAudioBg() {
               placeholder="PHONE NUMBER"
               onChange={(e) => {
                 setNumber(e.target.value);
-                //  line2 = e.target.value
               }}
             />
             <input
@@ -945,45 +808,52 @@ async function playAudioBg() {
               placeholder="CITY"
               onChange={(e) => {
                 setCity(e.target.value);
-                //  line2 = e.target.value
               }}
             />
             {user.coutrycode === "1" ? (
-              // <input
-              //   type="text"
-              //   name=""
-              //   id=""
-              //   value={state}
-              //   readOnly
-              //   placeholder="STATE/PROVINCE"
-              //   onChange={(e) => {
-              //     setState(e.target.value);
-              //     //  line2 = e.st.value
-              //   }}
-              // />
               <div className={`${style.input} ${style.selectInput}`}>
-
-                    {state.state?<input type="text" readOnly value={state.state} className={style.StateSelect}/>:
-                    <input type="text" readOnly className={style.StateSelectCenter} placeholder="SELECT STATE"/>}
-                    {/* <input type="text" readOnly value={state.state||"Select a State"} className={state.state?style.StateSelectHide:style.StateSelect}/> */}
-                    <FaChevronDown onClick={()=>{
-                        selectState?
-                            setSelectState(false):setSelectState(true)
-                    }}/>
-                    {selectState?
-                    <div className={selectState?style.AllState:style.stateUp}>
-                        
-                    {allState.map((stateItem)=>{
-                        return(
-                            <input type="text" name="state" id="state" readOnly value={stateItem.state} onClick={(e)=>{
-                                checkState(stateItem,e)
-                            }}/>
-                        )
+                {state.state ? (
+                  <input
+                    type="text"
+                    readOnly
+                    value={state.state}
+                    className={style.StateSelect}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    readOnly
+                    className={style.StateSelectCenter}
+                    placeholder="SELECT STATE"
+                  />
+                )}
+                {}
+                <FaChevronDown
+                  onClick={() => {
+                    selectState ? setSelectState(false) : setSelectState(true);
+                  }}
+                />
+                {selectState ? (
+                  <div className={selectState ? style.AllState : style.stateUp}>
+                    {allState.map((stateItem) => {
+                      return (
+                        <input
+                          type="text"
+                          name="state"
+                          id="state"
+                          readOnly
+                          value={stateItem.state}
+                          onClick={(e) => {
+                            checkStateExits(stateItem, e);
+                          }}
+                        />
+                      );
                     })}
-                </div>
-                    :""}
-                    
-                </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             ) : (
               <input
                 type="text"
@@ -993,7 +863,6 @@ async function playAudioBg() {
                 placeholder="COUNTY"
                 onChange={(e) => {
                   setState(e.target.value);
-                  //  line2 = e.target.value
                 }}
               />
             )}
@@ -1006,7 +875,6 @@ async function playAudioBg() {
                 placeholder="POSTCODE"
                 onChange={(e) => {
                   setZipCode(e.target.value);
-                  //  line2 = e.target.value
                 }}
               />
             ) : (
@@ -1018,7 +886,6 @@ async function playAudioBg() {
                 placeholder="ZIP/POSTAL CODE"
                 onChange={(e) => {
                   setZipCode(e.target.value);
-                  //  line2 = e.target.value
                 }}
               />
             )}
@@ -1035,7 +902,6 @@ async function playAudioBg() {
                   zipcode,
                 });
                 numberValidation();
-                // setCount(4)
                 console.log(addressObj);
               }}
               disabled={
@@ -1053,15 +919,17 @@ async function playAudioBg() {
       ) : (
         ""
       )}
-
       <div className={style.Cart}>
         <div className={style.Title}>
           <p>BASKET</p>
         </div>
-        {/* {loading? */}
-
+        {}
         <div className={style.Carts}>
-        {cartData.length<1?<p className={style.CartEmptyText}>Cart is empty!</p>:""}
+          {cartData.length < 1 ? (
+            <p className={style.CartEmptyText}>Cart is empty!</p>
+          ) : (
+            ""
+          )}
           {loading ? (
             <div className={style.LoaderDiv}>
               <div className={style.LoaderAnime}>
@@ -1088,48 +956,66 @@ async function playAudioBg() {
                         onClick={() => {
                           console.log(cart.game_share_url);
                           setShowVideo(true);
-                          // setVideoUrl(cart.video_url);
                           setUrl(cart.game_share_url);
                         }}
                       />
                     </div>
                     <div className={style.share}>
-                    {shareIcons && shareId === cart.id * index ? 
-                    <div className={style.ShareOverlay} onClick={()=>{
-                      setShareIcons(false)
-                    }}></div>
-                    :""}
+                      {shareIcons && shareId === cart.id * index ? (
+                        <div
+                          className={style.ShareOverlay}
+                          onClick={() => {
+                            setShareIcons(false);
+                          }}
+                        ></div>
+                      ) : (
+                        ""
+                      )}
                       {shareIcons && shareId === cart.id * index ? (
                         <div className={style.ShareDiv}>
                           <div className={style.ShareIcon}>
-                            <MdFacebook onClick={()=>{
-                              window.open("https://www.facebook.com/")
-                            }}/>
+                            <MdFacebook
+                              onClick={() => {
+                                window.open("https://www.facebook.com/");
+                              }}
+                            />
                           </div>
                           <div className={style.ShareIcon}>
-                            <AiOutlineInstagram  onClick={()=>{
-                              window.open("https://www.instagram.com/")
-                            }}/>
+                            <AiOutlineInstagram
+                              onClick={() => {
+                                window.open("https://www.instagram.com/");
+                              }}
+                            />
                           </div>
                           <div className={style.ShareIcon}>
-                            <TfiTwitter  onClick={()=>{
-                              window.open("https://twitter.com/home")
-                            }}/>
+                            <TfiTwitter
+                              onClick={() => {
+                                window.open("https://twitter.com/home");
+                              }}
+                            />
                           </div>
                           <div className={style.ShareIcon}>
-                            <FaTiktok  onClick={()=>{
-                              window.open("https://www.tiktok.com/about/")
-                            }}/>
+                            <FaTiktok
+                              onClick={() => {
+                                window.open("https://www.tiktok.com/about/");
+                              }}
+                            />
                           </div>
                           <div className={style.ShareIcon}>
-                            <AiFillYoutube  onClick={()=>{
-                              window.open("https://www.youtube.com/")
-                            }}/>
+                            <AiFillYoutube
+                              onClick={() => {
+                                window.open("https://www.youtube.com/");
+                              }}
+                            />
                           </div>
                           <div className={style.ShareIcon}>
-                            <MdEmail onClick={()=>{
-                              window.open("https://mail.google.com/mail/u/0/#inbox?compose=new")
-                            }}/>
+                            <MdEmail
+                              onClick={() => {
+                                window.open(
+                                  "https://mail.google.com/mail/u/0/#inbox?compose=new"
+                                );
+                              }}
+                            />
                           </div>
                         </div>
                       ) : (
@@ -1144,9 +1030,6 @@ async function playAudioBg() {
                             : setShareIcons(true);
                           setShareId(cart.id * index);
                         }}
-                        // onMouseLeave={()=>{
-                        //   setShareIcons(false)
-                        // }}
                       />
                     </div>
                   </div>
@@ -1155,7 +1038,6 @@ async function playAudioBg() {
             })
           )}
         </div>
-
         {eGifting && cartData.length > 0 ? (
           ""
         ) : (
@@ -1164,11 +1046,13 @@ async function playAudioBg() {
               <div
                 className={style.shippingIcon}
                 onClick={() => {
-                  if(vipData.status === true &&
-                vipData.data[0].vip_token === false){
-                  setPremiumPopup(true)
-                }
-                  if (user&&user.vip === false) {
+                  if (
+                    vipData.status === true &&
+                    vipData.data[0].vip_token === false
+                  ) {
+                    setPremiumPopup(true);
+                  }
+                  if (user && user.vip === false) {
                     setPremiumPopup(true);
                   }
                 }}
@@ -1184,35 +1068,32 @@ async function playAudioBg() {
                   <span
                     className={style.CircleActive}
                     onClick={() => {
-                      // if(userId===null){
-                      //   return navigate("/login")
-                      // }
-                //   if(vipData.status === true &&
-                // vipData.data[0].vip_token === false){
-                //   setPremiumPopup(true)
-                // }
-                  if (user&&user.vip === false) {
-                    setPremiumPopup(true);
-                  }
-                }}
-                  ></span>
-                ) : (
-                  <span className={style.Circle}  onClick={() => {
-
-                    if(userId===null){
-                      return navigate("/login")
-                    }
-                     if (user&&user.vip === false) {
-                    setPremiumPopup(true);
-                  }
-                  if(vipData.status === true &&
-                    vipData.data[0].vip_token === false){
-                      setPremiumPopup(true)
-                    }
-                      if (user&&user.vip === false) {
+                      if (user && user.vip === false) {
                         setPremiumPopup(true);
                       }
-                  }}></span>
+                    }}
+                  ></span>
+                ) : (
+                  <span
+                    className={style.Circle}
+                    onClick={() => {
+                      if (userId === null) {
+                        return navigate("/login");
+                      }
+                      if (user && user.vip === false) {
+                        setPremiumPopup(true);
+                      }
+                      if (
+                        vipData.status === true &&
+                        vipData.data[0].vip_token === false
+                      ) {
+                        setPremiumPopup(true);
+                      }
+                      if (user && user.vip === false) {
+                        setPremiumPopup(true);
+                      }
+                    }}
+                  ></span>
                 )}
               </div>
             </div>
@@ -1227,12 +1108,10 @@ async function playAudioBg() {
                 <div className={style.price}>
                   <p>{configuration?.STANDARD_SHIPPING_PRICE}</p>
                 </div>
-
                 {vipData.status === false ? (
                   <span
                     className={style.CircleActive}
                     onClick={() => {
-                      // setPrime(false);
                     }}
                   ></span>
                 ) : vipData.status === true &&
@@ -1240,14 +1119,12 @@ async function playAudioBg() {
                   <span
                     className={style.CircleActive}
                     onClick={() => {
-                      // setPrime(false);
                     }}
                   ></span>
                 ) : (
                   <span
                     className={style.Circle}
                     onClick={() => {
-                      // setPrime(true);
                     }}
                   ></span>
                 )}
@@ -1330,26 +1207,64 @@ async function playAudioBg() {
             />
           </div>
         </div>
-        {postcodetrue?
-        <div className={style.postpopup}>
-           <div className={style.popupImage}>
+        {postcodetrue ? (
+          <div className={style.postpopup}>
+            <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
             <div className={style.popupText}>
-              <p>
-               Postal code not matching
-              </p>
+              <p>Postal code not matching</p>
             </div>
             <div className={style.popupbutton}>
-              <button onClick={()=>{
-                setPostcodeTrue(false)
-                setisAddressField(true)
-              }}>Ok</button>
+              <button
+                onClick={() => {
+                  setPostcodeTrue(false);
+                  setisAddressField(true);
+                }}
+              >
+                Ok
+              </button>
             </div>
-        </div>:
-        ''  }
+          </div>
+        ) : (
+          ""
+        )}
         <div className={style.Checkout}>
-          <button style={{filter:loading||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.zipcode===""||user?.first_name===""||count>4||cartData.length<=0?"grayScale(1)":"grayScale(0)",pointerEvents:count>4||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.zipcode===""||user?.first_name===""||cartData.length<=0||loading?"none":"visible"}}
+          <button
+            style={{
+              filter:
+                loading ||
+                user?.addressline1 === "" ||
+                count > 4 ||
+                cartData.length <= 0 ||
+                user?.first_name === "" ||
+                user?.last_name === "" ||
+                user?.addressline1 === "" ||
+                user?.addressline2 === "" ||
+                user?.city === "" ||
+                user?.zipcode === "" ||
+                user?.first_name === "" ||
+                count > 4 ||
+                cartData.length <= 0
+                  ? "grayScale(1)"
+                  : "grayScale(0)",
+              pointerEvents:
+                count > 4 ||
+                user?.addressline1 === "" ||
+                count > 4 ||
+                cartData.length <= 0 ||
+                user?.first_name === "" ||
+                user?.last_name === "" ||
+                user?.addressline1 === "" ||
+                user?.addressline2 === "" ||
+                user?.city === "" ||
+                user?.zipcode === "" ||
+                user?.first_name === "" ||
+                cartData.length <= 0 ||
+                loading
+                  ? "none"
+                  : "visible",
+            }}
             onClick={() => {
               const parsedPoint = user && parseInt(user.point);
               const parsedPrice =
@@ -1357,11 +1272,9 @@ async function playAudioBg() {
                 parseInt(configuration.STANDARD_SHIPPING_PRICE);
               checkCount();
               console.log(count, "count");
-              // console.log(typeof saved)
               console.log(saved, "isBundleReminder from t");
               console.log(isVipShown, "isVip from t");
               console.log(isAddressShown, "isAddress from t");
-
               if (saved === "false") {
                 console.log(isBundleReminder, "isBundleReminder");
                 setIsBundleReminder(true);
@@ -1372,36 +1285,8 @@ async function playAudioBg() {
                   console.log("count jumbed 2");
                 }
               }
-              // if(count===1){
-              //   console.log(isVip,"isVip")
-              //   setIsVip(true)
-              //   console.log(isVip,"isVip")
-              // }
-              // if(count===2){
-              //   console.log(isAddress,"isAddress")
-              //   setIsAddress(true);
-              //   console.log(isAddress,"isAddress")
-              // }
-              // if(count===3){
-              //   setEmptyCart(true);
-              // }
-
-              // else if(count===0){
-              //   console.log(count,"count = 0");
-              //   if(saved===false){
-              //   setIsBundleReminder(true);
-              //   }
-              //   else{
-              //     setCount(1);
-              //   }
-
-              // }
               else {
                 console.log("false");
-                // if(user&&parseInt(user.point)>configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)&& vipData.status === false){
-                //   setCount(3)
-                //   console.log("count jumbed 2")
-                // }
                 if (count === 1) {
                   setCount(2);
                   if (vipData.status === true) {
@@ -1417,20 +1302,10 @@ async function playAudioBg() {
                     console.log("reached here instead");
                   }
                 }
-                // else{
-
-                // }
-                // else if(count ===1&&vipData.status===false){
-                //   setIsVipShown(true)
-                //   lowPoint();
-                // console.log(isBundleReminder,"isBundleReminder")
-                // }
                 if (count === 2) {
                   console.log("checking");
                   if (parsedPoint > parsedPrice) {
-                    // if(user&&parseInt(user.point)<configuration&&parseInt(configuration.STANDARD_SHIPPING_PRICE)){
                     setIsAddress(true);
-
                     setCount(4);
                     console.log("count jumbed 2");
                   } else {
@@ -1444,7 +1319,6 @@ async function playAudioBg() {
                     lowPoint();
                     console.log(isBundleReminder, "isBundleReminder");
                   }
-                  // continue
                 }
                 if (count === 3) {
                   setCount(4);
@@ -1455,12 +1329,10 @@ async function playAudioBg() {
                   setCount(5);
                   console.log("Checked out");
                   checkoutAPi();
-                  // navigate("/order-confirmed");
                 }
               }
             }}
             disabled={loading}
-            // disabled={loading||user?.addressline1===""||count>4||cartData.length<=0||user?.first_name===""||user?.last_name===""||user?.addressline1===""||user?.addressline2===""||user?.city===""||user?.state===""||user?.zipcode===""||user?.first_name===""}
           >
             CHECKOUT
           </button>
@@ -1469,5 +1341,4 @@ async function playAudioBg() {
     </div>
   );
 };
-
 export default Cart;

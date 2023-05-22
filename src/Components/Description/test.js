@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+import Lotties from 'lottie-react'
+import { AllAnimation } from '../../Animation/allAnimation';
 const OT = require('@opentok/client');
 
 const Test = () => {
@@ -55,10 +57,43 @@ console.log(sessions);
 //     alert('Failed to get opentok sessionId and token. Make sure you have updated the config.js file.');
 //   });
 // }
+const animeRef = useRef(null)
+let state = JSON.parse(localStorage.getItem("state"))
 
+useEffect(()=>{
+    if(state===null||state===undefined){
+        localStorage.setItem("state",JSON.stringify(true))
+    }
+})
+console.log(state)
+localStorage.setItem("state",JSON.stringify(true))
+
+console.log(typeof state)
   return (
     <div>
          <div id="videos">
+         <button onMouseDown={()=>{
+            localStorage.setItem("state",JSON.stringify(false))
+            animeRef.current.pause()
+         }} onMouseUp={()=>{
+                                    //   animeRef.current.play()
+
+            
+         }}>
+            <Lotties lottieRef={animeRef} loop={false} isPaused={state} animationData={AllAnimation.wait_10} 
+            onComplete={() => {
+                state = JSON.parse(localStorage.getItem("state"))
+                window.location.href="www.google.com"
+                console.log("reached exit")
+                    if(state===true){
+                        console.log("finished")
+                    }
+                    else{
+                        console.log("exited")
+                    }
+              }}
+            />
+         </button>
             <div id="subscriber"></div>
             <div id="publisher"></div>
         </div>

@@ -65,15 +65,7 @@ const Notification = ({ gameMusic,
     audioRefHome.current.src = music.Menu;
     audioRefHome.current.play();
     console.log(audioRefHome.current.volume, "from its function");
-
-    // }
-    // else{
-    //   audioRefHome.current.volume = 0;
-
-    // }
   }
-// const baseUrl = "https://uat.wincha-online.com"
-// const baseUrl = "https://uat.wincha-online.com";
   const{user} = useSelector((state)=>state.profile)
   const{notification} = useSelector((state)=>state.notification)
   const [notificationData,setNotificationData] = useState({})
@@ -119,9 +111,6 @@ const Notification = ({ gameMusic,
     useEffect(()=>{
         notificationGet()
     },[])
-    // console.log(notificationData&&notificationData.notifications&&notificationData.notifications[1]&&notificationData.notifications[1].product[0])
-    // console.log();
-    // const NotificationData = ["dasd","sdaads","dasdas"]
   return (
     <div className={style.Container}>
     <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>

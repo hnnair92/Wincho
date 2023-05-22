@@ -222,6 +222,18 @@ async function playAudio(src) {
       }, 100);
     }
   };
+  const MhandleId = (e) => {
+    e.preventDefault();
+    const path = window.location.pathname;
+    if (path === "/") {
+      window.location.href = "#supports";
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        window.location.href = "#supports";
+      }, 100);
+    }
+  };
   console.log(window.location.pathname.split("/")[1])
 
   const handleLogout = (e) => {
@@ -379,8 +391,17 @@ event.returnValue = ''
                           checkGameOn();
                         setToggle(false);
                         if (menu.Name === "Support"&&gamePlay===false&&userJoined===false) {
+                          // setToggle(false);
+                          // handleId(e);
+                          if(window.location.pathname.split("/")[1]===""){
+                            handleId(e);
+                            console.log("home")
+                          }
+                          else{
                           setToggle(false);
-                          handleId(e);
+                          setIsAddress(true)
+
+                          }
                         }
   
                         if (menu.Name != "Support"&&gamePlay===false&&userJoined===false) {
@@ -561,8 +582,10 @@ event.returnValue = ''
                         setToggle(false);
                         if (MMenu.Name === "Support"&&gamePlay===false&&userJoined===false) {
                           console.log(window.location.pathname.split("/"))
+                          console.log(window.location.pathname.split("/")[1]==="")
                           if(window.location.pathname.split("/")[1]===""){
-                          handleId(e);
+                            MhandleId(e);
+                            console.log("home")
                           }
                           else{
                           setToggle(false);
@@ -572,7 +595,7 @@ event.returnValue = ''
                           
                         }
   
-                        if (MMenu.Name != "Support"&&gamePlay===false&&userJoined===false) {
+                        if (MMenu.Name !== "Support"&&gamePlay===false&&userJoined===false) {
                           navigate(`/${MMenu.url}`);
                         }
                       }}
@@ -1254,8 +1277,15 @@ event.returnValue = ''
                         checkGameOn();
                       setToggle(false);
                       if (menu.Name === "Support"&&gamePlay===false&&userJoined===false) {
-                        setToggle(false);
-                        handleId(e);
+                        if(window.location.pathname.split("/")[1]===""){
+                            handleId(e);
+                            console.log("home")
+                          }
+                          else{
+                          setToggle(false);
+                          setIsAddress(true)
+
+                          }
                       }
 
                       if (menu.Name != "Support"&&gamePlay===false&&userJoined===false) {

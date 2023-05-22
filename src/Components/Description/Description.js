@@ -2994,6 +2994,7 @@ useEffect(()=>{
                                   <Lotties
                                     animationData={AllAnimation.Progress}
                                     loop={false}
+                                    isPaused={state}
                                     onComplete={() => {
                                       if(animeStopStatus===false){
                                         timeOut(userId, false);
@@ -3017,7 +3018,7 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
-                                          // animeRef.current.pause()
+                                          animeRef.current.pause()
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
@@ -3166,7 +3167,7 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       console.log("clicked");
                                       setCameraState2(true);
-                                          // animeRef.current.pause()
+                                          animeRef.current.pause()
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)

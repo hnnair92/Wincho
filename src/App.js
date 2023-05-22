@@ -28,6 +28,7 @@ import { configutation } from "./actions/product";
 import WinScreen from "./Components/winScreen/winScreen";
 import Success from "./Components/successPage/success";
 import Test from "./Components/Description/test";
+import ScrollToTop from "./scrollToTop";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
@@ -119,6 +120,7 @@ console.log(id)
   return (
     <div className="App">
       <Router>
+      <ScrollToTop />
         <Header userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
         <Routes>
           <Route path="/" element={<Home />} />
