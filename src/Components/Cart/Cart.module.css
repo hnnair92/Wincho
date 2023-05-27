@@ -213,6 +213,10 @@
     }
     .Carts{
         padding: 10px;
+       height: auto;
+       min-height: 35vh;
+       max-height: 50vh;
+       overflow-y: scroll;
     }
 }
 @media(max-width:765px){
@@ -329,6 +333,17 @@ video{
     /* word-wrap: break-word; */
     line-height: 25px;
 
+}
+.phnpopupText p{
+    font-size: 1.65rem;
+    text-align: center;
+    align-items: center;
+    color: #fff;
+    width: 300px;
+    font-weight: 500;
+    /* word-wrap: break-word; */
+    line-height: 25px;
+    margin-top: 5rem;
 }
 .popupButton button{
     margin: 1.5rem;
@@ -996,7 +1011,7 @@ video{
     z-index: 9;
 }
 .CartEmptyText{
-    font-size: 3rem;
+    font-size: 2rem;
     color: #fff;
     text-align: center;
     font-weight: 600;
@@ -1006,12 +1021,13 @@ video{
     left: 50%;
     transform: translate(-50%,-50%);
     position: absolute;
-}
-.Bonus{
     width: 60%;
 }
+/* .Bonus{
+    width: 30%;
+} */
 .BonusText{
-    margin: 0px 20px;
+    /* margin: 0px 20px; */
 }
 @media(max-width:765px){
     .CartEmptyText{
@@ -1036,5 +1052,18 @@ video{
     }
     .CancelSubscription p,.TermsAndPolicy p {
         font-size: 1rem;
+    }
+}
+@media(max-width:599px){
+    .CartEmptyText{
+        width: 70%;
+        font-size: 1.5rem;
+    }
+    .Bonus p{
+        font-size: 4.95rem;
+        
+    }
+    .BonusText{
+        margin: 0px 10px;
     }
 }

@@ -18,6 +18,7 @@ import {
   import { configutation } from "./product";
   // const baseUrl = process.env.REACT_APP_BASEURL
   import { baseUrl } from "../Components/url";
+  const token = JSON.parse(localStorage.getItem("token"))
 
 //const baseUrl = "https://uat.wincha-online.com
   
@@ -36,7 +37,8 @@ import {
           source: "web",
         }),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":"application/json",
+                    "access-token":`${token}`
         },
       })
         .then((res) => res.json())
@@ -99,7 +101,8 @@ import {
         method: "POST",
         body: JSON.stringify(registerData),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":"application/json",
+                    "access-token":`${token}`,
         },
       })
         .then((res) => res.json())
@@ -149,7 +152,8 @@ import {
           source: "web",
         }),
         headers: {
-          "Content-type": "application/json",
+          "Content-Type":"application/json",
+                    "access-token":`${token}`,
         },
       })
         .then((res) => res.json())
@@ -182,7 +186,8 @@ import {
           user_id: userId,
         }),
         headers: {
-          "Content-type": "application/json",
+          "Content-Type":"application/json",
+                    "access-token":`${token}`,
         },
       })
         .then((res) => res.json())
@@ -212,7 +217,8 @@ import {
           user_id: userId,
         }),
         headers: {
-          "Content-type": "application/json",
+          "Content-Type":"application/json",
+                    "access-token":`${token}`,
         },
       })
         .then((res) => res.json())

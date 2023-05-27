@@ -16,6 +16,7 @@ const Login = () => {
   const { error } = useSelector((state) => state.userData);
   // const userId = JSON.parse(localStorage.getItem("user"));
   const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
+  const token = JSON.parse(localStorage.getItem("token"))
 
   const [type, setType] = useState(true);
   const [passIcon, setPassIcon] = useState(false);
@@ -56,7 +57,8 @@ const Login = () => {
     fetch(`${baseUrl}/user/reset/password`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
       body: JSON.stringify({
         email: email,

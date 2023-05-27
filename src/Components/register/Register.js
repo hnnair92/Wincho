@@ -23,6 +23,8 @@ const Register = () => {
     const[terms,setTerms] = useState(false)
     const[passwordType,setPasswordType] = useState("password")
     // const[showPassword,setShowPassword] = useState(false)
+  const token = JSON.parse(localStorage.getItem("token"))
+
     const [email,setEmail] = useState("")
     const {configuration} = useSelector((state)=>state.configuration)
     const[confirmPassword,setConfirmPassword] = useState("")
@@ -39,11 +41,7 @@ const Register = () => {
         dispatch(configutation())
     },[dispatch])
     const fetchLocation = async()=>{
-        fetch('http://ip-api.com//json',{ 
-            method: 'get',
-            headers: {'Content-Type': "application/json"
-            }})
-        .then(res=>res.json()).then((data)=>{
+        await fetch(`https://pro.ip-api.com/json/?key=cHngsdONXseEb0x`).then(res=>res.json()).then((data)=>{
             setLocation(data)
             // if(data.)
             console.log(data);
@@ -60,9 +58,12 @@ const Register = () => {
     const stateFetch = ()=>{
         fetch(`${baseUrl}/configurations/state/collections`,{ 
             method: 'get',
-            headers: {'Content-Type': "application/json"
+            headers: {"Content-Type":"application/json",
+            "access-token":`${token}`
             }}).then(res=>res.json()).then((data)=>{
                 setAllState(data.data)
+                console.log(data);
+
                 
             }).catch((err)=>{
                 console.log(err);
@@ -156,7 +157,8 @@ const Register = () => {
                 username:username,
             }),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             console.log(data);
@@ -283,7 +285,7 @@ const[passIcon,setPassIcon] = useState(false)
                    handleDate(e)
                    console.log(e.target.value)
                 }}/>
-                {location&&location.countryCode==="US"?
+                {location?.countryCode==="US"?
                 <>
                 <label htmlFor="">Select a State</label>
                     <div className={`${style.input} ${style.selectInput}`}>
@@ -350,7 +352,7 @@ const[passIcon,setPassIcon] = useState(false)
                     }}/>} */}
                 </div>
                 <div className={style.CheckPassword}>
-                    {password===confirmPassword?"":<p className={style.AgeRestrict}>password is not matching</p>}
+                    {password===confirmPassword?"":<p className={style.AgeRestrict}>Password not matching</p>}
                 </div>
                 <input type="email" required placeholder='email' value={email} className={style.input} onChange={(e)=>{
                     setEmail(e.target.value)

@@ -30,6 +30,8 @@ const Ticket = ({ gameMusic,
             ? localStorage.getItem("music")
             : localStorage.setItem("music", JSON.stringify(false))
         );
+  const token = JSON.parse(localStorage.getItem("token"))
+
 const audioRefHome = useRef(null);
 useEffect(() => {
   console.log(gameMusic === "true", "gameSound");
@@ -210,6 +212,7 @@ const ticket =  [
       "__v": 0
   }
 ]
+
     const navigate = useNavigate();
     console.log(window)
     async function fetchTickets() {
@@ -221,7 +224,8 @@ const ticket =  [
           countrycode: configuration.COUNTRY_NAME,
         }),
         headers:{
-          "Content_Type":"application/json"
+          "Content-Type":"application/json",
+          "access-token":`${token}`
         }
       }).then(res=>res.json()).then((data)=>{
           console.log(data);
@@ -317,7 +321,8 @@ const ticket =  [
         method: "POST",
         body: JSON.stringify(requestData2),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":"application/json",
+                    "access-token":`${token}`
         },
       })
         .then((res) => res.json())
@@ -355,7 +360,8 @@ const ticket =  [
           method: "POST",
           body: JSON.stringify(requestData2),
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":"application/json",
+                    "access-token":`${token}`
           },
         })
           .then((res) => res.json())
@@ -379,7 +385,8 @@ const ticket =  [
             source: "web",
           }),
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":"application/json",
+                    "access-token":`${token}`
           },
         })
           .then((res) => res.json())
@@ -536,7 +543,7 @@ const ticket =  [
             </div>
         :""}
             <div className={style.Tickets}>
-                {ticket.map((item,index)=>{
+                {tickets.map((item,index)=>{
                     return(
                         <div className={style.TicketItem} key={index}
                              onClick={()=>{

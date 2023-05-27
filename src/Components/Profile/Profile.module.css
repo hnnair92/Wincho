@@ -9,7 +9,7 @@
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    background-color: #3b82f6;
+    background-color: #0d82fc;
     
 }
 .ProfileContent{
@@ -270,13 +270,13 @@
     border: 1rem solid #949393;
     border-radius: 20px;
     background-color: #1b8fe7;
-    padding: 1rem 2rem;
+    padding: 1rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /* width: 15%; */
-    width: 300px;
+    width: 35rem;
     
 }
 
@@ -293,7 +293,7 @@
 }
 
 .popupText {
-    margin-top: 15%;
+    margin-top: 1%;
     padding:1rem;
 }
 
@@ -352,12 +352,17 @@
 .popupSubmit{
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-evenly;
+    padding: 1rem;
+}
+.deleteButton button{
+    background-color: #e60000;
+    
 }
 .popupSubmit button {
     margin: .5rem;
     padding: 1rem 3rem;
-    background-color: transparent;
+    /* background-color: transparent; */
     font-family: myraidproregular;
 
     border: 1.5px solid #fff;
@@ -406,7 +411,7 @@
     background-color: #fff;
     padding: 20px;
     border-radius:20px;
-    width: 75%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -416,11 +421,11 @@
 .AddressSection form input,.email{
     font-family: "Poppins";
     width: 100%;
-    font-size: 3rem;
+    font-size: 2.5rem;
     background-color: #fff;
-    height: 7.5rem;
+    height: 6.5rem;
     /* height: 5.68rem; */
-    padding: 1.13rem 2.26rem;
+    padding: 1.13rem 2rem;
     text-align: left;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
@@ -442,12 +447,12 @@
     align-items: center;
 }
 .AddressSection form button{
-    width: 75%;
+    width: 70%;
     border-radius: 50px;
     background-color: #3b82f6;
     border: none;
     outline:none;
-    height: 7.5rem;
+    height: 6.5rem;
     font-size: 3rem;
     font-weight: 600;
     color: #fff;
@@ -488,7 +493,9 @@
     border: none;
     background-color: transparent;
     outline: none;
-   
+}
+.AddressSection form .emailip{
+    text-overflow: ellipsis;
 }
 .Passpopup{
     width: 65%;
@@ -623,7 +630,18 @@
         width: 90%;
     }
     .popup,.popupContent{
-        width: 40rem;
+        width: 45rem;
+    }
+    .popupText p{
+        font-size: 3rem;
+        letter-spacing: 2px;
+        line-height: 30px;
+    }
+    .ReportPopupButtonCategory button{
+        font-size: 3rem;
+    }
+    .popupSubmit button{
+        font-size: 3rem;
     }
 }
 @media(max-width:1065px){
@@ -662,7 +680,7 @@
         width: 15%;
     }
     .popup,.popupContent{
-        width: 30rem;
+        width: 35rem;
         padding:.5rem 1rem ;
        
     }
@@ -675,8 +693,18 @@
        
     }
     .popupSubmit button{
-        font-size: 1.5rem;
+        font-size: 2rem;
         padding: .5rem 1.5rem;
+    }
+    .popupSubmit{
+        justify-content: space-evenly;
+
+    }
+    .popupText p{
+        font-size: 2rem;
+        line-height: 25px;
+        letter-spacing: normal;
+        padding: 1rem;
     }
     
 }
@@ -836,6 +864,25 @@
     }
     .Deactivate{
        font-size: 2.25rem;
+    }
+    .popup,.popupContent{
+        width: 25rem;
+        padding:.5rem  ;
+       
+    }
+    .popupText p{
+       
+        font-size: 1.5rem;
+        line-height: normal;
+        letter-spacing: normal;
+        padding: 0;
+    }
+    .popupSubmit button{
+        font-size: 1.25rem;
+    }
+    .ReportPopupButtonCategory button{
+        font-size: 1.25rem;
+       
     }
     
 }

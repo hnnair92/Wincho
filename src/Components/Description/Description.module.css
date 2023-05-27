@@ -636,7 +636,7 @@ video {
 .GameScore span {
     position: absolute;
     top: 50%;
-    font-size: 3rem;
+    font-size: 7rem;
     font-family: drumshake_italic;
     color: #000;
     -webkit-text-stroke: 1px #fff;
@@ -1047,7 +1047,9 @@ video {
     .spectator span {
         font-size: 1.25rem;
         padding: 1px 4px;
-
+    }
+    .queStatus span{
+        padding-top: 2px;
     }
     .GameScreen{
         width: 100%;
@@ -1059,6 +1061,10 @@ video {
     }
     .ExtraButton button {
         width: 60%;
+    }
+    .GameScore span {
+        font-size: 3rem;
+        -webkit-text-stroke: 1px #fff;
     }
     
 }
@@ -1157,9 +1163,9 @@ video {
     position: absolute;
     right: 5%;
     top: 5%;
-    font-size: 4rem;
+    font-size: 5rem;
     z-index: 9999;
-    color: #fff;
+    color: red;
 }
 .VideoEmptyOverlay{
     width: 100%;
@@ -1532,6 +1538,9 @@ video {
     }
     .Report button{
         width: 70%;
+    }
+    .videoStarting .LoaderDivSection p{
+        font-size: 1.75rem;
     }
     
 }

@@ -27,6 +27,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const dispatch = useDispatch();
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
+  const [exitPopup, setExitPopup] = useState(false);
   const [kickout,setKickout] = useState(false)
   const [setting, setSetting] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
@@ -52,6 +53,8 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   console.log(urlState)
   console.log(placeId[1])
   // let userId = JSON.parse(localStorage.getItem("user"))||
+  const token = JSON.parse(localStorage.getItem("token"))
+
   let userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   // let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
@@ -293,11 +296,12 @@ event.returnValue = ''
       body: JSON.stringify({
         machineCode: game.machineCode,
         playerID: userId,
-        timeout_status: false,
+        timeout_status: checkTime,
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -324,8 +328,10 @@ event.returnValue = ''
           // setTimeoutStatus(false);
           localStorage.setItem("userJoined",JSON.stringify(false))
           // if(timeoutStatus===true){
+            navigate("/prizes",{state:{category:""}})
+                            setHistoryPopup(true)
             if(checkTime===false){
-              window.location.reload();
+              // window.location.reload();
             }
             localStorage.setItem("timeoutState",JSON.stringify(false))
 
@@ -505,10 +511,12 @@ event.returnValue = ''
         <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
-          <p className={style.KickoutMessage}>Whoops! There seems to be an issue with this prize.<br/>Please try again or select another prize </p>
+          <p className={style.KickoutMessage}>Are you sure do you want to exit game </p>
           <div className={style.KickoutBtn}>
             <button onClick={()=>{
-                    window.location.reload()
+                              gameLeave(userId,false)
+
+                    // window.location.reload()
                     navigate("/prizes",{state:{category:""}})
                     setHistoryPopup(true)
       // EntryRequest.replay = true;
@@ -671,7 +679,7 @@ event.returnValue = ''
               setSetting(false)
               // if(gamePlay===true){
                 // }
-                setPageUrl(menu.url)
+                // setPageUrl(menu.url)
                 
                 
                 // navigate(`/${MMenu.url}`);
@@ -685,17 +693,26 @@ event.returnValue = ''
                     // }
                     
                     
-                    setActive(true)
+                    if(menu.Name!=="History"){
+                  setActive(true)
+                  setPageUrl(menu.url)
+
+                  }
                           setId(menu.id);
                          if(menu.Name==="History"){
+                      console.log(placeId[1])
+
                           // setKickout(true)
                           if(placeId[1]==="game"){
                             // setActive(true)
-                            if(userJoined===true&&active===true){
-                              gameLeave(userId,false)
+                            if(userJoined===true){
+                              // gameLeave(userId,false)
+                              // setExitPopup(true)
+                              setKickout(true)
+
                             }
-                            navigate("/prizes",{state:{category:""}})
-                            setHistoryPopup(true)
+                            // navigate("/prizes",{state:{category:""}})
+                            // setHistoryPopup(true)
 
                           }
                           else{
@@ -902,7 +919,6 @@ event.returnValue = ''
                   // if(gamePlay===true){
                   // setActive(true)
                   // }
-                  setPageUrl(menu.url)
 
                   // setId(menu.id);
                   // {
@@ -911,7 +927,11 @@ event.returnValue = ''
                   //     : // ""
                   //       setSetting(false);
                   // }
+                  if(menu.Name!=="History"){
                   setActive(true)
+                  setPageUrl(menu.url)
+
+                  }
                   setId(menu.id);
                   
                   if (
@@ -932,14 +952,20 @@ event.returnValue = ''
                  
                     // setHistoryPopup(true)
                     if(menu.Name==="History"){
+                      console.log(placeId[1])
+
                           // setKickout(true)
                           if(placeId[1]==="game"){
                             // setActive(true)
                             if(userJoined===true&&active===true){
-                              gameLeave(userId,false)
+                              setKickout(true)
+                              // gameLeave(userId,false)
                             }
-                            navigate("/prizes",{state:{category:""}})
-                            setHistoryPopup(true)
+                            else{
+
+                            // navigate("/prizes",{state:{category:""}})
+                            // setHistoryPopup(true)
+                            }
 
                           }
                           else{

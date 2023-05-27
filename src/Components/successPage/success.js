@@ -18,6 +18,8 @@ const {configuration}= useSelector((state)=>state.configuration)
             // window.location.reload()
         }
     })
+  const token = JSON.parse(localStorage.getItem("token"))
+
     async function addVip(){
       const vipData2 = {
       "mode":"payment",
@@ -42,7 +44,8 @@ const {configuration}= useSelector((state)=>state.configuration)
         method:"PUT",
         body:JSON.stringify(vipData2),
         headers:{
-            "Content-Type":"application/json"
+          "Content-Type":"application/json",
+          "access-token":`${token}`
         }
     }).then(res=>res.json()).then((data)=>{
       console.log(vipData)
@@ -81,7 +84,8 @@ const {configuration}= useSelector((state)=>state.configuration)
         method:"POST",
         body:JSON.stringify(vipData2),
         headers:{
-            "Content-Type":"application/json"
+          "Content-Type":"application/json",
+          "access-token":`${token}`
         }
     }).then(res=>res.json()).then((data)=>{
         // const paymentSuccess = data.data[data.data.length-1].status
@@ -108,7 +112,8 @@ const {configuration}= useSelector((state)=>state.configuration)
             method: "PUT",
             body: JSON.stringify(poointBody),
             headers: {
-              "Content-type": "application/json",
+              "Content-Type":"application/json",
+                    "access-token":`${token}`
             },
           })
             .then((res) => res.json())

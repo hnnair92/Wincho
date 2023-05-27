@@ -336,6 +336,7 @@ const Description = ({
   const { user } = useSelector((state) => state.profile);
   const { configuration } = useSelector((state) => state.configuration);
   const { products } = useSelector((state) => state.collectionProducts);
+  const token = JSON.parse(localStorage.getItem("token"))
 
   //   sockets
   useEffect(()=>{
@@ -808,7 +809,7 @@ useEffect(()=>{
       GameData.price === "0"&&user&&user.vip===false);
     console.log(  freePlay >= configuration.FREE_PLAY_LIMIT &&
       GameData.price === "0")
-  }, [freePlay]);
+  }, [freePlay,configuration]);
   useEffect(() => {
     console.log(musicStatus, "musicStatus from Desc");
 
@@ -832,7 +833,7 @@ useEffect(()=>{
     if (freePlay >= configuration.FREE_PLAY_LIMIT) {
       setFreePlayNotReg(true);
     }
-  }, [freePlay]);
+  }, [freePlay,configuration]);
   useEffect(() => {
     if (reportIssueCategories === true && audioStatus === "true") {
       playAudio(music.Chime);
@@ -1161,7 +1162,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify(userBody),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1205,7 +1207,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1301,7 +1304,8 @@ useEffect(()=>{
         player_request: "RH_MOVE_GIFT",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1341,7 +1345,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify(joinBody),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
     .then((res) => res.json())
@@ -1414,7 +1419,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify(startBody),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1457,7 +1463,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1480,7 +1487,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1502,7 +1510,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1520,7 +1529,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1546,7 +1556,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify(sessionData),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1572,7 +1583,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify(sessionData),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1605,7 +1617,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1654,7 +1667,8 @@ useEffect(()=>{
         game_session_id: startGame.game_session_id,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1678,6 +1692,8 @@ useEffect(()=>{
   //         })
   //     })
   //   }
+  console.log(GameData.machine_code)
+
   async function PointDebit() {
     const userPointInt = parseInt(user?.point);
     const gamePriceInt = parseInt(GameData?.price);
@@ -1697,7 +1713,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1737,7 +1754,8 @@ useEffect(()=>{
         device_id: "",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1755,7 +1773,8 @@ useEffect(()=>{
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -1769,7 +1788,8 @@ useEffect(()=>{
         machineID: game._id,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -2336,7 +2356,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {active===true&&gameStartStatus===false&&userJoined===true? (
+      {active===true&&gameStartStatus===false&&userJoined===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -2489,7 +2509,7 @@ useEffect(()=>{
                 <div className={style.LoaderAnime}>
                   <Lotties animationData={AllAnimation.Loader} />
                 </div>
-                <p>Please wait whilst we connect you to your game</p>
+                <p>Please wait whilst we<br/> connect you to your game</p>
               </div>
             </div>
           ) : (
@@ -4140,6 +4160,7 @@ useEffect(()=>{
                           setReloadStatus(true)
                           // setGamePlay(true);
                           setPlayAgain(false);
+                          console.log(GameData.machine_code)
                           socket.emit(
                             "socket_connect",
                             JSON.stringify({

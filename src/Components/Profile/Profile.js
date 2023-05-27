@@ -36,6 +36,8 @@ const Profile = ({ gameMusic,
             ? localStorage.getItem("music")
             : localStorage.setItem("music", JSON.stringify(false))
         );
+  const token = JSON.parse(localStorage.getItem("token"))
+
 const audioRefHome = useRef(null);
 useEffect(() => {
   console.log(gameMusic === "true", "gameSound");
@@ -128,7 +130,8 @@ async function playAudioBg() {
         source: "web",
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -187,7 +190,8 @@ async function playAudioBg() {
         source: "web",
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -209,7 +213,8 @@ async function playAudioBg() {
         source: "web",
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -440,7 +445,7 @@ async function playAudioBg() {
                   //  line2 = e.target.value
                 }}
               />
-              <input
+              <input className={style.emailip}
                 type="email"
                 name=""
                 id=""
@@ -496,7 +501,14 @@ async function playAudioBg() {
             <div className={style.ReportPopupButtonCategory}>
               <button>DEACTIVATE</button>
             </div>
-            <div className={style.popupInput}>
+            <div className={style.popupText}>
+            <p>If you proceed with an account deletion,your account will be irreversibly
+              deleted resulting in your data and any remaining credit being permanently and
+              immediately erased.Please remember to also turn off any in-app subscriptions in your device
+              account settings that are associated with this app.
+            </p>
+            </div>
+            {/* <div className={style.popupInput}>
               <textarea
                 name=""
                 id=""
@@ -507,16 +519,24 @@ async function playAudioBg() {
                 }}
                 placeholder="If you can, please tell us why you're leaving..."
               ></textarea>
-            </div>
+            </div> */}
+            <div></div>
             <div className={style.popupSubmit}>
-              <button
-                onClick={() => {
-                  // sendReport();
-                  deactivateAccount()
-                }}
-              >
-                SEND
-              </button>
+              <div className={style.cancelButton}>
+                <button onClick={()=>{
+                  setDeactivate(false)
+                }} >Cancel</button>
+                </div>
+              <div className={style.deleteButton}>
+                <button
+                  onClick={() => {
+                    // sendReport();
+                    deactivateAccount()
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
           </div>

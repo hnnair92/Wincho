@@ -2,6 +2,8 @@ import { CONFIGURATION_FAILED, CONFIGURATION_REQUEST, CONFIGURATION_SUCCESS, GAM
 // const baseUrl = "https://uat.wincha-online.com/"
 import { baseUrl } from "../Components/url";
 // const baseUrl = "https://uat.wincha-online.com"
+const token = JSON.parse(localStorage.getItem("token"))
+
 export const getProductByCollection=(request)=>async(dispatch)=>{
     console.log(request);
     try {
@@ -18,7 +20,8 @@ export const getProductByCollection=(request)=>async(dispatch)=>{
 
                 }),
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "access-token":`${token}`
                 }
             }).then(res=>res.json()).then((data)=>{
                 dispatch({
@@ -49,7 +52,8 @@ export const getAllGames=(user)=>async(dispatch)=>{
 
             }),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                    "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             dispatch({
@@ -83,7 +87,8 @@ export const gameEntry=(data)=>async(dispatch)=>{
                 freeplay:data.freeplay
             }),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                    "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             // console.log(data);
@@ -103,6 +108,7 @@ export const gameEntry=(data)=>async(dispatch)=>{
 export const configutation =()=>async(dispatch)=>{
     // console.log(countryCode);
     // let countryCode = ""
+    const userId = JSON.parse(localStorage.getItem("user"))
     try {
         await fetch(`https://pro.ip-api.com/json/?key=cHngsdONXseEb0x`).then(res=>res.json()).then((data)=>{
         // console.log(data)
@@ -118,9 +124,11 @@ export const configutation =()=>async(dispatch)=>{
 
             }),
             headers:{
-                "Content-type":"application/json"
+                "Content-Type":"application/json",
+                    "access-token":`${token}`
             }
         }).then(res=>res.json()).then((datas)=>{
+            
             console.log(datas.data[0].COUNTRY_CODE)
             if(datas.data[0].COUNTRY_CODE==="GB"){
                 datas.data[0].COUNTRY_CODE = "44"

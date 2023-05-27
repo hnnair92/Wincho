@@ -35,6 +35,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       : localStorage.setItem("music", JSON.stringify(false))
   );
   const audioRefHome = useRef(null);
+  const token = JSON.parse(localStorage.getItem("token"))
   useEffect(() => {
     console.log(gameMusic === "true", "gameSound");
     console.log(typeof gameMusic, "gameMusic");
@@ -104,6 +105,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [postcodetrue, setPostcodeTrue] = useState(false);
+  const [phonenumber,setPhonenumber]=useState(false)
   const [allState, setAllState] = useState([]);
   const [selectState, setSelectState] = useState(false);
   const [userCountry, setUserCountry] = useState("");
@@ -199,7 +201,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         user_id: userId,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -264,7 +267,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       method: "PUT",
       body: JSON.stringify(body),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -291,7 +295,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -307,7 +312,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         user_id: userId,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -326,7 +332,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         number: `${configuration.COUNTRY_CODE}${number}`,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -334,6 +341,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         if (data.status === true) {
           postCodeCheck();
+        }
+        else{
+          setPhonenumber(true)
         }
       });
   }
@@ -345,7 +355,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         code: zipcode,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -377,7 +388,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       method: "POST",
       body: JSON.stringify(sendData),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
       },
     })
       .then((res) => res.json())
@@ -926,7 +938,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         {}
         <div className={style.Carts}>
           {cartData.length < 1 ? (
-            <p className={style.CartEmptyText}>Cart is empty!</p>
+            <p className={style.CartEmptyText}><p>“ Your Basket is Currently Empty” 
+            </p><p>  Please sign in to see what prizes you have to ship </p>
+            </p>
           ) : (
             ""
           )}
@@ -1207,6 +1221,28 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             />
           </div>
         </div>
+        {phonenumber ? (
+          <div className={style.postpopup}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.phnpopupText}>
+              <p>Please enter valid phonenumber </p>
+            </div>
+            <div className={style.popupbutton}>
+              <button
+                onClick={() => {
+                  setPhonenumber(false);
+                  setisAddressField(true);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         {postcodetrue ? (
           <div className={style.postpopup}>
             <div className={style.popupImage}>

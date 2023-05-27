@@ -16,6 +16,8 @@ const Notification = ({ gameMusic,
               ? localStorage.getItem("music")
               : localStorage.setItem("music", JSON.stringify(false))
           );
+  const token = JSON.parse(localStorage.getItem("token"))
+
   const audioRefHome = useRef(null);
   useEffect(() => {
     console.log(gameMusic === "true", "gameSound");
@@ -81,7 +83,8 @@ const Notification = ({ gameMusic,
                 user_id:userId
             }),
             headers:{
-                "Content-type":"application/json"
+              "Content-Type":"application/json",
+              "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             setNotificationData(data.data[0])
@@ -100,7 +103,8 @@ const Notification = ({ gameMusic,
                 notifications:data
             }),
             headers:{
-                "Content-type":"application/json"
+              "Content-Type":"application/json",
+              "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             console.log(data)

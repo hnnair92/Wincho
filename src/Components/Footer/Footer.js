@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './Footer.module.css'
 import Logo from '../../assests/Wincha Bird Footer.png'
 import {FaFacebook} from 'react-icons/fa'
@@ -36,7 +36,24 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
           }, 100);
         }
       };
+      let pathname;
       console.log(window.location)
+      useEffect(()=>{
+        if(window){
+          console.log(gamePlay===false&&userJoined===false&&pathname!=="game")
+          const path = window.location.pathname
+          const splitPath = path.split("/")
+          pathname = splitPath[1]
+          console.log(path);
+          console.log(splitPath[1]);
+          console.log(pathname);
+        }
+      },[window])
+      useEffect(()=>{
+        if(active===true){
+          setActive(false)
+        }
+      },[])
   return (
     <div className={style.Container} style={{pointerEvents:gamePlay?"none":"visible"}}>
       {isAddress? (
@@ -97,8 +114,9 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                             // if(gamePlay===true){
                           setActive(true)
                         // }
-                          if(gamePlay===false&&userJoined===false){
+                          if(gamePlay===false&&userJoined===false&&pathname!=="game"){
                             navigate("/");
+                            console.log("reached")
                           }
                         }
                     }}>Home</li>
@@ -114,7 +132,8 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                             // if(gamePlay===true){
                           setActive(true)
                         // }
-                          if(gamePlay===false&&userJoined===false){
+                          if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+                          // if(gamePlay===false&&userJoined===false){
                             navigate("/prizes");
                           }
                         }
@@ -134,8 +153,8 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                             // if(gamePlay===true){
                           setActive(true)
                         // }
-                          if(gamePlay===false&&userJoined===false){
-                            // navigate("/");
+                        if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+
                         handleId(e,"support")
 
                           }
@@ -157,7 +176,8 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                             // if(gamePlay===true){
                           setActive(true)
                         // }
-                          if(gamePlay===false&&userJoined===false){
+                        if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+
                             navigate("/cart");
                           }
                         }

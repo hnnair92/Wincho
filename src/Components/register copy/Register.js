@@ -14,6 +14,8 @@ const Register = () => {
         }
     },[navigate,authenticated])
     //const baseUrl = "https://uat.wincha-online.com/"
+  const token = JSON.parse(localStorage.getItem("token"))
+
 const baseUrl = "https://uat.wincha-online.com/"
 //const baseUrl = "https://uat.wincha-online.com"
 // const baseUrl = "https://uat.wincha-online.com"
@@ -51,7 +53,8 @@ const baseUrl = "https://uat.wincha-online.com/"
                 username:username,
             }),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                    "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             console.log(data);

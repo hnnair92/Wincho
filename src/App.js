@@ -29,6 +29,7 @@ import WinScreen from "./Components/winScreen/winScreen";
 import Success from "./Components/successPage/success";
 import Test from "./Components/Description/test";
 import ScrollToTop from "./scrollToTop";
+import { baseUrl } from "./Components/url";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
@@ -116,6 +117,27 @@ function App() {
 let time = new Date().valueOf();
 let id = time*value
 console.log(id)
+const getToken=()=>{
+  fetch(`${baseUrl}/user/get/token`,{
+    method:"POST",
+    body:JSON.stringify({
+      "user_id":userId,
+      "country":configutation.COUNTRY_NAME,
+      "device_id":""
+      }),
+    headers:{
+        "Content-type":"application/json",
+        "access-token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidXNlcnRlc3QwMDAxQGdtYWlsLmNvbSIsImlhdCI6MTY4NDExMDEwNSwiZXhwIjoxNjg0MTE3MzA1fQ.l-EjLUYCOZ2RUaJ-Y9XNMeyTzXqzuvTuJh_Xq2jTd!@"
+    }
+}).then(res=>res.json()).then((data)=>{
+    console.log(data)
+    localStorage.setItem("token",JSON.stringify(data.data[0].token))
+})
+
+}
+useEffect(()=>{
+  getToken()
+},[])
   // console.log(localStorage.getItem("user"))
   return (
     <div className="App">

@@ -4,6 +4,7 @@ const baseUrl = "https://uat.wincha-online.com"
 // //const baseUrl = "https://uat.wincha-online.com/"
 // const baseUrl = "https://uat.wincha-online.com"
 // const baseUrl = "https://uat.wincha-online.com"
+const token = JSON.parse(localStorage.getItem("token"))
 export const getProductByCollection=(request)=>async(dispatch)=>{
     console.log(request);
     try {
@@ -18,7 +19,8 @@ export const getProductByCollection=(request)=>async(dispatch)=>{
                     user_id:request.user_id
                 }),
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "access-token":`${token}`
                 }
             }).then(res=>res.json()).then((data)=>{
                 dispatch({
@@ -47,7 +49,8 @@ export const getAllGames=(data)=>async(dispatch)=>{
                 user_id:data.user_id,
             }),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             dispatch({
@@ -80,7 +83,8 @@ export const gameEntry=(data)=>async(dispatch)=>{
                 freeplay:data.freeplay
             }),
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
+                    "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
             dispatch({

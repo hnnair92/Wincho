@@ -34,6 +34,8 @@ const Games = ({ gameMusic,
   const location = useLocation()
   const state = location.state
   const audioRef = useRef(null);
+  const token = JSON.parse(localStorage.getItem("token"))
+
   let audioStatus = localStorage.getItem("sound");
 //   const baseUrl = "https://uat.wincha-online.com"
 // // const baseUrl = "https://uat.wincha-online.com";
@@ -277,7 +279,8 @@ async function playAudio(src) {
         source: "web",
       }),
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -384,7 +387,8 @@ async function playAudio(src) {
       method: "POST",
       body: JSON.stringify(userBody),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+                    "access-token":`${token}`
       },
     })
       .then((res) => res.json())
@@ -409,7 +413,8 @@ async function playAudio(src) {
         user_id: userId,
       }),
       headers: {
-        "Content-type": "application/json",
+        "Content-Type":"application/json",
+        "access-token":`${token}`
       },
     })
       .then((res) => res.json())
