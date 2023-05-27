@@ -796,8 +796,8 @@ video {
         background-color: #fd8204;
         margin: auto;
         color: #fff;
-        padding: 5px 0;
-        width: 70%;
+        padding: 10px 0;
+        width: 60%;
         border-radius: 15px;
         border: 2px solid #fff;
         outline: none;
@@ -853,6 +853,7 @@ video {
     .Icons{
         left: 14%;
     }
+    
 }
 @media(max-width:1065px) {
     .LastWinPopup{
@@ -1009,7 +1010,7 @@ video {
     }
 
     .GameScore span {
-        font-size: 2.5rem;
+        font-size: 7rem;
         color: #000;
         -webkit-text-stroke: 1px #fff;
     }
@@ -1061,12 +1062,13 @@ video {
     }
     .ExtraButton button {
         width: 60%;
+        padding: 5px 0;
     }
     .GameScore span {
         font-size: 3rem;
         -webkit-text-stroke: 1px #fff;
-    }
-    
+    }   
+
 }
 .isLogged {
     width: 100vh;
@@ -1402,6 +1404,9 @@ video {
     .LeftSide{
         display: none;
     }
+    .videoStarting .LoaderDivSection p{
+        font-size: 3.5rem;
+    }
 }
 .HowToPlayOverlay{
     width: 100vw;
@@ -1529,7 +1534,7 @@ video {
 }
 @media(max-width:599px){
     .LoaderAnime{
-        width: 12rem;
+        width: 10rem;
     }
     .Camera button,
     .PrizeReset button,
@@ -1537,10 +1542,13 @@ video {
         width:8rem;
     }
     .Report button{
-        width: 70%;
+        width: 65%;
     }
     .videoStarting .LoaderDivSection p{
         font-size: 1.75rem;
+      padding-top: 5px;
     }
-    
+    .howToPlay{
+        width: 95%;
+    }
 }

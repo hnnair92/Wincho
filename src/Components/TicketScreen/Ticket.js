@@ -400,6 +400,11 @@ const ticket =  [
     <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
      {premiumPopup?
       <div className={style.clubHousePopup}>
+         <div className={style.OverlayBg} onClick={()=>{
+            setPremiumPopup(false)
+        }}>
+
+        </div>
         <div className={style.ClubHouse}>
             <div className={style.TopImage}>
           <div className={style.clubHouseClose} onClick={()=>{

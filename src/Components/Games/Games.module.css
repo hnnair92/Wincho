@@ -708,6 +708,7 @@
     }
     .Games{
         grid-template-columns: repeat(2, 1fr);
+        height: 85%;
     }
     .Games .Game{
         width: 90%;
@@ -719,7 +720,7 @@
         margin-left: 0;
     }
     .Image{
-       height: 70%;
+       height: 68%;
     }
 }
 .clubHousePopup{
@@ -1081,5 +1082,17 @@
     }
     .CancelSubscription p,.TermsAndPolicy p {
         font-size: 1rem;
+    }
+}
+@media(max-width:599px){
+    .Bonus p{
+        font-size: 4.95rem;
+        /* text-align: center; */
+    }
+    .BonusText{
+        margin: 0px 10px;
+    }
+    .Bonus{
+        width: 40%;
     }
 }

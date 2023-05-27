@@ -195,6 +195,13 @@
     margin: 10px 0;
     border:5px solid #fff;
 }
+.OverlayBg{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: transparent;
+    z-index: 9;
+}
 @media screen and (min-width:768px) and (max-width:1024px){
     .Ticket{
         width: 85%;
@@ -486,10 +493,10 @@
 @media(max-width:768px){
     .ClubHouse{
         width: 90%;
-        transform: translate(-50%,-57%);
+        transform: translate(-50%,-53%);
     }
     .Bonus{
-        width: 60%;
+        width: 30%;
     }
 
     .Bonus p{
@@ -580,18 +587,35 @@
         position: fixed;
     }
     .Bonus p{
-        font-size: 5rem;
+        font-size: 6rem;
     }
     .BonusText p{
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
     .SubscribeButton button{
         font-size: 1.75rem;
     }
     .CancelSubscription P{
-        font-size: 1rem;
+        font-size: 1.25rem;
     }
-    .Terms p,.Policy p{
+    /* .Terms p,.Policy p{
         font-size: 1rem;
+    } */
+}
+@media(max-width:599px){
+    .Bonus{
+        width: 30%;
     }
+    
+    .BonusText p{
+        font-size: 1.75rem;
+    }
+    .Bonus p{
+        font-size: 4.5rem;
+        
+    }
+    .BonusText{
+        margin: 0px 10px;
+    }
+    
 }

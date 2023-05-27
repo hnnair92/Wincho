@@ -31,7 +31,7 @@ const Header = ({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSou
   const [kickout,setKickout] = useState(false)
   const [setting, setSetting] = useState(false);
   const [isAddress, setIsAddress] = useState(false);
-
+  const[notificationbubble,setNotificationBubble]=useState(true)
   const userData = useSelector((state) => state.userData);
   const { user } = useSelector((state) => state.profile);
   const urlState = window.location
@@ -596,8 +596,14 @@ event.returnValue = ''
                             console.log("home")
                           }
                           else{
-                          setToggle(false);
-                          setIsAddress(true)
+                            if(isAddress==true){
+                              setIsAddress(false)
+                            }
+                            else{
+                              setToggle(false);
+                              setIsAddress(true)
+                            }
+                          
 
                           }
                           
@@ -626,10 +632,15 @@ event.returnValue = ''
                   </div>
                 );
               })}
+              {notificationbubble&&notification && notification.notification_count>0 &&notification!==undefined?
+              <span className={style.notificationBadge}>
+              {notification && notification.notification_count ? notification && notification.notification_count : "0"}
+            </span>:''}
               <HiMenu
                 onClick={() => {
                   // setSetting(true)
                   setting ? setSetting(false) : setSetting(true);
+                  notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
                 }}
               />
               {/* <div className={style.BottomMenuIcon}>
@@ -1388,10 +1399,15 @@ event.returnValue = ''
             {(user && user.username) || "username"}
           </p>
           <div className={style.HamBurgerMenu}>
+          {notificationbubble&&notification && notification.notification_count>0 &&notification!==undefined?
+          <span className={style.notificationBadge}>
+              {notification && notification.notification_count ? notification && notification.notification_count : "0"}
+            </span>:''}
             <FiMenu
               onClick={() => {
                 // setSetting(true)
                 setting ? setSetting(false) : setSetting(true);
+                notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
               }}
             />
             {setting ? (

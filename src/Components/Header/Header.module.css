@@ -447,6 +447,20 @@
     margin-left: 0;
     color: #fff;
 }
+.notificationBadge{
+    background-color: #1b8fe7;
+    border-radius: 50%;
+    font-size: 1rem;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0rem 1rem; */
+    color: #fff;
+    position: absolute;
+    margin-left: 1.75rem;
+}
 .Music ,.Sound{
     width: 100%;
     display: flex;
@@ -517,7 +531,7 @@
         position: relative;
         }
     .MLogo{
-        width: 10%;
+        width: 8%;
         height: 100%;
         position: absolute;
         top: 0%;
@@ -638,6 +652,7 @@
         font-size: 2rem;
         margin: 0;
         padding: auto;
+        margin-bottom: 35%;
 
     }
     
@@ -726,6 +741,14 @@
     .Credits{
     display: none;
 }
+.notificationBadge{
+   
+    font-size: 2.5rem;
+    width: 4rem;
+    height: 4rem;
+    right: 0;
+    margin-bottom: 5rem;
+}
 }
 
 @media(max-width:765px){
@@ -769,6 +792,7 @@
         font-size: 1rem;
         margin: 0;
         padding: 2px;
+        margin-bottom: 30%;
 
     }
     .HomeMenuIcons svg{
@@ -960,7 +984,7 @@ overflow-y: scroll;
     
     width: 32rem;
     height: 50rem;
-    
+    padding: 1px;
     }
     .addressPopup .popupSection .popupText form input,.popupText form textarea{
         
@@ -982,9 +1006,20 @@ overflow-y: scroll;
       height: 94vh; 
       
     }
-    /* .Contact{
-        margin-top: 50%;
-    } */
+    .popup{
+        width: 288px;
+    }
+    .MLogo{
+        width: 10%;
+    }
+    .notificationBadge{
+        font-size: 1.25rem;
+        width: 18px;
+        height: 18px;
+        /* margin-left: 1.75rem; */
+        right: 0;
+        margin-bottom: 1.75rem;
+    }
 }
 @media(max-width:280px){
     /* .ContactSection p{
@@ -1244,4 +1279,15 @@ overflow: hidden;
     font-size:2.25rem;
     font-weight: 500;
 
+}
+@media(max-width:599px){
+    .popupText{
+        padding: 0 1rem;
+    }
+    
+}
+@media screen and  (min-device-width: 1024px) and (orientation : landscape){
+    .MLogo{
+        width: 6%;
+    }
 }
