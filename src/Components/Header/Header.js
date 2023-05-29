@@ -381,7 +381,8 @@ event.returnValue = ''
                   onClick={(e) => {
                     playAudio(music.Click)
                     setSetting(false)
-
+                    notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
+                    setHistoryPopup(false)
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
                     // playAudio(music.Click);
@@ -455,6 +456,7 @@ event.returnValue = ''
             className={style.closeIcon}
             onClick={() => {
              setSetting(false)
+             notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
               if(gamePlay===true){
                 if(placeId[1]==="game"){
                           setActive(true)
@@ -475,6 +477,7 @@ event.returnValue = ''
       {setting?
       <div className={style.SettingsOverlay} onClick={()=>{
         setSetting(false)
+        notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
       }}></div>
       
     :""}
@@ -588,6 +591,8 @@ event.returnValue = ''
 
                         playAudio(music.Click)
                     setSetting(false)
+                    notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
+                    setHistoryPopup(false)
                        // if(gamePlay===true){
                         if(placeId[1]==="game"){
                           setActive(true)
@@ -673,6 +678,7 @@ event.returnValue = ''
                   className={style.closeIcon}
                   onClick={() => {
                     setSetting(false)
+                    notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
                     setId("");
 
                     

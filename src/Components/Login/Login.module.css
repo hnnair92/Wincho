@@ -140,7 +140,7 @@
     height: 7.5rem;
     /* height: 5.68rem; */
     padding: 1.13rem 2.26rem;
-    text-align: left;
+    text-align: center;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border:.25rem solid #333333c1;
@@ -149,6 +149,9 @@
     text-align: center;
     text-transform: uppercase;
     
+}
+.EmailInput{
+    text-align: center;
 }
 .loginError{
     text-align: left;
@@ -199,7 +202,7 @@
     background-color: #fff;
     /* height: 5.68rem; */
     padding: 1.13rem 2.26rem;
-    text-align: left;
+    text-align: center;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     /* border:.25rem solid #333333c1; */
@@ -375,6 +378,7 @@
         text-align: center;
     }
     .passwordInput{
+        align-items: center;
         text-align: center;
     }
     .passwordInput::-webkit-input-placeholder{

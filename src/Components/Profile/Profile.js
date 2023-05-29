@@ -636,7 +636,7 @@ async function playAudioBg() {
                 }
               }}
             >
-              DEACTIVATE ACCOUNT
+              Delete ACCOUNT
             </button>
           </div>
         </div>

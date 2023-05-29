@@ -708,7 +708,6 @@
     }
     .Games{
         grid-template-columns: repeat(2, 1fr);
-        height: 85%;
     }
     .Games .Game{
         width: 90%;
@@ -722,6 +721,14 @@
     .Image{
        height: 68%;
     }
+    .MSearch{
+        margin-left: .75rem;
+    }
+    .AllCategories{
+        margin-left: 0;
+    
+    }
+   
 }
 .clubHousePopup{
     position: absolute;
