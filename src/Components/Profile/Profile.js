@@ -499,7 +499,7 @@ async function playAudioBg() {
               <img src={assets.winchaPopup} alt="" />
             </div>
             <div className={style.ReportPopupButtonCategory}>
-              <button>DEACTIVATE</button>
+              {/* <button>DEACTIVATE</button> */}
             </div>
             <div className={style.popupText}>
             <p>If you proceed with an account deletion,your account will be irreversibly

@@ -589,7 +589,7 @@
     .AddressSection form input,.email{
         font-family: "Poppins";
     width: 100%;
-    font-size: 2rem;
+    font-size: 3rem;
     background-color: #fff;
     height: 7.5rem;
     /* height: 5.68rem; */
@@ -600,7 +600,7 @@
     border: 0.15rem solid #333333c1;
     }
     .info{
-        width: 14%;
+        width: 12%;
     }
     .VideoSection{
         width: 90%;
@@ -708,6 +708,9 @@
         line-height: 25px;
         letter-spacing: normal;
         padding: 1rem;
+    }
+    .AddressSection form input,.email{
+        font-size: 2rem;
     }
     
 }

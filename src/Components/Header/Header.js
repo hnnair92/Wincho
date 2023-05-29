@@ -389,7 +389,10 @@ event.returnValue = ''
                          checkGameOn();
                       setToggle(false);
                        // if(gamePlay===true){
-                setActive(true)
+                        if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                 // }
                       setPageUrl(menu.url)
                       playAudio(music.Click);
@@ -410,7 +413,7 @@ event.returnValue = ''
                           }
                         }
   
-                        if (menu.Name != "Support"&&gamePlay===false&&userJoined===false) {
+                        if (menu.Name != "Support"&&gamePlay===false&&userJoined===false&&placeId[1]!=="game") {
                           navigate(`/${menu.url}`);
                         }
                       // if (menu.Name != "Support") {
@@ -453,7 +456,10 @@ event.returnValue = ''
             onClick={() => {
              setSetting(false)
               if(gamePlay===true){
-                setActive(true)
+                if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
               }
             
             }}
@@ -503,7 +509,7 @@ event.returnValue = ''
       </div>
     </div>
     :""}
-    {kickout?<div className={style.kickoutPopupAll}>
+    {kickout===true&&placeId[1]==="game"?<div className={style.kickoutPopupAll}>
         <div className={style.KickoutOverlay}>
 
         </div>
@@ -517,8 +523,10 @@ event.returnValue = ''
                               gameLeave(userId,false)
 
                     // window.location.reload()
-                    navigate("/prizes",{state:{category:""}})
+                    navigate("/prizes",{state:{category:"free"}})
                     setHistoryPopup(true)
+                    setKickout(false)
+
       // EntryRequest.replay = true;
       // dispatch(gameEntry(EntryRequest));
             }}>OK</button>
@@ -581,7 +589,10 @@ event.returnValue = ''
                         playAudio(music.Click)
                     setSetting(false)
                        // if(gamePlay===true){
-                setActive(true)
+                        if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                 // }
                       setPageUrl(MMenu.url)
                       playAudio(music.Click);
@@ -609,7 +620,7 @@ event.returnValue = ''
                           
                         }
   
-                        if (MMenu.Name !== "Support"&&gamePlay===false&&userJoined===false) {
+                        if (MMenu.Name !== "Support"&&gamePlay===false&&userJoined===false&&placeId[1]!=="game") {
                           navigate(`/${MMenu.url}`);
                         }
                       }}
@@ -705,7 +716,10 @@ event.returnValue = ''
                     
                     
                     if(menu.Name!=="History"){
-                  setActive(true)
+                      if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                   setPageUrl(menu.url)
 
                   }
@@ -721,6 +735,9 @@ event.returnValue = ''
                               // setExitPopup(true)
                               setKickout(true)
 
+                            }
+                            else{
+                              setKickout(true)
                             }
                             // navigate("/prizes",{state:{category:""}})
                             // setHistoryPopup(true)
@@ -751,7 +768,7 @@ event.returnValue = ''
                             setSetting(true);
 
                             // navigate(`/${menu.url}`)
-                          } else if(menu.Name!=="Logout"&&menu.Name!=="History"&&gamePlay===false&&userJoined===false){
+                          } else if(menu.Name!=="Logout"&&menu.Name!=="History"&&gamePlay===false&&userJoined===false&&placeId[1]!=="game"){
                             navigate(`/${menu.url}`);
                           }
                           if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
@@ -939,7 +956,10 @@ event.returnValue = ''
                   //       setSetting(false);
                   // }
                   if(menu.Name!=="History"){
-                  setActive(true)
+                    if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                   setPageUrl(menu.url)
 
                   }
@@ -976,6 +996,8 @@ event.returnValue = ''
 
                             // navigate("/prizes",{state:{category:""}})
                             // setHistoryPopup(true)
+                            setKickout(true)
+
                             }
 
                           }
@@ -988,7 +1010,7 @@ event.returnValue = ''
                     setSetting(true);
 
                     // navigate(`/${menu.url}`)
-                  } else if(menu.Name!=="Logout"&&menu.Name!=="History"&&gamePlay===false&&userJoined===false){
+                  } else if(menu.Name!=="Logout"&&menu.Name!=="History"&&gamePlay===false&&userJoined===false&&placeId[1]!=="game"){
                     navigate(`/${menu.url}`);
                   }
                   if (menu.Name === "Logout"&&gamePlay===false&&userJoined===false) {
@@ -1169,13 +1191,19 @@ event.returnValue = ''
           setPageUrl("/")
             {
 
-              setActive(true)
+              if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
             // }
                   setPageUrl("/")
                 // if(gamePlay===true){
-              setActive(true)
+                  if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
             // }
-               if(gamePlay===false&&userJoined===false){
+               if(gamePlay===false&&userJoined===false&&placeId[1]!=="game"){
                  navigate("/");
                }
             }
@@ -1197,10 +1225,16 @@ event.returnValue = ''
               // navigate("/tickets")
               setPageUrl("/tickets")
               {
-                setActive(true)
+                if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                     setPageUrl("/tickets")
-                setActive(true)
-                 if(gamePlay===false&&userJoined===false){
+                    if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }      
+                 if(gamePlay===false&&userJoined===false&&placeId[1]!=="game"){
                    navigate("/tickets");
                    playAudio(music.Click);
                  }
@@ -1272,13 +1306,19 @@ event.returnValue = ''
           setPageUrl("/")
             {
 
-              setActive(true)
+              if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
             // }
                   setPageUrl("/")
                 // if(gamePlay===true){
-              setActive(true)
+                  if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
             // }
-               if(gamePlay===false&&userJoined===false){
+               if(gamePlay===false&&userJoined===false&&placeId[1]!=="game"){
                  navigate("/");
                }
             }
@@ -1306,7 +1346,10 @@ event.returnValue = ''
                     setId(menu.id);
                    
                     // if(gamePlay===true){
-                setActive(true)
+                      if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
               // }
                     setPageUrl(menu.url)
                     // playAudio(music.Click);
@@ -1325,7 +1368,7 @@ event.returnValue = ''
                           }
                       }
 
-                      if (menu.Name != "Support"&&gamePlay===false&&userJoined===false) {
+                      if (menu.Name != "Support"&&gamePlay===false&&userJoined===false&&placeId[1]!=="game") {
                         navigate(`/${menu.url}`);
                       }
                     
@@ -1374,13 +1417,19 @@ event.returnValue = ''
                 setPageUrl("tickets")
                 
     
-                  setActive(true)
+                if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                 // }
                       // setPageUrl("tickets")
                     // if(gamePlay===true){
-                  setActive(true)
+                      if(placeId[1]==="game"){
+                          setActive(true)
+
+                        }
                 // }
-                   if(gamePlay===false&&userJoined===false){
+                   if(gamePlay===false&&userJoined===false&&placeId[1]!=="game"){
                      navigate("/tickets");
                    }
             }}>

@@ -38,22 +38,31 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
       };
       let pathname;
       console.log(window.location)
+      const path = window.location.pathname
+      const splitPath = path.split("/")
       useEffect(()=>{
-        if(window){
-          console.log(gamePlay===false&&userJoined===false&&pathname!=="game")
-          const path = window.location.pathname
-          const splitPath = path.split("/")
+        // if(window){
+          console.log(gamePlay===false&&userJoined===false&&splitPath[1]!=="game")
           pathname = splitPath[1]
           console.log(path);
           console.log(splitPath[1]);
           console.log(pathname);
-        }
+        // }
       },[window])
       useEffect(()=>{
         if(active===true){
           setActive(false)
         }
-      },[])
+      },[active])
+      useEffect(()=>{
+          console.log(gamePlay)
+      },[gamePlay])
+      useEffect(()=>{
+          console.log(pathname)
+      },[pathname])
+      useEffect(()=>{
+        console.log(userJoined)
+      },[userJoined])
   return (
     <div className={style.Container} style={{pointerEvents:gamePlay?"none":"visible"}}>
       {isAddress? (
@@ -108,13 +117,17 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                         setPageUrl("")
                         {
 
+                          if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
                               setPageUrl("")
                             // if(gamePlay===true){
+                              if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
-                          if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+                          if(gamePlay===false&&userJoined===false&&splitPath[1]!=="game"){
                             navigate("/");
                             console.log("reached")
                           }
@@ -126,20 +139,24 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                         setPageUrl("prizes")
                         {
 
+                          if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
                               setPageUrl("prizes")
                             // if(gamePlay===true){
+                              if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
-                          if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+                          if(gamePlay===false&&userJoined===false&&splitPath[1]!=="game"){
                           // if(gamePlay===false&&userJoined===false){
                             navigate("/prizes");
                           }
                         }
                     }}>Prizes</li>
                     <li onClick={(e)=>{
-                        if(window.location.pathname!=="/"){
+                        if(window.location.splitPath[1]!=="/"){
                         setIsAddress(true)
                         }
                         else{
@@ -147,13 +164,17 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                         // setPageUrl("/")
                         {
 
+                          if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
                               // setPageUrl("/")
                             // if(gamePlay===true){
+                              if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
-                        if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+                        if(gamePlay===false&&userJoined===false&&splitPath[1]!=="game"){
 
                         handleId(e,"support")
 
@@ -170,13 +191,17 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                         setPageUrl("cart")
                         {
 
+                          if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
                               setPageUrl("cart")
                             // if(gamePlay===true){
+                              if(splitPath[1]==="game"){
                           setActive(true)
+                              }
                         // }
-                        if(gamePlay===false&&userJoined===false&&pathname!=="game"){
+                        if(gamePlay===false&&userJoined===false&&splitPath[1]!=="game"){
 
                             navigate("/cart");
                           }

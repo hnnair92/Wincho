@@ -49,8 +49,7 @@ const Description = ({
   const GameData = state && state.game;
   // const baseUrl = process.env.REACT_APP_BASEURL
   const [userFocusCheck,setUserFocusCheck] = useState(true)
-
-
+  
   const onFocus = (e) => {
     const timeoutId = JSON.parse(localStorage.getItem("timeoutId"))
     localStorage.setItem("blur",JSON.stringify(false))
@@ -70,7 +69,8 @@ const Description = ({
     // setIsUserFocus("FOCUS")
     
   };
-
+  
+  let Animestate = JSON.parse(localStorage.getItem("state"))
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);
   const animeRef = useRef(null);
@@ -1171,12 +1171,10 @@ useEffect(()=>{
         console.log(data);
         console.log(userBody);
         // changeFreePlayDaily()
-        localStorage.getItem("times")
-          ? localStorage.setItem(
-              "times",
-              parseInt(data.data[0].freeplay_limit)
-            )
-          : localStorage.setItem("times", 0);
+        localStorage.setItem(
+          "times",
+          JSON.stringify(data.data[0].freeplay_limit)
+        );
       });
   }
   async function changeFreePlayDaily(){
@@ -1858,6 +1856,9 @@ useEffect(()=>{
 
 // })
 useEffect(()=>{
+  console.log(gameStartStatus)
+},[gameStartStatus])
+useEffect(()=>{
   console.log(animeRef)
 },[animeRef])
 const handleTabClosing = async(event) => {
@@ -2136,6 +2137,7 @@ useEffect(()=>{
               setOnPlay(false);
             }}
           ></div>
+          
           {/* <div className={style.PlayIcon}>
             {onPlay === true ? (
               <button
@@ -2159,12 +2161,12 @@ useEffect(()=>{
             )}
           </div> */}
           <div className={style.VideoSection}>
-            <MdClose
+            {/* <MdClose
               onClick={() => {
                 setLastWin(false);
                 setOnPlay(false);
               }}
-            />
+            /> */}
             {game.last_win_url === "" ? (
               <div className={style.VideoEmpty}>
                 <p>Whoops! Video unavailable Please try again later.</p>
@@ -2237,7 +2239,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {exitPopupOpen&& gameStartStatus===false? (
+      {exitPopupOpen&& gameStartStatus===false||active===true? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setExitPopupOpen(false)
@@ -2356,7 +2358,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {active===true&&gameStartStatus===false&&userJoined===false? (
+      {active===true&&gameStartStatus===false&&userJoined===false&&window.location.pathname.split("/")[1]=="game"? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -3077,15 +3079,25 @@ useEffect(()=>{
                                   <Lotties
                                     animationData={AllAnimation.Progress}
                                     loop={false}
+                                    isPaused={Animestate}
                                     onComplete={() => {
+                                      Animestate = JSON.parse(localStorage.getItem("state"))
+                                      console.log(Animestate)
                                       // if(animeStopStatus===false){
-                                        if(animeStopStatus===false){
+                                        // if(animeStopStatus===false){
+                                      // }
+                                      if(Animestate===false){
+                                          console.log("finished")
                                         timeOut(userId, false);
+                                          setFirstStep(false);
+                                          setSecondStep(false);
+                                          setTimeoutStatus(true);
+                                      }
+                                      else{
+                                          console.log("exited")
                                       }
                                       // }
-                                      setFirstStep(false);
-                                      setSecondStep(false);
-                                      setTimeoutStatus(true);
+                                      
                                     }}
                                      
                                     lottieRef={animeRef}
@@ -3103,13 +3115,17 @@ useEffect(()=>{
                                       console.log(animeRef);
                                       setCameraState2(true);
                                           // animeRef.current.pause()
+                                      localStorage.setItem("state",JSON.stringify(true))
                                       animeRef.current.pause()
+
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
+                                      localStorage.setItem("state",JSON.stringify(false))
+
                                       setCameraState2(false);
                                       // animeRef.current.play()
 
@@ -3120,6 +3136,7 @@ useEffect(()=>{
                                       console.log(animeRef);
                                       setCameraState2(true);
                                           // animeRef.current.pause()
+                                      localStorage.setItem("state",JSON.stringify(true))
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
@@ -3127,6 +3144,7 @@ useEffect(()=>{
                                     }}
                                     onPointerUp={() => {
                                       FirstArrowRelease("RL_STOP");
+                                      localStorage.setItem("state",JSON.stringify(false))
                                       setCameraState2(false);
                                       // animeRef.current.play()
 

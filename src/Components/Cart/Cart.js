@@ -937,13 +937,18 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         </div>
         {}
         <div className={style.Carts}>
-          {cartData.length < 1 ? (
-            <p className={style.CartEmptyText}><p>“ Your Basket is Currently Empty” 
-            </p><p>  Please sign in to see what prizes you have to ship </p>
+          {userId!==null&&user&&user.username!==""?(cartData.length<1? <p className={style.CartEmptyText}>“ Your Basket is Currently Empty” 
+            
+            </p>:''): <p className={style.CartEmptyText}>“ Please sign in to see what prizes you have to ship” 
+            
+            </p>}
+          {/* {cartData.length < 1 ? (
+            <p className={style.CartEmptyText}>“ Your Basket is Currently Empty” 
+            
             </p>
           ) : (
             ""
-          )}
+          )} */}
           {loading ? (
             <div className={style.LoaderDiv}>
               <div className={style.LoaderAnime}>
@@ -1311,6 +1316,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
               console.log(saved, "isBundleReminder from t");
               console.log(isVipShown, "isVip from t");
               console.log(isAddressShown, "isAddress from t");
+
               if (saved === "false") {
                 console.log(isBundleReminder, "isBundleReminder");
                 setIsBundleReminder(true);
@@ -1320,6 +1326,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   setCount(3);
                   console.log("count jumbed 2");
                 }
+              }
+              else if(user&&user.first_name===""){
+                setIsAddress(true)
               }
               else {
                 console.log("false");

@@ -403,7 +403,6 @@ const ticket =  [
          <div className={style.OverlayBg} onClick={()=>{
             setPremiumPopup(false)
         }}>
-
         </div>
         <div className={style.ClubHouse}>
             <div className={style.TopImage}>

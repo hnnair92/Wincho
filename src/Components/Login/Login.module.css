@@ -169,7 +169,7 @@
 
 }
 .info{
-    width: 10%;
+    width: 9%;
     display: flex;
     align-items: center;
     margin: auto;
@@ -179,7 +179,7 @@
     cursor: pointer;
 }
 .eye {
-    width: 13%;
+    width: 12%;
     display: flex;
     align-items: center;
     margin: auto;

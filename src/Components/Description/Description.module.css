@@ -605,7 +605,6 @@ video {
     left: 50%;
     transform: translate(-50%,-50%);
 }
-
 .PlayIcon button img {
     width: 20%;
 }
@@ -1151,16 +1150,17 @@ video {
 }
 
 
-/* .VideoOverlay{
+.VideoOverlay{
     width: 100vw;
     height: 100vh;
-    background-color: #00000028;
+    background-color:transparent;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-} */
+    transform: translate(-50%,-50%);
+}
 .VideoSection svg{
     position: absolute;
     right: 5%;
@@ -1441,6 +1441,9 @@ video {
         /* border-width: 3px; */
     
     }
+    .VideoOverlay{
+        transform: translate(-5%,-50%);
+    }
 }
 .AllVideoSection{
     width: 100%;
@@ -1534,7 +1537,7 @@ video {
 }
 @media(max-width:599px){
     .LoaderAnime{
-        width: 10rem;
+        width: 8rem;
     }
     .Camera button,
     .PrizeReset button,
@@ -1547,8 +1550,12 @@ video {
     .videoStarting .LoaderDivSection p{
         font-size: 1.75rem;
       padding-top: 5px;
+      margin-top: 1rem;
     }
     .howToPlay{
         width: 95%;
+    }
+    .VideoOverlay{
+        transform: translate(-5%,-50%);
     }
 }
