@@ -274,7 +274,7 @@ const[passIcon,setPassIcon] = useState(false)
         
         <div className={style.Register}>
             
-            <form className={style.form} onSubmit={handleRegister}>
+            <form className={style.form} onSubmit={handleRegister} autocomplete="off">
                 <input type="text" placeholder='username' required className={style.input} value={username} onChange={(e)=>{
                     setUsername(e.target.value)
                 }}/>

@@ -50,9 +50,9 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
         // }
       },[window])
       useEffect(()=>{
-        if(active===true){
-          setActive(false)
-        }
+        // if(active===true){
+        //   setActive(false)
+        // }
       },[active])
       useEffect(()=>{
           console.log(gamePlay)

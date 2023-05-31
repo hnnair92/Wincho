@@ -12,6 +12,7 @@ import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
 import { AboutBg } from './AboutImage';
 import videoSrc from '../../assests/video/wincha.mp4';
+import VideoSrc from '../../assests/video/wincha_home.mp4';
 import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 const Home = () => {
     const navigate  = useNavigate()
@@ -263,7 +264,7 @@ const Home = () => {
             <div className={style.MWatch}>
          
             <video autoPlay muted={true} loop>
-                <source src={videoSrc}/>
+                <source src={VideoSrc}/>
             </video>
             </div>
             <div className={style.MSupport} id="supports">

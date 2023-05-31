@@ -547,7 +547,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {/* <div className={style.Section}> */}
       {}
       <div className={style.Categories}>
-        <div className={style.CategoriesSection}>
+        <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`}>
           <div className={style.AllCategories}>
             {categories.map((categoryItem, index) => {
               return (
@@ -616,7 +616,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             style={{
               backgroundColor:
                 searchIconStatus === false ? "transparent" : "#e1f5fb",
-              border: searchIconStatus === false ? "none" : "2px solid #efeef1",
+              border: searchIconStatus === false ? "none" : "2px solid #efeef1",padding:searchIconStatus===false?"0":"7.5px 15px"
             }}
           >
             <div

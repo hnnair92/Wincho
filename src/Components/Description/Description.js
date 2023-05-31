@@ -1312,7 +1312,7 @@ useEffect(()=>{
       });
   }
   async function gameJoin(e) {
-    setActive(false)
+    // setActive(false)
     console.log(EntryRequest)
     checkAnime();
     console.log(typeof GameData.price)
@@ -1890,6 +1890,14 @@ useEffect(()=>{
   console.log(userId)
   console.log(prizeId)
 },[prizeId,currentPrizeMove])
+useEffect(()=>{
+  console.log(leavePopup)
+  console.log(active)
+},[leavePopup,active])
+useEffect(()=>{
+  console.log(userJoined)
+  console.log(gameStartStatus)
+},[userJoined,gameStartStatus])
   return (
     <div className={style.Container}>
       <audio ref={audioRef}></audio>
@@ -2239,7 +2247,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {exitPopupOpen&& gameStartStatus===false||active===true? (
+      {exitPopupOpen&& gameStartStatus===false? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setExitPopupOpen(false)
@@ -2358,6 +2366,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
+      {/* {active===true&&userJoined===false? ( */}
       {active===true&&gameStartStatus===false&&userJoined===false&&window.location.pathname.split("/")[1]=="game"? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
@@ -2408,6 +2417,55 @@ useEffect(()=>{
       ) : (
         ""
       )}
+      {/* {active===true&&gameStartStatus===false&&userJoined===true? (
+        <div className={style.popup}>
+        <div className={style.OverlayBg} onClick={()=>{
+            setLeavePopup(false)
+        }}>
+
+        </div>
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>Are you sure you want to leave this game?</p>
+          </div>
+          <div className={style.ExitpopupButton}>
+            {/* <Link
+            to="/tickets"
+            onClick={() => {
+              setLeavePopup(false);
+            }}
+          > 
+            <button
+              onClick={() => {
+                // console.log(transferGame);
+                setActive(false);
+                gameLeave(userId,false);
+                // socket.disconnect();
+                // navigate(`/game/${transferGame.slug}`, {
+                //   state: { game: transferGame,category:transferGame.category},
+                // });
+                navigate(`/${pageUrl}`)
+                // window.location.reload();
+                // window.location.reload()
+              }}
+            >
+              YES
+            </button>
+            <button
+              onClick={() => {
+                setActive(false);
+                console.log("hello");
+              }}
+            >
+              NO
+            </button>
+          </div>
+        </div>
+      ) : (
+        ""
+      )} */}
       <div className={style.Section}>
         <div className={style.ExtraGames}>
           <div className={style.ExtraButton}>

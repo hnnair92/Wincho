@@ -644,6 +644,7 @@
     .Games .Game{
         width: 95%;
     }
+    
 }
 .MSearch{
     display: none;
@@ -666,7 +667,7 @@
         width: 95%;
     }
     .Search,.MSearch{
-        width: fit-content;
+        width: 100%;
         z-index: 9999;
         height: fit-content;
     }
@@ -675,6 +676,7 @@
     }
     .SearchIcon,.EmptySearch{
         width: 15px;
+        margin: 0 auto;
     }
     .CategoriesSection{
         width: fit-content;
@@ -1101,5 +1103,18 @@
     }
     .Bonus{
         width: 40%;
+    }
+}
+@media(max-width:1065) and (min-width:765px){
+    .CategoriesSection.TabCategory{
+        margin-left: 25%;
+    }
+}
+@media(max-width:765px){
+    .MSearch{
+        padding: 0;
+    }
+    .CategoriesSection{
+        margin-left: 0;
     }
 }

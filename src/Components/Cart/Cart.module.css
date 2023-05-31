@@ -413,7 +413,7 @@ video{
 .Address{
     width: 68rem;
     position: absolute;
-    top: 15%;
+    top: 10%;
     /* height: 70%; */
     left: 50%;
     height: 100vh;
@@ -675,7 +675,7 @@ video{
         width: 100%;
     }
     .Address{
-        width: 90%;
+        width: 50%;
     }
     .Address form input{
         font-family: "Poppins";
@@ -992,7 +992,7 @@ video{
 .AddressTitleOverlay{
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 200vh;
     background-color: transparent;
     z-index: 1;
 }
@@ -1066,5 +1066,25 @@ video{
     .BonusText{
         margin: 0px 10px;
     }
+    .Address {
+        width: 80%;
+        top: 1%;
+    }
+    .Address form input{
+        font-size: 1.5rem;
+        height: 4rem;
+    }
+    .LoaderAnime{
+        width: 10rem;
+    }
     
+}
+@media(max-width:280px){
+    .ClubHouse{
+        width: 70%;
+    }
+    .Bonus p{
+        font-size: 4rem;
+        
+    }
 }

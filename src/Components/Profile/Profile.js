@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MdArrowRight, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import profile from "../../assests/Wincha Profile Icon.png";
 import style from "./Profile.module.css";
 import rightArrow from "../../assests/Enter Edit Arrow.png";
@@ -23,6 +23,8 @@ import CloseImage from "../../assests/Artboard 48 X.png"
 import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
 import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
 import Lottie from "lottie-react";
+import { updateProfile } from "../../actions/user";
+import { FaChevronDown } from "react-icons/fa";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
@@ -111,6 +113,27 @@ async function playAudioBg() {
   const [resendEmail, setResendEmail] = useState(user && user.profile_status===false?true:false);
   const [message, setMessage] = useState(false);
   const [type, setType] = useState(true);
+  const [isAddress, setIsAddress] = useState(false);
+  const [line1, setLine1] = useState("");
+  const [line2, setLine2] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zipcode, setZipCode] = useState("");
+  const [number, setNumber] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [selectState, setSelectState] = useState(false);
+  const [allState, setAllState] = useState([]);
+  const [postcodetrue, setPostcodeTrue] = useState(false);
+  const [phonenumber,setPhonenumber]=useState(false)
+  const [addressObj, setAddressObj] = useState({
+    line1: "",
+    line2: "",
+    city: "",
+    state: "",
+    zipcode: "",
+  });
+  const dispatch = useDispatch();
   // const userId = JSON.parse(localStorage.getItem("user"));
   const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
   console.log(userId)
@@ -224,6 +247,115 @@ async function playAudioBg() {
         // setResendEmail(false)
         // setCheckMail(true)
         console.log(data)
+      });
+  }
+  const checkStateExits = (state, e) => {
+    e.preventDefault();
+    if (state.status === false) {
+      // setCheckError(true);
+      setState("");
+      setSelectState(false);
+    } else {
+      setState(state);
+      setSelectState(false);
+    }
+  };
+  async function numberValidation() {
+    await fetch(`${baseUrl}/user/phonecode/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        user: userId,
+        number: `${configuration.COUNTRY_CODE}${number}`,
+      }),
+      headers: {
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.data[0].valid === true) {
+            // postCodeCheck();
+        }
+        else{
+           setPhonenumber(true)
+        }
+      });
+  }
+  async function postCodeCheck() {
+    await fetch(`${baseUrl}/configurations/code/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        country: "UK",
+        code: zipcode,
+      }),
+      headers: {
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "True") {
+          // addAddress();
+        } else {
+          setPostcodeTrue(true);
+        }
+        console.log(data);
+      });
+  }
+  async function addAddress() {
+    // if (configuration.COUNTRY_CODE === "44") {
+    //   setUserCountry("county");
+    // } else {
+    //   setUserCountry("state");
+    // }
+    const body = {
+      id: userId,
+      username: user.username,
+      first_name: firstName,
+      last_name: lastName,
+      phone: number,
+      addressline1: line1,
+      addressline2: line2,
+      city: city,
+      county: state,
+      zipcode: zipcode,
+      coutrycode: configuration.COUNTRY_CODE,
+      coutryname: configuration.COUNTRY_NAME,
+    };
+    if (configuration.COUNTRY_CODE === "1") {
+      body = {
+        id: userId,
+        username: user.username,
+        first_name: firstName,
+        last_name: lastName,
+        phone: `${number}`,
+        addressline1: line1,
+        addressline2: line2,
+        city: city,
+        state: state,
+        zipcode: zipcode,
+        coutrycode: configuration.COUNTRY_CODE,
+        coutryname: configuration.COUNTRY_NAME,
+      };
+    }
+    await fetch(`${baseUrl}/user/shipping/details/update`, {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(updateProfile());
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
   return (
@@ -616,6 +748,187 @@ async function playAudioBg() {
         ) : (
           ""
         )}
+        {isAddress?
+        (<div className={style.editAddress} >
+          <div
+            className={style.editAddressOverlay}
+            onClick={() => {
+              setIsAddress(false);
+            }}
+          ></div>
+          <form>
+            <h1>Shipping Address</h1>
+            <input
+              type="text"
+              name=""
+              id=""
+              value={firstName}
+              placeholder="FIRST NAME"
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={lastName}
+              placeholder="LAST NAME"
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={line1}
+              placeholder="LINE 1"
+              onChange={(e) => {
+                setLine1(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={line2}
+              placeholder="LINE 2"
+              onChange={(e) => {
+                setLine2(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={number}
+              placeholder="PHONE NUMBER"
+              onChange={(e) => {
+                setNumber(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              name=""
+              id=""
+              value={city}
+              placeholder="CITY"
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+            />
+            {user && user.coutryname === "UK" ? (
+                      <input
+                        type="text"
+                        value={user?.state || ""}
+                        readOnly
+                        placeholder="County"
+                      />
+                    ) : user && user.coutryname === "USA" ? (
+                      <input
+                        type="text"
+                        value={user?.state || ""}
+                        readOnly
+                        placeholder="State"
+                      />
+                    ) : (
+                      ""
+                    )}
+            {user.coutrycode === "44" ? (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={zipcode}
+                placeholder="POSTCODE"
+                onChange={(e) => {
+                  setZipCode(e.target.value);
+                }}
+              />
+            ) : (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={zipcode}
+                placeholder="ZIP/POSTAL CODE"
+                onChange={(e) => {
+                  setZipCode(e.target.value);
+                }}
+              />
+            )}
+            
+            <button
+            type="submit"
+            onClick={() => {
+              setIsAddress(false);
+              setAddressObj({
+                line1,
+                line2,
+                city,
+                state,
+                zipcode,
+              });
+               numberValidation();
+              console.log(addressObj);
+            }}
+            disabled={
+              line1 === "" ||
+              line2 === "" ||
+              city === "" ||
+              state === "" ||
+              zipcode === ""
+            }
+            >CONFIRM</button>
+          </form>
+        </div>
+        ):(
+          "")}
+          {phonenumber ? (
+          <div className={style.postpopup}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.phnpopupText}>
+              <p>Please enter valid phonenumber </p>
+            </div>
+            <div className={style.popupbutton}>
+              <button
+                onClick={() => {
+                  setPhonenumber(false);
+                  setIsAddress(true);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+        {postcodetrue ? (
+          <div className={style.postpopup}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.postpopupText}>
+              <p>Postal code not matching</p>
+            </div>
+            <div className={style.popupbutton}>
+              <button
+                onClick={() => {
+                  setPostcodeTrue(false);
+                  setIsAddress(true);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         <div className={style.ProfileContent}>
           <div className={style.ProfileImage}>
             <img src={profile} alt="" />
@@ -702,7 +1015,10 @@ async function playAudioBg() {
                       value={user?.phone}
                       placeholder="Please Enter"
                     />
-                    <img src={rightArrow} alt="" />
+                    <img src={rightArrow} onClick={()=>{
+                      setIsAddress(true)
+                      setState(user?.state)
+                    }} alt="" />
                   </div>
                 </div>
                 <div className={style.Address}>
@@ -716,6 +1032,10 @@ async function playAudioBg() {
                       readOnly
                       placeholder="Username"
                     /> */}
+                    <img src={rightArrow} onClick={()=>{
+                      setIsAddress(true)
+                      setState(user?.state)
+                    }} alt="" />
                     <input
                       type="text"
                       value={user?.addressline1 || ""}
@@ -737,14 +1057,14 @@ async function playAudioBg() {
                     {user && user.coutryname === "UK" ? (
                       <input
                         type="text"
-                        value={user?.county || ""}
+                        value={user?.state || ""}
                         readOnly
                         placeholder="County"
                       />
                     ) : user && user.coutryname === "USA" ? (
                       <input
                         type="text"
-                        value={user?.county || ""}
+                        value={user?.state || ""}
                         readOnly
                         placeholder="State"
                       />

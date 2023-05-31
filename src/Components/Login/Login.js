@@ -152,9 +152,9 @@ const Login = () => {
 
       <div className={style.Login}>
         <div className={style.Right}>
-          <form action="" className={style.form} onSubmit={handleLogin}>
+          <form action="" className={style.form} onSubmit={handleLogin} autocomplete="off">
             {error && error.status === "False" ? (
-              <p className={style.loginError}>invalid Credentials</p>
+              <p className={style.loginError}>Invalid Credentials</p>
             ) : (
               ""
             )}

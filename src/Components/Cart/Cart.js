@@ -937,11 +937,14 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         </div>
         {}
         <div className={style.Carts}>
-          {userId!==null&&user&&user.username!==""?(cartData.length<1? <p className={style.CartEmptyText}>“ Your Basket is Currently Empty” 
+        {loading===false?
+
+          userId!==null&&user&&user.username!==""?(cartData.length<1? <p className={style.CartEmptyText}>“ Your Basket is Currently Empty” 
             
             </p>:''): <p className={style.CartEmptyText}>“ Please sign in to see what prizes you have to ship” 
             
-            </p>}
+            </p>
+        :""}
           {/* {cartData.length < 1 ? (
             <p className={style.CartEmptyText}>“ Your Basket is Currently Empty” 
             

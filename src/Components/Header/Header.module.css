@@ -1343,9 +1343,17 @@ overflow-y: scroll;
        width: 10.75%;
        margin-top: 5px;
     }
+    .MLogo{
+        width: 10%;
+    }
 }
 @media screen and  (min-device-width: 1024px) and (orientation : landscape){
     .MLogo{
         width: 6%;
+    }
+}
+@media(max-width:1065px){
+    .addressPopup{
+        width: fit-content;
     }
 }
