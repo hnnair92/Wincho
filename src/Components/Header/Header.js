@@ -381,7 +381,7 @@ event.returnValue = ''
                   onClick={(e) => {
                     playAudio(music.Click)
                     setSetting(false)
-                    notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
+                    setNotificationBubble(true);
                     setHistoryPopup(false)
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
@@ -477,7 +477,7 @@ event.returnValue = ''
       {setting?
       <div className={style.SettingsOverlay} onClick={()=>{
         setSetting(false)
-        notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
+        setNotificationBubble(true);
       }}></div>
       
     :""}
@@ -591,7 +591,8 @@ event.returnValue = ''
 
                         playAudio(music.Click)
                     setSetting(false)
-                    notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
+                    setNotificationBubble(true);
+                    setIsAddress(false)
                     setHistoryPopup(false)
                        // if(gamePlay===true){
                         if(placeId[1]==="game"){
@@ -657,6 +658,7 @@ event.returnValue = ''
                   // setSetting(true)
                   setting ? setSetting(false) : setSetting(true);
                   notificationbubble? setNotificationBubble(false):setNotificationBubble(true);
+                  setIsAddress(false)
                 }}
               />
               {/* <div className={style.BottomMenuIcon}>
@@ -705,6 +707,7 @@ event.returnValue = ''
               e.preventDefault()
               playAudio(music.Boing)
               setSetting(false)
+              setNotificationBubble(true)
               // if(gamePlay===true){
                 // }
                 // setPageUrl(menu.url)
@@ -950,6 +953,7 @@ event.returnValue = ''
               playAudio(music.Boing)
 
                   setSetting(false)
+                  setNotificationBubble(true);
                   // if(gamePlay===true){
                   // setActive(true)
                   // }
@@ -1347,8 +1351,7 @@ event.returnValue = ''
                     playAudio(music.Click)
                     // console.log(music)
                     setSetting(false)
-                    
-                  
+                    setNotificationBubble(true);
                     setId(menu.id);
                    
                     // if(gamePlay===true){

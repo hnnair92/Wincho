@@ -249,17 +249,17 @@ async function playAudioBg() {
         console.log(data)
       });
   }
-  const checkStateExits = (state, e) => {
-    e.preventDefault();
-    if (state.status === false) {
-      // setCheckError(true);
-      setState("");
-      setSelectState(false);
-    } else {
-      setState(state);
-      setSelectState(false);
-    }
-  };
+  // const checkStateExits = (state, e) => {
+  //   e.preventDefault();
+  //   if (state.status === false) {
+  //      setCheckError(true);
+  //     setState("");
+  //     setSelectState(false);
+  //   } else {
+  //     setState(state);
+  //     setSelectState(false);
+  //   }
+  // };
   async function numberValidation() {
     await fetch(`${baseUrl}/user/phonecode/check`, {
       method: "POST",
@@ -276,7 +276,7 @@ async function playAudioBg() {
       .then((data) => {
         console.log(data);
         if (data.data[0].valid === true) {
-            // postCodeCheck();
+            postCodeCheck();
         }
         else{
            setPhonenumber(true)
@@ -298,7 +298,7 @@ async function playAudioBg() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "True") {
-          // addAddress();
+           addAddress();
         } else {
           setPostcodeTrue(true);
         }
@@ -515,8 +515,8 @@ async function playAudioBg() {
         }}>
 
         </div>
-            <div className={style.AddressTitle}></div>
             <form action="">
+            <p className={style.AddressTitle}>Update Password</p>
               {/* <h1>Shipping Address</h1> */}
               <input
                 type="text"
@@ -584,7 +584,6 @@ async function playAudioBg() {
                 // value={city}
                 value={user.email}
                 readOnly
-
                 placeholder="EMAIL"
                 onChange={(e) => {
                   // setCity(e.target.value)

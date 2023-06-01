@@ -234,7 +234,7 @@
     
 }
 .myDetails .Password .InputSection img{
-    width: 7.5%;
+    width: 5.75%;
     /* -webkit-text-stroke: 2px #fff; */
 }
 .myDetails .Subscription .InputSection img{
@@ -552,7 +552,7 @@
     height: 6.5rem;
     /* height: 5.68rem; */
     padding: 1.13rem 2rem;
-    text-align: left;
+    text-align: center;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border:.25rem solid #333333c1;
@@ -859,6 +859,7 @@
         width: 3%;
         right: 10%;
     }
+    
 }
 
 .clubHousePopup{
@@ -1276,4 +1277,18 @@
     .info{
 
     }
+}
+.AddressTitle{
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 2.5rem;
+    background-color: #fff;
+    /* height: 6.5rem; */
+    /* height: 5.68rem; */
+    /* padding: 1.13rem 2rem; */
+    text-align: center;
+    /* border-radius: 1.13rem; */
+    margin: 1.13rem 0;
+    /* border: 0.25rem solid #333333c1; */
+
 }

@@ -613,11 +613,13 @@ video {
     margin: 0 auto;
     width: 100%;
     position: relative;
+    min-width:130px
 }
 
 .PlayImage button {
     position: relative;
     z-index: 99;
+    min-width: 12rem;
 }
 
 .GameScore {

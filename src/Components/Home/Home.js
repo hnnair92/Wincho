@@ -12,7 +12,7 @@ import {bgImage} from './BgImage.js'
 import { assets } from '../Description/assests';
 import { AboutBg } from './AboutImage';
 import videoSrc from '../../assests/video/wincha.mp4';
-import VideoSrc from '../../assests/video/wincha_home.mp4';
+import VideoSrcHome from '../../assests/video/wincha_home.mp4';
 import winchaIcons from '../../assests/Wincha HomePage Logo.png';
 const Home = () => {
     const navigate  = useNavigate()
@@ -263,8 +263,8 @@ const Home = () => {
             </div>
             <div className={style.MWatch}>
          
-            <video autoPlay muted={true} loop>
-                <source src={VideoSrc}/>
+            <video playsinline autoplay muted loop>
+                <source src={VideoSrcHome} type="video/mp4"/>
             </video>
             </div>
             <div className={style.MSupport} id="supports">

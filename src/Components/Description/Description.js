@@ -963,6 +963,29 @@ useEffect(()=>{
   //     }
   //   }
   // }, [dispatch, game]);
+  // const [addNumArray,setAddNumArray] = useState([1])
+  let addNumArray = [1]
+  useEffect(()=>{
+    let getNum = 1;
+    if(products){
+      while(getNum<6){
+        addNumArray.forEach((num)=>{
+          
+          let randomNumber = Math.random() * (products.length-0) + 0
+          if(randomNumber!==num){
+            addNumArray.push(parseInt(randomNumber))
+            // setAddNumArray((addNumArray)=>[...addNumArray,randomNumber]) 
+            getNum = getNum + 1;
+          }
+          console.log(randomNumber)
+        })
+        console.log(getNum)
+        console.log(products.length)
+        console.log(addNumArray)
+
+      }
+    }
+  },[products])
   useEffect(() => {
     checkFreePlay();
   }, [gamePlayStatus]);
@@ -2497,53 +2520,60 @@ useEffect(()=>{
             <p>YOU MIGHT ALSO LIKE...</p>
           </div>
           <div className={style.AllGames}>
-            {products.length>0&&products.map((game) => {
-              return (
-                // <div
-                //   to={`/game/${game.id}`}
-                //   state={{ game: game }}
-                //  onClick={()=>{
-                //   window.location.reload()
-                // }}>
-                // >
-                <div
-                  className={style.Game}
-                  style={{ pointerEvents: gamePlay===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
-                  onClick={() => {
-                    setLeavePopup(true);
-                    setTransferGame(game);
-                  }}
+            {products.length>0&&products.map((game,index) => {
+             
+              const randomNumber = Math.random() * (products.length-0) + 0
+                  console.log(randomNumber)
+              if(randomNumber === index){ 
+                  console.log(index)
+                  console.log(randomNumber)
+                  return (
+                    // <div
+                    //   to={`/game/${game.id}`}
+                    //   state={{ game: game }}
+                    //  onClick={()=>{
+                    //   window.location.reload()
+                    // }}>
+                    // >
+                    <div
+                      className={style.Game}
+                      style={{ pointerEvents: gamePlay===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
+                      onClick={() => {
+                        setLeavePopup(true);
+                        setTransferGame(game);
+                      }}
 
-                  // style={{
-                  //   pointerEvents: gamePlayStatus ? "none" : "visible",
-                  //   cursor: gamePlayStatus ? "not-allowed" : "pointer",
-                  // }}
-                >
-                  <div className={style.Image}>
-                    <img src={game.featured_image.large} alt="" />
-                  </div>
-                  <div className={style.GameContent}>
-                    <div className={style.GameName}>
-                      <p>{game.title}</p>
-                    </div>
-                    <div className={style.TicketPrice}>
-                      <div
-                        className={style.Ticket}
-                        onClick={() => {
-                          setPopup(true);
-                        }}
-                      >
-                        <img src={assets.ticketIcon} alt="" />
+                      // style={{
+                      //   pointerEvents: gamePlayStatus ? "none" : "visible",
+                      //   cursor: gamePlayStatus ? "not-allowed" : "pointer",
+                      // }}
+                    >
+                      <div className={style.Image}>
+                        <img src={game.featured_image.large} alt="" />
                       </div>
+                      <div className={style.GameContent}>
+                        <div className={style.GameName}>
+                          <p>{game.title}</p>
+                        </div>
+                        <div className={style.TicketPrice}>
+                          <div
+                            className={style.Ticket}
+                            onClick={() => {
+                              setPopup(true);
+                            }}
+                          >
+                            <img src={assets.ticketIcon} alt="" />
+                          </div>
 
-                      <div className={style.Price}>
-                        <p>{game.price === "0" ? "FREE" : game.price}</p>
+                          <div className={style.Price}>
+                            <p>{game.price === "0" ? "FREE" : game.price}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                // </div>
-              );
+                    // </div>
+                  );
+                }
             })}
           </div>
         </div>
