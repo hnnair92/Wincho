@@ -29,6 +29,8 @@ import { AllAnimation } from "../../Animation/allAnimation";
 import { baseUrl } from "../url";
 import { music } from "../../assests/Musics/allMusic";
 import { updateProfile } from "../../actions/user";
+import NewLoader from "../NewLoader/NewLoader";
+
 
 const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const { id } = useParams();
@@ -898,7 +900,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         ""
       )}
       {loading ? (
-        <Loader />
+        <NewLoader />
       ) : (
         <div className={style.Games}>
           {topup ? (

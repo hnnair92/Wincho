@@ -841,7 +841,7 @@ overflow-y: scroll;
 }
 .addressPopup{
     position: fixed;
-    z-index: 9999;
+    z-index: 99999;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -855,7 +855,6 @@ overflow-y: scroll;
     align-items: center;
     /* width: fit-content; */
     /* position: absolute; */
-    z-index: 9999;
     width: 20%;
     top: 50%;
     left: 50%;
@@ -1204,6 +1203,10 @@ overflow-y: scroll;
        left: 7.5%;
        transform: translate(-25%,60%);
        }
+       .BottomMenuIcon:nth-child(3){
+        width: 10.75%;
+        margin-top: 5px;
+     }
 }
 @media(max-width:712px){
     .MLogo{

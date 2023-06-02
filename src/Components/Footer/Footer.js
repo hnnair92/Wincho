@@ -156,7 +156,7 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                         }
                     }}>Prizes</li>
                     <li onClick={(e)=>{
-                        if(window.location.splitPath[1]!=="/"){
+                        if(window.location.split[1]!=="/"){
                         setIsAddress(true)
                         }
                         else{

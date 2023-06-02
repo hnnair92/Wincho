@@ -339,7 +339,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.status === true) {
+        if (data.data[0].valid === true) {
           postCodeCheck();
         }
         else{

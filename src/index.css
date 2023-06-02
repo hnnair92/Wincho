@@ -4,6 +4,10 @@
   src: url('./Fonts/drumshake_italic.otf');
 }
 @font-face {
+  font-family:bubbleGum;
+  src: url('./Fonts/Bubblegum.ttf');
+}
+@font-face {
   font-family: myraidproregular;
   src: url('./Fonts/myraidproregular.OTF');
 }

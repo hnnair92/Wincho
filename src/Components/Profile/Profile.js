@@ -516,7 +516,7 @@ async function playAudioBg() {
 
         </div>
             <form action="">
-            <p className={style.AddressTitle}>Update Password</p>
+            {/* <p className={style.AddressTitle}>Update Password</p> */}
               {/* <h1>Shipping Address</h1> */}
               <input
                 type="text"
