@@ -391,7 +391,7 @@
     .Categories{
         /* flex-wrap: wrap; */
         overflow-x: scroll;
-        justify-content: center;
+        justify-content: flex-start;
     }
 }
 

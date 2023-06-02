@@ -1352,7 +1352,8 @@ overflow-y: scroll;
 }
 @media screen and  (min-device-width: 1024px) and (orientation : landscape){
     .MLogo{
-        width: 6%;
+        width: 7%;
+        top: 3px;
     }
 }
 @media(max-width:1065px){
