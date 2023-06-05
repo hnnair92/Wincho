@@ -31,6 +31,7 @@ import Success from "./Components/successPage/success";
 import Test from "./Components/Description/test";
 import ScrollToTop from "./scrollToTop";
 import { baseUrl } from "./Components/url";
+import Cookie from "./Components/Cookie/Cookie";
 // import { Socket } from 'socket.io-client';
 function App() {
   const dispatch = useDispatch()
@@ -164,6 +165,7 @@ useEffect(()=>{
           <Route path="/payment/success" element={<Success />} />
           <Route path="/payment/cancel" element={<Ticket />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/new/cookie" element={<Cookie/>} />
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
         <Footer userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>

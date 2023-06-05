@@ -380,7 +380,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: fit-content;
+    width: 20%;
 
     /* width: 15%; */
 }
@@ -395,7 +395,7 @@
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-60%);
 }
 .popupImage img{
     width: 100%;
@@ -486,8 +486,38 @@
 }
 .popupText form input,.popupText form textarea{
     margin: 6px 0px;
-    padding:10px 40px;
-    font-size: 2.5rem;
+    padding:10px 20px;
+    font-size: 2rem;
+}
+@media(max-width:1064px){
+    .popup{
+        width: 40%;
+    }
+    .popupText form input,.popupText form textarea{
+        margin: 6px 0px;
+        padding:10px 20px;
+        font-size: 2.5rem;
+    }
+}
+@media(max-width:768px){
+    .popup{
+        width: 45%;
+    }
+    .popupText form input,.popupText form textarea{
+        margin: 6px 0px;
+        padding:10px 20px;
+        font-size: 2rem;
+    }
+}
+@media(max-width:712px){
+    .popup{
+        width: 50%;
+    }
+    .popupText form input,.popupText form textarea{
+        margin: 6px 0px;
+        padding:10px 20px;
+        font-size: 2rem;
+    }
 }
 @media(max-width:599px){
     .ContactSection{

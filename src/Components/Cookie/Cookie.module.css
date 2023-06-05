@@ -1,0 +1,331 @@
+.first_container {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
+.second_container {
+  position: fixed;
+  bottom: 0;
+  background: #222;
+  color: #fff;
+  z-index: 10;
+  height: 80px;
+  width: 100%;
+}
+.cooki {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+  height: 100%;
+}
+.cooki_left p {
+  font-size: 2.25rem;
+}
+.cooki_left a {
+  color: #0080a4;
+}
+.cooki_right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+}
+.coocki_button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 130px;
+  flex-direction: row;
+  font-size: 2rem;
+  border: 1px solid #fff;
+  padding: 1rem;
+  border-radius: 2.5rem;
+  height: 45px;
+}
+.coocki_button button {
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  color: #fff;
+}
+.cooki_icon {
+  font-size: 2rem;
+}
+@media (max-width: 1065px) {
+  .second_container {
+    position: fixed;
+    bottom: 305px;
+    background: #222;
+    color: #fff;
+    z-index: 10;
+    height: 80px;
+    width: 100%;
+  }
+  .cooki {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    align-items: center;
+    height: 100%;
+  }
+  .cooki_left p {
+    font-size: 2.25rem;
+  }
+
+  .cooki_right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 130px;
+  }
+  .coocki_button {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 130px;
+    flex-direction: row;
+    font-size: 2rem;
+    border: 1px solid #fff;
+    padding: 1rem;
+    border-radius: 2.5rem;
+    height: 45px;
+  }
+  .coocki_button button {
+    border: none;
+    background: transparent;
+    font-size: 2rem;
+    color: #fff;
+  }
+}
+@media (max-width: 768px) {
+    .second_container {
+        position: fixed;
+        bottom: 150px;
+        background: #222;
+        color: #fff;
+        z-index: 10;
+        height: 80px;
+        width: 100%;
+      }
+      .cooki {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        align-items: center;
+        height: 100%;
+      }
+      .cooki_left p {
+        font-size: 2.25rem;
+      }
+    
+      .cooki_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 130px;
+      }
+      .coocki_button {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 130px;
+        flex-direction: row;
+        font-size: 2rem;
+        border: 1px solid #fff;
+        padding: 1rem;
+        border-radius: 2.5rem;
+        height: 45px;
+      }
+      .coocki_button button {
+        border: none;
+        background: transparent;
+        font-size: 2rem;
+        color: #fff;
+      }
+}
+@media (max-width: 767px) {
+    .second_container {
+        position: fixed;
+        bottom: 0;
+        background: #222;
+        color: #fff;
+        z-index: 10;
+        height: 80px;
+        width: 100%;
+      }
+      .cooki {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        align-items: center;
+        height: 100%;
+      }
+      .cooki_left p {
+        font-size: 2.25rem;
+      }
+    
+      .cooki_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 170px;
+      }
+      .coocki_button {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 130px;
+        flex-direction: row;
+        font-size: 2rem;
+        border: 1px solid #fff;
+        padding: 1rem;
+        border-radius: 2.5rem;
+        height: 45px;
+      }
+      .coocki_button button {
+        border: none;
+        background: transparent;
+        font-size: 2rem;
+        color: #fff;
+      }
+}
+@media (max-width: 599px) {
+    .second_container {
+        position: fixed;
+        bottom: 54px;
+        background: #222;
+        color: #fff;
+        z-index: 10;
+        height: 55px;
+        width: 100%;
+      }
+      .cooki {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0rem;
+        align-items: center;
+        height: 100%;
+      }
+      .cooki_left p {
+        font-size: 1.25rem;
+      }
+    
+      .cooki_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 85px;
+      }
+      .coocki_button {
+       
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 75px;
+    flex-direction: row;
+    font-size: 1.5rem;
+    border: 1px solid #fff;
+    padding: 0.5rem;
+    border-radius: 2.5rem;
+    height: 30px;
+      }
+      .coocki_button button {
+        border: none;
+        background: transparent;
+        font-size: 1rem;
+        color: #fff;
+      }
+}
+@media (max-width: 280px) {
+    .second_container {
+        position: fixed;
+        bottom: 45px;
+        background: #222;
+        color: #fff;
+        z-index: 10;
+        height: 45px;
+        width: 100%;
+      }
+      .cooki {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 0rem;
+        align-items: center;
+        height: 100%;
+      }
+      .cooki_left p {
+        font-size: 1.25rem;
+      }
+    
+      .cooki_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90px;
+      }
+      .coocki_button {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 70px;
+        flex-direction: row;
+        font-size: 1.5rem;
+        border: 1px solid #fff;
+        padding: 0.5rem;
+        border-radius: 2.5rem;
+        height: 30px;
+      }
+      .coocki_button button {
+        border: none;
+        background: transparent;
+        font-size: 1.25rem;
+        color: #fff;
+      }
+}
+@media screen and (max-device-width: 1024px) and (orientation: landscape) {
+    .second_container {
+        position: fixed;
+        bottom: 95px;
+        background: #222;
+        color: #fff;
+        z-index: 10;
+        height: 80px;
+        width: 100%;
+      }
+      .cooki {
+        display: flex;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        align-items: center;
+        height: 100%;
+      }
+      .cooki_left p {
+        font-size: 2.25rem;
+      }
+    
+      .cooki_right {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 120px;
+      }
+      .coocki_button {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 120px;
+        flex-direction: row;
+        font-size: 2rem;
+        border: 1px solid #fff;
+        padding: 1rem;
+        border-radius: 2.5rem;
+        height: 45px;
+      }
+      .coocki_button button {
+        border: none;
+        background: transparent;
+        font-size: 2rem;
+        color: #fff;
+      }
+}

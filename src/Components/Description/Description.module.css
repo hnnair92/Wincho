@@ -1413,6 +1413,7 @@ video {
     }
     .videoStarting .LoaderDivSection p{
         font-size: 3.5rem;
+        margin-top: 4rem;
     }
 }
 .HowToPlayOverlay{

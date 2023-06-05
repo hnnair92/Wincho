@@ -1204,8 +1204,8 @@ overflow-y: scroll;
        transform: translate(-25%,60%);
        }
        .BottomMenuIcon:nth-child(3){
-        width: 10.75%;
-        margin-top: 5px;
+        width: 10%;
+        margin-top: 2rem;
      }
 }
 @media(max-width:712px){
