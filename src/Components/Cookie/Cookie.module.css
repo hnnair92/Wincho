@@ -55,7 +55,7 @@
 @media (max-width: 1065px) {
   .second_container {
     position: fixed;
-    bottom: 305px;
+    bottom: 9.5%;
     background: #222;
     color: #fff;
     z-index: 10;
@@ -101,7 +101,7 @@
 @media (max-width: 768px) {
     .second_container {
         position: fixed;
-        bottom: 150px;
+        bottom: 9.5%;
         background: #222;
         color: #fff;
         z-index: 10;

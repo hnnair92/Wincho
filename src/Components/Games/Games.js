@@ -548,7 +548,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       <audio ref={audioRef}></audio>
       {/* <div className={style.Section}> */}
       {}
-      <div className={style.Categories}>
+      {/* <div className={style.Categories}> */}
+      <div className={`${style.Categories} ${searchIconStatus===true?style.MtabSearch:""}`}>
         <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`}>
           <div className={style.AllCategories}>
             {categories.map((categoryItem, index) => {
@@ -614,6 +615,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           </div>
           {/* <div className={style.MSearch}> */}
           <div
+            // className={`${style.MSearch} ${searchIconStatus===true?style.MtabSearch:""}`}
             className={style.MSearch}
             style={{
               backgroundColor:

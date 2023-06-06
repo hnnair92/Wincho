@@ -383,6 +383,7 @@
     .Popup{
         width: 35%;
     }
+   
 }
 @media(min-width:767px) and (max-width:1056px){
     .Games .Game{
@@ -393,6 +394,18 @@
         overflow-x: scroll;
         justify-content: flex-end;
     }
+    .Categories.MtabSearch{
+        justify-content: center;
+    }
+}
+@media(min-width:922px) and (max-width:1126px){
+   
+    .Categories{
+        /* flex-wrap: wrap; */
+        overflow-x: scroll;
+        justify-content: center;
+    }
+    
 }
 
 
