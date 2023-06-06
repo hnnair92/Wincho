@@ -74,7 +74,7 @@ import {
   
   export const registerAction = (data) => async (dispatch) => {
     console.log(data);
-    const deviceId = JSON.parse(localStorage.getItem("userId"))
+    const deviceId = JSON.parse(localStorage.getItem("deviceId"))
     const registerData = {
       username: data.username,
       email: data.email,

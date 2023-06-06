@@ -894,8 +894,8 @@ video{
 
 }
 .Bonus p{
-    font-size: 8rem;
-    font-family: drumshake_italic;
+    font-size: 5rem;
+    font-family:bubbleGum;
     color: #fff;
     -webkit-text-stroke: 2px #000;
 }
@@ -1054,13 +1054,18 @@ video{
         font-size: 1rem;
     }
 }
+@media(max-width:712px){
+    .BonusText p{
+        font-size: 3rem;
+    }
+}
 @media(max-width:599px){
     .CartEmptyText{
         width: 70%;
         font-size: 1.5rem;
     }
     .Bonus p{
-        font-size: 4.95rem;
+        font-size: 3rem;
         
     }
     .BonusText{

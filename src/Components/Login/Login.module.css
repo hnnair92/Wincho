@@ -154,6 +154,12 @@
 .EmailInput{
     text-align: center;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 .loginError{
     text-align: left;
     margin-right: auto;

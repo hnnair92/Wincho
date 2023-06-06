@@ -194,6 +194,10 @@
     font-style: italic;
     margin: 0px auto;;
 }
+.Price{
+    font-family: bubblegum;
+    font-weight: normal;
+}
 .infoIcon{
     width: 4rem;
 }
@@ -814,8 +818,8 @@
 
 }
 .Bonus p{
-    font-size: 8rem;
-    font-family: drumshake_italic;
+    font-size: 5rem;
+    font-family: bubbleGum;
     color: #fff;
     -webkit-text-stroke: 2px #000;
 }
@@ -916,7 +920,7 @@
 }
 @media(max-width:768px){
     .Bonus{
-        width: 60%;
+        width: 40%;
     }
 
     .Bonus p{
@@ -1123,16 +1127,42 @@
         font-size: 1rem;
     }
 }
+@media(max-width:712px){
+    .Bonus p{
+        font-size: 5rem;
+        text-align: end;
+    }
+    .BonusText p{
+        font-size: 3rem;
+    }
+    .Price{
+        font-size: 2.5rem;
+    }
+}
 @media(max-width:599px){
     .Bonus p{
-        font-size: 4.95rem;
+        font-size: 3rem;
         /* text-align: center; */
     }
     .BonusText{
         margin: 0px 10px;
     }
     .Bonus{
-        width: 40%;
+        width: 30%;
+    }
+    .BonusText p{
+        font-size: 1.75rem;
+    }
+}
+@media(max-width:280px){
+    .Bonus{
+        width: 30%;
+    }
+    .BonusText p{
+        font-size: 1.5rem;
+    }
+    .Bonus p{
+        font-size: 2rem;
     }
 }
 @media(max-width:1065) and (min-width:765px){

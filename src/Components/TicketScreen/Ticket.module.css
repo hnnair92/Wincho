@@ -395,8 +395,8 @@
 
 }
 .Bonus p{
-    font-size: 8rem;
-    font-family: drumshake_italic;
+    font-size: 5rem;
+    font-family: bubbleGum;
     color: #fff;
     -webkit-text-stroke: 2px #000;
 }
@@ -611,7 +611,7 @@
         font-size: 1.75rem;
     }
     .Bonus p{
-        font-size: 4.5rem;
+        font-size: 3rem;
         
     }
     .BonusText{

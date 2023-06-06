@@ -637,8 +637,8 @@ video {
 .GameScore span {
     position: absolute;
     top: 50%;
-    font-size: 7rem;
-    font-family: drumshake_italic;
+    font-size: 4.5rem;
+    font-family: bubbleGum;
     color: #000;
     -webkit-text-stroke: 1px #fff;
     left: 50%;
@@ -875,6 +875,9 @@ video {
     .GameScreen{
         margin-top: 4.25rem;
     }
+    .GameScore span{
+        font-size: 4.75rem;
+    }
 }
 
 @media(max-width:768px) {
@@ -894,6 +897,9 @@ video {
     }
     .GameScreen{
         margin-top: 4rem;
+    }
+    .GameScore span{
+        font-size: 4.5rem;
     }
 }
 @media(max-width:767px) {
@@ -1011,7 +1017,7 @@ video {
     }
 
     .GameScore span {
-        font-size: 7rem;
+        font-size: 4.5rem;
         color: #000;
         -webkit-text-stroke: 1px #fff;
     }
@@ -1070,7 +1076,7 @@ video {
         padding: 5px 0;
     }
     .GameScore span {
-        font-size: 3rem;
+        font-size: 2.5rem;
         -webkit-text-stroke: 1px #fff;
     }   
 
@@ -1565,5 +1571,20 @@ video {
     }
     .VideoOverlay{
         transform: translate(-5%,-50%);
+    }
+}
+@media(max-width:280px){
+    .videoStarting .LoaderDivSection p{
+        font-size: 1.5rem;
+      padding-top: 5px;
+      margin-top: 1rem;
+    }
+    .Camera button,
+    .PrizeReset button,
+    .LastWin button {
+        width:6rem;
+    }
+    .Report button{
+        width: 6rem;
     }
 }

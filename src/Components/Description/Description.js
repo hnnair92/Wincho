@@ -331,14 +331,13 @@ const Description = ({
   const [videoGot, setVideoGot] = useState(false);
   const [checkPlayArray, setCheckPlayArray] = useState([]);
   const [isUserFocus,setIsUserFocus] = useState("")
-  // Redux UseSelectors
+
   const { game, loading } = useSelector((state) => state.gameEntry);
   const { user } = useSelector((state) => state.profile);
   const { configuration } = useSelector((state) => state.configuration);
   const { products } = useSelector((state) => state.collectionProducts);
   const token = JSON.parse(localStorage.getItem("token"))
 
-  //   sockets
   useEffect(()=>{
     if(GameData&&GameData.category){
       const datas = GameData.category.split(",")
@@ -352,13 +351,6 @@ const Description = ({
   useEffect(()=>{
     console.log(exitPopupOpen)
   },[exitPopupOpen])
-  // useEffect(() => {
-  //   console.log(isUserFocus);
-  //   if(isUserFocus==="FOCUS"){
-  //     clearTimeout()
-  //   }
-  //   else if(is)
-  // }, [isUserFocus])
   useEffect(() => {
     checkFreePlay();
     socket.on("connect", () => {
@@ -373,8 +365,6 @@ const Description = ({
       })
     );
     if (game) {
-      // setDirection(game.movement.split("-"))
-      // console.log(game)
       checkAnime();
     }
   }, []);
@@ -429,10 +419,7 @@ const Description = ({
       
   }
     if(userId===undefined||userId==="undefined"){
-      // localStorage.setItem("user",JSON.stringify(milliseconds*utc))
-      // if(userId===undefined){
         localStorage.removeItem("user")
-      // }
       dispatch(registerAction(userRegAnom))
     dispatch(updateProfile())
       
@@ -557,16 +544,10 @@ const Description = ({
       console.log(userId===user[1])
       if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
         console.log(prizeCount);
-        // if(userId===user){
           setPrizeDate(data)
           setPlayAgain(false);
-          // if(cartCheck===true){
-          // }
-        // }
       }
       if (data === "PRIZE_LOST" && GameData.machine_code === splitId[1]) {
-        // setPlayAgain(true);
-        // return addToCart();
       }
       if (
         data === "RH_POSITION_CHANGED" &&
@@ -585,42 +566,13 @@ const Description = ({
         );
         if(user[1]===userId){
           console.log(user[1])
-          // if(que==="0"){
-            // setPrizeID(user[1])
             console.log(prizeCount)
           console.log(count,"count from prize move")
-          // }
-
-        // setCurrentPrizeMove(false);
-        // if(que==="0"&&gamePlayStatus===false){
-        // setGamePlayStatus(true)
-        // setWait(true)
-        // setQue("0")
         setHideEverything(true)
         setPlayAgain(true)
         setCount(count=>count+1)
-        // }
-        //   setGamePlayStatus(true);
-        //   setGamePlay(true);
-        //   setWait(true);
-        //   socket.emit(
-        //     "socket_connect",
-        //     JSON.stringify({
-        //       user_id: userId,
-        //       socket_id: socket.id,
-        //       machineCode: GameData.machine_code,
-        //     })
-        //   );
-        //   let message = `${baseMessage}|P_RESTARTED`;
-        //   socket.emit("peer_message", message);
-        //   message = `${baseMessage}|G_CONNECTED`;
-        //   socket.emit("peer_message", message);
-        //     console.log(currentPrizeMove)
-        // setPlayAgain(true)
         console.log(que,"que from prize move")
-          // gameStart()
         }
-        // :UK|M:UK-WH1-NID1-101|PRIZE_WON
       }
       console.log(res);
     });
@@ -632,31 +584,6 @@ useEffect(()=>{
   console.log(viewCount)
 },[viewCount])
   let EntryRequest = {};
-
-  // Redux Dispatch and React UseEffect
-  //   useEffect(() => {
-  //     // console.log(location.pathname.split("/")[1])
-  //     // console.log(location)
-  //     // define increment counter part
-  //     if(location.pathname.split("/")[1]){
-
-  //         const tabsOpen = localStorage.getItem('tabsOpen')
-  //         console.log('tabsOpen', tabsOpen)
-  //         if (tabsOpen == null) {
-  //             localStorage.setItem('tabsOpen', 1)
-  //         } else {
-  //             localStorage.setItem('tabsOpen', parseInt(tabsOpen) + parseInt(1))
-  //         }
-
-  //         // define decrement counter part
-  //         window.onunload = function (e) {
-  //             const newTabCount = localStorage.getItem('tabsOpen')
-  //             if (newTabCount !== null) {
-  //                 localStorage.setItem('tabsOpen', newTabCount - 1)
-  //             }
-  //         }
-  //     }
-  // }, [location])
   useEffect(() => {
     console.log(videoGot, "video got in description");
   }, [videoGot]);

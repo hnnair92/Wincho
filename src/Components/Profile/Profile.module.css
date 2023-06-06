@@ -1107,8 +1107,8 @@
 
 }
 .Bonus p{
-    font-size: 8rem;
-    font-family: drumshake_italic;
+    font-size: 5rem;
+    font-family: bubbleGum;
     color: #fff;
     -webkit-text-stroke: 2px #000;
 }
@@ -1204,7 +1204,7 @@
 }
 @media(max-width:768px){
     .Bonus{
-        width: 60%;
+        width: 30%;
     }
 
     .Bonus p{
@@ -1251,7 +1251,7 @@
         font-size: 5rem;
     }
     .BonusText p{
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
     .SubscribeButton button{
         font-size: 1.75rem;
@@ -1268,15 +1268,42 @@
         width: 30%;
     }
     .Bonus p{
-        font-size: 4.95rem;
+        font-size: 3rem;
         
     }
     .BonusText{
         margin: 0px 10px;
     }
-    .info{
-
+    .BonusText p{
+        font-size: 1.5rem;
     }
+    .myDetails .Password .InputSection img{
+        width: 8.5%;
+    }
+}
+@media(max-width:280px){
+    .Bonus p{
+        font-size: 2rem;
+        
+    }
+    .editAddress{
+        width: 40rem;
+        top: 0;
+    }
+    .editAddress form input{
+        font-size: 1.75rem;
+        height: 4rem;
+        margin: 1rem 0;
+    }
+    .Address .InputSection img{
+        width: 3.5%;
+        right: 13%;
+    }
+    .Shipping .Phone .InputSection img{
+        width: 9.5%;
+        margin-left: 2px;
+    }
+
 }
 .AddressTitle{
     font-family: "Poppins";
