@@ -8,8 +8,8 @@
   bottom: 0;
   background: #222;
   color: #fff;
-  z-index: 10;
-  height: 80px;
+  z-index: 1000000;
+  height: 70px;
   width: 100%;
 }
 .cooki {
@@ -20,7 +20,7 @@
   height: 100%;
 }
 .cooki_left p {
-  font-size: 2.25rem;
+  font-size: 2rem;
 }
 .cooki_left a {
   color: #0080a4;
@@ -35,13 +35,13 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 130px;
+  width: 115px;
   flex-direction: row;
   font-size: 2rem;
   border: 1px solid #fff;
   padding: 1rem;
   border-radius: 2.5rem;
-  height: 45px;
+  height: 40px;
 }
 .coocki_button button {
   border: none;
@@ -55,10 +55,10 @@
 @media (max-width: 1065px) {
   .second_container {
     position: fixed;
-    bottom: 9.5%;
+    bottom: 9%;
     background: #222;
     color: #fff;
-    z-index: 10;
+    z-index: 1000000;
     height: 80px;
     width: 100%;
   }
@@ -104,7 +104,7 @@
         bottom: 9.5%;
         background: #222;
         color: #fff;
-        z-index: 10;
+        z-index: 1000000;
         height: 80px;
         width: 100%;
       }
@@ -150,7 +150,7 @@
         bottom: 0;
         background: #222;
         color: #fff;
-        z-index: 10;
+        z-index: 1000000;
         height: 80px;
         width: 100%;
       }
@@ -196,7 +196,7 @@
         bottom: 54px;
         background: #222;
         color: #fff;
-        z-index: 10;
+        z-index: 1000000;
         height: 55px;
         width: 100%;
       }
@@ -243,7 +243,7 @@
         bottom: 45px;
         background: #222;
         color: #fff;
-        z-index: 10;
+        z-index: 1000000;
         height: 45px;
         width: 100%;
       }
@@ -286,10 +286,10 @@
 @media screen and (max-device-width: 1024px) and (orientation: landscape) {
     .second_container {
         position: fixed;
-        bottom: 95px;
+        bottom: 16.5%;
         background: #222;
         color: #fff;
-        z-index: 10;
+        z-index: 1000000;
         height: 80px;
         width: 100%;
       }

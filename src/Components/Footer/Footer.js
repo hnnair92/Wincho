@@ -156,23 +156,25 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                         }
                     }}>Prizes</li>
                     <li onClick={(e)=>{
-                        if(window.location.split[1]!=="/"){
-                        setIsAddress(true)
+                      setPageUrl("prizes")
+                        if(splitPath[1]!==""){
+                          if(splitPath[1]==="game"){
+                            setActive(true)
+                            }
+                            else{
+                              setIsAddress(true)
+                            }
                         }
                         else{
                         // handleId(e,"support")
                         // setPageUrl("/")
                         {
-
-                          if(splitPath[1]==="game"){
-                          setActive(true)
-                              }
                         // }
                               // setPageUrl("/")
                             // if(gamePlay===true){
-                              if(splitPath[1]==="game"){
-                          setActive(true)
-                              }
+                          //     if(splitPath[1]==="game"){
+                          // setActive(true)
+                          //     }
                         // }
                         if(gamePlay===false&&userJoined===false&&splitPath[1]!=="game"){
 

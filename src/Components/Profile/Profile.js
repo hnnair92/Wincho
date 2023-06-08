@@ -13,6 +13,7 @@ import { configutation } from "../../actions/product";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../Description/assests";
 import eye from "../../assests/Password Eye.png";
+import Loader from "../NewLoader/NewLoader";
 import info from "../../assests/Information Icon.png";
 import icon from "../../assests/Wincha Support Icon.png";
 import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png"
@@ -126,6 +127,7 @@ async function playAudioBg() {
   const [allState, setAllState] = useState([]);
   const [postcodetrue, setPostcodeTrue] = useState(false);
   const [phonenumber,setPhonenumber]=useState(false)
+  
   const [addressObj, setAddressObj] = useState({
     line1: "",
     line2: "",
@@ -203,7 +205,12 @@ async function playAudioBg() {
       setCheckMail(true)
     }
   },[resendLocal,user])
-  const [loading,setLoading] = useState(false)
+  const [loading,setLoading] = useState(true)
+  useEffect(()=>{
+    setTimeout(()=>{
+      setLoading(false)
+    },3000)
+  },[])
   async function resendEmailApi(){
     setLoading(true)
     await fetch(`${baseUrl}/user/verification/resend`, {
@@ -360,7 +367,9 @@ async function playAudioBg() {
   }
   return (
     <div className={style.Container}>
+
       <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
+      {loading?<Loader/>:
       <div className={style.Profile} onClick={()=>{
         console.log(resendLocal)
         console.log(user && user.profile_status===false&&checkMail===false&&resendLocal===false||resendLocal===undefined,"chekcing intense")
@@ -928,6 +937,9 @@ async function playAudioBg() {
         ) : (
           ""
         )}
+            {/* {loading?
+          <Lottie animationData={AllAnimation.Loader}/>
+          :""} */}
         <div className={style.ProfileContent}>
           <div className={style.ProfileImage}>
             <img src={profile} alt="" />
@@ -1183,6 +1195,7 @@ async function playAudioBg() {
           </div>
         </div>
       </div>
+      }
     </div>
   );
 };

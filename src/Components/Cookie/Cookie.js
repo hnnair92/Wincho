@@ -2,21 +2,19 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-
 import style from "./Cookie.module.css";
 import { TiTick } from "react-icons/ti";
 import { Link } from "react-router-dom";
 
 const Cookie = () => {
-  const [showCookieBanner, setShowCookieBanner] = useState(true);
+  const [showCookieBanner, setShowCookieBanner] = useState(false);
 
   const { configuration } = useSelector((state) => state.configuration);
 
-
   useEffect(() => {
     const consentCookie = localStorage.getItem("cookie_consent");
-    if (consentCookie === "true") {
-      setShowCookieBanner(false);
+    if (consentCookie !== "true") {
+      setShowCookieBanner(true);
     }
   }, []);
 

@@ -759,6 +759,16 @@
        
     }
 }
+@media(max-width:768px){
+    .notificationBadge{
+   
+        font-size: 2rem;
+        width: 3.25rem;
+        height: 3.25rem;
+        right: 0;
+        margin-bottom: 5rem;
+    }
+}
 @media(max-width:765px){
     .MobileMenu .Menu{
         padding: 0;

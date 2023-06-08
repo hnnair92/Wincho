@@ -40,6 +40,7 @@
     margin-right: auto;
     margin: 25px;
     color: #2d2d2d !important;
+    -webkit-text-fill-color: #2d2d2d;
 
 
 }
@@ -83,6 +84,7 @@
     background-color: transparent;
     border:none;
     outline:none;
+    color: #2d2d2d;
     
 }
 .SingleFaqs{
@@ -113,6 +115,7 @@
     font-size: 3.2rem;
     text-align: left;
     cursor: auto;
+    color: #2d2d2d;
 }
 .FaqQuestion svg{
     font-size: 4rem;

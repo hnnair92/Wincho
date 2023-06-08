@@ -684,14 +684,18 @@ const Header = ({
                             console.log("home")
                           }
                           else{
-                            if(isAddress==true){
+                            if(window.location.pathname.split("/")[1]==="game"){
+                              setActive(true)
+                            }
+                            else{
+                              if(isAddress==true){
                               setIsAddress(false)
                             }
                             else{
                               setToggle(false);
                               setIsAddress(true)
                             }
-                          
+                            }
 
                           }
                           

@@ -28,7 +28,7 @@ import Lottie from "lottie-react";
 import { AllAnimation } from "../../Animation/allAnimation";
 import { baseUrl } from "../url";
 import { music } from "../../assests/Musics/allMusic";
-import { updateProfile } from "../../actions/user";
+import { registerAction, updateProfile } from "../../actions/user";
 import NewLoader from "../NewLoader/NewLoader";
 
 
@@ -38,7 +38,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const state = location.state;
   const audioRef = useRef(null);
   const token = JSON.parse(localStorage.getItem("token"));
-
+  const buttonRef = useRef(null)
+  const button2Ref = useRef(null)
   let audioStatus = localStorage.getItem("sound");
   //   const baseUrl = "https://uat.wincha-online.com"
   // // const baseUrl = "https://uat.wincha-online.com";
@@ -448,6 +449,70 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     // console.log(user&&user.username.length)
     console.log("hello world!");
   });
+  const deviceId = JSON.parse(localStorage.getItem("deviceId"))
+  const newDate = new Date()
+  const month = newDate.getMonth()
+  const year = newDate.getFullYear()
+  const date = newDate.getDate()
+  const day = newDate.getDay()
+  const CustomDate = new Date(year,month+1,0)
+  const lastDateOfTheMonth = CustomDate.getDate()
+  const utc = newDate.getUTCMilliseconds()
+  const milliseconds = newDate.getTime()
+  useEffect(()=>{
+    if(deviceId===null){
+      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+    }
+  })
+  useEffect(()=>{
+    const userRegAnom = {
+      username:"",
+      email:"",
+      password:"",
+      dob:"",
+      country:"",
+      state:"",
+      countrycode:configuration&&configuration.COUNTRY_CODE,
+      countryname:configuration&&configuration.COUNTRY_NAME,
+      user_type:"anonymous",
+      device_id:deviceId?deviceId:""
+      
+  }
+    if(userId===null){
+      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+      if(userId===undefined){
+        localStorage.removeItem("user")
+      }
+      dispatch(registerAction(userRegAnom))
+      dispatch(updateProfile())
+    }
+    dispatch(updateProfile())
+
+  },[userId])
+  useEffect(()=>{
+    console.log(userId)
+    const userRegAnom = {
+      username:"",
+      email:"",
+      password:"",
+      dob:"",
+      country:"",
+      state:"",
+      countrycode:configuration.COUNTRY_CODE,
+      countryname:configuration.COUNTRY_NAME,
+      user_type:"anonymous",
+      device_id:deviceId?deviceId:""
+      
+  }
+    if(userId===undefined||userId==="undefined"){
+        localStorage.removeItem("user")
+      dispatch(registerAction(userRegAnom))
+    dispatch(updateProfile())
+      
+    }
+    dispatch(updateProfile())
+  },[userId])
+
   const categories = [
     {
       title: "Free",
@@ -555,8 +620,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             {categories.map((categoryItem, index) => {
               return (
                 <button
+                // ref={category?.toLowerCase() ===
+                //     categoryItem?.value?.toLowerCase()?buttonRef:button2Ref}
                   key={index}
                   value={categoryItem.value}
+
                   className={
                     category?.toLowerCase() ===
                     categoryItem?.value?.toLowerCase()
@@ -564,6 +632,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                       : style.category
                   }
                   onClick={(e) => {
+                    console.log(e)
                     playAudio(music.Pop);
                     if (searchArray.length > 0) {
                       setCategory("");
@@ -904,7 +973,56 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {loading ? (
         <NewLoader />
       ) : (
-        <div className={style.Games}>
+        <div className={style.Games} onTouchStart={()=>{
+          console.log("started")
+          console.log(window)
+        }}  onTouchMove={(e)=>{
+          // console.log("Move")
+          // console.log(categories[0].value)
+          // console.log(category)
+          // console.log(e.targetTouches[0].screenX)
+          const categoryIndex = categories.findIndex(
+            (item)=>item.value === category
+            
+            );
+          if(e.targetTouches[0].screenX>350){
+            console.log(e.targetTouches[0].screenX)
+            // categories.findIndex((item)=>{
+            //   console.log(item.value===category)
+            // })
+            if(categoryIndex<=0){
+              setCategory(categories[categories.length-1].value)
+            }
+            else{
+            setCategory(categories[categoryIndex-1].value)
+            }
+            buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
+            console.log(buttonRef.current.scrollIntoView()) 
+            console.log(buttonRef.current) 
+
+            
+          }
+          if(e.targetTouches[0].screenX<125){
+            console.log(e.targetTouches[0].screenX)
+
+            // setCategory("free")
+            if(categories.length-1===categoryIndex){
+              setCategory(categories[0].value)
+            }
+            else{
+              setCategory(categories[categoryIndex+1].value)
+            }
+            buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
+            console.log(buttonRef.current.scrollIntoView()) 
+            console.log(buttonRef.current) 
+
+          }
+          playAudio(music.Pop)
+          
+        }}  
+        onTouchEnd={()=>{
+          console.log("End")
+        }}>
           {topup ? (
             <div className={style.popup}>
               <div className={style.popupImage}>
