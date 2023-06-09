@@ -256,6 +256,34 @@ async function playAudioBg() {
         console.log(data)
       });
   }
+  async function vipPayment() {
+    const requestData = {
+      mode: "payment",
+      amount: parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
+      quantity: 1,
+      success_url: `${window.location.origin}/prizes`,
+      cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+      // "currency":"inr",
+      currency: configuration.CURRENCY_CODE,
+      product: "vip",
+      payment_mode: "vip",
+      user_id: userId,
+      credict_point: `${configuration.VIP_BONUS_POINT}`,
+    };
+    await fetch(`${baseUrl}/points/create-checkout-session`, {
+      method: "POST",
+      body: JSON.stringify(requestData),
+      headers: {
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.open(`${data.data[0].url}`);
+      });
+  }
   // const checkStateExits = (state, e) => {
   //   e.preventDefault();
   //   if (state.status === false) {
@@ -453,6 +481,7 @@ async function playAudioBg() {
                  if(userId===null){
                   return navigate("/login")
                 }
+                vipPayment();
                 }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
@@ -644,7 +673,7 @@ async function playAudioBg() {
             <div className={style.popupText}>
             <p>If you proceed with an account deletion,your account will be irreversibly
               deleted resulting in your data and any remaining credit being permanently and
-              immediately erased.Please remember to also turn off any in-app subscriptions in your device
+              immediately erased. Please remember to also turn off any in-app subscriptions in your device
               account settings that are associated with this app.
             </p>
             </div>
@@ -843,6 +872,12 @@ async function playAudioBg() {
                     ) : (
                       ""
                     )}
+            <input
+                type="text"
+                value={user?.coutryname || ""}
+                readOnly
+                placeholder="Country"
+              />
             {user.coutrycode === "44" ? (
               <input
                 type="text"
@@ -1082,6 +1117,12 @@ async function playAudioBg() {
                     ) : (
                       ""
                     )}
+                    <input
+                        type="text"
+                        value={user?.coutryname || ""}
+                        readOnly
+                        placeholder="Country"
+                      />
                     {/* <input type="text"  value={user?.county||""}readOnly placeholder="Country"/> */}
                     {user && user.coutryname === "UK" ? (
                       <input

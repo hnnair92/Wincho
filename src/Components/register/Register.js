@@ -275,10 +275,10 @@ const[passIcon,setPassIcon] = useState(false)
         <div className={style.Register}>
             
             <form className={style.form} onSubmit={handleRegister} autocomplete="off">
-                <input type="text" placeholder='username' required className={style.input} value={username} onChange={(e)=>{
+                <input type="text" placeholder='USERNAME' required className={style.input} value={username} onChange={(e)=>{
                     setUsername(e.target.value)
                 }}/>
-                {username.length<3&&username!==""?<p className={style.AgeRestrict}>Username should be greater than 3</p>:username.length>20?<p className={style.AgeRestrict}>Username Should be below 20</p>:""}
+                {username.length<0&&username!==""?<p className={style.AgeRestrict}>Username should be greater than 1</p>:username.length>20?<p className={style.AgeRestrict}>Username Should be below 20</p>:""}
                 <label htmlFor="">Date of Birth</label>
                 
                 <input type="date" placeholder='DOB' required name="" id=""  className={date?style.DataInput:style.hideDate} onChange={(e)=>{
@@ -325,7 +325,7 @@ const[passIcon,setPassIcon] = useState(false)
                                 setPassIcon(true)
                             }}/>
                         </div>
-                    <input type={passwordType} required placeholder='password' value={password} className={style.input} onChange={(e)=>{
+                    <input type={passwordType} required placeholder='PASSWORD' value={password} className={style.input} onChange={(e)=>{
                         setPassword(e.target.value)
                         console.log("lenght",password.length>7&&password.length<15)
                     }}/>
@@ -341,7 +341,7 @@ const[passIcon,setPassIcon] = useState(false)
                {/* {password.length<8&&password.length>15?<p>Enter Password More than 8 Words</p>:""} */}
                {/* {new String(password).length<8&&new String(password).length>15?<p>Enter Password More than 8 Words</p>:""} */}
                 <div className={style.password}>
-                    <input type="password" required placeholder='repeat password' className={style.input} onChange={(e)=>{
+                    <input type="password" required placeholder='REPEAT PASSWORD' className={style.input} onChange={(e)=>{
                         setConfirmPassword(e.target.value)
                     }}/>
                    
@@ -352,9 +352,9 @@ const[passIcon,setPassIcon] = useState(false)
                     }}/>} */}
                 </div>
                 <div className={style.CheckPassword}>
-                    {password===confirmPassword?"":<p className={style.AgeRestrict}>Password not matching</p>}
+                    {password===confirmPassword?"":<p className={style.AgeRestrict}>Passwords do not match</p>}
                 </div>
-                <input type="email" required placeholder='email' value={email} className={style.input} onChange={(e)=>{
+                <input type="email" required placeholder='EMAIL' value={email} className={style.input} onChange={(e)=>{
                     setEmail(e.target.value)
                 }}/>        
                 <div className={style.Terms}>
@@ -373,7 +373,7 @@ const[passIcon,setPassIcon] = useState(false)
                     }}>Privacy Policy</Link>.</p>
                 </div>
                 {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-                {eligible&&terms===true&&password===confirmPassword&&password.length>7&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>3&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
+                {eligible&&terms===true&&password===confirmPassword&&password.length>7&&password.length<15&&/\d/.test(password)&&/[A-Z]/.test(password)&&username.length>0&&username.length<20?<button type="submit" className={style.formBtn} >Confirm</button>:<button type="submit" className={style.btnDisabled} disabled>Confirm</button>}
                 
                 <div className={style.checkUser}>{error&&error.status==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div>
                 {/* <div className={style.checkUser}>{usernameExist.length>0&&usernameExist==="True"?"":usernameExist.length>0&&usernameExist==="False"?<p className={style.userInvaild}>{error&&error.description}</p>:""}</div> */}

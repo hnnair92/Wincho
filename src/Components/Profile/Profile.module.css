@@ -395,7 +395,7 @@
     transform: translate(-50%, -50%);
     border: 1rem solid #949393;
     border-radius: 20px;
-    background-color: #1b8fe7;
+    background-color: #0A84FE;
     padding: 1rem 1rem;
     display: flex;
     flex-direction: column;
@@ -807,10 +807,10 @@
         height: 5.5rem;
     }
     .info{
-        width: 13%;
+        width: 12%;
     }
     .eye{
-        width: 16%;
+        width: 15%;
     }
     .popup,.popupContent{
         width: 35rem;

@@ -1374,7 +1374,8 @@ overflow-y: scroll;
        margin-top: 5px;
     }
     .MLogo{
-        width: 10%;
+        width: 11%;
+        transform: translate(-27%,50%);
     }
 }
 @media(max-width:280px){

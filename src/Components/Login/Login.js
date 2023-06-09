@@ -166,7 +166,7 @@ const Login = () => {
                 id="Username"
                 value={username}
                 className={style.email}
-                placeholder="Username"
+                placeholder="USERNAME"
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
@@ -189,7 +189,7 @@ const Login = () => {
                 id="password"
                 className={style.passwordInput}
                 value={password}
-                placeholder="password"
+                placeholder="PASSWORD"
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}

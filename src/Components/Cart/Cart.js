@@ -281,19 +281,22 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       });
   }
   async function vipPayment() {
+    const requestData = {
+      mode: "payment",
+      amount: parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
+      quantity: 1,
+      success_url: `${window.location.origin}/prizes`,
+      cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+      // "currency":"inr",
+      currency: configuration.CURRENCY_CODE,
+      product: "vip",
+      payment_mode: "vip",
+      user_id: userId,
+      credict_point: `${configuration.VIP_BONUS_POINT}`,
+    };
     await fetch(`${baseUrl}/points/create-checkout-session`, {
       method: "POST",
-      body: JSON.stringify({
-        mode: "payment",
-        amount: parseFloat(configuration.VIP_SUBSCRIPTION) * 100,
-        quantity: 1,
-        currency: configuration.CURRENCY_CODE,
-        product: "Vip",
-        success_url:
-          "http://localhost:3000/payment/success/?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url:
-          "http://localhost:3000/payment/cancel/?session_id={CHECKOUT_SESSION_ID}",
-      }),
+      body: JSON.stringify(requestData),
       headers: {
         "Content-Type":"application/json",
                     "access-token":`${token}`,
@@ -939,10 +942,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         <div className={style.Carts}>
         {loading===false?
 
-          userId!==null&&user&&user.username!==""?(cartData.length<1? <p className={style.CartEmptyText}>  Your Basket is Currently Empty” 
+          userId!==null&&user&&user.username!==""?(cartData.length<1? <p className={style.CartEmptyText}>  Your Basket is Currently Empty 
             
-            </p>:''): <p className={style.CartEmptyText}>  Please sign in to see what prizes you have to ship” 
-            
+            </p>:''): <p className={style.CartEmptyText}>  Your Basket is Currently Empty
             </p>
         :""}
           {/* {cartData.length < 1 ? (
@@ -1161,8 +1163,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             </div>
             <div className={style.popupText}>
               <p>
-                Woah! You're cart is empty, <br />
-                Play Some Games
+              Your Basket is Currently Empty
               </p>
             </div>
             <div className={style.ReportPopupButton}>

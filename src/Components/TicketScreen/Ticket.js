@@ -565,7 +565,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 setPremiumPopup(true);
               }}
             >
-              {configuration.CURRENCY_SYMBOL} {configuration.VIP_SUBSCRIPTION} /{" "}
+              {configuration.CURRENCY_SYMBOL}{configuration.VIP_SUBSCRIPTION} /{" "}
               {configuration.VIP_SUBSCRIPTION_PERIOD}
             </button>
           </div>

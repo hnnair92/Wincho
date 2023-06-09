@@ -90,11 +90,11 @@ const Description = ({
   const deviceId = JSON.parse(localStorage.getItem("deviceId"))
   // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))?JSON.parse(localStorage.getItem("checkPlay")):[]
   // const checkUserArray = JSON.parse(localStorage.getItem("checkPlay"))?JSON.parse(localStorage.getItem("checkPlay")):[]
-  // useEffect(()=>{
-  //   if(deviceId===null){
-  //     localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
-  //   }
-  // })
+  useEffect(()=>{
+    if(deviceId===null){
+      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+    }
+  })
   const [animeStopStatus,setAnimeStopStatus] = useState(false)
   useEffect(()=>{
     if(animeStatus===null||animeStatus===undefined||animeStatus==="undefined"){
@@ -378,54 +378,54 @@ const Description = ({
       navigate("/login")
     }
   },[])
-  // useEffect(()=>{
-  //   const userRegAnom = {
-  //     username:"",
-  //     email:"",
-  //     password:"",
-  //     dob:"",
-  //     country:"",
-  //     state:"",
-  //     countrycode:configuration&&configuration.COUNTRY_CODE,
-  //     countryname:configuration&&configuration.COUNTRY_NAME,
-  //     user_type:"anonymous",
-  //     device_id:deviceId?deviceId:""
+  useEffect(()=>{
+    const userRegAnom = {
+      username:"",
+      email:"",
+      password:"",
+      dob:"",
+      country:"",
+      state:"",
+      countrycode:configuration&&configuration.COUNTRY_CODE,
+      countryname:configuration&&configuration.COUNTRY_NAME,
+      user_type:"anonymous",
+      device_id:deviceId?deviceId:""
       
-  // }
-  //   if(userId===null){
-  //     localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
-  //     if(userId===undefined){
-  //       localStorage.removeItem("user")
-  //     }
-  //     dispatch(registerAction(userRegAnom))
-  //     dispatch(updateProfile())
-  //   }
-  //   dispatch(updateProfile())
+  }
+    if(userId===null){
+      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+      if(userId===undefined){
+        localStorage.removeItem("user")
+      }
+      dispatch(registerAction(userRegAnom))
+      dispatch(updateProfile())
+    }
+    dispatch(updateProfile())
 
-  // },[userId])
-  // useEffect(()=>{
-  //   console.log(userId)
-  //   const userRegAnom = {
-  //     username:"",
-  //     email:"",
-  //     password:"",
-  //     dob:"",
-  //     country:"",
-  //     state:"",
-  //     countrycode:configuration.COUNTRY_CODE,
-  //     countryname:configuration.COUNTRY_NAME,
-  //     user_type:"anonymous",
-  //     device_id:deviceId?deviceId:""
+  },[userId])
+  useEffect(()=>{
+    console.log(userId)
+    const userRegAnom = {
+      username:"",
+      email:"",
+      password:"",
+      dob:"",
+      country:"",
+      state:"",
+      countrycode:configuration.COUNTRY_CODE,
+      countryname:configuration.COUNTRY_NAME,
+      user_type:"anonymous",
+      device_id:deviceId?deviceId:""
       
-  // }
-  //   if(userId===undefined||userId==="undefined"){
-  //       localStorage.removeItem("user")
-  //     dispatch(registerAction(userRegAnom))
-  //   dispatch(updateProfile())
+  }
+    if(userId===undefined||userId==="undefined"){
+        localStorage.removeItem("user")
+      dispatch(registerAction(userRegAnom))
+    dispatch(updateProfile())
       
-  //   }
-  //   dispatch(updateProfile())
-  // },[userId])
+    }
+    dispatch(updateProfile())
+  },[userId])
 
   useEffect(()=>{
     console.log(parseInt(configuration.GamePlayCount))
@@ -2451,9 +2451,9 @@ useEffect(()=>{
              
               const randomNumber = Math.random() * (products.length-0) + 0
                   console.log(randomNumber)
-              {/* if(randomNumber === index){ 
+              if(randomNumber === index){ 
                   console.log(index)
-                  console.log(randomNumber) */}
+                  console.log(randomNumber)
                   return (
                     // <div
                     //   to={`/game/${game.id}`}
@@ -2500,7 +2500,7 @@ useEffect(()=>{
                     </div>
                     // </div>
                   );
-                {/* } */}
+                }
             })}
           </div>
         </div>
@@ -3309,7 +3309,7 @@ useEffect(()=>{
                                 </div>
                               </div>
                             ) : (
-                            <img src={waitStatic} alt="" />
+                              ""
                             )
                           ) : game.camera_data[0].camera_id === "2" ? (
                             direction && direction[1] === "Right" ? (
@@ -3568,7 +3568,7 @@ useEffect(()=>{
                                 </div>
                               </div>
                             ) : (
-                             <img src={waitStatic} alt="" />
+                              ""
                             )
                           ) : (
                             <button>

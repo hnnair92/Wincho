@@ -7,11 +7,11 @@
     align-items: center;
 }
 .Loader{
-    width: 150px;
-    height: 200px;
-    /* border-bottom: 2px solid #000; */
-    border-radius: 50%;
-    /* animation: loader 500ms linear infinite; */
+    width: 13rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
 }
     /* animation: name duration timing-function delay iteration-count direction fill-mode; */
 /* }

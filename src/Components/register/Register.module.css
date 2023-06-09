@@ -112,19 +112,24 @@ input:-webkit-autofill:active{
     font-family: "Poppins";
     width: 100%;
     font-size: 2.1rem;
-    /* height: 1rem; */
-    padding: 1.1rem 2.32rem;
+    padding: 0rem 2.32rem;
     text-align: left;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
     border:.3rem solid gray;
 }
 .password .input{
-    border: none;
-    padding: 0;
-    height: 100%;
-    outline: none;
-    margin: 0;
+    width: 100%;
+height: 100%;
+border: none;
+outline: none;
+font-family: "Poppins";
+font-size: 3rem;
+background-color: #fff;
+/* padding: 1.13rem 2.26rem; */
+text-align: center;
+border-radius: 1.13rem;
+margin: 1.13rem 0;
     
 }
 .input{
@@ -643,9 +648,10 @@ box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
     .hideDate,.input input,.password input,.DataInput{
         /* height: 6.11rem; */
         font-size: 2.7rem;
+        text-align: center;
     }
     .info{
-        width: 14%;
+        width: 10%;
     }
     /* .DataInput{
 
@@ -734,8 +740,11 @@ box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
     }
     .hideDate,.input,.password,.DataInput{
         height: 6rem;
-        font-size: 2.7rem;
+        font-size: 2rem;
         font-weight: normal;
+    }
+    .input::-webkit-input-placeholder{
+        font-size: 2rem;
     }
     }
     @media(max-width:350px){

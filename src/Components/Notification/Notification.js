@@ -76,6 +76,11 @@ const Notification = ({ gameMusic,
   const [loading,setLoading] = useState(true)
 //   const[notification,setNotification] = useState({})
   const navigate = useNavigate()
+  useEffect(()=>{
+    if(userId===null||userId==undefined||user.username!==""||user.username!==undefined){
+      setLoading(false)
+    }
+  })
     async function notificationGet(){
         await fetch(`${baseUrl}/user/notifications/get`,{
             method:"POST",
@@ -157,7 +162,7 @@ const Notification = ({ gameMusic,
                         </div>
                     </div>
                 )
-            }):<p className={style.EmptyCart}>You Have Viewed All the Notifications</p>:
+            }):<p className={style.EmptyCart}>No Notifications</p>:
             <div className={style.LoaderDiv}>
             <div className={style.LoaderAnime}>
               <Lottie animationData={AllAnimation.Loader} />
