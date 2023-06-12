@@ -489,11 +489,11 @@ video{
     /* background-color: #000000c9; */
 }
 .LoaderAnime{
-    width: 15rem;
+    width: 13rem;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -100%);
 }
 
 .CloseIcon {
@@ -1080,7 +1080,7 @@ video{
         height: 4rem;
     }
     .LoaderAnime{
-        width: 10rem;
+        width: 8rem;
     }
     
 }

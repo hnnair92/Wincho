@@ -361,7 +361,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       amount: parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
       quantity: 1,
       success_url: `${window.location.origin}/prizes`,
-      cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${window.location.origin}/tickets/?session_id={CHECKOUT_SESSION_ID}`,
       // "currency":"inr",
       currency: configuration.CURRENCY_CODE,
       product: "vip",
@@ -382,7 +382,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         console.log(requestData2);
         // window.open(`${data.data[0].url}`);
-        window.location.assign(`${data.data[0].url}`);
+        window.location.assign(`${data.data[0].url}`,'_self');
       });
   }
   // async function getData(){

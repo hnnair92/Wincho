@@ -732,18 +732,7 @@ const Header = ({
                 </div>
               );
             })}
-            {notificationbubble &&
-            notification &&
-            notification.notification_count > 0 &&
-            notification !== undefined ? (
-              <span className={style.notificationBadge}>
-                {notification && notification.notification_count
-                  ? notification && notification.notification_count
-                  : "0"}
-              </span>
-            ) : (
-              ""
-            )}
+            
             <HiMenu
               onClick={() => {
                 // setSetting(true)
@@ -765,6 +754,18 @@ const Header = ({
                 </div> */}
           </div>
         </div>
+        {notificationbubble &&
+            notification &&
+            notification.notification_count > 0 &&
+            notification !== undefined ? (
+              <span className={style.notificationBadge}>
+                {notification && notification.notification_count
+                  ? notification && notification.notification_count
+                  : "0"}
+              </span>
+            ) : (
+              ""
+            )}
         <div className={style.HamBurgerMenu}>
           {/* <div className={style.HamBurgerMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
           {setting ? (

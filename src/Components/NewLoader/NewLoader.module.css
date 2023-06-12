@@ -20,3 +20,8 @@
         transform: rotateZ(-360deg);
       }
 } */
+@media (max-width: 599px) {
+    .Loader {
+      width: 8rem;
+    }
+}

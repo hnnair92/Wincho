@@ -76,11 +76,6 @@ const Notification = ({ gameMusic,
   const [loading,setLoading] = useState(true)
 //   const[notification,setNotification] = useState({})
   const navigate = useNavigate()
-  useEffect(()=>{
-    if(userId===null||userId==undefined||user.username!==""||user.username!==undefined){
-      setLoading(false)
-    }
-  })
     async function notificationGet(){
         await fetch(`${baseUrl}/user/notifications/get`,{
             method:"POST",

@@ -1,637 +1,632 @@
-.Container{
-    background-image: url("../../assests/Ticket\ Page\ Background.png");
-    /* background-attachment: fixed; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    min-height: 100vh;
-    position: relative;
-
+.Container {
+  background-image: url("../../assests/Ticket\ Page\ Background.png");
+  /* background-attachment: fixed; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  position: relative;
 }
 .Banner {
-    width: 100%;
-    position: relative;
-    /* height: ; */
-    /* position: relative; */
-    /* background-image: url("../../assests/Clubhouse\ Cashier\ without\ Button.png"); */
+  width: 100%;
+  position: relative;
+  /* height: ; */
+  /* position: relative; */
+  /* background-image: url("../../assests/Clubhouse\ Cashier\ without\ Button.png"); */
 }
-.Banner img{
-    /* position: relative; */
-    /* position: absolute;
+.Banner img {
+  /* position: relative; */
+  /* position: absolute;
     top: 0;
     left: 0;
     z-index: 1; */
-    max-width: 100%;
+  max-width: 100%;
 }
-.Banner button{
-    position: absolute;
-    bottom: 3rem;
-    right: 3rem;
-    z-index: 99;
-    background-color: #3b82f6;
-    /* width: 28.45rem; */
-    width: fit-content;
-    min-height: 4rem;
-    border-radius:3.5rem;
-    border:0.3rem solid #fff;
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: #fff;
-    padding: 1rem;
-    font-family: "Poppins";
+.Banner button {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 99;
+  background-color: #3b82f6;
+  /* width: 28.45rem; */
+  width: fit-content;
+  min-height: 4rem;
+  border-radius: 3.5rem;
+  border: 0.3rem solid #fff;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #fff;
+  padding: 1rem;
+  font-family: "Poppins";
 }
-.redBox{
-    width: 100%;
-    /* height: 50px; */
-    background-color: red;
-    /* position: absolute; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding:  0;
-    
+.redBox {
+  width: 100%;
+  /* height: 50px; */
+  background-color: red;
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 
-.redBox h2{
-   text-align: center;
-    font-family: drumshake_italic;
-    color: white;
-    letter-spacing: 1px;
-    font-size: 8rem;
-    font-weight: 900;
-   margin-left: 2rem;
-    
+.redBox h2 {
+  text-align: center;
+  font-family: drumshake_italic;
+  color: white;
+  letter-spacing: 1px;
+  font-size: 8rem;
+  font-weight: 900;
+  margin-left: 2rem;
 }
-.redBox img{
-    width: 5%;
+.redBox img {
+  width: 5%;
 }
-.Ticket{
-    margin-left: auto;
-    padding: 11.33rem 0;
-    margin-right: auto;
-    width: 75%;
-    height: auto;
+.Ticket {
+  margin-left: auto;
+  padding: 11.33rem 0;
+  margin-right: auto;
+  width: 75%;
+  height: auto;
 }
-.Tickets{
-    /* margin-top: 4rem; */
-    margin-top: 2.5rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.Tickets {
+  /* margin-top: 4rem; */
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-.TicketItem{
-    width: 30%;
-    margin: 2.5rem 0;
-    background-color: #3b82f6;
-    border-radius:2.5rem;
-    border: 0.5rem solid #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem .5rem;
-    transition: all 0.3s ease-in-out;
+.TicketItem {
+  width: 30%;
+  margin: 2.5rem 0;
+  background-color: #3b82f6;
+  border-radius: 2.5rem;
+  border: 0.5rem solid #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0.5rem;
+  transition: all 0.3s ease-in-out;
 }
-.TicketItem:hover{
-    transform: scale(1.1);
+.TicketItem:hover {
+  transform: scale(1.1);
 }
-.TicketItem button{
-    background-color: transparent;
-    width: 65%;
-    min-height: 5rem;
-    border-radius:3.5rem;
-    border:0.3rem solid #fff;
-    font-size: 2.5rem;
-    font-weight: 400;
-    color: #fff;
-    padding: .1rem 0;
-    font-family: "Poppins";
+.TicketItem button {
+  background-color: transparent;
+  width: 65%;
+  min-height: 5rem;
+  border-radius: 3.5rem;
+  border: 0.3rem solid #fff;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #fff;
+  padding: 0.1rem 0;
+  font-family: "Poppins";
 }
-.image{
-    width: 90%;
+.image {
+  width: 90%;
 }
-.image img{
-    max-width: 100%;
+.image img {
+  max-width: 100%;
 }
-.Popup{
-    width: 100%;
-    height: 100%;
-    /* position: relative; */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    display: flex;
-    z-index: 9999;
-    justify-content: center;
-    align-items: center;
+.Popup {
+  width: 100%;
+  height: 100%;
+  /* position: relative; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
 }
-.Overlay{
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.3;
+.Overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.3;
 }
-.PopupContaner{
-    padding: 2px;
-    position: relative;
-    /* background-color: rgb(16, 166, 241); */
-    background-color: #fff;
-    border-radius: 30px;
-    border:8px solid #fff;
-    z-index: 99;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.PopupContaner {
+  padding: 2px;
+  position: relative;
+  /* background-color: rgb(16, 166, 241); */
+  background-color: #fff;
+  border-radius: 30px;
+  border: 8px solid #fff;
+  z-index: 99;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.PopupContaner .popupImage{
-    width: 100%;
-    background-color: #3b82f6;;
-    border-top-right-radius: 30px;
-    border-top-left-radius: 30px;
-}.PopupContaner .popupImage img{
-    width: 100%;
+.PopupContaner .popupImage {
+  width: 100%;
+  background-color: #3b82f6;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
 }
-.PopupContaner p{
-    font-size: 2rem;
-    color: #000;
+.PopupContaner .popupImage img {
+  width: 100%;
 }
-.PopupBtn{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: #3b82f6;;
-
+.PopupContaner p {
+  font-size: 2rem;
+  color: #000;
 }
-.popupContent{
-    margin-top: 2rem;
+.PopupBtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #3b82f6;
 }
-.PopupBtn p{
-    font-size: 3rem;
-    margin-left: 15px;
-    color: #fff;
+.popupContent {
+  margin-top: 2rem;
 }
-.PopupBtn svg{
-    font-size: 4rem;
-    color: #fff;
+.PopupBtn p {
+  font-size: 3rem;
+  margin-left: 15px;
+  color: #fff;
 }
-.Buttons{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.PopupBtn svg {
+  font-size: 4rem;
+  color: #fff;
 }
-.Buttons button{
-    width: 100%;
-    min-height: 4rem;
-    height: 8rem;
-    border-radius: 30px;
-    margin: 10px 0;
-    border:5px solid #fff;
+.Buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Buttons button {
+  width: 100%;
+  min-height: 4rem;
+  height: 8rem;
+  border-radius: 30px;
+  margin: 10px 0;
+  border: 5px solid #fff;
 }
 .OverlayBg{
     width: 100vw;
     height: 100vh;
     position: absolute;
-    background-color:transparent;
-}
-.LoaderDiv{
-    /* position: absolute; */
-    /* top: 50%; */
-    width: 100%;
-    height: 100%;
-    /* left: 50%; */
-    /* transform: translate(-50%,-50%); */
-    /* width: 20rem; */
-    /* background-color: #000000c9; */
-}
-.LoaderAnime{
-    width: 15rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-@media screen and (min-width:768px) and (max-width:1024px){
-    .Ticket{
-        width: 85%;
-    }
-
-    .Banner button{
-        width: fit-content;
-        /* width: 25%; */
-        min-height: 3rem;
-        height: 3rem;
-        height: auto;
-        padding: 1rem;
-        font-size: 2rem;
-        font-weight: 500;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        border-radius: 3.5rem;
-    }
-    .PopupContaner{
-        width: 50%;
-    }
-}
-@media(max-width:767px){
-    .Ticket{
-        width: 95%;
-        padding: 4rem 0;
-        /* position: absolute; */
-
-    }
-    .Tickets{
-        /* margin-top: 0; */
-    }
-    .image{
-        margin-bottom: 1rem;
-    }
-    .Banner button{
-        width: fit-content;
-
-        /* width: 25%; */
-        min-height: 3rem;
-        height: 3rem;
-        height: auto;
-        padding: 1rem;
-        font-size: 2rem;
-        font-weight: 500;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        border-radius: 3.5rem;
-    }
-    .TicketItem{
-        width: 47.5%;
-        border-radius:1.5rem;
-        margin: 1rem 0;
-
-    }
-    .TicketItem button{
-        width: 75%;
-        min-height: 3rem;
-        font-size: 2.5rem;
-    }
-    .PopupContaner{
-        width: 60%;
-    }
-    .Popup{
-        width: 100%;
-        height: 100vh;
-        /* position: relative; */
-        top: 50%;
-        position: fixed;
-        display: flex;
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-        left: 50%;
-        transform: translate(-50%,-50%);
-    }
-    .PopupBtn p{
-        font-size: 1.5rem;
-    }
-    .PopupContaner p{
-        font-size: 1.5rem;
-    }
-    .Buttons button{
-        width: 90%;
-        min-height: 4rem;
-        height: 6rem;
-        border-radius: 30px;
-        margin: 10px 0;
-        border: 5px solid #fff;
-    }
-    .PopupBtn svg{
-        font-size: 2.5rem;
-    }
-    .redBox h2{
-        font-size: 7rem;
-    }
-}
-@media(max-width:599px){
-    .Banner button{
-        bottom: 1rem;
-        right: 1rem;
-        /* width: 28.45rem; */
-        width: fit-content;
-        min-height: 2rem;
-        border-radius:3.5rem;
-
-        font-size: 1rem;
-        font-weight: 400;
-        color: #fff;
-        padding: 3px;
-        font-family: "Poppins";
-    }
-    .redBox h2{
-        font-size: 4rem;
-    }
- .redBox img{
-    width: 10%;
- }
- .Ticket button{
-    font-size: 1.5rem;
- }
- .PopupContaner{
-    width: 70%;
-}
-}
-
-.clubHousePopup{
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    z-index: 999999;
-}
-.ClubHouse{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    width: 44rem;
-    background: #fff;
-    border: 3px solid #fff;
-    height: auto;
-    border-radius: 30px;
-    /* height: 80vh; */
-}
-.TopImage{
-    width: 100%;
-    position: relative;
-}
-.TopImage img{
-    width: 100%;
-}
-.clubHouseClose{
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    width: 7.5%;
-    cursor: pointer;
-}
-.clubHouseClose img{
-    width: 100%;
-}
-.BottomContents{
-    width: 100%;
-    position: relative;
-    padding-bottom: 5px;
-    min-height: 180px;
-    background-image: url("../../assests/Artboard 48 - Lower Image Split.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
-}
-.LowerImg{
+    background-color: transparent;
     z-index: 9;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
 }
-.LowerImg img{
-    width: 100%;
+.LoaderDiv {
+  /* position: absolute; */
+  /* top: 50%; */
+  width: 100%;
+  height: 100%;
+  /* left: 50%; */
+  /* transform: translate(-50%,-50%); */
+  /* width: 20rem; */
+  /* background-color: #000000c9; */
 }
-.BonusPoints{
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    z-index: 99;
-    align-items: center;
-    justify-content: center;
+.LoaderAnime {
+  width: 13rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .Ticket {
+    width: 85%;
+  }
 
-}
-.Bonus p{
-    font-size: 5rem;
-    font-family: bubbleGum;
-    color: #fff;
-    -webkit-text-stroke: 2px #000;
-}
-.BonusText{
-    margin: 0px 20px;
-}
-.BonusText p{
-    font-style: italic;
-    color: #000;
-    /* font-family: myraidproregular; */
-    font-size: 2.5rem;
-    font-weight: 800;
-}
-.benefits{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    position: relative;
-    z-index: 99;
-}
-.benefit{
-    width: 100%;
-}
-.benefitImage{
-    width: 100%;
-}
-.benefitImage img{
-    width: 100%;
-}
-.SubscribeButton{
-    /* width: 100%; */
-    margin: 25px auto;
-    position: relative;
-    z-index: 99;
-    background-color: #1b8fe7;
-    border-radius: 30px;
-    border:1.5px solid #fff;
-    padding:10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .Banner button {
     width: fit-content;
-    /* margin-bottom: 20px; */
-    
-}
-.SubscribeButton button{
-    width: fit-content;
-    font-size: 2.25rem;
-    color: #fff;
-    font-family: myraidproregular;
-}
-.CancelSubscription{
-    position: relative;
-    z-index: 99;
-}
-.CancelSubscription p{
-    text-align: center;
-    color: #1b8fe7;
-    font-weight: 700;
-    font-size: 1.5rem;
-    margin: 10px 0px;
-}
-.TermsAndPolicy{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    margin: 10px;
-}
-.Terms p,.Policy p{
+    /* width: 25%; */
+    min-height: 3rem;
+    height: 3rem;
+    height: auto;
+    padding: 1rem;
     font-size: 2rem;
-    color: #1b8fe7;
-    font-weight: 700;
-    text-decoration: underline;
-    cursor: pointer;
-
-}
-.replay img,.share img{
-    cursor: pointer;
-}
-.Circle,.CircleActive{
-    cursor: pointer;
-}
-.AddressEditBtn{
-    cursor: pointer;
-}
-.AddressSection input::-webkit-input-placeholder{
-    opacity: 1;
-    color: gray;
-}
-@media(max-width:768px){
-    .ClubHouse{
-        width: 90%;
-        transform: translate(-50%,-53%);
-    }
-    .Bonus{
-        width: 30%;
-    }
-
-    .Bonus p{
-        text-align: end;
-    }
-    .Terms p,.Policy p{
-        font-size: 1.25rem;
-    }
-}
-@media(min-width:1500px){
-    .image{
-        width: 240px;
-        height: 180px;
-    }
-}
-.ResendPopup{
-    position: fixed;
-    font-family: myraidproregular !important;
-    z-index: 99999;
-    top: 50%;
-    left: 50%;
-    width: -moz-fit-content;
-    width: fit-content;
-    transform: translate(-50%, -50%);
-    border: 1rem solid #949393;
-    border-radius: 20px;
-    background-color: #1b8fe7;
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* width: 15%; */
-    width: 300px;
-
-}
-.ResendpopupImage{
-    width: 40%;
-    position: absolute;
-    top: 0;
-    transform: translateY(-50%);
-    /* width: 50%; */
-}
-.ResendpopupImage img{
-    width: 100%;
-}
-.ResendpopupText{
-    margin-top: 15%;
-}
-.ResendpopupText p{
-    font-size: 2rem;
-    text-align: center;
-    color: #fff;
-    line-height: 25px;
-    font-size: 2.25rem;
     font-weight: 500;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    border-radius: 3.5rem;
+  }
+  .PopupContaner {
+    width: 50%;
+  }
 }
-.ResendpopupButton{
-    width: 100%;
+@media (max-width: 767px) {
+  .Ticket {
+    width: 95%;
+    padding: 4rem 0;
+    /* position: absolute; */
+  }
+  .Tickets {
+    /* margin-top: 0; */
+  }
+  .image {
+    margin-bottom: 1rem;
+  }
+  .Banner button {
+    width: fit-content;
 
-}
-.ResendpopupButton button{
-    margin: 1.5rem 0;
-    padding: 1rem 0rem;
-    width: 100%;
-    background-color: transparent;
-    border: 2px solid #fff;
-    outline: none;
-    color: #fff;
+    /* width: 25%; */
+    min-height: 3rem;
+    height: 3rem;
+    height: auto;
+    padding: 1rem;
     font-size: 2rem;
-    font-weight: 600;
-    border-radius: 30px;
-    font-family: myraidproregular;
-}
-.popupOverlaySection{
-    position: fixed;
-    width: 100vw;
+    font-weight: 500;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    border-radius: 3.5rem;
+  }
+  .TicketItem {
+    width: 47.5%;
+    border-radius: 1.5rem;
+    margin: 1rem 0;
+  }
+  .TicketItem button {
+    width: 75%;
+    min-height: 3rem;
+    font-size: 2.5rem;
+  }
+  .PopupContaner {
+    width: 60%;
+  }
+  .Popup {
+    width: 100%;
     height: 100vh;
-    background-color: transparent;
+    /* position: relative; */
+    top: 50%;
+    position: fixed;
+    display: flex;
     z-index: 9999;
-    /* background-color: #00000055; */
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .PopupBtn p {
+    font-size: 1.5rem;
+  }
+  .PopupContaner p {
+    font-size: 1.5rem;
+  }
+  .Buttons button {
+    width: 90%;
+    min-height: 4rem;
+    height: 6rem;
+    border-radius: 30px;
+    margin: 10px 0;
+    border: 5px solid #fff;
+  }
+  .PopupBtn svg {
+    font-size: 2.5rem;
+  }
+  .redBox h2 {
+    font-size: 7rem;
+  }
 }
-@media(max-width:768px){
-    .ClubHouse{
-        width: 65%;
-        overflow: hidden;
-        border-radius: 20px;
-        position: fixed;
-    }
-    .Bonus p{
-        font-size: 6rem;
-    }
-    .BonusText p{
-        font-size: 2.5rem;
-    }
-    .SubscribeButton button{
-        font-size: 1.75rem;
-    }
-    .CancelSubscription P{
-        font-size: 1.25rem;
-    }
-    /* .Terms p,.Policy p{
+@media (max-width: 599px) {
+  .Banner button {
+    bottom: 1rem;
+    right: 1rem;
+    /* width: 28.45rem; */
+    width: fit-content;
+    min-height: 2rem;
+    border-radius: 3.5rem;
+
+    font-size: 1rem;
+    font-weight: 400;
+    color: #fff;
+    padding: 3px;
+    font-family: "Poppins";
+  }
+  .redBox h2 {
+    font-size: 4rem;
+  }
+  .redBox img {
+    width: 10%;
+  }
+  .Ticket button {
+    font-size: 1.5rem;
+  }
+  .PopupContaner {
+    width: 70%;
+  }
+  .LoaderAnime {
+    width: 8rem;
+  }
+}
+
+.clubHousePopup {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  z-index: 999999;
+}
+.ClubHouse {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44rem;
+  background: #fff;
+  border: 3px solid #fff;
+  height: auto;
+  border-radius: 30px;
+  /* height: 80vh; */
+}
+.TopImage {
+  width: 100%;
+  position: relative;
+}
+.TopImage img {
+  width: 100%;
+}
+.clubHouseClose {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 7.5%;
+  cursor: pointer;
+}
+.clubHouseClose img {
+  width: 100%;
+}
+.BottomContents {
+  width: 100%;
+  position: relative;
+  padding-bottom: 5px;
+  min-height: 180px;
+  background-image: url("../../assests/Artboard 48 - Lower Image Split.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.LowerImg {
+  z-index: 9;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.LowerImg img {
+  width: 100%;
+}
+.BonusPoints {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+}
+.Bonus p {
+  font-size: 5rem;
+  font-family: bubbleGum;
+  color: #fff;
+  -webkit-text-stroke: 2px #000;
+}
+.BonusText {
+  margin: 0px 20px;
+}
+.BonusText p {
+  font-style: italic;
+  color: #000;
+  /* font-family: myraidproregular; */
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+.benefits {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  z-index: 99;
+}
+.benefit {
+  width: 100%;
+}
+.benefitImage {
+  width: 100%;
+}
+.benefitImage img {
+  width: 100%;
+}
+.SubscribeButton {
+  /* width: 100%; */
+  margin: 25px auto;
+  position: relative;
+  z-index: 99;
+  background-color: #1b8fe7;
+  border-radius: 30px;
+  border: 1.5px solid #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  /* margin-bottom: 20px; */
+}
+.SubscribeButton button {
+  width: fit-content;
+  font-size: 2.25rem;
+  color: #fff;
+  font-family: myraidproregular;
+}
+.CancelSubscription {
+  position: relative;
+  z-index: 99;
+}
+.CancelSubscription p {
+  text-align: center;
+  color: #1b8fe7;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 10px 0px;
+}
+.TermsAndPolicy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 10px;
+}
+.Terms p,
+.Policy p {
+  font-size: 2rem;
+  color: #1b8fe7;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.replay img,
+.share img {
+  cursor: pointer;
+}
+.Circle,
+.CircleActive {
+  cursor: pointer;
+}
+.AddressEditBtn {
+  cursor: pointer;
+}
+.AddressSection input::-webkit-input-placeholder {
+  opacity: 1;
+  color: gray;
+}
+@media (max-width: 768px) {
+  .ClubHouse {
+    width: 90%;
+    transform: translate(-50%, -53%);
+  }
+  .Bonus {
+    width: 30%;
+  }
+
+  .Bonus p {
+    text-align: end;
+  }
+  .Terms p,
+  .Policy p {
+    font-size: 1.25rem;
+  }
+}
+@media (min-width: 1500px) {
+  .image {
+    width: 240px;
+    height: 180px;
+  }
+}
+.ResendPopup {
+  position: fixed;
+  font-family: myraidproregular !important;
+  z-index: 99999;
+  top: 50%;
+  left: 50%;
+  width: -moz-fit-content;
+  width: fit-content;
+  transform: translate(-50%, -50%);
+  border: 1rem solid #949393;
+  border-radius: 20px;
+  background-color: #1b8fe7;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 15%; */
+  width: 300px;
+}
+.ResendpopupImage {
+  width: 40%;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  /* width: 50%; */
+}
+.ResendpopupImage img {
+  width: 100%;
+}
+.ResendpopupText {
+  margin-top: 15%;
+}
+.ResendpopupText p {
+  font-size: 2rem;
+  text-align: center;
+  color: #fff;
+  line-height: 25px;
+  font-size: 2.25rem;
+  font-weight: 500;
+}
+.ResendpopupButton {
+  width: 100%;
+}
+.ResendpopupButton button {
+  margin: 1.5rem 0;
+  padding: 1rem 0rem;
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid #fff;
+  outline: none;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  border-radius: 30px;
+  font-family: myraidproregular;
+}
+.popupOverlaySection {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 9999;
+  /* background-color: #00000055; */
+}
+@media (max-width: 768px) {
+  .ClubHouse {
+    width: 65%;
+    overflow: hidden;
+    border-radius: 20px;
+    position: fixed;
+  }
+  .Bonus p {
+    font-size: 6rem;
+  }
+  .BonusText p {
+    font-size: 2.5rem;
+  }
+  .SubscribeButton button {
+    font-size: 1.75rem;
+  }
+  .CancelSubscription P {
+    font-size: 1.25rem;
+  }
+  /* .Terms p,.Policy p{
         font-size: 1rem;
     } */
 }
-@media(max-width:599px){
-    .Bonus{
-        width: 30%;
-    }
-    
-    .BonusText p{
-        font-size: 1.75rem;
-    }
-    .Bonus p{
-        font-size: 3rem;
-        
-    }
-    .BonusText{
-        margin: 0px 10px;
-    }
-    
+@media (max-width: 599px) {
+  .Bonus {
+    width: 30%;
+  }
+
+  .BonusText p {
+    font-size: 1.75rem;
+  }
+  .Bonus p {
+    font-size: 3rem;
+  }
+  .BonusText {
+    margin: 0px 10px;
+  }
 }

@@ -163,7 +163,7 @@ useEffect(()=>{
           {/* <Route path="/Demo" element={<Demo />} /> */}
           <Route path="/win-screen" element={<WinScreen setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>} />
           <Route path="/payment/success" element={<Success />} />
-          <Route path="/payment/cancel" element={<Ticket />} />
+          {/* <Route path="/payment/cancel" element={<Ticket />} /> */}
           <Route path="/test" element={<Test />} />
           <Route path="/new/cookie" element={<Cookie/>} />
           {/* <Route path="/socket" element={<Socket/>}/> */}

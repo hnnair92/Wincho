@@ -262,7 +262,7 @@ async function playAudioBg() {
       amount: parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
       quantity: 1,
       success_url: `${window.location.origin}/prizes`,
-      cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${window.location.origin}/profile/?session_id={CHECKOUT_SESSION_ID}`,
       // "currency":"inr",
       currency: configuration.CURRENCY_CODE,
       product: "vip",
@@ -281,7 +281,7 @@ async function playAudioBg() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        window.open(`${data.data[0].url}`);
+        window.open(`${data.data[0].url}`,'_self');
       });
   }
   // const checkStateExits = (state, e) => {

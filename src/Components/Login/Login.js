@@ -158,21 +158,21 @@ const Login = () => {
             ) : (
               ""
             )}
-            <div className={style.EmailInput}>
+            <div className={style.email}>
               {/* <label htmlFor="Username">Username</label> */}
               <input
                 type="text"
                 name=""
                 id="Username"
                 value={username}
-                className={style.email}
+                className={style.EmailInput}
                 placeholder="USERNAME"
                 onChange={(e) => {
                   setUsername(e.target.value);
                 }}
               />
             </div>
-            <div className={style.email}>
+            <div className={style.Password}>
               <div className={style.info}>
                 <img
                   src={info}

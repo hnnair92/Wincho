@@ -604,6 +604,34 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   useEffect(() => {
     console.log(countSection);
   });
+  async function vipPayment() {
+    const requestData = {
+      mode: "payment",
+      amount: parseFloat(configuration.VIP_SUBSCRIPTION).toFixed(2) * 100,
+      quantity: 1,
+      success_url: `${window.location.origin}/prizes`,
+      cancel_url: `${window.location.origin}/prizes/?session_id={CHECKOUT_SESSION_ID}`,
+      // "currency":"inr",
+      currency: configuration.CURRENCY_CODE,
+      product: "vip",
+      payment_mode: "vip",
+      user_id: userId,
+      credict_point: `${configuration.VIP_BONUS_POINT}`,
+    };
+    await fetch(`${baseUrl}/points/create-checkout-session`, {
+      method: "POST",
+      body: JSON.stringify(requestData),
+      headers: {
+        "Content-Type":"application/json",
+                    "access-token":`${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.open(`${data.data[0].url}`,'_self');
+      });
+  }
   // const[active,setActive]= useState(false)
   const [allCategory, setAllCategory] = useState("");
   // const[getAllCategory,setGetAllCategory] = useState("")
@@ -798,7 +826,13 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 </div>
               </div>
               <div className={style.SubscribeButton}>
-                <button>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
+                <button onClick={()=>{
+                 if(userId===null){
+                  return navigate("/login")
+                }
+                vipPayment();
+                }}
+                >{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
                 <p>Cancel any time</p>

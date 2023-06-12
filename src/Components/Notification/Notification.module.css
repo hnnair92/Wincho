@@ -1,170 +1,169 @@
-.Container{
-    width: 100%;
-    height: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #2d2d2d;
+.Container {
+  width: 100%;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #2d2d2d;
 }
-.Notifications{
-    width:68rem;
-    margin-left: auto;
-    margin-right: auto;
-    height: 100%;
-    background-color: #3b82f6;
-    overflow-y: scroll;
+.Notifications {
+  width: 68rem;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  background-color: #3b82f6;
+  overflow-y: scroll;
+}
+.Notifications::-webkit-scrollbar {
+  display: none;
+}
+.Head {
+  width: 50%;
+  margin: 5rem;
+  /* padding: 5px 5px; */
+  border-radius: 50px;
+  background-color: transparent;
+  border: 3px solid #fff;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.Head p {
+  text-align: center;
+  margin: 0;
+  font-family: drumshake_italic;
+  font-size: 6.5rem;
+  color: #fff;
 }
-.Notifications::-webkit-scrollbar{
-    display: none;
+.Notification {
+  background-color: #fff;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  /* height: 15rem; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  /* border:2px solid #000; */
+  border-radius: 20px;
+  margin: 10px auto;
 }
-.Head{
-    width: 50%;
+.Title {
+  margin: 20px;
+  margin-top: 0px;
+}
+.Title p {
+  font-family: drumshake_italic;
+  font-size: 5.5rem;
+  /* font-size: calc(2vw + 2em); */
+  text-align: center;
+  line-height: 30px;
+}
+.Description {
+  text-align: center;
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+.playBtn {
+  width: 60%;
+  border-radius: 20px;
+  background-color: #3b82f6;
+  height: 4.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 10px auto;
+}
+.playBtn button {
+  border-radius: 20px;
+  padding: 10px 0px;
+  color: #fff;
+  font-family: drumshake_italic;
+  font-size: 4.75rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+.Content {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.Image {
+  width: 40%;
+  /* height: 100%; */
+}
+.Image img {
+  width: 100%;
+  /* height: 100%;
+    object-fit: cover; */
+  border-radius: 20px;
+}
+.LoaderDiv {
+  /* position: absolute; */
+  /* top: 50%; */
+  width: 100%;
+  height: 100%;
+  /* left: 50%; */
+  /* transform: translate(-50%,-50%); */
+  /* width: 20rem; */
+  /* background-color: #000000c9; */
+}
+
+.LoaderAnime {
+  width: 13rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+.EmptyCart {
+  text-align: center;
+  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+@media (max-width: 599px) {
+  .Head {
+    width: 40%;
     margin: 5rem;
     /* padding: 5px 5px; */
     border-radius: 50px;
     background-color: transparent;
-    border:3px solid #fff;
+    border: 2px solid #fff;
     margin-left: auto;
     margin-right: auto;
-
-}
-
-.Head p{
-    text-align: center;
-    margin: 0;
-    font-family: drumshake_italic;
-    font-size: 6.5rem;
-    color: #fff;
-}
-.Notification{
-    background-color: #fff;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    /* height: 15rem; */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    /* border:2px solid #000; */
-    border-radius: 20px;
-    margin: 10px auto;;
-}
-.Title{
-    margin: 20px;
-    margin-top: 0px;
-}
-.Title p{
-    font-family: drumshake_italic;
-    font-size: 5.5rem;
-    /* font-size: calc(2vw + 2em); */
-    text-align: center;
-    line-height: 30px;
-}
-.Description{
-    text-align: center;
-    font-size: 2.25rem;
-    font-weight: 600;
-    line-height: 2.5rem;
-}
-.playBtn{
-    width: 60%;
-    border-radius: 20px;
-    background-color: #3b82f6;
-    height: 4.5rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 10px auto;
-}
-.playBtn button{
-    border-radius: 20px;
-    padding: 10px 0px;
-    color: #fff;
-    font-family: drumshake_italic;
-    font-size: 4.75rem;
-    background-color: transparent;
-    border:none;
-    outline:none;
-}
-.Content{
-    width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-.Image{
-    width: 40%;
-    /* height: 100%; */
-
-}
-.Image img{
+  }
+  .Head p {
+    font-size: 6vw;
+  }
+  .Notifications {
     width: 100%;
-    /* height: 100%;
-    object-fit: cover; */
-    border-radius: 20px;
-}
-@media(max-width:599px){
-    .Head{
-        width: 40%;
-        margin: 5rem;
-        /* padding: 5px 5px; */
-        border-radius: 50px;
-        background-color: transparent;
-        border: 2px solid #fff;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .Head p{
-        font-size: 6vw;
-    }
-    .Notifications{
-        width: 100%;
-    }
-    .Notification{
-        /* flex-direction: column-reverse; */
-
-    }
-    .Title p{
-        font-size: 3rem;
-    }
-    .Description p{
-        font-size: 1.5rem;
-        line-height: 1.75rem;
-    }
-    .playBtn{
-        height: 4rem;
-    }.playBtn button{
-        font-size: 2rem;
-
-    }
-
-}
-.LoaderDiv{
-    /* position: absolute; */
-    /* top: 50%; */
-    width: 100%;
-    height: 100%;
-    /* left: 50%; */
-    /* transform: translate(-50%,-50%); */
-    /* width: 20rem; */
-    /* background-color: #000000c9; */
-}
-.LoaderAnime{
-    width: 15rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-.EmptyCart{
-    text-align: center;
-    color: #fff;
-    font-size: 2.5rem;
-    font-weight: 600;
+  }
+  .Notification {
+    /* flex-direction: column-reverse; */
+  }
+  .Title p {
+    font-size: 3rem;
+  }
+  .Description p {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+  .playBtn {
+    height: 4rem;
+  }
+  .playBtn button {
+    font-size: 2rem;
+  }
+  .LoaderAnime {
+    width: 8rem;
+  }
 }

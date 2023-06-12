@@ -1,108 +1,108 @@
-.Container{
-    width: 100%;
-    /* height: 90vh; */
-    /* height: 100vh; */
-    height: 100%;
-    padding: 5rem 11.5rem;
-    background: url("../../assests/Login BG.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
+.Container {
+  width: 100%;
+  /* height: 90vh; */
+  height: 100vh;
+  /* height: 100%; */
+  padding: 5rem 11.5rem;
+  background: url("../../assests/Login BG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
 }
-.Popup{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    /* width: 250px;
+.Popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* width: 250px;
     height: 500px; */
-    background-color: #3b82f6;
-    padding: 25px 10px;
-    
-    border-radius:15px;
-    border:7px solid #949393;
+  background-color: #3b82f6;
+  padding: 25px 10px;
+
+  border-radius: 15px;
+  border: 7px solid #949393;
 }
-.PopupText{
-    color: #fff;
-    font-size: 18px;
-    text-align: center;
-    margin-top: 15%;
+.PopupText {
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 15%;
 }
-.image{
-    width: 50%;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.image {
+  width: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.image img {
+  width: 100%;
+}
+.Actions {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  justify-content: space-between;
+}
+.Contents {
+  width: 80%;
+  margin: auto;
+}
+.accept,
+.Contents .Terms {
+  width: 45%;
+}
+.Actions button {
+  font-size: 16px;
+  text-align: center;
+  width: 100%;
+  /* width: 100%; */
+  color: #fff;
+  background-color: transparent;
+  border-radius: 30px;
+  padding: 10px 20px;
+  border: 1px solid #fff;
+}
+.Register {
+  width: 56rem;
+}
+.Title {
+  font-size: 4rem;
+  margin-bottom: 1.7rem;
+  text-align: center;
+  color: #fff;
+  font-style: italic;
+  font-weight: 800;
+}
+.form {
+  padding: 2.35rem;
+  border-radius: 1.7rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+.input::-webkit-input-placeholder {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Poppins";
+  /* color: #333333d1; */
+  color: #BDBDBD;
 
 }
-.image img{
-    width: 100%;
-}
-.Actions{
-    display: flex;
-    width: 100%;
-    margin-top: 10px;
-    justify-content: space-between;
-}
-.Contents{
-    width: 80%;
-    margin: auto;
-}
-.accept,.Contents .Terms{
-    width: 45%;
-}
-.Actions button{
-    font-size: 16px;
-    text-align: center;
-    width: 100%;
-    /* width: 100%; */
-    color: #fff;
-    background-color: transparent;
-    border-radius:30px;
-    padding: 10px 20px;
-    border:1px solid #fff;
-}
-.Register{
-    width: 56rem;
-}
-.Title{
-    font-size: 4rem;
-    margin-bottom: 1.7rem;
-    text-align: center;
-    color: #fff;
-    font-style: italic;
-    font-weight: 800;
-}
-.form{
-    padding: 2.35rem;
-    border-radius: 1.7rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-}
-.input::-webkit-input-placeholder{
-    text-align: center;
-    text-transform: uppercase;
-    font-family: "Poppins";
-    /* color: #333333d1; */
-
-}
-.input::-webkit-keygen-select{
-
-    display: none;
+.input::-webkit-keygen-select {
+  display: none;
 }
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 .password{
     display: flex;
@@ -112,7 +112,7 @@ input:-webkit-autofill:active{
     font-family: "Poppins";
     width: 100%;
     font-size: 2.1rem;
-    padding: 0rem 2.32rem;
+    padding: 1.1rem 2.32rem;
     text-align: left;
     border-radius: 1.13rem;
     margin: 1.13rem 0;
@@ -126,54 +126,51 @@ outline: none;
 font-family: "Poppins";
 font-size: 3rem;
 background-color: #fff;
-/* padding: 1.13rem 2.26rem; */
+padding: 1.13rem 2.26rem;
 text-align: center;
 border-radius: 1.13rem;
 margin: 1.13rem 0;
     
 }
-.input{
-    font-family: "Poppins";
-    width: 100%;
-    font-size: 3.5rem;
-    height:7.5rem;
-    padding: 1.13rem 2.26rem;
-    text-align: center;
-    border-radius: 1.13rem;
-    margin: 1.13rem 0;
-    border:0.3rem solid gray;
-   
-
-
-
+.input {
+  font-family: "Poppins";
+  width: 100%;
+  font-size: 3rem;
+  height: 7.5rem;
+  padding: 1.13rem 2.26rem;
+  text-align: center;
+  border-radius: 1.13rem;
+  margin: 1.13rem 0;
+  border: 0.25rem solid #606060;
 }
-.Terms{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content:center;
-    align-items: center;
+.Terms {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .Terms input[type="checkbox"] {
-    width: 1.70rem;
-    height: 1.70rem;
-  }
+  width: 1.7rem;
+  height: 1.7rem;
+}
 
-.Terms p{
-    width: 65%;
-    margin-left: 2.26rem;
-    font-size: 2rem;
-    color: #3b82f6;
-    font-weight: 600;
+.Terms p {
+  width: 65%;
+  margin-left: 2.26rem;
+  font-size: 2rem;
+  color: #3b82f6;
+  font-weight: 600;
 }
-.Terms p a{
-    font-size: 2rem;
-    color: #3b82f6;
-    font-weight: 600;
+.Terms p a {
+  font-size: 2rem;
+  color: #3b82f6;
+  font-weight: 600;
 }
-.formBtn,.btnDisabled{
-    /* font-family: "Poppins";
+.formBtn,
+.btnDisabled {
+  /* font-family: "Poppins";
     width: 50%;
     font-size: 2.5rem;
     margin-top: 1.13rem;
@@ -186,199 +183,199 @@ margin: 1.13rem 0;
     border:none;
     background-color: #489ae6;
     cursor: pointer; */
-    font-family: "Poppins";
-    width: 50%;
-    font-size: 3rem;
-    margin-top: 1.13rem;
-    height: 7rem;
-    padding: 1.13rem;
-    text-align: center;
-    border-radius: 4rem;
-    margin: 1.13rem 0;
-    color: #fff;
-    border: none;
-    text-transform: uppercase;
-    background-color: #3b82f6;
-    cursor: pointer;
+  font-family: "Poppins";
+  width: 50%;
+  font-size: 3rem;
+  margin-top: 1.13rem;
+  height: 7rem;
+  padding: 1.13rem;
+  text-align: center;
+  border-radius: 4rem;
+  margin: 1.13rem 0;
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  background-color: #3b82f6;
+  cursor: pointer;
 }
-.btnDisabled{
-    background-color: lightgray;
-    cursor: not-allowed;
+.btnDisabled {
+  background-color: lightgray;
+  cursor: not-allowed;
 }
-.checkUser,.CheckPassword{
-    text-align: left;
-    width: 100%;
+.checkUser,
+.CheckPassword {
+  text-align: left;
+  width: 100%;
 }
-.userAvail{
-    font-size: 1.81rem;
-    color: green;
-    font-weight:800;
-
+.userAvail {
+  font-size: 1.81rem;
+  color: green;
+  font-weight: 800;
 }
-.userInvaild,.passInvalid{
-    text-align: left;
-    font-size:1.81rem;
-    color:maroon;
-    font-weight:800;
+.userInvaild,
+.passInvalid {
+  text-align: left;
+  font-size: 1.81rem;
+  color: maroon;
+  font-weight: 800;
 }
-.userInvaild{
-    text-align: center;
+.userInvaild {
+  text-align: center;
 }
-.DataInput{
-    width: 100%;
-    font-family: "Poppins";
-    height: 7.5rem;
-    padding: 1.13rem;
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    margin: 1.13rem;
-    margin-left: 0;
-    border-radius: 1.13rem;
-    margin-right: auto;
-    border:0.3rem solid gray;
-    text-align: center;
-    color: #3333;
+.DataInput {
+  width: 100%;
+  font-family: "Poppins";
+  height: 7.5rem;
+  padding: 1.13rem;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  margin: 1.13rem;
+  margin-left: 0;
+  border-radius: 1.13rem;
+  margin-right: auto;
+  border: 0.3rem solid gray;
+  text-align: center;
+  color: #3333;
 }
-.AgeRestrict{
-    color: red;
-    font-size: 1.81rem;
-    margin: 2.84rem 0px;
-    margin-right: auto;
-    margin-top: 0;
+.AgeRestrict {
+  color: red;
+  font-size: 1.81rem;
+  margin: 2.84rem 0px;
+  margin-right: auto;
+  margin-top: 0;
 }
-label{
-    text-align: left;
-    font-size: 2rem;
-    color: #333333d1;
-    font-weight: 500;
-    margin-right: auto;
+label {
+  text-align: left;
+  font-size: 2rem;
+  color: #333333d1;
+  font-weight: 500;
+  margin-right: auto;
 }
-.eyeIcon{
-    width: 10%;
+.eyeIcon {
+  width: 10%;
 }
-input::-webkit-input-placeholder{
-    color: #3333338e;
+/* input::-webkit-input-placeholder {
+  color: #3333338e;
+} */
+.CheckBox {
+  padding: 2px;
+  width: 40px;
+  height: 40px;
+  border: 4px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.CheckBox{
-    padding: 2px;
-    width: 40px;
-    height: 40px;
-    border:4px solid gray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.checked,
+.NotChecked {
+  width: 100%;
 }
-.checked,.NotChecked{
-    width: 100%;
+.NotChecked {
+  opacity: 0;
 }
-.NotChecked{
-    opacity: 0;
+.checked {
+  opacity: 1;
 }
-.checked{
-    opacity: 1;
+.StateSelect {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #000;
+  height: 100%;
+  font-size: 3.5rem;
 }
-.StateSelect{
-    width: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: transparent;
-    border:none;
-    outline:none;
-    color: #000;
-    height: 100%;
-    font-size: 3.5rem;
-}
-@keyframes slideDown{
-    0%{
-        height:112.5px;
-    }
-    /* 25%{
+@keyframes slideDown {
+  0% {
+    height: 112.5px;
+  }
+  /* 25%{
         height: 225px;
     }
     50%{
         height: 337.5px;
     } */
-    100%{
-        height: 450px;
-    }
-}
-@keyframes slideUp{
-    0%{
-        height:450px;
-    }
-    /* 25%{
-        height: 225px;
-    }
-    50%{
-        height: 337.5px;
-    } */
-    100%{
-        height: 0px;
-    }
-}
-.selectInput{
-    position: relative;
-}
-.AllState{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 100%;
+  100% {
     height: 450px;
-    overflow-y: scroll;
-    background-color: #333;
-    display: flex;
-    flex-direction: column;
-    border-radius: 15px;
-    padding: 15px;
-    /* animation: slideDown 500ms ease; */
-    /* transition: all 0.5s ease; */
-    
-    /* position: absolute;
+  }
+}
+@keyframes slideUp {
+  0% {
+    height: 450px;
+  }
+  /* 25%{
+        height: 225px;
+    }
+    50%{
+        height: 337.5px;
+    } */
+  100% {
+    height: 0px;
+  }
+}
+.selectInput {
+  position: relative;
+}
+.AllState {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 100%;
+  height: 450px;
+  overflow-y: scroll;
+  background-color: #333;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 15px;
+  /* animation: slideDown 500ms ease; */
+  /* transition: all 0.5s ease; */
+
+  /* position: absolute;
     top: 0;
     left: 0; */
 }
-.stateUp{
-    animation: slideUp 500ms ease;
+.stateUp {
+  animation: slideUp 500ms ease;
+}
+.StateSelectHide {
+  color: #3333338e;
+}
+.AllState::-webkit-scrollbar {
+  display: none;
+}
+.AllState input {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  border-bottom: 0.5px solid #fff;
+  padding: 10px;
+  outline: none;
+  color: #fff;
+}
+.input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.input input {
+  width: 100%;
+}
 
+.info {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  margin: auto;
 }
-.StateSelectHide{
-    color: #3333338e;
-}
-.AllState::-webkit-scrollbar{
-    display: none;
-}
-.AllState input{
-    background-color: transparent;
-    border:none;
-    font-size: 2rem;
-    border-bottom: .5px solid #fff;
-    padding: 10px;
-    outline:none;
-    color: #fff;
-}
-.input{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.input input{
-    width: 100%;
-}
-
-
-.info{
-    width: 10%;
-    display: flex;
-    align-items: center;
-    margin: auto;
-}
-.info img{
-    width: 100%;
-    cursor: pointer;
+.info img {
+  width: 100%;
+  cursor: pointer;
 }
 
 /* .passwordInput{
@@ -395,240 +392,220 @@ input::-webkit-input-placeholder{
     border-radius: 1.13rem;
     margin: 1.13rem 0;
 } */
-.popup{
-    width: 25%;
-    padding: 50px;
-    border-radius: 15px;
-    border:7.5px solid #949393;
-    position: relative;
-    background-color: #3b82f6;
-    position: absolute;
-    top: 50%;
-    z-index: 999;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.popup {
+  width: 25%;
+  padding: 50px;
+  border-radius: 15px;
+  border: 7.5px solid #949393;
+  position: relative;
+  background-color: #3b82f6;
+  position: absolute;
+  top: 50%;
+  z-index: 999;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.content{
-    margin: 10% 0;
+.content {
+  margin: 10% 0;
 }
-.content ul{
-    display: flex;
-    flex-direction: column;
-    list-style: circle;
-    font-size: 2rem;
+.content ul {
+  display: flex;
+  flex-direction: column;
+  list-style: circle;
+  font-size: 2rem;
 }
-.content ul p{
-    color: #fff;
-    padding: 8px;
-    text-align: center;
+.content ul p {
+  color: #fff;
+  padding: 8px;
+  text-align: center;
 }
-.content ul li{
-    margin: 7px 0px;
-    color: #fff;
-
+.content ul li {
+  margin: 7px 0px;
+  color: #fff;
 }
-.action{
-    /* margin: auto; */
+.action {
+  /* margin: auto; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.action button {
+  margin: auto;
+  width: 75%;
+  border-radius: 30px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  outline: none;
+  padding: 10px 0;
+}
+.image {
+  width: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.image img {
+  width: 100%;
+}
+.StateSelectCenter {
+  text-align: center;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #3333333d;
+  height: 100%;
+  font-size: 3.5rem;
+}
+.StateSelectCenter::-webkit-input-placeholder {
+  color: #3333338e !important;
+}
+.DataInput {
+  color: #000;
+  text-align: left;
+  position: relative;
+}
+.hideDate {
+  width: 100%;
+  font-family: "Poppins";
+  height: 7.5rem;
+  padding: 1.13rem 2.26rem;
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin: 1.13rem;
+  margin-left: 0;
+  border-radius: 1.13rem;
+  margin-right: auto;
+  border: 0.25rem solid #606060;
+  text-align: center;
+  color: #BDBDBD;
+  position: relative;
+}
+.DataInput::-webkit-calendar-picker-indicator {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+}
+.hideDate::-webkit-calendar-picker-indicator {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+}
+@media (min-width: 767px) and (max-width: 1056px) {
+  .Container {
     width: 100%;
-    display: flex;
-    flex-direction: row;
+    padding: 1.7rem;
     justify-content: center;
-    align-items: center;
-}
-.action button{
-    margin: auto;
-    width: 75%;
-    border-radius: 30px;
-    background-color: transparent;
-    border:1px solid #fff;
-    color: #fff;
-    outline:none;
-    padding:10px 0;
-
-}
-.image{
+  }
+  .Register {
+    width: 60%;
+  }
+  .popup {
     width: 50%;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%,-50%);
+  }
+  .hideDate,
+  .input,
+  .password,
+  .DataInput {
+    height: 6.5;
+  }
 }
-.image img{
-    width: 100%;
-}
-.StateSelectCenter{
-    text-align: center;
-    width: 100%;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: transparent;
-    border:none;
-    outline:none;
-    color: #3333333d;
-    height: 100%;
-    font-size: 3.5rem;
-}
-.StateSelectCenter::-webkit-input-placeholder{
-    color: #3333338e !important;
-}
-.DataInput{
-    color: #000;
-    text-align: left;
-    position: relative;
-}
-.hideDate{
-    width: 100%;
-    font-family: "Poppins";
-    height: 7.5rem;
-    padding: 1.13rem;
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    margin: 1.13rem;
-    margin-left: 0;
-    border-radius: 1.13rem;
-    margin-right: auto;
-    border:0.3rem solid gray;
-    text-align: center;
-    color: #3334;
-    position: relative;
-   
-}
-.DataInput::-webkit-calendar-picker-indicator{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 0;
-    opacity: 0;
-
-}
-.hideDate::-webkit-calendar-picker-indicator{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 0;
-    opacity: 0;
-}
-@media(min-width:767px) and (max-width:1056px){
-    .Container{
-        width: 100%;
-        padding: 1.70rem;
-        justify-content: center;
-    }
-    .Register{
-        width: 60%;
-    }
-    .popup{
-        width: 50%;
-    }
-    .hideDate,.input,.password,.DataInput{
-        height: 6.5;
-    }
-    
-}
-@media(max-width:767px){
-    .Container{
-        padding: 1.70rem;
-        justify-content: center;
-    }
-    .Register{
-        /* width: 90%; */
-        flex-direction: column;
-    }
-    .input::-webkit-input-placeholder{
-        font-size: 1.70rem;
-        color: gray;
-    }
-    .Title{
-        font-size: 2.5rem;
-    }
-    .input,.password{
-        font-size: 1.70rem;
-        font-weight: 500;
-        padding: .56rem 1.13rem;
-        height: 5.11rem;
-    }
-    .Terms input[type="checkbox"] {
-        width: 2.26rem;
-        height: 2.26rem;
-    }
-    .Terms p{
-        font-size: 1.36rem;
-    }
-    .Terms p a{
-        font-size: 1.36rem;
-    }
-    .btnDisabled,.formBtn{
-        font-size: 2.0rem;
-        font-weight: 500;
-        height: 5.11rem;
-    }
-    .DataInput{
-        font-size: 1.7rem;
-        height: 5.11rem;
-    }
-    .hideDate{
-        height: 5rem;
-        font-size: 1.70rem;
-       font-weight: 600;
-    }
-    .popup{
-        width: 90%;
-        padding: 20px;
-    }
-    .content ul li{
-        margin: 7px 10px;
-        
-    
-    }
+@media (max-width: 767px) {
+  .Container {
+    padding: 1.7rem;
+    justify-content: center;
+  }
+  .Register {
+    /* width: 90%; */
+    flex-direction: column;
+  }
+  /* .input::-webkit-input-placeholder {
+    font-size: 1.7rem;
+    color: gray;
+  } */
+  .Title {
+    font-size: 2.5rem;
+  }
+  .input,
+  .password {
+    font-size: 1.7rem;
+    font-weight: 500;
+    padding: 0.56rem 1.13rem;
+    height: 5.11rem;
+  }
+  .Terms input[type="checkbox"] {
+    width: 2.26rem;
+    height: 2.26rem;
+  }
+  .Terms p {
+    font-size: 1.36rem;
+  }
+  .Terms p a {
+    font-size: 1.36rem;
+  }
+  .btnDisabled,
+  .formBtn {
+    font-size: 2rem;
+    font-weight: 500;
+    height: 5.11rem;
+  }
+  .DataInput {
+    font-size: 1.7rem;
+    height: 5.11rem;
+  }
+  .hideDate {
+    height: 5rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+  }
+  .popup {
+    width: 90%;
+    padding: 20px;
+  }
+  .content ul li {
+    margin: 7px 10px;
+  }
 }
 
-@media(max-height:630px){
-    .Container{
-        height: 100%;
-        padding:5.68rem;
-    }
-    
-
-}
-
-.DataInput{
-    color: #000;
-    text-align: left;
-    position: relative;
-}
-.hideDate{
-    width: 100%;
-    font-family: "Poppins";
-    height: 7.5rem;
-    padding: 1.13rem;
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    margin: 1.13rem;
-    margin-left: 0;
-    border-radius: 1.13rem;
-    margin-right: auto;
-    border:0.3rem solid gray;
-    text-align: center;
-    color: #0000003d;
-    position: relative;
-}
-.DataInput::-webkit-calendar-picker-indicator{
-    width: 100%;
+@media (max-height: 630px) {
+  .Container {
     height: 100%;
-    position: absolute;
-    z-index: 0;
-    opacity: 0;
-
+    padding: 5.68rem;
+  }
 }
-.hideDate::-webkit-calendar-picker-indicator{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 0;
-    opacity: 0;
+
+.DataInput {
+  color: #000;
+  text-align: left;
+  position: relative;
+}
+
+.DataInput::-webkit-calendar-picker-indicator {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+}
+.hideDate::-webkit-calendar-picker-indicator {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
 }
 @media(max-width:1065px){
     .Container{
@@ -648,89 +625,89 @@ box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
     .hideDate,.input input,.password input,.DataInput{
         /* height: 6.11rem; */
         font-size: 2.7rem;
-        text-align: center;
     }
     .info{
-        width: 10%;
+        width: 14%;
     }
     /* .DataInput{
 
     } */
-    .hideDate::-webkit-input-placeholder,.DataInput::-webkit-input-placeholder{
-        opacity: 1;
-        color: #33333d7c;
-    }
-    .forgotInput input::-webkit-input-placeholder{
-        color: #33333d7c;
-        font-size: 2.75rem;
-        text-align: center;
-        text-transform: uppercase;
-    }
-    .passwordInput::-webkit-input-placeholder{
-        font-size: 2.7rem;
-    } 
-    .input::-webkit-input-placeholder{
-        text-align: center;
-        font-size: 2.7rem;
-        opacity: 1;
-        text-transform: uppercase;
-       font-weight: 500;
-    }
-    .EmailInput label,.PasswordInput label{
-        font-size: 1.5rem;
-    }
-    .Terms p a{
-        font-size: 1.36rem;
-        text-decoration: underline;
-    }
-    .CheckBox{
-        width: 25px;
-        height: 25px;
-        border: 3px solid gray;
-    }
-    .AgeRestrict{
-        margin-bottom: 0;
-    }
-    .Popup{
-        z-index: 99;
-        width: 80%;
-    }
-    .AgeRestrict{
-        font-size: 1.5rem;
-    }
-    label{
-        font-size: 1.75rem;
-        font-weight: 600;
-    }
-    .hideDate{
-        color: gray;
-    }
-   
+  .hideDate::-webkit-input-placeholder,
+  .DataInput::-webkit-input-placeholder {
+    opacity: 1;
+    /* color: #33333d7c; */
+  }
+  .forgotInput input::-webkit-input-placeholder {
+    color: #33333d7c;
+    font-size: 2.75rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .passwordInput::-webkit-input-placeholder {
+    font-size: 2.7rem;
+  }
+  .input::-webkit-input-placeholder {
+    text-align: center;
+    font-size: 2.7rem;
+    opacity: 1;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .EmailInput label,
+  .PasswordInput label {
+    font-size: 1.5rem;
+  }
+  .Terms p a {
+    font-size: 1.36rem;
+    text-decoration: underline;
+  }
+  .CheckBox {
+    width: 25px;
+    height: 25px;
+    border: 3px solid gray;
+  }
+  .AgeRestrict {
+    margin-bottom: 0;
+  }
+  .Popup {
+    z-index: 99;
+    width: 80%;
+  }
+  .AgeRestrict {
+    font-size: 1.5rem;
+  }
+  label {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  .hideDate {
+    color: gray;
+  }
 }
-@media(max-width:765px){
-    .popup{
-        width: 85%;
-    }
-    .hideDate{
-        color: gray;
-    }
+@media (max-width: 765px) {
+  .popup {
+    width: 85%;
+  }
+  .hideDate {
+    color: gray;
+  }
 }
-@media(max-width:712px){
-    .info{
-        width: 10%; 
-    }
-    .eyeIcon{
-        width: 12%; 
-    }
-    .popup{
-        width: 50%;
-    }
-    .content{
-        margin: 13% 0;
-    }
-    .input::-webkit-input-placeholder{
-        font-weight: normal;
-    }
+@media (max-width: 712px) {
+  .info {
+    width: 10%;
+  }
+  .eyeIcon {
+    width: 12%;
+  }
+  .popup {
+    width: 50%;
+  }
+  .content {
+    margin: 13% 0;
+  }
+  .input::-webkit-input-placeholder {
+    font-weight: normal;
+  }
 }
 
 @media(max-width:599px){
@@ -740,11 +717,8 @@ box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
     }
     .hideDate,.input,.password,.DataInput{
         height: 6rem;
-        font-size: 2rem;
+        font-size: 2.7rem;
         font-weight: normal;
-    }
-    .input::-webkit-input-placeholder{
-        font-size: 2rem;
     }
     }
     @media(max-width:350px){

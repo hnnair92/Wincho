@@ -2208,7 +2208,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game exit?</p>
+            <p>Are you sure you want to leave this game ?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link

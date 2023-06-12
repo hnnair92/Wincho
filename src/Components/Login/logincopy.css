@@ -1,0 +1,430 @@
+.Container{
+    width: 100%;
+    /* height: 90vh; */
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-image: url("../../assests/Login BG.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+    position: relative;
+}
+.Login{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.Left{
+    width:  auto;
+    height: 100%;
+}
+.Left img{
+    width: 100%;
+    height: 100%;
+}
+.Right{
+    width: 56rem;
+    /* height: 100%; */
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* height: 100%; */
+}
+.EmailInput,.PasswordInput{
+    width: 100%;
+    
+}
+.TitleDiv{
+    width: 70%;
+    border-bottom: 0.22rem solid lightgray;
+    margin-bottom: 5.68rem;
+}
+.ForgotPassword{
+    text-align: center;
+    color: #3b82f6;
+    /* color: rgb(201, 0, 0); */
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 2rem 0;
+    background-color: transparent;
+    border:none;
+    outline:none;
+}
+.Title{
+    font-size: 3rem;
+    margin: 1.70rem;
+    text-align: center;
+    font-weight: 600;
+}
+.Btns,.Btns a{
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.Btns a{
+    width: 100%;
+}
+.PasswordError{
+
+}
+.LoginBtn,.RegisterBtn{
+    /* font-family: "Poppins";
+    width: 70%;
+    text-align: center;
+    font-size: 3.5rem;
+    text-transform: uppercase; */
+
+    /* height: 9rem;
+    border-radius: 5.68rem;
+    margin:.5rem 0;
+    background-color: #1589e1;
+    color: #fff;
+    border:0.56rem solid #fff;
+    cursor: pointer;
+    font-weight: 500; */
+}
+.LoginBtn,.RegisterBtn{
+    font-family: "Poppins";
+    width: 50%;
+    font-size: 3rem;
+    margin-top: 1.13rem;
+    height: 7rem;
+    padding: 1.13rem;
+    text-align: center;
+    border-radius: 4rem;
+    margin: 1.13rem 0;
+    color: #fff;
+    border: none;
+    background-color: #3b82f6;
+    cursor: pointer;
+
+}
+/* .Right a{
+    width: 100%;
+} */
+.RegisterBtn{
+    /* width: 40%; */
+    background-color: #939393;
+    color: #fff;
+}
+.EmailInput label,.PasswordInput label{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: left;
+}
+.email{
+    font-family: "Poppins";
+    width: 100%;
+    font-size: 3rem;
+    background-color: #fff;
+    height: 7.5rem;
+    /* height: 5.68rem; */
+    padding: 1.13rem 2.26rem;
+    text-align: center;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    border:.25rem solid #333333c1;
+}
+.email::-webkit-input-placeholder{
+    text-align: center;
+    text-transform: uppercase;
+    
+}
+.EmailInput{
+    text-align: center;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+.loginError{
+    text-align: left;
+    margin-right: auto;
+    font-size: 2.02rem;
+    color: red;
+    font-weight: 600;
+}
+.email{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.passwordInput::-webkit-input-placeholder{
+    text-align: center;
+    text-transform: uppercase;
+
+}
+.info{
+    width: 9%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.info img{
+    width: 100%;
+    cursor: pointer;
+}
+.eye {
+    width: 12%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+.eye img{
+    width: 100%;
+    cursor: pointer;
+}
+.passwordInput{
+    width: 100%;
+    height: 100%;
+    border:none;
+    outline:none;
+    font-family: "Poppins";
+
+    font-size: 3rem;
+    background-color: #fff;
+    /* height: 5.68rem; */
+    padding: 1.13rem 2.26rem;
+    text-align: center;
+    border-radius: 1.13rem;
+    margin: 1.13rem 0;
+    /* border:.25rem solid #333333c1; */
+}
+.popup{
+    width: 25%;
+    padding: 50px;
+    border-radius: 15px;
+    border:7.5px solid #949393;
+    position: relative;
+    background-color: #3b82f6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9;
+}
+.content{
+    margin: 10% 0;
+}
+.content ul{
+    display: flex;
+    flex-direction: column;
+    list-style: circle;
+    font-size: 2rem;
+}
+.content ul p{
+    
+    color: #fff;
+    padding: 7px 0;
+    text-align: center;
+}
+.content ul li{
+    margin: 7px 0px;
+    color: #fff;
+
+}
+.action{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.Forgotaction{
+    /* margin: auto; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.action button{
+    margin: auto;
+    width: 75%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.Forgotaction button{
+    margin: auto;
+    width: 45%;
+    border-radius: 30px;
+    background-color: transparent;
+    border:1px solid #fff;
+    color: #fff;
+    outline:none;
+    padding:10px 0;
+
+}
+.image{
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.image img{
+    width: 100%;
+}
+.forgotEmail p{
+    font-size: 2rem;
+    color: #fff;
+    line-height: 25px;
+    text-align: center;
+}
+.forgotInput{
+    width: 100%;
+    /* height: 100%; */
+    margin-top: 10px;
+    
+
+}
+.forgotInput input{
+    width: 100%;
+    height: 6rem;
+    font-size: 3rem;
+    text-align: left;
+    border:2px solid #949393;
+    background-color: #fff;
+    outline:none;
+    padding:5px 10px;
+    border-radius: 10px;
+    color: #000;
+}
+.forgotInput input::-webkit-input-placeholder{
+    color: #33333d7c;
+    font-size: 2.75rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+.PasswordError{
+    color: red;
+}
+@media(min-width:510px) and (max-width:1056px){
+    .Login{
+        justify-content: center;
+    }
+    .popup{
+        width: 60%;
+        
+    }
+    .content ul{
+        font-size: 3rem;
+    }
+    
+}
+@media(max-width:500px){
+    .Container{
+        height: 90vh;
+    }
+    .Left{
+        display: none;
+    }
+    .Right{
+        /* height: 100%; */
+        width: 100%;
+    }
+    .TitleDiv{
+        /* margin-bottom: 2.84rem; */
+    }
+    .Title{
+        /* font-size: 2.84rem; */
+    }
+    .email{
+        /* height: 5.11rem;
+        font-size: 1.70rem;
+        margin-top: 0; */
+    }
+    .EmailInput label,.PasswordInput label{
+        /* font-size: 1.36rem; */
+    }
+    .ForgotPassword{
+        /* font-size: 1.36rem;
+        margin-bottom: 1.70rem; */
+        font-size: 1.36rem;
+        margin: 1rem;
+    }
+    .LoginBtn,.RegisterBtn{
+        /* height: 5.11rem;
+        font-size: 1.70rem; 
+        margin: 0.56rem; */
+    }
+    .email{
+        height: 5.11rem;
+        font-size: 2rem;
+        font-weight: 500;
+        text-align: center;
+    }
+    .passwordInput{
+        align-items: center;
+        text-align: center;
+    }
+    .passwordInput::-webkit-input-placeholder{
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    .Btns button{
+        font-size: 2.0rem;
+        font-weight: 500;
+        height: 5.11rem;
+    }
+    .popup{
+        width: 90%;
+        padding: 30px;
+       
+    }
+    .info{
+        text-align: center;
+        align-items: center;
+        margin: 0;
+        width: 14%;
+    }
+    .eye{
+        width: 17%;
+    }
+}
+@media(max-width:1065px){
+
+    .Container{
+        background:#FAE863;
+    }
+    .Right{
+        -webkit-box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+-moz-box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+box-shadow: 0px 0px 19px -8px rgba(0,0,0,1);
+    }
+}
+@media(max-width:765px){
+    .popup{
+        width: 85%;
+    }
+}
