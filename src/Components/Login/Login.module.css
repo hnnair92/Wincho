@@ -151,23 +151,23 @@
 .EmailInput::-webkit-input-placeholder {
   text-align: center;
   text-transform: uppercase;
-  color: #BDBDBD;
+  color: #bdbdbd;
 }
 .EmailInput {
   text-align: center;
 }
-input:-webkit-autofill,
+/* input:-webkit-autofill, 
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
-}
+} */
 .loginError {
   text-align: left;
   margin-right: auto;
   font-size: 2.02rem;
   color: red;
-  font-weight: 600
+  font-weight: 600;
 }
 .email {
   display: flex;
@@ -198,8 +198,7 @@ input:-webkit-autofill:active {
 .passwordInput::-webkit-input-placeholder {
   text-align: center;
   text-transform: uppercase;
-  color: #BDBDBD;
-
+  color: #bdbdbd;
 }
 .info {
   width: 9%;
@@ -221,21 +220,19 @@ input:-webkit-autofill:active {
   width: 100%;
   cursor: pointer;
 }
-.passwordInput{
-    width: 100%;
-    height: 100%;
-    border:none;
-    outline:none;
-    font-family: "Poppins";
+.passwordInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-family: "Poppins";
 
-    font-size: 3rem;
-    background-color: #fff;
-    /* height: 5.68rem; */
-    padding: 1.13rem 2.26rem;
-    text-align: center;
-    border-radius: 1.13rem;
-    margin: 1.13rem 0;
-    /* border:.25rem solid #333333c1; */
+  font-size: 3rem;
+  background-color: #fff;
+  /* height: 5.68rem; */
+  text-align: center;
+
+  /* border:.25rem solid #333333c1; */
 }
 .popup {
   width: 25%;
@@ -356,6 +353,20 @@ input:-webkit-autofill:active {
   .content ul {
     font-size: 3rem;
   }
+  .EmailInput {
+    height: 5.11rem;
+    font-size: 2.25rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .Password {
+    height: 5.11rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .passwordInput {
+    font-size: 2.25rem;
+  }
 }
 @media (max-width: 500px) {
   .Container {
@@ -374,11 +385,12 @@ input:-webkit-autofill:active {
   .Title {
     /* font-size: 2.84rem; */
   }
-  .email {
-    /* height: 5.11rem;
-        font-size: 1.70rem;
-        margin-top: 0; */
-  }
+  /* .email {
+    height: 5.11rem;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+  } */
   .EmailInput label,
   .PasswordInput label {
     /* font-size: 1.36rem; */
@@ -394,40 +406,50 @@ input:-webkit-autofill:active {
     /* height: 5.11rem;
         font-size: 1.70rem; 
         margin: 0.56rem; */
-    }
-    .email{
-        height: 5.11rem;
-        font-size: 2rem;
-        font-weight: 500;
-        text-align: center;
-    }
-    .passwordInput{
-        align-items: center;
-        text-align: center;
-    }
-    .passwordInput::-webkit-input-placeholder{
-        font-size: 2rem;
-        font-weight: 500;
-    }
-    .Btns button{
-        font-size: 2.0rem;
-        font-weight: 500;
-        height: 5.11rem;
-    }
-    .popup{
-        width: 90%;
-        padding: 30px;
-       
-    }
-    .info{
-        text-align: center;
-        align-items: center;
-        margin: 0;
-        width: 14%;
-    }
-    .eye{
-        width: 17%;
-    }
+  }
+  /* .email {
+    height: 5.11rem;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+  } */
+ 
+  /* .passwordInput::-webkit-input-placeholder {
+    font-size: 2rem;
+    font-weight: 500;
+  } */
+  .Btns button {
+    font-size: 2rem;
+    font-weight: 500;
+    height: 5.11rem;
+  }
+  .popup {
+    width: 90%;
+    padding: 30px;
+  }
+  .info {
+    text-align: center;
+    align-items: center;
+    margin: 0;
+    width: 10%;
+  }
+  .eye {
+    width: 13%;
+  }
+  .EmailInput {
+    height: 5.11rem;
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .Password {
+    height: 5.11rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .passwordInput {
+    font-size: 2rem;
+  }
 }
 @media (max-width: 1065px) {
   .Container {
@@ -438,9 +460,38 @@ input:-webkit-autofill:active {
     -moz-box-shadow: 0px 0px 19px -8px rgba(0, 0, 0, 1);
     box-shadow: 0px 0px 19px -8px rgba(0, 0, 0, 1);
   }
+  .EmailInput {
+    height: 9rem;
+    font-size: 3.25rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .Password {
+    height: 9rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .passwordInput {
+    font-size: 3.25rem;
+  }
 }
-@media(max-width:765px){
-    .popup{
-        width: 85%;
-    }
+@media (max-width: 765px) {
+  .popup {
+    width: 85%;
+  }
+  .EmailInput {
+    height: 6.11rem;
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .Password {
+    height: 6.11rem;
+    font-weight: 500;
+    text-align: center;
+  }
+  .passwordInput {
+    font-size: 2.5rem;
+    font-weight: 500;
+  }
 }

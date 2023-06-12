@@ -212,7 +212,7 @@ const Login = () => {
                 // setPassIcon(true)
               }}
             >
-              I've forgotten my password?
+              I've forgotten my password
             </button>
             <div className={style.Btns}>
               <button type="submit" className={style.LoginBtn}>

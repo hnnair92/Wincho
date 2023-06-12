@@ -130,7 +130,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     city: "",
     state: "",
     zipcode: "",
-  });
+  })
   const setPlayBack = () => {
     vidRef.current.playbackRate = 1.5;
   };
