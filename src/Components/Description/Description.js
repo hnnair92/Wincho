@@ -4015,6 +4015,12 @@ useEffect(()=>{
                                         : assets.UpArrow
                                     }
                                     alt=""
+                                    onTouchStart={()=>{
+                                      console.log("clicked")
+                                    }}
+                                    onTouchEnd={()=>{
+                                      console.log("Closed")
+                                    }}
                                     onMouseDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();

@@ -227,6 +227,26 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         });
       });
   }
+  const stateFetch = () => {
+    fetch(`${baseUrl}/configurations/state/collections`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        //  setAllState(data.data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(()=>{
+    stateFetch()
+  },[])
   async function addAddress() {
     if (configuration.COUNTRY_CODE === "44") {
       setUserCountry("county");

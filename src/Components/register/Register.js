@@ -518,7 +518,7 @@ const Register = () => {
           password.length < 15 &&
           /\d/.test(password) &&
           /[A-Z]/.test(password) &&
-          username.length > 1 &&
+          username.length > 0 &&
           username.length < 20 ? (
             <button type="submit" className={style.formBtn}>
               Confirm

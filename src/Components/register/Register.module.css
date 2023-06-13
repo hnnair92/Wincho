@@ -15,7 +15,7 @@
 .Popup {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 60.5%;
   transform: translate(-50%, -50%);
   /* width: 250px;
     height: 500px; */
@@ -30,6 +30,7 @@
   font-size: 18px;
   text-align: center;
   margin-top: 15%;
+  font-weight: 300;
 }
 .image {
   width: 50%;
@@ -56,15 +57,16 @@
   width: 45%;
 }
 .Actions button {
-  font-size: 16px;
+  font-size: 17px;
   text-align: center;
   width: 100%;
   /* width: 100%; */
   color: #fff;
   background-color: transparent;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   border: 1px solid #fff;
+  font-weight: 100;
 }
 .Register {
   width: 56rem;
@@ -111,7 +113,8 @@ input:-webkit-autofill:active {
   font-family: "Poppins";
   width: 100%;
   font-size: 3rem;
-  padding: 1.13rem 2.26rem;
+  padding: 0rem 2.26rem;
+  /* padding: 1.13rem 2.26rem; */
   text-align: left;
   border-radius: 1.13rem;
   margin: 1.13rem 0;
@@ -128,6 +131,7 @@ input:-webkit-autofill:active {
   background-color: #fff;
   text-align: center;
   font-weight: 500;
+  color:#000;
 }
 .input {
   font-family: "Poppins";

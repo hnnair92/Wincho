@@ -189,7 +189,7 @@ input:-webkit-autofill:active {
   background-color: #fff;
   height: 7.5rem;
   /* height: 5.68rem; */
-  padding: 1.13rem 2.26rem;
+  padding: 0rem 2.26rem;
   text-align: center;
   border-radius: 1.13rem;
   margin: 1.13rem 0;
@@ -235,17 +235,19 @@ input:-webkit-autofill:active {
   /* border:.25rem solid #333333c1; */
 }
 .popup {
-  width: 25%;
-  padding: 50px;
+  width: 21%;
+  padding: 50px 30px;
   border-radius: 15px;
-  border: 7.5px solid #949393;
+  border: 10.5px solid #949393;
   position: relative;
-  background-color: #3b82f6;
+  background-color: #0A84FE;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 52%;
+  left: 59%;
   transform: translate(-50%, -50%);
   z-index: 9;
+  height: 35%;
+
 }
 .content {
   margin: 10% 0;
@@ -293,13 +295,14 @@ input:-webkit-autofill:active {
 }
 .Forgotaction button {
   margin: auto;
-  width: 45%;
-  border-radius: 30px;
-  background-color: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  outline: none;
-  padding: 10px 0;
+    width: 38%;
+    border-radius: 30px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    outline: none;
+    padding: 15px 0;
+    font-size: 2.5rem;
 }
 .image {
   width: 50%;
@@ -312,10 +315,11 @@ input:-webkit-autofill:active {
   width: 100%;
 }
 .forgotEmail p {
-  font-size: 2rem;
+  font-size: 2.25rem;
   color: #fff;
-  line-height: 25px;
+  line-height: 30px;
   text-align: center;
+  font-weight: 300;
 }
 .forgotInput {
   width: 100%;

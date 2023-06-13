@@ -393,6 +393,37 @@ async function playAudioBg() {
         console.log(err);
       });
   }
+  const stateFetch = () => {
+    fetch(`${baseUrl}/configurations/state/collections`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // setAllState(data.data);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(()=>{
+    stateFetch()
+  },[])
+  const checkStateExits = (state, e) => {
+    e.preventDefault();
+    if (state.status === false) {
+      // setCheckError(true);
+      setState("");
+      setSelectState(false);
+    } else {
+      setState(state);
+      setSelectState(false);
+    }
+  };
   return (
     <div className={style.Container}>
 
@@ -855,23 +886,62 @@ async function playAudioBg() {
                 setCity(e.target.value);
               }}
             />
-            {user && user.coutryname === "UK" ? (
-                      <input
-                        type="text"
-                        value={user?.state || ""}
-                        readOnly
-                        placeholder="County"
-                      />
-                    ) : user && user.coutryname === "USA" ? (
-                      <input
-                        type="text"
-                        value={user?.state || ""}
-                        readOnly
-                        placeholder="State"
-                      />
-                    ) : (
-                      ""
-                    )}
+            {user.coutrycode === "1" ? (
+              <div className={`${style.input} ${style.selectInput}`}>
+                {state.state ? (
+                  <input
+                    type="text"
+                    readOnly
+                    value={state.state}
+                    className={style.StateSelect}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    readOnly
+                    className={style.StateSelectCenter}
+                    placeholder="SELECT STATE"
+                  />
+                )}
+                {}
+                <FaChevronDown
+                  onClick={() => {
+                    selectState ? setSelectState(false) : setSelectState(true);
+                  }}
+                />
+                {selectState ? (
+                  <div className={selectState ? style.AllState : style.stateUp}>
+                    {allState.map((stateItem) => {
+                      return (
+                        <input
+                          type="text"
+                          name="state"
+                          id="state"
+                          readOnly
+                          value={stateItem.state}
+                          onClick={(e) => {
+                            checkStateExits(stateItem, e);
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            ) : (
+              <input
+                type="text"
+                name=""
+                id=""
+                value={state}
+                placeholder="COUNTY"
+                onChange={(e) => {
+                  setState(e.target.value);
+                }}
+              />
+            )}
             <input
                 type="text"
                 value={user?.coutryname || ""}
