@@ -326,7 +326,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        window.open(`${data.data[0].url}`,'_self');
+        window.location.assign(`${data.data[0].url}`);
       });
   }
   function getVipDetails() {

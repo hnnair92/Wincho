@@ -10,96 +10,163 @@ import tiktok from '../../assests/TikTok Icon.png'
 import youtube from '../../assests/YouTube Icon.png'
 import { Link, useNavigate } from 'react-router-dom'
 import bandaiLogo from '../../assests/Bandai Namco Logo.png'
+import wpclogo from '../../assests/WPC logo WBA.png'
 import { useSelector } from 'react-redux'
 import playBtn from '../../assests/Asset 602-300ppi.png'
 // import { Link, useNavigate } from 'react-router-dom';
-import imageDiv from '../../assests/TEXTOff Tickets.png'
+import imageDiv from "../../assests/TEXTOff Tickets.png";
 // import {bgImage} from './BgImage.js'
-import { assets } from '../Description/assests'
+import { assets } from "../Description/assests";
 // import { AboutBg } from './AboutImage';
-import videoSrc from '../../assests/video/wincha.mp4';
-import winchaIcons from '../../assests/Wincha HomePage Logo.png';
+import videoSrc from "../../assests/video/wincha.mp4";
+import winchaIcons from "../../assests/Wincha HomePage Logo.png";
+import { baseUrl } from "../url";
 // import {} from 'react-icons/ai'
-const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGameSound,setActive, active, setGamePlay, gamePlay }) => {
-    const navigate = useNavigate();
-    const [isAddress, setIsAddress] = useState(false);
-    const {configuration} = useSelector((state)=>state.configuration)
-    const handleId = (e,title) => {
-        e.preventDefault();
-        const path = window.location.pathname;
-        if (path === "/") {
-          window.location.href = `#${title}`;
-        } else {
-          navigate("/");
-          setTimeout(() => {
-            window.location.href = `#${title}`;
-          }, 100);
-        }
-      };
-      let pathname;
-      console.log(window.location)
-      const path = window.location.pathname
-      const splitPath = path.split("/")
-      useEffect(()=>{
-        // if(window){
-          console.log(gamePlay===false&&userJoined===false&&splitPath[1]!=="game")
-          pathname = splitPath[1]
-          console.log(path);
-          console.log(splitPath[1]);
-          console.log(pathname);
-        // }
-      },[window])
-      useEffect(()=>{
-        // if(active===true){
-        //   setActive(false)
-        // }
-      },[active])
-      useEffect(()=>{
-          console.log(gamePlay)
-      },[gamePlay])
-      useEffect(()=>{
-          console.log(pathname)
-      },[pathname])
-      useEffect(()=>{
-        console.log(userJoined)
-      },[userJoined])
-  return (
-    <div className={style.Container} style={{pointerEvents:gamePlay?"none":"visible"}}>
-      {isAddress? (
-        <div className={style.popup}>
-        <div className={style.Overlay} onClick={()=>{
-            setIsAddress(false)
-        }}>
+const Footer = ({
+  userJoined,
+  pageUrl,
+  setPageUrl,
+  gameMusic,
+  setGameMusic,
+  gameSound,
+  setGameSound,
+  setActive,
+  active,
+  setGamePlay,
+  gamePlay,
+}) => {
+  const navigate = useNavigate();
+  const [isAddress, setIsAddress] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
+  const { configuration } = useSelector((state) => state.configuration);
+  const handleId = (e, title) => {
+    e.preventDefault();
+    const path = window.location.pathname;
+    if (path === "/") {
+      window.location.href = `#${title}`;
+    } else {
+      navigate("/");
+      setTimeout(() => {
+        window.location.href = `#${title}`;
+      }, 100);
+    }
+  };
+  let pathname;
+  console.log(window.location);
+  const path = window.location.pathname;
+  const splitPath = path.split("/");
+  useEffect(() => {
+    // if(window){
+    console.log(
+      gamePlay === false && userJoined === false && splitPath[1] !== "game"
+    );
+    pathname = splitPath[1];
+    console.log(path);
+    console.log(splitPath[1]);
+    console.log(pathname);
+    // }
+  }, [window]);
+  useEffect(() => {
+    // if(active===true){
+    //   setActive(false)
+    // }
+  }, [active]);
+  useEffect(() => {
+    console.log(gamePlay);
+  }, [gamePlay]);
+  useEffect(() => {
+    console.log(pathname);
+  }, [pathname]);
+  useEffect(() => {
+    console.log(userJoined);
+  }, [userJoined]);
 
-        </div>
-        <div className={style.popupSection}>
-          <div className={style.popupImage}>
-            <img src={assets.winchaPopup} alt="" />
+
+  async function SupportTicket(e) {
+   
+    await fetch(`${baseUrl}/user/account/details`, {
+     method: "POST",
+     body: JSON.stringify({
+       username: name,
+       phone_number: PhoneNumber,
+       email: email,
+       message: message,
+     }),
+     headers: {
+       "Content-Type": "application/json",
+     },
+   })
+     .then((res) => res.json())
+     .then((data) => {
+       console.log(data);
+     });
+ }
+
+
+  return (
+    <div
+      className={style.Container}
+      style={{ pointerEvents: gamePlay ? "none" : "visible" }}
+    >
+      {isAddress ? (
+        <div className={style.popup}>
+          <div
+            className={style.Overlay}
+            onClick={() => {
+              setIsAddress(false);
+            }}
+          ></div>
+          <div className={style.popupSection}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.popupText}>
+              {/* <p>{vipData.vip_discription}</p> */}
+              <form action="">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="10"
+                  placeholder="Message"
+                  onChange={(e) => setMessage(e.target.value)}
+                ></textarea>
+              </form>
+              {/* <p>fhf</p> */}
+            </div>
+            <div className={style.ReportPopupButton}>
+              <button
+                onClick={() => {
+                  // setisAddressField(true);
+                  // setIsAddressShown(true);
+                  // setIsAddress(false);
+                  setIsAddress(false);
+                  //  setCount
+                  SupportTicket();
+                }}
+              >
+                SEND
+              </button>
+            </div>
           </div>
-          <div className={style.popupText}>
-            {/* <p>{vipData.vip_discription}</p> */}
-            <form action="">
-                <input type="text" placeholder='Name'/>
-                <input type="text" placeholder="Email"/>
-                <input type="text" placeholder="Phone Number"/>
-                <textarea name="" id="" cols="30" rows="10"  placeholder="Message"></textarea>
-            </form>
-            {/* <p>fhf</p> */}
-          </div>
-          <div className={style.ReportPopupButton}>
-            <button
-              onClick={() => {
-                // setisAddressField(true);
-                // setIsAddressShown(true);
-                // setIsAddress(false);
-                setIsAddress(false)
-                //  setCount
-              }}
-            >
-              SEND
-            </button>
-          </div>
-        </div>
         </div>
       ) : (
         ""
@@ -213,7 +280,13 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                 </ul>
             </div>
             <div className={style.Address}>
-                <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
+              <div className={style.FirstContent}>
+              <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
+              <div className={style.bandaiLogo}>
+                    <img src={bandaiLogo} alt="" />
+                </div>
+              </div>
+               
                 <div className={style.SocialMedia} style={{pointerEvents:gamePlay?"none":"visible"}}>
                     {/* <FaFacebook/>
                     <AiOutlineInstagram/>
@@ -244,8 +317,11 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                     <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
                     <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
                 </div>
-                <div className={style.bandaiLogo}>
+                {/* <div className={style.bandaiLogo}>
                     <img src={bandaiLogo} alt="" />
+                </div> */}
+                <div className={style.wpclogo}>
+                    <img src={wpclogo} alt="" />
                 </div>
                 </div>
             </div>
@@ -259,7 +335,7 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                     {/* <FaFacebook/>
                     <AiOutlineInstagram/>
                     <AiFillTwitterCircle/> */}
-                    {/* <img src={facebook} alt="" />
+            {/* <img src={facebook} alt="" />
                     <img src={twitter} alt="" />
                     <img src={instagram} alt="" />
                     <img src={tiktok} alt="" />
@@ -290,14 +366,19 @@ const Footer =({ userJoined,pageUrl,setPageUrl,gameMusic, setGameMusic, gameSoun
                     <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
                     <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
                 </div>
+                <div className={style.Mlogos}>
                 <div className={style.MbandaiLogo}>
                     <img src={bandaiLogo} alt="" />
+                </div>
+                <div className={style.MWPCLogo}>
+                    <img src={wpclogo} alt="" />
+                </div>
                 </div>
                 </div>
             </div>
         </div>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

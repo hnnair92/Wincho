@@ -201,7 +201,7 @@ input:-webkit-autofill:active {
   cursor: pointer;
 }
 .btnDisabled {
-  background-color: lightgray;
+  background-color: #606060;
   cursor: not-allowed;
 }
 .checkUser,
@@ -395,12 +395,13 @@ label {
     margin: 1.13rem 0;
 } */
 .popup {
-  width: 25%;
+  width: 45rem;
+  height: 40rem;
   padding: 50px;
   border-radius: 15px;
   border: 7.5px solid #949393;
   position: relative;
-  background-color: #3b82f6;
+  background-color: #0a84fe;
   position: absolute;
   top: 50%;
   z-index: 999;
@@ -438,10 +439,11 @@ label {
   width: 75%;
   border-radius: 30px;
   background-color: transparent;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   color: #fff;
   outline: none;
-  padding: 10px 0;
+  padding: 10px;
+  font-size: 2rem;
 }
 .image {
   width: 50%;
@@ -752,8 +754,10 @@ label {
   }
 }
 @media (max-width: 765px) {
-  .popup {
-    width: 85%;
+  .Popup {
+    z-index: 99;
+    width: 80%;
+    left: 50%;
   }
   .input {
     height: 5.11rem;
@@ -818,7 +822,28 @@ label {
 
 @media (max-width: 599px) {
   .popup {
-    width: 90%;
+    width: 40rem;
+    display: flex;
+    flex-direction: column;
+    /* align-items: stretch; */
+    height: 37rem;
+    justify-content: flex-start;
+    padding: 3rem;
+  }
+  .image{
+    width: 35%;
+  }
+  .content{
+    margin: 0% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin-top: 5%;
+    align-items: center;
+  }
+  .action{
+    margin: 1rem;
   }
 
   .DataInput {

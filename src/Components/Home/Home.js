@@ -99,9 +99,9 @@ const Home = () => {
   }, []);
 
 
-  async function SupportTicket(e) {
+ async function SupportTicket(e) {
    
-    await fetch(`${baseUrl}/user/account/details`, {
+     await fetch(`${baseUrl}/user/account/details`, {
       method: "POST",
       body: JSON.stringify({
         username: name,

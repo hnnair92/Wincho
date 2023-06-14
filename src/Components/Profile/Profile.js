@@ -282,7 +282,7 @@ async function playAudioBg() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        window.open(`${data.data[0].url}`,'_self');
+        window.location.assign(`${data.data[0].url}`);
       });
   }
   // const checkStateExits = (state, e) => {

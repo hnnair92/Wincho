@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { configutation, gameEntry, getAllGames } from "../../actions/product";
+import { configutation, gameEntry,getProductByCollection,getAllGames } from "../../actions/product";
 import { cartAction, notificationAction, registerAction, updateProfile } from "../../actions/user";
 import style from "./Description.module.css";
 import Screen from "./Screen";
@@ -95,6 +95,7 @@ const Description = ({
   //     localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
   //   }
   // })
+ 
   const [animeStopStatus,setAnimeStopStatus] = useState(false)
   useEffect(()=>{
     if(animeStatus===null||animeStatus===undefined||animeStatus==="undefined"){
@@ -786,7 +787,7 @@ useEffect(()=>{
       };
       dispatch(gameEntry(EntryRequest));
       dispatch(configutation());
-      dispatch(getAllGames(userId));
+      // dispatch(getAllGames(userId));
 
       //   console.log(EntryRequest);
     }
@@ -893,6 +894,19 @@ useEffect(()=>{
   // const [addNumArray,setAddNumArray] = useState([1])
   let addNumArray = [1]
   useEffect(()=>{
+    const fetchData = {
+      // category_id:state.category,
+      // user_id:userId,
+      // countryCode:user.countryCode
+      category_id: state.cateogry,
+    country_code: configuration.COUNTRY_NAME,
+    user_id: userId,
+    }
+    dispatch(getProductByCollection(fetchData))
+    console.log(fetchData);
+    // dispatch(getAllGames())
+  },[dispatch])
+  useEffect(()=>{
     let getNum = 1;
     if(products){
       while(getNum<6){
@@ -956,12 +970,7 @@ useEffect(()=>{
           <p>Woah there you haven't got enough tickets</p>
         </div>
         <div className={style.popupButton}>
-          {/* <Link
-            to="/tickets"
-            onClick={() => {
-              setTopup(false);
-            }}
-          > */}
+        
           <button
             onClick={() => {
               prizeReset();
@@ -2451,9 +2460,7 @@ useEffect(()=>{
              
               const randomNumber = Math.random() * (products.length-0) + 0
                   console.log(randomNumber)
-              {/* if(randomNumber === index){ 
-                  console.log(index)
-                  console.log(randomNumber) */}
+              if(index<6){ 
                   return (
                     // <div
                     //   to={`/game/${game.id}`}
@@ -2500,7 +2507,7 @@ useEffect(()=>{
                     </div>
                     // </div>
                   );
-                {/* } */}
+                }
             })}
           </div>
         </div>

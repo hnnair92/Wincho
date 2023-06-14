@@ -44,33 +44,28 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   //   const baseUrl = "https://uat.wincha-online.com"
   // // const baseUrl = "https://uat.wincha-online.com";
   const { configuration } = useSelector((state) => state.configuration);
-  // useEffect(()=>{
-  //   if(user){
-  //     user.tc_version = 5
-  //   }
-  // },[])
+
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
       : localStorage.setItem("music", JSON.stringify(false))
   );
   const [termsVersion, setTermsVersion] = useState(false);
-  const [verifyEmail, setVerifyMails] = useState(false);
-  // const [verifyEmail,setVerifyMails] = useState(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(true)))
+  const [verifyEmail, setVerifyMails] = useState(false); // const [verifyEmail,setVerifyMails] = useState(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(true)))
   let { products, loading } = useSelector((state) => state.collectionProducts);
   const [popup, setPopup] = useState(false);
   const audioRefHome = useRef(null);
   const [resendEmail, setResendEmail] = useState(false);
   const [gameData, setGameData] = useState({});
   const [premiumPopup, setPremiumPopup] = useState(true);
-  // const userId = JSON.parse(localStorage.getItem("user"));
+  
   const { user } = useSelector((state) => state.profile);
   const [searchIconStatus, setSearchIconStatus] = useState(false);
-  // const userDatas = JSON.parse(localStorage.getItem("user"));
+  
   const userId =
     localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
 
-  //   console.log(userDatas);
+ 
   const navigate = useNavigate();
   const [topup, setTopup] = useState(false);
   const [search, setSearch] = useState("");
@@ -84,16 +79,14 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [countSection, setCountSection] = useState(0);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
-  // const times = JSON.parse(localStorage.getItem("times"))
+  
   const checkPlayArray =
     localStorage.getItem("checkPlay") &&
     JSON.parse(localStorage.getItem("checkPlay"));
   const verifiedEmail =
     JSON.parse(localStorage.getItem("verfiedEmail")) &&
     JSON.parse(localStorage.getItem("verfiedEmail"));
-  // const verifiedEmail = JSON.parse(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(false)))
-  // const checkPlayArray = localStorage.getItem("checkPlay")&& JSON.parse(localStorage.getItem("checkPlay"))
-  // console.log(verifiedEmail)
+  
   useEffect(() => {
     console.log(times);
     console.log(typeof times);
@@ -220,9 +213,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-    // console.log()
-  }, []);
-
+  }, [])
   async function playAudio(src) {
     console.log(audioStatus, "audioStatus");
     if (audioStatus === "true") {
@@ -234,11 +225,6 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       audioRef.current.volume = 0;
     }
   }
-  // audioRef.current.volume = 1
-  // console.log(audioRef.current.volume);
-  // audioRefHome.current.mute()
-  // console.log(audioStatus);
-
   useEffect(() => {
     console.log(gameMusic === "true", "gameSound");
     console.log(typeof gameMusic, "gameMusic");
@@ -629,7 +615,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        window.open(`${data.data[0].url}`,'_self');
+        window.location.assign(`${data.data[0].url}`);
       });
   }
   // const[active,setActive]= useState(false)

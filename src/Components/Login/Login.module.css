@@ -235,19 +235,18 @@ input:-webkit-autofill:active {
   /* border:.25rem solid #333333c1; */
 }
 .popup {
-  width: 21%;
-  padding: 50px 30px;
+  width: 45rem;
+  height: 45rem;
+  padding: 50px;
   border-radius: 15px;
   border: 10.5px solid #949393;
   position: relative;
-  background-color: #0A84FE;
+  background-color: #0a84fe;
   position: absolute;
-  top: 52%;
+  top: 50%;
   left: 59%;
   transform: translate(-50%, -50%);
   z-index: 9;
-  height: 35%;
-
 }
 .content {
   margin: 10% 0;
@@ -288,21 +287,22 @@ input:-webkit-autofill:active {
   width: 75%;
   border-radius: 30px;
   background-color: transparent;
-  border: 1px solid #fff;
+  border: 2px solid #fff;
   color: #fff;
   outline: none;
   padding: 10px 0;
+  font-size: 2rem;
 }
 .Forgotaction button {
   margin: auto;
-    width: 38%;
-    border-radius: 30px;
-    background-color: transparent;
-    border: 2px solid #fff;
-    color: #fff;
-    outline: none;
-    padding: 15px 0;
-    font-size: 2.5rem;
+  width: 38%;
+  border-radius: 30px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  outline: none;
+  padding: 15px 0;
+  font-size: 2.5rem;
 }
 .image {
   width: 50%;
@@ -340,7 +340,6 @@ input:-webkit-autofill:active {
 }
 .forgotInput input::-webkit-input-placeholder {
   color: #33333d7c;
-  font-size: 2.75rem;
   text-align: center;
   text-transform: uppercase;
 }
@@ -353,6 +352,13 @@ input:-webkit-autofill:active {
   }
   .popup {
     width: 60%;
+    left: 50%;
+  }
+  .content{
+    margin: 14% 0;
+  }
+  .forgotEmail p{
+    font-size: 2.75rem;
   }
   .content ul {
     font-size: 3rem;
@@ -370,6 +376,9 @@ input:-webkit-autofill:active {
   }
   .passwordInput {
     font-size: 2.25rem;
+  }
+  .forgotInput input {
+    font-size: 2rem;
   }
 }
 @media (max-width: 500px) {
@@ -417,7 +426,7 @@ input:-webkit-autofill:active {
     font-weight: 500;
     text-align: center;
   } */
- 
+
   /* .passwordInput::-webkit-input-placeholder {
     font-size: 2rem;
     font-weight: 500;
@@ -454,6 +463,9 @@ input:-webkit-autofill:active {
   .passwordInput {
     font-size: 2rem;
   }
+  .forgotInput input {
+    font-size: 2rem;
+  }
 }
 @media (max-width: 1065px) {
   .Container {
@@ -478,10 +490,60 @@ input:-webkit-autofill:active {
   .passwordInput {
     font-size: 3.25rem;
   }
+  .forgotInput input {
+    font-size: 2rem;
+  }
 }
 @media (max-width: 765px) {
   .popup {
+    width: 40rem;
+    left: 50%;
+    height: 37rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 4rem;
+  }
+  .image {
+    width: 35%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .forgotEmail p {
+    font-size: 2rem;
+    line-height: 25px;
+  }
+  .content {
+    margin: 0% 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    /* padding: 9rem 0px; */
+    margin-top: 15%;
+  }
+  .action button{
+    margin: 1rem;
     width: 85%;
+    border-radius: 30px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    outline: none;
+    padding: 10px 0;
+    font-size: 2rem;
+  }
+  .forgotInput input {
+    font-size: 2rem;
+    height: 5rem;
+  }
+  .Forgotaction button {
+    font-size: 1.75rem;
+    width: 47%;
+    padding: 1.5rem;
   }
   .EmailInput {
     height: 6.11rem;

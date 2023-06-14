@@ -37,7 +37,7 @@
 }
 
 .Title {
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 700;
     color: #fff;
 }
@@ -70,7 +70,7 @@
 .Address {
     height: 100%;
     display: flex;
-    width: 45%;
+    width: 50%;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -110,7 +110,7 @@
 }
 
 .SocialMedia {
-    width: 75%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -201,12 +201,18 @@
 
 .bandaiLogo {
     width: 40%;
+    margin-top: 1.5rem;
 }
 
 .bandaiLogo img {
     width: 100%;
 }
-
+.wpclogo{
+    width: 40%;
+}
+.wpclogo img{
+    width: 100%;
+}
 .TermsAndPrivacy {
     flex-direction: row;
     justify-content: space-between;
@@ -227,6 +233,11 @@
 
 .MFooter {
     display: none;
+}
+.FirstContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 @media(max-width:1065px) {
@@ -254,7 +265,7 @@
     }
 
     .SocialMedia {
-        width: 75%;
+        width: 70%;
     }
 
     .SocialMedia img {
@@ -280,10 +291,16 @@
         font-size: 2rem;
         margin: 3px 0;
     }
-
+    .Mlogos{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin: 6rem;
+        width: 60%;
+        align-items: center;
+    }
     .MbandaiLogo {
-        margin: 30px;
-        width: 50%;
+        width: 45%;
     }
 
     .MbandaiLogo img {
@@ -291,6 +308,13 @@
     }
     .Copyright p{
         font-size: 2rem;
+    }
+    .MWPCLogo{
+        width: 35%;
+        margin-left: 5rem;
+    }
+    .MWPCLogo img{
+        width: 100%;
     }
 }
 @media(max-width:767px) {
@@ -506,6 +530,16 @@
         padding:10px 20px;
         font-size: 2rem;
     }
+    .Mlogos{
+        width:60%;
+        margin: 5rem;
+    }
+    .MWPCLogo{
+        width: 40%;
+    }
+    .MbandaiLogo{
+        width: 50%;
+    }
 }
 @media(max-width:712px){
     .popup{
@@ -515,6 +549,9 @@
         margin: 6px 0px;
         padding:10px 20px;
         font-size: 2rem;
+    }
+    .MWPCLogo{
+        width: 35%;
     }
 }
 @media(max-width:599px){
@@ -551,6 +588,17 @@
     }
     .Contact{
         margin-top: 50%;
+    }
+    .Mlogos{
+        width:60%;
+        margin: 4rem;
+    }
+    .MWPCLogo{
+        width: 40%;
+        margin-left: 2rem;
+    }
+    .MbandaiLogo{
+        width: 50%;
     }
 }
 @media(max-width:280px){

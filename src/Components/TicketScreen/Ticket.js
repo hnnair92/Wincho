@@ -382,7 +382,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         console.log(requestData2);
         // window.open(`${data.data[0].url}`);
-        window.location.assign(`${data.data[0].url}`,'_self');
+        window.location.assign(`${data.data[0].url}`);
       });
   }
   // async function getData(){

@@ -20,7 +20,7 @@ export const productReducer = (state={products:[]},action)=>{
                 return{
                     ...state,
                     loading:false,
-                    error:action.payload
+                    error:action.payload.message
                 }
         default:
             return{
