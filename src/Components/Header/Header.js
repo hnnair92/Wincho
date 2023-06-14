@@ -60,11 +60,15 @@ const Header = ({
   const [historyPopup, setHistoryPopup] = useState(false);
   const [audioId, setAudioId] = useState("");
   const [sliderSction, setSliderAction] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
   const { notification } = useSelector((state) => state.notification);
   let inGame = localStorage.getItem("inGame");
-  const placeId = urlState.pathname.split("/")
-  console.log(urlState)
-  console.log(placeId[1])
+  const placeId = urlState.pathname.split("/");
+  console.log(urlState);
+  console.log(placeId[1]);
   // let userId = JSON.parse(localStorage.getItem("user"))||
   const token = JSON.parse(localStorage.getItem("token"));
 
@@ -355,6 +359,26 @@ const Header = ({
       );
   }
 
+  async function SupportTicket(e) {
+   
+    await fetch(`${baseUrl}/user/account/details`, {
+      method: "POST",
+      body: JSON.stringify({
+        username: name,
+        phone_number: PhoneNumber,
+        email: email,
+        message: message,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
+
   const MobileFunc = () => {
     useEffect(() => {
       document.body.style.overflow = "hidden";
@@ -384,6 +408,7 @@ const Header = ({
       console.log(userId);
       console.log(user?.username);
     });
+
     return (
       <div className={style.mobileFullMenu}>
         <div className={style.Menu}>
@@ -480,9 +505,9 @@ const Header = ({
                   notification.notification_count > 0 &&
                   notification !== undefined ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.basket_item_count
+                      {/* {notification && notification.basket_item_count
                         ? notification && notification.notification_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -615,15 +640,28 @@ const Header = ({
             <div className={style.popupText}>
               {/* <p>{vipData.vip_discription}</p> */}
               <form action="">
-                <input type="text" placeholder="Name" />
-                <input type="text" placeholder="Email" />
-                <input type="text" placeholder="Phone Number" />
+                <input
+                  type="text"
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
                 <textarea
                   name=""
                   id=""
                   cols="30"
                   rows="10"
                   placeholder="Message"
+                  onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
               </form>
               {/* <p>fhf</p> */}
@@ -636,6 +674,7 @@ const Header = ({
                   // setIsAddress(false);
                   setIsAddress(false);
                   //  setCount
+                  SupportTicket();
                 }}
               >
                 SEND
@@ -673,41 +712,52 @@ const Header = ({
                       // }
                       setPageUrl(MMenu.url);
                       playAudio(music.Click);
-                     
-                          checkGameOn();
-                        setToggle(false);
-                        if (MMenu.Name === "Support"&&gamePlay===false&&userJoined===false) {
-                          console.log(window.location.pathname.split("/"))
-                          console.log(window.location.pathname.split("/")[1]==="")
-                          if(window.location.pathname.split("/")[1]===""){
-                            MhandleId(e);
-                            console.log("home")
-                          }
-                          else{
-                            if(window.location.pathname.split("/")[1]==="game"){
-                              setActive(true)
-                            }
-                            else{
-                              if(isAddress==true){
-                              setIsAddress(false)
-                            }
-                            else{
+
+                      checkGameOn();
+                      setToggle(false);
+                      if (
+                        MMenu.Name === "Support" &&
+                        gamePlay === false &&
+                        userJoined === false
+                      ) {
+                        console.log(window.location.pathname.split("/"));
+                        console.log(
+                          window.location.pathname.split("/")[1] === ""
+                        );
+                        if (window.location.pathname.split("/")[1] === "") {
+                          MhandleId(e);
+                          console.log("home");
+                        } else {
+                          if (
+                            window.location.pathname.split("/")[1] === "game"
+                          ) {
+                            setActive(true);
+                          } else {
+                            if (isAddress == true) {
+                              setIsAddress(false);
+                            } else {
                               setToggle(false);
-                              setIsAddress(true)
+                              setIsAddress(true);
                             }
-                            }
-
                           }
-                          
                         }
-  
-                        if (MMenu.Name !== "Support"&&gamePlay===false&&userJoined===false&&placeId[1]!=="game") {
-                          navigate(`/${MMenu.url}`);
-                        }
-                      }}
+                      }
 
-                    />
-                    {MMenu.Badge === true &&notification && notification.basket_item_count>0&&notification!==undefined&&MMenu.Name==="Basket"?(
+                      if (
+                        MMenu.Name !== "Support" &&
+                        gamePlay === false &&
+                        userJoined === false &&
+                        placeId[1] !== "game"
+                      ) {
+                        navigate(`/${MMenu.url}`);
+                      }
+                    }}
+                  />
+                  {MMenu.Badge === true &&
+                  notification &&
+                  notification.basket_item_count > 0 &&
+                  notification !== undefined &&
+                  MMenu.Name === "Basket" ? (
                     <span className={style.CartBadge}>
                       {notification && notification.basket_item_count
                         ? notification && notification.basket_item_count
@@ -732,7 +782,7 @@ const Header = ({
                 </div>
               );
             })}
-            
+
             <HiMenu
               onClick={() => {
                 // setSetting(true)
@@ -755,17 +805,17 @@ const Header = ({
           </div>
         </div>
         {notificationbubble &&
-            notification &&
-            notification.notification_count > 0 &&
-            notification !== undefined ? (
-              <span className={style.notificationBadge}>
-                {notification && notification.notification_count
-                  ? notification && notification.notification_count
-                  : "0"}
-              </span>
-            ) : (
-              ""
-            )}
+        notification &&
+        notification.notification_count > 0 &&
+        notification !== undefined ? (
+          <span className={style.notificationBadge}>
+            {notification && notification.notification_count
+              ? notification && notification.notification_count
+              : "0"}
+          </span>
+        ) : (
+          ""
+        )}
         <div className={style.HamBurgerMenu}>
           {/* <div className={style.HamBurgerMenu}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
           {setting ? (
@@ -945,7 +995,7 @@ const Header = ({
                       notification &&
                       notification.notification_count > 0 &&
                       notification !== undefined ? (
-                        <span className={style.CartBadge}>
+                        <span className={style.NotificationCount}>
                           {notification && notification.notification_count
                             ? notification && notification.notification_count
                             : "0"}
@@ -1253,7 +1303,7 @@ const Header = ({
                   notification &&
                   notification.notification_count > 0 &&
                   notification !== undefined ? (
-                    <span className={style.CartBadge}>
+                    <span className={style.NotificationCount}>
                       {notification && notification.notification_count
                         ? notification && notification.notification_count
                         : "0"}

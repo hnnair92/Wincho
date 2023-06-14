@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import style from "./Home.module.css";
 import backgroundData from "../../Api/backgroundJson";
 import Lottie from "lottie-react";
@@ -14,6 +14,8 @@ import { AboutBg } from "./AboutImage";
 import videoSrc from "../../assests/video/wincha.mp4";
 import VideoSrcHome from "../../assests/video/wincha_home.mp4";
 import winchaIcons from "../../assests/Wincha HomePage Logo.png";
+import { baseUrl } from "../url";
+
 const Home = () => {
   const navigate = useNavigate();
   const [scrollNav, setScrollNav] = useState(false);
@@ -33,6 +35,10 @@ const Home = () => {
   const [isAddress, setIsAddress] = useState(false);
   const [id, setId] = useState(0);
   const [aboutId, setAboutId] = useState(0);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [PhoneNumber, setPhoneNumber] = useState("");
 
   const leftHandle = () => {
     if (id <= 0) {
@@ -86,11 +92,32 @@ const Home = () => {
   }, []);
 
   const videoRef = useRef(null);
-   useEffect(() => {
+  useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play();
     }
   }, []);
+
+
+  async function SupportTicket(e) {
+   
+    await fetch(`${baseUrl}/user/account/details`, {
+      method: "POST",
+      body: JSON.stringify({
+        username: name,
+        phone_number: PhoneNumber,
+        email: email,
+        message: message,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }
 
   return (
     <div className={style.Container}>
@@ -205,15 +232,28 @@ const Home = () => {
             <div className={style.popupText}>
               {/* <p>{vipData.vip_discription}</p> */}
               <form action="">
-                <input type="text" placeholder="Name" />
-                <input type="text" placeholder="Email" />
-                <input type="text" placeholder="Phone Number" />
+                <input
+                  type="text"
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Phone Number"
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
                 <textarea
                   name=""
                   id=""
                   cols="30"
                   rows="10"
                   placeholder="Message"
+                  onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
               </form>
               {/* <p>fhf</p> */}
@@ -226,6 +266,7 @@ const Home = () => {
                   // setIsAddress(false);
                   setIsAddress(false);
                   //  setCount
+                  SupportTicket();
                 }}
               >
                 SEND
@@ -307,8 +348,8 @@ const Home = () => {
           </div>
         </div>
         <div className={style.MWatch}>
-        <video playsInline loop muted ref={videoRef}>
-        <source src={VideoSrcHome} type="video/mp4" />
+          <video playsInline loop muted ref={videoRef}>
+            <source src={VideoSrcHome} type="video/mp4" />
           </video>
         </div>
         <div className={style.MSupport} id="supports">

@@ -272,7 +272,7 @@
 .editAddress {
   width: 68rem;
   position: absolute;
-  top: 5%;
+  top: 6%;
   /* height: 70%; */
   left: 50%;
   height: 100vh;
@@ -337,13 +337,62 @@
   color: #fff;
   margin-top: 2rem;
 }
+.Downarrow{
+  font-size: 3rem;
+}
+.StateSelect {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #000;
+  height: 100%;
+  font-size: 3.5rem;
+}
+.selectInput {
+  position: relative;
+}
+.AllState {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 95%;
+  height: 450px;
+  overflow-y: scroll;
+  background-color: #010020;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 15px;
+  z-index: 9;
+}
+.stateUp {
+  animation: slideUp 500ms ease;
+}
+.AllState::-webkit-scrollbar {
+  display: none;
+}
+.AllState input {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  border-bottom: 0.5px solid #fff;
+  padding: 10px;
+  outline: none;
+  color: #000;
+}
 .postpopup {
   position: fixed;
   z-index: 99999;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #1b8fe7;
+  background-color: #0A84FE;
   border: 1rem solid #949393;
   border-radius: 20px;
   padding: 2rem;
@@ -364,18 +413,19 @@
   font-size: 1.75rem;
   font-weight: 600;
   border-radius: 30px;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 .postpopupText p {
   font-size: 1.65rem;
   text-align: center;
   align-items: center;
   color: #fff;
-  width: 300px;
+  width: 200px;
   font-weight: 500;
   /* word-wrap: break-word; */
   line-height: 25px;
   margin-top: 5rem;
+
 }
 .phnpopupText p {
   font-size: 1.65rem;
@@ -407,7 +457,8 @@
   justify-content: center;
   align-items: center;
   /* width: 15%; */
-  width: 35rem;
+  width: 40rem;
+  height: 25rem;
 }
 
 .popupImage {
@@ -423,8 +474,13 @@
 }
 
 .popupText {
-  margin-top: 1%;
-  padding: 1rem;
+  margin-top: 10%;
+  /* padding: 1rem; */
+  display: flex;
+  flex-direction: column;
+  height: 25%;
+  align-items: center;
+  justify-content: center;
 }
 
 .popupText p {
@@ -432,27 +488,31 @@
   text-align: center;
   color: #fff;
   line-height: 25px;
-  font-size: 2.25rem;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 100;
 }
 .popupButton,
 .popupButtonSubmit {
   width: 100%;
-  padding: 0rem 2rem;
+  /* padding: 0rem 2rem; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .popupButton button,
 .popupButtonSubmit button {
   margin: 1.5rem 0;
   padding: 1rem 0rem;
-  width: 100%;
+  width: 225px;
   background-color: transparent;
   border: 2px solid #fff;
   outline: none;
   color: #fff;
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
   border-radius: 30px;
   font-family: myraidproregular;
+  height: 50px;
 }
 .popupButtonSubmit button {
   border-width: 1.5px;
@@ -1287,6 +1347,9 @@
   }
   .myDetails .Password .InputSection img {
     width: 8.5%;
+  }
+  .AllState{
+    height: 350px;
   }
 }
 @media (max-width: 280px) {

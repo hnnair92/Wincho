@@ -2034,7 +2034,7 @@ useEffect(()=>{
           </div>
           <div className={style.popupText}>
             <p>
-              Thanks! We have received your report and if necessary will aim to
+              Thanks! We have received your report and,if necessary,will aim to
               respond within 24 hours
             </p>
           </div>

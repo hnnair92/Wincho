@@ -237,8 +237,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //  setAllState(data.data);
         console.log(data);
+        setAllState(data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -293,6 +293,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(body);
         console.log(data);
         dispatch(updateProfile());
       })
@@ -781,6 +782,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             className={style.AddressTitleOverlay}
             onClick={() => {
               setisAddressField(false);
+              setSelectState(false)
             }}
           ></div>
           <form action="">
@@ -863,7 +865,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   />
                 )}
                 {}
-                <FaChevronDown
+                <FaChevronDown className={style.Downarrow}
                   onClick={() => {
                     selectState ? setSelectState(false) : setSelectState(true);
                   }}
@@ -954,6 +956,28 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       ) : (
         ""
       )}
+      {checkError?(
+        <div className={style.popup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.popupText}>
+          <p>State is not available for shipping</p>
+        </div>
+        <div className={style.ReportPopupButton}>
+          <button
+            onClick={() => {
+              setCheckError(false)
+              setSelectState(true)
+            }}
+          >
+            Ok
+          </button>
+         
+        </div>
+      </div>
+      ):
+      ("")}
       <div className={style.Cart}>
         <div className={style.Title}>
           <p>BASKET</p>

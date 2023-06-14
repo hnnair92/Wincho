@@ -127,7 +127,8 @@ async function playAudioBg() {
   const [allState, setAllState] = useState([]);
   const [postcodetrue, setPostcodeTrue] = useState(false);
   const [phonenumber,setPhonenumber]=useState(false)
-  
+  const [checkError, setCheckError] = useState(false);
+
   const [addressObj, setAddressObj] = useState({
     line1: "",
     line2: "",
@@ -403,7 +404,7 @@ async function playAudioBg() {
     })
       .then((res) => res.json())
       .then((data) => {
-        // setAllState(data.data);
+        setAllState(data.data);
         console.log(data);
       })
       .catch((err) => {
@@ -416,11 +417,12 @@ async function playAudioBg() {
   const checkStateExits = (state, e) => {
     e.preventDefault();
     if (state.status === false) {
-      // setCheckError(true);
+      setCheckError(true);
       setState("");
       setSelectState(false);
     } else {
       setState(state);
+      console.log();
       setSelectState(false);
     }
   };
@@ -822,6 +824,7 @@ async function playAudioBg() {
             className={style.editAddressOverlay}
             onClick={() => {
               setIsAddress(false);
+              setSelectState(false)
             }}
           ></div>
           <form>
@@ -904,7 +907,7 @@ async function playAudioBg() {
                   />
                 )}
                 {}
-                <FaChevronDown
+                <FaChevronDown  className={style.Downarrow}
                   onClick={() => {
                     selectState ? setSelectState(false) : setSelectState(true);
                   }}
@@ -1042,6 +1045,27 @@ async function playAudioBg() {
         ) : (
           ""
         )}
+         {checkError?(
+        <div className={style.postpopup}>
+        <div className={style.popupImage}>
+          <img src={assets.winchaPopup} alt="" />
+        </div>
+        <div className={style.postpopupText}>
+          <p>State is not available for shipping</p>
+        </div>
+        <div className={style.popupbutton}>
+          <button
+            onClick={() => {
+              setPostcodeTrue(false);
+              setIsAddress(true);
+            }}
+          >
+            Ok
+          </button>
+        </div>
+      </div>
+      ):
+      ("")}
             {/* {loading?
           <Lottie animationData={AllAnimation.Loader}/>
           :""} */}
@@ -1133,7 +1157,6 @@ async function playAudioBg() {
                     />
                     <img src={rightArrow} onClick={()=>{
                       setIsAddress(true)
-                      setState(user?.state)
                     }} alt="" />
                   </div>
                 </div>
@@ -1150,7 +1173,6 @@ async function playAudioBg() {
                     /> */}
                     <img src={rightArrow} onClick={()=>{
                       setIsAddress(true)
-                      setState(user?.state)
                     }} alt="" />
                     <input
                       type="text"

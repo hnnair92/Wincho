@@ -115,18 +115,20 @@
 .spectator span,
 .queStatus span {
   background-color: #e50000;
-  padding-top: 2.5px;
   border-radius: 50%;
   color: #fff;
   font-weight: 600;
-  font-size: 1.75rem;
-  width: 20px;
-  height: 20px;
   position: absolute;
   left: 0;
   top: 50%;
   transform: translate(-40%, -100%);
-  text-align: center;
+  font-size: 1.35rem;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Camera,
@@ -347,14 +349,15 @@ video {
   transform: translate(-50%, -50%);
   border: 1rem solid #949393;
   border-radius: 30px;
-  background-color: #1b8fe7;
+  background-color: #0A84FE;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   /* width: 15%; */
-  width: 300px;
+  width: 40rem;
+  height: 30rem;
 }
 
 .popupImage {
@@ -382,12 +385,12 @@ video {
   text-align: center;
   color: #fff;
   line-height: 25px;
-  font-size: 2.25rem;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 100;
 }
 .popupButton,
 .popupButtonSubmit {
-  width: 100%;
+  width: 76%;
   position: relative;
   z-index: 999;
   padding: 0rem 2rem;
@@ -414,7 +417,7 @@ video {
   border: 2px solid #fff;
   outline: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 600;
   border-radius: 30px;
   font-family: myraidproregular;
@@ -423,7 +426,7 @@ video {
   width: 100%;
 }
 .popupButtonSubmit button {
-  border-width: 1.5px;
+  border-width: 2px;
 }
 
 .ReportPopupButton,
@@ -444,12 +447,12 @@ video {
   margin: 1rem;
   padding: 1rem 0rem;
   background-color: transparent;
-  border: 1.5px solid #fff;
+  border: 2px solid #fff;
   outline: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
-  font-weight: 500;
+  font-weight: 100;
   border-radius: 30px;
   font-family: myraidproregular;
 }
@@ -466,13 +469,14 @@ video {
   padding: 2rem 2rem;
   font-family: myraidproregular;
   border-radius: 20px;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #1b8fe7;
   /* overflow-y: scroll; */
   outline: none;
   margin: 1rem 0;
   resize: none;
   width: 100%;
+  font-weight: 800;
 }
 /* .popupInput textarea::-webkit-textfield-decoration-container{
     display: none;
@@ -490,10 +494,10 @@ video {
   background-color: transparent;
   font-family: myraidproregular;
 
-  border: 1.5px solid #fff;
+  border: 2px solid #fff;
   outline: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 500;
   border-radius: 30px;
 }
@@ -1073,12 +1077,9 @@ video {
 
   .queStatus span,
   .spectator span {
-    font-size: 1.5rem;
-    /* padding: 2px 6px; */
-    padding-top: 3.25px;
-    height: 20px;
+    font-size: 1.35rem;
     width: 20px;
-    text-align: center;
+    height: 20px;
   }
   .queStatus span {
     /* padding-top: 2px; */
@@ -1614,6 +1615,5 @@ video {
   }
   .Controls {
     width: 100%;
-   
   }
 }

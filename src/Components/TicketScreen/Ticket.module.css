@@ -545,7 +545,8 @@
   justify-content: center;
   align-items: center;
   /* width: 15%; */
-  width: 300px;
+  width: 40rem;
+  height: 25rem;
 }
 .ResendpopupImage {
   width: 40%;
@@ -558,18 +559,18 @@
   width: 100%;
 }
 .ResendpopupText {
-  margin-top: 15%;
+  margin-top: 17%;
 }
 .ResendpopupText p {
   font-size: 2rem;
   text-align: center;
   color: #fff;
   line-height: 25px;
-  font-size: 2.25rem;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 100;
 }
 .ResendpopupButton {
-  width: 100%;
+  width: 75%;
 }
 .ResendpopupButton button {
   margin: 1.5rem 0;
@@ -579,8 +580,8 @@
   border: 2px solid #fff;
   outline: none;
   color: #fff;
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 100;
   border-radius: 30px;
   font-family: myraidproregular;
 }
