@@ -1962,7 +1962,7 @@ useEffect(()=>{
         ""
       )}
       {reportIssueCategories ? (
-        <div className={style.popup}>
+        <div className={`${style.popup} ${style.reportPopup}`}>
         <div className={style.OverlayBg} onClick={()=>{
             setReportIssueCategories(false)
         }}>
@@ -1998,7 +1998,7 @@ useEffect(()=>{
         ""
       )}
       {reportContent ? (
-        <div className={style.popup}>
+        <div className={`${style.popup} ${style.reportPopup}`}>
         <div className={style.OverlayBg} onClick={()=>{
             setReportContent(false)
         }}>
@@ -2036,7 +2036,7 @@ useEffect(()=>{
         ""
       )}
       {reportConfirm ? (
-        <div className={style.popup}>
+        <div className={`${style.popup} ${style.reportPopup}`}>
         
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -2952,6 +2952,7 @@ useEffect(()=>{
                   ""
                 ) // :direction&&direction[1]==="Right"?
               }
+              {howToPlayStatus===false?
               <div className={style.Controls}>
                 <div className={style.Left}>
                   <div className={style.Camera}>
@@ -4299,6 +4300,7 @@ useEffect(()=>{
                   </div>
                 </div>
               </div>
+              :<div className={style.Controls}></div>}
             </div>
           </div>
         </div>

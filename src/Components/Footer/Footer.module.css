@@ -312,6 +312,7 @@
     .MWPCLogo{
         width: 35%;
         margin-left: 5rem;
+        margin-bottom: 1rem;
     }
     .MWPCLogo img{
         width: 100%;
@@ -596,6 +597,7 @@
     .MWPCLogo{
         width: 40%;
         margin-left: 2rem;
+        margin-bottom: 5px;
     }
     .MbandaiLogo{
         width: 50%;

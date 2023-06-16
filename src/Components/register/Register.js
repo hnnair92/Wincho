@@ -133,7 +133,7 @@ const Register = () => {
       username: username,
       email: email,
       password: password,
-      dob: date,
+      dob: date||"",
       country: location.country,
       state: state.state,
       countrycode: configuration.COUNTRY_CODE,
@@ -142,7 +142,7 @@ const Register = () => {
     };
     console.log(data);
     console.log(configuration);
-    if (eligible === true && password === confirmPassword) {
+    if ( password === confirmPassword) {
       dispatch(registerAction(data));
     }
   };
@@ -170,16 +170,16 @@ const Register = () => {
     dateArray = selDate.split("-");
     const CurYear = new Date().getFullYear();
     console.log(dateArray);
-    if (dateArray[0] <= CurYear - 12) {
-      setCheckError(false);
-      setEligible(true);
+    // popup()
+    // if (dateArray[0] <= CurYear - 12) {
+    //   setCheckError(false);
+    //   setEligible(true);
 
-      // popup()
-    } else {
-      // setDate("")
-      setCheckError(true);
-      setEligible(false);
-    }
+    // } else {
+    //   setCheckError(true);
+    //   setEligible(false);
+    // }
+    // setDate("")
     setDate(`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`);
   };
   const popup = (error) => {
@@ -313,7 +313,7 @@ const Register = () => {
           )}
           <label htmlFor="">Date of Birth</label>
 
-          <input
+          {/* <input
             type="date"
             placeholder="DOB"
             required
@@ -321,6 +321,19 @@ const Register = () => {
             id=""
             className={date ? style.DataInput : style.hideDate}
             onChange={(e) => {
+              handleDate(e);
+              console.log(e.target.value);
+            }}
+          /> */}
+          <input
+            type="date"
+            required
+            name=""
+            id=""
+            style={{color:date.length>0?"#000":"#bdbdbd"}}
+            className={style.DataInput}
+           onChange={(e) => {
+
               handleDate(e);
               console.log(e.target.value);
             }}
@@ -512,7 +525,7 @@ const Register = () => {
             </p>
           </div>
           {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-          {eligible &&
+          {
           terms === true &&
           password === confirmPassword &&
           password.length > 7 &&

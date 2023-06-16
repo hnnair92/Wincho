@@ -337,7 +337,7 @@
   color: #fff;
   margin-top: 2rem;
 }
-.Downarrow{
+.Downarrow {
   font-size: 3rem;
 }
 .StateSelect {
@@ -392,7 +392,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #0A84FE;
+  background-color: #0a84fe;
   border: 1rem solid #949393;
   border-radius: 20px;
   padding: 2rem;
@@ -425,7 +425,6 @@
   /* word-wrap: break-word; */
   line-height: 25px;
   margin-top: 5rem;
-
 }
 .phnpopupText p {
   font-size: 1.65rem;
@@ -446,23 +445,24 @@
   z-index: 99999;
   top: 50%;
   left: 50%;
+  width: -moz-fit-content;
   width: fit-content;
   transform: translate(-50%, -50%);
   border: 1rem solid #949393;
   border-radius: 20px;
   background-color: #0a84fe;
-  padding: 1rem 1rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   /* width: 15%; */
   width: 40rem;
-  height: 25rem;
+  height: 55%;
 }
 
 .popupImage {
-  width: 40%;
+  width: 45%;
   position: absolute;
   top: 0;
   transform: translateY(-50%);
@@ -474,11 +474,10 @@
 }
 
 .popupText {
-  margin-top: 10%;
+  margin-top: 20%;
   /* padding: 1rem; */
   display: flex;
   flex-direction: column;
-  height: 25%;
   align-items: center;
   justify-content: center;
 }
@@ -487,7 +486,7 @@
   font-size: 2rem;
   text-align: center;
   color: #fff;
-  line-height: 25px;
+  line-height: 32px;
   font-size: 2.5rem;
   font-weight: 100;
 }
@@ -550,14 +549,13 @@
 }
 .popupSubmit button {
   margin: 0.5rem;
-  padding: 1rem 3rem;
+  padding: 1.5rem 3rem;
   /* background-color: transparent; */
   font-family: myraidproregular;
-
   border: 1.5px solid #fff;
   outline: none;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 500;
   border-radius: 30px;
 }
@@ -570,7 +568,7 @@
   flex-direction: column;
 }
 .ReportPopupButtonCategory {
-  margin-top: 12%;
+  /* margin-top: 12%; */
 }
 .ReportPopupButton button,
 .ReportPopupButtonCategory button {
@@ -695,7 +693,7 @@
   border-radius: 15px;
   border: 7.5px solid #949393;
   position: relative;
-  background-color: #0A84FE;
+  background-color: #0a84fe;
   position: absolute;
   top: 50%;
   z-index: 999999;
@@ -709,13 +707,13 @@
   justify-content: flex-start;
 }
 .content ul {
-    display: flex;
-    flex-direction: column;
-    list-style: circle;
-    font-size: 2.25rem;
-    line-height: 1;
-    height: 100%;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  list-style: circle;
+  font-size: 2.25rem;
+  line-height: 1;
+  height: 100%;
+  justify-content: space-between;
 }
 .content ul p {
   color: #fff;
@@ -849,6 +847,12 @@
   .Container {
     height: 89vh;
   }
+  .popup {
+    width: 60rem;
+    padding: 1rem 3rem;
+    height: 50%;
+
+  }
 }
 @media (max-width: 599px) {
   .Profile {
@@ -892,6 +896,7 @@
   .popupContent {
     width: 35rem;
     padding: 0.5rem 1rem;
+    height: 65%;
   }
   .popupText textarea {
     font-size: 1.5rem;
@@ -902,7 +907,7 @@
   }
   .popupSubmit button {
     font-size: 2rem;
-    padding: 0.5rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
   .popupSubmit {
     justify-content: space-evenly;
@@ -934,6 +939,12 @@
     width: 3%;
     right: 10%;
   }
+  
+.popupText {
+  margin-top: 15%;
+  /* padding: 1rem; */
+
+}
 }
 
 .clubHousePopup {
@@ -1281,6 +1292,11 @@
   .Policy p {
     font-size: 1.25rem;
   }
+  .popup {
+    width: 35rem;
+    padding: 0.5rem 1rem;
+    height: 50rem;
+  }
 }
 .Shipping .Phone .InputSection .phoneInputSection {
   color: #fff;
@@ -1309,6 +1325,7 @@
   position: fixed;
   z-index: 9;
 }
+
 @media (max-width: 768px) {
   .ClubHouse {
     width: 65%;
@@ -1349,7 +1366,7 @@
   .myDetails .Password .InputSection img {
     width: 8.5%;
   }
-  .AllState{
+  .AllState {
     height: 350px;
   }
 }
@@ -1387,4 +1404,96 @@
   /* border-radius: 1.13rem; */
   margin: 1.13rem 0;
   /* border: 0.25rem solid #333333c1; */
+}
+@media screen and (max-device-width: 1024px) and (orientation: landscape) {
+  .popup {
+    width: 35rem;
+    padding: 0.5rem 1rem;
+    height: 50rem;
+  }
+  
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  .popup {
+    width: 55rem;
+    padding: 0.5rem 1rem;
+    height: 60rem;
+  }
+  .Passpopup {
+    width: 37rem;
+    height: 45rem;
+    padding: 50px;
+    border-radius: 15px;
+    border: 7.5px solid #949393;
+    position: relative;
+    background-color: #0a84fe;
+    position: absolute;
+    top: 50%;
+    z-index: 999999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+@media screen and (max-device-width: 1400px) and (orientation: landscape) {
+  .popup {
+    width: 50rem;
+    padding: 0.5rem 1rem;
+    height: 50rem;
+  }
+  .Passpopup {
+    width: 37rem;
+    height: 45rem;
+    padding: 50px;
+    border-radius: 15px;
+    border: 7.5px solid #949393;
+    position: relative;
+    background-color: #0a84fe;
+    position: absolute;
+    top: 50%;
+    z-index: 999999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+@media screen and (max-device-width: 1200px) and (orientation: landscape) {
+  .popup {
+    width: 50rem;
+    padding: 0.5rem 1rem;
+    height: 50rem;
+  }
+  .Passpopup {
+    width: 37rem;
+    height: 45rem;
+    padding: 50px;
+    border-radius: 15px;
+    border: 7.5px solid #949393;
+    position: relative;
+    background-color: #0a84fe;
+    position: absolute;
+    top: 50%;
+    z-index: 999999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+  .popup {
+    width: 55rem;
+    padding: 0.5rem 1rem;
+    height: 55rem;
+  }
+  .Passpopup {
+    width: 37rem;
+    height: 45rem;
+    padding: 50px;
+    border-radius: 15px;
+    border: 7.5px solid #949393;
+    position: relative;
+    background-color: #0a84fe;
+    position: absolute;
+    top: 50%;
+    z-index: 999999;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }

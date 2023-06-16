@@ -42,6 +42,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-height: 200px;
 }
 
 .GameScreen {
@@ -339,7 +340,7 @@ video {
   object-fit: cover;
 }
 
-.popup {
+.popup ,.reportPopup{
   position: fixed;
   font-family: myraidproregular !important;
   z-index: 99999999;
@@ -357,9 +358,11 @@ video {
   align-items: center;
   /* width: 15%; */
   width: 40rem;
-  height: 25rem;
+  /* height: 25rem; */
 }
-
+.reportPopup{
+  height: auto;
+}
 .popupImage {
   width: 40%;
   z-index: 99;
@@ -1587,6 +1590,9 @@ video {
 @media (max-width: 599px) {
   .LoaderAnime {
     width: 8rem;
+  }
+  .PrizeReset{
+    width: 5rem;
   }
   .Camera button,
   .PrizeReset button,

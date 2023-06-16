@@ -103,11 +103,11 @@ const Login = () => {
           </div>
         </div>
       ) : forgotPass ? (
-        <div className={style.popup}>
+        <div className={style.popup_forgot}>
           <div className={style.image}>
             <img src={icon} alt="" />
           </div>
-          <div className={style.content}>
+          <div className={style.forgotcontent}>
             <div className={style.forgotEmail}>
               <p>Enter your account email to receive a password reset</p>
               <div className={style.forgotInput}>

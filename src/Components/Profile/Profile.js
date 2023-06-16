@@ -727,7 +727,7 @@ async function playAudioBg() {
               <div className={style.cancelButton}>
                 <button onClick={()=>{
                   setDeactivate(false)
-                }} >Cancel</button>
+                }} >Close</button>
                 </div>
               <div className={style.deleteButton}>
                 <button
