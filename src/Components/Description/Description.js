@@ -767,11 +767,7 @@ useEffect(()=>{
       playAudio(music.Chime);
     }
   }, [reportIssueCategories]);
-  useEffect(()=>{
-    console.log(GameData.price==="0")
-    console.log(typeof GameData.price)
 
-  },[])
   useEffect(() => {
     if (GameData) {
       
@@ -898,14 +894,14 @@ useEffect(()=>{
       // category_id:state.category,
       // user_id:userId,
       // countryCode:user.countryCode
-      category_id: state.cateogry,
+      category_id: state&&state.cateogry,
     country_code: configuration.COUNTRY_NAME,
     user_id: userId,
     }
     dispatch(getProductByCollection(fetchData))
     console.log(fetchData);
     // dispatch(getAllGames())
-  },[dispatch])
+  },[dispatch,state])
   useEffect(()=>{
     let getNum = 1;
     if(products){
@@ -1649,7 +1645,6 @@ useEffect(()=>{
   //         })
   //     })
   //   }
-  console.log(GameData.machine_code)
 
   async function PointDebit() {
     const userPointInt = parseInt(user?.point);
@@ -3007,6 +3002,9 @@ useEffect(()=>{
                     <div className={style.GameScore}>
                       <img src={assets.GamePricePng} alt="" />
                       <span>{GameData&&GameData.price}</span>
+                    </div>
+                    <div className={style.BgStaticImaage}>
+                      <img src={waitStatic} alt="" />
                     </div>
                     {gamePlayStatus ? (
                       que === "0" ? (

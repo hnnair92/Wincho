@@ -12,7 +12,7 @@ const OrderConfirmed = () => {
     dispatch(notificationAction())
     setTimeout(() => {
       navigate("/prizes")
-    }, 6000);
+    }, 8000);
   },[dispatch])
   return (
     <div className={style.Container}>

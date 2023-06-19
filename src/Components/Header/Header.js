@@ -97,7 +97,7 @@ const Header = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data, "history data");
         setHistory(data.data);
       });
   }
@@ -360,7 +360,6 @@ const Header = ({
   }
 
   async function SupportTicket(e) {
-   
     await fetch(`${baseUrl}/user/account/details`, {
       method: "POST",
       body: JSON.stringify({
@@ -569,25 +568,24 @@ const Header = ({
             {history.length < 1 ? (
               <p className={style.historyEmptyText}>history is empty</p>
             ) : (
-              ""
+              <div className={style.CartProducts}>
+                {(history !== null) & (history !== undefined) &&
+                  history.length > 0 &&
+                  history.map((item) => {
+                    console.log(item);
+                    return (
+                      <div className={style.CartProduct}>
+                        <div className={style.CartImage}>
+                          <img src={item.featured_image.large} alt="" />
+                        </div>
+                        <div className={style.CartContent}>
+                          <p>{item.title}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
             )}
-            <div className={style.CartProducts}>
-              {history.length > 0 &&
-                (history !== null) & (history !== undefined) &&
-                history.map((item) => {
-                  console.log(item);
-                  return (
-                    <div className={style.CartProduct}>
-                      <div className={style.CartImage}>
-                        <img src={item.featured_image.large} alt="" />
-                      </div>
-                      <div className={style.CartContent}>
-                        <p>{item.title}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
           </div>
         </div>
       ) : (
@@ -601,7 +599,7 @@ const Header = ({
               <img src={assets.winchaPopup} alt="" />
             </div>
             <p className={style.KickoutMessage}>
-              Are you sure do you want to exit game{" "}
+              Are you sure you want to leave this game ?{" "}
             </p>
             <div className={style.KickoutBtn}>
               <button
@@ -617,7 +615,16 @@ const Header = ({
                   // dispatch(gameEntry(EntryRequest));
                 }}
               >
-                OK
+                {" "}
+                YES
+              </button>
+
+              <button
+                onClick={() => {
+                  setKickout(false);
+                }}
+              >
+                NO
               </button>
             </div>
           </div>

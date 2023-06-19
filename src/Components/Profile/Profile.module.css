@@ -438,7 +438,28 @@
   margin-top: 5rem;
 }
 
-.popup,
+.popup {
+  position: absolute;
+  font-family: myraidproregular !important;
+  z-index: 99999;
+  top: 50%;
+  left: 50%;
+  width: -moz-fit-content;
+  width: fit-content;
+  transform: translate(-50%, -50%);
+  border: 1rem solid #949393;
+  border-radius: 20px;
+  background-color: #0a84fe;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 15%; */
+  width: 40rem;
+  height:60%;
+}
+
 .popupContent {
   position: absolute;
   font-family: myraidproregular !important;
@@ -458,9 +479,21 @@
   align-items: center;
   /* width: 15%; */
   width: 40rem;
-  height: 55%;
+  height: 28%;
 }
+.resendpopupText p{
+  font-size: 2rem;
+  text-align: center;
+  color: #fff;
+  line-height: 32px;
+  font-size: 2.5rem;
+  font-weight: 100;
+  margin:1rem 0;
+}
+.resendpopupText{
+  margin-top: 5rem;
 
+}
 .popupImage {
   width: 45%;
   position: absolute;
@@ -824,8 +857,7 @@
   .Passpopup {
     width: 90%;
   }
-  .popup,
-  .popupContent {
+  .popup{
     width: 45rem;
   }
   .popupText p {
@@ -841,6 +873,18 @@
   }
   .editAddress {
     top: 0;
+  }
+  .popupContent{
+    width: 50rem;
+    height: 35rem;
+  }
+  .resendpopupText p{
+    font-size: 3.75rem;
+    margin:4rem 0;
+  }
+  .resendpopupText{
+    margin-top:5rem;
+  
   }
 }
 @media (max-width: 1065px) {
@@ -892,8 +936,7 @@
   .eye {
     width: 15%;
   }
-  .popup,
-  .popupContent {
+  .popup {
     width: 35rem;
     padding: 0.5rem 1rem;
     height: 65%;
@@ -945,6 +988,26 @@
   /* padding: 1rem; */
 
 }
+
+  .popupContent{
+    height: 23rem;
+    width: 30rem;
+  }
+  .resendpopupText p{
+    font-size: 2rem;
+    margin:1rem 0;
+  }
+  .resendpopupText{
+    margin-top:5rem;
+  
+  }
+  .popupButton button{
+    margin: 1.5rem 0;
+  padding: 1rem 0rem;
+  width: 160px;
+  font-size: 2rem;
+  height: 40px;
+  }
 }
 
 .clubHousePopup {

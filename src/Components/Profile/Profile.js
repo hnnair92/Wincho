@@ -746,7 +746,7 @@ async function playAudioBg() {
           ""
         )}
         {resendEmail&&userId!==null&&user&&user.username!=="" ? (
-          <div className={style.popup}>
+          <div className={style.resendEmailpopup}>
           <div className={style.popupOverlay} onClick={()=>{
              if(resendLocal===true){
               setResendEmail(false)
@@ -759,7 +759,7 @@ async function playAudioBg() {
             <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
-            <div className={style.popupText}>
+            <div className={style.resendpopupText}>
               <p>Awaiting player verification</p>
             </div>
             <div className={style.popupButton}>
@@ -786,7 +786,7 @@ async function playAudioBg() {
           ""
         )}
         {checkMail&&userId!==null&&user&&user.username!=="" ? (
-          <div className={style.popup}>
+          <div className={style.resendEmailpopup}>
           <div className={style.popupOverlay} onClick={()=>{
             // setResendEmail(false)
           }}></div>
