@@ -698,7 +698,7 @@
     }
     .CategoriesSection{
         width: fit-content;
-        flex-direction: row-reverse;
+        flex-direction: row;
         margin-left: 0;
         align-items: center;
     }
@@ -1008,7 +1008,7 @@
     font-weight: 100;
 }
 .ResendpopupButton{
-    width: 100%;
+    width: 75%;
 
 }
 .ResendpopupButton button{
@@ -1053,7 +1053,7 @@
         width: 80%;
     }
     .MSearch{
-        margin-left: 4rem;
+        margin-left: 0rem;
     }
 }
 @media(max-width:450px){

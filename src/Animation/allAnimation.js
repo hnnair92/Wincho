@@ -21,4 +21,10 @@ import Loader from './loading_icon.json'
 import Progress from './progress circle 19.0.json'
 import Progress1 from './progress circle 19.0 copy.json'
 import howToPlay from './howToPlay.json'
-export const AllAnimation = {howToPlay,Progress,Progress1,Loader,timeout,missed,wait_10,wait_15,wait_20,wait_25,wait_30,wait_35,wait_40,wait_45,wait_50,wait_R_G,ArrowUp,ArrowLeft,ArrowRight,RedtoGreen,waitPulse,ReversePlay,ReverseWait}
+import leftStatic from './leftStatic.json'
+import rightStatic from './rightStatic.json'
+import upStatic from './upStatic.json'
+import leftPressedStatic from './LeftPressedStatic.json'
+import rightPressedStatic from './rightPressedStatic.json'
+import upPressedStatic from './upPressedStatic.json'
+export const AllAnimation = {upPressedStatic,rightPressedStatic,leftPressedStatic,leftStatic,rightStatic,upStatic,howToPlay,Progress,Progress1,Loader,timeout,missed,wait_10,wait_15,wait_20,wait_25,wait_30,wait_35,wait_40,wait_45,wait_50,wait_R_G,ArrowUp,ArrowLeft,ArrowRight,RedtoGreen,waitPulse,ReversePlay,ReverseWait}

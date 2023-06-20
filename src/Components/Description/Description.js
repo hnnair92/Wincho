@@ -963,7 +963,7 @@ useEffect(()=>{
           <img src={assets.winchaPopup} alt="" />
         </div>
         <div className={style.popupText}>
-          <p>Woah there you haven't got enough tickets</p>
+          <p>Woah there! You haven't got enough tickets</p>
         </div>
         <div className={style.popupButton}>
         
@@ -995,7 +995,7 @@ useEffect(()=>{
           <img src={assets.winchaPopup} alt="" />
         </div>
         <div className={style.popupText}>
-          <p>Woah there you haven't got enough tickets</p>
+        <p>Woah there! You haven't got enough tickets</p>
         </div>
         <div className={style.popupButton}>
           <Link
@@ -1017,7 +1017,7 @@ useEffect(()=>{
           <img src={assets.winchaPopup} alt="" />
         </div>
         <div className={style.popupText}>
-          <p>Woah there you haven't got enough tickets</p>
+        <p>Woah there! You haven't got enough tickets</p>
         </div>
         <div className={style.popupButton}>
           <Link
@@ -1039,7 +1039,7 @@ useEffect(()=>{
           <img src={assets.winchaPopup} alt="" />
         </div>
         <div className={style.popupText}>
-          <p>You've used all your free plays</p>
+          <p>You've used all of your free plays</p>
         </div>
         <div className={style.popupButton}>
           <Link
@@ -1869,7 +1869,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Shall we move the prize to an easier position</p>
+            <p>Shall we move the prize to an easier position?</p>
           </div>
           <div className={style.popupButton}>
             {/* <Link
@@ -1917,7 +1917,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Woah there you haven't got enough tickets</p>
+          <p>Woah there! You haven't got enough tickets</p>
           </div>
           <div className={style.popupButton}>
             <Link
@@ -2063,7 +2063,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>You've used all your free plays</p>
+          <p>You've used all of your daily free plays</p>
           </div>
           <div className={style.popupButton}>
             <Link
@@ -2212,7 +2212,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game ?</p>
+            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -3003,26 +3003,28 @@ useEffect(()=>{
                       <img src={assets.GamePricePng} alt="" />
                       <span>{GameData&&GameData.price}</span>
                     </div>
-                    <div className={style.BgStaticImaage}>
+                    {/* <div className={style.BgStaticImaage}>
                       <img src={waitStatic} alt="" />
-                    </div>
+                    </div> */}
                     {gamePlayStatus ? (
                       que === "0" ? (
                         wait === true ? (
-                          <Lotties
-                            animationData={AllAnimation.waitPulse}
-                            loop={false}
-                            onComplete={() => {
+                          <button>
+                            <Lotties
+                              animationData={AllAnimation.waitPulse}
+                              loop={false}
                               // localStorage.setItem("reload",false)
-                              setReloadStatus(true)
-                              PointDebit();
-                            }}
-                            onClick={()=>{
-                              setReloadStatus(true)
-                              PointDebit();
-                            }}
-                             
-                          />
+                              onComplete={() => {
+                                setReloadStatus(true)
+                                PointDebit();
+                              }}
+                              onClick={()=>{
+                                setReloadStatus(true)
+                                PointDebit();
+                              }}
+                               
+                            />
+                          </button>
                         ) : firstStep ? (
                           game.camera_data[0].camera_id === "1" ? (
                             direction && direction[1] === "Right" ? (
@@ -3072,7 +3074,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onPointerDown={() => {
+                                    onTouchStart={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
@@ -3082,7 +3084,7 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onPointerUp={() => {
+                                    onTouchEnd={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
@@ -3124,18 +3126,10 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
-                                    src={
-                                      cameraState2
-                                        ? assets.RightArrowPressed
-                                        : assets.RightArrow
-                                    }
-                                    alt=""
-                                    onMouseDown={() => {
+                                  <button  onMouseDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
-                                          // animeRef.current.pause()
                                       localStorage.setItem("state",JSON.stringify(true))
                                       animeRef.current.pause()
 
@@ -3148,7 +3142,6 @@ useEffect(()=>{
                                       localStorage.setItem("state",JSON.stringify(false))
 
                                       setCameraState2(false);
-                                      // animeRef.current.play()
 
                                       
                                     }}
@@ -3156,7 +3149,6 @@ useEffect(()=>{
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
-                                          // animeRef.current.pause()
                                       localStorage.setItem("state",JSON.stringify(true))
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
@@ -3167,10 +3159,57 @@ useEffect(()=>{
                                       FirstArrowRelease("RL_STOP");
                                       localStorage.setItem("state",JSON.stringify(false))
                                       setCameraState2(false);
-                                      // animeRef.current.play()
+
+                                    }}>
+                                  <Lotties
+                                    animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
+                                    loop={true}
+                                     
+                                  />
+                                  </button>
+                                  {/* <img
+                                    src={
+                                      cameraState2
+                                        ? assets.RightArrowPressed
+                                        : assets.RightArrow
+                                    }
+                                    alt=""
+                                    onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState2(true);
+                                      localStorage.setItem("state",JSON.stringify(true))
+                                      animeRef.current.pause()
+
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
 
                                     }}
-                                  />
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      localStorage.setItem("state",JSON.stringify(false))
+
+                                      setCameraState2(false);
+
+                                      
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState2(true);
+                                      localStorage.setItem("state",JSON.stringify(true))
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      localStorage.setItem("state",JSON.stringify(false))
+                                      setCameraState2(false);
+
+                                    }}
+                                  /> */}
                                 </div>
                               </div>
                             ) : direction && direction[1] === "Left" ? (
@@ -3439,6 +3478,9 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
+                                    // onTouchStart={()=>{
+
+                                    // }}
                                   />
                                 </div>
                               </div>

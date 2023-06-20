@@ -701,9 +701,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             // className={`${style.MSearch} ${searchIconStatus===true?style.MtabSearch:""}`}
             className={style.MSearch}
             style={{
-              backgroundColor:
-                searchIconStatus === false ? "transparent" : "#e1f5fb",
-              border: searchIconStatus === false ? "none" : "2px solid #efeef1",padding:searchIconStatus===false?"0":"7.5px 15px"
+              backgroundColor: "#e1f5fb",
+              border:"2px solid #efeef1",padding:"7.5px 15px"
             }}
           >
             <div
@@ -714,7 +713,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             >
               <img src={searchIcon} alt="" />
             </div>
-            {searchIconStatus ? (
+            {/* {searchIconStatus ? ( */}
               <input
                 type="text"
                 name=""
@@ -725,7 +724,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   setSearch(e.target.value);
                 }}
               />
-            ) : (
+            {/* ) : (
               ""
             )}
             {searchIconStatus ? (
@@ -741,7 +740,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
               </div>
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
 
@@ -905,7 +904,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             </div>
             <div className={style.ResendpopupText}>
               <p>
-                We need to verift your email address in order to complete your
+                We need to verify your email address in order to complete your
                 setup
                 <br />
                 Please check your inbox

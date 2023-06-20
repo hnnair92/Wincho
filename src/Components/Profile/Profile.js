@@ -356,7 +356,7 @@ async function playAudioBg() {
       addressline1: line1,
       addressline2: line2,
       city: city,
-      county: state,
+      state: state,
       zipcode: zipcode,
       coutrycode: configuration.COUNTRY_CODE,
       coutryname: configuration.COUNTRY_NAME,

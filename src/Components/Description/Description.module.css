@@ -153,7 +153,7 @@
   width: 100%;
 }
 
-.PlayImage button {
+.PlayImage button, .PlayImage > div:nth-child(3){
   width: 100%;
   /* width: 20rem; */
 }
@@ -281,6 +281,7 @@ a {
   background-color: #fff;
   padding: 0.5rem;
   border-radius: 2.26rem;
+  aspect-ratio: 4/3;
 }
 
 .TicketPrice {
@@ -414,7 +415,7 @@ video {
 .popupButton button,
 .popupButtonSubmit button {
   margin: 1.5rem 0.5rem;
-  padding: 1rem 0rem;
+  padding: 1.5rem 0rem;
   width: 100%;
   background-color: transparent;
   border: 2px solid #fff;
@@ -628,13 +629,25 @@ video {
   /* min-width:130px */
 }
 
-.PlayImage button {
+.PlayImage button, .PlayImage > div:nth-child(3) {
   position: relative;
   z-index: 99;
   min-width: 12rem;
   height: 100%;
   width: 100%;
+  height: 100%;
+  width: 105%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
 }
+/* .PlayImage button, .PlayImage > div:nth-child(3){
+  position: relative;
+  z-index: 99;
+  min-width: 12rem;
+  height: 100%;
+  width: 100%;
+} */
 
 .GameScore {
   position: absolute;
@@ -834,7 +847,7 @@ video {
   .Controls .Center {
     width: 100%;
   }
-  .PlayImage button img {
+  .PlayImage button img,.PlayImage > div:nth-child(3) svg {
     width: 100%;
   }
   .Report button {
@@ -1286,7 +1299,7 @@ video {
   /* background-color: #000000c9; */
 }
 .LoaderAnime {
-  width: 21rem;
+  width: 13rem;
   position: absolute;
   top: 36%;
   left: 60%;
@@ -1306,6 +1319,12 @@ video {
 .ArrowBothButtons .playImageLoader {
   position: relative;
 }
+/* .ArrowBothButtons .playImageLoader svg {
+  z-index: 999;
+}
+.ArrowBothButtons .playImageLoader img {
+  z-index: 9;
+} */
 .ArrowBothButtons .playImageLoader div {
   position: absolute;
   z-index: 9;
@@ -1329,6 +1348,14 @@ video {
     width: 100vw;
     height: 100vh;
     position: fixed;
+  }
+  .LoaderDivSection {
+    position: absolute;
+    top: 60%;
+    width: 100%;
+    height: 100%;
+    left: 40%;
+     transform: translate(-50%,-50%); 
   }
 }
 .ExitpopupButton {
@@ -1587,6 +1614,13 @@ video {
   font-size: 2.25rem;
   font-weight: 500;
 }
+@media (max-width: 712px) {
+  .videoStarting .LoaderDivSection p {
+    font-size: 3rem;
+    padding-top: 5px;
+    margin-top: 5rem;
+  }
+}
 @media (max-width: 599px) {
   .LoaderAnime {
     width: 8rem;
@@ -1603,7 +1637,7 @@ video {
     width: 45%;
   }
   .videoStarting .LoaderDivSection p {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     padding-top: 5px;
     margin-top: 1rem;
   }
@@ -1625,15 +1659,28 @@ video {
   }
 }
 .BgStaticImaage{
-  position: absolute;
+  /* position: absolute;
   top: 0;
   left: 0;
   z-index: 99;
   min-width: 12rem;
   height: 100%;
   width: 100%;
-  z-index: 0;
+  z-index: 0; */
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 99;
+    /* min-width: 12rem; */
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+
 }
 .BgStaticImaage img{
   width: 100%;
 }
+/* .PlayImage{
+  -webkit-user-select: none;
+} */

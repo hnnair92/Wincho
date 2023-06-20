@@ -306,6 +306,7 @@
   border-radius: 1.13rem;
   margin: 1.13rem 0;
   border: 0.25rem solid #333333c1;
+  text-align:center;
 }
 .editAddress form input:focus {
   outline: 0.25rem solid #1b8fe7;
@@ -457,7 +458,7 @@
   align-items: center;
   /* width: 15%; */
   width: 40rem;
-  height:60%;
+  height:56rem;
 }
 
 .popupContent {

@@ -396,7 +396,7 @@ label {
 } */
 .popup {
   width: 45rem;
-  height: 40rem;
+  height: 43rem;
   padding: 50px;
   border-radius: 15px;
   border: 7.5px solid #949393;
@@ -409,7 +409,7 @@ label {
   transform: translate(-50%, -50%);
 }
 .content {
-  margin: 10% 0;
+  margin: 3rem 0;
 }
 .content ul {
   display: flex;

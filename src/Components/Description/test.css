@@ -1,0 +1,5 @@
+/* #videos{
+    -webkit-user-select: none;
+} */
+body { -webkit-touch-callout: none !important; }
+img,svg { -webkit-user-select: none !important; }

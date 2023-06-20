@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import Lotties from 'lottie-react'
 import { AllAnimation } from '../../Animation/allAnimation';
+import './test.css'
+import imageSvg from '../../assests/Icon.svg';
 const OT = require('@opentok/client');
-
 const Test = () => {
 
     // * global OT API_KEY TOKEN SESSION_ID SAMPLE_SERVER_BASE_URL */
@@ -72,14 +73,18 @@ console.log(typeof state)
   return (
     <div>
          <div id="videos">
-         <button onMouseDown={()=>{
+         <button >
+         <img src={imageSvg} onPointerDown={(e)=>{
+              console.log("started")                       //   animeRef.current.play()
+              e.preventDefault(); 
             localStorage.setItem("state",JSON.stringify(false))
             animeRef.current.pause()
-         }} onMouseUp={()=>{
-                                    //   animeRef.current.play()
+         }} onPointerUp={(e)=>{
+          e.preventDefault(); 
+              console.log("Ended")                       //   animeRef.current.play()
 
             
-         }}>
+         }} style={{width:"100%",height:"100%"}}/>
             <Lotties lottieRef={animeRef} loop={false} isPaused={state} animationData={AllAnimation.wait_10} 
             onComplete={() => {
                 state = JSON.parse(localStorage.getItem("state"))

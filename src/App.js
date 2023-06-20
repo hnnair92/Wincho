@@ -33,6 +33,7 @@ import ScrollToTop from "./scrollToTop";
 import { baseUrl } from "./Components/url";
 import Cookie from "./Components/Cookie/Cookie";
 // import { Socket } from 'socket.io-client';
+import 'pepjs';
 function App() {
   const dispatch = useDispatch()
   const [userJoined,setUserJoined] = useState(false)
@@ -142,7 +143,10 @@ useEffect(()=>{
 },[])
   // console.log(localStorage.getItem("user"))
   return (
-    <div className="App">
+    <div className="App"
+          
+        touch-action="none"
+      >
       <Router>
       <ScrollToTop />
         <Header userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
