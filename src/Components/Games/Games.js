@@ -37,6 +37,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const location = useLocation();
   const state = location.state;
   const audioRef = useRef(null);
+  const [startTouchData,setStartTouchData] = useState({})
+  const [endTouchData,setEndTouchData] = useState({})
   const token = JSON.parse(localStorage.getItem("token"));
   const buttonRef = useRef(null)
   const button2Ref = useRef(null)
@@ -79,7 +81,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [countSection, setCountSection] = useState(0);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
-  
+  const scrollRefDiv = useRef(null)
   const checkPlayArray =
     localStorage.getItem("checkPlay") &&
     JSON.parse(localStorage.getItem("checkPlay"));
@@ -91,6 +93,52 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(times);
     console.log(typeof times);
   });
+  useEffect(()=>{
+    console.log(startTouchData)
+  },[startTouchData])
+  useEffect(()=>{
+    console.log(endTouchData)
+  },[endTouchData])
+  useEffect(()=>{
+    const categoryIndex = categories.findIndex(
+        (item)=>item.value === category
+        
+        );
+    if(startTouchData&&endTouchData){
+      console.log(endTouchData.clientX-startTouchData.clientX>100)
+      console.log(endTouchData.clientX-startTouchData.clientX<-100)
+      if(endTouchData.clientX-startTouchData.clientX>100){
+        console.log(scrollRefDiv.current);
+
+        if(categoryIndex===0){
+          setCategory(categories[categories.length-1].value)
+          setEndTouchData({})
+          setStartTouchData({})
+        }
+        else{
+
+          setCategory(categories[categoryIndex-1].value)
+          setEndTouchData({})
+          setStartTouchData({})
+        }
+        
+      }
+      else if(endTouchData.clientX-startTouchData.clientX<-100){
+        console.log(scrollRefDiv.current);
+        if(categories.length-1===categoryIndex){
+          setCategory(categories[0].value)
+          setEndTouchData({})
+          setStartTouchData({})
+        }
+        else{
+          setCategory(categories[categoryIndex+1].value)
+          setEndTouchData({})
+          setStartTouchData({})
+          scrollRefDiv.current.scrollLeft += 50
+        }
+      }
+    } 
+  },[startTouchData,endTouchData])
   useEffect(() => {
     if (verifiedEmail === false || verifiedEmail === "false") {
       setVerifyMails(true);
@@ -630,7 +678,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {/* <div className={style.Categories}> */}
       <div className={`${style.Categories} ${searchIconStatus===true?style.MtabSearch:""}`}>
         <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`}>
-          <div className={style.AllCategories}>
+          <div className={style.AllCategories} ref={scrollRefDiv} onScroll={(e)=>{
+            console.log(e)
+          }}>
             {categories.map((categoryItem, index) => {
               return (
                 <button
@@ -646,6 +696,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                       : style.category
                   }
                   onClick={(e) => {
+                    console.log(scrollRefDiv)
                     console.log(e)
                     playAudio(music.Pop);
                     if (searchArray.length > 0) {
@@ -992,55 +1043,61 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {loading ? (
         <NewLoader />
       ) : (
-        <div className={style.Games} onTouchStart={()=>{
+        <div className={style.Games} onTouchStart={(e)=>{
           console.log("started")
-          console.log(window)
+          setStartTouchData(e.changedTouches[0])
+          // console.log(window)
+          console.log(e)
+
         }}  onTouchMove={(e)=>{
           // console.log("Move")
           // console.log(categories[0].value)
           // console.log(category)
           // console.log(e.targetTouches[0].screenX)
-          const categoryIndex = categories.findIndex(
-            (item)=>item.value === category
+          // const categoryIndex = categories.findIndex(
+          //   (item)=>item.value === category
             
-            );
-          if(e.targetTouches[0].screenX>350){
-            console.log(e.targetTouches[0].screenX)
-            // categories.findIndex((item)=>{
-            //   console.log(item.value===category)
-            // })
-            if(categoryIndex<=0){
-              setCategory(categories[categories.length-1].value)
-            }
-            else{
-            setCategory(categories[categoryIndex-1].value)
-            }
-            buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
-            console.log(buttonRef.current.scrollIntoView()) 
-            console.log(buttonRef.current) 
+          //   );
+          // if(e.targetTouches[0].screenX>350){
+          //   console.log(e.targetTouches[0].screenX)
+          //   // categories.findIndex((item)=>{
+          //   //   console.log(item.value===category)
+          //   // })
+          //   if(categoryIndex<=0){
+          //     setCategory(categories[categories.length-1].value)
+          //   }
+          //   else{
+          //   setCategory(categories[categoryIndex-1].value)
+          //   }
+          //   buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
+          //   console.log(buttonRef.current.scrollIntoView()) 
+          //   console.log(buttonRef.current) 
 
             
-          }
-          if(e.targetTouches[0].screenX<125){
-            console.log(e.targetTouches[0].screenX)
+          // }
+          // if(e.targetTouches[0].screenX<125){
+          //   console.log(e.targetTouches[0].screenX)
 
-            // setCategory("free")
-            if(categories.length-1===categoryIndex){
-              setCategory(categories[0].value)
-            }
-            else{
-              setCategory(categories[categoryIndex+1].value)
-            }
-            buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
-            console.log(buttonRef.current.scrollIntoView()) 
-            console.log(buttonRef.current) 
+          //   // setCategory("free")
+          //   if(categories.length-1===categoryIndex){
+          //     setCategory(categories[0].value)
+          //   }
+          //   else{
+          //     setCategory(categories[categoryIndex+1].value)
+          //   }
+          //   buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
+          //   console.log(buttonRef.current.scrollIntoView()) 
+          //   console.log(buttonRef.current) 
 
-          }
-          playAudio(music.Pop)
+          // }
+          // playAudio(music.Pop)
           
         }}  
-        onTouchEnd={()=>{
+        onTouchEnd={(e)=>{
+          setEndTouchData(e.changedTouches[0])
           console.log("End")
+         console.log(e)
+        
         }}>
           {topup ? (
             <div className={style.popup}>
@@ -1181,7 +1238,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                          <img src={game.featured_image.large} alt="" />
+                          <img src={game.featured_image.large} alt="" onLoad={()=>{
+                            setLoadingScreen(false)
+                            console.log("loaded")
+                          }} />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
@@ -1359,7 +1419,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                          <img src={game.featured_image.large} alt="" />
+                           <img src={game.featured_image.large} alt="" onLoad={()=>{
+                            setLoadingScreen(false)
+                            console.log("loaded")
+                          }} />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
@@ -1541,7 +1604,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                          <img src={game.featured_image.large} alt="" />
+                           <img src={game.featured_image.large} alt="" onLoad={()=>{
+                            setLoadingScreen(false)
+                            console.log("loaded")
+                          }} />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
@@ -1719,7 +1785,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                          <img src={game.featured_image.large} alt="" />
+                           <img src={game.featured_image.large} alt="" onLoad={()=>{
+                            loading = false
+                            console.log(loading)
+                          }} />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
@@ -1899,7 +1968,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                       </div>:""} */}
 
                       <div className={style.Image}>
-                        <img src={game.featured_image.large} alt="" />
+                         <img src={game.featured_image.large} alt="" onLoad={()=>{
+                            setLoadingScreen(false)
+                            console.log("loaded")
+                          }} />
                       </div>
                       <div className={style.Details}>
                         <p className={style.Name}>{game.title}</p>
@@ -2074,7 +2146,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                       </div>:""} */}
 
                       <div className={style.Image}>
-                        <img src={game.featured_image.large} alt="" />
+                         <img src={game.featured_image.large} alt="" onLoad={()=>{
+                            setLoadingScreen(false)
+                            console.log("loaded")
+                          }} />
                       </div>
                       <div className={style.Details}>
                         <p className={style.Name}>{game.title}</p>

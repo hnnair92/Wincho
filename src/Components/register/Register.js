@@ -311,7 +311,7 @@ const Register = () => {
           ) : (
             ""
           )}
-          <label htmlFor="">Date of Birth</label>
+          <label htmlFor="">Date of Birth (Optional)</label>
 
           {/* <input
             type="date"

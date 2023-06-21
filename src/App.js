@@ -145,7 +145,7 @@ useEffect(()=>{
   return (
     <div className="App"
           
-        touch-action="none"
+        // touch-action="none"
       >
       <Router>
       <ScrollToTop />

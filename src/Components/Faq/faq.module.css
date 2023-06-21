@@ -151,9 +151,9 @@
   .LoaderAnime {
     width: 13rem;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -50%);
   }
   
 @media (max-width: 1065px) {

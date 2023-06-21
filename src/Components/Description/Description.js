@@ -3052,7 +3052,44 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
+                                   <button onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState1(true);
+                                          animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}
+                                    onTouchStart={() => {
+                                      FirstArrowPress("RIGHT");
+                                      console.log(animeRef);
+                                      setCameraState1(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onTouchEnd={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.UpArrowPressed
@@ -3090,7 +3127,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div
                                   className={
@@ -3167,6 +3204,7 @@ useEffect(()=>{
                                      
                                   />
                                   </button>
+                                  {/* its here */}
                                   {/* <img
                                     src={
                                       cameraState2
@@ -3235,7 +3273,50 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
+                                  <button onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log(animeRef.current);
+                                      console.log("clicked");
+                                      setCameraState2(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      // animeRef.current.play()
+                                      setCameraState2(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log(animeRef.current);
+                                      console.log("clicked");
+                                      setCameraState2(true);
+                                          animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState2(false);
+                                      // animeRef.current.play()
+
+                                    }}>
+                                  <Lotties
+                                    animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                    loop={true}
+                                     
+                                  />
+                                  </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.UpArrowPressed
@@ -3278,8 +3359,8 @@ useEffect(()=>{
                                       setCameraState2(false);
                                       // animeRef.current.play()
 
-                                    }}
-                                  />
+                                    }} 
+                                  />*/}
                                 </div>
                                 <div
                                   className={
@@ -3303,7 +3384,53 @@ useEffect(()=>{
                                      
                                     // isPaused={animeRef}
                                   />
-                                  <img
+                                  <button onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      // console.log(cameraState1)
+                                      setCameraState1(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                      // console.log(animeRef.current)
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                      // console.log(cameraState1)
+                                      setCameraState1(true);
+                                      // console.log(animeRef.current)
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log(animeRef.current);
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}>
+                                  <Lotties
+                                    animationData={cameraState2?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
+                                    loop={false}
+                                     
+                                  />
+                                  </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.LeftArrowPressed
@@ -3350,7 +3477,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : (
@@ -3381,7 +3508,43 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
+                                  <button onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState1(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState1(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}>
+                                    <Lotties
+                                    animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
+                                    loop={true}
+                                     
+                                  />
+                                  </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.RightArrowPressed
@@ -3417,8 +3580,8 @@ useEffect(()=>{
                                       setCameraState1(false);
                                       // animeRef.current.play()
 
-                                    }}
-                                  />
+                                    }} 
+                                  />*/}
                                 </div>
                                 <div
                                   className={
@@ -3441,7 +3604,43 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
+                                  <button onMouseDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState2(false);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState2(true);
+                                      // animeRef.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("RIGHT");
+                                      setCameraState2(false)
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+                                      ;
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("RL_STOP");
+                                      setCameraState2(true);
+                                      // animeRef.current.play()
+
+                                    }}> 
+                                  <Lotties
+                                    animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                    loop={true}
+                                     
+                                  />
+                                  </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.UpArrowPressed
@@ -3481,7 +3680,7 @@ useEffect(()=>{
                                     // onTouchStart={()=>{
 
                                     // }}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : direction && direction[1] === "Left" ? (
@@ -3495,7 +3694,7 @@ useEffect(()=>{
                                 >
                                   <Lotties
                                     animationData={AllAnimation.Progress}
-                                    loop={false}
+                                    loop={true}
                                     onComplete={() => {
                                       if(animeStopStatus===false){
                                         timeOut(userId, false);
@@ -3507,7 +3706,55 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
+
+                                  <button onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      console.log("hello its Here");
+                                      setCameraState1(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      console.log("hello its Here");
+
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("hello its Here");
+
+                                      console.log("clicked");
+                                      setCameraState1(true);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("hello its Here");
+
+                                      console.log("released");
+                                      setCameraState1(false);
+                                      // animeRef.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState1?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.LeftArrowPressed
@@ -3548,7 +3795,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div
                                   className={
@@ -3571,7 +3818,47 @@ useEffect(()=>{
                                     lottieRef={animeRef}
                                      
                                   />
-                                  <img
+                                   <button onMouseDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      setCameraState2(false);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      setCameraState2(true);
+                                      // animeRef.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      FirstArrowPress("LEFT");
+                                      console.log("clicked");
+                                      setCameraState2(false);
+                                          // animeRef.current.pause()
+                                      animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      FirstArrowRelease("LR_STOP");
+                                      console.log("released");
+                                      setCameraState2(true);
+                                      // animeRef.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.UpArrowPressed
@@ -3612,7 +3899,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : (
@@ -3650,7 +3937,46 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                  <img
+
+                                  <button onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                      // animeRef2.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                      // animeRef2.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.LeftArrowPressed
@@ -3689,7 +4015,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div
                                   className={
@@ -3711,7 +4037,46 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                  <img
+
+                                  <button  onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      // animeRef2.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      // animeRef2.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.UpArrowPressed
@@ -3750,7 +4115,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : direction && direction[1] === "Left" ? (
@@ -3775,7 +4140,46 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                       
                                   />
-                                  <img
+
+                                  <button onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                      // animeRef2.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                      // animeRef2.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.RightArrowPressed
@@ -3814,7 +4218,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div
                                   className={
@@ -3836,7 +4240,47 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                  <img
+
+                                  <button  onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      // animeRef2.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      // animeRef2.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.UpArrowPressed
@@ -3876,7 +4320,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : (
@@ -3908,7 +4352,57 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                  <img
+
+                                  <button  onMouseDown={() => {
+                                      //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left true");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                      console.log(cameraState2);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      setCameraState2(false);
+                                      console.log(cameraState2);
+                                      // animeRef2.current.play()
+
+
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      console.log("second arrow left false");
+                                    }}
+                                    onPointerDown={() => {
+                                      //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left true");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                      console.log(cameraState2);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      setCameraState2(false);
+                                      console.log(cameraState2);
+                                      // animeRef2.current.play()
+
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      console.log("second arrow left false");
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.UpArrowPressed
@@ -3958,7 +4452,7 @@ useEffect(()=>{
                                       setCameraState2(false);
                                       console.log("second arrow left false");
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div
                                   className={
@@ -3969,7 +4463,7 @@ useEffect(()=>{
                                 >
                                   <Lotties
                                     animationData={AllAnimation.Progress1}
-                                    loop={false}
+                                    loop={true}
                                     onComplete={() => {
                                       if(animeStopStatus===false){
                                         timeOut(userId, false);
@@ -3980,7 +4474,57 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                  <img
+
+                                  <button onMouseDown={() => {
+                                      //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
+                                      //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                      setCameraState1(true);
+                                    }}
+                                    onMouseUp={() => {
+                                      console.log(
+                                        "second release arrow left false"
+                                      );
+                                      // animeRef2.current.play()
+
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                    onPointerDown={() => {
+                                      //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
+                                      //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      console.log(
+                                        "second release arrow left false"
+                                      );
+                                      // animeRef2.current.play()
+
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                    }}
+                                    onDragStart={preventDragHandler}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
+                                      loop={false}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.LeftArrowPressed
@@ -4030,7 +4574,7 @@ useEffect(()=>{
                                       setCameraState1(false);
                                     }}
                                     onDragStart={preventDragHandler}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : direction && direction[1] === "Left" ? (
@@ -4056,7 +4600,51 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                  <img
+                                   <button  onTouchStart={()=>{
+                                      console.log("clicked")
+                                    }}
+                                    onTouchEnd={()=>{
+                                      console.log("Closed")
+                                    }}
+                                    onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                      // animeRef2.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState1(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState1(false);
+                                      // animeRef2.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState1
                                         ? assets.UpArrowPressed
@@ -4101,7 +4689,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                                 <div
                                   className={
@@ -4123,7 +4711,52 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                   
                                   />
-                                  <img
+                                   <button onMouseDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                     setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                      console.log(animeRef2.current.setSpeed)
+                                      // console.log(animeRef)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onMouseUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      // animeRef2.current.play()
+
+                                    }}
+                                    onPointerDown={() => {
+                                      console.log("second arrow left false");
+                                      SecondArrowPress();
+                                      setCameraState2(true);
+                                          // // animeRef.current.pause()
+                                        //  setAnimeStopStatus(false)
+                                        //   animeRef.current.pause()
+                                          setAnimeStopStatus(false)
+                                          animeRef.current.pause()
+                                          
+                                      // animeRef.current.pause()
+                                      console.log(animeRef.current.setSpeed)
+                                      console.log(animeRef2.current.setSpeed)
+                                      console.log(animeRef2)
+
+                                    }}
+                                    onPointerUp={() => {
+                                      SecondArrowRelease();
+                                      setCameraState2(false);
+                                      // animeRef2.current.play()
+
+                                    }}> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+                                  {/* <img
                                     src={
                                       cameraState2
                                         ? assets.RightArrowPressed
@@ -4169,7 +4802,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                  />
+                                  /> */}
                                 </div>
                               </div>
                             ) : (

@@ -248,3 +248,18 @@
                           />
                         </button>
                       )
+
+
+
+
+
+
+                                  <button> 
+                                    <Lotties
+                                      animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
+                                      loop={true}
+                                        
+                                    />
+                                    </button>
+
+4533

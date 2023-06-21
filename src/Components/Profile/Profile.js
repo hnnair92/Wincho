@@ -430,7 +430,11 @@ async function playAudioBg() {
     <div className={style.Container}>
 
       <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
-      {loading?<Loader/>:
+      {loading?<div className={style.LoaderDiv}>
+            <div className={style.LoaderAnime}>
+              <Lottie animationData={AllAnimation.Loader} />
+            </div>
+            </div>:
       <div className={style.Profile} onClick={()=>{
         console.log(resendLocal)
         console.log(user && user.profile_status===false&&checkMail===false&&resendLocal===false||resendLocal===undefined,"chekcing intense")

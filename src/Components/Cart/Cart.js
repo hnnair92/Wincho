@@ -262,7 +262,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       addressline1: line1,
       addressline2: line2,
       city: city,
-      county: state,
+      state: state,
       zipcode: zipcode,
       coutrycode: configuration.COUNTRY_CODE,
       coutryname: configuration.COUNTRY_NAME,
@@ -1167,7 +1167,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             </div>
             <div className={style.FreeShipping}>
               <div className={style.shippingIcon}>
-                <p>Standard Delivery</p>
+                <p>Standard Shipping</p>
               </div>
               <div className={style.selection}>
                 <div className={style.ticket}>
