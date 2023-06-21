@@ -956,7 +956,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             <div className={style.ResendpopupText}>
               <p>
                 We need to verify your email address in order to complete your
-                setup
+                setup.
                 <br />
                 Please check your inbox
               </p>

@@ -729,7 +729,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           </div>
           <div className={style.popupText}>
             <p>
-              Woah there! Remember to bundle your prizes to save an shipping!
+              Woah there! Remember to bundle your prizes to save on shipping!
             </p>
           </div>
           <div className={style.ReportPopupButton}>
@@ -758,7 +758,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Woah there! You haven't got enough tickets!</p>
+            <p>Woah there! You haven't got enough tickets</p>
           </div>
           <div className={style.ReportPopupButton}>
             <button

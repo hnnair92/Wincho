@@ -11,7 +11,7 @@ import AppStore from "../../assests/pngwing.com (4).png";
 import { bgImage } from "./BgImage.js";
 import { assets } from "../Description/assests";
 import { AboutBg } from "./AboutImage";
-import videoSrc from "../../assests/video/wincha.mp4";
+import videoSrc from "../../assests/video/wincha.mp4"
 import VideoSrcHome from "../../assests/video/wincha_home.mp4";
 import winchaIcons from "../../assests/Wincha HomePage Logo.png";
 import { baseUrl } from "../url";
@@ -191,7 +191,7 @@ const Home = () => {
         <div className={style.Watch} id="watch">
           <div className={style.Image}>
             <div className={style.Slider}>
-              <video autoplay loop muted playsinline>
+              <video autoplay loop muted>
                 <source src={videoSrc} type="video/mp4" />
               </video>
               {/* :""} */}
@@ -363,8 +363,8 @@ const Home = () => {
   <iframe src='https://player.vimeo.com/video/838092334?autoplay=1&loop=1&background=1' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 </div> */}
 {/* <iframe src="https://player.vimeo.com/video/838092334?title=0&amp;byline=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;dnt=1&amp;loop=1&amp;background=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Other Things - BNAE - Website Sizzle - V1.mp4" data-ready="true"></iframe> */}
-          <video autoplay loop muted playsinline ref={videoRef}>
-            <source src={VideoSrcHome} type="video/mp4" />
+          <video autoplay loop muted playsinline src={VideoSrcHome} type="video/mp4" ref={videoRef}>
+            {/* <source src={VideoSrcHome} type="video/mp4" /> */}
           </video>
           {/* <iframe src="https://player.vimeo.com/video/838092334?h=b67784c4f8&autoplay=1&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}
           {/* <iframe title="vimeo-player" src="https://player.vimeo.com/video/838092334?h=b67784c4f8" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}

@@ -480,7 +480,7 @@
   align-items: center;
   /* width: 15%; */
   width: 40rem;
-  height: 28%;
+  height: 25rem;
 }
 .resendpopupText p{
   font-size: 2rem;
@@ -492,7 +492,7 @@
   margin:1rem 0;
 }
 .resendpopupText{
-  margin-top: 5rem;
+  margin-top: 3rem;
 
 }
 .popupImage {
@@ -535,7 +535,7 @@
 }
 .popupButton button,
 .popupButtonSubmit button {
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   padding: 1rem 0rem;
   width: 225px;
   background-color: transparent;

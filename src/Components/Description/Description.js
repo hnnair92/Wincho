@@ -1039,7 +1039,7 @@ useEffect(()=>{
           <img src={assets.winchaPopup} alt="" />
         </div>
         <div className={style.popupText}>
-          <p>You've used all of your free plays</p>
+          <p>You've used all of your daily free plays</p>
         </div>
         <div className={style.popupButton}>
           <Link
@@ -2063,7 +2063,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-          <p>You've used all of your daily free plays</p>
+          <p>You've used all of your free plays</p>
           </div>
           <div className={style.popupButton}>
             <Link

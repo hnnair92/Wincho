@@ -449,6 +449,7 @@ video{
     margin: 1.13rem 0;
     border:.25rem solid #333333c1;
     /* outline:.25rem solid #000; */
+    text-align: center;
 
     
 }

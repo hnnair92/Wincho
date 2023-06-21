@@ -818,3 +818,8 @@
     margin-top: 10rem;
 }
 }
+@media only screen and (min-device-width: 769px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+    .popup{
+        width: 45rem;
+    }
+}

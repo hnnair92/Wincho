@@ -34,7 +34,7 @@
 .Logo img {
   width: 8.5rem;
   z-index: 9999999;
-  top: 0%;
+  /* top: 0%; */
   position: absolute;
   height: 8.5rem;
 }
@@ -174,7 +174,6 @@ transform: scale(1.1); */
   flex-direction: column;
   transition: all 0.2s ease-in-out;
   padding: 0rem 0;
-
 }
 
 .MenuSection {
@@ -615,7 +614,7 @@ transform: scale(1.1); */
     align-items: center;
     width: 100%;
     position: relative;
-
+    background: #2c2d2c;
     z-index: 999999999;
   }
   .BottomMenuIcon {
@@ -627,7 +626,7 @@ transform: scale(1.1); */
   .BottomMenuIcon img {
     width: 100%;
   }
-  .BottomMenuIcon:nth-child(3){
+  .BottomMenuIcon:nth-child(3) {
     width: 10.5%;
     margin-top: 1.5rem;
   }
@@ -784,7 +783,7 @@ transform: scale(1.1); */
     margin-bottom: 5rem;
     margin-left: 11rem;
   }
-  .MBandaiLogo{
+  .MBandaiLogo {
     padding: 4rem;
   }
 }
@@ -860,18 +859,19 @@ transform: scale(1.1); */
     position: fixed;
     left: 0;
     right: 0;
+    background: #2c2d2c;
   }
 }
 @media (max-width: 554px) {
   .MobileTopNav {
     height: 5rem;
   }
-  .MBandaiLogo{
+  .MBandaiLogo {
     padding: 1.5rem;
   }
 }
 @media (max-width: 420px) {
-  .MBandaiLogo{
+  .MBandaiLogo {
     padding: 0rem;
   }
 }
@@ -912,10 +912,27 @@ transform: scale(1.1); */
     border-radius: 0;
   }
   .Settings ul {
-    padding: 4rem 0;
+    padding: 15rem 0;
   }
   .MenuSection {
-    padding: 10px 0;
+    padding: 5px 0;
+    flex-direction: row-reverse;
+  }
+  .Music,
+  .Sound {
+    flex-direction: row-reverse;
+  }
+  .MenuSection .NormalUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 4rem;
+  }
+  .Settings ul li {
+    font-size: 3rem;
   }
 }
 .SettingsOverlay {
@@ -936,7 +953,7 @@ transform: scale(1.1); */
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
+
   width: 42rem;
 
   /* width: fit-content; */
@@ -1075,9 +1092,13 @@ transform: scale(1.1); */
     font-size: 1.5rem;
   }
   .MobileMenu .HamBurgerMenu .Settings {
-    height: 101vh;
+    height: 100vh;
     width: 100%;
     border-radius: 0;
+    top: 100%;
+    transform: translateY(-100%);
+    overflow: scroll;
+    padding: 3rem 4rem;
   }
   .popup {
     width: 288px;
@@ -1103,10 +1124,15 @@ transform: scale(1.1); */
     margin-bottom: 2rem;
   }
   .Settings ul {
-    padding: 0 0;
+    padding: 25% 0;
   }
   .MenuSection {
-    padding: 1px 0;
+    padding: 0px 0;
+    flex-direction: row-reverse;
+  }
+  .Music,
+  .Sound {
+    flex-direction: row-reverse;
   }
 }
 @media (min-width: 380px) and (max-width: 420px) {
@@ -1116,17 +1142,22 @@ transform: scale(1.1); */
     overflow: hidden;
     height: 53rem;
   }
+}
+@media (min-width: 400px) and (max-width: 500px) {
   .MobileMenu .HamBurgerMenu .Settings {
-    height: 104.5vh;
+    height: 100vh;
     width: 100%;
     border-radius: 0;
-    padding: 4rem;
+    padding: 3rem 4rem;
+    top: 100%;
+    transform: translateY(-100%);
+    overflow: scroll;
   }
   .Settings ul {
-    padding: 3rem 0;
+    padding: 25% 0;
   }
   .MenuSection {
-    padding: 7px 0;
+    padding: 0px 0;
   }
 }
 @media (max-width: 280px) {
@@ -1142,6 +1173,21 @@ transform: scale(1.1); */
   }
   .popup {
     width: 30rem;
+  }
+  .MenuSection .NormalUrl {
+    font-size: 2rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 2rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 2rem;
+  }
+  .Settings ul li {
+    font-size: 2rem;
+  }
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 2rem;
   }
 }
 .addressPopup .popupSection {
@@ -1279,7 +1325,7 @@ transform: scale(1.1); */
     top: 0%;
     left: 7.5%;
     transform: translate(-25%, 55%);
-    z-index: 10000000;
+    z-index: 0;
   }
 }
 @media (min-width: 768px) {
@@ -1295,6 +1341,7 @@ transform: scale(1.1); */
     top: 0%;
     left: 7.5%;
     transform: translate(-25%, 60%);
+    z-index: 0;
   }
   .BottomMenuIcon:nth-child(3) {
     width: 10.5%;
@@ -1302,17 +1349,23 @@ transform: scale(1.1); */
   }
   .MobileMenu .HamBurgerMenu .Settings {
     display: flex;
-    height: 97.1vh;
+    height: 100vh;
     overflow-y: scroll;
     width: 100%;
     border-radius: 0;
+    top: 100%;
+    transform: translateY(-100%);
+    padding: 3rem 4rem;
   }
-  .Settings ul {
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 5rem;
+  }
+  /* .Settings ul {
     padding: 4rem 0;
-  }
-  .MenuSection {
+  } */
+  /* .MenuSection {
     padding: 10px 0;
-  }
+  } */
 }
 @media (max-width: 712px) {
   .MLogo {
@@ -1471,7 +1524,7 @@ transform: scale(1.1); */
   .MLogo {
     width: 11%;
     transform: translate(-27%, 50%);
-    z-index: 10000000;
+    z-index: 0;
   }
 }
 @media (max-width: 280px) {
@@ -1550,31 +1603,49 @@ transform: scale(1.1); */
   }
   .MobileMenu .HamBurgerMenu .Settings {
     display: flex;
-    height: 99.2vh;
+    height: 100vh;
+    overflow-y: scroll;
+    width: 100%;
+    border-radius: 0;
+    top: 100%;
+    transform: translateY(-100%);
+    padding: 5rem;
+  }
+  .Settings ul {
+    padding: 15rem 0;
+  }
+  .MenuSection {
+    padding: 5px 0;
+    flex-direction: row-reverse;
+  }
+  .Music,
+  .Sound {
+    flex-direction: row-reverse;
+  }
+  .MenuSection .NormalUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 4rem;
+  }
+  .Settings ul li {
+    font-size: 3rem;
+  }
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 5rem;
+  }
+}
+@media screen and (min-device-width: 1024px) {
+  .MobileMenu .HamBurgerMenu .Settings {
+    display: flex;
+    height: 100vh;
     overflow-y: scroll;
     width: 100%;
     border-radius: 0;
   }
-  .Settings ul {
-    padding: 4rem 0;
-  }
-  .MenuSection {
-    padding: 15px 0;
-  }
-  .MenuSection .NormalUrl {
-    font-size: 20px;
-  }
-  .MenuSection .ActiveUrl {
-    font-size: 20px;
-  }
-  .MenuSection .NormalUrl:hover {
-    font-size: 20px;
-  }
-  .Settings ul li {
-    font-size: 20px;
-  }
-}
-@media screen and (min-device-width: 1024px) {
 }
 @media screen and (max-device-width: 1400px) and (orientation: landscape) {
   .addressPopup {
@@ -1709,14 +1780,34 @@ transform: scale(1.1); */
     font-size: 1.5rem;
   }
   .MobileMenu .HamBurgerMenu .Settings {
+   
     display: flex;
-    height: 85.4vh;
+    height: 100vh;
     overflow-y: scroll;
     width: 100%;
     border-radius: 0;
+    top: 100%;
+    transform: translateY(-100%);
+    padding: 3rem 4rem;
+  }
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 3rem;
+   
+  }
+  .MenuSection .NormalUrl {
+    font-size: 2rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 2rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 2rem;
+  }
+  .Settings ul li {
+    font-size: 2rem;
   }
   .Settings ul {
-    padding: 2rem 0;
+    padding: 10rem 0;
   }
   .MenuSection {
     padding: 0px 0;
