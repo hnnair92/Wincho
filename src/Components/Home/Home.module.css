@@ -708,6 +708,15 @@
         padding:10px 20px;
         font-size: 2rem;
     }
+@media(max-width:1065px){
+    
+    .popupText form{
+        width: 100%;
+    }
+    .popup{
+        padding:1rem 2rem;
+    }
+}
 @media(max-width:599px){
     .MAppStore{
         width: 90%;
@@ -736,7 +745,7 @@
     
     .popup{ 
     padding:1rem;
-    width: 40rem;
+    width: 32rem;
     height: 52rem;
     }
     .popupText{

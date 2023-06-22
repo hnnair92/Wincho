@@ -598,9 +598,10 @@ const Header = ({
             <div className={style.popupImage}>
               <img src={assets.winchaPopup} alt="" />
             </div>
-            <p className={style.KickoutMessage}>
-              Are you sure you want to leave this game ?{" "}
-            </p>
+            <div className={style.KickoutMessage}>
+              <p>Are you sure you want to leave this game? </p>
+            </div>
+
             <div className={style.KickoutBtn}>
               <button
                 onClick={() => {
@@ -853,7 +854,7 @@ const Header = ({
                             user?.username === "") ||
                           (menu.Name === "Login/Register" && user === undefined)
                             ? "0px"
-                            : "15px 0px",
+                            : "12px 0px",
                         pointerEvents:
                           (gamePlay === true && menu.Name !== "Sound") ||
                           (gamePlay === true && menu.Name !== "Music")

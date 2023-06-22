@@ -463,40 +463,38 @@
 
 .popupContent {
   position: absolute;
-  font-family: myraidproregular !important;
-  z-index: 99999;
-  top: 50%;
-  left: 50%;
-  width: -moz-fit-content;
-  width: fit-content;
-  transform: translate(-50%, -50%);
-  border: 1rem solid #949393;
-  border-radius: 20px;
-  background-color: #0a84fe;
-  padding: 1rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  /* width: 15%; */
-  width: 40rem;
-  height: 25rem;
+    font-family: myraidproregular !important;
+    z-index: 99999;
+    top: 50%;
+    left: 50%;
+    width: -moz-fit-content;
+    width: fit-content;
+    transform: translate(-50%, -50%);
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    background-color: #0a84fe;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* width: 15%; */
+    width: 38rem;
+    height: 22rem;
 }
 .resendpopupText p{
-  font-size: 2rem;
   text-align: center;
   color: #fff;
-  line-height: 32px;
-  font-size: 2.5rem;
+  line-height: 25px;
+  font-size: 2.25rem;
   font-weight: 100;
-  margin:1rem 0;
 }
 .resendpopupText{
-  margin-top: 3rem;
+  margin-top: 15%;
 
 }
 .popupImage {
-  width: 45%;
+  width: 40%;
   position: absolute;
   top: 0;
   transform: translateY(-50%);
@@ -533,7 +531,6 @@
   align-items: center;
   justify-content: center;
 }
-.popupButton button,
 .popupButtonSubmit button {
   margin: 1rem 0;
   padding: 1rem 0rem;
@@ -546,6 +543,18 @@
   border-radius: 30px;
   font-family: myraidproregular;
   height: 50px;
+}
+.popupButton button{
+  margin: 1.75rem 0;
+  padding: 1rem 0rem;
+  width: 20rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  outline: none;
+  color: #fff;
+  font-size: 2.25rem;
+  border-radius: 30px;
+  font-family: myraidproregular;
 }
 .popupButtonSubmit button {
   border-width: 1.5px;
@@ -887,18 +896,29 @@
   .editAddress {
     top: 0;
   }
-  .popupContent{
+  /* .popupContent{
     width: 50rem;
-    height: 35rem;
-  }
-  .resendpopupText p{
-    font-size: 3.75rem;
-    margin:4rem 0;
+    height: 30rem;
+  } */
+  /* .resendpopupText p{
+    font-size: 3.25rem;
+    
   }
   .resendpopupText{
-    margin-top:5rem;
-  
+    margin-top:9rem;
   }
+  .popupButton button{
+    margin: 2.75rem 0;
+    padding: 1.5rem 0rem;
+    width: 32rem;
+    background-color: transparent;
+    border: 2px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 3.5rem;
+    border-radius: 30px;
+    font-family: myraidproregular;
+  } */
 }
 @media (max-width: 1065px) {
   .Container {
@@ -1003,12 +1023,11 @@
 }
 
   .popupContent{
-    height: 23rem;
+    height: 20rem;
     width: 30rem;
   }
   .resendpopupText p{
     font-size: 2rem;
-    margin:1rem 0;
   }
   .resendpopupText{
     margin-top:5rem;
@@ -1019,7 +1038,6 @@
   padding: 1rem 0rem;
   width: 160px;
   font-size: 2rem;
-  height: 40px;
   }
 }
 

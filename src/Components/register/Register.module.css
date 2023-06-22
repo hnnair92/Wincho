@@ -805,7 +805,7 @@ label {
     font-weight: normal;
   }
   .input {
-    height: 5.11rem;
+    height: 6.11rem;
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
@@ -818,12 +818,15 @@ label {
     color: #bdbdbd;
   }
   .password {
-    height: 5.11rem;
+    height: 6.11rem;
   }
   .password .input {
     font-size: 2rem;
     font-weight: 500;
     text-align: center;
+  }
+  .DataInput{
+    height: 6.11rem;
   }
 }
 
@@ -858,6 +861,7 @@ label {
     font-size: 2.5rem;
     font-weight: normal;
     font-weight: 500;
+    display: block;
   }
   .input {
     height: 6.11rem;
@@ -879,6 +883,9 @@ label {
   .password .input {
     font-size: 2.5rem;
     font-weight: 500;
+  }
+  label {
+    font-size: 1.75rem;
   }
 }
 @media (max-width: 350px) {
