@@ -39,6 +39,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const audioRef = useRef(null);
   const [startTouchData,setStartTouchData] = useState({})
   const [endTouchData,setEndTouchData] = useState({})
+  const [moveTouchData,setMoveTouchData] = useState([])
   const token = JSON.parse(localStorage.getItem("token"));
   const buttonRef = useRef(null)
   const button2Ref = useRef(null)
@@ -80,6 +81,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [imageGallery, setImageGallery] = useState([]);
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [countSection, setCountSection] = useState(0);
+  const [rightAmount, setRightAmount] = useState(0);
+  const [categorySlide, setCategorySlide] = useState(0);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
   const scrollRefDiv = useRef(null)
   const checkPlayArray =
@@ -105,6 +108,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         
         );
     if(startTouchData&&endTouchData){
+      console.log((startTouchData.clientX/endTouchData.clientX)*100);
       console.log(endTouchData.clientX-startTouchData.clientX>100)
       console.log(endTouchData.clientX-startTouchData.clientX<-100)
       if(endTouchData.clientX-startTouchData.clientX>100){
@@ -112,12 +116,18 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
 
         if(categoryIndex===0){
           setCategory(categories[categories.length-1].value)
+          setCategorySlide(-50)
+          
+          setRightAmount()
           setEndTouchData({})
           setStartTouchData({})
         }
         else{
 
           setCategory(categories[categoryIndex-1].value)
+          setCategorySlide((10*categoryIndex+2))
+
+          // setRightAmount((moveTouchData/window.innerWidth)*100)
           setEndTouchData({})
           setStartTouchData({})
         }
@@ -127,16 +137,25 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(scrollRefDiv.current);
         if(categories.length-1===categoryIndex){
           setCategory(categories[0].value)
+          setCategorySlide(0)
           setEndTouchData({})
+          setRightAmount(0)
           setStartTouchData({})
         }
         else{
           setCategory(categories[categoryIndex+1].value)
           setEndTouchData({})
+          setCategorySlide((10*categoryIndex+2)*-1)
+          console.log(categoryIndex+1*-1)
+          console.log(categoryIndex+2)
+          console.log(category.value)
+
+          // setRightAmount((moveTouchData/window.innerWidth)*100)
           setStartTouchData({})
           scrollRefDiv.current.scrollLeft += 50
         }
       }
+
     } 
   },[startTouchData,endTouchData])
   useEffect(() => {
@@ -677,18 +696,15 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {}
       {/* <div className={style.Categories}> */}
       <div className={`${style.Categories} ${searchIconStatus===true?style.MtabSearch:""}`}>
-        <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`}>
+        <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`} style={{marginLeft:`${categorySlide}%`}}>
           <div className={style.AllCategories} ref={scrollRefDiv} onScroll={(e)=>{
             console.log(e)
           }}>
             {categories.map((categoryItem, index) => {
               return (
-                <button
-                // ref={category?.toLowerCase() ===
-                //     categoryItem?.value?.toLowerCase()?buttonRef:button2Ref}
+                <button 
                   key={index}
                   value={categoryItem.value}
-
                   className={
                     category?.toLowerCase() ===
                     categoryItem?.value?.toLowerCase()
@@ -753,7 +769,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             className={style.MSearch}
             style={{
               backgroundColor: "#e1f5fb",
-              border:"2px solid #efeef1",padding:"7.5px 15px"
+              border:"2px solid #efeef1",padding:"4px 15px",marginBottom:"8px"
             }}
           >
             <div
@@ -939,7 +955,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {verifyEmail === true &&
       user?.profile_status === false &&
       user?.username !== "" ? (
-        <div className={`${style.ResendPopup} ${style.resendPopupFirst}`}>
+        <div className={style.resendPopupFirst}>
           <div
             className={style.popupOverlaySection}
             onClick={() => {
@@ -1043,13 +1059,21 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {loading ? (
         <NewLoader />
       ) : (
-        <div className={style.Games} onTouchStart={(e)=>{
+        <div className={style.Games} style={{right:`${rightAmount}%`}} onTouchStart={(e)=>{
           console.log("started")
+          setEndTouchData({})
+          setRightAmount(0)
           setStartTouchData(e.changedTouches[0])
           // console.log(window)
           console.log(e)
 
         }}  onTouchMove={(e)=>{
+          setMoveTouchData(e.changedTouches[0])
+          setRightAmount(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(-1))
+          console.log((e.changedTouches[0].clientX/window.innerWidth)*100*(-1))
+          console.log(window.innerWidth)
+          console.log(e.changedTouches[0].clientX)
+          console.log(e.changedTouches[0])
           // console.log("Move")
           // console.log(categories[0].value)
           // console.log(category)
@@ -1097,6 +1121,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           setEndTouchData(e.changedTouches[0])
           console.log("End")
          console.log(e)
+         setRightAmount("0")
+         setMoveTouchData({})
+        //  setStartTouchData({})
+         
         
         }}>
           {topup ? (
@@ -1169,7 +1197,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               user.profile_status === false &&
                               game.price !== "0"
                             ) {
-                              setResendEmail(true);
+                              // setResendEmail(true);
+                              navigate("/login");
                               console.log("not verified");
                             }
                             // else if(premiumData===false&&user?.vip===false){
@@ -1538,8 +1567,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               user.profile_status === false &&
                               game.price !== "0"
                             ) {
-                              setResendEmail(true);
-                              console.log("not verified");
+                              // setResendEmail(true);
+                              navigate("/login");
+                              console.log("not verified,not logined");
                             } else if (
                               premiumData === false &&
                               user?.vip === false &&
@@ -2294,11 +2324,22 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   if (
                     user &&
                     user.profile_status === false &&
+                    user.username !== "" &&
                     gameData.price !== "0"
                   ) {
                     setPopup(false);
                     setResendEmail(true);
-                  } else {
+                  } 
+                  else if (
+                    user &&
+                    user.profile_status === false &&
+                    gameData.price !== "0"
+                  ) {
+                    // setResendEmail(true);
+                    navigate("/login");
+                    console.log("not verified,not logined");
+                  }
+                  else {
                     navigate(`/game/${gameData.slug}`, {
                       state: { game: gameData, user: user, cateogry: category },
                     });

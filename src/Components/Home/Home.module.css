@@ -716,6 +716,10 @@
     .popup{
         padding:1rem 2rem;
     }
+    .ReportPopupButton button{
+        
+        margin: 1rem 0;
+    }
 }
 @media(max-width:599px){
     .MAppStore{
@@ -744,8 +748,8 @@
     }
     
     .popup{ 
-    padding:1rem;
-    width: 32rem;
+    padding:2rem;
+    width: 34rem;
     height: 52rem;
     }
     .popupText{
@@ -762,7 +766,7 @@
     }
     .ReportPopupButton button{
        
-        margin: 1.5rem;
+        margin: 1.5rem 0;
         padding: 1rem 3rem;
         font-size: 1.5rem;   
     }

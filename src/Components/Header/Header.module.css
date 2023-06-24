@@ -330,7 +330,7 @@ transform: scale(1.1); */
   width: -moz-fit-content;
   width: fit-content;
   transform: translate(-50%, -50%);
-  background-color: #0A84FE;
+  background-color: #0a84fe;
   border: 1rem solid #949393;
   border-radius: 20px;
   padding: 2rem;
@@ -384,7 +384,7 @@ transform: scale(1.1); */
   justify-content: center;
 }
 .ReportPopupButton button {
-  margin: 1.5rem;
+  margin: 1.5rem ;
   padding: 1.25rem;
   width: 35%;
   background-color: transparent;
@@ -399,7 +399,7 @@ transform: scale(1.1); */
   width: 95%;
   padding: 2rem 2rem;
   border-radius: 30px;
-  color: #0A84FE;
+  color: #0a84fe;
 
   outline: none;
   margin: 1rem;
@@ -566,6 +566,7 @@ transform: scale(1.1); */
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 5rem;
+    margin-top: 1px;
   }
   .MBandaiLogo img {
     width: 100%;
@@ -821,6 +822,9 @@ transform: scale(1.1); */
     width: 26%;
     height: 5rem;
   }
+  .MBandaiLogo{
+    margin-top: 2px;
+  }
 }
 @media (max-width: 555px) {
   .MobileTopNav {
@@ -1015,7 +1019,7 @@ transform: scale(1.1); */
 }
 .addressPopup .popupSection .ReportPopupButton button {
   width: fit-content;
-  margin: 1rem;
+  margin:1rem 2rem;
   padding: 1rem 3rem;
   background-color: transparent;
   border: 1.75px solid #fff;
@@ -1071,15 +1075,14 @@ transform: scale(1.1); */
 }
 @media (max-width: 1065px) {
   .addressPopup {
-    padding:1rem 2rem;
-   
+    padding: 1rem 2rem;
   }
 }
 @media (max-width: 599px) {
   .addressPopup {
-    width: 32rem;
+    width: 34rem;
     height: 52rem;
-    padding: 1rem;
+    padding: 1.5rem;
   }
   .addressPopup .popupSection .popupText form input,
   .popupText form textarea {
@@ -1088,7 +1091,7 @@ transform: scale(1.1); */
     font-size: 1.5rem;
   }
   .addressPopup .popupSection .ReportPopupButton button {
-    margin: 1.5rem;
+    margin: 1.5rem 1rem;
     padding: 1rem 3rem;
     font-size: 1.5rem;
   }
@@ -1103,7 +1106,7 @@ transform: scale(1.1); */
     top: 100%;
     transform: translateY(-100%);
     overflow: scroll;
-    padding: 3rem 4rem;
+    padding: 10rem 4rem;
   }
   .popup {
     width: 288px;
@@ -1335,7 +1338,7 @@ transform: scale(1.1); */
     z-index: 0;
   }
 }
-@media  (min-width: 700px) and (max-width: 768px) {
+@media (min-width: 700px) and (max-width: 768px) {
   /* .CartContent p {
     font-size: 2rem;
   } */
@@ -1354,43 +1357,43 @@ transform: scale(1.1); */
     width: 10.5%;
     margin-top: 2rem;
   }
-  
-    .MobileMenu .HamBurgerMenu .Settings {
-      display: flex;
-      height: 100vh;
-      overflow-y: scroll;
-      width: 100%;
-      border-radius: 0;
-      top: 100%;
-      transform: translateY(-100%);
-      padding: 5rem;
-    }
-    .Settings ul {
-      padding: 15rem 0;
-    }
-    .MenuSection {
-      padding: 5px 0;
-      flex-direction: row-reverse;
-    }
-    .Music,
-    .Sound {
-      flex-direction: row-reverse;
-    }
-    .MenuSection .NormalUrl {
-      font-size: 3rem;
-    }
-    .MenuSection .ActiveUrl {
-      font-size: 3rem;
-    }
-    .MenuSection .NormalUrl:hover {
-      font-size: 4rem;
-    }
-    .Settings ul li {
-      font-size: 3rem;
-    }
-    .MobileMenu .HamBurgerMenu svg {
-      font-size: 5rem;
-    }
+
+  .MobileMenu .HamBurgerMenu .Settings {
+    display: flex;
+    height: 100vh;
+    overflow-y: scroll;
+    width: 100%;
+    border-radius: 0;
+    top: 100%;
+    transform: translateY(-100%);
+    padding: 5rem;
+  }
+  .Settings ul {
+    padding: 15rem 0;
+  }
+  .MenuSection {
+    padding: 5px 0;
+    flex-direction: row-reverse;
+  }
+  .Music,
+  .Sound {
+    flex-direction: row-reverse;
+  }
+  .MenuSection .NormalUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 4rem;
+  }
+  .Settings ul li {
+    font-size: 3rem;
+  }
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 5rem;
+  }
 
   /* .Settings ul {
     padding: 4rem 0;
@@ -1483,7 +1486,7 @@ transform: scale(1.1); */
   transform: translate(-50%, -50%);
   border: 1rem solid #949393;
   border-radius: 30px;
-  background-color: #0A84FE;
+  background-color: #0a84fe;
   padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
@@ -1526,17 +1529,22 @@ transform: scale(1.1); */
   margin-top: 15%;
   padding: 0 2rem;
 }
-.KickoutMessage p{
+.KickoutMessage p {
   text-align: center;
   color: #fff;
   line-height: 25px;
   font-size: 2.5rem;
   font-weight: 100;
-
 }
 @media (max-width: 599px) {
   .popupText {
     padding: 0 1rem;
+  }
+  .popupText p {
+    font-weight: 500;
+  }
+  .ReportPopupButton button{
+    font-weight: 500;
   }
   .BottomMenuIcon:nth-child(3) {
     width: 10.75%;
@@ -1620,7 +1628,7 @@ transform: scale(1.1); */
   }
   .CartProducts {
     /* width: 40%; */
-padding: 12px;
+    padding: 12px;
     grid-template-columns: repeat(2, 1fr);
   }
   .CartProduct {
@@ -1711,7 +1719,7 @@ padding: 12px;
   }
   .CartProducts {
     /* width: 40%; */
-max-height: 95%;
+    max-height: 95%;
     grid-template-columns: repeat(2, 1fr);
   }
   .CartProduct {
@@ -1812,7 +1820,6 @@ max-height: 95%;
     padding: 20px;
   }
   .MobileMenu .HamBurgerMenu .Settings {
-   
     display: flex;
     height: 100vh;
     overflow-y: scroll;
@@ -1824,7 +1831,6 @@ max-height: 95%;
   }
   .MobileMenu .HamBurgerMenu svg {
     font-size: 3rem;
-   
   }
   .MenuSection .NormalUrl {
     font-size: 2rem;
@@ -1857,7 +1863,6 @@ max-height: 95%;
 
     grid-template-columns: repeat(2, 1fr);
     max-height: 95%;
-
   }
   .CartProduct {
     height: 25vh;

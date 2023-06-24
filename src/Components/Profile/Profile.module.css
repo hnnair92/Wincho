@@ -357,6 +357,7 @@
 }
 .selectInput {
   position: relative;
+  width: 100%;
 }
 .AllState {
   position: absolute;
@@ -878,6 +879,7 @@
   }
   .Passpopup {
     width: 90%;
+    height: 47rem;
   }
   .popup{
     width: 45rem;
@@ -1000,7 +1002,7 @@
     text-align: center;
   }
   .editAddress {
-    top: 1%;
+    top: 8%;
     width: 45rem;
   }
   .editAddress form input {

@@ -120,13 +120,13 @@ const Login = () => {
                   placeholder="Enter Email"
                 />
               </div>
-              <p className={style.PasswordError}>
+              {/* <p className={style.PasswordError}>
                 {passError.status
                   ? "Reset Link has been sent to the mail"
                   : passError.status === false
                   ? "User does not exist"
                   : ""}
-              </p>
+              </p> */}
             </div>
           </div>
           <div className={style.Forgotaction}>

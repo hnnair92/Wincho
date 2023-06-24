@@ -731,7 +731,7 @@ async function playAudioBg() {
               <div className={style.cancelButton}>
                 <button onClick={()=>{
                   setDeactivate(false)
-                }} >Close</button>
+                }} >CLOSE</button>
                 </div>
               <div className={style.deleteButton}>
                 <button
@@ -740,7 +740,7 @@ async function playAudioBg() {
                     deactivateAccount()
                   }}
                 >
-                  Delete
+                  DELETE
                 </button>
               </div>
             </div>

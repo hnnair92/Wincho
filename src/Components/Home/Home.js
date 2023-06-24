@@ -363,9 +363,10 @@ const Home = () => {
   <iframe src='https://player.vimeo.com/video/838092334?autoplay=1&loop=1&background=1' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 </div> */}
 {/* <iframe src="https://player.vimeo.com/video/838092334?title=0&amp;byline=0&amp;portrait=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;dnt=1&amp;loop=1&amp;background=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Other Things - BNAE - Website Sizzle - V1.mp4" data-ready="true"></iframe> */}
-          <video autoplay loop muted playsinline src={VideoSrcHome} type="video/mp4" ref={videoRef}>
+          {/* <video autoplay loop muted playsinline src={VideoSrcHome} type="video/mp4" ref={videoRef}> */}
             {/* <source src={VideoSrcHome} type="video/mp4" /> */}
-          </video>
+          {/* </video> */}
+          <iframe src="https://player.vimeo.com/video/838092334?title=0&amp;byline=0&amp;portrait=1&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;dnt=1&amp;loop=1&amp;background=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="1" style={{position:'absolute',top:'0',left:'0',width:'100%',height:'100vh'}} title="Other Things - BNAE - Website Sizzle - V1.mp4" data-ready="true"></iframe>
           {/* <iframe src="https://player.vimeo.com/video/838092334?h=b67784c4f8&autoplay=1&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}
           {/* <iframe title="vimeo-player" src="https://player.vimeo.com/video/838092334?h=b67784c4f8" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}
         </div>

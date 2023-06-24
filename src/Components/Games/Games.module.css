@@ -1,53 +1,53 @@
-.Container{
-    width: 100%;
-    height: 100vh;
-    /* min-height: 100vh; */
-    overflow:hidden;
-    overflow-y: scroll;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #ff8100;
-    position: relative;
-    
+.Container {
+  width: 100%;
+  height: 100vh;
+  /* min-height: 100vh; */
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ff8100;
+  position: relative;
 }
-.Container::-webkit-scrollbar{
-    display: none;
+.Container::-webkit-scrollbar {
+  display: none;
 }
-.Section{
-    /* max-width: 1600px; */
+.Section {
+  /* max-width: 1600px; */
 }
-.Container::-webkit-scrollbar{
-    display: none;
+.Container::-webkit-scrollbar {
+  display: none;
 }
-.Categories{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content:  center;
-    align-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #fff;
-    overflow-x: scroll;
-    /* border-top: 7px solid #ab2b29; */
+.Categories {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  overflow-x: scroll;
+  /* border-top: 7px solid #ab2b29; */
+  height: 8rem;
 }
-.category,.active{
-    padding: .75rem 3rem;
-    cursor: pointer;
-    font-family: "Poppins";
-    background-color: #fff;
-    border-radius: 2.26rem;
-    font-size: 2rem;
-    border:none;
-    outline:none;
-    font-weight: 600;
-    white-space: nowrap;
-
+.category,
+.active {
+  padding: 0.75rem 3rem;
+  cursor: pointer;
+  font-family: "Poppins";
+  background-color: #fff;
+  border-radius: 2.26rem;
+  font-size: 2rem;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  white-space: nowrap;
 }
-.active{
-    /* background: rgb(27,143,231);
+.active {
+  /* background: rgb(27,143,231);
     background: linear-gradient(90deg, rgba(27,143,231,1) 0%, rgba(19,192,236,1) 50%, rgba(32,122,224,1) 100%); */
-    color: #0a82fc;
+  color: #0a82fc;
 }
 /* .category.active{
     background-color: lightskyblue;
@@ -55,190 +55,191 @@
 .Games{
     width: 100%;
     height: auto;
+    position: relative;
     /* display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start; */
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    /* max-width: 1600px; */
-    margin: 0 auto;
-    /* overflow-y: scroll; */
-    padding-right: 4px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* max-width: 1600px; */
+  margin: 0 auto;
+  /* overflow-y: scroll; */
+  padding-right: 4px;
 }
 .Games .Game {
-    position: relative;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    width: 95%;
-    /* height: 100%; */
-    cursor: pointer;
-    /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 95%;
+  /* height: 100%; */
+  cursor: pointer;
+  /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
            inset 10px 10px 15px rgba(70, 70, 70, 0.12); */
-           /* box-shadow: 
+  /* box-shadow: 
     -10px -10px 15px rgba(70, 70, 70, 0.2),
     10px 10px 15px rgba(70, 70, 70, 0.12); */
-    box-shadow: 
-  -10px -10px 15px rgba(255, 255, 255, 0),
-  2px 2px 15px #ff8100,
-  inset -.2px -.2px 15px rgba(0, 0, 0, .25),
-  inset .2px .2px 15px rgba(00, 0, 00, .25);
-    margin: 1.13rem;
-    background-color: #fff;
-    padding: 1.13rem;
-    border-radius: 2.26rem;
-    /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset -3px -3px 0px rgba(0, 0, 0, 0.2); */
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0), 2px 2px 15px #ff8100,
+    inset -0.2px -0.2px 15px rgba(0, 0, 0, 0.25),
+    inset 0.2px 0.2px 15px rgba(00, 0, 00, 0.25);
+  margin: 1.13rem;
+  background-color: #fff;
+  padding: 1.13rem;
+  border-radius: 2.26rem;
+  /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset -3px -3px 0px rgba(0, 0, 0, 0.2); */
 }
-.Label{
-    /* border-bottom: 4.54rem solid #af000f; */
-    position: absolute;
-    /* text-align: center; */
-    /* transform: rotate(-40deg); */
-    /* left: -11.7%; */
-    /* top: 5.3%; */
-    z-index: 999;
-    /* border-left: 3.75rem solid transparent;
+.Label {
+  /* border-bottom: 4.54rem solid #af000f; */
+  position: absolute;
+  /* text-align: center; */
+  /* transform: rotate(-40deg); */
+  /* left: -11.7%; */
+  /* top: 5.3%; */
+  z-index: 999;
+  /* border-left: 3.75rem solid transparent;
     border-right: 5.56rem solid transparent; */
-    /*height: 0; */
-    width: 35%;
+  /*height: 0; */
+  width: 35%;
 }
-.Label img{
-    width: 100%;
+.Label img {
+  width: 100%;
 }
-.PriceDiv{
-    margin-top: 1.13rem;
-    width: 70%;
-    height: auto;
-    height: 5.68rem;
-    display: flex;
-    margin: 0px auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    /* justify-content: space-evenly; */
+.PriceDiv {
+  margin-top: 1.13rem;
+  width: 70%;
+  height: auto;
+  height: 5.68rem;
+  display: flex;
+  margin: 0px auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  /* justify-content: space-evenly; */
 }
-.ticketIcon{
-    width: fit-content;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.ticketIcon {
+  width: fit-content;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
-.ticketIcon a,.infoIcon{
-    position: sticky;
-    background-color: transparent;
-    overflow: unset;
-    margin: 0;
-    width: inherit;
-    border-radius: 0;
-    padding: 0;
-    box-shadow: none;
+.ticketIcon a,
+.infoIcon {
+  position: sticky;
+  background-color: transparent;
+  overflow: unset;
+  margin: 0;
+  width: inherit;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
 }
-.Details{
-    margin-top: 0.56rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 85%;
-    margin: 0.56rem auto;
-    margin-bottom: 0;
-    height: 25%;
+.Details {
+  margin-top: 0.56rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 85%;
+  margin: 0.56rem auto;
+  margin-bottom: 0;
+  height: 25%;
 }
-.Name{
-    font-size: 1.75rem;
-    font-weight: 600;
-    margin: 0;
-    text-align: center;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.Name {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  width: 100%;
+  height: 100%;
+}
 
+.Label p,
+.LabelFree p {
+  font-family: "Poppins";
+  font-weight: 900;
+  font-size: 2rem;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 40%);
+  font-style: italic;
+  -webkit-text-stroke-width: 0.11rem;
+  -webkit-text-stroke-color: #fff;
+  /* position: absolute; */
 }
-.icon{
-    width: 100%;
-    height: 100%;
+.LabelFree {
+  border-bottom: 4.54rem solid #57b736;
+  position: absolute;
+  text-align: center;
+  transform: rotate(-40deg);
+  left: -11.7%;
+  top: 5.3%;
+  border-left: 3.75rem solid transparent;
+  border-right: 5.56rem solid transparent;
+  height: 0;
+  width: 65%;
 }
-
-.Label p,.LabelFree p{
-    font-family: "Poppins";
-    font-weight: 900;
-    font-size: 2rem;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,40%);
-    font-style: italic;
-    -webkit-text-stroke-width: 0.11rem ;
-    -webkit-text-stroke-color: #fff;
-    /* position: absolute; */
+.free,
+.Price {
+  font-family: "Poppins";
+  font-weight: 900;
+  font-size: 2.5rem;
+  font-style: italic;
+  margin: 0px auto;
 }
-.LabelFree{
-    border-bottom: 4.54rem solid #57b736;
-    position: absolute;
-    text-align: center;
-    transform: rotate(-40deg);
-    left: -11.7%;
-    top: 5.3%;
-    border-left: 3.75rem solid transparent;
-    border-right: 5.56rem solid transparent;
-    height: 0;
-    width: 65%;
-    }
-.free,.Price{
-    font-family: "Poppins";
-    font-weight: 900;
-    font-size: 2.5rem;
-    font-style: italic;
-    margin: 0px auto;;
+.Price {
+  font-family: bubblegum;
+  font-weight: normal;
 }
-.Price{
-    font-family: bubblegum;
-    font-weight: normal;
+.infoIcon {
+  width: 4rem;
 }
-.infoIcon{
-    width: 4rem;
+.info {
+  width: 100%;
+  height: 100%;
 }
-.info{
-    width: 100%;
-    height: 100%;
+.Image {
+  width: 100%;
+  height: 75%;
+  /* height: 50%; */
 }
-.Image{
-    width: 100%;
-    height: 75%;
-    /* height: 50%; */
-}
-.Image img{
-    width: 100%;
-    height: 100%;
-    border-top-right-radius: 2rem;
-    border-top-left-radius: 2rem;
+.Image img {
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 2rem;
+  border-top-left-radius: 2rem;
 }
 /* .categoryActive{
     background-color: #af000f !important;
     color: #fff;
 } */
-.popupOverlay{
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+.popupOverlay {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 .Popup {
-    /* position: relative;
+  /* position: relative;
     overflow-y: hidden;
     overflow-x: hidden;
     width: 18%; */
-    /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
+  /* box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), 
            inset 10px 10px 15px rgba(70, 70, 70, 0.12); */
-           /* box-shadow: 
+  /* box-shadow: 
     -10px -10px 15px rgba(70, 70, 70, 0.2),
     10px 10px 15px rgba(70, 70, 70, 0.12); */
-    /* box-shadow: 
+  /* box-shadow: 
   -10px -10px 15px rgba(255, 255, 255, 0),
   2px 2px 15px #ff8100,
   inset -.2px -.2px 15px rgba(0, 0, 0, .25),
@@ -247,29 +248,32 @@
     background-color: #fff;
     padding: 1.13rem;
     border-radius: 2.26rem; */
-    /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset -3px -3px 0px rgba(0, 0, 0, 0.2); */
+  /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.4), 0px 7px 13px -3px rgba(0, 0, 0, 0.3), inset -3px -3px 0px rgba(0, 0, 0, 0.2); */
 }
-.Popup{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    overflow-y: hidden;
-    overflow-x: hidden;
-    padding: 10px;
-    /* width: 100%; */
-    /* padding: 0px 10px; */
-    background-color: #fff;
-    width: 282px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5), inset 10px 10px 15px rgba(70, 70, 70, 0.12);
-    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0), 2px 2px 15px #ff8100, inset -0.2px -0.2px 15px rgba(0, 0, 0, .25), inset 0.2px 0.2px 15px rgba(00, 0, 00, .25);
-    border-radius: 2.26rem;
-    z-index: 99999;
-    /* height: 382px; */
+.Popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding: 10px;
+  /* width: 100%; */
+  /* padding: 0px 10px; */
+  background-color: #fff;
+  width: 282px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.5),
+    inset 10px 10px 15px rgba(70, 70, 70, 0.12);
+  box-shadow: -10px -10px 15px rgba(255, 255, 255, 0), 2px 2px 15px #ff8100,
+    inset -0.2px -0.2px 15px rgba(0, 0, 0, 0.25),
+    inset 0.2px 0.2px 15px rgba(00, 0, 00, 0.25);
+  border-radius: 2.26rem;
+  z-index: 99999;
+  /* height: 382px; */
 }
 /* .Popup{
     position: absolute;
@@ -297,909 +301,941 @@
     z-index: 99999; 
 } */
 
-.PopupSection{
-   width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+.PopupSection {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.PopupOverlay{
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* background-color: #00000014; */
+.PopupOverlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background-color: #00000014; */
 }
 
-.popupImage{
-    width: 100%;
-    border-top-left-radius: 2.26rem;
-    border-top-right-radius: 2.26rem;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}.popupImage img{
-    width: 100%;
-   
-    /* height: 50; */
-    object-fit: cover;
+.popupImage {
+  width: 100%;
+  border-top-left-radius: 2.26rem;
+  border-top-right-radius: 2.26rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-.popupImage span{
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color:red;
-    margin: 5px;
+.popupImage img {
+  width: 100%;
+
+  /* height: 50; */
+  object-fit: cover;
 }
-.Navigation{
-    
+.popupImage span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  margin: 5px;
+}
+.Navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.popupTitle {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem;
+}
+.popupDescription {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 1rem;
+}
+.popupPlayNow {
+  border-radius: 2.8rem;
+  display: flex;
+  margin: 0 auto;
+  width: 80%;
+  flex-direction: row;
+  justify-content: space-evenly;
+  /* width: 100%; */
+  background-color: #0a82fc;
+  padding: 0.5rem 1.5rem;
+  align-items: center;
+  cursor: pointer;
+}
+.popupPlayNow p {
+  font-family: drumshake_italic;
+  font-size: 4rem;
+  color: #fff;
+
+  -webkit-text-stroke: 1px #000;
+}
+.popupTicket {
+  width: 30%;
+  padding: 0.5rem;
+}
+.popupTicket img {
+  width: 100%;
+  object-fit: cover;
+}
+@media (max-width: 1065px) {
+  .Popup {
+    width: 35%;
+  }
+}
+@media (min-width: 767px) and (max-width: 1056px) {
+  .Games .Game {
+    width: 25%;
+  }
+}
+@media (min-width: 922px) and (max-width: 1126px) {
+  .Categories {
+    /* flex-wrap: wrap; */
+    overflow-x: scroll;
+    justify-content: center;
+  }
+}
+
+.Search,
+.MSearch {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 5px 15px;
+  background-color: #e1f5fb;
+  border: 2px solid #efeef1;
+}
+.SearchIcon,
+.EmptySearch {
+  width: 7.5%;
+}
+.SearchIcon img,
+.EmptySearch img {
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+.EmptySearch img {
+  width: 80%;
+}
+.Search input,
+.MSearch input {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  color: #2d2d2d;
+  font-size: 2.25rem;
+  padding: 0px 10px;
+  font-weight: 500;
+}
+.CategoriesSection,
+.AllCategories {
+  width: 92.5%;
+  display: flex;
+  flex-direction: row;
+  padding: 1.13rem;
+
+  justify-content: space-between;
+}
+.popupOverlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #fff;
+  padding: 20px;
+  z-index: 9999;
+}
+.ticketIconDiv {
+  width: 40%;
+}
+.ticketIcon {
+  justify-content: flex-start;
+}
+.free,
+.Price {
+  margin: 0 5px;
+}
+@media (max-width: 767px) {
+  .Container {
+    min-height: 100vh;
+  }
+
+  .PriceDiv,
+  .infoIcon a,
+  .DetailTitle {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
-}
-.popupTitle{
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 600;
-    margin: 1rem;
-}
-.popupDescription{
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin: 1rem;
-}
-.popupPlayNow{
-    border-radius: 2.8rem;
-    display: flex;
-    margin: 0 auto;
-    width: 80%;
-    flex-direction: row;
-    justify-content: space-evenly;
     /* width: 100%; */
-    background-color: #0a82fc;
-    padding: .5rem 1.5rem;
+    /* height: 100%; */
     align-items: center;
-    cursor: pointer;
-}
-.popupPlayNow p{
-    font-family: drumshake_italic;
-    font-size: 4rem;
-    color: #fff;
-
-    -webkit-text-stroke: 1px #000;
-}
-.popupTicket{
-    width: 30%;
-    padding: .5rem;
-}
-.popupTicket img{
-    width: 100%;
-    object-fit: cover;
-}
-@media (max-width:1065px){
-    .Popup{
-        width: 35%;
-    }
-   
-}
-@media(min-width:767px) and (max-width:1056px){
-    .Games .Game{
-        width:25%;
-    }
-    .Categories{
-        /* flex-wrap: wrap; */
-        overflow-x: scroll;
-        justify-content: flex-end;
-    }
-    .Categories.MtabSearch{
-        justify-content: center;
-    }
-}
-@media(min-width:922px) and (max-width:1126px){
-   
-    .Categories{
-        /* flex-wrap: wrap; */
-        overflow-x: scroll;
-        justify-content: center;
-    }
-    
-}
-
-
-.Search,.MSearch{
-    width: 30%;
-    display: flex;
-    align-items: center;
-    border-radius: 20px;
-    padding: 5px 15px;
-    background-color: #e1f5fb;
-    border: 2px solid #efeef1;
-}
-.SearchIcon,.EmptySearch{
-    width: 7.5%;
-}
-.SearchIcon img,.EmptySearch img{
-    width: 100%;
-    max-width: 100%;
-    object-fit: contain;
-}
-.EmptySearch img{
-    width: 80%;
-}
-.Search input,.MSearch input{
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    outline: none;
-    border:none;
-    color: #2d2d2d;
-    font-size: 2.25rem;
-    padding: 0px 10px;
-    font-weight: 500;
-}
-.CategoriesSection,.AllCategories{
-    width: 92.5%;
-    display: flex;
-    flex-direction: row;
-    padding: 1.13rem;
-
-    justify-content: space-between;
-}
-.popupOverlay{
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
-    background-color: #fff;
-    padding: 20px;
-    z-index: 9999;
-
-}
-.ticketIconDiv{
-    width: 40%;
-}
-.ticketIcon{
+  }
+  .Categories {
+    /* flex-wrap: wrap; */
+    overflow-x: scroll;
     justify-content: flex-start;
-}
-.free,.Price{
-    margin: 0 5px;
-}
-@media(max-width:767px){
-    .Container{
-        min-height: 100vh;
-    }
-    
-    .PriceDiv,.infoIcon a,.DetailTitle{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        /* width: 100%; */
-        /* height: 100%; */
-        align-items: center;
-    }
-    .Categories{
-        /* flex-wrap: wrap; */
-        overflow-x: scroll;
-        justify-content: flex-start;
-    }
-    .category,.active{
-        font-size: 1.75rem;
-        width: fit-content;
-        padding: .56rem 1.70rem;
-        margin-left: 2%;
-    }
-    ::-webkit-scrollbar{
-        display: none;
-    }
-    .Games .Game{
-        width:42%;
-        /* height: 100%; */
-        /* padding: 5px; */
-        /* border-radius: 10px; */
-    }
-    .Image img{
-        /* border-top-right-radius: 10px; */
-        /* border-top-left-radius: 10px; */
-    }
-    .category,.active{
-        text-align: center;
-        white-space: nowrap;
-        width: fit-content;
-    }
-    
-    .LabelFree p,.Label p{
-        /* font-size: 18px;
+    height: 5rem;
+  }
+  .category,
+  .active {
+    font-size: 1.75rem;
+    width: fit-content;
+    padding: 0.56rem 1.7rem;
+    margin-left: 2%;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .Games .Game {
+    width: 42%;
+    /* height: 100%; */
+    /* padding: 5px; */
+    /* border-radius: 10px; */
+  }
+  .Image img {
+    /* border-top-right-radius: 10px; */
+    /* border-top-left-radius: 10px; */
+  }
+  .category,
+  .active {
+    text-align: center;
+    white-space: nowrap;
+    width: fit-content;
+  }
+
+  .LabelFree p,
+  .Label p {
+    /* font-size: 18px;
         margin-top: 5px; */
-        transform: translate(-70%,40%);
-        text-align: center;
-    }
-    .Name{
-        /* font-size: 13px; */
-        font-size: 1.25rem;
-    }
-    
-    .Price{
-        font-size: 2rem;
-    }
-    .LabelFree,.Label{
-        /* left: -20%;
+    transform: translate(-70%, 40%);
+    text-align: center;
+  }
+  .Name {
+    /* font-size: 13px; */
+    font-size: 1.25rem;
+  }
+
+  .Price {
+    font-size: 2rem;
+  }
+  .LabelFree,
+  .Label {
+    /* left: -20%;
         top: 0;
         width: 100%;
         text-align: center; */
-    }
-    .ticketIcon a,.infoIcon a{
-        width: 100%;
-    }
-    .ticketIcon{
-        /* width: 5rem; */
-    }
-    .infoIcon{
-        width: 3rem;
-    }
-    .PriceDiv{
-        width: 100%;
-    }
-    .free{
-        font-size: 1.75rem;
-    }
-    .Popup{
-        width: 50%;
-    }
-    
-}
-@media(min-width:767px) and (max-width:1056px){
-    .Games .Game{
-        width:25%;
-    }
-    .category,.active{
-        
-        font-size: 2rem;
-        padding: .5rem 1rem;
-       
-    }
-    .CategoriesSection,.AllCategories{
-        width: 92.5%;
-        display: flex;
-        flex-direction: row;
-        padding: 1.13rem;
-    
-        justify-content: space-between;
-    }
-}
-.Search,.MSearch{
-    width: 30%;
-    display: flex;
-    align-items: center;
-    border-radius: 20px;
-    padding: 7.5px 15px;
-    background-color: #e1f5fb;
-    border: 2px solid #efeef1;
-
-
-
-}
-.SearchIcon,.EmptySearch{
-    width: 8%;
-}
-.SearchIcon img,.EmptySearch img{
+  }
+  .ticketIcon a,
+  .infoIcon a {
     width: 100%;
-    max-width: 100%;
-    object-fit: contain;
+  }
+  .ticketIcon {
+    /* width: 5rem; */
+  }
+  .infoIcon {
+    width: 3rem;
+  }
+  .PriceDiv {
+    width: 100%;
+  }
+  .free {
+    font-size: 1.75rem;
+  }
+  .Popup {
+    width: 50%;
+  }
 }
-.EmptySearch img{
-    width: 80%;
-}
-.Search input,.MSearch input{
-    background-color: transparent;
-    width: 300px;
-    height: 100%;
-    outline: none;
-    border:none;
-    color: #2d2d2d;
-    font-size: 1.5rem;
-    padding: 0px 10px;
-    font-weight: 500;
-
-}
-.Search input{
+@media (min-width: 767px) and (max-width: 1056px) {
+  .Games .Game {
+    width: 25%;
+  }
+  .category,
+  .active {
     font-size: 2rem;
-}
-.CategoriesSection,.AllCategories{
+    padding: 0.5rem 1rem;
+  }
+  .CategoriesSection,
+  .AllCategories {
     width: 92.5%;
     display: flex;
     flex-direction: row;
     padding: 1.13rem;
-    /* max-width: 1600px; */
+
     justify-content: space-between;
-    margin-left: 2%;
+  }
 }
-.popupOverlay{
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
-    background-color: #fff;
-    padding: 20px;
-    z-index: 9999;
+.Search,
+.MSearch {
+  width: 35%;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 7.5px 15px;
+  background-color: #e1f5fb;
+  border: 2px solid #efeef1;
+}
+.SearchIcon,
+.EmptySearch {
+  width: 5%;
+}
+.SearchIcon img,
+.EmptySearch img {
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+.EmptySearch img {
+  width: 80%;
+}
+.Search input,
+.MSearch input {
+  background-color: transparent;
+  width: 400px;
+  height: 100%;
+  outline: none;
+  border: none;
+  color: #2d2d2d;
+  font-size: 1.5rem;
+  padding: 0px 10px;
+  font-weight: 500;
+}
+.Search input {
+  font-size: 2.25rem;
+}
+.CategoriesSection,
+.AllCategories {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 1.13rem;
+  /* max-width: 1600px; */
+  justify-content: space-between;
+  margin-left: 2%;
+}
+.popupOverlay {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #fff;
+  padding: 20px;
+  z-index: 9999;
+}
+.ticketIconDiv {
+  width: 40%;
+}
+.ticketIcon {
+  justify-content: flex-start;
+}
+.free,
+.Price {
+  margin: 0 5px;
+}
+.popupImage .Rounded {
+  border: 2px solid red;
+  background-color: transparent;
+}
+.popupImage .fill {
+  border: none;
+  background-color: red;
+}
 
+@media (max-width: 1065px) {
+  .CategoriesSection,
+  .AllCategories {
+    margin-left: 8%;
+  }
+  .Games {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .Games .Game {
+    width: 95%;
+  }
 }
-.ticketIconDiv{
-    width: 40%;
+.MSearch {
+  display: none;
 }
-.ticketIcon{
-    justify-content: flex-start;
-}
-.free,.Price{
-    margin: 0 5px;
-}
-.popupImage .Rounded{
-    border: 2px solid red;
-    background-color: transparent;
-
-}
-.popupImage .fill{
-    border:none;
-    background-color: red;
-}
-
-@media(max-width:1065px){
-    .CategoriesSection,.AllCategories{
-        margin-left: 8%;
-    }
-    .Games{
-        grid-template-columns: repeat(4, 1fr);
-    }
-    .Games .Game{
-        width: 95%;
-    }
-    
-}
-.MSearch{
+@media (max-width: 1065px) {
+  .Search {
     display: none;
-}
-@media(max-width:1065px){
-    .Search{
-        display: none;
-    }
-    .MSearch{
-        display: flex;
-        margin-left: 17.5rem;
-    }
-    /* .CategoriesSection{
+  }
+  .MSearch {
+    display: flex;
+    margin-left: 17.5rem;
+  }
+  /* .CategoriesSection{
         margin-left: 15%;
     } */
-    .Games{
-        grid-template-columns: repeat(3, 1fr);
-        margin-right: 5px;
-    }
-    .Games .Game{
-        width: 95%;
-    }
-    .Search,.MSearch{
-        width: 100%;
-        z-index: 9999;
-        height: fit-content;
-    }
-    .Search input,.MSearch input{
-        width: 200px;
-    }
-    .SearchIcon,.EmptySearch{
-        width: 15px;
-        margin: 0 auto;
-    }
-    .CategoriesSection{
-        width: fit-content;
-        flex-direction: row;
-        margin-left: 0;
-        align-items: center;
-    }
-    .AllCategories{
-        margin-left: 0;
-    }
+  .Games {
+    grid-template-columns: repeat(3, 1fr);
+    margin-right: 5px;
+  }
+  .Games .Game {
+    width: 95%;
+  }
+  .Search,
+  .MSearch {
+    width: 100%;
+    z-index: 9999;
+    height: fit-content;
+  }
+  .Search input,
+  .MSearch input {
+    width: 200px;
+  }
+  .SearchIcon,
+  .EmptySearch {
+    width: 15px;
+    margin: 0 auto;
+  }
+  .CategoriesSection {
+    width: fit-content;
+    flex-direction: row;
+    margin-left: 10%;
+    align-items: center;
+  }
+  .AllCategories {
+    margin-left: 0;
+  }
 }
-@media(max-width:712px){
-    .Games{
-        margin-right: 0;
-        padding-right: 8px;
-    }
+@media (max-width: 712px) {
+  .Games {
+    margin-right: 0;
+    padding-right: 8px;
+  }
 }
-@media(max-width:599px){
-    .Popup{
-        width: 75%;
-    }
-    .Games{
-        padding-right: 0;
-    }
-    
+@media (max-width: 599px) {
+  .Popup {
+    width: 75%;
+  }
+  .Games {
+    padding-right: 0;
+  }
 }
-@media(max-width:450px){
-    .CategoriesSection{
-      height: 6rem;
-      margin-left: 3rem;
-    }
-    .Games{
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .Games .Game{
-        width: 90%;
-        padding: .5rem;
-    }
-   
-    .category,.active{
-        font-size: 1.5rem;
-        margin-left: 0;
-    }
-    .Image{
-       height: 68%;
-    }
-    .MSearch{
-        margin-left: .75rem;
-    }
-    .AllCategories{
-        margin-left: 0;
-    
-    }
-   
-}
-.clubHousePopup{
-    position: absolute;
-    height: 100%;
+@media (max-width: 450px) {
+  .CategoriesSection {
+    height: 6rem;
+    margin-left: 3rem;
+  }
+  .Games {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .Games .Game {
     width: 90%;
-    z-index: 999999;
-}
-.ClubHouse{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-45%,-50%);
-    width: 50rem;
-    background: #fff;
-    border:3px solid #fff;
-    height: auto;
-    border-radius: 30px;
-    width: 100%;
-    /* height: 80vh; */
-}
-.TopImage{
-    width: 100%;
-    position: relative;
-}
-.TopImage img{
-    width: 100%;
-}
-.clubHouseClose{
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    width: 7.5%;
-    cursor: pointer;
-}
-.clubHouseClose img{
-    width: 100%;
-}
-.BottomContents{
-    width: 100%;
-    position: relative;
-    padding-bottom: 5px;
-    min-height: 180px;
-    background-image: url("../../assests/Artboard 48 - Lower Image Split.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    padding: 0.5rem;
+  }
 
-}
-.LowerImg{
-    z-index: 9;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-}
-.LowerImg img{
-    width: 100%;
-}
-.BonusPoints{
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    z-index: 99;
-    align-items: center;
-    justify-content: center;
-
-}
-.Bonus p{
-    font-size: 5rem;
-    font-family: bubbleGum;
-    color: #fff;
-    -webkit-text-stroke: 2px #000;
-}
-.BonusText{
-    margin: 0px 20px;
-}
-.BonusText p{
-    font-style: italic;
-    color: #000;
-    /* font-family: myraidproregular; */
-    font-size: 2.5rem;
-    font-weight: 800;
-}
-.benefits{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    position: relative;
-    z-index: 99;
-}
-.benefit{
-    width: 100%;
-}
-.benefitImage{
-    width: 100%;
-}
-.benefitImage img{
-    width: 100%;
-}
-.SubscribeButton{
-    /* width: 100%; */
-    margin: 25px auto;
-    position: relative;
-    z-index: 99;
-    background-color: #1b8fe7;
-    border-radius: 30px;
-    border:1.5px solid #fff;
-    padding:10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: fit-content;
-    /* margin-bottom: 20px; */
-    
-}
-.SubscribeButton button{
-    width: fit-content;
-    font-size: 2.25rem;
-    color: #fff;
-    font-family: myraidproregular;
-}
-.CancelSubscription{
-    position: relative;
-    z-index: 99;
-}
-.CancelSubscription p{
-    text-align: center;
-    color: #1b8fe7;
-    font-weight: 700;
+  .category,
+  .active {
     font-size: 1.5rem;
-    margin: 10px 0px;
+    margin-left: 0;
+  }
+  .Image {
+    height: 68%;
+  }
+  .MSearch {
+    margin-left: 0.75rem;
+  }
+  .AllCategories {
+    margin-left: 0;
+  }
 }
-.TermsAndPolicy{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    margin: 10px;
+.clubHousePopup {
+  position: absolute;
+  height: 100%;
+  width: 90%;
+  z-index: 999999;
 }
-.Terms p,.Policy p{
-    font-size: 2rem;
-    color: #1b8fe7;
-    font-weight: 700;
-    text-decoration: underline;
-    cursor: pointer;
-
+.ClubHouse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-45%, -50%);
+  width: 50rem;
+  background: #fff;
+  border: 3px solid #fff;
+  height: auto;
+  border-radius: 30px;
+  width: 100%;
+  /* height: 80vh; */
 }
-.replay img,.share img{
-    cursor: pointer;
+.TopImage {
+  width: 100%;
+  position: relative;
 }
-.Circle,.CircleActive{
-    cursor: pointer;
+.TopImage img {
+  width: 100%;
 }
-.AddressEditBtn{
-    cursor: pointer;
+.clubHouseClose {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  width: 7.5%;
+  cursor: pointer;
 }
-.AddressSection input::-webkit-input-placeholder{
-    opacity: 1;
-    color: gray;
+.clubHouseClose img {
+  width: 100%;
 }
-@media(max-width:820px){
-.MSearch{
+.BottomContents {
+  width: 100%;
+  position: relative;
+  padding-bottom: 5px;
+  min-height: 180px;
+  background-image: url("../../assests/Artboard 48 - Lower Image Split.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.LowerImg {
+  z-index: 9;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+.LowerImg img {
+  width: 100%;
+}
+.BonusPoints {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+}
+.Bonus p {
+  font-size: 5rem;
+  font-family: bubbleGum;
+  color: #fff;
+  -webkit-text-stroke: 2px #000;
+}
+.BonusText {
+  margin: 0px 20px;
+}
+.BonusText p {
+  font-style: italic;
+  color: #000;
+  /* font-family: myraidproregular; */
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+.benefits {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  z-index: 99;
+}
+.benefit {
+  width: 100%;
+}
+.benefitImage {
+  width: 100%;
+}
+.benefitImage img {
+  width: 100%;
+}
+.SubscribeButton {
+  /* width: 100%; */
+  margin: 25px auto;
+  position: relative;
+  z-index: 99;
+  background-color: #1b8fe7;
+  border-radius: 30px;
+  border: 1.5px solid #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  /* margin-bottom: 20px; */
+}
+.SubscribeButton button {
+  width: fit-content;
+  font-size: 2.25rem;
+  color: #fff;
+  font-family: myraidproregular;
+}
+.CancelSubscription {
+  position: relative;
+  z-index: 99;
+}
+.CancelSubscription p {
+  text-align: center;
+  color: #1b8fe7;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 10px 0px;
+}
+.TermsAndPolicy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 10px;
+}
+.Terms p,
+.Policy p {
+  font-size: 2rem;
+  color: #1b8fe7;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.replay img,
+.share img {
+  cursor: pointer;
+}
+.Circle,
+.CircleActive {
+  cursor: pointer;
+}
+.AddressEditBtn {
+  cursor: pointer;
+}
+.AddressSection input::-webkit-input-placeholder {
+  opacity: 1;
+  color: gray;
+}
+@media (max-width: 820px) {
+  .MSearch {
     margin-left: 33.5rem;
+  }
 }
-}
-@media(max-width:768px){
-    .Bonus{
-        width: 40%;
-    }
-
-    .Bonus p{
-        text-align: end;
-    }
-    .Terms p,.Policy p{
-        font-size: 1.25rem;
-    }
-    .MSearch{
-        margin-left: 37rem;
-    }
-}
-.Shipping .Phone .InputSection .phoneInputSection{
-    color: #fff;
-}
-.Shipping .Phone .InputSection .phoneInputSection::-webkit-input-placeholder{
-    opacity: 1;
-    color: #000;
-}
-.OverlayBg{
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    background-color: transparent;
-}
-.SingleGameOverlay{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    z-index: 99;
-}
-.ticketIcon{
-    position: relative;
-    z-index: 9;
-}
-.infoIcon{
-    z-index: 999;
-}
-.PopupSection{
-    z-index: 9999;
-}
-.ResendPopup,.ResendPopupDiv,.resendPopupFirst,.resendPopupBottomSection{
-    position: fixed;
-    font-family: myraidproregular !important;
-    z-index: 99999;
-    top: 50%;
-    left: 50%;
-    width: -moz-fit-content;
-    width: fit-content;
-    transform: translate(-50%, -50%);
-    border: 1rem solid #949393;
-    border-radius: 20px;
-    background-color: #0A84FE;
-    padding: 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* width: 15%; */
-    width: 300px;
-
-}
-.ResendPopup{
-    width: 38rem;
-    height: 22rem;
-}
-.ResendpopupImage{
+@media (max-width: 768px) {
+  .Bonus {
     width: 40%;
-    position: absolute;
-    top: 0;
-    transform: translateY(-50%);
-    /* width: 50%; */
-}
-.ResendpopupImage img{
-    width: 100%;
-}
-.ResendpopupText{
-    margin-top: 15%;
-}
-.ResendpopupText p{
-    font-size: 2rem;
-    text-align: center;
-    color: #fff;
-    line-height: 25px;
-    font-size: 2.25rem;
-    font-weight: 100;
-}
-.ResendpopupButton{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  }
 
+  .Bonus p {
+    text-align: end;
+  }
+  .Terms p,
+  .Policy p {
+    font-size: 1.25rem;
+  }
+  .MSearch {
+    margin-left: 37rem;
+  }
 }
-.ResendpopupButton button{
-    margin: 1.75rem 0;
-    padding: 1rem 0rem;
-    width: 20rem;
-    border: 2px solid #fff;
-    outline: none;
-    color: #fff;
-    font-size: 2.25rem;
-    font-weight: 100;
-    border-radius: 30px;
-    font-family: myraidproregular;
+.Shipping .Phone .InputSection .phoneInputSection {
+  color: #fff;
 }
-.popupOverlaySection{
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    background-color: transparent;
-    z-index: 9999;
+.Shipping .Phone .InputSection .phoneInputSection::-webkit-input-placeholder {
+  opacity: 1;
+  color: #000;
 }
-.ResendPopupDiv{
-    z-index: 99999;
+.OverlayBg {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: transparent;
 }
-.ClubHouse{
-    position: fixed;
+.SingleGameOverlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  z-index: 99;
 }
-@media(max-width:712px){
-    .MSearch{
-        margin-left: 10rem;
-    }
+.ticketIcon {
+  position: relative;
+  z-index: 9;
 }
-@media(min-width:600px){
-    .ClubHouse{
-        width: 50rem;
-    }
+.infoIcon {
+  z-index: 999;
 }
-@media(max-width:599px){
-    .ClubHouse{
-        transform: translate(-50%,-50%);
-        width: 80%;
-    }
-    .MSearch{
-        margin-left: 0rem;
-    }
-    .ResendPopup{
-        height: 20rem;
-        width: 30rem;
-    }
-    .ResendpopupText{
-        margin-top: 5rem;
-    }
-    .ResendpopupText p{
-        font-size: 2rem;
-    }
-    .ResendpopupButton button{
-        margin: 1.5rem 0;
-        padding: 1rem 0;
-        width: 160px;
-        font-size: 2rem;
-    }
+.PopupSection {
+  z-index: 9999;
 }
-@media(max-width:450px){
-    .ClubHouse{
-        width: 65%;
+.ResendPopup,
+.ResendPopupDiv,
+.resendPopupFirst,
+.resendPopupBottomSection {
+  position: fixed;
+  font-family: myraidproregular !important;
+  z-index: 99999;
+  top: 50%;
+  left: 50%;
+  width: -moz-fit-content;
+  width: fit-content;
+  transform: translate(-50%, -50%);
+  border: 1rem solid #949393;
+  border-radius: 20px;
+  background-color: #0a84fe;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 15%; */
+  width: 300px;
+}
+.ResendPopup {
+  width: 38rem;
+  height: 22rem;
+}
+.ResendpopupImage {
+  width: 40%;
+  position: absolute;
+  top: 0;
+  transform: translateY(-50%);
+  /* width: 50%; */
+}
+.ResendpopupImage img {
+  width: 100%;
+}
+.ResendpopupText {
+  margin-top: 15%;
+}
+.ResendpopupText p {
+  font-size: 2rem;
+  text-align: center;
+  color: #fff;
+  line-height: 25px;
+  font-size: 2.25rem;
+  font-weight: 100;
+}
+.ResendpopupButton {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.ResendpopupButton button {
+  margin: 1.75rem 0;
+  padding: 1rem 0rem;
+  width: 20rem;
+  border: 2px solid #fff;
+  outline: none;
+  color: #fff;
+  font-size: 2.25rem;
+  font-weight: 100;
+  border-radius: 30px;
+  font-family: myraidproregular;
+}
+.popupOverlaySection {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  z-index: 9999;
+}
+.ResendPopupDiv {
+  z-index: 99999;
+}
+.ClubHouse {
+  position: fixed;
+}
+@media (max-width: 712px) {
+  .MSearch {
+    margin-left: 10rem;
+  }
+}
+@media (min-width: 600px) {
+  .ClubHouse {
+    width: 50rem;
+  }
+}
+@media (max-width: 599px) {
+  .ClubHouse {
+    transform: translate(-50%, -50%);
+    width: 80%;
+  }
+  .MSearch {
+    margin-left: 0rem;
+  }
+  .ResendPopup {
+    height: 20rem;
+    width: 30rem;
+  }
+  .ResendpopupText {
+    margin-top: 5rem;
+  }
+  .ResendpopupText p {
+    font-size: 2rem;
+  }
+  .ResendpopupButton button {
+    margin: 1.5rem 0;
+    padding: 1rem 0;
+    width: 160px;
+    font-size: 2rem;
+  }
+}
+@media (max-width: 450px) {
+  .ClubHouse {
+    width: 65%;
     overflow: hidden;
     border-radius: 20px;
     position: fixed;
-    }
+  }
 }
-.category{
-    color: #000;
+.category {
+  color: #000;
 }
-.resendPopupFirst{
-    z-index: 999999;
+.resendPopupFirst {
+  z-index: 999999;
 }
-.resendPopupBottomSection{
-    z-index: 99999;
-    padding: 1rem 3rem;
-
+.resendPopupBottomSection {
+  z-index: 99999;
+  padding: 1rem 3rem;
 }
-@media(max-width:767px){
-    .AddressSection input{
-        font-size: 1.75rem;
-    }
-    .AddressTitle p{
-        font-size: 1.75rem;
-    }
-    .DeliveryAddress{
-        padding: 25px 10px;
-        width: 100%;
-    }
-    .AddressEditBtn button{
-        background-color: #1b8fe7;
-        border: 1.5px solid #fff;
-        outline: none;
-        font-size: 1.5rem;
-        color: #fff;
-        padding: 3px 10px;
-        border-radius: 30px;
-        margin: 20px 0;
-        font-weight: 700;
-    }
-    /* .Circle{
+@media (max-width: 767px) {
+  .AddressSection input {
+    font-size: 1.75rem;
+  }
+  .AddressTitle p {
+    font-size: 1.75rem;
+  }
+  .DeliveryAddress {
+    padding: 25px 10px;
+    width: 100%;
+  }
+  .AddressEditBtn button {
+    background-color: #1b8fe7;
+    border: 1.5px solid #fff;
+    outline: none;
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 30px;
+    margin: 20px 0;
+    font-weight: 700;
+  }
+  /* .Circle{
         margin-left: 0;
     }
     .price p{
         margin-right: 15px;
     } */
 }
-@media(max-width:765px){
-    .CartEmptyText{
-        font-size: 1.75rem;
-        
-    }
-    .ClubHouse{
-        width: 65%;
-        overflow: hidden;
-        border-radius: 20px;
-        position: fixed;
-    }
-    .Bonus p{
-        font-size: 5rem;
-        text-align: end;
-    }
-    .BonusText p{
-        font-size: 1.5rem;
-    }
-    .SubscribeButton button{
-        font-size: 1.75rem;
-    }
-    .CancelSubscription p,.TermsAndPolicy p {
-        font-size: 1rem;
-    }
+@media (max-width: 765px) {
+  .CartEmptyText {
+    font-size: 1.75rem;
+  }
+  .ClubHouse {
+    width: 65%;
+    overflow: hidden;
+    border-radius: 20px;
+    position: fixed;
+  }
+  .Bonus p {
+    font-size: 5rem;
+    text-align: end;
+  }
+  .BonusText p {
+    font-size: 1.5rem;
+  }
+  .SubscribeButton button {
+    font-size: 1.75rem;
+  }
+  .CancelSubscription p,
+  .TermsAndPolicy p {
+    font-size: 1rem;
+  }
 }
-@media(max-width:712px){
-    .Bonus p{
-        font-size: 5rem;
-        text-align: end;
-    }
-    .BonusText p{
-        font-size: 3rem;
-    }
-    .Price{
-        font-size: 2.5rem;
-    }
+@media (max-width: 712px) {
+  .Bonus p {
+    font-size: 5rem;
+    text-align: end;
+  }
+  .BonusText p {
+    font-size: 3rem;
+  }
+  .Price {
+    font-size: 2.5rem;
+  }
 }
-@media(max-width:599px){
-    .Bonus p{
-        font-size: 3rem;
-        /* text-align: center; */
-    }
-    .BonusText{
-        margin: 0px 10px;
-    }
-    .Bonus{
-        width: 30%;
-    }
-    .BonusText p{
-        font-size: 1.75rem;
-    }
+@media (max-width: 599px) {
+  .Bonus p {
+    font-size: 3rem;
+    /* text-align: center; */
+  }
+  .BonusText {
+    margin: 0px 10px;
+  }
+  .Bonus {
+    width: 30%;
+  }
+  .BonusText p {
+    font-size: 1.75rem;
+  }
 }
-@media(max-width:280px){
-    .Bonus{
-        width: 30%;
-    }
-    .BonusText p{
-        font-size: 1.5rem;
-    }
-    .Bonus p{
-        font-size: 2rem;
-    }
+@media (max-width: 280px) {
+  .Bonus {
+    width: 30%;
+  }
+  .BonusText p {
+    font-size: 1.5rem;
+  }
+  .Bonus p {
+    font-size: 2rem;
+  }
 }
-@media(max-width:1065) and (min-width:765px){
-    .CategoriesSection.TabCategory{
-        margin-left: 25%;
-    }
+@media (max-width: 1065) and (min-width: 765px) {
+  .CategoriesSection.TabCategory {
+    margin-left: 25%;
+  }
 }
-@media(max-width:765px){
-    .MSearch{
-        padding: 0;
-    }
-    .CategoriesSection{
-        margin-left: 0;
-    }
+@media (max-width: 765px) {
+  .MSearch {
+    padding: 0;
+  }
+  .CategoriesSection {
+    margin-left: 0;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  .Categories {
+    /* flex-wrap: wrap; */
+    overflow-x: scroll;
+    justify-content: flex-start;
+  }
+  .CategoriesSection {
+    margin-left: 10%;
+  }
+  .Categories.MtabSearch {
+    justify-content: center;
+  }
+  .MSearch {
+    margin-left: 5px;
+    height: 50px;
+    margin-top: 1rem;
+  }
+  .MSearch input{
+    width: 270px;
+    font-size: 2rem;
+  }
+  .SearchIcon {
+    width: 25px;
+  }
+}
+@media screen and (max-device-width: 1400px) and (orientation: landscape) {
+}
+@media screen and (max-device-width: 1200px) and (orientation: landscape) {
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
 }

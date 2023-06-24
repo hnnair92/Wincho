@@ -132,7 +132,7 @@
 }
 @media (max-width: 599px) {
   .Head {
-    width: 40%;
+    width: 65%;
     margin: 5rem;
     /* padding: 5px 5px; */
     border-radius: 50px;
@@ -142,7 +142,7 @@
     margin-right: auto;
   }
   .Head p {
-    font-size: 6vw;
+    font-size: 5rem;
   }
   .Notifications {
     width: 100%;

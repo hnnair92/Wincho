@@ -1319,6 +1319,7 @@ video {
 }
 .ArrowBothButtons .playImageLoader {
   position: relative;
+  height: 100%;
 }
 /* .ArrowBothButtons .playImageLoader svg {
   z-index: 999;
@@ -1329,11 +1330,14 @@ video {
 .ArrowBothButtons .playImageLoader div {
   position: absolute;
   z-index: 9;
+  top: 0;
+  left: 0;
 }
 .ArrowBothButtons .playImageLoader img {
   width: 100%;
   position: relative;
   z-index: 99;
+
 }
 .ArrowBothButtons .playImageLoaderActive {
   display: none;
@@ -1688,3 +1692,6 @@ video {
 /* .PlayImage{
   -webkit-user-select: none;
 } */
+.ArrowBothButtons{
+  height: 100%;
+}

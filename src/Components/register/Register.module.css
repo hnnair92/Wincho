@@ -229,7 +229,7 @@ input:-webkit-autofill:active {
   font-family: "Poppins";
   height: 7.5rem;
   padding: 1.13rem;
-  font-size: 3.5rem;
+  font-size: 3rem;
   text-transform: uppercase;
   margin: 1.13rem;
   margin-left: 0;
@@ -406,7 +406,7 @@ label {
   top: 50%;
   z-index: 999;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-5%, -50%);
 }
 .content {
   margin: 3rem 0;
@@ -468,7 +468,7 @@ label {
   outline: none;
   color: #3333333d;
   height: 100%;
-  font-size: 3.5rem;
+  font-size: 3rem;
 }
 .StateSelectCenter::-webkit-input-placeholder {
   color: #3333338e !important;
