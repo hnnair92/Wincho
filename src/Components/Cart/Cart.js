@@ -35,7 +35,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       : localStorage.setItem("music", JSON.stringify(false))
   );
   const audioRefHome = useRef(null);
-  const token = JSON.parse(localStorage.getItem("token"))
+  const token = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
     console.log(gameMusic === "true", "gameSound");
     console.log(typeof gameMusic, "gameMusic");
@@ -105,7 +105,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [postcodetrue, setPostcodeTrue] = useState(false);
-  const [phonenumber,setPhonenumber]=useState(false)
+  const [phonenumber, setPhonenumber] = useState(false);
   const [allState, setAllState] = useState([]);
   const [selectState, setSelectState] = useState(false);
   const [userCountry, setUserCountry] = useState("");
@@ -130,7 +130,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     city: "",
     state: "",
     zipcode: "",
-  })
+  });
   const setPlayBack = () => {
     vidRef.current.playbackRate = 1.5;
   };
@@ -201,8 +201,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         user_id: userId,
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -244,9 +244,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(err);
       });
   };
-  useEffect(()=>{
-    stateFetch()
-  },[])
+  useEffect(() => {
+    stateFetch();
+  }, []);
   async function addAddress() {
     if (configuration.COUNTRY_CODE === "44") {
       setUserCountry("county");
@@ -287,8 +287,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       method: "PUT",
       body: JSON.stringify(body),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -319,8 +319,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       method: "POST",
       body: JSON.stringify(requestData),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -336,8 +336,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         user_id: userId,
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -356,8 +356,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         number: `${configuration.COUNTRY_CODE}${number}`,
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -365,9 +365,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         if (data.data[0].valid === true) {
           postCodeCheck();
-        }
-        else{
-          setPhonenumber(true)
+        } else {
+          setPhonenumber(true);
         }
       });
   }
@@ -379,8 +378,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         code: zipcode,
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -412,8 +411,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       method: "POST",
       body: JSON.stringify(sendData),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -506,7 +505,6 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           )}
           {}
           {}
-        
         </div>
       </div>
     );
@@ -545,7 +543,6 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
               <img src={Upper} alt="" />
             </div>
             <div className={style.BottomContents}>
-             
               <div className={style.BonusPoints}>
                 <div className={style.Bonus}>
                   <p>{configuration.VIP_BONUS_POINT}W</p>
@@ -643,19 +640,17 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             )}
             {}
             {}
-           
           </div>
         </div>
       ) : (
         ""
       )}
-      {isVip && isVipShown === false ? (
+      {isVip  === true ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-           
             {vipMessage.map((text) => {
               console.log(text);
               return (
@@ -746,7 +741,6 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             >
               OK
             </button>
-            
           </div>
         </div>
       ) : (
@@ -770,19 +764,18 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             >
               TOP UP
             </button>
-           
           </div>
         </div>
       ) : (
         ""
       )}
-      {isAddressField === true ? (
+      {isAddressField === true&&userId!==null&&user&&user.username!=="" ? (
         <div className={style.Address}>
           <div
             className={style.AddressTitleOverlay}
             onClick={() => {
               setisAddressField(false);
-              setSelectState(false)
+              setSelectState(false);
             }}
           ></div>
           <form action="">
@@ -865,7 +858,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   />
                 )}
                 {}
-                <FaChevronDown className={style.Downarrow}
+                <FaChevronDown
+                  className={style.Downarrow}
                   onClick={() => {
                     selectState ? setSelectState(false) : setSelectState(true);
                   }}
@@ -956,41 +950,53 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       ) : (
         ""
       )}
-      {checkError?(
+      {checkError ? (
         <div className={style.popup}>
-        <div className={style.popupImage}>
-          <img src={assets.winchaPopup} alt="" />
+          <div className={style.popupImage}>
+            <img src={assets.winchaPopup} alt="" />
+          </div>
+          <div className={style.popupText}>
+            <p>State is not available for shipping</p>
+          </div>
+          <div className={style.ReportPopupButton}>
+            <button
+              onClick={() => {
+                setCheckError(false);
+                setSelectState(true);
+              }}
+            >
+              Ok
+            </button>
+          </div>
         </div>
-        <div className={style.popupText}>
-          <p>State is not available for shipping</p>
-        </div>
-        <div className={style.ReportPopupButton}>
-          <button
-            onClick={() => {
-              setCheckError(false)
-              setSelectState(true)
-            }}
-          >
-            Ok
-          </button>
-         
-        </div>
-      </div>
-      ):
-      ("")}
+      ) : (
+        ""
+      )}
       <div className={style.Cart}>
         <div className={style.Title}>
           <p>BASKET</p>
         </div>
         {}
         <div className={style.Carts}>
-        {loading===false?
-
-          userId!==null&&user&&user.username!==""?(cartData.length<1? <p className={style.CartEmptyText}>  Your Basket is Currently Empty 
-            
-            </p>:''): <p className={style.CartEmptyText}>  Your Basket is Currently Empty
-            </p>
-        :""}
+          {loading === false ? (
+            userId !== null && user && user.username !== "" ? (
+              cartData.length < 1 ? (
+                <p className={style.CartEmptyText}>
+                  {" "}
+                  Your Basket is Currently Empty
+                </p>
+              ) : (
+                ""
+              )
+            ) : (
+              <p className={style.CartEmptyText}>
+                {" "}
+                Your Basket is Currently Empty
+              </p>
+            )
+          ) : (
+            ""
+          )}
           {/* {cartData.length < 1 ? (
             <p className={style.CartEmptyText}>  Your Basket is Currently Empty” 
             
@@ -1179,22 +1185,16 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 {vipData.status === false ? (
                   <span
                     className={style.CircleActive}
-                    onClick={() => {
-                    }}
+                    onClick={() => {}}
                   ></span>
                 ) : vipData.status === true &&
                   vipData.data[0].vip_token === false ? (
                   <span
                     className={style.CircleActive}
-                    onClick={() => {
-                    }}
+                    onClick={() => {}}
                   ></span>
                 ) : (
-                  <span
-                    className={style.Circle}
-                    onClick={() => {
-                    }}
-                  ></span>
+                  <span className={style.Circle} onClick={() => {}}></span>
                 )}
               </div>
             </div>
@@ -1206,9 +1206,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
               <img src={assets.winchaPopup} alt="" />
             </div>
             <div className={style.popupText}>
-              <p>
-              Your Basket is Currently Empty
-              </p>
+              <p>Your Basket is Currently Empty</p>
             </div>
             <div className={style.ReportPopupButton}>
               <button
@@ -1374,11 +1372,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   setCount(3);
                   console.log("count jumbed 2");
                 }
-              }
-              else if(user&&user.first_name===""){
-                setIsAddress(true)
-              }
-              else {
+              } else if (user && user.first_name === "") {
+                setIsAddress(true);
+              } else {
                 console.log("false");
                 if (count === 1) {
                   setCount(2);

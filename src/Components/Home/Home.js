@@ -191,9 +191,12 @@ const Home = () => {
         <div className={style.Watch} id="watch">
           <div className={style.Image}>
             <div className={style.Slider}>
-              <video autoplay loop muted>
+              {/* <video autoplay loop muted>
                 <source src={videoSrc} type="video/mp4" />
-              </video>
+              </video> */}
+               <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef}>
+            <source src={VideoSrcHome} type="video/mp4" />
+          </video>
               {/* :""} */}
             </div>
           </div>

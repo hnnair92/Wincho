@@ -822,7 +822,7 @@ async function playAudioBg() {
         ) : (
           ""
         )}
-        {isAddress?
+        {isAddress&&userId!==null&&user&&user.username!==""?
         (<div className={style.editAddress} >
           <div
             className={style.editAddressOverlay}

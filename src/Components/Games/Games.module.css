@@ -488,7 +488,7 @@
     /* flex-wrap: wrap; */
     overflow-x: scroll;
     justify-content: flex-start;
-    height: 5rem;
+    height: fit-content;
   }
   .category,
   .active {

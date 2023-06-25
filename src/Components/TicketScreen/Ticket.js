@@ -583,7 +583,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                     console.log(user);
                     if (Object.keys(user).length === 0) {
                       navigate("/login");
-                    } else if (user && user.username === "") {
+                    } else if (user && user.username === ""||user.username === undefined) {
                       // setResendEmail(true)
                       navigate("/login");
                       console.log(user.username);

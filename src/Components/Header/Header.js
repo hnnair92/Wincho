@@ -103,7 +103,7 @@ const Header = ({
   }
   useEffect(() => {
     getHistory();
-  }, []);
+  }, [urlState]);
   async function playAudioBg() {
     console.log(musicStatus, "musicStatus");
 

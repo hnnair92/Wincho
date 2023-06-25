@@ -1695,3 +1695,4 @@ video {
 .ArrowBothButtons{
   height: 100%;
 }
+button { -webkit-tap-highlight-color: transparent; }
