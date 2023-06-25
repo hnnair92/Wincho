@@ -103,7 +103,7 @@ const Header = ({
   }
   useEffect(() => {
     getHistory();
-  }, [urlState]);
+  }, [urlState,dispatch,window,active]);
   async function playAudioBg() {
     console.log(musicStatus, "musicStatus");
 
@@ -224,7 +224,7 @@ const Header = ({
     dispatch(updateProfile(userData.user));
     dispatch(cartAction());
     dispatch(notificationAction());
-  }, [dispatch]);
+  }, [dispatch,window,active]);
   useEffect(() => {
     console.log(gamePlay, "gamePlay status");
     console.log(active, "active status");

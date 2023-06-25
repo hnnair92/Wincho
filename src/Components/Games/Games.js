@@ -116,7 +116,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
 
         if(categoryIndex===0){
           setCategory(categories[categories.length-1].value)
-          setCategorySlide(-50)
+          // setCategorySlide(-50)
           
           setRightAmount()
           setEndTouchData({})
@@ -125,7 +125,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         else{
 
           setCategory(categories[categoryIndex-1].value)
-          setCategorySlide((10*categoryIndex+2))
+          // setCategorySlide((categorySlide)=>categorySlide-)
 
           // setRightAmount((moveTouchData/window.innerWidth)*100)
           setEndTouchData({})
@@ -137,7 +137,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(scrollRefDiv.current);
         if(categories.length-1===categoryIndex){
           setCategory(categories[0].value)
-          setCategorySlide(0)
+          // setCategorySlide(0)
           setEndTouchData({})
           setRightAmount(0)
           setStartTouchData({})
@@ -145,7 +145,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         else{
           setCategory(categories[categoryIndex+1].value)
           setEndTouchData({})
-          setCategorySlide((10*categoryIndex+2)*-1)
+          // setRightAmount(0)
+          // setCategorySlide((10*categoryIndex+2)*-1)
           console.log(categoryIndex+1*-1)
           console.log(categoryIndex+2)
           console.log(category.value)
@@ -1062,14 +1063,24 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         <div className={style.Games} style={{right:`${rightAmount}%`}} onTouchStart={(e)=>{
           console.log("started")
           setEndTouchData({})
-          setRightAmount(0)
+          // setRightAmount(0)
           setStartTouchData(e.changedTouches[0])
           // console.log(window)
           console.log(e)
 
         }}  onTouchMove={(e)=>{
+          const categoryIndex = categories.findIndex(
+        (item)=>item.value === category
+        
+        );
           setMoveTouchData(e.changedTouches[0])
-          setRightAmount(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(-1))
+     
+
+          // if(categories.length-1===categoryIndex){
+          // setRightAmount(0)
+
+          // }
+          // setRightAmount(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(-1))
           console.log((e.changedTouches[0].clientX/window.innerWidth)*100*(-1))
           console.log(window.innerWidth)
           console.log(e.changedTouches[0].clientX)
@@ -1118,11 +1129,38 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           
         }}  
         onTouchEnd={(e)=>{
+          const categoryIndex = categories.findIndex(
+        (item)=>item.value === category
+        
+        );
           setEndTouchData(e.changedTouches[0])
           console.log("End")
          console.log(e)
-         setRightAmount("0")
+         setRightAmount(0)
          setMoveTouchData({})
+         if(e.changedTouches[0].clientX-startTouchData.clientX>100){
+        if(categoryIndex===0){
+          setCategorySlide(categories.length*10*-1)
+            
+          }
+          else{
+          // setCategorySlide((10*categoryIndex+1))
+          setCategorySlide((categorySlide)=>categorySlide+10)
+            // setCategorySlide(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(1))
+
+          }
+      }
+      else{
+      // else if(e.changedTouches[0].clientX-startTouchData.clientX<100){
+        if(categories.length-1===categoryIndex){
+          setCategorySlide(0)
+            
+          }
+          else{
+            setCategorySlide((10*categoryIndex+2)*-1)
+
+          }
+      }
         //  setStartTouchData({})
          
         
