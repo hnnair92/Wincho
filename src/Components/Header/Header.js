@@ -103,7 +103,7 @@ const Header = ({
   }
   useEffect(() => {
     getHistory();
-  }, [urlState,dispatch,window,active]);
+  }, [urlState, dispatch, window, active]);
   async function playAudioBg() {
     console.log(musicStatus, "musicStatus");
 
@@ -127,7 +127,7 @@ const Header = ({
       console.log("not reached");
     }
     console.log(typeof setGameSound);
-  }, [gameSound]);
+  }, [gameSound,window]);
 
   useEffect(() => {
     if (gameMusic === "true" || gameMusic === true) {
@@ -224,7 +224,7 @@ const Header = ({
     dispatch(updateProfile(userData.user));
     dispatch(cartAction());
     dispatch(notificationAction());
-  }, [dispatch,window,active]);
+  }, [dispatch, window, active]);
   useEffect(() => {
     console.log(gamePlay, "gamePlay status");
     console.log(active, "active status");
@@ -566,10 +566,11 @@ const Header = ({
               <img src={historyTitle} alt="" className={style.cartTitleImage} />
             </div>
             {history.length < 1 ? (
-              <p className={style.historyEmptyText}>history is empty</p>
+              <p className={style.historyEmptyText}>History is Empty</p>
             ) : (
               <div className={style.CartProducts}>
-                {(history !== null) & (history !== undefined) &&
+                {history !== undefined &&
+                  history !== null &&
                   history.length > 0 &&
                   history.map((item) => {
                     console.log(item);
@@ -795,6 +796,7 @@ const Header = ({
               onClick={() => {
                 // setSetting(true)
                 setting ? setSetting(false) : setSetting(true);
+                setHistoryPopup(false)
                 notificationbubble
                   ? setNotificationBubble(false)
                   : setNotificationBubble(true);

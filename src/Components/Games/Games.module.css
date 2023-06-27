@@ -95,7 +95,7 @@
   /* transform: rotate(-40deg); */
   /* left: -11.7%; */
   /* top: 5.3%; */
-  z-index: 999;
+  z-index: 990;
   /* border-left: 3.75rem solid transparent;
     border-right: 5.56rem solid transparent; */
   /*height: 0; */
@@ -1218,7 +1218,7 @@
     margin-left: 10%;
   }
   .Categories.MtabSearch {
-    justify-content: center;
+    justify-content: flex-start;
   }
   .MSearch {
     margin-left: 5px;

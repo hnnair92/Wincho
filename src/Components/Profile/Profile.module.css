@@ -205,9 +205,9 @@
   outline: none;
 }
 .Address .InputSection img {
-  width: 3.2%;
+  width: 2.6%;
   position: absolute;
-  right: 7%;
+  right: 6.5%;
 }
 .InputSection input {
   outline: none;
@@ -257,7 +257,7 @@
   border-bottom: none;
 }
 .Shipping .Phone .InputSection img {
-  width: 7.5%;
+  width: 5.75%;
 }
 .Shipping .Phone .InputSection input {
   border-bottom: none;
@@ -1014,8 +1014,11 @@
     height: 5rem;
   }
   .Address .InputSection img {
-    width: 3%;
+    width: 3.4%;
     right: 10%;
+  }
+  .Shipping .Phone .InputSection img {
+    width: 8%;
   }
   
 .popupText {

@@ -82,7 +82,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [countSection, setCountSection] = useState(0);
   const [rightAmount, setRightAmount] = useState(0);
-  const [categorySlide, setCategorySlide] = useState(0);
+  const [categorySlide, setCategorySlide] = useState(11);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
   const scrollRefDiv = useRef(null)
   const checkPlayArray =
@@ -248,6 +248,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(state);
   }, [state]);
   useEffect(() => {
+    console.log("its below",gameMusic,gameSound)
+
     console.log(gameSound === "true", "gameSound");
     console.log(typeof gameSound, "gameMusic");
     if (gameSound === "true" || gameSound === true) {
@@ -261,9 +263,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof setGameSound);
-  }, [gameSound]);
+  }, [gameMusic,gameSound,window]);
 
   useEffect(() => {
+    console.log("its below",gameMusic,gameSound)
+
     if (gameMusic === "true" || gameMusic === true) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
@@ -281,7 +285,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-  }, [])
+  }, [window,gameMusic,gameSound])
   async function playAudio(src) {
     console.log(audioStatus, "audioStatus");
     if (audioStatus === "true") {
@@ -294,6 +298,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     }
   }
   useEffect(() => {
+    console.log("its below",gameMusic,gameSound)
     console.log(gameMusic === "true", "gameSound");
     console.log(typeof gameMusic, "gameMusic");
     if (gameMusic === "true" || gameMusic === true) {
@@ -308,7 +313,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-  }, [gameMusic]);
+  }, [window,gameMusic,gameSound]);
   useEffect(() => {
     if (gameMusic === "true" || gameMusic === true) {
       console.log(audioRefHome.current.volume);
@@ -770,7 +775,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             className={style.MSearch}
             style={{
               backgroundColor: "#e1f5fb",
-              border:"2px solid #efeef1",padding:"4px 15px",marginBottom:"8px"
+              border:"2px solid #efeef1",padding:"4px 15px",
             }}
           >
             <div
