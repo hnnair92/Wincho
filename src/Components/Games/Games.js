@@ -1541,7 +1541,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     className={style.icon}
                                     style={{ filter: "grayScale(0)" }}
                                   />
-                                )}
+                    ))}
                               </div>
                               {game && game.price === "0" ? (
                                 <p className={style.free}>FREE</p>
@@ -1726,7 +1726,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     className={style.icon}
                                     style={{ filter: "grayScale(0)" }}
                                   />
-                                )}
+                                ))}
                               </div>
                               {game && game.price === "0" ? (
                                 <p className={style.free}>FREE</p>
@@ -1908,7 +1908,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     className={style.icon}
                                     style={{ filter: "grayScale(0)" }}
                                   />
-                                )}
+                                ))}
                               </div>
                               {game && game.price === "0" ? (
                                 <p className={style.free}>FREE</p>
