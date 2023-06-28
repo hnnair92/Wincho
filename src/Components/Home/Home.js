@@ -93,6 +93,12 @@ const Home = () => {
   }, []);
 
   const videoRef = useRef(null);
+  const videoRef2 = useRef(null);
+  useEffect(() => {
+    if (videoRef2.current) {
+      videoRef2.current.play();
+    }
+  }, []);
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.play();
@@ -194,8 +200,8 @@ const Home = () => {
               {/* <video autoplay loop muted>
                 <source src={videoSrc} type="video/mp4" />
               </video> */}
-               <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef}>
-            <source src={VideoSrcHome} type="video/mp4" />
+               <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef2}>
+            <source src={videoSrc} type="video/mp4" />
           </video>
               {/* :""} */}
             </div>
