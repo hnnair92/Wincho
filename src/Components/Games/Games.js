@@ -1346,7 +1346,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
                                 user &&
-                                user.vip === false ? (
+                                user.vip === false || game.machine_status === false? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1527,7 +1527,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                 {(times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
                                 user &&
-                                user.vip === false ? (
+                                user.vip === false || game.machine_status === false? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1712,7 +1712,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               <div className={style.ticketIconDiv}>
                                 {(times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
-                                user?.vip === false ? (
+                                user?.vip === false || game.machine_status === false ? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1894,7 +1894,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               <div className={style.ticketIconDiv}>
                                 {(times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
-                                user?.vip === false ? (
+                                user?.vip === false  || game.machine_status === false? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -2078,7 +2078,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             <div className={style.ticketIconDiv}>
                               {times >= configuration.FREE_PLAY_LIMIT &&
                               game.price === "0" &&
-                              user.vip === false ? (
+                              user.vip === false  || game.machine_status === false? (
                                 <img
                                   src={Ticket}
                                   alt=""
@@ -2257,7 +2257,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             <div className={style.ticketIconDiv}>
                               {times >= configuration.FREE_PLAY_LIMIT &&
                               game.price === "0" &&
-                              user.vip === false ? (
+                              user.vip === false  || game.machine_status === false? (
                                 <img
                                   src={Ticket}
                                   alt=""
