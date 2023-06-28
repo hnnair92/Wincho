@@ -52,9 +52,9 @@ const Games = ({ gameMusic,
     console.log(audioRefHome.current.volume, "from its function");
   }
   useEffect(() => {
-    console.log(gameSound === "true", "gameSound");
+    console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       console.log("true for gameMusic");
@@ -68,7 +68,7 @@ const Games = ({ gameMusic,
   }, [gameSound]);
 
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();
@@ -76,7 +76,7 @@ const Games = ({ gameMusic,
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       playAudioBg();
@@ -89,9 +89,9 @@ const Games = ({ gameMusic,
   }, []);
   
   useEffect(() => {
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       console.log("true for gameMusic");
@@ -105,7 +105,7 @@ const Games = ({ gameMusic,
     console.log(typeof gameMusic);
   }, [gameMusic]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();

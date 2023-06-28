@@ -39,13 +39,13 @@ const WinScreen = ({pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGa
     audioRefHome.current.play();
   }
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -54,9 +54,9 @@ const WinScreen = ({pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGa
     console.log(typeof gameMusic);
   }, []);
   useEffect(() => {
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log("true for gameMusic");
     } else {
       console.log(typeof gameMusic);
@@ -65,7 +65,7 @@ const WinScreen = ({pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGa
     console.log(typeof gameMusic);
   }, [gameMusic]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       playAudioBg();
     } else {
       console.log(typeof gameMusic);

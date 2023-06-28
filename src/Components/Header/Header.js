@@ -82,7 +82,7 @@ const Header = ({
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
-      : localStorage.setItem("music", JSON.stringify(false))
+      : localStorage.setItem("music", JSON.stringify("false"))
   );
 
   async function getHistory() {
@@ -114,9 +114,9 @@ const Header = ({
     // console.log(audioRefHome.current.volume, "from its function");
   }
   useEffect(() => {
-    console.log(gameSound === "true", "gameSound");
+    console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       console.log("true for gameMusic");
@@ -130,7 +130,7 @@ const Header = ({
   }, [gameSound,window]);
 
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       // console.log(audioRefHome.current.volume);
       // audioRefHome.current.volume = 1;
       playAudioBg();
@@ -138,7 +138,7 @@ const Header = ({
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       playAudioBg();
@@ -151,9 +151,9 @@ const Header = ({
   }, []);
 
   useEffect(() => {
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       // console.log(audioRefHome.current.volume);
       // audioRefHome.current.volume = 1;
       console.log("true for gameMusic");
@@ -167,7 +167,7 @@ const Header = ({
     console.log(typeof gameMusic);
   }, [gameMusic]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       // console.log(audioRefHome.current.volume);
       // audioRefHome.current.volume = 1;
       playAudioBg();
@@ -1019,15 +1019,15 @@ const Header = ({
                           <li>Music</li>
                           <div
                             className={
-                              gameMusic === true || gameMusic === "true"
+                              gameMusic === 1 || gameMusic === 1
                                 ? style.ActiveSlider
                                 : style.Slider
                             }
                             onClick={() => {
                               setMusicId(menu.id);
-                              gameMusic === true
-                                ? setGameMusic(false)
-                                : setGameMusic(true);
+                              gameMusic === 1
+                                ? setGameMusic(0)
+                                : setGameMusic(1);
                               // sliderSction
                               //   ? setSliderAction(false)
                               //   : setSliderAction(true);
@@ -1050,7 +1050,7 @@ const Header = ({
                           >
                             <div
                               className={
-                                gameMusic === true || gameMusic === "true"
+                                gameMusic === 1 || gameMusic === 1
                                   ? style.ActiveSliderBtn
                                   : style.SliderBtn
                               }
@@ -1065,15 +1065,15 @@ const Header = ({
                           <li>Sound</li>
                           <div
                             className={
-                              gameSound === true || gameSound === "true"
+                              gameSound === 1 || gameSound === 1
                                 ? style.ActiveSlider
                                 : style.Slider
                             }
                             onClick={() => {
                               setAudioId(menu.id);
-                              gameSound === true
-                                ? setGameSound(false)
-                                : setGameSound(true);
+                              gameSound === 1
+                                ? setGameSound(0)
+                                : setGameSound(1);
                               // sliderSction
                               //   ? setSliderAction(false)
                               //   : setSliderAction(true);
@@ -1097,7 +1097,7 @@ const Header = ({
                           >
                             <div
                               className={
-                                gameSound === true || gameSound === "true"
+                                gameSound === 1 || gameSound === 1
                                   ? style.ActiveSliderBtn
                                   : style.SliderBtn
                               }
@@ -1329,15 +1329,15 @@ const Header = ({
                       <li>Music</li>
                       <div
                         className={
-                          gameMusic === true || gameMusic === "true"
+                          gameMusic === 1 || gameMusic === 1
                             ? style.ActiveSlider
                             : style.Slider
                         }
                         onClick={() => {
                           setMusicId(menu.id);
-                          gameMusic === true
-                            ? setGameMusic(false)
-                            : setGameMusic(true);
+                          gameMusic === 1
+                            ? setGameMusic(0)
+                            : setGameMusic(1);
                           // sliderSction
                           //   ? setSliderAction(false)
                           //   : setSliderAction(true);
@@ -1360,7 +1360,7 @@ const Header = ({
                       >
                         <div
                           className={
-                            gameMusic === true || gameMusic === "true"
+                            gameMusic === 1 || gameMusic === 1
                               ? style.ActiveSliderBtn
                               : style.SliderBtn
                           }
@@ -1375,15 +1375,15 @@ const Header = ({
                       <li>Sound</li>
                       <div
                         className={
-                          gameSound === true || gameSound === "true"
+                          gameSound === 1 || gameSound === 1
                             ? style.ActiveSlider
                             : style.Slider
                         }
                         onClick={() => {
                           setAudioId(menu.id);
-                          gameSound === true
-                            ? setGameSound(false)
-                            : setGameSound(true);
+                          gameSound === 1
+                            ? setGameSound(0)
+                            : setGameSound(1);
                           // sliderSction
                           //   ? setSliderAction(false)
                           //   : setSliderAction(true);
@@ -1407,7 +1407,7 @@ const Header = ({
                       >
                         <div
                           className={
-                            gameSound === true || gameSound === "true"
+                            gameSound === 1 || gameSound === 1
                               ? style.ActiveSliderBtn
                               : style.SliderBtn
                           }

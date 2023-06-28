@@ -182,6 +182,7 @@ const Register = () => {
     // setDate("")
     setDate(`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`);
   };
+  console.log(window.innerWidth*0.8)
   const popup = (error) => {
     return (
       <div className={style.Popup}>
@@ -329,8 +330,9 @@ const Register = () => {
             type="date"
             required
             name=""
+            // style={{}}
             id=""
-            style={{color:date.length>0?"#000":"#bdbdbd"}}
+            style={{color:date.length>0?"#000":"#bdbdbd",backgroundColor:"#fff",width:`${window.innerWidth>750?100:100}%`,width:window.innerWidth>350&&window.innerWidth<750?window.innerWidth*0.8:10}}
             className={style.DataInput}
            onChange={(e) => {
 

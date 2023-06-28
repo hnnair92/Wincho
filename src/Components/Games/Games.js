@@ -51,7 +51,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
-      : localStorage.setItem("music", JSON.stringify(false))
+      : localStorage.setItem("music", JSON.stringify("false"))
   );
   const [termsVersion, setTermsVersion] = useState(false);
   const [verifyEmail, setVerifyMails] = useState(false); // const [verifyEmail,setVerifyMails] = useState(localStorage.getItem("verfiedEmail")?localStorage.getItem("verfiedEmail"):localStorage.setItem("verfiedEmail",JSON.stringify(true)))
@@ -82,7 +82,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [loadingScreen, setLoadingScreen] = useState(false);
   const [countSection, setCountSection] = useState(0);
   const [rightAmount, setRightAmount] = useState(0);
-  const [categorySlide, setCategorySlide] = useState(11);
+  const [categorySlide, setCategorySlide] = useState(2);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
   const scrollRefDiv = useRef(null)
   const checkPlayArray =
@@ -91,7 +91,20 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const verifiedEmail =
     JSON.parse(localStorage.getItem("verfiedEmail")) &&
     JSON.parse(localStorage.getItem("verfiedEmail"));
-  
+  useEffect(()=>{
+    if(window.innerWidth>375&&window.innerWidth<850){
+      setCategorySlide(2)
+    }
+    else if(window.innerWidth>750&&window.innerWidth<1060){
+      setCategorySlide(12)
+    }
+    else if(window.innerWidth>1010&&window.innerWidth<1075){
+      setCategorySlide(12)
+    }
+    else if(window.innerWidth>1075){
+      setCategorySlide(2)
+    }
+  },[window])
   useEffect(() => {
     console.log(times);
     console.log(typeof times);
@@ -250,9 +263,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   useEffect(() => {
     console.log("its below",gameMusic,gameSound)
 
-    console.log(gameSound === "true", "gameSound");
+    console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       console.log("true for gameMusic");
@@ -268,7 +281,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   useEffect(() => {
     console.log("its below",gameMusic,gameSound)
 
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();
@@ -276,7 +289,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       playAudioBg();
@@ -299,9 +312,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   }
   useEffect(() => {
     console.log("its below",gameMusic,gameSound)
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       console.log("true for gameMusic");
@@ -315,7 +328,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(typeof gameMusic);
   }, [window,gameMusic,gameSound]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();
@@ -426,7 +439,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   // },[search])
   useEffect(() => {
     if (searchArray.length > 0) {
-      setCategory("");
+      // setCategory("");
     }
   }, [category]);
   // useEffect(() => {
@@ -455,15 +468,15 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         console.log(userBody);
         // changeFreePlayDaily()
-        if(times===undefined||times===null){
+        // if(times===undefined||times===null){
           localStorage.setItem(
             "times",
             JSON.stringify(data.data[0].freeplay_limit)
           );
-        }
-        else{
+        // }
+        // else{
           setTimes(JSON.parse(localStorage.getItem("times")))
-        }
+        // }
         // :localStorage.setItem("times", JSON.stringify(data.data[0].freeplay_limit))
       });
   }
@@ -492,6 +505,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   useEffect(() => {
     searchApi();
   }, [search]);
+  useEffect(()=>{
+    console.log(times>=configuration.freeplay_limit)
+    console.log(times)
+    console.log(configuration.FREE_PLAY_LIMIT)
+  },[times])
   useEffect(() => {
     // if (category === "all") {
     //   dispatch(getAllGames(response));
@@ -503,7 +521,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       // navigate("/login");
     }
     checkFreePlay();
-  }, [dispatch, category, id]);
+  }, [dispatch, category, id,user]);
   useEffect(() => {
     // console.log(user&&user.username.length)
     console.log("hello world!");
@@ -542,7 +560,14 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       if(userId===undefined){
         localStorage.removeItem("user")
       }
-      dispatch(registerAction(userRegAnom))
+      const anomUserId = JSON.parse(localStorage.getItem("anom"))
+      if(anomUserId){
+        localStorage.setItem("user", JSON.stringify(anomUserId));
+        checkFreePlay()
+      }
+      else{     
+        dispatch(registerAction(userRegAnom))
+      }
       dispatch(updateProfile())
     }
     dispatch(updateProfile())
@@ -702,7 +727,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {}
       {/* <div className={style.Categories}> */}
       <div className={`${style.Categories} ${searchIconStatus===true?style.MtabSearch:""}`}>
-        <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`} style={{marginLeft:`${categorySlide}%`}}>
+        <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`} style={{marginLeft:`${categorySlide}rem`}}>
           <div className={style.AllCategories} ref={scrollRefDiv} onScroll={(e)=>{
             console.log(e)
           }}>
@@ -713,21 +738,19 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   value={categoryItem.value}
                   className={
                     category?.toLowerCase() ===
-                    categoryItem?.value?.toLowerCase()
+                    categoryItem?.value?.toLowerCase()&&search.length===0
                       ? style.active
                       : style.category
                   }
                   onClick={(e) => {
                     console.log(scrollRefDiv)
                     console.log(e)
+                    setSearch("")
                     playAudio(music.Pop);
-                    if (searchArray.length > 0) {
-                      setCategory("");
-                    } else {
-                      // setCategory(category)
+                    
                       setCategory(categoryItem.value);
-                    }
-                    setAllCategory("");
+                    
+                    // setAllCategory("");
 
                     // setAllCategory(categoryItem.title)
                   }}
@@ -1077,7 +1100,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           const categoryIndex = categories.findIndex(
         (item)=>item.value === category
         
-        );
+      );
           setMoveTouchData(e.changedTouches[0])
      
 
@@ -1192,8 +1215,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           ) : (
             ""
           )}
-          {search === ""
-            ? products.length > 0 &&
+          {!search? products.length > 0 &&
               products.map((game, index) => {
                 if (category === "all" && game.category != "free") {
                   if (
@@ -1426,7 +1448,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               user.profile_status === false &&
                               game.price !== "0"
                             ) {
-                              setResendEmail(true);
+                              // setResendEmail(true);
+                              navigate("/login");
                               console.log("not verified");
                             } else if (
                               premiumData === false &&
@@ -1501,7 +1524,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {times >= configuration.FREE_PLAY_LIMIT &&
+                                {(times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
                                 user &&
                                 user.vip === false ? (
@@ -1687,7 +1710,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {times >= configuration.FREE_PLAY_LIMIT &&
+                                {(times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
                                 user?.vip === false ? (
                                   <img
@@ -1790,7 +1813,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               user.profile_status === false &&
                               game.price !== "0"
                             ) {
-                              setResendEmail(true);
+                              // setResendEmail(true);
+                              navigate("/login");
                               console.log("not verified");
                             } else if (
                               premiumData === false &&
@@ -1868,7 +1892,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {times >= configuration.FREE_PLAY_LIMIT &&
+                                {(times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
                                 user?.vip === false ? (
                                   <img
@@ -1980,7 +2004,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             user.profile_status === false &&
                             game.price !== "0"
                           ) {
-                            setResendEmail(true);
+                            // setResendEmail(true);
+                            navigate("/login");
                             console.log("not verified");
                           } else if (
                             premiumData === false &&
@@ -2155,7 +2180,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             user.profile_status === false &&
                             game.price !== "0"
                           ) {
-                            setResendEmail(true);
+                            // setResendEmail(true);
+                            navigate("/login");
                             console.log("not verified");
                           } else if (
                             premiumData === false &&

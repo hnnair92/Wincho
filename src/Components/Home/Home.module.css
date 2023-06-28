@@ -349,6 +349,11 @@
         width: 100%;
         height: 100vh;
     }
+    .MWatchLandscape{
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
     .MWatch img{
         width: 100%;
         height: 100%;
@@ -745,8 +750,11 @@
     .MSupport{
         background-position: 10%;
         background-size: cover;
+        margin-top: -7%;
     }
-    
+    .MWatch{
+        margin-top: -8%;
+    }
     .popup{ 
     padding:2rem;
     width: 34rem;
@@ -834,5 +842,22 @@
 @media only screen and (min-device-width: 769px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
     .popup{
         width: 45rem;
+    }
+}
+
+@media(max-width:390px){
+    .MWatch{
+        display: flex;
+    }
+    .MWatchLandscape{
+        display: none;
+    }
+}
+@media(min-width:390px){
+    .MWatch{
+        display: none;
+    }
+    .MWatchLandscape{
+        display: flex;
     }
 }

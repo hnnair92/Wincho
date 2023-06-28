@@ -72,26 +72,26 @@ import {
     }
   };
   
-  export const registerAction = (data) => async (dispatch) => {
-    console.log(data);
+  export const registerAction = (Regdata) => async (dispatch) => {
+    console.log(Regdata);
     const deviceId = JSON.parse(localStorage.getItem("deviceId"))
     const registerData = {
-      username: data.username,
-      email: data.email,
-      password: data.password,
-      dob: data.dob,
+      username: Regdata.username,
+      email: Regdata.email,
+      password: Regdata.password,
+      dob: Regdata.dob,
       source: "web",
       phone: "",
       addressline1: "",
       addressline2: "",
       city: "",
-      state: data.countryname==="USA"?data.state:"",
+      state: Regdata.countryname==="USA"?Regdata.state:"",
       zipcode: "",
-      coutrycode: data.countrycode,
-      coutryname: data.countryname,
+      coutrycode: Regdata.countrycode,
+      coutryname: Regdata.countryname,
       accountstatus: "",
       device_id: deviceId,
-      user_type: data.user_type,
+      user_type: Regdata.user_type,
     }
     try {
       dispatch({
@@ -117,6 +117,10 @@ import {
             // console.log(data)
             // localStorage.setItem("user",JSON.stringify(data))
             localStorage.setItem("user", JSON.stringify(data.data.user_id));
+            console.log();
+            if(Regdata.user_type==="anonymous"){
+              localStorage.setItem("anom", JSON.stringify(data.data.user_id));
+            }
             localStorage.setItem("verfiedEmail",JSON.stringify(false))
             updateProfile(data.data.user_id);
             dispatch({

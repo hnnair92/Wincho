@@ -278,7 +278,7 @@ const Description = ({
   const [musicStatus, setMusicStatus] = useState(
     localStorage.getItem("music")
       ? localStorage.getItem("music")
-      : localStorage.setItem("music", JSON.stringify(false))
+      : localStorage.setItem("music", JSON.stringify(0))
   );
   const [startGame, setStartGame] = useState({});
   const [gameStartStatus, setGameStartStatus] = useState(false);
@@ -590,7 +590,7 @@ useEffect(()=>{
   }, [videoGot]);
   useEffect(() => {
     // localStorage.setItem("music",JSON.stringify(gameMusic))
-    // if(gameMusic==="true"){
+    // if(gameMusic === 1){
     //   audioRefHome.current.volume = 1;
     //   playAudioBg()
     // console.log(gameMusic)
@@ -648,9 +648,9 @@ useEffect(()=>{
     }
   },[videoGot])
   useEffect(() => {
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1 ) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       console.log("true for gameMusic");
@@ -664,9 +664,9 @@ useEffect(()=>{
     console.log(typeof gameMusic);
   }, [gameMusic]);
   useEffect(() => {
-    console.log(gameSound === "true", "gameSound");
+    console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameMusic === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       console.log("true for gameMusic");
@@ -679,7 +679,7 @@ useEffect(()=>{
     console.log(typeof setGameSound);
   }, [gameSound]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1 ) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();
@@ -687,7 +687,7 @@ useEffect(()=>{
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameMusic === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       playAudioBg();
@@ -757,11 +757,11 @@ useEffect(()=>{
     vidRef.current.playbackRate = 1.5;
   };
 
-  useEffect(() => {
-    if (freePlay >= configuration.FREE_PLAY_LIMIT) {
-      setFreePlayNotReg(true);
-    }
-  }, [freePlay,configuration]);
+  // useEffect(() => {
+  //   if (freePlay >= configuration.FREE_PLAY_LIMIT) {
+  //     setFreePlayNotReg(true);
+  //   }
+  // }, [freePlay,configuration]);
   useEffect(() => {
     if (reportIssueCategories === true && audioStatus === "true") {
       playAudio(music.Chime);
@@ -1681,7 +1681,12 @@ useEffect(()=>{
           freePlay >= configuration.FREE_PLAY_LIMIT &&
           GameData.price === "0"&&user.vip===false
           ) {
-            return setFreeLimitPopup(true);
+            if(user.username === "" || user.username === undefined ){
+              setFreePlayNotReg(true)
+            }
+            else{
+              return setFreeLimitPopup(true);
+            }
           }
           else{
             setCount(count + 1);
@@ -1934,7 +1939,7 @@ useEffect(()=>{
       ) : (
         ""
       )}
-      {freePlayNotReg && userId === null ? (
+      {freeLimitPopup && user&&user.username === ""||freeLimitPopup && userId === undefined ||freeLimitPopup&& userId ==="" ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -1946,10 +1951,12 @@ useEffect(()=>{
             <Link
               to="/login"
               onClick={() => {
-                setFreePlayNotReg(false);
+                setFreeLimitPopup(false);
               }}
             >
-              <button>REGISTER</button>
+              <button onClick={()=>{
+                window.location.reload()
+              }}>REGISTER</button>
             </Link>
           </div>
         </div>
@@ -2057,13 +2064,13 @@ useEffect(()=>{
         ""
       )}
 
-      {freeLimitPopup &&user?.vip === false ? (
+      {freeLimitPopup &&user.vip === false&&user&&user.username!==""? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-          <p>You've used all of your free plays</p>
+          <p>You've used all of your daily free plays</p>
           </div>
           <div className={style.popupButton}>
             <Link

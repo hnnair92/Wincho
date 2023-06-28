@@ -589,7 +589,7 @@ useEffect(()=>{
   }, [videoGot]);
   useEffect(() => {
     // localStorage.setItem("music",JSON.stringify(gameMusic))
-    // if(gameMusic==="true"){
+    // if(gameMusic === 1){
     //   audioRefHome.current.volume = 1;
     //   playAudioBg()
     // console.log(gameMusic)
@@ -647,9 +647,9 @@ useEffect(()=>{
     }
   },[videoGot])
   useEffect(() => {
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       console.log("true for gameMusic");
@@ -663,9 +663,9 @@ useEffect(()=>{
     console.log(typeof gameMusic);
   }, [gameMusic]);
   useEffect(() => {
-    console.log(gameSound === "true", "gameSound");
+    console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       console.log("true for gameMusic");
@@ -678,7 +678,7 @@ useEffect(()=>{
     console.log(typeof setGameSound);
   }, [gameSound]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();
@@ -686,7 +686,7 @@ useEffect(()=>{
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === "true" || gameSound === true) {
+    if (gameSound === 1 || gameSound === 1) {
       console.log(audioRef.current.volume);
       audioRef.current.volume = 1;
       playAudioBg();

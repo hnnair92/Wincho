@@ -37,9 +37,9 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const audioRefHome = useRef(null);
   const token = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
-    console.log(gameMusic === "true", "gameSound");
+    console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       console.log("true for gameMusic");
@@ -53,7 +53,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(typeof gameMusic);
   }, [gameMusic]);
   useEffect(() => {
-    if (gameMusic === "true" || gameMusic === true) {
+    if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
       audioRefHome.current.volume = 1;
       playAudioBg();
