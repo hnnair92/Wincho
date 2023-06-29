@@ -47,8 +47,8 @@ const Cookie = () => {
               </p>
             </div>
             <div className={style.cooki_right}>
-              <div className={style.coocki_button}>
-                <button onClick={handleAccept}>OKAY</button>
+              <div className={style.coocki_button} onClick={handleAccept}>
+                <button >OKAY</button>
 
                 {/* <div className={style.cooki_icon}> */}
                 <TiTick />

@@ -307,6 +307,7 @@ const Description = ({
       console.log(active)
     },[active])
   const [prizeCount,setPrizeCount] = useState(0)
+  const [gameJoinCount,setGameJoinCount] = useState(0)
   const [gamePlayStatus, setGamePlayStatus] = useState(false);
   const [prizeDate,setPrizeDate] = useState("")
   const [playAgain, setPlayAgain] = useState(false);
@@ -1306,7 +1307,6 @@ useEffect(()=>{
     .then((data) => {
         setUserJoined(true)
         localStorage.setItem("userJoined",JSON.stringify(true))
-        setGamePlayStatus(true);
         // setReloadStatus(true)
         console.log(data);
         console.log(joinBody,"joinBody");
@@ -1317,6 +1317,7 @@ useEffect(()=>{
           console.log(que);
           console.log("not zero");
         }
+        setGamePlayStatus(true);
       });
   }
   useEffect(()=>{
@@ -1365,7 +1366,7 @@ useEffect(()=>{
       source: "web",
       //  ,
       freeplay:GameData.price==="0"?true:false,
-
+      product_id: GameData.id,
       //  ,
     }
     await fetch(`${baseUrl}/game/start`, {
@@ -1681,12 +1682,13 @@ useEffect(()=>{
           freePlay >= configuration.FREE_PLAY_LIMIT &&
           GameData.price === "0"&&user.vip===false
           ) {
-            if(user.username === "" || user.username === undefined ){
-              setFreePlayNotReg(true)
-            }
-            else{
-              return setFreeLimitPopup(true);
-            }
+            // if(user.username === "" || user.username === undefined ){
+            //   setFreePlayNotReg(true)
+            // }
+            // else{
+            //   return setFreeLimitPopup(true);
+            // }
+            return setFreeLimitPopup(true);
           }
           else{
             setCount(count + 1);
@@ -1850,6 +1852,18 @@ useEffect(()=>{
   console.log(prizeId)
 },[prizeId,currentPrizeMove])
 useEffect(()=>{
+  if(active===true&&gameStartStatus===false&&userJoined===false&&window.location.pathname.split("/")[1]==="game"===true){
+    // setLeavePopup(true)
+    console.log("yaah got it")
+  }
+  console.log(active===true&&gameStartStatus===false&&userJoined===false&&window.location.pathname.split("/")[1]==="game","yes it true or false")
+  console.log(active===true)
+  console.log(gameStartStatus===false)
+  console.log(userJoined)
+  console.log(window.location.pathname.split("/")[1]==="game","yes it true or false")
+   
+})
+useEffect(()=>{
   console.log(leavePopup)
   console.log(active)
 },[leavePopup,active])
@@ -1955,7 +1969,7 @@ useEffect(()=>{
               }}
             >
               <button onClick={()=>{
-                window.location.reload()
+                // window.location.reload()
               }}>REGISTER</button>
             </Link>
           </div>
@@ -2150,7 +2164,7 @@ useEffect(()=>{
               //   playing={true}
               //   controls={true}
               //   />\
-              <video ref={vidRef} autoPlay muted={true} controls={false}  onCanPlay={() => setPlayBack()}>
+              <video autoPlay loop muted playsInline  ref={vidRef}  onCanPlay={() => setPlayBack()}>
                 <source src={game.last_win_url} type="video/mp4" />
               </video>
 
@@ -2221,7 +2235,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?</p>
+            <p>Are you sure you want to leave this game?1</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2238,7 +2252,7 @@ useEffect(()=>{
                 // socket.disconnect();
                 
                 // window.location.reload();
-                navigate(`/prizes`, {
+                navigate("/prizes", {
                   state: { category: sendCategory },
                 });
                 // window.location.reload()
@@ -2291,7 +2305,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?</p>
+            <p>Are you sure you want to leave this game?2</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2309,7 +2323,7 @@ useEffect(()=>{
                 navigate(`/game/${transferGame.slug}`, {
                   state: { game: transferGame,category:transferGame.category},
                 });
-                window.location.reload();
+                // window.location.reload();
                 // window.location.reload()
               }}
             >
@@ -2330,7 +2344,7 @@ useEffect(()=>{
         ""
       )}
       {/* {active===true&&userJoined===false? ( */}
-      {active===true&&gameStartStatus===false&&userJoined===false&&window.location.pathname.split("/")[1]=="game"? (
+      {active===true&&gameStartStatus===false&&userJoined===true&&window.location.pathname.split("/")[1]==="game"||active===true&&gameStartStatus===false&&userJoined===false&&window.location.pathname.split("/")[1]==="game"? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
             setLeavePopup(false)
@@ -2341,7 +2355,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?</p>
+            <p>Are you sure you want to leave this game?3</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2352,9 +2366,10 @@ useEffect(()=>{
           > */}
             <button
               onClick={() => {
+                console.log(pageUrl)
                 // console.log(transferGame);
                 setActive(false);
-                gameLeave(userId,false);
+                // gameLeave(userId,false);
                 // socket.disconnect();
                 // navigate(`/game/${transferGame.slug}`, {
                 //   state: { game: transferGame,category:transferGame.category},
@@ -3076,7 +3091,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
@@ -3086,7 +3101,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                    onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
@@ -3120,7 +3136,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState1(true);
@@ -3130,7 +3146,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
@@ -3191,7 +3208,7 @@ useEffect(()=>{
 
                                       
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
@@ -3201,7 +3218,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       localStorage.setItem("state",JSON.stringify(false))
                                       setCameraState2(false);
@@ -3240,7 +3258,7 @@ useEffect(()=>{
 
                                       
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
                                       setCameraState2(true);
@@ -3250,7 +3268,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       localStorage.setItem("state",JSON.stringify(false))
                                       setCameraState2(false);
@@ -3300,7 +3319,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
                                       setCameraState2(false);
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log(animeRef.current);
                                       console.log("clicked");
@@ -3311,7 +3330,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
@@ -3350,7 +3370,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
                                       setCameraState2(false);
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log(animeRef.current);
                                       console.log("clicked");
@@ -3361,7 +3381,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
@@ -3413,7 +3434,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                           // animeRef.current.pause()
@@ -3425,7 +3446,8 @@ useEffect(()=>{
                                       setCameraState1(true);
                                       // console.log(animeRef.current)
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
@@ -3466,7 +3488,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                           // animeRef.current.pause()
@@ -3478,7 +3500,8 @@ useEffect(()=>{
                                       setCameraState1(true);
                                       // console.log(animeRef.current)
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log(animeRef.current);
@@ -3532,7 +3555,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState1(true);
                                           // animeRef.current.pause()
@@ -3541,7 +3564,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
@@ -3575,7 +3599,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState1(true);
                                           // animeRef.current.pause()
@@ -3584,7 +3608,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
@@ -3628,7 +3653,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState2(false)
                                           // animeRef.current.pause()
@@ -3637,7 +3662,8 @@ useEffect(()=>{
                                       console.log(animeRef)
                                       ;
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
                                       // animeRef.current.play()
@@ -3671,7 +3697,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
                                       setCameraState2(false)
                                           // animeRef.current.pause()
@@ -3680,13 +3706,14 @@ useEffect(()=>{
                                       console.log(animeRef)
                                       ;
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
                                       // animeRef.current.play()
 
                                     }}
-                                    // onTouchStart={()=>{
+                                    // onPointerDown={()=>{
 
                                     // }}
                                   /> */}
@@ -3736,7 +3763,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("hello its Here");
 
@@ -3748,7 +3775,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("hello its Here");
 
@@ -3787,7 +3815,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState1(true);
@@ -3797,7 +3825,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState1(false);
@@ -3844,7 +3873,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState2(false);
@@ -3854,7 +3883,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState2(true);
@@ -3891,7 +3921,7 @@ useEffect(()=>{
                                       // animeRef.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       FirstArrowPress("LEFT");
                                       console.log("clicked");
                                       setCameraState2(false);
@@ -3901,7 +3931,8 @@ useEffect(()=>{
                                       console.log(animeRef)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState2(true);
@@ -3963,7 +3994,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
@@ -3973,7 +4004,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                       // animeRef2.current.play()
@@ -4008,7 +4040,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
@@ -4018,7 +4050,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                       // animeRef2.current.play()
@@ -4063,7 +4096,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
@@ -4073,7 +4106,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                       // animeRef2.current.play()
@@ -4108,7 +4142,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
@@ -4118,7 +4152,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                       // animeRef2.current.play()
@@ -4166,7 +4201,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
@@ -4176,7 +4211,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                       // animeRef2.current.play()
@@ -4211,7 +4247,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
@@ -4221,7 +4257,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                       // animeRef2.current.play()
@@ -4266,7 +4303,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
@@ -4277,7 +4314,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                       // animeRef2.current.play()
@@ -4312,7 +4350,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
@@ -4323,7 +4361,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                       // animeRef2.current.play()
@@ -4384,7 +4423,7 @@ useEffect(()=>{
                                       setCameraState2(false);
                                       console.log("second arrow left false");
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
                                       console.log("second arrow left true");
                                       SecondArrowPress();
@@ -4396,7 +4435,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       setCameraState2(false);
                                       console.log(cameraState2);
                                       // animeRef2.current.play()
@@ -4440,7 +4480,7 @@ useEffect(()=>{
                                       setCameraState2(false);
                                       console.log("second arrow left false");
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       //  <img src={cameraState1?assets.UpArrowPressed:assets.UpArrow} alt=""  onMouseDown={() => {
                                       console.log("second arrow left true");
                                       SecondArrowPress();
@@ -4452,7 +4492,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       setCameraState2(false);
                                       console.log(cameraState2);
                                       // animeRef2.current.play()
@@ -4505,7 +4546,7 @@ useEffect(()=>{
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
                                       //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
                                       console.log("second arrow left false");
@@ -4517,7 +4558,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       console.log(
                                         "second release arrow left false"
                                       );
@@ -4561,7 +4603,7 @@ useEffect(()=>{
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       //  <img src={cameraState2?assets.LeftArrowPressed:assets.LeftArrow} alt=""  onMouseDown={() => {
                                       //  <img src={assets.LeftArrowPressed} alt=""  onMouseDown={() => {
                                       console.log("second arrow left false");
@@ -4573,7 +4615,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       console.log(
                                         "second release arrow left false"
                                       );
@@ -4609,10 +4652,10 @@ useEffect(()=>{
                                     lottieRef={animeRef2}
                                      
                                   />
-                                   <button  onTouchStart={()=>{
+                                   <button  onPointerDown={()=>{
                                       console.log("clicked")
                                     }}
-                                    onTouchEnd={()=>{
+                                    onPointerUp={()=>{
                                       console.log("Closed")
                                     }}
                                     onMouseDown={() => {
@@ -4631,7 +4674,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
@@ -4641,7 +4684,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                       // animeRef2.current.play()
@@ -4660,10 +4704,10 @@ useEffect(()=>{
                                         : assets.UpArrow
                                     }
                                     alt=""
-                                    onTouchStart={()=>{
+                                    onPointerDown={()=>{
                                       console.log("clicked")
                                     }}
-                                    onTouchEnd={()=>{
+                                    onPointerUp={()=>{
                                       console.log("Closed")
                                     }}
                                     onMouseDown={() => {
@@ -4682,7 +4726,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState1(true);
@@ -4692,7 +4736,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState1(false);
                                       // animeRef2.current.play()
@@ -4737,7 +4782,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
@@ -4753,7 +4798,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                       // animeRef2.current.play()
@@ -4789,7 +4835,7 @@ useEffect(()=>{
                                       // animeRef2.current.play()
 
                                     }}
-                                    onTouchStart={() => {
+                                    onPointerDown={() => {
                                       console.log("second arrow left false");
                                       SecondArrowPress();
                                       setCameraState2(true);
@@ -4805,7 +4851,8 @@ useEffect(()=>{
                                       console.log(animeRef2)
 
                                     }}
-                                    onTouchEnd={() => {
+                                   onPointerUp={(e) => {
+                                      console.log(e,"its touchend")
                                       SecondArrowRelease();
                                       setCameraState2(false);
                                       // animeRef2.current.play()
@@ -4933,7 +4980,10 @@ useEffect(()=>{
                         // pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId ? "none" : "visible",
                       }}
                         onClick={(e) => {
+                          if(gameJoinCount<1){
                           gameJoin(e);
+                          }
+                          setGameJoinCount(gameJoinCount+1)
                         }}
                       >
                         <img src={assets.PlayImage} alt="" />

@@ -332,7 +332,7 @@ const Register = () => {
             name=""
             // style={{}}
             id=""
-            style={{color:date.length>0?"#000":"#bdbdbd",backgroundColor:"#fff",width:`${window.innerWidth>750?100:100}%`,width:window.innerWidth>350&&window.innerWidth<750?window.innerWidth*0.8:10}}
+            style={{color:date.length>0?"#000":"#bdbdbd",backgroundColor:"#fff",width:window.innerWidth>750?`100%`:window.innerWidth>350&&window.innerWidth<750?`${window.innerWidth*0.8}px`:`100%`}}
             className={style.DataInput}
            onChange={(e) => {
 

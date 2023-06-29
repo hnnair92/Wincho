@@ -1710,9 +1710,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {(times >= configuration.FREE_PLAY_LIMIT &&
+                                {((times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
-                                user?.vip === false || game.machine_status === false ? (
+                                user?.vip === false) || (game.machine_status === false) ? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1892,9 +1892,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {(times >= configuration.FREE_PLAY_LIMIT &&
+                                {((times >= configuration.FREE_PLAY_LIMIT &&
                                 game.price === "0" &&
-                                user?.vip === false  || game.machine_status === false? (
+                                user?.vip === false  )|| (game.machine_status === false)? (
                                   <img
                                     src={Ticket}
                                     alt=""

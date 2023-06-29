@@ -181,7 +181,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     } else {
       setCount(1);
     }
-    if (user && user.line1 === "") {
+    if (user && user.addressline1 === "") {
       return setCount(3);
     } else {
       setCount(4);
@@ -692,7 +692,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       ) : (
         ""
       )}
-      {isAddress && isAddressShown === false && user?.line1 === "" ? (
+      {isAddress && isAddressShown === false && user&&user.addressline1 === "" ? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -774,8 +774,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           <div
             className={style.AddressTitleOverlay}
             onClick={() => {
-              setisAddressField(false);
-              setSelectState(false);
+              // setisAddressField(false);
+              // setSelectState(false);
             }}
           ></div>
           <form action="">
@@ -1321,32 +1321,32 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             style={{
               filter:
                 loading ||
-                user?.addressline1 === "" ||
                 count > 4 ||
                 cartData.length <= 0 ||
-                user?.first_name === "" ||
-                user?.last_name === "" ||
-                user?.addressline1 === "" ||
-                user?.addressline2 === "" ||
-                user?.city === "" ||
-                user?.zipcode === "" ||
-                user?.first_name === "" ||
+                // user?.addressline1 === "" ||
+                // user?.first_name === "" ||
+                // user?.last_name === "" ||
+                // user?.addressline1 === "" ||
+                // user?.addressline2 === "" ||
+                // user?.city === "" ||
+                // user?.zipcode === "" ||
+                // user?.first_name === "" ||
                 count > 4 ||
                 cartData.length <= 0
                   ? "grayScale(1)"
                   : "grayScale(0)",
               pointerEvents:
                 count > 4 ||
-                user?.addressline1 === "" ||
                 count > 4 ||
                 cartData.length <= 0 ||
-                user?.first_name === "" ||
-                user?.last_name === "" ||
-                user?.addressline1 === "" ||
-                user?.addressline2 === "" ||
-                user?.city === "" ||
-                user?.zipcode === "" ||
-                user?.first_name === "" ||
+                // user?.addressline1 === "" ||
+                // user?.first_name === "" ||
+                // user?.last_name === "" ||
+                // user?.addressline1 === "" ||
+                // user?.addressline2 === "" ||
+                // user?.city === "" ||
+                // user?.zipcode === "" ||
+                // user?.first_name === "" ||
                 cartData.length <= 0 ||
                 loading
                   ? "none"

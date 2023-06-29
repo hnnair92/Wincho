@@ -24,6 +24,7 @@ export const getProductByCollection=(request)=>async(dispatch)=>{
                     "access-token":`${token}`
                 }
             }).then(res=>res.json()).then((data)=>{
+                console.log(data);
                 dispatch({
                     type:GET_ALL_PRODUCT_BY_COLLECTION_SUCCESS,
                     payload:data.data

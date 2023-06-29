@@ -21,6 +21,15 @@ const Home = () => {
   const navigate = useNavigate();
   const [scrollNav, setScrollNav] = useState(false);
   // add styles according to the height
+  const vidRef1 = useRef(null)
+  const vidRef2 = useRef(null)
+  const vidRef3 = useRef(null)
+  const setPlayBack = () => {
+    vidRef1.current.playbackRate = 1.5;
+    vidRef2.current.playbackRate = 1.5;
+    vidRef3.current.playbackRate = 1.5;
+  };
+
   const chnageNav = () => {
     if (window.scrollY >= 80) {
       setScrollNav(true);
@@ -200,9 +209,12 @@ const Home = () => {
               {/* <video autoplay loop muted>
                 <source src={videoSrc} type="video/mp4" />
               </video> */}
-               <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef2}>
+               {/* <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef2}>
             <source src={videoSrc} type="video/mp4" />
-          </video>
+          </video> */}
+           <video autoPlay loop muted playsInline webkit-playsinline ref={vidRef1}  onCanPlay={() => setPlayBack()}>
+                <source src={videoSrc} type="video/mp4" />
+              </video>
               {/* :""} */}
             </div>
           </div>
@@ -357,7 +369,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className={style.MWatch} data-vimeo-initialized="true">
+        <div className={style.MWatch}>
+        {/* <div className={style.MWatch} data-vimeo-initialized="true"> */}
         {/* <ReactPlayer
         url="https://vimeo.com/3155182"
         
@@ -375,14 +388,20 @@ const Home = () => {
           {/* <video autoplay loop muted playsinline src={VideoSrcHome} type="video/mp4" ref={videoRef}> */}
             {/* <source src={VideoSrcHome} type="video/mp4" /> */}
           {/* </video> */}
-          <iframe src="https://player.vimeo.com/video/838092334?title=0&amp;byline=1&amp;portrait=1&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;dnt=1&amp;loop=1&amp;background=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="1" style={{position:'absolute',top:'0',left:'0',width:'100%',height:'100vh'}} title="Other Things - BNAE - Website Sizzle - V1.mp4" data-ready="true"></iframe>
+          <video autoPlay muted={true} loop playsInline ref={vidRef2}  onCanPlay={() => setPlayBack()}>
+                <source src={VideoSrcHome} type="video/mp4" />
+              </video>
+          {/* <iframe src="https://player.vimeo.com/video/838092334?title=0&amp;byline=1&amp;portrait=1&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;dnt=1&amp;loop=1&amp;background=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="1" style={{position:'absolute',top:'0',left:'0',width:'100%',height:'100vh'}} title="Other Things - BNAE - Website Sizzle - V1.mp4" data-ready="true"></iframe> */}
           {/* <iframe src="https://player.vimeo.com/video/838092334?h=b67784c4f8&autoplay=1&loop=1" style="position:absolute;top:0;left:0;width:100%;height:100%;" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}
           {/* <iframe title="vimeo-player" src="https://player.vimeo.com/video/838092334?h=b67784c4f8" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}
         </div>
         <div className={style.MWatchLandscape}>
-        <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef}>
+        <video autoPlay loop muted playsInline ref={vidRef3}  onCanPlay={() => setPlayBack()}>
+                <source src={videoSrc} type="video/mp4" />
+              </video>
+        {/* <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef}>
             <source src={VideoSrcHome} type="video/mp4" />
-          </video>
+          </video> */}
         {/* <iframe src="https://player.vimeo.com/video/840108112?title=0&amp;byline=1&amp;portrait=1&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;dnt=1&amp;loop=1&amp;background=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="1" style={{position:'absolute',top:'0',left:'0',width:'100%',height:'100vh'}} title="Other Things - BNAE - Website Sizzle - V1.mp4" data-ready="true"></iframe> */}
         </div>
         <div className={style.MSupport} id="supports">

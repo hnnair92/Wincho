@@ -511,6 +511,7 @@ label {
 .DataInput::-webkit-input-placeholder{
   opacity: 1;
   color: #bdbdbd;
+  
 }
 .DataInput{
   opacity: 1;
@@ -839,6 +840,7 @@ label {
     height: 37rem;
     justify-content: flex-start;
     padding: 3rem;
+    transform: translate(-50%, -50%);
   }
   .image {
     width: 35%;

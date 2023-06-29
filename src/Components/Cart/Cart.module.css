@@ -395,7 +395,7 @@ video{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30rem;
+    width: 33rem;
     height: 20rem;
 }
 .popupbutton button{
@@ -770,7 +770,7 @@ video{
         width: 90%;
     }
     .selectInput {
-       width: 90%;
+       width: 100%;
       }
       .selectInput .AllState input {
     font-size: 2.5rem;
