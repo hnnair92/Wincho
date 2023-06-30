@@ -13,7 +13,7 @@
 }
 .WinGame{
     position: absolute;
-    bottom: 10%;
+    bottom: 2%;
     right: 5%;
 
     overflow: hidden;
@@ -35,7 +35,7 @@
 }
 @media(min-width:1065px){
     .Banner{
-        height: 90vh;
+        height: 100vh;
     }
     .WinGame img{
         object-fit: cover;

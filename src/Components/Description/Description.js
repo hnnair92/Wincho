@@ -1313,7 +1313,6 @@ useEffect(()=>{
         if (que === "0") {
           console.log(que);
         } else {
-          setWait(true);
           console.log(que);
           console.log("not zero");
         }
@@ -1848,6 +1847,11 @@ const alertUser = (event:any) => {
   // alert("helo")
 }
 useEffect(()=>{
+  if(que==="0"){
+    setWait(true)
+  }
+},[que])
+useEffect(()=>{
   console.log(userId)
   console.log(prizeId)
 },[prizeId,currentPrizeMove])
@@ -1969,7 +1973,9 @@ useEffect(()=>{
               }}
             >
               <button onClick={()=>{
-                // window.location.reload()
+                gameLeave()
+                setFreeLimitPopup(false)
+                window.location.reload()
               }}>REGISTER</button>
             </Link>
           </div>
@@ -2078,7 +2084,7 @@ useEffect(()=>{
         ""
       )}
 
-      {freeLimitPopup &&user.vip === false&&user&&user.username!==""? (
+      {freeLimitPopup &&user&&user.vip === false&&user&&user.username!==""? (
         <div className={style.popup}>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
@@ -2235,7 +2241,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?1</p>
+            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2355,7 +2361,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?3</p>
+            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2369,7 +2375,7 @@ useEffect(()=>{
                 console.log(pageUrl)
                 // console.log(transferGame);
                 setActive(false);
-                // gameLeave(userId,false);
+                gameLeave(userId,false);
                 // socket.disconnect();
                 // navigate(`/game/${transferGame.slug}`, {
                 //   state: { game: transferGame,category:transferGame.category},
@@ -3110,7 +3116,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -3227,7 +3233,7 @@ useEffect(()=>{
                                     }}>
                                   <Lotties
                                     animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
-                                    loop={true}
+                                    loop={false}
                                      
                                   />
                                   </button>
@@ -3341,7 +3347,7 @@ useEffect(()=>{
                                     }}>
                                   <Lotties
                                     animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                    loop={true}
+                                    loop={false}
                                      
                                   />
                                   </button>
@@ -3573,7 +3579,7 @@ useEffect(()=>{
                                     }}>
                                     <Lotties
                                     animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
-                                    loop={true}
+                                    loop={false}
                                      
                                   />
                                   </button>
@@ -3671,7 +3677,7 @@ useEffect(()=>{
                                     }}> 
                                   <Lotties
                                     animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                    loop={true}
+                                    loop={false}
                                      
                                   />
                                   </button>
@@ -3730,14 +3736,14 @@ useEffect(()=>{
                                 >
                                   <Lotties
                                     animationData={AllAnimation.Progress}
-                                    loop={true}
+                                    loop={false}
                                     onComplete={() => {
-                                      // if(animeStopStatus===false){
-                                      //   timeOut(userId, false);
-                                      // }
-                                      // setFirstStep(false);
-                                      // setSecondStep(false);
-                                      // setTimeoutStatus(true);
+                                      if(animeStopStatus===false){
+                                        timeOut(userId, false);
+                                      }
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
                                     }}
                                     lottieRef={animeRef}
                                      
@@ -3787,7 +3793,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState1?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -3844,14 +3850,14 @@ useEffect(()=>{
                                 >
                                   <Lotties
                                     animationData={AllAnimation.Progress}
-                                    loop={true}
+                                    loop={false}
                                     onComplete={() => {
-                                      // if(animeStopStatus===false){
-                                      //   timeOut(userId, false);
-                                      // }
-                                      // setFirstStep(false);
-                                      // setSecondStep(false);
-                                      // setTimeoutStatus(true);
+                                      if(animeStopStatus===false){
+                                        timeOut(userId, false);
+                                      }
+                                      setFirstStep(false);
+                                      setSecondStep(false);
+                                      setTimeoutStatus(true);
                                     }}
                                     lottieRef={animeRef}
                                      
@@ -3893,7 +3899,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4013,7 +4019,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4115,7 +4121,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4220,7 +4226,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4323,7 +4329,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4447,7 +4453,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4513,7 +4519,7 @@ useEffect(()=>{
                                 >
                                   <Lotties
                                     animationData={AllAnimation.Progress1}
-                                    loop={true}
+                                    loop={false}
                                     onComplete={() => {
                                       if(animeStopStatus===false){
                                         timeOut(userId, false);
@@ -4693,7 +4699,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>
@@ -4807,7 +4813,7 @@ useEffect(()=>{
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
-                                      loop={true}
+                                      loop={false}
                                         
                                     />
                                     </button>

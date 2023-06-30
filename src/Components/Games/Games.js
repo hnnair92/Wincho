@@ -450,6 +450,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   //     setCategory(state?state.category:"free")
   //   }
   // }, []);
+
   async function checkFreePlay() {
     const userBody = {
       user: userId,
@@ -468,15 +469,15 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         console.log(userBody);
         // changeFreePlayDaily()
-        // if(times===undefined||times===null){
+        if(times===undefined||times===null){
           localStorage.setItem(
             "times",
             JSON.stringify(data.data[0].freeplay_limit)
           );
-        // }
-        // else{
+        }
+        else{
           setTimes(JSON.parse(localStorage.getItem("times")))
-        // }
+        }
         // :localStorage.setItem("times", JSON.stringify(data.data[0].freeplay_limit))
       });
   }

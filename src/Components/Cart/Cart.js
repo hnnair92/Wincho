@@ -697,7 +697,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>
-          <div className={style.popupText}>
+          <div className={style.DetailspopupText}>
             {}
             <p>Whoops! We need your shipping details</p>
             {}
@@ -774,8 +774,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           <div
             className={style.AddressTitleOverlay}
             onClick={() => {
-              // setisAddressField(false);
-              // setSelectState(false);
+              setisAddressField(false);
+              setSelectState(false);
             }}
           ></div>
           <form action="">

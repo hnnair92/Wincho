@@ -396,7 +396,10 @@ const Home = () => {
           {/* <iframe title="vimeo-player" src="https://player.vimeo.com/video/838092334?h=b67784c4f8" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe> */}
         </div>
         <div className={style.MWatchLandscape}>
-        <video autoPlay loop muted playsInline ref={vidRef3}  onCanPlay={() => setPlayBack()}>
+        <video autoPlay loop muted playsInline webkit-playsinline ref={vidRef1}  onCanPlay={() => setPlayBack()}>
+        {/* <video autoPlay muted={true} loop playsInline ref={vidRef2}  onCanPlay={() => setPlayBack()}> */}
+
+        {/* <video autoPlay loop muted playsInline ref={vidRef3}  onCanPlay={() => setPlayBack()}> */}
                 <source src={videoSrc} type="video/mp4" />
               </video>
         {/* <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef}>
