@@ -338,7 +338,8 @@ transform: scale(1.1); */
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 325px;
+  width: 40rem;
+  font-family: myraidproregular;
 }
 .popupImage {
   width: 40%;
@@ -354,10 +355,11 @@ transform: scale(1.1); */
   margin-top: 15%;
 }
 .popupText p {
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-align: center;
   color: #fff;
   font-weight: 300;
+ 
 }
 .popupButton {
   display: flex;

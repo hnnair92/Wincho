@@ -18,8 +18,8 @@ const WinScreen = ({pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGa
   useEffect(()=>{
     setTimeout(()=>{
       if(linkStatus===false){
-        // navigate("/prizes",{state:{category:data.category}})
-        // window.location.reload()
+        navigate("/prizes",{state:{category:data.category}})
+        window.location.reload()
       }
     },5000)
   })
@@ -94,8 +94,8 @@ async function playAudio(src) {
       <div className={style.Banner}>
         <div className={style.Background} onClick={()=>{
           setLinkStatus(true)
-          // navigate("/prizes",{state:{category:data.category}})
-          // window.location.reload()
+          navigate("/prizes",{state:{category:data.category}})
+          window.location.reload()
         }}>
           <img src={winBg} alt="" />
         </div>

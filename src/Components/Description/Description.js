@@ -353,6 +353,9 @@ const Description = ({
   useEffect(()=>{
     console.log(exitPopupOpen)
   },[exitPopupOpen])
+  useEffect(()=>{
+    checkFreePlay()
+  },[])
   useEffect(() => {
     checkFreePlay();
     socket.on("connect", () => {
@@ -820,8 +823,10 @@ useEffect(()=>{
 
   useEffect(() => {
     localStorage.getItem("times")
-      ? localStorage.setItem("times", freePlay)
+      ? localStorage.setItem("times", JSON.stringify(freePlay))
       : localStorage.setItem("times", 0);
+      console.log(freePlay)
+      // console.log()
   }, [freePlay]);
   useEffect(() => {});
   useEffect(() => {
@@ -1107,12 +1112,15 @@ useEffect(()=>{
   const handlePauseVideo = () => {
     vidRef.current.pause();
   };
+  useEffect(()=>{
+      JSON.stringify(localStorage.setItem("times",freePlay))
+  },[freePlay])
 
   // All Game Screen API's
   async function checkFreePlay() {
     const userBody={
-      user: userId,
-      device_id: "",
+      user: user&&user.username===""?"":userId,
+      device_id: user&&user.username===""?JSON.parse(localStorage.getItem("deviceId")):"",
     }
     await fetch(`${baseUrl}/game/freeplay/limit`, {
       method: "POST",
@@ -1127,10 +1135,10 @@ useEffect(()=>{
         console.log(data);
         console.log(userBody);
         // changeFreePlayDaily()
-        localStorage.setItem(
-          "times",
-          JSON.stringify(data.data[0].freeplay_limit)
-        );
+        setFreePlay(data.data[0].freeplay_limit)
+        // localStorage.setItem(
+        //   "times",data.data[0].freeplay_limit
+        // );
       });
   }
   async function changeFreePlayDaily(){
@@ -1352,7 +1360,7 @@ useEffect(()=>{
     // localStorage.setItem("times",JSON.stringify(freePlay))
     // const freePl = JSON.parse(localStorage.getItem("times"))
     // console.log(freePl);
-    setFreePlay(freePlay+1)
+    // setFreePlay(freePlay+1)
     if(GameData.price==="0"&&user?.vip===false){
       setCheckDateCount(checkDateCount+1)
       // localStorage.setItem("checkPlay",checkDateCount)
@@ -1674,7 +1682,7 @@ useEffect(()=>{
         console.log(data)
         console.log(data)
         if (GameData.price === "0") {
-          setFreePlay(freePlay + 1);
+          // setFreePlay(freePlay + 1);
         }
         console.log(user.vip)
         if (
@@ -1966,18 +1974,19 @@ useEffect(()=>{
             <p>You've used all of your free plays</p>
           </div>
           <div className={style.popupButton}>
-            <Link
+            {/* <Link
               to="/login"
               onClick={() => {
                 setFreeLimitPopup(false);
               }}
-            >
+            > */}
               <button onClick={()=>{
-                gameLeave()
                 setFreeLimitPopup(false)
-                window.location.reload()
+                gameLeave()
+                navigate("/login")
+                // window.location.reload()
               }}>REGISTER</button>
-            </Link>
+            {/* </Link> */}
           </div>
         </div>
       ) : (

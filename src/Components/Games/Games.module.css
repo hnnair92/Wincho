@@ -379,6 +379,10 @@
 
   -webkit-text-stroke: 1px #000;
 }
+.popupPlayNow p:last-child{
+  font-family: drumshake_italic;
+  font-size: 4.5rem;
+}
 .popupTicket {
   width: 30%;
   padding: 0.5rem;

@@ -298,7 +298,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-  }, [window,gameMusic,gameSound])
+  }, [window,gameMusic])
   async function playAudio(src) {
     console.log(audioStatus, "audioStatus");
     if (audioStatus === "true") {
@@ -326,7 +326,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-  }, [window,gameMusic,gameSound]);
+  }, [window,gameMusic]);
   useEffect(() => {
     if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
@@ -453,8 +453,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
 
   async function checkFreePlay() {
     const userBody = {
-      user: userId,
-      device_id: "",
+      user: user&&user.username===""?"":userId,
+      device_id: user&&user.username===""?JSON.parse(localStorage.getItem("deviceId")):"",
     };
     await fetch(`${baseUrl}/game/freeplay/limit`, {
       method: "POST",
@@ -523,6 +523,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     }
     checkFreePlay();
   }, [dispatch, category, id,user]);
+  useEffect(()=>{
+    checkFreePlay()
+  },[])
   useEffect(() => {
     // console.log(user&&user.username.length)
     console.log("hello world!");
