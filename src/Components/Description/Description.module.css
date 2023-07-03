@@ -6,7 +6,7 @@
     rgba(19, 192, 236, 1) 50%,
     rgba(32, 122, 224, 1) 100%
   );
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -222,6 +222,7 @@ button {
 
 .ExtraGames {
   width: 25%;
+  margin: 7% 0;
 }
 
 .LeftSide,
@@ -251,13 +252,16 @@ button {
 }
 
 .AllGames {
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
   width: 100%;
-  max-height: 64vh;
-  overflow: scroll;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  /* max-height: 64vh; */
+
+  /* overflow: scroll; */
 }
 
 .AllGames::-webkit-scrollbar {
@@ -273,7 +277,7 @@ a {
 }
 
 .AllGames .Game {
-  width: 42%;
+  width: 97%;
   /* pointer-events:visible; */
   box-shadow: -10px -10px 15px rgba(255, 255, 255, 0),
     0.2px 0.2px 15px #00000019, inset -0.2px -0.2px 15px rgba(0, 0, 0, 0.25),

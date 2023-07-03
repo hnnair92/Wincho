@@ -3040,7 +3040,11 @@ useEffect(()=>{
                   <div className={style.PlayImage}>
                     <div className={style.GameScore}>
                       <img src={assets.GamePricePng} alt="" />
-                      <span>{GameData&&GameData.price===0?"":GameData.price}</span>
+                      {GameData&&GameData.price==="0"?""
+                      :
+                      <span>{GameData&&GameData.price}</span>
+                      
+                      }
                     </div>
                     {/* <div className={style.BgStaticImaage}>
                       <img src={waitStatic} alt="" />

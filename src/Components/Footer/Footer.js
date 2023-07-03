@@ -321,7 +321,9 @@ const Footer = ({
                     <img src={bandaiLogo} alt="" />
                 </div> */}
                 <div className={style.wpclogo}>
-                    <img src={wpclogo} alt="" />
+                    <img src={wpclogo} alt="" onClick={()=>{
+                      window.open("http://www.weplaycreative.com/")
+                    }} />
                 </div>
                 </div>
             </div>
@@ -371,7 +373,9 @@ const Footer = ({
                     <img src={bandaiLogo} alt="" />
                 </div>
                 <div className={style.MWPCLogo}>
-                    <img src={wpclogo} alt="" />
+                    <img src={wpclogo} alt=""  onClick={()=>{
+                      window.open("http://www.weplaycreative.com/")
+                    }}/>
                 </div>
                 </div>
                 </div>
