@@ -124,7 +124,7 @@ const Register = () => {
   useEffect(() => {
     console.log(state);
   }, [state]);
-  const handleRegister = (e) => {
+  const handleRegister =async(e) => {
     e.preventDefault();
     console.log("reached");
     checkUsername();
@@ -143,8 +143,10 @@ const Register = () => {
     console.log(data);
     console.log(configuration);
     if ( password === confirmPassword) {
-      dispatch(registerAction(data));
+      await dispatch(registerAction(data));
     }
+    await navigate("/prizes", { state: { category: "plushies" } });
+    // await navigate("/prizes",{state:{category:"plushies"}})
   };
   const checkUsername = async () => {
     console.log(usernameExist.length);
@@ -476,11 +478,11 @@ const Register = () => {
                     }}/>} */}
           </div>
           <div className={style.CheckPassword}>
-            {password === confirmPassword ? (
+            {password === confirmPassword  ? (
               ""
-            ) : (
+            ) : confirmPassword.length>0? (
               <p className={style.AgeRestrict}>Password not matching</p>
-            )}
+            ):""}
           </div>
           <input
             type="email"
@@ -540,7 +542,9 @@ const Register = () => {
               Confirm
             </button>
           ) : (
-            <button type="submit" className={style.btnDisabled} disabled>
+            <button type="submit" onClick={()=>{
+                //  navigate("/prizes", { state: { category: "plushies" } });
+            }}>
               Confirm
             </button>
           )}

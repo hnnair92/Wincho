@@ -134,6 +134,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const setPlayBack = () => {
     vidRef.current.playbackRate = 1.5;
   };
+  console.log(user)
+  console.log(user&&user.username!=="")
   const videoRef = useRef(null);
   const [errors, setError] = useState("");
   const [checkError, setCheckError] = useState(false);
@@ -1112,320 +1114,327 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             })
           )}
         </div>
-        {eGifting && cartData.length > 0 ? (
-          ""
+        {userId!==undefined||userId!==null||user&&user.username!=="" ? 
+        <div className={style.BottomCart}>
+          {eGifting?(
+            ""
         ) : (
-          <div className={style.Shipping}>
-            <div className={style.PrimeShipping}>
-              <div
-                className={style.shippingIcon}
-                onClick={() => {
-                  if (
-                    vipData.status === true &&
-                    vipData.data[0].vip_token === false
-                  ) {
-                    setPremiumPopup(true);
-                  }
-                  if (user && user.vip === false) {
-                    setPremiumPopup(true);
-                  }
-                }}
-              >
-                <img src={primeIcon} alt="" />
-              </div>
-              <div className={style.selection}>
-                <div className={style.price}>
-                  <p>FREE</p>
+            <div className={style.Shipping}>
+              <div className={style.PrimeShipping}>
+                <div
+                  className={style.shippingIcon}
+                  onClick={() => {
+                    if (
+                      vipData.status === true &&
+                      vipData.data[0].vip_token === false
+                    ) {
+                      setPremiumPopup(true);
+                    }
+                    if (user && user.vip === false) {
+                      setPremiumPopup(true);
+                    }
+                  }}
+                >
+                  <img src={primeIcon} alt="" />
                 </div>
-                {vipData.status === true &&
-                vipData.data[0].vip_token === true ? (
-                  <span
-                    className={style.CircleActive}
-                    onClick={() => {
-                      if (user && user.vip === false) {
-                        setPremiumPopup(true);
-                      }
-                    }}
-                  ></span>
-                ) : (
-                  <span
-                    className={style.Circle}
-                    onClick={() => {
-                      if (userId === null) {
-                        return navigate("/login");
-                      }
-                      if (user && user.vip === false) {
-                        setPremiumPopup(true);
-                      }
-                      if (
-                        vipData.status === true &&
-                        vipData.data[0].vip_token === false
-                      ) {
-                        setPremiumPopup(true);
-                      }
-                      if (user && user.vip === false) {
-                        setPremiumPopup(true);
-                      }
-                    }}
-                  ></span>
-                )}
-              </div>
-            </div>
-            <div className={style.FreeShipping}>
-              <div className={style.shippingIcon}>
-                <p>Standard Shipping</p>
-              </div>
-              <div className={style.selection}>
-                <div className={style.ticket}>
-                  <img src={ticket} alt="" />
+                <div className={style.selection}>
+                  <div className={style.price}>
+                    <p>FREE</p>
+                  </div>
+                  {vipData.status === true &&
+                  vipData.data[0].vip_token === true ? (
+                    <span
+                      className={style.CircleActive}
+                      onClick={() => {
+                        if (user && user.vip === false) {
+                          setPremiumPopup(true);
+                        }
+                      }}
+                    ></span>
+                  ) : (
+                    <span
+                      className={style.Circle}
+                      onClick={() => {
+                        if (userId === null) {
+                          return navigate("/login");
+                        }
+                        if (user && user.vip === false) {
+                          setPremiumPopup(true);
+                        }
+                        if (
+                          vipData.status === true &&
+                          vipData.data[0].vip_token === false
+                        ) {
+                          setPremiumPopup(true);
+                        }
+                        if (user && user.vip === false) {
+                          setPremiumPopup(true);
+                        }
+                      }}
+                    ></span>
+                  )}
                 </div>
-                <div className={style.price}>
-                  <p>{configuration?.STANDARD_SHIPPING_PRICE}</p>
+              </div>
+              <div className={style.FreeShipping}>
+                <div className={style.shippingIcon}>
+                  <p>Standard Shipping</p>
                 </div>
-                {vipData.status === false ? (
-                  <span
-                    className={style.CircleActive}
-                    onClick={() => {}}
-                  ></span>
-                ) : vipData.status === true &&
-                  vipData.data[0].vip_token === false ? (
-                  <span
-                    className={style.CircleActive}
-                    onClick={() => {}}
-                  ></span>
-                ) : (
-                  <span className={style.Circle} onClick={() => {}}></span>
-                )}
+                <div className={style.selection}>
+                  <div className={style.ticket}>
+                    <img src={ticket} alt="" />
+                  </div>
+                  <div className={style.price}>
+                    <p>{configuration?.STANDARD_SHIPPING_PRICE}</p>
+                  </div>
+                  {vipData.status === false ? (
+                    <span
+                      className={style.CircleActive}
+                      onClick={() => {}}
+                    ></span>
+                  ) : vipData.status === true &&
+                    vipData.data[0].vip_token === false ? (
+                    <span
+                      className={style.CircleActive}
+                      onClick={() => {}}
+                    ></span>
+                  ) : (
+                    <span className={style.Circle} onClick={() => {}}></span>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        {emptyCart ? (
-          <div className={style.popup}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
+          )}
+          {emptyCart ? (
+            <div className={style.popup}>
+              <div className={style.popupImage}>
+                <img src={assets.winchaPopup} alt="" />
+              </div>
+              <div className={style.popupText}>
+                <p>Your Basket is Currently Empty</p>
+              </div>
+              <div className={style.ReportPopupButton}>
+                <button
+                  onClick={() => {
+                    setEmptyCart(false);
+                    setCount(4);
+                  }}
+                >
+                  OK
+                </button>
+              </div>
             </div>
-            <div className={style.popupText}>
-              <p>Your Basket is Currently Empty</p>
-            </div>
-            <div className={style.ReportPopupButton}>
-              <button
-                onClick={() => {
-                  setEmptyCart(false);
-                  setCount(4);
-                }}
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        <div className={style.DeliveryAddress}>
-          <div className={style.AddressHeadSeciton}>
-            <div className={style.AddressTitle}>
-              <p>Delivery Address</p>
-            </div>
-            <div className={style.AddressEditBtn}>
-              <button
-                onClick={() => {
-                  setIsAddressFieldShown(false);
-                  console.log("Edited");
-                  setisAddressField(true);
-                }}
-              >
-                Edit
-              </button>
-            </div>
-          </div>
-          <div className={style.AddressSection}>
-            <input
-              type="text"
-              placeholder="House"
-              value={user ? user.username : "-"}
-            />
-            <input
-              type="text"
-              placeholder="Line 1"
-              value={user ? user.addressline1 : "-"}
-            />
-            <input
-              type="text"
-              placeholder="Line 2"
-              value={user ? user.addressline2 : "-"}
-            />
-            <input
-              type="text"
-              placeholder="City"
-              value={user ? user.city : "-"}
-            />
-            <input
-              type="text"
-              placeholder="Country"
-              value={user ? user.state : "-"}
-            />
-            <input
-              type="text"
-              placeholder="Postcode"
-              value={user ? user.zipcode : "-"}
-            />
-          </div>
-        </div>
-        {phonenumber ? (
-          <div className={style.postpopup}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.phnpopupText}>
-              <p>Please enter valid phonenumber </p>
-            </div>
-            <div className={style.popupbutton}>
-              <button
-                onClick={() => {
-                  setPhonenumber(false);
-                  setisAddressField(true);
-                }}
-              >
-                Ok
-              </button>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        {postcodetrue ? (
-          <div className={style.postpopup}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.popupText}>
-              <p>Postal code not matching</p>
-            </div>
-            <div className={style.popupbutton}>
-              <button
-                onClick={() => {
-                  setPostcodeTrue(false);
-                  setisAddressField(true);
-                }}
-              >
-                Ok
-              </button>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-        <div className={style.Checkout}>
-          <button
-            style={{
-              filter:
-                loading ||
-                count > 4 ||
-                cartData.length <= 0 ||
-                // user?.addressline1 === "" ||
-                // user?.first_name === "" ||
-                // user?.last_name === "" ||
-                // user?.addressline1 === "" ||
-                // user?.addressline2 === "" ||
-                // user?.city === "" ||
-                // user?.zipcode === "" ||
-                // user?.first_name === "" ||
-                count > 4 ||
-                cartData.length <= 0
-                  ? "grayScale(1)"
-                  : "grayScale(0)",
-              pointerEvents:
-                count > 4 ||
-                count > 4 ||
-                cartData.length <= 0 ||
-                // user?.addressline1 === "" ||
-                // user?.first_name === "" ||
-                // user?.last_name === "" ||
-                // user?.addressline1 === "" ||
-                // user?.addressline2 === "" ||
-                // user?.city === "" ||
-                // user?.zipcode === "" ||
-                // user?.first_name === "" ||
-                cartData.length <= 0 ||
-                loading
-                  ? "none"
-                  : "visible",
-            }}
-            onClick={() => {
-              const parsedPoint = user && parseInt(user.point);
-              const parsedPrice =
-                configuration &&
-                parseInt(configuration.STANDARD_SHIPPING_PRICE);
-              checkCount();
-              console.log(count, "count");
-              console.log(saved, "isBundleReminder from t");
-              console.log(isVipShown, "isVip from t");
-              console.log(isAddressShown, "isAddress from t");
+          ) : (
+            ""
+          )}
 
-              if (saved === "false") {
-                console.log(isBundleReminder, "isBundleReminder");
-                setIsBundleReminder(true);
-                console.log(isBundleReminder, "isBundleReminder");
-                saved = localStorage.getItem("SaveShipping");
-                if (parsedPoint < parsedPrice) {
-                  setCount(3);
-                  console.log("count jumbed 2");
-                }
-              } else if (user && user.first_name === "") {
-                setIsAddress(true);
-              } else {
-                console.log("false");
-                if (count === 1) {
-                  setCount(2);
-                  if (vipData.status === true) {
-                    setIsVip(true);
-                    console.log(isVip, "isVip");
-                  } else {
-                    setCount(2);
-                  }
+          <div className={style.DeliveryAddress}>
+            <div className={style.AddressHeadSeciton}>
+              <div className={style.AddressTitle}>
+                <p>Delivery Address</p>
+              </div>
+              <div className={style.AddressEditBtn}>
+                <button
+                  onClick={() => {
+                    setIsAddressFieldShown(false);
+                    console.log("Edited");
+                    setisAddressField(true);
+                  }}
+                >
+                  Edit
+                </button>
+              </div>
+            </div>
+            <div className={style.AddressSection}>
+              {/* <input
+                type="text"
+                placeholder="House"
+                value={user ? user.username : "-"}
+              />
+                 */}
+              <input
+                type="text"
+                placeholder="Line 1"
+                value={user ? user.addressline1 : "-"}
+              />
+              <input
+                type="text"
+                placeholder="Line 2"
+                value={user ? user.addressline2 : "-"}
+              />
+              <input
+                type="text"
+                placeholder="City"
+                value={user ? user.city : "-"}
+              />
+              <input
+                type="text"
+                placeholder="Country"
+                value={user ? user.state : "-"}
+              />
+              <input
+                type="text"
+                placeholder="Postcode"
+                value={user ? user.zipcode : "-"}
+              />
+            </div>
+          </div>
+          {phonenumber ? (
+            <div className={style.postpopup}>
+              <div className={style.popupImage}>
+                <img src={assets.winchaPopup} alt="" />
+              </div>
+              <div className={style.phnpopupText}>
+                <p>Please enter valid phonenumber </p>
+              </div>
+              <div className={style.popupbutton}>
+                <button
+                  onClick={() => {
+                    setPhonenumber(false);
+                    setisAddressField(true);
+                  }}
+                >
+                  Ok
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {postcodetrue ? (
+            <div className={style.postpopup}>
+              <div className={style.popupImage}>
+                <img src={assets.winchaPopup} alt="" />
+              </div>
+              <div className={style.popupText}>
+                <p>Postal code not matching</p>
+              </div>
+              <div className={style.popupbutton}>
+                <button
+                  onClick={() => {
+                    setPostcodeTrue(false);
+                    setisAddressField(true);
+                  }}
+                >
+                  Ok
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          <div className={style.Checkout}>
+            <button
+              style={{
+                filter:
+                  loading ||
+                  count > 4 ||
+                  cartData.length <= 0 ||
+                  // user?.addressline1 === "" ||
+                  // user?.first_name === "" ||
+                  // user?.last_name === "" ||
+                  // user?.addressline1 === "" ||
+                  // user?.addressline2 === "" ||
+                  // user?.city === "" ||
+                  // user?.zipcode === "" ||
+                  // user?.first_name === "" ||
+                  count > 4 ||
+                  cartData.length <= 0
+                    ? "grayScale(1)"
+                    : "grayScale(0)",
+                pointerEvents:
+                  count > 4 ||
+                  count > 4 ||
+                  cartData.length <= 0 ||
+                  // user?.addressline1 === "" ||
+                  // user?.first_name === "" ||
+                  // user?.last_name === "" ||
+                  // user?.addressline1 === "" ||
+                  // user?.addressline2 === "" ||
+                  // user?.city === "" ||
+                  // user?.zipcode === "" ||
+                  // user?.first_name === "" ||
+                  cartData.length <= 0 ||
+                  loading
+                    ? "none"
+                    : "visible",
+              }}
+              onClick={() => {
+                const parsedPoint = user && parseInt(user.point);
+                const parsedPrice =
+                  configuration &&
+                  parseInt(configuration.STANDARD_SHIPPING_PRICE);
+                checkCount();
+                console.log(count, "count");
+                console.log(saved, "isBundleReminder from t");
+                console.log(isVipShown, "isVip from t");
+                console.log(isAddressShown, "isAddress from t");
+
+                if (saved === "false") {
+                  console.log(isBundleReminder, "isBundleReminder");
+                  setIsBundleReminder(true);
+                  console.log(isBundleReminder, "isBundleReminder");
+                  saved = localStorage.getItem("SaveShipping");
                   if (parsedPoint < parsedPrice) {
                     setCount(3);
                     console.log("count jumbed 2");
-                  } else {
-                    console.log("reached here instead");
                   }
-                }
-                if (count === 2) {
-                  console.log("checking");
-                  if (parsedPoint > parsedPrice) {
-                    setIsAddress(true);
-                    setCount(4);
-                    console.log("count jumbed 2");
-                  } else {
-                    console.log(user && parseInt(user.point));
-                    console.log(
-                      configuration &&
-                        parseInt(configuration.STANDARD_SHIPPING_PRICE)
-                    );
-                    console.log(parsedPoint > parsedPrice);
-                    setCount(3);
-                    lowPoint();
-                    console.log(isBundleReminder, "isBundleReminder");
-                  }
-                }
-                if (count === 3) {
-                  setCount(4);
+                } else if (user && user.first_name === "") {
                   setIsAddress(true);
-                  console.log(isAddress, "isAddress");
+                } else {
+                  console.log("false");
+                  if (count === 1) {
+                    setCount(2);
+                    if (vipData.status === true) {
+                      setIsVip(true);
+                      console.log(isVip, "isVip");
+                    } else {
+                      setCount(2);
+                    }
+                    if (parsedPoint < parsedPrice) {
+                      setCount(3);
+                      console.log("count jumbed 2");
+                    } else {
+                      console.log("reached here instead");
+                    }
+                  }
+                  if (count === 2) {
+                    console.log("checking");
+                    if (parsedPoint > parsedPrice) {
+                      setIsAddress(true);
+                      setCount(4);
+                      console.log("count jumbed 2");
+                    } else {
+                      console.log(user && parseInt(user.point));
+                      console.log(
+                        configuration &&
+                          parseInt(configuration.STANDARD_SHIPPING_PRICE)
+                      );
+                      console.log(parsedPoint > parsedPrice);
+                      setCount(3);
+                      lowPoint();
+                      console.log(isBundleReminder, "isBundleReminder");
+                    }
+                  }
+                  if (count === 3) {
+                    setCount(4);
+                    setIsAddress(true);
+                    console.log(isAddress, "isAddress");
+                  }
+                  if (count === 4) {
+                    setCount(5);
+                    console.log("Checked out");
+                    checkoutAPi();
+                  }
                 }
-                if (count === 4) {
-                  setCount(5);
-                  console.log("Checked out");
-                  checkoutAPi();
-                }
-              }
-            }}
-            disabled={loading}
-          >
-            CHECKOUT
-          </button>
+              }}
+              disabled={loading}
+            >
+              CHECKOUT
+            </button>
+          </div>
         </div>
+        
+        :""}
       </div>
     </div>
   );

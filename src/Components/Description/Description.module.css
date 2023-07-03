@@ -666,7 +666,7 @@ video {
 .GameScore span {
   position: absolute;
   top: 50%;
-  font-size: 5rem;
+  font-size: 4rem;
   font-family: bubbleGum;
   color: #000;
   -webkit-text-stroke: 1px #fff;

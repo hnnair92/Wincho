@@ -160,7 +160,7 @@ const Home = () => {
               className={style.AppStore}
               onClick={() => {
                 window.open(
-                  "https://apps.apple.com/us/app/wincha/id1604147807"
+                  "https://apps.apple.com/gb/app/wincha/id1604147807"
                 );
               }}
             />
@@ -326,7 +326,7 @@ const Home = () => {
                 alt=""
                 onClick={() => {
                   window.open(
-                    "https://apps.apple.com/us/app/wincha/id1604147807"
+                    "https://apps.apple.com/gb/app/wincha/id1604147807"
                   );
                 }}
               />
