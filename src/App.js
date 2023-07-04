@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import Description from "./Components/Description/Description";
 import Loader from "./Components/Loader/Loader";
-
+import {Helmet} from "react-helmet";
 import Register from "./Components/register/Register";
 import Login from "./Components/Login/Login";
 import { useEffect, useState } from "react";
@@ -148,6 +148,10 @@ useEffect(()=>{
         // touch-action="none"
       >
       <Router>
+      <Helmet>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+              
+            </Helmet>
       <ScrollToTop />
         <Header userJoined={userJoined} setUserJoined={setUserJoined} setPageUrl={setPageUrl} pageUrl={pageUrl} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} setActive={setActive} active={active} setGamePlay={setGamePlay} gamePlay={gamePlay}/>
         <Routes>

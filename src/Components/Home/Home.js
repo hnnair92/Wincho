@@ -210,7 +210,7 @@ const Home = () => {
               {/* <video autoplay loop muted playsinline src={videoSrc} type="video/mp4" ref={videoRef2}>
             <source src={videoSrc} type="video/mp4" />
           </video> */}
-              <video
+              {/* <video
                 autoPlay
                 loop
                 muted
@@ -220,7 +220,21 @@ const Home = () => {
                 onCanPlay={() => setPlayBack()}
               >
                 <source src={videoSrc} type="video/mp4" />
-              </video>
+              </video> */}
+               <div
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  <video
+                    loop
+                    muted
+                    autoplay
+                    playsinline
+                    preload="metadata"
+                  >
+                  <source src="${videoSrc}" type="video/mp4" />
+                  </video>`
+                }}
+              />
               {/* :""} */}
             </div>
           </div>
@@ -376,7 +390,21 @@ const Home = () => {
           </div>
         </div>
         <div className={style.MWatch}>
-          <video
+        <div
+      dangerouslySetInnerHTML={{
+        __html: `
+        <video
+          loop
+          muted
+          autoplay
+          playsinline
+          preload="metadata"
+        >
+        <source src="${VideoSrcHome}" type="video/mp4" />
+        </video>`
+      }}
+    />
+          {/* <video
             autoPlay
             muted={true}
             loop
@@ -385,7 +413,7 @@ const Home = () => {
             onCanPlay={() => setPlayBack()}
           >
             <source src={VideoSrcHome} type="video/mp4" />
-          </video>
+          </video> */}
         </div>
 
         <div className={style.MWatchLandscape}>

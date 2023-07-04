@@ -992,13 +992,13 @@ video{
 
 }
 .Bonus p{
-    font-size: 5rem;
+    font-size: 3.5rem;
     font-family:bubbleGum;
     color: #fff;
     -webkit-text-stroke: 2px #000;
 }
 .BonusText{
-    margin: 0px 20px;
+    margin: 0px 10px;
 }
 .BonusText p{
     font-style: italic;
@@ -1139,11 +1139,11 @@ video{
         position: fixed;
     }
     .Bonus p{
-        font-size: 5rem;
+        font-size: 3.5rem;
         text-align: end;
     }
     .BonusText p{
-        font-size: 1.5rem;
+        font-size: 2.5rem;
     }
     .SubscribeButton button{
         font-size: 1.75rem;
@@ -1154,7 +1154,7 @@ video{
 }
 @media(max-width:712px){
     .BonusText p{
-        font-size: 1.75rem;
+        font-size: 2.5rem;
     }
 }
 @media(max-width:599px){
@@ -1163,11 +1163,14 @@ video{
         font-size: 1.5rem;
     }
     .Bonus p{
-        font-size: 3rem;
+        font-size: 2.5rem;
         
     }
     .BonusText{
-        margin: 0px 10px;
+        margin: 0px 7px;
+    }
+    .BonusText p{
+        font-size: 1.5rem;
     }
     .Address {
         width: 80%;

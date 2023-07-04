@@ -12,6 +12,7 @@ import { FaChevronDown } from "react-icons/fa";
 import info from "../../assests/Information Icon.png";
 import { configutation } from "../../actions/product";
 import { baseUrl } from "../url";
+import { ExpansionPanel, ExpansionList, DatePicker } from "react-md";
 const Register = () => {
   const [errors, setError] = useState("");
   const [checkError, setCheckError] = useState(false);
@@ -297,7 +298,7 @@ const Register = () => {
         >
           <input
             type="text"
-            placeholder="username"
+            placeholder="USERNAME"
             required
             className={style.input}
             value={username}
@@ -328,7 +329,7 @@ const Register = () => {
               console.log(e.target.value);
             }}
           /> */}
-          <input
+          {/* <input
             type="date"
             required
             name=""
@@ -341,7 +342,20 @@ const Register = () => {
               handleDate(e);
               console.log(e.target.value);
             }}
-          />
+          /> */}
+          <input type="date"
+            
+            name=""
+            
+            id=""
+            style={{color:date.length>0?"#000":"#bdbdbd",backgroundColor:"#fff",width:window.innerWidth>750?`100%`:window.innerWidth>350&&window.innerWidth<750?`${window.innerWidth*0.8}px`:`100%`}}
+            className={style.DataInput}
+           onChange={(e) => {
+
+              handleDate(e);
+              console.log(e.target.value);
+            }} />
+          {/* <DatePicker id="date-picker-1" label="Date 1" /> */}
           {location?.countryCode === "US" ? (
             <>
               <label htmlFor="">Select a State</label>
@@ -410,7 +424,7 @@ const Register = () => {
             <input
               type={passwordType}
               required
-              placeholder="password"
+              placeholder="PASSWORD"
               value={password}
               className={style.input}
               onChange={(e) => {
@@ -464,7 +478,7 @@ const Register = () => {
             <input
               type="password"
               required
-              placeholder="repeat password"
+              placeholder="REPEAT PASSWORD"
               className={style.input}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -487,7 +501,7 @@ const Register = () => {
           <input
             type="email"
             required
-            placeholder="email"
+            placeholder="EMAIL"
             value={email}
             className={style.input}
             onChange={(e) => {
@@ -542,9 +556,8 @@ const Register = () => {
               Confirm
             </button>
           ) : (
-            <button type="submit" onClick={()=>{
-                //  navigate("/prizes", { state: { category: "plushies" } });
-            }}>
+           
+            <button type="submit" className={style.btnDisabled} disabled>
               Confirm
             </button>
           )}

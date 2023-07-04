@@ -25,70 +25,7 @@ const WinScreen = ({pageUrl,setPageUrl,gameMusic, setGameMusic, gameSound, setGa
   })
   let inGame = localStorage.getItem("inGame");
   console.log(inGame);
-  const audioRef = useRef();
-  const audioRefHome = useRef();  
-  let audioStatus = localStorage.getItem("sound");
-  const [musicStatus, setMusicStatus] = useState(
-    localStorage.getItem("music")
-      ? localStorage.getItem("music")
-      : localStorage.setItem("music", JSON.stringify(false))
-  );
-  async function playAudioBg() {
-    console.log(musicStatus, "musicStatus");
-    audioRefHome.current.src = music.Menu;
-    audioRefHome.current.play();
-  }
-  useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1) {
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    if (gameSound === 1 || gameSound === 1) {
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, []);
-  useEffect(() => {
-    console.log(gameMusic === 1, "gameSound");
-    console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === 1 || gameMusic === 1) {
-      console.log("true for gameMusic");
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, [gameMusic]);
-  useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1) {
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, []);
-async function playAudio(src) {
-    console.log(audioStatus, "audioStatus");
-    if (audioStatus === "true") {
-      console.log("reached here");
-      audioRef.current.volume = 1;
-      audioRef.current.src = src;
-      audioRef.current.play();
-    } else {
-      audioRef.current.volume = 0;
-    }
-  }
-  async function audioEnded(src) {
-    if (musicStatus === "true") {
-    } else {
-    }
-  }
+  
   return (
     <div>
       <div className={style.Banner}>

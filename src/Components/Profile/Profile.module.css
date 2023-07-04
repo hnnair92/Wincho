@@ -1283,13 +1283,13 @@
   justify-content: center;
 }
 .Bonus p {
-  font-size: 5rem;
+  font-size: 3.5rem;
   font-family: bubbleGum;
   color: #fff;
   -webkit-text-stroke: 2px #000;
 }
 .BonusText {
-  margin: 0px 20px;
+  margin: 0px 10px;
 }
 .BonusText p {
   font-style: italic;
@@ -1380,9 +1380,9 @@
   color: gray;
 }
 @media (max-width: 768px) {
-  .Bonus {
+  /* .Bonus {
     width: 30%;
-  }
+  } */
 
   .Bonus p {
     text-align: end;
@@ -1436,7 +1436,7 @@
     position: fixed;
   }
   .Bonus p {
-    font-size: 5rem;
+    font-size: 3.5rem;
   }
   .BonusText p {
     font-size: 2.5rem;
@@ -1482,11 +1482,11 @@
   .content ul{
     font-size: 1.75rem;
   }
-  .Bonus {
+  /* .Bonus {
     width: 30%;
-  }
+  } */
   .Bonus p {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   .BonusText {
     margin: 0px 10px;

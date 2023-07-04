@@ -450,7 +450,8 @@ input:-webkit-autofill:active {
 }
 @media (max-width: 500px) {
   .Container {
-    height: 90vh;
+    height: auto;
+    padding: 4rem 0;
   }
   .Left {
     display: none;

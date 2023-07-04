@@ -1294,21 +1294,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (userId != null) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1476,21 +1492,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (userId != null) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1661,21 +1693,38 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (userId != null) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
+                                
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1841,21 +1890,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (userId != null) {
-                                navigate(`/game/${game.slug}`, {
-                                  state: {
-                                    game: game,
-                                    user: user,
-                                    cateogry: category,
-                                  },
-                                });
+                                if((times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) || (game.machine_status === false)){
+
+                                  }
+                                  else{
+                                    navigate(`/game/${game.slug}`, {
+                                      state: {
+                                        game: game,
+                                        user: user,
+                                        cateogry: category,
+                                      },
+                                    }
+                                    );
+                                  }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -2032,21 +2097,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                 userId === undefined &&
                                 user?.username !== "")
                             ) {
-                              navigate(`/game/${game.slug}`, {
-                                state: {
-                                  game: game,
-                                  user: user,
-                                  cateogry: category,
-                                },
-                              });
+                              if((times >= configuration.FREE_PLAY_LIMIT &&
+                                game.price === "0" &&
+                                user?.vip === false) || (game.machine_status === false)){
+
+                                }
+                                else{
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  }
+                                  );
+                                }
                             } else if (userId != null) {
-                              navigate(`/game/${game.slug}`, {
-                                state: {
-                                  game: game,
-                                  user: user,
-                                  cateogry: category,
-                                },
-                              });
+                              if((times >= configuration.FREE_PLAY_LIMIT &&
+                                game.price === "0" &&
+                                user?.vip === false) || (game.machine_status === false)){
+
+                                }
+                                else{
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  }
+                                  );
+                                }
                             } else if (user?.username === "") {
                               navigate("/login");
                             } else {
@@ -2208,21 +2289,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                 userId === undefined &&
                                 user?.username !== "")
                             ) {
-                              navigate(`/game/${game.slug}`, {
-                                state: {
-                                  game: game,
-                                  user: user,
-                                  cateogry: category,
-                                },
-                              });
+                              if((times >= configuration.FREE_PLAY_LIMIT &&
+                                game.price === "0" &&
+                                user?.vip === false) || (game.machine_status === false)){
+
+                                }
+                                else{
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  }
+                                  );
+                                }
                             } else if (userId != null) {
-                              navigate(`/game/${game.slug}`, {
-                                state: {
-                                  game: game,
-                                  user: user,
-                                  cateogry: category,
-                                },
-                              });
+                              if((times >= configuration.FREE_PLAY_LIMIT &&
+                                game.price === "0" &&
+                                user?.vip === false) || (game.machine_status === false)){
+
+                                }
+                                else{
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  }
+                                  );
+                                }
                             } else if (user?.username === "") {
                               navigate("/login");
                             } else {
@@ -2424,7 +2521,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 <div className={style.popupTicket}>
                   <img src={Ticket} alt="" />
                 </div>
-                <p>{gameData.price === "0" ? "FREE" : gameData.price}</p>
+                {gameData && gameData.price === "0" ? (
+                              <p className={style.free}>FREE</p>
+                            ) : (
+                              <p className={style.Price}>{gameData.price}</p>
+                            )}
               </div>
             </div>
           </div>

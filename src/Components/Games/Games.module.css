@@ -143,7 +143,8 @@
   width: 85%;
   margin: 0.56rem auto;
   margin-bottom: 0;
-  height: 25%;
+  /* height: 25%; */
+  height: auto;
 }
 .Name {
   font-size: 1.75rem;
@@ -379,9 +380,12 @@
 
   -webkit-text-stroke: 1px #000;
 }
-.popupPlayNow p:last-child{
-  font-family: drumshake_italic;
-  font-size: 4.5rem;
+.popupPlayNow .Price{
+  font-family:bubbleGum;
+  font-size: 2.25rem;
+}
+.popupPlayNow .free{
+  font-weight: normal;
 }
 .popupTicket {
   width: 30%;
@@ -750,7 +754,8 @@
     margin-left: 0;
   }
   .Image {
-    height: 68%;
+    /* height: 68%; */
+    height: auto;
   }
   .MSearch {
     margin-left: 0.75rem;
@@ -825,13 +830,13 @@
   justify-content: center;
 }
 .Bonus p {
-  font-size: 5rem;
+  font-size: 3.5rem;
   font-family: bubbleGum;
   color: #fff;
   -webkit-text-stroke: 2px #000;
 }
 .BonusText {
-  margin: 0px 20px;
+  margin: 0px 10px;
 }
 .BonusText p {
   font-style: italic;
@@ -927,9 +932,9 @@
   }
 }
 @media (max-width: 768px) {
-  .Bonus {
+  /* .Bonus {
     width: 40%;
-  }
+  } */
 
   .Bonus p {
     text-align: end;
@@ -1147,11 +1152,11 @@
     position: fixed;
   }
   .Bonus p {
-    font-size: 5rem;
+    font-size: 3.5rem;
     text-align: end;
   }
   .BonusText p {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
   }
   .SubscribeButton button {
     font-size: 1.75rem;
@@ -1163,7 +1168,7 @@
 }
 @media (max-width: 712px) {
   .Bonus p {
-    font-size: 5rem;
+    font-size: 3.5rem;
     text-align: end;
   }
   .BonusText p {
@@ -1175,7 +1180,7 @@
 }
 @media (max-width: 599px) {
   .Bonus p {
-    font-size: 3rem;
+    font-size: 2.5rem;
     /* text-align: center; */
   }
   .BonusText {
@@ -1185,7 +1190,7 @@
     width: 30%;
   }
   .BonusText p {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
 }
 @media (max-width: 280px) {

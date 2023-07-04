@@ -621,3 +621,6 @@
 .wpclogo img, .MWPCLogo img {
     cursor: pointer;
 }
+.bandaiLogo img,.MbandaiLogo img{
+    cursor: pointer;
+}

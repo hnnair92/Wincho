@@ -25,7 +25,13 @@ import prizeMove from "../../assests/43 POP UP Full Squared.png";
 import prizeMoveUser from "../../assests/43 POP UP Full for Viewers Squared.png";
 import overlayImage from '../../assests/Asset 1.png'
 import { baseUrl } from "../url";
-
+import videoSrc from "../../assests/video/wincha.mp4";
+import PlayGameAudio from "../Audio/PlayAudio";
+import PlaySound from "../Audio/PlaySound";
+const isSafari = () => {
+  const ua = navigator.userAgent.toLowerCase();
+  return ua.indexOf("safari") > -1 && ua.indexOf("chrome") < 0;
+};
 const Description = ({
   gameMusic,
   setGameMusic,
@@ -43,6 +49,42 @@ const Description = ({
   console.log(localStorage);
   console.log(active, "active from description");
   const dispatch = useDispatch();
+  const videoParentRef = useRef();
+  const [shouldUseImage, setShouldUseImage] = useState(false);
+  useEffect(() => {
+    // check if user agent is safari and we have the ref to the container <div />
+    if (isSafari() && videoParentRef.current) {
+      // obtain reference to the video element
+      const player = videoParentRef.current.children[0];
+
+      // if the reference to video player has been obtained
+      if (player) {
+        // set the video attributes using javascript as per the
+        // webkit Policy
+        player.controls = false;
+        player.playsinline = true;
+        player.muted = true;
+        player.setAttribute("muted", ""); // leave no stones unturned :)
+        player.autoplay = true;
+
+        // Let's wait for an event loop tick and be async.
+        setTimeout(() => {
+          // player.play() might return a promise but it's not guaranteed crossbrowser.
+          const promise = player.play();
+          // let's play safe to ensure that if we do have a promise
+          if (promise.then) {
+            promise
+              .then(() => {})
+              .catch(() => {
+                // if promise fails, hide the video and fallback to <img> tag
+                videoParentRef.current.style.display = "none";
+                setShouldUseImage(true);
+              });
+          }
+        }, 0);
+      }
+    }
+  }, []);
   const location = useLocation();
   const navigate = useNavigate();
   const state = location.state;
@@ -69,7 +111,7 @@ const Description = ({
     // setIsUserFocus("FOCUS")
     
   };
-  
+  const[playAudio,setPlayAudio] = useState()
   let Animestate = JSON.parse(localStorage.getItem("state"))
   const audioRef = useRef(null);
   const audioRefHome = useRef(null);
@@ -592,23 +634,7 @@ useEffect(()=>{
   useEffect(() => {
     console.log(videoGot, "video got in description");
   }, [videoGot]);
-  useEffect(() => {
-    // localStorage.setItem("music",JSON.stringify(gameMusic))
-    // if(gameMusic === 1){
-    //   audioRefHome.current.volume = 1;
-    //   playAudioBg()
-    // console.log(gameMusic)
-    // console.log(audioRefHome.current.volume)
-    // console.log("unmute")
-    // }
-    // else{
-    //   audioRefHome.current.volume = 0;
-    // console.log(gameMusic)
-    // console.log(audioRefHome.current.volume)
-    // console.log("mute")
-    // }
-    // console.log(gameMusic)
-  }, [gameMusic]);
+
   useEffect(()=>{
     if(game&&game.prize_reset_status===false){
       setCurrentPrizeMove(false)
@@ -651,57 +677,9 @@ useEffect(()=>{
       },3000)
     }
   },[videoGot])
-  useEffect(() => {
-    console.log(gameMusic === 1, "gameSound");
-    console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === 1 || gameMusic === 1 ) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
-      console.log("true for gameMusic");
-      console.log(audioRefHome.current.volume);
-      playAudioBg();
-    } else {
-      audioRefHome.current.volume = 0;
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, [gameMusic]);
-  useEffect(() => {
-    console.log(gameSound === 1, "gameSound");
-    console.log(typeof gameSound, "gameMusic");
-    if (gameSound === 1 || gameMusic === 1) {
-      console.log(audioRef.current.volume);
-      audioRef.current.volume = 1;
-      console.log("true for gameMusic");
-      console.log(audioRef.current.volume);
-    } else {
-      audioRef.current.volume = 0;
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof setGameSound);
-  }, [gameSound]);
-  useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1 ) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    if (gameSound === 1 || gameMusic === 1) {
-      console.log(audioRef.current.volume);
-      audioRef.current.volume = 1;
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-    // console.log()
-  }, []);
+  
+  
+
   useEffect(()=>{
     // count % parseInt(configuration.GamePlayCount) === 0 &&
     //                 playAgain &&
@@ -742,21 +720,7 @@ useEffect(()=>{
     console.log(  freePlay >= configuration.FREE_PLAY_LIMIT &&
       GameData.price === "0")
   }, [freePlay,configuration]);
-  useEffect(() => {
-    console.log(musicStatus, "musicStatus from Desc");
-
-    playAudioBg();
-  }, []);
-  useEffect(() => {
-    console.log(typeof audioStatus, "audioStatus");
-    console.log(playAgain, "playAgain");
-
-    if (playAgain === false) {
-      console.log(audioStatus, "audioStatus from playagain");
-
-      // playAudio(music.Whoops);
-    }
-  }, [playAgain]);
+  
   const setPlayBack = () => {
     vidRef.current.playbackRate = 1.5;
   };
@@ -768,7 +732,7 @@ useEffect(()=>{
   // }, [freePlay,configuration]);
   useEffect(() => {
     if (reportIssueCategories === true && audioStatus === "true") {
-      playAudio(music.Chime);
+      setPlayAudio(music.Chime);
     }
   }, [reportIssueCategories]);
 
@@ -1060,52 +1024,14 @@ useEffect(()=>{
       </div>
     );
   }
-  console.log(audioStatus, "audioStatus");
+  
   // Extra Funcions
   const preventDragHandler = (e) => {
     e.preventDefault();
   };
-  async function audioEnded(src) {
-    if (musicStatus === "true") {
-      // audioRefHome.current.unmute()
-      audioRefHome.current.volume = 1;
-      audioRefHome.current.src = src;
-      audioRefHome.current.play();
-    } else {
-      audioRefHome.current.volume = 0;
-      // audioRefHome.current.mute()
-    }
-  }
-  async function playAudio(src) {
-    console.log(audioStatus, "audioStatus");
-    // audioRef.current.volume = 1
-    if (audioStatus === "true") {
-      console.log("reached here");
-      audioRef.current.volume = 1;
-      audioRef.current.src = src;
-      audioRef.current.play();
-      // console.log(audioRef.current.volume);
-    } else {
-      // audioRefHome.current.mute()
-      // console.log(audioStatus);
-      audioRef.current.volume = 0;
-    }
-  }
-  async function playAudioBg() {
-    console.log(musicStatus, "musicStatus");
-    // if(musicStatus==="true"){
-    console.log(audioRefHome.current.play(), "from its function");
-    // audioRefHome.current.volume=1;
-    audioRefHome.current.src = music.Game;
-    audioRefHome.current.play();
-    console.log(audioRefHome.current.volume, "from its function");
 
-    // }
-    // else{
-    //   audioRefHome.current.volume = 0;
+ 
 
-    // }
-  }
   const handlePlayVideo = () => {
     vidRef.current.play();
   };
@@ -1190,7 +1116,7 @@ useEffect(()=>{
     }, game.get_status_time);
   }
   async function timeOut(userId, timeout_status) {
-    playAudio(music.Whoops);
+    setPlayAudio(music.Whoops);
 
     socket.emit(`${baseMessage}|P_ENDED`);
     socket.emit(`${baseMessage}|G_DISCONNECTED`);
@@ -1280,7 +1206,7 @@ useEffect(()=>{
     console.log(EntryRequest)
     checkAnime();
     console.log(typeof GameData.price)
-    playAudio(music.Wincha);
+    setPlayAudio(music.Wincha);
     setDirection(game.movement.split("-"));
     e.preventDefault();
     socket.emit("peer_message", `${baseMessage}|G_CONNECTED`);
@@ -1616,7 +1542,7 @@ useEffect(()=>{
       });
   }
   async function addToCart() {
-    playAudio(music.Woohoo);
+    setPlayAudio(music.Woohoo);
     await fetch(`${baseUrl}/cart/add`, {
       method: "POST",
       body: JSON.stringify({
@@ -1699,7 +1625,7 @@ useEffect(()=>{
           }
           else{
             setCount(count + 1);
-            // playAudio(music.CoinDrop);
+            // setPlayAudio(music.CoinDrop);
             console.log(data)
             console.log(freePlay)
             console.log(configuration.FREE_PLAY_LIMIT)
@@ -1883,12 +1809,38 @@ useEffect(()=>{
   console.log(userJoined)
   console.log(gameStartStatus)
 },[userJoined,gameStartStatus])
+
+// useEffect(() => {
+// if (reportIssueCategories === true && audioStatus === "1"||reportIssueCategories === true && audioStatus === 1) {
+// setPlayAudio(music.Chime);
+// }
+// }, [reportIssueCategories]);
+
+// useEffect(() => {
+//   if (gameSound === 1||gameSound==="1") {
+//     audioRef.current.volume = 1;
+//   } else {
+//     audioRef.current.volume = 0;
+//   }
+// }, [gameSound]);
+
+
+// async function setPlayAudio(src) {
+//   if (audioStatus===1||audioStatus==="1") {
+//     audioRef.current.volume = 1;
+//     audioRef.current.src = src;
+//     audioRef.current.play();
+  
+//   } else {
+//     audioRef.current.volume = 0;
+//   }
+// }
   return (
     <div className={style.Container}>
-      <audio ref={audioRef}></audio>
-      <audio ref={audioRefHome} loop></audio>
-      {/* <audio ref={audioRefHome} onEnded={audioEnded(music.Game)}></audio> */}
-      
+    {playAudio?
+      <PlaySound src={playAudio} reportIssueCategories ={reportIssueCategories} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound}/>
+    :""}
+      <PlayGameAudio gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} />
       {prizeResetActive ? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
@@ -2170,19 +2122,25 @@ useEffect(()=>{
                 <p>Whoops! Video unavailable Please try again later.</p>
               </div>
             ) : (
-              // <ReactPlayer
-              // ref={videoRef2}
-              //   url={game.last_win_url}
-              //   width="100%"
-              //   height="500px"
-              //   playIcon={<button>Play</button>}
-              //   playing={true}
-              //   controls={true}
-              //   />\
-              <video autoPlay loop muted playsInline  ref={vidRef}  onCanPlay={() => setPlayBack()}>
-                <source src={game.last_win_url} type="video/mp4" />
-              </video>
-
+              <div
+              ref={videoParentRef}
+      dangerouslySetInnerHTML={{
+        __html: `
+        <video
+          loop
+          muted
+          autoplay
+          playsinline
+          preload="metadata"
+        >
+        <source src="${game.last_win_url}" type="video/mp4" />
+        <source src="${game.last_win_url}" type="video/MPEG-4" />
+        <source src="${game.last_win_url}" type="video/avc" />
+        </video>`
+      }}
+    ></div>
+             
+              
             )}
             {/* <video src=""></video> */}
             {/* light="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" */}
@@ -2490,7 +2448,7 @@ useEffect(()=>{
             <p>YOU MIGHT ALSO LIKE...</p>
           </div>
           <div className={style.AllGames}>
-            {products.length>0&&products.map((game,index) => {
+            {products.length>0&&products.filter((gameFilter)=>gameFilter.id!==GameData.id).map((gameDetails,index) => {
              
               const randomNumber = Math.random() * (products.length-0) + 0
                   console.log(randomNumber)
@@ -2517,11 +2475,11 @@ useEffect(()=>{
                       // }}
                     >
                       <div className={style.Image}>
-                        <img src={game.featured_image.large} alt="" />
+                        <img src={gameDetails.featured_image.large} alt="" />
                       </div>
                       <div className={style.GameContent}>
                         <div className={style.GameName}>
-                          <p>{game.title}</p>
+                          <p>{gameDetails.title}</p>
                         </div>
                         <div className={style.TicketPrice}>
                           <div
@@ -2534,7 +2492,7 @@ useEffect(()=>{
                           </div>
 
                           <div className={style.Price}>
-                            <p>{game.price === "0" ? "FREE" : game.price}</p>
+                            <p>{gameDetails.price === "0" ? "FREE" : gameDetails.price}</p>
                           </div>
                         </div>
                       </div>
@@ -3000,6 +2958,20 @@ useEffect(()=>{
                     </button>
                   </div>
                   <div className={style.PrizeReset}>
+                  <button
+                          onClick={() => {
+                            // setPlayAudio(music.Chime);
+
+                            setPrizeResetActive(true);
+                            setPlayAgain(false);
+                            setPrizeMoveIcon(true)
+                            setShowGrayPrizeIcon(true)
+                            setShowGrayIcon(true)
+                            // prizeReset()
+                          }}
+                        >
+                          <img src={assets.greenPrizeMove} alt="" />
+                        </button>
                     {/* {count %  === 0 &&/ */}
                     {count % parseInt(configuration.GamePlayCount) === 0 &&
                     playAgain &&
@@ -3007,7 +2979,7 @@ useEffect(()=>{
                       hideEverything===false? 
                         <button
                           onClick={() => {
-                            // playAudio(music.Chime);
+                            // setPlayAudio(music.Chime);
 
                             setPrizeResetActive(true);
                             setPlayAgain(false);
@@ -4912,7 +4884,7 @@ useEffect(()=>{
                                 if(prizeDate==="PRIZE_WON"){
                                   console.log(prizeCount)
                                   console.log(prizeDate)
-                                  playAudio(music.Woohoo)
+                                  setPlayAudio(music.Woohoo)
                                      addToCart();
                                     gameLeave();
                                     // socket.disconnect();
@@ -4924,7 +4896,7 @@ useEffect(()=>{
 
                                 }
                                 else{
-                                  playAudio(music.Whoops);
+                                  setPlayAudio(music.Whoops);
 
                             // setReloadStatus(false)
 
@@ -4976,9 +4948,9 @@ useEffect(()=>{
                           loop={false}
                           duration={20}
                           onLoad={() => {
-                            playAudio(music.Woohoo);
+                            setPlayAudio(music.Woohoo);
                           }}
-                          // pause={prizeResetActive}
+                          
                           onComplete={() => {
                             setReloadStatus(false)
                             localStorage.setItem("reload",false)
@@ -5012,14 +4984,14 @@ useEffect(()=>{
                   <div
                     className={style.Report}
                     style={{
-                      // pointerEvents:prizeId===userId&&prizeId!==userId||prizeId!==userId ? "none" : "visible",
-                      // pointerEvents:prizeId===userId&&prizeId!==userId||prizeId!==userId ? "none" : "visible",
+                     
                       pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId? "none" : "visible",
                     }}
                   >
                     <button
                       onClick={() => {
-                        playAudio(music.Chime);
+                        console.log("music clicked")
+                        setPlayAudio(music.Chime);
                         setReportIssueCategories(true);
                       }}
                     >

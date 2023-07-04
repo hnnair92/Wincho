@@ -407,13 +407,13 @@
   justify-content: center;
 }
 .Bonus p {
-  font-size: 5rem;
+  font-size: 3.5rem;
   font-family: bubbleGum;
   color: #fff;
   -webkit-text-stroke: 2px #000;
 }
 .BonusText {
-  margin: 0px 20px;
+  margin: 0px 10px;
 }
 .BonusText p {
   font-style: italic;
@@ -508,9 +508,9 @@
     width: 90%;
     transform: translate(-50%, -53%);
   }
-  .Bonus {
+  /* .Bonus {
     width: 30%;
-  }
+  } */
 
   .Bonus p {
     text-align: end;
@@ -600,7 +600,7 @@
     position: fixed;
   }
   .Bonus p {
-    font-size: 6rem;
+    font-size: 3.5rem;
   }
   .BonusText p {
     font-size: 2.5rem;
@@ -616,15 +616,15 @@
     } */
 }
 @media (max-width: 599px) {
-  .Bonus {
+  /* .Bonus {
     width: 30%;
-  }
+  } */
 
   .BonusText p {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
   }
   .Bonus p {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
   .BonusText {
     margin: 0px 10px;

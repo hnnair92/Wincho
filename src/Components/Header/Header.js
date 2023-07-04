@@ -23,6 +23,7 @@ import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
 import { socket } from "../../socket";
 import Cookie from "../Cookie/Cookie";
+import PlaySound from "../Audio/PlaySound";
 // import { useSelector } from 'react-redux'
 const Header = ({
   userJoined,
@@ -40,6 +41,7 @@ const Header = ({
   const dispatch = useDispatch();
   const [popup, setPopup] = useState(false);
   const [leave, setLeave] = useState(false);
+  const [playAudio, setPlayAudio] = useState("");
   const [exitPopup, setExitPopup] = useState(false);
   const [kickout, setKickout] = useState(false);
   const [setting, setSetting] = useState(false);
@@ -76,15 +78,7 @@ const Header = ({
     localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
   // let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
-  const audioRef = useRef(null);
-  const audioRefHome = useRef(null);
-  let audioStatus = localStorage.getItem("sound");
-  const [musicStatus, setMusicStatus] = useState(
-    localStorage.getItem("music")
-      ? localStorage.getItem("music")
-      : localStorage.setItem("music", JSON.stringify("false"))
-  );
-
+  
   async function getHistory() {
     await fetch(`${baseUrl}/cart/history`, {
       method: "POST",
@@ -104,120 +98,10 @@ const Header = ({
   useEffect(() => {
     getHistory();
   }, [urlState, dispatch, window, active]);
-  async function playAudioBg() {
-    console.log(musicStatus, "musicStatus");
 
-    // console.log(audioRefHome.current.play(), "from its function");
 
-    // audioRefHome.current.src = music.Menu;
-    // audioRefHome.current.play();
-    // console.log(audioRefHome.current.volume, "from its function");
-  }
-  useEffect(() => {
-    console.log(gameSound === 1, "gameSound");
-    console.log(typeof gameSound, "gameMusic");
-    if (gameSound === 1 || gameSound === 1) {
-      console.log(audioRef.current.volume);
-      audioRef.current.volume = 1;
-      console.log("true for gameMusic");
-      console.log(audioRef.current.volume);
-    } else {
-      audioRef.current.volume = 0;
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof setGameSound);
-  }, [gameSound,window]);
 
-  useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1) {
-      // console.log(audioRefHome.current.volume);
-      // audioRefHome.current.volume = 1;
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    if (gameSound === 1 || gameSound === 1) {
-      console.log(audioRef.current.volume);
-      audioRef.current.volume = 1;
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-    // console.log()
-  }, []);
-
-  useEffect(() => {
-    console.log(gameMusic === 1, "gameSound");
-    console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === 1 || gameMusic === 1) {
-      // console.log(audioRefHome.current.volume);
-      // audioRefHome.current.volume = 1;
-      console.log("true for gameMusic");
-      // console.log(audioRefHome.current.volume);
-      //   playAudioBg();
-    } else {
-      // audioRefHome.current.volume = 0;
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, [gameMusic]);
-  useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1) {
-      // console.log(audioRefHome.current.volume);
-      // audioRefHome.current.volume = 1;
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-
-    console.log(typeof gameMusic);
-    // console.log()
-  }, []);
-  async function playAudio(src) {
-    console.log(audioStatus, "audioStatus");
-    if (audioStatus === "true") {
-      console.log("reached here");
-      audioRef.current.volume = 1;
-      audioRef.current.src = src;
-      audioRef.current.play();
-    } else {
-      audioRef.current.volume = 0;
-    }
-  }
-
-  async function audioEnded(src) {
-    if (musicStatus === "true") {
-      // audioRefHome.current.unmute()
-      // audioRefHome.current.volume = 1;
-      // audioRefHome.current.src = src;
-      // audioRefHome.current.play();
-    } else {
-      // audioRefHome.current.volume = 0;
-      // audioRefHome.current.mute()
-    }
-  }
-
-  useEffect(() => {
-    console.log(active, "active from header");
-  }, [active]);
-  // useEffect(()=>{
-  //   dispatch(cartAction())
-  // },[])
-  useEffect(() => {
-    console.log(notification);
-    // if(notification){
-    // console.log(notification,"from useEffect")
-    // dispatch(updateProfile(userData.user));
-    // dispatch(cartAction());
-    // dispatch(notificationAction());
-    // }
-  }, [notification, user]);
+  
 
   const { cart } = useSelector((state) => state.cart);
   useEffect(() => {
@@ -277,12 +161,7 @@ const Header = ({
     }
   }
   const [toggle, setToggle] = useState(false);
-  useEffect(() => {
-    console.log(userId);
-  }, []);
-  useEffect(() => {
-    console.log(user);
-  });
+ 
   const handleTabClosing = async (event) => {
     // removePlayerFromGame()
     // console.log("exiting")\
@@ -394,10 +273,10 @@ const Header = ({
     // }, [active]);
     // useEffect(()=>{
     //   if(active===true&&setting===false){
-    //     playAudio(music.Pop)
+    //     setPlayAudio(music.Pop)
     //   }
     //   else if(active===true&&setting===true){
-    //     playAudio(music.Chime)
+    //     setPlayAudio(music.Chime)
 
     //   }
     //   console.log(setting)
@@ -417,13 +296,13 @@ const Header = ({
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
-                    playAudio(music.Click);
+                    setPlayAudio(music.Click);
                     setSetting(false);
                     setNotificationBubble(true);
                     setHistoryPopup(false);
                     setId(menu.id);
                     // eslint-disable-next-line no-lone-blocks
-                    // playAudio(music.Click);
+                    // setPlayAudio(music.Click);
 
                     checkGameOn();
                     setToggle(false);
@@ -433,7 +312,7 @@ const Header = ({
                     }
                     // }
                     setPageUrl(menu.url);
-                    playAudio(music.Click);
+                    setPlayAudio(music.Click);
 
                     checkGameOn();
                     setToggle(false);
@@ -709,7 +588,7 @@ const Header = ({
                     onClick={(e) => {
                       console.log(window.location.pathname.split("/")[1]);
 
-                      playAudio(music.Click);
+                      setPlayAudio(music.Click);
                       setSetting(false);
                       setNotificationBubble(true);
                       setIsAddress(false);
@@ -720,7 +599,7 @@ const Header = ({
                       }
                       // }
                       setPageUrl(MMenu.url);
-                      playAudio(music.Click);
+                      setPlayAudio(music.Click);
 
                       checkGameOn();
                       setToggle(false);
@@ -871,7 +750,7 @@ const Header = ({
                         console.log(user?.username);
                         // }
                         e.preventDefault();
-                        playAudio(music.Boing);
+                        setPlayAudio(music.Boing);
                         setSetting(false);
                         setNotificationBubble(true);
                         // if(gamePlay===true){
@@ -1158,10 +1037,9 @@ const Header = ({
                   style={{
                     margin:
                       (menu.Name === "Logout" && userId === null) ||
-                      (menu.Name === "Logout" && user?.username === "") ||
+                      (menu.Name === "Logout" && userId === undefined) ||
+                      (menu.Name === "Logout" && user&&user.username === "") ||
                       (menu.Name === "Login/Register" && userId !== null) ||
-                      (menu.Name === "Login/Register" &&
-                        user?.username === "") ||
                       (menu.Name === "Login/Register" && user === undefined)
                         ? "0px"
                         : "15px 0px",
@@ -1178,7 +1056,7 @@ const Header = ({
                       console.log(user?.username);
                     }
                     e.preventDefault();
-                    playAudio(music.Boing);
+                    setPlayAudio(music.Boing);
 
                     setSetting(false);
                     setNotificationBubble(true);
@@ -1450,7 +1328,10 @@ const Header = ({
       ) : (
         ""
       )}
-      <audio ref={audioRef}></audio>
+      {/* <audio ref={audioRef}></audio> */}
+      {playAudio?
+      <PlaySound setPlayAudio={setPlayAudio} src={playAudio} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound}/>
+    :""}
       <div
         className={style.MobileTopNav}
         style={{ pointerEvents: gamePlay ? "none" : "visible" }}
@@ -1503,7 +1384,9 @@ const Header = ({
           />
         </div>
         <div className={style.MBandaiLogo}>
-          <img src={bandaiLogo} alt="" />
+          <img src={bandaiLogo} alt=""  onClick={()=>{
+            window.open("www.bandainamco-am.co.uk")
+          }}/>
         </div>
         <div className={style.MCredits}>
           <div className={style.MTicket}>
@@ -1531,7 +1414,7 @@ const Header = ({
                     placeId[1] !== "game"
                   ) {
                     navigate("/tickets");
-                    playAudio(music.Click);
+                    setPlayAudio(music.Click);
                   }
                 }
               }}
@@ -1619,7 +1502,9 @@ const Header = ({
           </button>
         </div>
         <div className={style.bandaiLogo}>
-          <img src={bandaiLogo} alt="" />
+          <img src={bandaiLogo} alt="" onClick={()=>{
+            window.open("www.bandainamco-am.co.uk")
+          }}/>
         </div>
         <div className={style.Menu}>
           <ul style={{ pointerEvents: gamePlay === true ? "none" : "visible" }}>
@@ -1629,7 +1514,7 @@ const Header = ({
                 <div
                   className={style.MenuSection}
                   onClick={(e) => {
-                    playAudio(music.Click);
+                    setPlayAudio(music.Click);
                     // console.log(music)
                     setSetting(false);
                     setNotificationBubble(true);

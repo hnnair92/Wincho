@@ -28,57 +28,10 @@ import { updateProfile } from "../../actions/user";
 import { FaChevronDown } from "react-icons/fa";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
+import PlayAudio from "../Audio/PlayAudio";
 const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
-  const [musicStatus, setMusicStatus] = useState(
-    localStorage.getItem("music")
-      ? localStorage.getItem("music")
-      : localStorage.setItem("music", JSON.stringify(false))
-  );
-  const audioRefHome = useRef(null);
   const token = JSON.parse(localStorage.getItem("token"));
-  useEffect(() => {
-    console.log(gameMusic === 1, "gameSound");
-    console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === 1 || gameMusic === 1) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
-      console.log("true for gameMusic");
-      console.log(audioRefHome.current.volume);
-      playAudioBg();
-    } else {
-      audioRefHome.current.volume = 0;
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, [gameMusic]);
-  useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
-      playAudioBg();
-    } else {
-      console.log(typeof gameMusic);
-      console.log("not reached");
-    }
-    console.log(typeof gameMusic);
-  }, []);
-  async function audioEnded(src) {
-    if (musicStatus === "true") {
-      audioRefHome.current.volume = 1;
-      audioRefHome.current.src = src;
-      audioRefHome.current.play();
-    } else {
-      audioRefHome.current.volume = 0;
-    }
-  }
-  async function playAudioBg() {
-    console.log(musicStatus, "musicStatus");
-    console.log(audioRefHome.current.play(), "from its function");
-    audioRefHome.current.src = music.Menu;
-    audioRefHome.current.play();
-    console.log(audioRefHome.current.volume, "from its function");
-  }
+  
   const dispatch = useDispatch();
   const [cartData, setCartData] = useState([]);
   const [premiumPopup, setPremiumPopup] = useState(false);
@@ -134,7 +87,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const setPlayBack = () => {
     vidRef.current.playbackRate = 1.5;
   };
-  console.log(user)
+  console.log(userId)
   console.log(user&&user.username!=="")
   const videoRef = useRef(null);
   const [errors, setError] = useState("");
@@ -522,7 +475,8 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   }
   return (
     <div className={style.Container}>
-      <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
+      {/* <audio ref={audioRefHome} onEnded={audioEnded} loop></audio> */}
+      <PlayAudio gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} />
       {premiumPopup ? (
         <div className={style.clubHousePopup}>
           <div
@@ -1114,7 +1068,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             })
           )}
         </div>
-        {userId!==undefined||userId!==null||user&&user.username!=="" ? 
+        {userId!==undefined||userId!==null||user&&user.username!=="" ||cartData.length<0? 
         <div className={style.BottomCart}>
           {eGifting?(
             ""

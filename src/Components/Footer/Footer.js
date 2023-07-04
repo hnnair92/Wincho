@@ -283,7 +283,9 @@ const Footer = ({
               <div className={style.FirstContent}>
               <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
               <div className={style.bandaiLogo}>
-                    <img src={bandaiLogo} alt="" />
+                    <img src={bandaiLogo} onClick={()=>{
+                      window.open("http://www.bandainamco-am.co.uk/")
+                    }} alt="" />
                 </div>
               </div>
                
@@ -370,7 +372,10 @@ const Footer = ({
                 </div>
                 <div className={style.Mlogos}>
                 <div className={style.MbandaiLogo}>
-                    <img src={bandaiLogo} alt="" />
+                    <img src={bandaiLogo}onClick={()=>{
+                      window.open("http://www.bandainamco-am.co.uk/")
+                    }}
+                     alt="" />
                 </div>
                 <div className={style.MWPCLogo}>
                     <img src={wpclogo} alt=""  onClick={()=>{
