@@ -12,7 +12,16 @@ import { FaChevronDown } from "react-icons/fa";
 import info from "../../assests/Information Icon.png";
 import { configutation } from "../../actions/product";
 import { baseUrl } from "../url";
-import { ExpansionPanel, ExpansionList, DatePicker } from "react-md";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { ExpansionPanel, ExpansionList, DatePicker } from "react-md";
+// import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+// import dayjs from 'dayjs';
+// import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 const Register = () => {
   const [errors, setError] = useState("");
   const [checkError, setCheckError] = useState(false);
@@ -329,6 +338,18 @@ const Register = () => {
               console.log(e.target.value);
             }}
           /> */}
+           <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+           <DatePicker
+   label="Helper text example"
+   slotProps={{
+     textField: {
+       helperText: 'MM/DD/YYYY',
+     },
+   }}
+ />
+
+           </LocalizationProvider>
           {/* <input
             type="date"
             required
@@ -343,7 +364,7 @@ const Register = () => {
               console.log(e.target.value);
             }}
           /> */}
-          <input type="date"
+          {/* <input type="date"
             
             name=""
             
@@ -354,7 +375,8 @@ const Register = () => {
 
               handleDate(e);
               console.log(e.target.value);
-            }} />
+            }} /> */}
+            {/* <MobileDatePicker defaultValue={dayjs('2022-04-17')} /> */}
           {/* <DatePicker id="date-picker-1" label="Date 1" /> */}
           {location?.countryCode === "US" ? (
             <>

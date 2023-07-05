@@ -1937,7 +1937,7 @@ useEffect(()=>{
                 gameLeave()
                 navigate("/login")
                 // window.location.reload()
-              }}>REGISTER</button>
+              }}>OK</button>
             {/* </Link> */}
           </div>
         </div>
@@ -3010,14 +3010,14 @@ useEffect(()=>{
                 {/* <span>{GameData&&GameData.price}</span> */}
                 <div className={style.Center}>
                   <div className={style.PlayImage}>
-                    <div className={style.GameScore}>
-                      <img src={assets.GamePricePng} alt="" />
                       {GameData&&GameData.price==="0"?""
                       :
+                    <div className={style.GameScore}>
+                      <img src={assets.GamePricePng} alt="" />
                       <span>{GameData&&GameData.price}</span>
                       
-                      }
                     </div>
+                      }
                     {/* <div className={style.BgStaticImaage}>
                       <img src={waitStatic} alt="" />
                     </div> */}

@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
+  /* align-items: center; */
   min-height: 100vh;
   max-width: 1600px;
 }
@@ -222,7 +222,7 @@ button {
 
 .ExtraGames {
   width: 25%;
-  margin: 7% 0;
+  margin: 5% 0;
 }
 
 .LeftSide,
@@ -723,6 +723,7 @@ border-radius: 30px;
     margin: 0 auto;
     height: auto;
     margin-top: 5%;
+    align-items: center;
   }
 
   .Section {
@@ -1640,6 +1641,12 @@ border-radius: 30px;
     padding-top: 5px;
     margin-top: 5rem;
   }
+  .ExtraGames{
+    width: 90%;
+  }
+  .AllGames {
+    width: 99%;
+  }
 }
 @media (max-width: 599px) {
   .LoaderAnime {
@@ -1681,6 +1688,12 @@ border-radius: 30px;
   }
   .Controls {
     width: 100%;
+  }
+  .ExtraGames{
+    width: 100%;
+  }
+  .AllGames {
+    width: 96%;
   }
 }
 .BgStaticImaage{

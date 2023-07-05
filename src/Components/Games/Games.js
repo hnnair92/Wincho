@@ -2488,7 +2488,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 {/* <p>{gameData.content.length > 10 ? gameData.content.substring(0, 125) + "..." : gameData.content}</p> */}
                 <p>{gameData.content}</p>
               </div>
-              <div
+              {times >= configuration.FREE_PLAY_LIMIT &&
+                              gameData.price === "0" &&
+                              user.vip === false  || gameData.machine_status === false?
+                              <div  style={{ filter: "grayScale(1)" }}
                 className={style.popupPlayNow}
                 onClick={() => {
                   if (
@@ -2510,9 +2513,16 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                     console.log("not verified,not logined");
                   }
                   else {
-                    navigate(`/game/${gameData.slug}`, {
-                      state: { game: gameData, user: user, cateogry: category },
-                    });
+                    if(times >= configuration.FREE_PLAY_LIMIT &&
+                      gameData.price === "0" &&
+                      user.vip === false  || gameData.machine_status === false){
+
+                      }
+                      else{
+                        navigate(`/game/${gameData.slug}`, {
+                          state: { game: gameData, user: user, cateogry: category },
+                        });
+                      }
                   }
                 }}
               >
@@ -2527,6 +2537,55 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                               <p className={style.Price}>{gameData.price}</p>
                             )}
               </div>
+                              :
+                              <div  style={{ filter: "grayScale(0)" }}
+                className={style.popupPlayNow}
+                onClick={() => {
+                  if (
+                    user &&
+                    user.profile_status === false &&
+                    user.username !== "" &&
+                    gameData.price !== "0"
+                  ) {
+                    setPopup(false);
+                    setResendEmail(true);
+                  } 
+                  else if (
+                    user &&
+                    user.profile_status === false &&
+                    gameData.price !== "0"
+                  ) {
+                    // setResendEmail(true);
+                    navigate("/login");
+                    console.log("not verified,not logined");
+                  }
+                  else {
+                    if(times >= configuration.FREE_PLAY_LIMIT &&
+                      gameData.price === "0" &&
+                      user.vip === false  || gameData.machine_status === false){
+
+                      }
+                      else{
+                        navigate(`/game/${gameData.slug}`, {
+                          state: { game: gameData, user: user, cateogry: category },
+                        });
+                      }
+                    
+                  }
+                }}
+              >
+                {/* <button></button> */}
+                <p>PLAY</p>
+                <div className={style.popupTicket}>
+                  <img src={Ticket} alt="" />
+                </div>
+                {gameData && gameData.price === "0" ? (
+                              <p className={style.free}>FREE</p>
+                            ) : (
+                              <p className={style.Price}>{gameData.price}</p>
+                            )}
+              </div>}
+              
             </div>
           </div>
         </div>
