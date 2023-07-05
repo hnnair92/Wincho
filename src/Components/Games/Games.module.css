@@ -1,9 +1,9 @@
 .Container {
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   /* min-height: 100vh; */
   overflow: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   margin-left: auto;
   margin-right: auto;
   background-color: #ff8100;
@@ -209,7 +209,8 @@
 }
 .Image {
   width: 100%;
-  height: 75%;
+  /* height: 75%; */
+  height: auto;
   /* height: 50%; */
 }
 .Image img {
@@ -1204,7 +1205,7 @@
     font-size: 2rem;
   }
 }
-@media (max-width: 1065) and (min-width: 765px) {
+@media (max-width: 1065px) and (min-width: 765px) {
   .CategoriesSection.TabCategory {
     margin-left: 25%;
   }
@@ -1247,4 +1248,20 @@
 @media screen and (max-device-width: 1200px) and (orientation: landscape) {
 }
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) {
+}
+@media (max-width: 1065px) and (min-width: 1026px) {
+  .AllCategories{
+    margin-left: 0%;
+  }
+  .MSearch{
+    margin-left: 0;
+  }
+}
+@media (max-width: 1065px) and (min-width: 1057px) {
+  .AllCategories{
+    margin-left: 10%;
+  }
+  .MSearch{
+    margin-left: 0;
+  }
 }

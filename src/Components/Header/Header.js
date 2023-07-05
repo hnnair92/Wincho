@@ -1338,6 +1338,7 @@ const Header = ({
       >
         <div
           className={style.MLogo}
+          style={{zIndex:setting===true&&"0"}}
           // onClick={(e) => {
           //     //  setActive(true)
           //      // }
