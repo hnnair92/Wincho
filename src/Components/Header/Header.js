@@ -722,18 +722,30 @@ const Header = ({
               {/* {isUser? */}
               <ul>
                 {settingsMenu.map((menu) => {
+                  console.log(menu.Name === "Logout" && userId === null)
+              {/* console.log("hello") */}
+              console.log('====================================');
+              console.log(userId);
+              console.log(user&&user.username);
+              console.log(user&&user.username.length);
+              console.log('====================================');
+              console.log(menu.Name === "Logout" && userId === undefined)
+              console.log(menu.Name === "Logout" && user&&user.username.length===0) 
+              console.log(menu.Name === "Login/Register" && userId !== null) 
+              console.log(menu.Name === "Login/Register" && userId !== undefined)
+              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0)
                   return (
                     <div
                       className={style.MenuSection}
                       // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Logout"&&user?.username!==""||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
                       style={{
                         margin:
-                          (menu.Name === "Logout" && userId === null) ||
-                          (menu.Name === "Logout" && user?.username === "") ||
-                          (menu.Name === "Login/Register" && userId !== null) ||
-                          (menu.Name === "Login/Register" &&
-                            user?.username === "") ||
-                          (menu.Name === "Login/Register" && user === undefined)
+                        (menu.Name === "Logout" && userId !== null) ||
+                      (menu.Name === "Logout" && userId !== undefined) ||
+                      (menu.Name === "Logout" &&user&&user.username.length!==0) ||
+                      (menu.Name === "Login/Register" && userId === null) ||
+                      (menu.Name === "Login/Register" && userId === undefined)||
+                      (menu.Name === "Login/Register"&&user&&user.username.length===0)
                             ? "0px"
                             : "12px 0px",
                         pointerEvents:
@@ -1031,6 +1043,19 @@ const Header = ({
           {/* <div className={style.Settings}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
           <ul>
             {settingsMenu.map((menu) => {
+              console.log(menu.Name === "Logout" && userId === null)
+              {/* console.log("hello") */}
+              console.log('====================================');
+              console.log(userId);
+              console.log(user&&user.username);
+              console.log(user&&user.username.length);
+              console.log('====================================');
+              console.log(menu.Name === "Logout" && userId === undefined)
+              console.log(menu.Name === "Logout" && user&&user.username.length===0) 
+              console.log(menu.Name === "Login/Register" && userId !== null) 
+              console.log(menu.Name === "Login/Register" && userId !== undefined)
+              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0)
+              
               return (
                 <div
                   className={style.MenuSection}
@@ -1040,7 +1065,8 @@ const Header = ({
                       (menu.Name === "Logout" && userId === undefined) ||
                       (menu.Name === "Logout" && user&&user.username === "") ||
                       (menu.Name === "Login/Register" && userId !== null) ||
-                      (menu.Name === "Login/Register" && user === undefined)
+                      (menu.Name === "Login/Register" && userId !== undefined)||
+                      (menu.Name === "Login/Register"&&user.username!=="")
                         ? "0px"
                         : "15px 0px",
                     pointerEvents:

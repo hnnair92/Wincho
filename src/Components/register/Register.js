@@ -45,11 +45,17 @@ const Register = () => {
   const [state, setState] = useState("Select a State");
   const [allState, setAllState] = useState([]);
   const [selectState, setSelectState] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState(false);
   const dispatch = useDispatch();
   const userId = localStorage.getItem("user");
   useEffect(() => {
     dispatch(configutation());
   }, [dispatch]);
+  useEffect(() => {
+    if(password.length<=0){
+      setPasswordCheck(false)
+    }
+  }, [password]);
   const fetchLocation = async () => {
     await fetch(`https://pro.ip-api.com/json/?key=cHngsdONXseEb0x`)
       .then((res) => res.json())
@@ -340,8 +346,24 @@ const Register = () => {
           /> */}
            <LocalizationProvider dateAdapter={AdapterDayjs}>
 
-           <DatePicker
-   label="Helper text example"
+           <DatePicker sx={{
+            height: "7.5rem",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "Poppins",
+            width: "100%",
+            fontSize: "3rem",
+            padding: "0rem 2.26rem",
+            /* padding: 1.13rem 2.26rem; */
+            textAlign: "left",
+            borderRadius: "1.13rem",
+            margin: "1.13rem 0",
+            border: "0.25rem solid #606060",
+            textAlign: "center",
+           }}
+   label="MM/DD/YYYY"
    slotProps={{
      textField: {
        helperText: 'MM/DD/YYYY',
@@ -475,25 +497,25 @@ const Register = () => {
               />
             )}
           </div>
-          {password.length < 8 && password !== "" ? (
+          {passwordCheck===true?password.length < 8 && password !== "" ? (
             <p className={style.AgeRestrict}>
-              Password Should be More than 8 Letter
+              Password does not match criteria
             </p>
           ) : password && password.length > 15 && password !== "" ? (
             <p className={style.AgeRestrict}>
-              Password Should be Less than 15 Letters
+              Password does not match criteria
             </p>
           ) : /\d/.test(password) === false && password !== "" ? (
             <p className={style.AgeRestrict}>
-              Password Should Contain a Number
+              Password does not match criteria
             </p>
           ) : /[A-Z]/.test(password) === false && password !== "" ? (
             <p className={style.AgeRestrict}>
-              Password Should Contain a UpperCase
+              Password does not match criteria
             </p>
           ) : (
             ""
-          )}
+          ):""}
           {/* {password.length<8&&password.length>15?<p>Enter Password More than 8 Words</p>:""} */}
           {/* {new String(password).length<8&&new String(password).length>15?<p>Enter Password More than 8 Words</p>:""} */}
           <div className={style.password}>
@@ -502,6 +524,9 @@ const Register = () => {
               required
               placeholder="REPEAT PASSWORD"
               className={style.input}
+              onClick={(e) => {
+                setPasswordCheck(true)
+              }}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
               }}
