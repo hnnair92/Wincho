@@ -284,7 +284,13 @@ const Footer = ({
               <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
               <div className={style.bandaiLogo}>
                     <img src={bandaiLogo} onClick={()=>{
-                      window.open("http://www.bandainamco-am.co.uk/")
+                      setPageUrl("bandai")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        }
+                        else{
+                            window.open("http://www.bandainamco-am.co.uk/")
+                        }
                     }} alt="" />
                 </div>
               </div>
@@ -324,7 +330,13 @@ const Footer = ({
                 </div> */}
                 <div className={style.wpclogo}>
                     <img src={wpclogo} alt="" onClick={()=>{
-                      window.open("http://www.weplaycreative.com/")
+                      setPageUrl("weplay")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        }
+                        else{
+                         window.open("http://www.weplaycreative.com/")
+                        }
                     }} />
                 </div>
                 </div>
@@ -373,13 +385,26 @@ const Footer = ({
                 <div className={style.Mlogos}>
                 <div className={style.MbandaiLogo}>
                     <img src={bandaiLogo}onClick={()=>{
-                      window.open("http://www.bandainamco-am.co.uk/")
+                      setPageUrl("bandai")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        }
+                        else{
+                            window.open("http://www.bandainamco-am.co.uk/")
+                        }
                     }}
                      alt="" />
                 </div>
                 <div className={style.MWPCLogo}>
                     <img src={wpclogo} alt=""  onClick={()=>{
-                      window.open("http://www.weplaycreative.com/")
+                       setPageUrl("weplay")
+                       if(splitPath[1]==="game"){
+                         setActive(true)
+                         }
+                         else{
+                          window.open("http://www.weplaycreative.com/")
+                         }
+                     
                     }}/>
                 </div>
                 </div>

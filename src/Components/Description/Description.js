@@ -2347,7 +2347,16 @@ useEffect(()=>{
                 // navigate(`/game/${transferGame.slug}`, {
                 //   state: { game: transferGame,category:transferGame.category},
                 // });
-                navigate(`/${pageUrl}`)
+                if(pageUrl==="bandai"){
+                  window.open("http://www.bandainamco-am.co.uk/")
+                }
+                else if(pageUrl==="weplay"){
+                  window.open("http://www.weplaycreative.com/")
+                }
+                else{
+                  navigate(`/${pageUrl}`)
+                }
+               
                 // window.location.reload();
                 // window.location.reload()
               }}

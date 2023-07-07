@@ -478,6 +478,12 @@
 .Price {
   margin: 0 5px;
 }
+@media (max-width: 820px){
+  .PriceDiv {
+    width: 85%;
+  }
+  
+}
 @media (max-width: 767px) {
   .Container {
     min-height: 100vh;

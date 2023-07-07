@@ -359,7 +359,6 @@ transform: scale(1.1); */
   text-align: center;
   color: #fff;
   font-weight: 300;
- 
 }
 .popupButton {
   display: flex;
@@ -386,7 +385,7 @@ transform: scale(1.1); */
   justify-content: center;
 }
 .ReportPopupButton button {
-  margin: 1.5rem ;
+  margin: 1.5rem;
   padding: 1.25rem;
   width: 35%;
   background-color: transparent;
@@ -740,13 +739,41 @@ transform: scale(1.1); */
     align-items: center;
   }
   .MobileMenu .HamBurgerMenu .Settings {
-    /* width: 100%; */
-    height: fit-content;
-    padding-bottom: 45%;
-    top: 0;
+    display: flex;
+    height: 100vh;
+    overflow-y: scroll;
+    width: 100%;
     border-radius: 0;
-    /* position: relative; */
-    border-top-left-radius: 30px;
+    top: 100%;
+    transform: translateY(-100%);
+    padding: 5rem;
+  }
+  .Settings ul {
+    padding: 15rem 0;
+  }
+  .MenuSection {
+    padding: 5px 0;
+    flex-direction: row-reverse;
+  }
+  .Music,
+  .Sound {
+    flex-direction: row-reverse;
+  }
+  .MenuSection .NormalUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 3rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 4rem;
+  }
+  .Settings ul li {
+    font-size: 3rem;
+  }
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 4rem;
+    margin-top: 15%;
   }
   .Settings .closeIcon {
     position: absolute;
@@ -826,7 +853,7 @@ transform: scale(1.1); */
     width: 26%;
     height: 5rem;
   }
-  .MBandaiLogo{
+  .MBandaiLogo {
     margin-top: 2px;
   }
 }
@@ -1023,7 +1050,7 @@ transform: scale(1.1); */
 }
 .addressPopup .popupSection .ReportPopupButton button {
   width: fit-content;
-  margin:1rem 2rem;
+  margin: 1rem 2rem;
   padding: 1rem 3rem;
   background-color: transparent;
   border: 1.75px solid #fff;
@@ -1547,7 +1574,7 @@ transform: scale(1.1); */
   .popupText p {
     font-weight: 500;
   }
-  .ReportPopupButton button{
+  .ReportPopupButton button {
     font-weight: 500;
   }
   .BottomMenuIcon:nth-child(3) {
@@ -1854,6 +1881,25 @@ transform: scale(1.1); */
   .MenuSection {
     padding: 0px 0;
   }
+  .HomeMenuIcons {
+    height: 8rem;
+  }
+  .BottomMenuIcon {
+    width: 5.5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .BottomMenuIcon:nth-child(3) {
+    width: 5.5%;
+    margin-top: 1rem;
+  }
+  .BottomMenuIcon:nth-child(4) {
+    width: 8%;
+  }
+  .HomeMenuIcons svg {
+    font-size: 6rem;
+  }
 }
 @media screen and (min-device-width: 800px) and (max-device-width: 1000px) {
   .CartHistory {
@@ -1881,7 +1927,7 @@ transform: scale(1.1); */
 }
 
 @media (max-width: 1065px) and (min-width: 700px) {
-  .Slider{
+  .Slider {
     width: 15%;
   }
 }
