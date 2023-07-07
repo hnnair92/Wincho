@@ -643,6 +643,9 @@ input:-webkit-autofill:active {
     padding: 12px 0;
     font-size: 2.25rem;
   }
+  .passwordInput::-webkit-input-placeholder {
+    font-weight: 500;
+  }
 }
 @media (max-width: 765px) {
   .popup {

@@ -2278,7 +2278,7 @@ useEffect(()=>{
             <img src={assets.winchaPopup} alt="" />
           </div>
           <div className={style.popupText}>
-            <p>Are you sure you want to leave this game?2</p>
+            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2497,7 +2497,23 @@ useEffect(()=>{
                               setPopup(true);
                             }}
                           >
-                            <img src={assets.ticketIcon} alt="" />
+                           {(freePlay >= configuration.FREE_PLAY_LIMIT &&
+                              gameDetails.price === "0" &&
+                              user.vip === false)  || (gameDetails.machine_status === false)? (
+                                <img
+                                  src={assets.ticketIcon}
+                                  alt=""
+                                  className={style.icon}
+                                  style={{ filter: "grayScale(1)" }}
+                                />
+                              ) : (
+                                <img
+                                  src={assets.ticketIcon}
+                                  alt=""
+                                  className={style.icon}
+                                  style={{ filter: "grayScale(0)" }}
+                                />
+                              )}
                           </div>
 
                           <div className={style.Price}>

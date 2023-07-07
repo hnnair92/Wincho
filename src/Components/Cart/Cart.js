@@ -1238,7 +1238,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 <img src={assets.winchaPopup} alt="" />
               </div>
               <div className={style.phnpopupText}>
-                <p>Please enter valid phonenumber </p>
+                <p>Invalid Phone Number </p>
               </div>
               <div className={style.popupbutton}>
                 <button
@@ -1260,7 +1260,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 <img src={assets.winchaPopup} alt="" />
               </div>
               <div className={style.popupText}>
-                <p>Postal code not matching</p>
+                <p>Code does not exists</p>
               </div>
               <div className={style.popupbutton}>
                 <button
