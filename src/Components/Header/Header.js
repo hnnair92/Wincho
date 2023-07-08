@@ -105,10 +105,13 @@ const Header = ({
 
   const { cart } = useSelector((state) => state.cart);
   useEffect(() => {
+  if(userId){
     dispatch(updateProfile(userData.user));
     dispatch(cartAction());
     dispatch(notificationAction());
-  }, [dispatch, window, active]);
+
+  }
+  }, [dispatch, window, active,userId]);
   useEffect(() => {
     console.log(gamePlay, "gamePlay status");
     console.log(active, "active status");
@@ -724,7 +727,7 @@ const Header = ({
                 {settingsMenu.map((menu) => {
                   console.log(menu.Name === "Logout" && userId === null)
               {/* console.log("hello") */}
-              console.log('====================================');
+              {/* console.log('====================================');
               console.log(userId);
               console.log(user&&user.username);
               console.log(user&&user.username.length);
@@ -733,7 +736,7 @@ const Header = ({
               console.log(menu.Name === "Logout" && user&&user.username.length===0) 
               console.log(menu.Name === "Login/Register" && userId !== null) 
               console.log(menu.Name === "Login/Register" && userId !== undefined)
-              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0)
+              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0) */}
                   return (
                     <div
                       className={style.MenuSection}
@@ -1043,9 +1046,9 @@ const Header = ({
           {/* <div className={style.Settings}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
           <ul>
             {settingsMenu.map((menu) => {
-              console.log(menu.Name === "Logout" && userId === null)
+              {/* console.log(menu.Name === "Logout" && userId === null) */}
               {/* console.log("hello") */}
-              console.log('====================================');
+              {/* console.log('====================================');
               console.log(userId);
               console.log(user&&user.username);
               console.log(user&&user.username.length);
@@ -1054,7 +1057,7 @@ const Header = ({
               console.log(menu.Name === "Logout" && user&&user.username.length===0) 
               console.log(menu.Name === "Login/Register" && userId !== null) 
               console.log(menu.Name === "Login/Register" && userId !== undefined)
-              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0)
+              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0) */}
               
               return (
                 <div
@@ -1387,13 +1390,13 @@ const Header = ({
               console.log(active);
               e.preventDefault();
               //
-              setPageUrl("/");
+              setPageUrl("");
               {
                 if (placeId[1] === "game") {
                   setActive(true);
                 }
                 // }
-                setPageUrl("/");
+                setPageUrl("");
                 // if(gamePlay===true){
                 if (placeId[1] === "game") {
                   setActive(true);
@@ -1412,7 +1415,7 @@ const Header = ({
         </div>
         <div className={style.MBandaiLogo}>
           <img src={bandaiLogo} alt=""  onClick={()=>{
-            window.open("www.bandainamco-am.co.uk")
+            window.open("http://www.bandainamco-am.co.uk/")
           }}/>
         </div>
         <div className={style.MCredits}>
@@ -1504,13 +1507,13 @@ const Header = ({
                 console.log(active);
                 e.preventDefault();
                 //
-                setPageUrl("/");
+                setPageUrl("");
                 {
                   if (placeId[1] === "game") {
                     setActive(true);
                   }
                   // }
-                  setPageUrl("/");
+                  setPageUrl("");
                   // if(gamePlay===true){
                   if (placeId[1] === "game") {
                     setActive(true);
@@ -1530,7 +1533,7 @@ const Header = ({
         </div>
         <div className={style.bandaiLogo}>
           <img src={bandaiLogo} alt="" onClick={()=>{
-            window.open("www.bandainamco-am.co.uk")
+            window.open("http://www.bandainamco-am.co.uk/")
           }}/>
         </div>
         <div className={style.Menu}>

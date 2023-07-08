@@ -184,6 +184,7 @@ import {
         type: NOTIFICATION_REQUEST,
       });
       const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
+      console.log(userId)
       await fetch(`${baseUrl}/user/notifications/get`, {
         method: "POST",
         body: JSON.stringify({

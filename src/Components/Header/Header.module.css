@@ -555,6 +555,7 @@ transform: scale(1.1); */
     top: 0%;
     left: 7.5%;
     transform: translate(-25%, 60%);
+    transform: translate(-25%, 60%);
     z-index: 10000000;
   }
   .MLogo img {
@@ -1181,6 +1182,22 @@ transform: scale(1.1); */
     font-size: 2.75rem;
     margin-top: 0;
   }
+  .MenuSection .NormalUrl {
+    font-size: 2.25rem;
+  }
+  .MenuSection .ActiveUrl {
+    font-size: 2.25rem;
+  }
+  .MenuSection .NormalUrl:hover {
+    font-size: 2rem;
+  }
+  .Settings ul li {
+    font-size: 2.25rem;
+  }
+  .MobileMenu .HamBurgerMenu svg {
+    font-size: 2.75rem;
+    margin-top: 0;
+  }
   .MenuSection {
     padding: 0px 0;
     flex-direction: row-reverse;
@@ -1381,7 +1398,7 @@ transform: scale(1.1); */
     position: absolute;
     top: 0%;
     left: 7.5%;
-    transform: translate(-25%, 65%);
+    transform: translate(-25%, 50%);
     z-index: 0;
   }
 }
@@ -1441,6 +1458,7 @@ transform: scale(1.1); */
   .MobileMenu .HamBurgerMenu svg {
     font-size: 5rem;
     margin-top: 0;
+    margin-top: 0;
   }
 
   /* .Settings ul {
@@ -1452,12 +1470,12 @@ transform: scale(1.1); */
 }
 @media (max-width: 712px) {
   .MLogo {
-    width: 9%;
+    width: 8.5%;
     height: 100%;
     position: absolute;
     top: 0%;
     left: 7.5%;
-    transform: translate(-25%, 55%);
+    transform: translate(-25%, 60%);
   }
   .notificationBadge {
     top: 1px;
@@ -1735,6 +1753,14 @@ transform: scale(1.1); */
     font-size: 5rem;
     margin-top: 0;
   }
+  .BottomMenuIcon .CartBadge {
+    width: 30px;
+    height: 30px;
+    font-size: 2rem;
+    margin-left: 16rem;
+    padding: auto;
+    margin-bottom: 8rem;
+  }
 }
 @media screen and (min-device-width: 1024px) {
   .MobileMenu .HamBurgerMenu .Settings {
@@ -1888,6 +1914,7 @@ transform: scale(1.1); */
   }
   .MobileMenu .HamBurgerMenu svg {
     font-size: 3rem;
+    margin-top: 8%;
   }
   .MenuSection .NormalUrl {
     font-size: 2rem;
@@ -1902,7 +1929,7 @@ transform: scale(1.1); */
     font-size: 2rem;
   }
   .Settings ul {
-    padding: 10rem 0;
+    padding: 15rem 0;
   }
   .MenuSection {
     padding: 0px 0;
@@ -1925,6 +1952,14 @@ transform: scale(1.1); */
   }
   .HomeMenuIcons svg {
     font-size: 6rem;
+  }
+  .BottomMenuIcon .CartBadge {
+    width: 30px;
+    height: 30px;
+    font-size: 2rem;
+    margin-left: 10rem;
+    padding: auto;
+    margin-bottom: 5rem;
   }
 }
 @media screen and (min-device-width: 800px) and (max-device-width: 1000px) {

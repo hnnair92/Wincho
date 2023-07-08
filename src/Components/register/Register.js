@@ -12,7 +12,7 @@ import { FaChevronDown } from "react-icons/fa";
 import info from "../../assests/Information Icon.png";
 import { configutation } from "../../actions/product";
 import { baseUrl } from "../url";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { ExpansionPanel, ExpansionList, DatePicker } from "react-md";
@@ -41,6 +41,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [usernameExist, setUsernameExist] = useState("");
   const [eligible, setEligible] = useState(true);
+  const [showCalender, setShowCalender] = useState(true);
   const [date, setDate] = useState("");
   const [state, setState] = useState("Select a State");
   const [allState, setAllState] = useState([]);
@@ -184,10 +185,10 @@ const Register = () => {
   };
   let dateArray = [];
   const handleDate = (e) => {
-    const selDate = e.target.value;
-    dateArray = selDate.split("-");
-    const CurYear = new Date().getFullYear();
-    console.log(dateArray);
+    // const selDate = e.target.value;
+    // dateArray = selDate.split("-");
+    // const CurYear = new Date().getFullYear();
+    // console.log(dateArray);
     // popup()
     // if (dateArray[0] <= CurYear - 12) {
     //   setCheckError(false);
@@ -198,8 +199,11 @@ const Register = () => {
     //   setEligible(false);
     // }
     // setDate("")
-    setDate(`${dateArray[2]}/${dateArray[1]}/${dateArray[0]}`);
+    setDate(`${e.$D}/${e.$M}/${e.$y}`);
   };
+  useEffect(()=>{
+    console.log(date)
+  },[date])
   console.log(window.innerWidth*0.8)
   const popup = (error) => {
     return (
@@ -244,6 +248,24 @@ const Register = () => {
   const [passIcon, setPassIcon] = useState(false);
   return (
     <div className={style.Container}>
+      {showCalender?
+           <div className={style.ShowCalender}>
+            <div className={style.ShowCalenderOverlay} onClick={()=>{
+              setShowCalender(false)
+            }}>
+
+            </div>
+            <div className={style.CalenderContent}>
+              <LocalizationProvider dateAdapter={AdapterDayjs} >
+          <DateCalendar onChange={(e)=>{
+                handleDate(e)
+                setShowCalender(false)
+              }}/>
+        </LocalizationProvider>
+
+            </div>
+           </div>
+    :""}
       {checkError ? (
         <div className={style.Popup}>
           <div className={style.Contents}>
@@ -332,19 +354,19 @@ const Register = () => {
           )}
           <label htmlFor="">Date of Birth (Optional)</label>
 
-          {/* <input
-            type="date"
-            placeholder="DOB"
+          <input
+            type="text"
+            placeholder="DD/MM/YYYY"
             required
             name=""
+            value={date&&date}
             id=""
-            className={date ? style.DataInput : style.hideDate}
-            onChange={(e) => {
-              handleDate(e);
-              console.log(e.target.value);
+            className={style.input}
+            onClick={()=>{
+              setShowCalender(true)
             }}
-          /> */}
-           <LocalizationProvider dateAdapter={AdapterDayjs}>
+          />
+           {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
 
            <DatePicker sx={{
             height: "7.5rem",
@@ -356,7 +378,6 @@ const Register = () => {
             width: "100%",
             fontSize: "3rem",
             padding: "0rem 2.26rem",
-            /* padding: 1.13rem 2.26rem; */
             textAlign: "left",
             borderRadius: "1.13rem",
             margin: "1.13rem 0",
@@ -371,7 +392,8 @@ const Register = () => {
    }}
  />
 
-           </LocalizationProvider>
+           </LocalizationProvider> */}
+           
           {/* <input
             type="date"
             required

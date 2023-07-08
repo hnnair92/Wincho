@@ -264,7 +264,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       amount: parseFloat(ticketItem.token_amount).toFixed(2) * 100,
       quantity: 1,
       success_url: `${window.location.origin}/prizes`,
-      cancel_url: `${window.location.origin}/payment/cancel/?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${window.location.origin}/tickets/?session_id={CHECKOUT_SESSION_ID}`,
       // "currency": 'inr',
       currency: configuration.CURRENCY_CODE,
       product: ticketItem.token_point,

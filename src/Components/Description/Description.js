@@ -1128,13 +1128,13 @@ useEffect(()=>{
     setTimeout(async () => {
       await gameLeave(userId, timeout_status);
       setTimeoutStatus(false);
-      setKickOut(true)
+      // setKickOut(true)
       setVideoGot(false)
       setPlayAgain(false)
       setGamePlayStatus(false)
       setGamePlay(false)
       setUserJoined(false)
-      // window.location.reload()
+      window.location.reload()
       // EntryRequest.replay = true;
       // dispatch(gameEntry(EntryRequest));
       // navigate("/prizes",{state:{category:sendCategory}})
@@ -2279,6 +2279,7 @@ useEffect(()=>{
           </div>
           <div className={style.popupText}>
             <p>Are you sure you want to leave this game?</p>
+            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2474,8 +2475,16 @@ useEffect(()=>{
                       className={style.Game}
                       style={{ pointerEvents: gamePlay===true||currentPrizeMove===true&&prizeId===userId ? "none" : "visible" }}
                       onClick={() => {
-                        setLeavePopup(true);
-                        setTransferGame(game);
+                        if((freePlay >= configuration.FREE_PLAY_LIMIT &&
+                          gameDetails.price === "0" &&
+                          user.vip === false)  || (gameDetails.machine_status === false)){
+
+                          }
+                          else{
+                            setLeavePopup(true);
+                            setTransferGame(game);
+                          }
+                       
                       }}
 
                       // style={{

@@ -26,6 +26,7 @@ const Notification = ({ gameMusic,
 //   const[notification,setNotification] = useState({})
   const navigate = useNavigate()
     async function notificationGet(){
+        console.log(userId)
         await fetch(`${baseUrl}/user/notifications/get`,{
             method:"POST",
             body:JSON.stringify({
@@ -39,7 +40,7 @@ const Notification = ({ gameMusic,
             setNotificationData(data.data[0])
             setLoading(false)
             console.log(data)
-            console.log(notificationData.notifications.length)
+            // console.log(notificationData.notifications.length)
             // setProduct(data.data[0].notifications.[])
         })
     }
@@ -62,8 +63,9 @@ const Notification = ({ gameMusic,
         })
     }
     useEffect(()=>{
+        if(userId)
         notificationGet()
-    },[])
+    },[userId])
   return (
     <div className={style.Container}>
     {/* <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
@@ -74,7 +76,7 @@ const Notification = ({ gameMusic,
             <div className={style.Head}>
                 <p>NOTIFICATIONS</p>
             </div>
-            {loading===false?notification?.notification_count>0&&notificationData?.notifications.length>0?notificationData?.notifications.map((notificationItem)=>{
+            {loading===false?notificationData&&notificationData.notifications.length>0&&notificationData.notifications.map((notificationItem)=>{
                 {/* console.log(notification.product[0]) */}
                 return(
                     <div className={style.Notification} onClick={()=>{
@@ -108,7 +110,11 @@ const Notification = ({ gameMusic,
                         </div>
                     </div>
                 )
-            }):<p className={style.EmptyCart}>No Notifications</p>:
+            }):<p className={style.EmptyCart}>No Notifications</p>
+            }
+            {loading===false?
+            ""
+            :
             <div className={style.LoaderDiv}>
             <div className={style.LoaderAnime}>
               <Lottie animationData={AllAnimation.Loader} />
