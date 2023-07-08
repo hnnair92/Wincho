@@ -164,13 +164,13 @@ function App() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
               
             </Helmet> */}
-      <DeviceOrientation lockOrientation={"landscape"} >
+      {/* <DeviceOrientation lockOrientation={"landscape"} >
         <Orientation orientation="landscape" alwaysRender={false}>
           <div className="landscapeMode">
             <p>Please rotate your device</p>
           </div>
         </Orientation>
-        <Orientation orientation="portrait" alwaysRender={false}>
+        <Orientation orientation="portrait" alwaysRender={false}> */}
           <Router>
             <ScrollToTop />
             <Header
@@ -356,8 +356,8 @@ function App() {
               gamePlay={gamePlay}
             />
           </Router>
-        </Orientation>
-      </DeviceOrientation>
+        {/* </Orientation>
+      </DeviceOrientation> */}
 
       {/* <Games/> */}
     </div>
