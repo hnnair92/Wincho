@@ -1499,7 +1499,7 @@ transform: scale(1.1); */
     font-size: 1.75rem;
   }
   .CartHistory {
-    width: 50%;
+    width: 60%;
     transform: translate(-50%, -50%);
     overflow: hidden;
     height: 51rem;
@@ -1627,7 +1627,6 @@ transform: scale(1.1); */
     overflow: hidden;
     height: 51rem;
   }
- 
 }
 @media (max-width: 554px) {
   .MLogo {
@@ -1990,5 +1989,25 @@ transform: scale(1.1); */
 @media (max-width: 1065px) and (min-width: 700px) {
   .Slider {
     width: 15%;
+  }
+}
+@media screen and (min-device-width: 800px) and (max-device-width: 1000px) and (orientation: landscape) {
+  .CartHistory {
+    height: 76vh;
+    transform: translate(-50%, -55%);
+    width: 33%;
+  }
+  .CartProduct {
+    height: 30vh;
+    width: 15rem;
+  }
+  .CartImage {
+    height: 10rem;
+  }
+  .CartImage img {
+    object-fit: contain;
+  }
+  .CartContent {
+    font-size: 1.5rem;
   }
 }

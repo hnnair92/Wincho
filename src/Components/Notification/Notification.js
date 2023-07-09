@@ -76,7 +76,7 @@ const Notification = ({ gameMusic,
             <div className={style.Head}>
                 <p>NOTIFICATIONS</p>
             </div>
-            {loading===false?notificationData&&notificationData.notifications.length>0&&notificationData.notifications.map((notificationItem)=>{
+            {loading===false?(notificationData&&notificationData.notifications.length>0&&notificationData.notification_count>0?notificationData.notifications.map((notificationItem)=>{
                 {/* console.log(notification.product[0]) */}
                 return(
                     <div className={style.Notification} onClick={()=>{
@@ -110,17 +110,18 @@ const Notification = ({ gameMusic,
                         </div>
                     </div>
                 )
-            }):<p className={style.EmptyCart}>No Notifications</p>
-            }
-            {loading===false?
-            ""
-            :
+            }):<p className={style.EmptyCart}>No Notifications</p>):
             <div className={style.LoaderDiv}>
             <div className={style.LoaderAnime}>
               <Lottie animationData={AllAnimation.Loader} />
             </div>
             </div>
             }
+            {/* {loading===false?
+            ""
+            :
+            
+            } */}
         </div>
     </div>
   )

@@ -2279,7 +2279,6 @@ useEffect(()=>{
           </div>
           <div className={style.popupText}>
             <p>Are you sure you want to leave this game?</p>
-            <p>Are you sure you want to leave this game?</p>
           </div>
           <div className={style.ExitpopupButton}>
             {/* <Link
@@ -2292,8 +2291,8 @@ useEffect(()=>{
               onClick={() => {
                 console.log(transferGame);
                 setLeavePopup(false);
-                gameLeave(userId,false);
                 // socket.disconnect();
+                gameLeave(userId,false);
                 navigate(`/game/${transferGame.slug}`, {
                   state: { game: transferGame,category:transferGame.category},
                 });
@@ -2482,7 +2481,7 @@ useEffect(()=>{
                           }
                           else{
                             setLeavePopup(true);
-                            setTransferGame(game);
+                            setTransferGame(gameDetails);
                           }
                        
                       }}
@@ -3013,14 +3012,12 @@ useEffect(()=>{
                       hideEverything===false? 
                         <button
                           onClick={() => {
-                            // setPlayAudio(music.Chime);
-
                             setPrizeResetActive(true);
                             setPlayAgain(false);
                             setPrizeMoveIcon(true)
                             setShowGrayPrizeIcon(true)
                             setShowGrayIcon(true)
-                            // prizeReset()
+                            
                           }}
                         >
                           <img src={assets.greenPrizeMove} alt="" />
@@ -3052,9 +3049,9 @@ useEffect(()=>{
                       
                     </div>
                       }
-                    {/* <div className={style.BgStaticImaage}>
+                    <div className={style.BgStaticImaage}>
                       <img src={waitStatic} alt="" />
-                    </div> */}
+                    </div>
                     {gamePlayStatus ? (
                       que === "0" ? (
                         wait === true ? (

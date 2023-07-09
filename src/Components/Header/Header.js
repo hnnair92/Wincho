@@ -913,13 +913,13 @@ const Header = ({
                           <li>Music</li>
                           <div
                             className={
-                              gameMusic === 1 || gameMusic === 1
+                              gameMusic === 1 || gameMusic === "1"
                                 ? style.ActiveSlider
                                 : style.Slider
                             }
                             onClick={() => {
                               setMusicId(menu.id);
-                              gameMusic === 1
+                              gameMusic === 1|| gameMusic === "1"
                                 ? setGameMusic(0)
                                 : setGameMusic(1);
                               // sliderSction
@@ -944,7 +944,7 @@ const Header = ({
                           >
                             <div
                               className={
-                                gameMusic === 1 || gameMusic === 1
+                                gameMusic === 1 || gameMusic === "1"
                                   ? style.ActiveSliderBtn
                                   : style.SliderBtn
                               }
@@ -991,7 +991,7 @@ const Header = ({
                           >
                             <div
                               className={
-                                gameSound === 1 || gameSound === 1
+                                gameSound === 1 || gameSound === "1"
                                   ? style.ActiveSliderBtn
                                   : style.SliderBtn
                               }
@@ -1267,7 +1267,7 @@ const Header = ({
                       >
                         <div
                           className={
-                            gameMusic === 1 || gameMusic === 1
+                            gameMusic === 1 || gameMusic === "1"
                               ? style.ActiveSliderBtn
                               : style.SliderBtn
                           }
@@ -1282,13 +1282,13 @@ const Header = ({
                       <li>Sound</li>
                       <div
                         className={
-                          gameSound === 1 || gameSound === 1
+                          gameSound === 1 || gameSound ===" 1"
                             ? style.ActiveSlider
                             : style.Slider
                         }
                         onClick={() => {
                           setAudioId(menu.id);
-                          gameSound === 1
+                          gameSound === 1 || gameSound ===" 1"
                             ? setGameSound(0)
                             : setGameSound(1);
                           // sliderSction
@@ -1314,7 +1314,7 @@ const Header = ({
                       >
                         <div
                           className={
-                            gameSound === 1 || gameSound === 1
+                            gameSound === 1 || gameSound === "1"
                               ? style.ActiveSliderBtn
                               : style.SliderBtn
                           }

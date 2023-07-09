@@ -327,9 +327,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         window.location.assign(`${data.data[0].url}`);
       });
   }
-  // async function getData(){
-  //   fetch("https://api.stripe.com/v1/checkout/sessions/cs_test_a1Med9ooCbQKaLK8ifXMZCxfwkT3WYWdBzWs25kNQF1GiJDssMY9v7vFou")
-  // }
+
   async function resendEmailApi() {
     setLoading(true);
     await fetch(`${baseUrl}/user/verification/resend`, {

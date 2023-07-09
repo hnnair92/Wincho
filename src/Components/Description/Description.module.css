@@ -1252,7 +1252,10 @@ border-radius: 30px;
   right: 0;
   left: 0;
   bottom: 0;
-  background: linear-gradient( 180deg, rgba(27, 143, 231, 1) 0%, rgba(19, 192, 236, 1) 50%, rgba(29, 134, 226, 1) 100% );
+  background: linear-gradient( 180deg,
+   rgba(27, 143, 231, 1) 0%,
+    rgba(19, 192, 236, 1) 62%,
+     rgba(0, 151, 231, 1) 100% );
   z-index: 999999;
   display: flex;
   flex-direction: row;
