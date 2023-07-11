@@ -1,20 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
 import style from './Notification.module.css';
 import NotificationDatas from '../../Api/Notification';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { AllAnimation } from '../../Animation/allAnimation';
 import Lottie from 'lottie-react';
 import { music } from '../../assests/Musics/allMusic';
 import { baseUrl } from "../url";
 import PlayAudio from '../Audio/PlayAudio';
+import { notificationAction } from '../../actions/user';
 const Notification = ({ gameMusic,
     setGameMusic,
     gameSound,
     setGameSound,}) => {
        
   const token = JSON.parse(localStorage.getItem("token"))
-
+    const dispatch = useDispatch()
  
   
   const{user} = useSelector((state)=>state.profile)
@@ -40,6 +41,8 @@ const Notification = ({ gameMusic,
             setNotificationData(data.data[0])
             setLoading(false)
             console.log(data)
+            dispatch(notificationAction())
+
             // console.log(notificationData.notifications.length)
             // setProduct(data.data[0].notifications.[])
         })
@@ -59,7 +62,7 @@ const Notification = ({ gameMusic,
         }).then(res=>res.json()).then((data)=>{
             console.log(data)
             notificationGet()
-
+            dispatch(notificationAction())
         })
     }
     useEffect(()=>{
@@ -88,25 +91,25 @@ const Notification = ({ gameMusic,
                     }}>
                         <div className={style.Content}>
                             <div className={style.Title}>
-                                <p>{notificationItem.title}</p>
+                                <p>{notificationItem&&notificationItem.title}</p>
                             </div>
                             <div className={style.Description}>
-                                <p>{notificationItem.content}</p>
+                                <p>{notificationItem&&notificationItem.content==="undefined"?"":notificationItem&&notificationItem.content}</p>
                             </div>
                             {notificationItem.button===true?
                             <div className={style.playBtn}>
                                 <button onClick={()=>{
-                                     if(notificationItem.button===true){
+                                     if(notificationItem&&notificationItem.button===true){
                                     // setNotification(notification)
                                     removeNavigation(notificationItem)
-                                    navigate(`/game/${notificationItem.product[0].id}`,{state:{game:notificationItem.product[0]}})
+                                    navigate(`/game/${notificationItem&&notificationItem.product[0].slug}`,{state:{game:notificationItem&&notificationItem.product[0]}})
                                      }
                                 }}>PLAY NOW</button>
                             </div>
                             :""}
                         </div>
                         <div className={style.Image}>
-                            <img src={notificationItem.notification_image} alt="" />
+                            <img src={notificationItem&&notificationItem.notification_image} alt="" />
                         </div>
                     </div>
                 )

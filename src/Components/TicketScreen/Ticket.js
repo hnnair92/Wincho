@@ -503,7 +503,12 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             <img src={Banner} alt="" />
             <button
               onClick={() => {
-                setPremiumPopup(true);
+                if(user && user.username === ""||user.username === undefined){
+                  navigate("/login");
+                }
+                else{
+                  setPremiumPopup(true);
+                }
               }}
             >
               {configuration.CURRENCY_SYMBOL}{configuration.VIP_SUBSCRIPTION} /{" "}

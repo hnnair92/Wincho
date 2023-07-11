@@ -860,18 +860,20 @@ useEffect(()=>{
   // const [addNumArray,setAddNumArray] = useState([1])
   let addNumArray = [1]
   useEffect(()=>{
+    console.log(state)
+    // console.log(state&&state.cateogry)
     const fetchData = {
       // category_id:state.category,
       // user_id:userId,
       // countryCode:user.countryCode
-      category_id: state&&state.cateogry,
-    country_code: configuration.COUNTRY_NAME,
+      category_id: state&&state.category,
+    country_code: configuration&&configuration.COUNTRY_NAME,
     user_id: userId,
     }
     dispatch(getProductByCollection(fetchData))
     console.log(fetchData);
     // dispatch(getAllGames())
-  },[dispatch,state])
+  },[dispatch,state,configuration])
   useEffect(()=>{
     let getNum = 1;
     if(products){
@@ -2536,7 +2538,7 @@ useEffect(()=>{
             })}
           </div>
         </div>
-        <div className={style.GameScreen}>
+        <div className={style.GameScreen} >
         {howToPlayStatus?
                        <div className={style.howToPlay}>
                         <div className={style.HowToPlayOverlay} onClick={()=>{
@@ -2564,7 +2566,7 @@ useEffect(()=>{
           ) : (
             ""
           )}
-          <div className={style.Screen}>
+          <div className={style.Screen} style={{opacity:videoGot===false?"0":"1"}}>
             <div className={style.AllGameSectin}>
               <div className={style.Icons}>
                 <div className={style.queStatus}>
@@ -2991,7 +2993,7 @@ useEffect(()=>{
                     </button>
                   </div>
                   <div className={style.PrizeReset}>
-                  <button
+                  {/* <button
                           onClick={() => {
                             // setPlayAudio(music.Chime);
 
@@ -3004,7 +3006,7 @@ useEffect(()=>{
                           }}
                         >
                           <img src={assets.greenPrizeMove} alt="" />
-                        </button>
+                        </button> */}
                     {/* {count %  === 0 &&/ */}
                     {count % parseInt(configuration.GamePlayCount) === 0 &&
                     playAgain &&
@@ -3049,9 +3051,9 @@ useEffect(()=>{
                       
                     </div>
                       }
-                    <div className={style.BgStaticImaage}>
+                    {/* <div className={style.BgStaticImaage}>
                       <img src={waitStatic} alt="" />
-                    </div>
+                    </div> */}
                     {gamePlayStatus ? (
                       que === "0" ? (
                         wait === true ? (

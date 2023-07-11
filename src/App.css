@@ -84,3 +84,31 @@ li{
   color: #000;
 
 }
+.PotraitOrientation{
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-device-width: 1024px){
+  .PotraitOrientation{
+    flex-direction: Column;
+  }
+  .LandscapeOrientation{
+    display: none;
+  }
+}
+@media screen and (max-device-width: 1024px) and (orientation: portrait) {
+  .PotraitOrientation{
+    display: flex;
+  }
+  .LandscapeOrientation{
+    display: none;
+  }
+}
+@media screen and (max-device-width: 1024px) and (orientation: landscape) {
+  .PotraitOrientation{
+    display: none;
+  }
+  .LandscapeOrientation{
+    display: flex;
+  }
+}

@@ -160,202 +160,208 @@ function App() {
 
       // touch-action="none"
     >
+    <div className="LandscapeOrientation">
+    <div className="landscapeMode">
+      <p>Please rotate your device</p>
+    </div>
+
+    </div>
+    <div className="PotraitOrientation">
+      <Router>
+        <ScrollToTop />
+        <Header
+          userJoined={userJoined}
+          setUserJoined={setUserJoined}
+          setPageUrl={setPageUrl}
+          pageUrl={pageUrl}
+          gameMusic={gameMusic}
+          setGameMusic={setGameMusic}
+          gameSound={gameSound}
+          setGameSound={setGameSound}
+          setActive={setActive}
+          active={active}
+          setGamePlay={setGamePlay}
+          gamePlay={gamePlay}
+        />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/prizes/"
+            element={
+              <Games
+                userJoined={userJoined}
+                setUserJoined={setUserJoined}
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          <Route
+            path="/game/:id"
+            element={
+              <Description
+                userJoined={userJoined}
+                setUserJoined={setUserJoined}
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          {/* <Route path="/:category" element={<Games/>}/> */}
+          {/* <Route path="/load" element={<Loader/>}/> */}
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/tickets"
+            element={
+              <Ticket
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          <Route
+            path="/faq"
+            element={
+              <Faq
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          <Route path="/order-confirmed" element={<OrderConfirmed />} />
+          <Route
+            path="/notifications"
+            element={
+              <Notification
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          {/* <Route path="/Demo" element={<Demo />} /> */}
+          <Route
+            path="/win-screen"
+            element={
+              <WinScreen
+                setPageUrl={setPageUrl}
+                pageUrl={pageUrl}
+                gameMusic={gameMusic}
+                setGameMusic={setGameMusic}
+                gameSound={gameSound}
+                setGameSound={setGameSound}
+                setActive={setActive}
+                active={active}
+                setGamePlay={setGamePlay}
+                gamePlay={gamePlay}
+              />
+            }
+          />
+          <Route path="/payment/success" element={<Success />} />
+          {/* <Route path="/payment/cancel" element={<Ticket />} /> */}
+          <Route path="/test" element={<Test />} />
+          <Route path="/new/cookie" element={<Cookie />} />
+          {/* <Route path="/socket" element={<Socket/>}/> */}
+        </Routes>
+        <Footer
+          userJoined={userJoined}
+          setUserJoined={setUserJoined}
+          setPageUrl={setPageUrl}
+          pageUrl={pageUrl}
+          gameMusic={gameMusic}
+          setGameMusic={setGameMusic}
+          gameSound={gameSound}
+          setGameSound={setGameSound}
+          setActive={setActive}
+          active={active}
+          setGamePlay={setGamePlay}
+          gamePlay={gamePlay}
+        />
+      </Router>
+
+    </div>
       {/* <Helmet>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
               
             </Helmet> */}
       {/* <DeviceOrientation lockOrientation={"landscape"} >
         <Orientation orientation="landscape" alwaysRender={false}>
-          <div className="landscapeMode">
-            <p>Please rotate your device</p>
-          </div>
         </Orientation>
         <Orientation orientation="portrait" alwaysRender={false}> */}
-          <Router>
-            <ScrollToTop />
-            <Header
-              userJoined={userJoined}
-              setUserJoined={setUserJoined}
-              setPageUrl={setPageUrl}
-              pageUrl={pageUrl}
-              gameMusic={gameMusic}
-              setGameMusic={setGameMusic}
-              gameSound={gameSound}
-              setGameSound={setGameSound}
-              setActive={setActive}
-              active={active}
-              setGamePlay={setGamePlay}
-              gamePlay={gamePlay}
-            />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="/prizes/"
-                element={
-                  <Games
-                    userJoined={userJoined}
-                    setUserJoined={setUserJoined}
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              <Route
-                path="/game/:id"
-                element={
-                  <Description
-                    userJoined={userJoined}
-                    setUserJoined={setUserJoined}
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              {/* <Route path="/:category" element={<Games/>}/> */}
-              {/* <Route path="/load" element={<Loader/>}/> */}
-              <Route path="/register" element={<Register />} />
-              <Route
-                path="/cart"
-                element={
-                  <Cart
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/tickets"
-                element={
-                  <Ticket
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <Profile
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              <Route
-                path="/faq"
-                element={
-                  <Faq
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              <Route path="/order-confirmed" element={<OrderConfirmed />} />
-              <Route
-                path="/notifications"
-                element={
-                  <Notification
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              {/* <Route path="/Demo" element={<Demo />} /> */}
-              <Route
-                path="/win-screen"
-                element={
-                  <WinScreen
-                    setPageUrl={setPageUrl}
-                    pageUrl={pageUrl}
-                    gameMusic={gameMusic}
-                    setGameMusic={setGameMusic}
-                    gameSound={gameSound}
-                    setGameSound={setGameSound}
-                    setActive={setActive}
-                    active={active}
-                    setGamePlay={setGamePlay}
-                    gamePlay={gamePlay}
-                  />
-                }
-              />
-              <Route path="/payment/success" element={<Success />} />
-              {/* <Route path="/payment/cancel" element={<Ticket />} /> */}
-              <Route path="/test" element={<Test />} />
-              <Route path="/new/cookie" element={<Cookie />} />
-              {/* <Route path="/socket" element={<Socket/>}/> */}
-            </Routes>
-            <Footer
-              userJoined={userJoined}
-              setUserJoined={setUserJoined}
-              setPageUrl={setPageUrl}
-              pageUrl={pageUrl}
-              gameMusic={gameMusic}
-              setGameMusic={setGameMusic}
-              gameSound={gameSound}
-              setGameSound={setGameSound}
-              setActive={setActive}
-              active={active}
-              setGamePlay={setGamePlay}
-              gamePlay={gamePlay}
-            />
-          </Router>
         {/* </Orientation>
       </DeviceOrientation> */}
 

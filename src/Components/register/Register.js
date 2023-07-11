@@ -41,7 +41,7 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [usernameExist, setUsernameExist] = useState("");
   const [eligible, setEligible] = useState(true);
-  const [showCalender, setShowCalender] = useState(true);
+  const [showCalender, setShowCalender] = useState(false);
   const [date, setDate] = useState("");
   const [state, setState] = useState("Select a State");
   const [allState, setAllState] = useState([]);
@@ -185,6 +185,10 @@ const Register = () => {
   };
   let dateArray = [];
   const handleDate = (e) => {
+    const date = e.$D.toString().length>1?e.$D:`0${e.$D.toString()}`
+    const month = e.$M.toString().length>1?e.$M:`0${e.$M.toString()}`
+    console.log(date);
+    
     // const selDate = e.target.value;
     // dateArray = selDate.split("-");
     // const CurYear = new Date().getFullYear();
@@ -199,7 +203,7 @@ const Register = () => {
     //   setEligible(false);
     // }
     // setDate("")
-    setDate(`${e.$D}/${e.$M}/${e.$y}`);
+    setDate(`${date}/${month}/${e.$y}`);
   };
   useEffect(()=>{
     console.log(date)
@@ -259,6 +263,7 @@ const Register = () => {
               <LocalizationProvider dateAdapter={AdapterDayjs} >
           <DateCalendar onChange={(e)=>{
                 handleDate(e)
+                console.log(e)
                 setShowCalender(false)
               }}/>
         </LocalizationProvider>
@@ -357,7 +362,6 @@ const Register = () => {
           <input
             type="text"
             placeholder="DD/MM/YYYY"
-            required
             name=""
             value={date&&date}
             id=""

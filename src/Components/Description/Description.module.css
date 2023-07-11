@@ -728,6 +728,7 @@ border-radius: 30px;
 
   .Section {
     flex-direction: column-reverse;
+    width: 100%;
   }
 
   .ExtraGames,
@@ -1252,10 +1253,11 @@ border-radius: 30px;
   right: 0;
   left: 0;
   bottom: 0;
-  background: linear-gradient( 180deg,
+  /* background: linear-gradient( 180deg,
    rgba(27, 143, 231, 1) 0%,
     rgba(19, 192, 236, 1) 62%,
-     rgba(0, 151, 231, 1) 100% );
+     rgba(0, 151, 231, 1) 100% ); */
+     background: transparent;
   z-index: 999999;
   display: flex;
   flex-direction: row;
@@ -1364,6 +1366,7 @@ border-radius: 30px;
 }
 @media (max-width: 1065px) {
   .videoStarting {
+    background: linear-gradient( 180deg, rgba(27, 143, 231, 1) 0%, rgba(19, 192, 236, 1) 62%, rgba(0, 151, 231, 1) 100% );
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -1716,6 +1719,7 @@ border-radius: 30px;
 }
 .BgStaticImaage img{
   width: 100%;
+  height: 100%;
 }
 /* .PlayImage{
   -webkit-user-select: none;

@@ -92,7 +92,7 @@ export const gameEntry=(data)=>async(dispatch)=>{
                     "access-token":`${token}`
             }
         }).then(res=>res.json()).then((data)=>{
-            // console.log(data);
+            console.log(data);
             dispatch({
                 type:GAME_ENTRY_SUCCESS,
                 payload:data.data[0]
@@ -104,6 +104,7 @@ export const gameEntry=(data)=>async(dispatch)=>{
             type:GAME_ENTRY_FAILED,
             payload:error
         })
+        console.log(error);
     }
 }
 export const configutation =()=>async(dispatch)=>{

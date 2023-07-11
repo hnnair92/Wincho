@@ -1261,7 +1261,15 @@ const Profile = ({ gameMusic,
                   <div className={style.InputSection}>
                     <input type="text" value={subscription} readOnly />
                     {user&&user.vip===false||userId===null?<img src={shippingInfo} alt="" onClick={()=>{
-                      setPremiumPopup(true)
+                      if(user && user.username === ""||user.username === undefined){
+                        navigate("/login");
+                      }
+                      else if(user && user.profile_status === false){
+                        setResendEmail(true)
+                      }
+                      else{
+                        setPremiumPopup(true);
+                      }
                     }}/>:""
                    
                   }

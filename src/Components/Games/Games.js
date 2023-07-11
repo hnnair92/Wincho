@@ -453,7 +453,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
 
   async function checkFreePlay() {
     const userBody = {
-      user: user&&user.username===""?"":userId,
+      // user: user&&user.username===""?"":userId,
+      user: user&&user.userId===""?"":userId,
       device_id: user&&user.username===""?JSON.parse(localStorage.getItem("deviceId")):"",
     };
     await fetch(`${baseUrl}/game/freeplay/limit`, {
@@ -469,7 +470,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log(data);
         console.log(userBody);
         // changeFreePlayDaily()
-        if(times===undefined||times===null){
+        if(times===undefined||times===null||times===0){
           localStorage.setItem(
             "times",
             JSON.stringify(data.data[0].freeplay_limit)
