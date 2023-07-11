@@ -96,8 +96,10 @@ const Header = ({
       });
   }
   useEffect(() => {
-    getHistory();
-  }, [urlState, dispatch, window, active]);
+    if(userId){
+      getHistory();
+    }
+  }, [urlState, dispatch, window, active,userId]);
 
 
 
@@ -746,9 +748,10 @@ const Header = ({
                         (menu.Name === "Logout" && userId !== null) ||
                       (menu.Name === "Logout" && userId !== undefined) ||
                       (menu.Name === "Logout" &&user&&user.username.length!==0) ||
-                      (menu.Name === "Login/Register" && userId === null) ||
-                      (menu.Name === "Login/Register" && userId === undefined)||
-                      (menu.Name === "Login/Register"&&user&&user.username.length===0)
+                      // (menu.Name === "Login/Register" && userId === null) ||
+                      // (menu.Name === "Login/Register" && userId === undefined)||
+                      ( (menu.Name === "Login/Register"&&user.username!=="")&&
+                      (menu.Name === "Login/Register"&&user.username!==undefined))
                             ? "0px"
                             : "12px 0px",
                         pointerEvents:
@@ -1067,9 +1070,10 @@ const Header = ({
                       (menu.Name === "Logout" && userId === null) ||
                       (menu.Name === "Logout" && userId === undefined) ||
                       (menu.Name === "Logout" && user&&user.username === "") ||
-                      (menu.Name === "Login/Register" && userId !== null) ||
-                      (menu.Name === "Login/Register" && userId !== undefined)||
-                      (menu.Name === "Login/Register"&&user.username!=="")
+                      // (menu.Name === "Login/Register" && userId !== null) ||
+                      // (menu.Name === "Login/Register" && userId !== undefined)||
+                     ( (menu.Name === "Login/Register"&&user.username!=="")&&
+                      (menu.Name === "Login/Register"&&user.username!==undefined))
                         ? "0px"
                         : "15px 0px",
                     pointerEvents:

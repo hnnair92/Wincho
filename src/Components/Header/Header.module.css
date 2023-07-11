@@ -1398,7 +1398,7 @@ transform: scale(1.1); */
     position: absolute;
     top: 0%;
     left: 7.5%;
-    transform: translate(-25%, 50%);
+    transform: translate(-25%, 70%);
     z-index: 0;
   }
 }
@@ -2007,7 +2007,61 @@ transform: scale(1.1); */
   .CartImage img {
     object-fit: contain;
   }
-  .CartContent {
+  .CartContent p {
     font-size: 1.5rem;
+  }
+  .addressPopup {
+    align-items: center;
+    background-color: #1b8fe7;
+    border: 1rem solid #949393;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 50%;
+    padding: 0;
+    position: fixed;
+    top: 45%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 35rem;
+    z-index: 99999;
+    /* overflow: scroll; */
+    height: 48rem;
+  }
+  .addressPopup .popupSection .popupImage {
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: 35%;
+  }
+  .addressPopup .popupSection .popupText {
+    margin-top: 20%;
+  }
+  .addressPopup .popupSection .popupText form input,
+  .addressPopup .popupSection .popupText form textarea {
+    font-size: 1.5rem;
+    margin: 4px 0;
+    padding: 8px;
+  }
+  .addressPopup .popupSection .popupText form textarea {
+    color: #1b8fe7;
+    font-family: myraidproregular;
+    font-size: 1.5rem;
+    height: 150px;
+    resize: none;
+  }
+  .addressPopup .popupSection .ReportPopupButton button {
+    width: fit-content;
+    margin: 1rem 2rem;
+    padding: 1rem 3rem;
+    background-color: transparent;
+    border: 1.75px solid #fff;
+    outline: none;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-radius: 30px;
   }
 }

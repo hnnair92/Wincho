@@ -1125,7 +1125,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             })
           )}
         </div>
-        {user!==undefined||user!==null||user&&user.username!=="" ||cartData.length!==0? 
+        {(user&&user.username!=="" && user&& user.username!==undefined )||cartData.length!==0? 
         <div className={style.BottomCart}>
           {eGifting?(
             ""
