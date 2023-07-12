@@ -733,7 +733,7 @@ label {
     font-size: 1.5rem;
   }
   .Terms p a {
-    font-size: 1.36rem;
+    /* font-size: 1.36rem; */
     text-decoration: underline;
   }
   .CheckBox {

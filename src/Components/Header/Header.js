@@ -785,7 +785,7 @@ const Header = ({
                         //   navigate(`/${MMenu.url}`);
                         // }
 
-                        if (menu.Name !== "History") {
+                        if(menu.Name !== "History"&&menu.Name!=="Sound"&&menu.Name!=="Music") {
                           if (placeId[1] === "game") {
                             setActive(true);
                           }
@@ -1104,7 +1104,7 @@ const Header = ({
                     //     : // ""
                     //       setSetting(false);
                     // }
-                    if (menu.Name !== "History") {
+                    if (menu.Name !== "History"&&menu.Name!=="Sound"&&menu.Name!=="Music") {
                       if (placeId[1] === "game") {
                         setActive(true);
                       }

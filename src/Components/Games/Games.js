@@ -31,18 +31,17 @@ import { music } from "../../assests/Musics/allMusic";
 import { registerAction, updateProfile } from "../../actions/user";
 import NewLoader from "../NewLoader/NewLoader";
 
-
 const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const { id } = useParams();
   const location = useLocation();
   const state = location.state;
   const audioRef = useRef(null);
-  const [startTouchData,setStartTouchData] = useState({})
-  const [endTouchData,setEndTouchData] = useState({})
-  const [moveTouchData,setMoveTouchData] = useState([])
+  const [startTouchData, setStartTouchData] = useState({});
+  const [endTouchData, setEndTouchData] = useState({});
+  const [moveTouchData, setMoveTouchData] = useState([]);
   const token = JSON.parse(localStorage.getItem("token"));
-  const buttonRef = useRef(null)
-  const button2Ref = useRef(null)
+  const buttonRef = useRef(null);
+  const button2Ref = useRef(null);
   let audioStatus = localStorage.getItem("sound");
   //   const baseUrl = "https://uat.wincha-online.com"
   // // const baseUrl = "https://uat.wincha-online.com";
@@ -61,14 +60,13 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [resendEmail, setResendEmail] = useState(false);
   const [gameData, setGameData] = useState({});
   const [premiumPopup, setPremiumPopup] = useState(true);
-  
+
   const { user } = useSelector((state) => state.profile);
   const [searchIconStatus, setSearchIconStatus] = useState(false);
-  
+
   const userId =
     localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
 
- 
   const navigate = useNavigate();
   const [topup, setTopup] = useState(false);
   const [search, setSearch] = useState("");
@@ -84,94 +82,85 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [rightAmount, setRightAmount] = useState(0);
   const [categorySlide, setCategorySlide] = useState(2);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
-  const scrollRefDiv = useRef(null)
+  const scrollRefDiv = useRef(null);
   const checkPlayArray =
     localStorage.getItem("checkPlay") &&
     JSON.parse(localStorage.getItem("checkPlay"));
   const verifiedEmail =
     JSON.parse(localStorage.getItem("verfiedEmail")) &&
     JSON.parse(localStorage.getItem("verfiedEmail"));
-  useEffect(()=>{
-    if(window.innerWidth>375&&window.innerWidth<850){
-      setCategorySlide(2)
+  useEffect(() => {
+    if (window.innerWidth > 375 && window.innerWidth < 850) {
+      setCategorySlide(2);
+    } else if (window.innerWidth > 750 && window.innerWidth < 1060) {
+      setCategorySlide(12);
+    } else if (window.innerWidth > 1010 && window.innerWidth < 1075) {
+      setCategorySlide(12);
+    } else if (window.innerWidth > 1075) {
+      setCategorySlide(2);
     }
-    else if(window.innerWidth>750&&window.innerWidth<1060){
-      setCategorySlide(12)
-    }
-    else if(window.innerWidth>1010&&window.innerWidth<1075){
-      setCategorySlide(12)
-    }
-    else if(window.innerWidth>1075){
-      setCategorySlide(2)
-    }
-  },[window])
+  }, [window]);
   useEffect(() => {
     console.log(times);
     console.log(typeof times);
+    console.log(products, "products-----");
   });
-  useEffect(()=>{
-    console.log(startTouchData)
-  },[startTouchData])
-  useEffect(()=>{
-    console.log(endTouchData)
-  },[endTouchData])
-  useEffect(()=>{
+  useEffect(() => {
+    console.log(startTouchData);
+  }, [startTouchData]);
+  useEffect(() => {
+    console.log(endTouchData);
+  }, [endTouchData]);
+  useEffect(() => {
     const categoryIndex = categories.findIndex(
-        (item)=>item.value === category
-        
-        );
-    if(startTouchData&&endTouchData){
-      console.log((startTouchData.clientX/endTouchData.clientX)*100);
-      console.log(endTouchData.clientX-startTouchData.clientX>100)
-      console.log(endTouchData.clientX-startTouchData.clientX<-100)
-      if(endTouchData.clientX-startTouchData.clientX>100){
+      (item) => item.value === category
+    );
+    if (startTouchData && endTouchData) {
+      console.log((startTouchData.clientX / endTouchData.clientX) * 100);
+      console.log(endTouchData.clientX - startTouchData.clientX > 100);
+      console.log(endTouchData.clientX - startTouchData.clientX < -100);
+      if (endTouchData.clientX - startTouchData.clientX > 100) {
         console.log(scrollRefDiv.current);
 
-        if(categoryIndex===0){
-          setCategory(categories[categories.length-1].value)
+        if (categoryIndex === 0) {
+          setCategory(categories[categories.length - 1].value);
           // setCategorySlide(-50)
-          
-          setRightAmount()
-          setEndTouchData({})
-          setStartTouchData({})
-        }
-        else{
 
-          setCategory(categories[categoryIndex-1].value)
+          setRightAmount();
+          setEndTouchData({});
+          setStartTouchData({});
+        } else {
+          setCategory(categories[categoryIndex - 1].value);
           // setCategorySlide((categorySlide)=>categorySlide-)
 
           // setRightAmount((moveTouchData/window.innerWidth)*100)
-          setEndTouchData({})
-          setStartTouchData({})
+          setEndTouchData({});
+          setStartTouchData({});
         }
-        
-      }
-      else if(endTouchData.clientX-startTouchData.clientX<-100){
+      } else if (endTouchData.clientX - startTouchData.clientX < -100) {
         console.log(scrollRefDiv.current);
-        if(categories.length-1===categoryIndex){
-          setCategory(categories[0].value)
+        if (categories.length - 1 === categoryIndex) {
+          setCategory(categories[0].value);
           // setCategorySlide(0)
-          setEndTouchData({})
-          setRightAmount(0)
-          setStartTouchData({})
-        }
-        else{
-          setCategory(categories[categoryIndex+1].value)
-          setEndTouchData({})
+          setEndTouchData({});
+          setRightAmount(0);
+          setStartTouchData({});
+        } else {
+          setCategory(categories[categoryIndex + 1].value);
+          setEndTouchData({});
           // setRightAmount(0)
           // setCategorySlide((10*categoryIndex+2)*-1)
-          console.log(categoryIndex+1*-1)
-          console.log(categoryIndex+2)
-          console.log(category.value)
+          console.log(categoryIndex + 1 * -1);
+          console.log(categoryIndex + 2);
+          console.log(category.value);
 
           // setRightAmount((moveTouchData/window.innerWidth)*100)
-          setStartTouchData({})
-          scrollRefDiv.current.scrollLeft += 50
+          setStartTouchData({});
+          scrollRefDiv.current.scrollLeft += 50;
         }
       }
-
-    } 
-  },[startTouchData,endTouchData])
+    }
+  }, [startTouchData, endTouchData]);
   useEffect(() => {
     if (verifiedEmail === false || verifiedEmail === "false") {
       setVerifyMails(true);
@@ -261,7 +250,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(state);
   }, [state]);
   useEffect(() => {
-    console.log("its below",gameMusic,gameSound)
+    console.log("its below", gameMusic, gameSound);
 
     console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
@@ -276,10 +265,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof setGameSound);
-  }, [gameMusic,gameSound,window]);
+  }, [gameMusic, gameSound, window]);
 
   useEffect(() => {
-    console.log("its below",gameMusic,gameSound)
+    console.log("its below", gameMusic, gameSound);
 
     if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
@@ -298,7 +287,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-  }, [window,gameMusic])
+  }, [window, gameMusic]);
   async function playAudio(src) {
     console.log(audioStatus, "audioStatus");
     if (audioStatus === "true") {
@@ -311,7 +300,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     }
   }
   useEffect(() => {
-    console.log("its below",gameMusic,gameSound)
+    console.log("its below", gameMusic, gameSound);
     console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
     if (gameMusic === 1 || gameMusic === 1) {
@@ -326,7 +315,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       console.log("not reached");
     }
     console.log(typeof gameMusic);
-  }, [window,gameMusic]);
+  }, [window, gameMusic]);
   useEffect(() => {
     if (gameMusic === 1 || gameMusic === 1) {
       console.log(audioRefHome.current.volume);
@@ -454,8 +443,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   async function checkFreePlay() {
     const userBody = {
       // user: user&&user.username===""?"":userId,
-      user: user&&user.userId===""?"":userId,
-      device_id: user&&user.username===""?JSON.parse(localStorage.getItem("deviceId")):"",
+      user: user && user.userId === "" ? "" : userId,
+      device_id:
+        user && user.username === ""
+          ? JSON.parse(localStorage.getItem("deviceId"))
+          : "",
     };
     await fetch(`${baseUrl}/game/freeplay/limit`, {
       method: "POST",
@@ -469,16 +461,18 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       .then((data) => {
         console.log(data);
         console.log(userBody);
+        console.log("limitss-----");
+
         // changeFreePlayDaily()
-        if(times===undefined||times===null||times===0){
+        if (times === undefined || times === null || times === 0) {
           localStorage.setItem(
             "times",
             JSON.stringify(data.data[0].freeplay_limit)
           );
+        } else {
+          setTimes(JSON.parse(localStorage.getItem("times")));
         }
-        else{
-          setTimes(JSON.parse(localStorage.getItem("times")))
-        }
+        console.log(times);
         // :localStorage.setItem("times", JSON.stringify(data.data[0].freeplay_limit))
       });
   }
@@ -507,11 +501,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   useEffect(() => {
     searchApi();
   }, [search]);
-  useEffect(()=>{
-    console.log(times>=configuration.freeplay_limit)
-    console.log(times)
-    console.log(configuration.FREE_PLAY_LIMIT)
-  },[times])
+  useEffect(() => {
+    console.log(times >= configuration.freeplay_limit);
+    console.log(times);
+    console.log(configuration.FREE_PLAY_LIMIT);
+  }, [times]);
   useEffect(() => {
     // if (category === "all") {
     //   dispatch(getAllGames(response));
@@ -522,85 +516,81 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     if (user === undefined) {
       // navigate("/login");
     }
+
     checkFreePlay();
-  }, [dispatch, category, id,user]);
-  useEffect(()=>{
-    checkFreePlay()
-  },[])
+  }, [dispatch, category, id, user]);
+  useEffect(() => {
+    checkFreePlay();
+  }, []);
   useEffect(() => {
     // console.log(user&&user.username.length)
     console.log("hello world!");
   });
-  const deviceId = JSON.parse(localStorage.getItem("deviceId"))
-  const newDate = new Date()
-  const month = newDate.getMonth()
-  const year = newDate.getFullYear()
-  const date = newDate.getDate()
-  const day = newDate.getDay()
-  const CustomDate = new Date(year,month+1,0)
-  const lastDateOfTheMonth = CustomDate.getDate()
-  const utc = newDate.getUTCMilliseconds()
-  const milliseconds = newDate.getTime()
-  useEffect(()=>{
-    if(deviceId===null){
-      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
+  const deviceId = JSON.parse(localStorage.getItem("deviceId"));
+  const newDate = new Date();
+  const month = newDate.getMonth();
+  const year = newDate.getFullYear();
+  const date = newDate.getDate();
+  const day = newDate.getDay();
+  const CustomDate = new Date(year, month + 1, 0);
+  const lastDateOfTheMonth = CustomDate.getDate();
+  const utc = newDate.getUTCMilliseconds();
+  const milliseconds = newDate.getTime();
+  useEffect(() => {
+    if (deviceId === null) {
+      localStorage.setItem("deviceId", JSON.stringify(milliseconds * utc));
     }
-  })
-  useEffect(()=>{
+  });
+  useEffect(() => {
     const userRegAnom = {
-      username:"",
-      email:"",
-      password:"",
-      dob:"",
-      country:"",
-      state:"",
-      countrycode:configuration&&configuration.COUNTRY_CODE,
-      countryname:configuration&&configuration.COUNTRY_NAME,
-      user_type:"anonymous",
-      device_id:deviceId?deviceId:""
-      
-  }
-    if(userId===null){
-      localStorage.setItem("deviceId",JSON.stringify(milliseconds*utc))
-      if(userId===undefined){
-        localStorage.removeItem("user")
+      username: "",
+      email: "",
+      password: "",
+      dob: "",
+      country: "",
+      state: "",
+      countrycode: configuration && configuration.COUNTRY_CODE,
+      countryname: configuration && configuration.COUNTRY_NAME,
+      user_type: "anonymous",
+      device_id: deviceId ? deviceId : "",
+    };
+    if (userId === null) {
+      localStorage.setItem("deviceId", JSON.stringify(milliseconds * utc));
+      if (userId === undefined) {
+        localStorage.removeItem("user");
       }
-      const anomUserId = JSON.parse(localStorage.getItem("anom"))
-      if(anomUserId){
+      const anomUserId = JSON.parse(localStorage.getItem("anom"));
+      if (anomUserId) {
         localStorage.setItem("user", JSON.stringify(anomUserId));
-        checkFreePlay()
+        checkFreePlay();
+      } else {
+        dispatch(registerAction(userRegAnom));
       }
-      else{     
-        dispatch(registerAction(userRegAnom))
-      }
-      dispatch(updateProfile())
+      dispatch(updateProfile());
     }
-    dispatch(updateProfile())
-
-  },[userId])
-  useEffect(()=>{
-    console.log(userId)
+    dispatch(updateProfile());
+  }, [userId]);
+  useEffect(() => {
+    console.log(userId);
     const userRegAnom = {
-      username:"",
-      email:"",
-      password:"",
-      dob:"",
-      country:"",
-      state:"",
-      countrycode:configuration.COUNTRY_CODE,
-      countryname:configuration.COUNTRY_NAME,
-      user_type:"anonymous",
-      device_id:deviceId?deviceId:""
-      
-  }
-    if(userId===undefined||userId==="undefined"){
-        localStorage.removeItem("user")
-      dispatch(registerAction(userRegAnom))
-    dispatch(updateProfile())
-      
+      username: "",
+      email: "",
+      password: "",
+      dob: "",
+      country: "",
+      state: "",
+      countrycode: configuration.COUNTRY_CODE,
+      countryname: configuration.COUNTRY_NAME,
+      user_type: "anonymous",
+      device_id: deviceId ? deviceId : "",
+    };
+    if (userId === undefined || userId === "undefined") {
+      localStorage.removeItem("user");
+      dispatch(registerAction(userRegAnom));
+      dispatch(updateProfile());
     }
-    dispatch(updateProfile())
-  },[userId])
+    dispatch(updateProfile());
+  }, [userId]);
 
   const categories = [
     {
@@ -711,8 +701,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       method: "POST",
       body: JSON.stringify(requestData),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -731,30 +721,43 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {/* <div className={style.Section}> */}
       {}
       {/* <div className={style.Categories}> */}
-      <div className={`${style.Categories} ${searchIconStatus===true?style.MtabSearch:""}`}>
-        <div className={`${style.CategoriesSection} ${searchIconStatus===true?style.TabCategory:style.NormalCategory}`} style={{marginLeft:`${categorySlide}rem`}}>
-          <div className={style.AllCategories} ref={scrollRefDiv} onScroll={(e)=>{
-            console.log(e)
-          }}>
+      <div
+        className={`${style.Categories} ${
+          searchIconStatus === true ? style.MtabSearch : ""
+        }`}
+      >
+        <div
+          className={`${style.CategoriesSection} ${
+            searchIconStatus === true ? style.TabCategory : style.NormalCategory
+          }`}
+          style={{ marginLeft: `${categorySlide}rem` }}
+        >
+          <div
+            className={style.AllCategories}
+            ref={scrollRefDiv}
+            onScroll={(e) => {
+              console.log(e);
+            }}
+          >
             {categories.map((categoryItem, index) => {
               return (
-                <button 
+                <button
                   key={index}
                   value={categoryItem.value}
                   className={
                     category?.toLowerCase() ===
-                    categoryItem?.value?.toLowerCase()&&search.length===0
+                      categoryItem?.value?.toLowerCase() && search.length === 0
                       ? style.active
                       : style.category
                   }
                   onClick={(e) => {
-                    console.log(scrollRefDiv)
-                    console.log(e)
-                    setSearch("")
+                    console.log(scrollRefDiv);
+                    console.log(e);
+                    setSearch("");
                     playAudio(music.Pop);
-                    
-                      setCategory(categoryItem.value);
-                    
+
+                    setCategory(categoryItem.value);
+
                     // setAllCategory("");
 
                     // setAllCategory(categoryItem.title)
@@ -803,7 +806,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
             className={style.MSearch}
             style={{
               backgroundColor: "#e1f5fb",
-              border:"2px solid #efeef1",padding:"4px 15px",
+              border: "2px solid #efeef1",
+              padding: "4px 15px",
             }}
           >
             <div
@@ -815,16 +819,16 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
               <img src={searchIcon} alt="" />
             </div>
             {/* {searchIconStatus ? ( */}
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Search..."
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-              />
+            <input
+              type="text"
+              name=""
+              id=""
+              placeholder="Search..."
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+            />
             {/* ) : (
               ""
             )}
@@ -912,12 +916,13 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 </div>
               </div>
               <div className={style.SubscribeButton}>
-                <button onClick={()=>{
-                 if(userId===null){
-                  return navigate("/login")
-                }
-                vipPayment();
-                }}
+                <button
+                  onClick={() => {
+                    if (userId === null) {
+                      return navigate("/login");
+                    }
+                    vipPayment();
+                  }}
                 >{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
@@ -1093,111 +1098,103 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       {loading ? (
         <NewLoader />
       ) : (
-        <div className={style.Games} style={{right:`${rightAmount}%`}} onTouchStart={(e)=>{
-          console.log("started")
-          setEndTouchData({})
-          // setRightAmount(0)
-          setStartTouchData(e.changedTouches[0])
-          // console.log(window)
-          console.log(e)
+        <div
+          className={style.Games}
+          style={{ right: `${rightAmount}%` }}
+          onTouchStart={(e) => {
+            console.log("started");
+            setEndTouchData({});
+            // setRightAmount(0)
+            setStartTouchData(e.changedTouches[0]);
+            // console.log(window)
+            console.log(e);
+          }}
+          onTouchMove={(e) => {
+            const categoryIndex = categories.findIndex(
+              (item) => item.value === category
+            );
+            setMoveTouchData(e.changedTouches[0]);
 
-        }}  onTouchMove={(e)=>{
-          const categoryIndex = categories.findIndex(
-        (item)=>item.value === category
-        
-      );
-          setMoveTouchData(e.changedTouches[0])
-     
+            // if(categories.length-1===categoryIndex){
+            // setRightAmount(0)
 
-          // if(categories.length-1===categoryIndex){
-          // setRightAmount(0)
+            // }
+            // setRightAmount(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(-1))
+            console.log(
+              (e.changedTouches[0].clientX / window.innerWidth) * 100 * -1
+            );
+            console.log(window.innerWidth);
+            console.log(e.changedTouches[0].clientX);
+            console.log(e.changedTouches[0]);
+            // console.log("Move")
+            // console.log(categories[0].value)
+            // console.log(category)
+            // console.log(e.targetTouches[0].screenX)
+            // const categoryIndex = categories.findIndex(
+            //   (item)=>item.value === category
 
-          // }
-          // setRightAmount(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(-1))
-          console.log((e.changedTouches[0].clientX/window.innerWidth)*100*(-1))
-          console.log(window.innerWidth)
-          console.log(e.changedTouches[0].clientX)
-          console.log(e.changedTouches[0])
-          // console.log("Move")
-          // console.log(categories[0].value)
-          // console.log(category)
-          // console.log(e.targetTouches[0].screenX)
-          // const categoryIndex = categories.findIndex(
-          //   (item)=>item.value === category
-            
-          //   );
-          // if(e.targetTouches[0].screenX>350){
-          //   console.log(e.targetTouches[0].screenX)
-          //   // categories.findIndex((item)=>{
-          //   //   console.log(item.value===category)
-          //   // })
-          //   if(categoryIndex<=0){
-          //     setCategory(categories[categories.length-1].value)
-          //   }
-          //   else{
-          //   setCategory(categories[categoryIndex-1].value)
-          //   }
-          //   buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
-          //   console.log(buttonRef.current.scrollIntoView()) 
-          //   console.log(buttonRef.current) 
+            //   );
+            // if(e.targetTouches[0].screenX>350){
+            //   console.log(e.targetTouches[0].screenX)
+            //   // categories.findIndex((item)=>{
+            //   //   console.log(item.value===category)
+            //   // })
+            //   if(categoryIndex<=0){
+            //     setCategory(categories[categories.length-1].value)
+            //   }
+            //   else{
+            //   setCategory(categories[categoryIndex-1].value)
+            //   }
+            //   buttonRef.current.scrollIntoView({ behavior: 'smooth' })
+            //   console.log(buttonRef.current.scrollIntoView())
+            //   console.log(buttonRef.current)
 
-            
-          // }
-          // if(e.targetTouches[0].screenX<125){
-          //   console.log(e.targetTouches[0].screenX)
+            // }
+            // if(e.targetTouches[0].screenX<125){
+            //   console.log(e.targetTouches[0].screenX)
 
-          //   // setCategory("free")
-          //   if(categories.length-1===categoryIndex){
-          //     setCategory(categories[0].value)
-          //   }
-          //   else{
-          //     setCategory(categories[categoryIndex+1].value)
-          //   }
-          //   buttonRef.current.scrollIntoView({ behavior: 'smooth' })   
-          //   console.log(buttonRef.current.scrollIntoView()) 
-          //   console.log(buttonRef.current) 
+            //   // setCategory("free")
+            //   if(categories.length-1===categoryIndex){
+            //     setCategory(categories[0].value)
+            //   }
+            //   else{
+            //     setCategory(categories[categoryIndex+1].value)
+            //   }
+            //   buttonRef.current.scrollIntoView({ behavior: 'smooth' })
+            //   console.log(buttonRef.current.scrollIntoView())
+            //   console.log(buttonRef.current)
 
-          // }
-          // playAudio(music.Pop)
-          
-        }}  
-        onTouchEnd={(e)=>{
-          const categoryIndex = categories.findIndex(
-        (item)=>item.value === category
-        
-        );
-          setEndTouchData(e.changedTouches[0])
-          console.log("End")
-         console.log(e)
-         setRightAmount(0)
-         setMoveTouchData({})
-         if(e.changedTouches[0].clientX-startTouchData.clientX>100){
-        if(categoryIndex===0){
-          setCategorySlide(categories.length*10*-1)
-            
-          }
-          else{
-          // setCategorySlide((10*categoryIndex+1))
-          setCategorySlide((categorySlide)=>categorySlide+10)
-            // setCategorySlide(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(1))
-
-          }
-      }
-      else{
-      // else if(e.changedTouches[0].clientX-startTouchData.clientX<100){
-        if(categories.length-1===categoryIndex){
-          setCategorySlide(0)
-            
-          }
-          else{
-            setCategorySlide((10*categoryIndex+2)*-1)
-
-          }
-      }
-        //  setStartTouchData({})
-         
-        
-        }}>
+            // }
+            // playAudio(music.Pop)
+          }}
+          onTouchEnd={(e) => {
+            const categoryIndex = categories.findIndex(
+              (item) => item.value === category
+            );
+            setEndTouchData(e.changedTouches[0]);
+            console.log("End");
+            console.log(e);
+            setRightAmount(0);
+            setMoveTouchData({});
+            if (e.changedTouches[0].clientX - startTouchData.clientX > 100) {
+              if (categoryIndex === 0) {
+                setCategorySlide(categories.length * 10 * -1);
+              } else {
+                // setCategorySlide((10*categoryIndex+1))
+                setCategorySlide((categorySlide) => categorySlide + 10);
+                // setCategorySlide(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(1))
+              }
+            } else {
+              // else if(e.changedTouches[0].clientX-startTouchData.clientX<100){
+              if (categories.length - 1 === categoryIndex) {
+                setCategorySlide(0);
+              } else {
+                setCategorySlide((10 * categoryIndex + 2) * -1);
+              }
+            }
+            //  setStartTouchData({})
+          }}
+        >
           {topup ? (
             <div className={style.popup}>
               <div className={style.popupImage}>
@@ -1220,7 +1217,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
           ) : (
             ""
           )}
-          {!search? products.length > 0 &&
+          {!search
+            ? products.length > 0 &&
               products.map((game, index) => {
                 if (category === "all" && game.category != "free") {
                   if (
@@ -1295,37 +1293,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (userId != null) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1353,21 +1351,26 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                          <img src={game.featured_image.large} alt="" onLoad={()=>{
-                            setLoadingScreen(false)
-                            console.log("loaded")
-                          }} />
+                          <img
+                            src={game.featured_image.large}
+                            alt=""
+                            onLoad={() => {
+                              setLoadingScreen(false);
+                              console.log("loaded");
+                            }}
+                          />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {parseInt(times) >
+                                {(parseInt(times) >
                                   configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user &&
-                                user.vip === false || game.machine_status === false? (
+                                  game.price === "0" &&
+                                  user &&
+                                  user.vip === false) ||
+                                game.machine_status === false ? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1493,37 +1496,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (userId != null) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1551,10 +1554,14 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                           <img src={game.featured_image.large} alt="" onLoad={()=>{
-                            setLoadingScreen(false)
-                            console.log("loaded")
-                          }} />
+                          <img
+                            src={game.featured_image.large}
+                            alt=""
+                            onLoad={() => {
+                              setLoadingScreen(false);
+                              console.log("loaded");
+                            }}
+                          />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
@@ -1562,9 +1569,10 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
                                 {(times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user &&
-                                user.vip === false || game.machine_status === false? (
+                                  game.price === "0" &&
+                                  user &&
+                                  user.vip === false) ||
+                                game.machine_status === false ? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1578,7 +1586,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     className={style.icon}
                                     style={{ filter: "grayScale(0)" }}
                                   />
-                    ))}
+                                )}
                               </div>
                               {game && game.price === "0" ? (
                                 <p className={style.free}>FREE</p>
@@ -1694,38 +1702,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (userId != null) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
-                                
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1754,19 +1761,24 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                           <img src={game.featured_image.large} alt="" onLoad={()=>{
-                            setLoadingScreen(false)
-                            console.log("loaded")
-                          }} />
+                          <img
+                            src={game.featured_image.large}
+                            alt=""
+                            onLoad={() => {
+                              setLoadingScreen(false);
+                              console.log("loaded");
+                            }}
+                          />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {((times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user?.vip === false) || (game.machine_status === false) ? (
+                                {(times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) ||
+                                game.machine_status === false ? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1780,7 +1792,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     className={style.icon}
                                     style={{ filter: "grayScale(0)" }}
                                   />
-                                ))}
+                                )}
                               </div>
                               {game && game.price === "0" ? (
                                 <p className={style.free}>FREE</p>
@@ -1891,37 +1903,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   userId === undefined &&
                                   user?.username !== "")
                               ) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (userId != null) {
-                                if((times >= configuration.FREE_PLAY_LIMIT &&
-                                  game.price === "0" &&
-                                  user?.vip === false) || (game.machine_status === false)){
-
-                                  }
-                                  else{
-                                    navigate(`/game/${game.slug}`, {
-                                      state: {
-                                        game: game,
-                                        user: user,
-                                        cateogry: category,
-                                      },
-                                    }
-                                    );
-                                  }
+                                if (
+                                  (times >= configuration.FREE_PLAY_LIMIT &&
+                                    game.price === "0" &&
+                                    user?.vip === false) ||
+                                  game.machine_status === false
+                                ) {
+                                } else {
+                                  navigate(`/game/${game.slug}`, {
+                                    state: {
+                                      game: game,
+                                      user: user,
+                                      cateogry: category,
+                                    },
+                                  });
+                                }
                               } else if (user?.username === "") {
                                 navigate("/login");
                               } else {
@@ -1952,19 +1964,24 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                             console.log("images");
                           }}
                         >
-                           <img src={game.featured_image.large} alt="" onLoad={()=>{
-                            loading = false
-                            console.log(loading)
-                          }} />
+                          <img
+                            src={game.featured_image.large}
+                            alt=""
+                            onLoad={() => {
+                              loading = false;
+                              console.log(loading);
+                            }}
+                          />
                         </div>
                         <div className={style.Details}>
                           <p className={style.Name}>{game.title}</p>
                           <div className={style.PriceDiv}>
                             <div className={style.ticketIcon}>
                               <div className={style.ticketIconDiv}>
-                                {((times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user?.vip === false  )|| (game.machine_status === false)? (
+                                {(times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) ||
+                                game.machine_status === false ? (
                                   <img
                                     src={Ticket}
                                     alt=""
@@ -1978,7 +1995,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     className={style.icon}
                                     style={{ filter: "grayScale(0)" }}
                                   />
-                                ))}
+                                )}
                               </div>
                               {game && game.price === "0" ? (
                                 <p className={style.free}>FREE</p>
@@ -2098,37 +2115,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                 userId === undefined &&
                                 user?.username !== "")
                             ) {
-                              if((times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user?.vip === false) || (game.machine_status === false)){
-
-                                }
-                                else{
-                                  navigate(`/game/${game.slug}`, {
-                                    state: {
-                                      game: game,
-                                      user: user,
-                                      cateogry: category,
-                                    },
-                                  }
-                                  );
-                                }
+                              if (
+                                (times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) ||
+                                game.machine_status === false
+                              ) {
+                              } else {
+                                navigate(`/game/${game.slug}`, {
+                                  state: {
+                                    game: game,
+                                    user: user,
+                                    cateogry: category,
+                                  },
+                                });
+                              }
                             } else if (userId != null) {
-                              if((times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user?.vip === false) || (game.machine_status === false)){
-
-                                }
-                                else{
-                                  navigate(`/game/${game.slug}`, {
-                                    state: {
-                                      game: game,
-                                      user: user,
-                                      cateogry: category,
-                                    },
-                                  }
-                                  );
-                                }
+                              if (
+                                (times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) ||
+                                game.machine_status === false
+                              ) {
+                              } else {
+                                navigate(`/game/${game.slug}`, {
+                                  state: {
+                                    game: game,
+                                    user: user,
+                                    cateogry: category,
+                                  },
+                                });
+                              }
                             } else if (user?.username === "") {
                               navigate("/login");
                             } else {
@@ -2152,19 +2169,24 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                       </div>:""} */}
 
                       <div className={style.Image}>
-                         <img src={game.featured_image.large} alt="" onLoad={()=>{
-                            setLoadingScreen(false)
-                            console.log("loaded")
-                          }} />
+                        <img
+                          src={game.featured_image.large}
+                          alt=""
+                          onLoad={() => {
+                            setLoadingScreen(false);
+                            console.log("loaded");
+                          }}
+                        />
                       </div>
                       <div className={style.Details}>
                         <p className={style.Name}>{game.title}</p>
                         <div className={style.PriceDiv}>
                           <div className={style.ticketIcon}>
                             <div className={style.ticketIconDiv}>
-                              {times >= configuration.FREE_PLAY_LIMIT &&
-                              game.price === "0" &&
-                              user.vip === false  || game.machine_status === false? (
+                              {(times >= configuration.FREE_PLAY_LIMIT &&
+                                game.price === "0" &&
+                                user.vip === false) ||
+                              game.machine_status === false ? (
                                 <img
                                   src={Ticket}
                                   alt=""
@@ -2290,37 +2312,37 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                 userId === undefined &&
                                 user?.username !== "")
                             ) {
-                              if((times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user?.vip === false) || (game.machine_status === false)){
-
-                                }
-                                else{
-                                  navigate(`/game/${game.slug}`, {
-                                    state: {
-                                      game: game,
-                                      user: user,
-                                      cateogry: category,
-                                    },
-                                  }
-                                  );
-                                }
+                              if (
+                                (times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) ||
+                                game.machine_status === false
+                              ) {
+                              } else {
+                                navigate(`/game/${game.slug}`, {
+                                  state: {
+                                    game: game,
+                                    user: user,
+                                    cateogry: category,
+                                  },
+                                });
+                              }
                             } else if (userId != null) {
-                              if((times >= configuration.FREE_PLAY_LIMIT &&
-                                game.price === "0" &&
-                                user?.vip === false) || (game.machine_status === false)){
-
-                                }
-                                else{
-                                  navigate(`/game/${game.slug}`, {
-                                    state: {
-                                      game: game,
-                                      user: user,
-                                      cateogry: category,
-                                    },
-                                  }
-                                  );
-                                }
+                              if (
+                                (times >= configuration.FREE_PLAY_LIMIT &&
+                                  game.price === "0" &&
+                                  user?.vip === false) ||
+                                game.machine_status === false
+                              ) {
+                              } else {
+                                navigate(`/game/${game.slug}`, {
+                                  state: {
+                                    game: game,
+                                    user: user,
+                                    cateogry: category,
+                                  },
+                                });
+                              }
                             } else if (user?.username === "") {
                               navigate("/login");
                             } else {
@@ -2347,19 +2369,24 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                       </div>:""} */}
 
                       <div className={style.Image}>
-                         <img src={game.featured_image.large} alt="" onLoad={()=>{
-                            setLoadingScreen(false)
-                            console.log("loaded")
-                          }} />
+                        <img
+                          src={game.featured_image.large}
+                          alt=""
+                          onLoad={() => {
+                            setLoadingScreen(false);
+                            console.log("loaded");
+                          }}
+                        />
                       </div>
                       <div className={style.Details}>
                         <p className={style.Name}>{game.title}</p>
                         <div className={style.PriceDiv}>
                           <div className={style.ticketIcon}>
                             <div className={style.ticketIconDiv}>
-                              {times >= configuration.FREE_PLAY_LIMIT &&
-                              game.price === "0" &&
-                              user.vip === false  || game.machine_status === false? (
+                              {(times >= configuration.FREE_PLAY_LIMIT &&
+                                game.price === "0" &&
+                                user.vip === false) ||
+                              game.machine_status === false ? (
                                 <img
                                   src={Ticket}
                                   alt=""
@@ -2489,104 +2516,112 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 {/* <p>{gameData.content.length > 10 ? gameData.content.substring(0, 125) + "..." : gameData.content}</p> */}
                 <p>{gameData.content}</p>
               </div>
-              {times >= configuration.FREE_PLAY_LIMIT &&
-                              gameData.price === "0" &&
-                              user.vip === false  || gameData.machine_status === false?
-                              <div  style={{ filter: "grayScale(1)" }}
-                className={style.popupPlayNow}
-                onClick={() => {
-                  if (
-                    user &&
-                    user.profile_status === false &&
-                    user.username !== "" &&
-                    gameData.price !== "0"
-                  ) {
-                    setPopup(false);
-                    setResendEmail(true);
-                  } 
-                  else if (
-                    user &&
-                    user.profile_status === false &&
-                    gameData.price !== "0"
-                  ) {
-                    // setResendEmail(true);
-                    navigate("/login");
-                    console.log("not verified,not logined");
-                  }
-                  else {
-                    if(times >= configuration.FREE_PLAY_LIMIT &&
-                      gameData.price === "0" &&
-                      user.vip === false  || gameData.machine_status === false){
-
-                      }
-                      else{
+              {(times >= configuration.FREE_PLAY_LIMIT &&
+                gameData.price === "0" &&
+                user.vip === false) ||
+              gameData.machine_status === false ? (
+                <div
+                  style={{ filter: "grayScale(1)" }}
+                  className={style.popupPlayNow}
+                  onClick={() => {
+                    if (
+                      user &&
+                      user.profile_status === false &&
+                      user.username !== "" &&
+                      gameData.price !== "0"
+                    ) {
+                      setPopup(false);
+                      setResendEmail(true);
+                    } else if (
+                      user &&
+                      user.profile_status === false &&
+                      gameData.price !== "0"
+                    ) {
+                      // setResendEmail(true);
+                      navigate("/login");
+                      console.log("not verified,not logined");
+                    } else {
+                      if (
+                        (times >= configuration.FREE_PLAY_LIMIT &&
+                          gameData.price === "0" &&
+                          user.vip === false) ||
+                        gameData.machine_status === false
+                      ) {
+                      } else {
                         navigate(`/game/${gameData.slug}`, {
-                          state: { game: gameData, user: user, cateogry: category },
+                          state: {
+                            game: gameData,
+                            user: user,
+                            cateogry: category,
+                          },
                         });
                       }
-                  }
-                }}
-              >
-                {/* <button></button> */}
-                <p>PLAY</p>
-                <div className={style.popupTicket}>
-                  <img src={Ticket} alt="" />
+                    }
+                  }}
+                >
+                  {/* <button></button> */}
+                  <p>PLAY</p>
+                  <div className={style.popupTicket}>
+                    <img src={Ticket} alt="" />
+                  </div>
+                  {gameData && gameData.price === "0" ? (
+                    <p className={style.free}>FREE</p>
+                  ) : (
+                    <p className={style.Price}>{gameData.price}</p>
+                  )}
                 </div>
-                {gameData && gameData.price === "0" ? (
-                              <p className={style.free}>FREE</p>
-                            ) : (
-                              <p className={style.Price}>{gameData.price}</p>
-                            )}
-              </div>
-                              :
-                              <div  style={{ filter: "grayScale(0)" }}
-                className={style.popupPlayNow}
-                onClick={() => {
-                  if (
-                    user &&
-                    user.profile_status === false &&
-                    user.username !== "" &&
-                    gameData.price !== "0"
-                  ) {
-                    setPopup(false);
-                    setResendEmail(true);
-                  } 
-                  else if (
-                    user &&
-                    user.profile_status === false &&
-                    gameData.price !== "0"
-                  ) {
-                    // setResendEmail(true);
-                    navigate("/login");
-                    console.log("not verified,not logined");
-                  }
-                  else {
-                    if(times >= configuration.FREE_PLAY_LIMIT &&
-                      gameData.price === "0" &&
-                      user.vip === false  || gameData.machine_status === false){
-
-                      }
-                      else{
+              ) : (
+                <div
+                  style={{ filter: "grayScale(0)" }}
+                  className={style.popupPlayNow}
+                  onClick={() => {
+                    if (
+                      user &&
+                      user.profile_status === false &&
+                      user.username !== "" &&
+                      gameData.price !== "0"
+                    ) {
+                      setPopup(false);
+                      setResendEmail(true);
+                    } else if (
+                      user &&
+                      user.profile_status === false &&
+                      gameData.price !== "0"
+                    ) {
+                      // setResendEmail(true);
+                      navigate("/login");
+                      console.log("not verified,not logined");
+                    } else {
+                      if (
+                        (times >= configuration.FREE_PLAY_LIMIT &&
+                          gameData.price === "0" &&
+                          user.vip === false) ||
+                        gameData.machine_status === false
+                      ) {
+                      } else {
                         navigate(`/game/${gameData.slug}`, {
-                          state: { game: gameData, user: user, cateogry: category },
+                          state: {
+                            game: gameData,
+                            user: user,
+                            cateogry: category,
+                          },
                         });
                       }
-                    
-                  }
-                }}
-              >
-                {/* <button></button> */}
-                <p>PLAY</p>
-                <div className={style.popupTicket}>
-                  <img src={Ticket} alt="" />
+                    }
+                  }}
+                >
+                  {/* <button></button> */}
+                  <p>PLAY</p>
+                  <div className={style.popupTicket}>
+                    <img src={Ticket} alt="" />
+                  </div>
+                  {gameData && gameData.price === "0" ? (
+                    <p className={style.free}>FREE</p>
+                  ) : (
+                    <p className={style.Price}>{gameData.price}</p>
+                  )}
                 </div>
-                {gameData && gameData.price === "0" ? (
-                              <p className={style.free}>FREE</p>
-                            ) : (
-                              <p className={style.Price}>{gameData.price}</p>
-                            )}
-              </div>}
-              
+              )}
             </div>
           </div>
         </div>

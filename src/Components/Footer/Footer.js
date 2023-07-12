@@ -284,9 +284,10 @@ const Footer = ({
               <p className={style.Title}>YOOHOO-- <br/>FOLLOW US</p>
               <div className={style.bandaiLogo}>
                     <img src={bandaiLogo} onClick={()=>{
-                      setPageUrl("bandai")
+                      // setPageUrl("bandai")
                       if(splitPath[1]==="game"){
                         setActive(true)
+                        setPageUrl("bandai")
                         }
                         else{
                             window.open("http://www.bandainamco-am.co.uk/")
@@ -300,19 +301,53 @@ const Footer = ({
                     <AiOutlineInstagram/>
                     <AiFillTwitterCircle/> */}
                     <img src={facebook} alt="" onClick={()=>{
-                        window.open("https://www.facebook.com/WinchaOnline/")
+                      setPageUrl("facebook")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("facebook")
+                        }
+                        else{
+                          window.open("https://www.facebook.com/WinchaOnline/")
+                        }
                     }}/>
                     <img src={twitter} alt=""  onClick={()=>{
-                        window.open("https://twitter.com/winchaonline")
+                      setPageUrl("twitter")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("twitter")
+                        }
+                        else{
+                          window.open("https://twitter.com/winchaonline")
+                        }
                     }}/>
                     <img src={instagram} alt=""  onClick={()=>{
-                        window.open("https://www.instagram.com/winchaonline/")
+                      setPageUrl("instagram")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        }
+                        else{
+                          window.open("https://www.instagram.com/winchaonline/")
+                        }
                     }}/>
                     <img src={tiktok} alt=""  onClick={()=>{
-                        window.open("https://www.tiktok.com/@winchaonline")
+                      setPageUrl("tiktok")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("tiktok")
+                        }
+                        else{
+                          window.open("https://www.tiktok.com/@winchaonline")
+                        }
                     }}/>
                     <img src={youtube} alt=""  onClick={()=>{
-                        window.open("https://youtube.com/@bandainamcoae")
+                      setPageUrl("youtube")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("youtube")
+                        }
+                        else{
+                          window.open("https://youtube.com/@bandainamcoae")
+                        }
                     }}/>
 
                 </div>
@@ -322,8 +357,32 @@ const Footer = ({
                 </div>
                 <div className={style.TermsAndPrivacy}>
                 <div className={style.TermsAndPrivacyText}>
-                    <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
-                    <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
+                    {/* <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link> */}
+                    <li onClick={()=>{
+                      // `${configuration.privacy}`
+                      // setPageUrl("youtube")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("terms")
+                        }
+                        else{
+                          window.open(configuration.terms)
+                        }
+                    }} >Privacy Policy</li>
+                    {/* <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link> */}
+                    <li onClick={()=>{
+                      // `${configuration.privacy}`
+                      // setPageUrl("youtube")
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("privacy")
+                        }
+                        else{
+                          window.open(configuration.privacy)
+
+                          // window.open("https://youtube.com/@bandainamcoae")
+                        }
+                    }}  >Terms and Conditions</li>
                 </div>
                 {/* <div className={style.bandaiLogo}>
                     <img src={bandaiLogo} alt="" />
@@ -333,6 +392,7 @@ const Footer = ({
                       setPageUrl("weplay")
                       if(splitPath[1]==="game"){
                         setActive(true)
+                        setPageUrl("weplay")
                         }
                         else{
                          window.open("http://www.weplaycreative.com/")
@@ -357,19 +417,57 @@ const Footer = ({
                     <img src={tiktok} alt="" />
                     <img src={youtube} alt="" /> */}
                       <img src={facebook} alt="" onClick={()=>{
-                        window.open("https://www.facebook.com/WinchaOnline/")
+                       setPageUrl("facebook")
+                       if(splitPath[1]==="game"){
+                         setActive(true)
+                         setPageUrl("facebook")
+                         }
+                         else{
+                           window.open("https://www.facebook.com/WinchaOnline/")
+                         }
                     }}/>
                     <img src={twitter} alt=""  onClick={()=>{
-                        window.open("https://twitter.com/winchaonline")
+                       setPageUrl("twitter")
+                       if(splitPath[1]==="game"){
+                         setActive(true)
+                         setPageUrl("twitter")
+                         }
+                         else{
+                           window.open("https://twitter.com/winchaonline")
+                         }
                     }}/>
                     <img src={instagram} alt=""  onClick={()=>{
-                        window.open("https://www.instagram.com/winchaonline/")
+                       setPageUrl("instagram")
+                       if(splitPath[1]==="game"){
+                         setActive(true)
+                         setPageUrl("instagram")
+
+                         }
+                         else{
+                           window.open("https://www.instagram.com/winchaonline/")
+                         }
                     }}/>
                     <img src={tiktok} alt=""  onClick={()=>{
-                        window.open("https://www.tiktok.com/@winchaonline")
+                       setPageUrl("tiktok")
+                       if(splitPath[1]==="game"){
+                         setActive(true)
+                         setPageUrl("tiktok")
+
+                         }
+                         else{
+                           window.open("https://www.tiktok.com/@winchaonline")
+                         }
                     }}/>
                     <img src={youtube} alt=""  onClick={()=>{
-                        window.open("https://youtube.com/@bandainamcoae")
+                       setPageUrl("youtube")
+                       if(splitPath[1]==="game"){
+                         setActive(true)
+                         setPageUrl("youtube")
+
+                         }
+                         else{
+                           window.open("https://youtube.com/@bandainamcoae")
+                         }
                     }}/>
 
                 </div>
@@ -388,6 +486,7 @@ const Footer = ({
                       setPageUrl("bandai")
                       if(splitPath[1]==="game"){
                         setActive(true)
+                        setPageUrl("bandai")
                         }
                         else{
                             window.open("http://www.bandainamco-am.co.uk/")
@@ -400,6 +499,7 @@ const Footer = ({
                        setPageUrl("weplay")
                        if(splitPath[1]==="game"){
                          setActive(true)
+                         setPageUrl("wePlay")
                          }
                          else{
                           window.open("http://www.weplaycreative.com/")

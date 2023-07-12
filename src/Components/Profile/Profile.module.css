@@ -463,7 +463,7 @@
 }
 
 .popupContent {
-  position: absolute;
+  position: fixed;
     font-family: myraidproregular !important;
     z-index: 99999;
     top: 50%;

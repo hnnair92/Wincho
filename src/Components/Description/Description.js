@@ -1047,7 +1047,8 @@ useEffect(()=>{
   // All Game Screen API's
   async function checkFreePlay() {
     const userBody={
-      user: user&&user.username===""?"":userId,
+      // user: user&&user.username===""?"":userId,
+      user: user&&user.userId===""?"":userId,
       device_id: user&&user.username===""?JSON.parse(localStorage.getItem("deviceId")):"",
     }
     await fetch(`${baseUrl}/game/freeplay/limit`, {
@@ -1064,6 +1065,7 @@ useEffect(()=>{
         console.log(userBody);
         // changeFreePlayDaily()
         setFreePlay(data.data[0].freeplay_limit)
+        console.log(freePlay)
         // localStorage.setItem(
         //   "times",data.data[0].freeplay_limit
         // );
@@ -2296,7 +2298,7 @@ useEffect(()=>{
                 // socket.disconnect();
                 gameLeave(userId,false);
                 navigate(`/game/${transferGame.slug}`, {
-                  state: { game: transferGame,category:transferGame.category},
+                  state: { game: transferGame,cateogry:transferGame.category},
                 });
                 // window.location.reload();
                 // window.location.reload()
@@ -2354,6 +2356,27 @@ useEffect(()=>{
                 }
                 else if(pageUrl==="weplay"){
                   window.open("http://www.weplaycreative.com/")
+                }
+                else if(pageUrl==="facebook"){
+                  window.open("https://www.facebook.com/WinchaOnline/")
+                }
+                else if(pageUrl==="twitter"){
+                  window.open("https://twitter.com/winchaonline")
+                }
+                else if(pageUrl==="instagram"){
+                  window.open("https://www.instagram.com/winchaonline/")
+                }
+                else if(pageUrl==="tiktok"){
+                  window.open("https://www.tiktok.com/@winchaonline")
+                }
+                else if(pageUrl==="youtube"){
+                  window.open("https://youtube.com/@bandainamcoae")
+                }
+                else if(pageUrl==="terms"){
+                  window.open(configuration.terms)
+                }
+                else if(pageUrl==="privacy"){
+                  window.open(configuration.privacy)
                 }
                 else{
                   navigate(`/${pageUrl}`)
@@ -2503,9 +2526,6 @@ useEffect(()=>{
                         <div className={style.TicketPrice}>
                           <div
                             className={style.Ticket}
-                            onClick={() => {
-                              setPopup(true);
-                            }}
                           >
                            {(freePlay >= configuration.FREE_PLAY_LIMIT &&
                               gameDetails.price === "0" &&
