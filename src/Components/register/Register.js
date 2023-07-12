@@ -47,6 +47,7 @@ const Register = () => {
   const [allState, setAllState] = useState([]);
   const [selectState, setSelectState] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState(false);
+  const [RepeatPasswordCheck, setRepeatPasswordCheck] = useState(false);
   const dispatch = useDispatch();
   const userId = localStorage.getItem("user");
   useEffect(() => {
@@ -551,7 +552,9 @@ const Register = () => {
               placeholder="REPEAT PASSWORD"
               className={style.input}
               onClick={(e) => {
+              if(password.length>0){
                 setPasswordCheck(true)
+              }
               }}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -567,7 +570,7 @@ const Register = () => {
           <div className={style.CheckPassword}>
             {password === confirmPassword  ? (
               ""
-            ) : confirmPassword.length>0? (
+            ) : RepeatPasswordCheck&&password.length>0&&confirmPassword.length>0? (
               <p className={style.AgeRestrict}>Password not matching</p>
             ):""}
           </div>
@@ -577,6 +580,11 @@ const Register = () => {
             placeholder="EMAIL"
             value={email}
             className={style.input}
+            onClick={()=>{
+              if(password.length>0&&confirmPassword.length>0){
+                setRepeatPasswordCheck(true)
+              }
+            }}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
