@@ -866,7 +866,7 @@ useEffect(()=>{
       // category_id:state.category,
       // user_id:userId,
       // countryCode:user.countryCode
-      category_id: state&&state.category,
+      category_id: state&&state.cateogry,
     country_code: configuration&&configuration.COUNTRY_NAME,
     user_id: userId,
     }
