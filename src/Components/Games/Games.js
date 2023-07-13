@@ -77,11 +77,12 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [history, setHistory] = useState(false);
   const [ids, setId] = useState("");
   const [imageGallery, setImageGallery] = useState([]);
-  const [loadingScreen, setLoadingScreen] = useState(false);
+  const [loadingScreen, setLoadingScreen] = useState(true);
   const [countSection, setCountSection] = useState(0);
   const [rightAmount, setRightAmount] = useState(0);
   const [categorySlide, setCategorySlide] = useState(2);
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
+  console.log(localStorage.getItem("times"), "FREE_PLAY_0");
   const scrollRefDiv = useRef(null);
   const checkPlayArray =
     localStorage.getItem("checkPlay") &&
@@ -194,7 +195,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     ) {
       localStorage.setItem("times", 0);
     }
-  });
+  }, []);
   useEffect(() => {
     const checkEmailVerify = JSON.parse(localStorage.getItem("verifyCheck"));
     if (checkEmailVerify) {
@@ -340,7 +341,15 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       // audioRefHome.current.mute()
     }
   }
+useEffect(()=>{
+  if(loading===false){
+    setLoadingScreen(true)
+    setTimeout(()=>{
+      setLoadingScreen(false)
 
+    },10000)
+  }
+},[loading])
   async function resendEmailApi() {
     setLoadingScreen(true);
     await fetch(`${baseUrl}/user/verification/resend`, {
@@ -439,7 +448,9 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   //     setCategory(state?state.category:"free")
   //   }
   // }, []);
-
+  useEffect(()=>{
+    JSON.stringify(localStorage.setItem("times",times))
+},[times])
   async function checkFreePlay() {
     const userBody = {
       // user: user&&user.username===""?"":userId,
@@ -464,16 +475,17 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         console.log("limitss-----");
 
         // changeFreePlayDaily()
-        if (times === undefined || times === null || times === 0) {
-          localStorage.setItem(
-            "times",
-            JSON.stringify(data.data[0].freeplay_limit)
-          );
-        } else {
-          setTimes(JSON.parse(localStorage.getItem("times")));
-        }
-        console.log(times);
+        // if (times === undefined || times === null || times === 0) {
+        //   localStorage.setItem(
+        //     "times",
+        //     JSON.stringify(data.data[0].freeplay_limit)
+        //   );
+        // } else {
+        //   setTimes(JSON.parse(localStorage.getItem("times")));
+        // }
+        // console.log(times);
         // :localStorage.setItem("times", JSON.stringify(data.data[0].freeplay_limit))
+        setTimes(data.data[0].freeplay_limit)
       });
   }
   const searchApi = async () => {
@@ -1095,7 +1107,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       ) : (
         ""
       )}
-      {loading ? (
+      {loadingScreen ? (
         <NewLoader />
       ) : (
         <div
@@ -1778,7 +1790,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                 {(times >= configuration.FREE_PLAY_LIMIT &&
                                   game.price === "0" &&
                                   user?.vip === false) ||
-                                game.machine_status === false ? (
+                                (game.machine_status === false) ? (
                                   <img
                                     src={Ticket}
                                     alt=""

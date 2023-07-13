@@ -375,9 +375,9 @@ const Header = ({
                   notification.basket_item_count > 0 &&
                   notification !== undefined ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.basket_item_count
+                      {/* {notification && notification.basket_item_count
                         ? notification && notification.basket_item_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -652,9 +652,9 @@ const Header = ({
                   notification !== undefined &&
                   MMenu.Name === "Basket" ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.basket_item_count
+                      {/* {notification && notification.basket_item_count
                         ? notification && notification.basket_item_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -665,9 +665,9 @@ const Header = ({
                   MMenu.Name === "Notifications" &&
                   notification !== undefined ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.notification_count
+                      {/* {notification && notification.notification_count
                         ? notification && notification.notification_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -703,9 +703,9 @@ const Header = ({
         notification.notification_count > 0 &&
         notification !== undefined ? (
           <span className={style.notificationBadge}>
-            {notification && notification.notification_count
+            {/* {notification && notification.notification_count
               ? notification && notification.notification_count
-              : "0"}
+              : "0"} */}
           </span>
         ) : (
           ""
@@ -890,9 +890,9 @@ const Header = ({
                       notification.basket_item_count > 0 &&
                       notification !== undefined ? (
                         <span className={style.CartBadge}>
-                          {notification && notification.basket_item_count
+                          {/* {notification && notification.basket_item_count
                             ? notification && notification.basket_item_count
-                            : "0"}
+                            : "0"} */}
                         </span>
                       ) : (
                         ""
@@ -903,9 +903,9 @@ const Header = ({
                       notification.notification_count > 0 &&
                       notification !== undefined ? (
                         <span className={style.NotificationCount}>
-                          {notification && notification.notification_count
+                          {/* {notification && notification.notification_count
                             ? notification && notification.notification_count
-                            : "0"}
+                            : "0"} */}
                         </span>
                       ) : (
                         ""
@@ -1212,9 +1212,9 @@ const Header = ({
                   notification.basket_item_count > 0 &&
                   notification !== undefined ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.basket_item_count
+                      {/* {notification && notification.basket_item_count
                         ? notification && notification.basket_item_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -1225,9 +1225,9 @@ const Header = ({
                   notification.notification_count > 0 &&
                   notification !== undefined ? (
                     <span className={style.NotificationCount}>
-                      {notification && notification.notification_count
+                      {/* {notification && notification.notification_count
                         ? notification && notification.notification_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -1618,9 +1618,9 @@ const Header = ({
                   notification &&
                   notification.basket_item_count > 0 ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.basket_item_count
+                      {/* {notification && notification.basket_item_count
                         ? notification && notification.basket_item_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -1631,9 +1631,9 @@ const Header = ({
                   notification.notification_count > 0 &&
                   notification !== undefined ? (
                     <span className={style.CartBadge}>
-                      {notification && notification.notification_count
+                      {/* {notification && notification.notification_count
                         ? notification && notification.notification_count
-                        : "0"}
+                        : "0"} */}
                     </span>
                   ) : (
                     ""
@@ -1697,9 +1697,9 @@ const Header = ({
               notification.notification_count > 0 &&
               notification !== undefined ? (
                 <span className={style.notificationBadge}>
-                  {notification && notification.notification_count
+                  {/* {notification && notification.notification_count
                     ? notification && notification.notification_count
-                    : "0"}
+                    : "0"} */}
                 </span>
               ) : (
                 ""

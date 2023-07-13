@@ -56,14 +56,14 @@ const Profile = ({ gameMusic,
   const [message, setMessage] = useState(false);
   const [type, setType] = useState(true);
   const [isAddress, setIsAddress] = useState(false);
-  const [line1, setLine1] = useState("");
-  const [line2, setLine2] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [zipcode, setZipCode] = useState("");
-  const [number, setNumber] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [line1, setLine1] = useState(user?.addressline1 || "");
+  const [line2, setLine2] = useState(user?.addressline2 || "");
+  const [city, setCity] = useState(user?.city || "");
+  const [state, setState] = useState(user?.state || "");
+  const [zipcode, setZipCode] = useState(user?.zipcode || "");
+  const [number, setNumber] = useState(user?.phone || "");
+  const [firstName, setFirstName] = useState(user?.first_name || "");
+  const [lastName, setLastName] = useState(user?.last_name || "");
   const [selectState, setSelectState] = useState(false);
   const [allState, setAllState] = useState([]);
   const [postcodetrue, setPostcodeTrue] = useState(false);
@@ -367,6 +367,14 @@ const Profile = ({ gameMusic,
       setSelectState(false);
     }
   };
+
+  const handleInputClick = () => {
+    if (userId===null || user.username === "") {
+      navigate('/login');
+      console.log(user.username ,"profileuser")
+    }
+  };
+
   return (
     <div className={style.Container}>
 
@@ -1097,10 +1105,16 @@ const Profile = ({ gameMusic,
                     <p>Phone Number</p>
                   </div>
                   <div className={style.InputSection}>
-                    <input className={style.phoneInputSection}
+                    <input 
+                    // className={style.phoneInputSection}
                       type="text"
                       value={user?.phone}
                       placeholder="Please Enter"
+                      readOnly
+                      onClick={handleInputClick}
+                      className={user && user.username ? style.loggedIn : style.loggedOut}
+
+
                     />
                     <img src={rightArrow} onClick={()=>{
                       setIsAddress(true)
@@ -1118,40 +1132,52 @@ const Profile = ({ gameMusic,
                       readOnly
                       placeholder="Username"
                     /> */}
+  
                     <img src={rightArrow} onClick={()=>{
                       setIsAddress(true)
                     }} alt="" />
+                 
                     <input
                       type="text"
                       value={user?.addressline1 || ""}
                       readOnly
-                      placeholder="Line1"
+                      placeholder="Please Enter"
+                      onClick={handleInputClick}
+                      className={user && user.username ? style.loggedIn : style.loggedOut}
+
                     />
                     <input
                       type="text"
                       value={user?.addressline2 || ""}
                       readOnly
-                      placeholder="Line2"
+                      placeholder=""
+                      className={style.loggedIn}
                     />
                     <input
                       type="text"
                       value={user?.city || ""}
                       readOnly
-                      placeholder="City"
+                      placeholder=""
+                      className={style.loggedIn}
+
                     />
                     {user && user.coutryname === "UK" ? (
                       <input
                         type="text"
                         value={user?.state || ""}
                         readOnly
-                        placeholder="County"
+                        placeholder=""
+                        className={style.loggedIn}
+
                       />
                     ) : user && user.coutryname === "USA" ? (
                       <input
                         type="text"
                         value={user?.state || ""}
                         readOnly
-                        placeholder="State"
+                        placeholder=""
+                        className={style.loggedIn}
+
                       />
                     ) : (
                       ""
@@ -1160,7 +1186,9 @@ const Profile = ({ gameMusic,
                         type="text"
                         value={user?.coutryname || ""}
                         readOnly
-                        placeholder="Country"
+                        placeholder=""
+                        className={style.loggedIn}
+
                       />
                     {/* <input type="text"  value={user?.county||""}readOnly placeholder="Country"/> */}
                     {user && user.coutryname === "UK" ? (
@@ -1168,14 +1196,18 @@ const Profile = ({ gameMusic,
                         type="text"
                         value={user?.zipcode || ""}
                         readOnly
-                        placeholder="Postcode"
+                        placeholder=""
+                        className={style.loggedIn}
+
                       />
                     ) : user && user.coutryname === "USA" ? (
                       <input
                         type="text"
                         value={user?.zipcode || ""}
                         readOnly
-                        placeholder="Zip Code"
+                        placeholder=""
+                        className={style.loggedIn}
+
                       />
                     ) : (
                       ""
@@ -1190,12 +1222,17 @@ const Profile = ({ gameMusic,
                   <div className={style.title}>
                     <p>Username</p>
                   </div>
-                  <div className={style.InputSection}>
+                  <div className={style.InputSection}
+                    >
                     <input
                       type="text"
                       value={username}
                       readOnly
-                      placeholder="Your Name"
+                      // placeholder="Your Name"
+                      placeholder="Please Enter"
+                      onClick={handleInputClick}
+                      className={user && user.username ? style.loggedIn : style.loggedOut}
+                   
                     />
                   </div>
                 </div>
@@ -1208,7 +1245,10 @@ const Profile = ({ gameMusic,
                       type="text"
                       value={birthday}
                       readOnly
-                      placeholder="DD/MM/YYY"
+                      // placeholder="DD/MM/YYYY"
+                      placeholder="Please Enter"
+                      onClick={handleInputClick}
+                      className={user && user.username ? style.loggedIn : style.loggedOut}
                     />
                     {/* <input type="date" value={birthday} onChange/> */}
                   </div>
@@ -1222,7 +1262,11 @@ const Profile = ({ gameMusic,
                       type="email"
                       value={email}
                       readOnly
-                      placeholder="YourName@gmail.com"
+                      // placeholder="YourName@gmail.com"
+                      placeholder="Please Enter"
+                      onClick={handleInputClick}
+                      className={user && user.username ? style.loggedIn : style.loggedOut}
+
                     />
                     {/* <input type="email" value={email} onChange={(e)=>{
                                 setEmail(e.target.value)
@@ -1236,15 +1280,19 @@ const Profile = ({ gameMusic,
                   <div className={style.InputSection}>
                     <input
                       type="text"
-                      value="***********"
+                      // value="***********"
+                      value="Please Enter"
                       readOnly
                       placeholder="Your Password"
+                      onClick={handleInputClick}
+                      className={user && user.username ? style.loggedIn : style.loggedOut}
+
                     />
                     {/* <MdOutlineKeyboardArrowRight/> */}
                     <img
                       src={rightArrow}
                       alt=""
-                      onClick={() => {
+                      onClick={() => { 
                         setUpdatePassword(true);
                       }}
                     />
@@ -1259,7 +1307,7 @@ const Profile = ({ gameMusic,
                     <p>Subscription</p>
                   </div>
                   <div className={style.InputSection}>
-                    <input type="text" value={subscription} readOnly />
+                    <input type="text" value={subscription} readOnly className={style.loggedIn} />
                     {user&&user.vip===false||userId===null?<img src={shippingInfo} alt="" onClick={()=>{
                       if(user && user.username === ""||user.username === undefined){
                         navigate("/login");

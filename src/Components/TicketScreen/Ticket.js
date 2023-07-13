@@ -520,7 +520,7 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         )}
         {loading === false ? (
           <div className={style.Tickets}>
-            {tickets.map((item, index) => {
+            {tickets&&tickets.map((item, index) => {
               return (
                 <div
                   className={style.TicketItem}

@@ -435,51 +435,50 @@ transform: scale(1.1); */
     }
 } */
 .CartBadge {
-  background-color: #1b8fe7;
+  background-color: #E60000;
   border-radius: 50%;
   font-size: 1.35rem;
-
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 7.5rem;
+  margin-left: 6.85rem;
   color: #fff;
   position: absolute;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.95rem;
 }
 .NotificationCount {
-  background-color: #1b8fe7;
+  background-color: #E60000;
   border-radius: 50%;
   font-size: 11px;
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
   position: absolute;
   margin-bottom: 2rem;
-  margin-left: 13.5rem;
+  margin-left: 12.85rem;
 }
 .notificationBadge {
-  background-color: #1b8fe7;
+  background-color: #E60000;
   border-radius: 50%;
   font-size: 11px;
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   /* margin: 0rem 1rem; */
   color: #fff;
   position: absolute;
-  margin-left: 3rem;
-  top: 1rem;
+  margin-left: 2.75rem;
+  top: 1.5rem;
 }
 .Music,
 .Sound {
@@ -785,22 +784,22 @@ transform: scale(1.1); */
     display: none;
   }
   .notificationBadge {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     font-size: 2rem;
-    right: 1px;
-    margin-top: 2rem;
+    right: 1.5rem;
+    margin-top: 1rem;
     z-index: 999999999;
   }
   .HomeMenuIcons svg {
-    margin-right: 2rem;
+    margin-right: 1.5rem;
   }
   .NotificationCount {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     font-size: 16px;
     margin-bottom: 2.75rem;
-    right: 1.5rem;
+    right: 2.75rem;
   }
 }
 @media (max-width: 820px) {
@@ -811,10 +810,10 @@ transform: scale(1.1); */
     width: 25%;
   }
   .notificationBadge {
-    margin-top: 1rem;
+    margin-top: 0;
   }
   .BottomMenuIcon .CartBadge {
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
     margin-left: 11rem;
   }
   .MBandaiLogo {
@@ -824,13 +823,16 @@ transform: scale(1.1); */
 @media (max-width: 768px) {
   .notificationBadge {
     font-size: 2rem;
-    width: 3.25rem;
-    height: 3.25rem;
-    right: 1px;
-    margin-top: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    right: 1.25rem;
+    /* margin-top: 1rem; */
   }
   .BottomMenuIcon .CartBadge {
-    margin-left: 12rem;
+    margin-left: 10rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 5rem;
   }
   .MBandaiLogo {
     padding: 1rem;
@@ -881,12 +883,12 @@ transform: scale(1.1); */
     -webkit-text-stroke: 0.75px #fff;
   }
   .BottomMenuIcon .CartBadge {
-    width: 20px;
-    height: 18px;
+    width: 13px;
+    height: 13px;
     font-size: 1rem;
     padding: 2px;
-    margin-left: 6.5rem;
-    margin-bottom: 2.25rem;
+    margin-left: 5.5rem;
+    margin-bottom: 2.5rem;
   }
   .HomeMenuIcons svg {
     font-size: 4rem;
@@ -1148,19 +1150,19 @@ transform: scale(1.1); */
     width: 10%;
   }
   .notificationBadge {
-    width: 18px;
-    height: 18px;
+    width: 13px;
+    height: 13px;
     font-size: 1rem;
     /* margin-left: 1.75rem; */
-    right: 1px;
-    margin-top: 0.5rem;
+    right: .75rem;
+    margin-top: 0;
   }
   .HomeMenuIcons svg {
     margin-right: 1rem;
   }
   .NotificationCount {
-    width: 20px;
-    height: 18px;
+    width: 13px;
+    height: 13px;
     font-size: 1rem;
     margin-bottom: 2rem;
   }
@@ -1479,7 +1481,7 @@ transform: scale(1.1); */
     transform: translate(-25%, 70%);
   }
   .notificationBadge {
-    top: 1px;
+    top: 1rem;
   }
 }
 
@@ -1754,10 +1756,10 @@ transform: scale(1.1); */
     margin-top: 0;
   }
   .BottomMenuIcon .CartBadge {
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     font-size: 2rem;
-    margin-left: 16rem;
+    margin-left: 12rem;
     padding: auto;
     margin-bottom: 8rem;
   }

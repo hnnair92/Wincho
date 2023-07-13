@@ -686,6 +686,7 @@ label {
   .Container {
     background: #fae863;
     padding: 50px 25px;
+    height: auto;
     padding-right: 0;
     padding-left: 0;
   }

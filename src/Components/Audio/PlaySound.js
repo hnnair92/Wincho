@@ -3,6 +3,9 @@ import { music } from '../../assests/Musics/allMusic';
 
 function PlaySound({setPlayAudio,src,reportIssueCategories,gameMusic, setGameMusic, gameSound, setGameSound }) {
     const audioRef = useRef(null)
+    useEffect(()=>{
+      console.log(audioRef)
+    },[audioRef,gameMusic,gameSound,src])
     console.log(src)
     let audioStatus = localStorage.getItem("sound");
     useEffect(() => {
@@ -13,21 +16,26 @@ function PlaySound({setPlayAudio,src,reportIssueCategories,gameMusic, setGameMus
         
         useEffect(() => {
           if (gameSound === 1||gameSound==="1") {
-            audioRef.current.volume = 1;
+            // audioRef.current.volume = 1;
+            audioRef.current.muted = false;
+
           } else {
-            audioRef.current.volume = 0;
+            // audioRef.current.volume = 0;
+            audioRef.current.muted = true;
+
           }
         }, [gameSound]);
         
         
         async function playAudio(src) {
           if (audioStatus===1||audioStatus==="1") {
-            audioRef.current.volume = 1;
             // audioRef.current.src = src;
             audioRef.current.play();
+            audioRef.current.muted = false;
           
           } else {
-            audioRef.current.volume = 0;
+            audioRef.current.muted = true;
+
           }
         }
         useEffect(()=>{

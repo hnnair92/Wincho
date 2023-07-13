@@ -578,6 +578,8 @@ input:-webkit-autofill:active {
 }
 @media (max-width: 1065px) {
   .Container {
+    height: auto;
+    padding: 6rem;
     background: #fae863;
   }
   .Right {

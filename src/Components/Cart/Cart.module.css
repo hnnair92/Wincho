@@ -1004,8 +1004,9 @@ border-radius: 30px;
 
 }
 .Bonus p{
-    font-size: 3.5rem;
-    font-family:bubbleGum;
+    font-size: 7.5rem;
+    /* font-family:bubbleGum; */
+    font-family: drumshake_italic;
     color: #fff;
     -webkit-text-stroke: 2px #000;
 }

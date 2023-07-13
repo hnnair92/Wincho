@@ -60,8 +60,10 @@
 
     /* text-decoration: underline; */
 }
-
-.Menu ul li,.TermsAndPrivacyText li:hover {
+.TermsAndPrivacyText li{
+    border-bottom: 1.5px solid #fff;
+}
+.Menu ul li:hover {
     border-bottom: 1.5px solid #1b8fe7;
     /* transform: scale(1.1); */
 
