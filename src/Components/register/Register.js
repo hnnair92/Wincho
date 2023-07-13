@@ -571,7 +571,7 @@ const Register = () => {
             {password === confirmPassword  ? (
               ""
             ) : RepeatPasswordCheck&&password.length>0&&confirmPassword.length>0? (
-              <p className={style.AgeRestrict}>Password do not matching</p>
+              <p className={style.AgeRestrict}>Password do not match</p>
             ):""}
           </div>
           <input

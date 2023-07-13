@@ -35,6 +35,7 @@ import { baseUrl } from "./Components/url";
 import Cookie from "./Components/Cookie/Cookie";
 // import { Socket } from 'socket.io-client';
 import "pepjs";
+import AudioTry from "./audioTry";
 function App() {
   const dispatch = useDispatch();
   const [userJoined, setUserJoined] = useState(false);
@@ -226,6 +227,7 @@ function App() {
           {/* <Route path="/:category" element={<Games/>}/> */}
           {/* <Route path="/load" element={<Loader/>}/> */}
           <Route path="/register" element={<Register />} />
+          <Route path="/audioTry" element={<AudioTry/>}/>
           <Route
             path="/cart"
             element={

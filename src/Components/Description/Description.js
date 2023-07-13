@@ -2482,7 +2482,7 @@ useEffect(()=>{
             <p>YOU MIGHT ALSO LIKE...</p>
           </div>
           <div className={style.AllGames}>
-            {products.length>0&&products.filter((gameFilter)=>gameFilter.id!==GameData.id).map((gameDetails,index) => {
+            {products.length>0&&products.filter((gameFilter)=>gameFilter?.id!==GameData?.id).map((gameDetails,index) => {
              
               const randomNumber = Math.random() * (products.length-0) + 0
                   console.log(randomNumber)
