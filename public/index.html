@@ -3,14 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
+ 
     <meta name="theme-color" content="#000000" />
     <meta
       name="Wincha &reg;"
       content="Online Gaming"
     />
-    <meta name="viewport" 
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <!-- <meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -44,6 +46,24 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <button onclick="muteAudio()">Mute</button>
+<button onclick="unmuteAudio()">Unmute</button>
+<audio id="myAudio" controls src="https://www.w3schools.com/html/horse.ogg" ></audio>
+<script>
+// Get the audio element
+const audioElement = document.getElementById('myAudio');
+
+// Mute the audio
+function muteAudio() {
+  audioElement.muted = true;
+}
+
+// Unmute the audio
+function unmuteAudio() {
+  audioElement.muted = false;
+}
+
+</script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
