@@ -9,26 +9,26 @@ function PlayAudio({gameMusic, setGameMusic, gameSound, setGameSound }) {
       );
       const audioRefHome = useRef(null);
       useEffect(() => {
-        if (gameMusic === 1 || gameMusic === 1) {
-          audioRefHome.current.volume = 1;
+        if (gameMusic === 1 || gameMusic === "1") {
+          audioRefHome.current.muted = false;
           playAudioBg();
         } else {
-          audioRefHome.current.volume = 0;
+          audioRefHome.current.muted = true;
         }
       }, [gameMusic]);
       useEffect(() => {
-        if (gameMusic === 1 || gameMusic === 1) {
-          audioRefHome.current.volume = 1;
+        if (gameMusic === 1 || gameMusic === "1") {
+          audioRefHome.current.muted = false;
           playAudioBg();
         } 
       }, []);
       async function audioEnded(src) {
         if (musicStatus === "true") {
-          audioRefHome.current.volume = 1;
+          audioRefHome.current.muted = false;
           audioRefHome.current.src = src;
           audioRefHome.current.play();
         } else {
-          audioRefHome.current.volume = 0;
+          audioRefHome.current.muted = true;
         }
       }
       async function playAudioBg() {

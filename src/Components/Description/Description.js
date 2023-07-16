@@ -384,7 +384,7 @@ const Description = ({
 
   useEffect(()=>{
     if(GameData&&GameData.category){
-      const datas = GameData.category.split(",")
+      const datas = GameData&&GameData.category.split(",")
       console.log(datas)
       setSendCategory(datas[0])
     }
@@ -482,7 +482,7 @@ const Description = ({
   },[count])
   useEffect(()=>{
     console.log(currentPrizeMove)
-    console.log(game.price_move_status)
+    // console.log(game.price_move_status)
   },[camera])
   useEffect(() => {
     socket.on("game_que_count", (res) => {
@@ -515,14 +515,14 @@ const Description = ({
       const splitRes = res.split("|");
       const splitViews = splitRes[splitRes.length - 1].split(":");
       const splitId = splitRes[0].split(":");
-      if (GameData.machine_code === splitId[1]) {
+      if (GameData&&GameData.machine_code === splitId[1]) {
         console.log(splitViews[splitViews.length - 1]);
         setViewCount(splitViews[splitViews.length - 1]);
       }
-      console.log(res);
-      console.log(GameData.machine_code===splitId[1]);
-      console.log(GameData.machine_code);
-      console.log(splitId[1]);
+      // console.log(res);
+      // console.log(GameData.machine_code===splitId[1]);
+      // console.log(GameData.machine_code);
+      // console.log(splitId[1]);
       //   setViewCount();
     });
     socket.on("get_machine_status", (res) => {
@@ -589,16 +589,16 @@ const Description = ({
       console.log(user[1])
       console.log(userId)
       console.log(userId===user[1])
-      if (data === "PRIZE_WON" && GameData.machine_code === splitId[1]) {
+      if (data === "PRIZE_WON" && GameData&&GameData.machine_code === splitId[1]) {
         console.log(prizeCount);
           setPrizeDate(data)
           setPlayAgain(false);
       }
-      if (data === "PRIZE_LOST" && GameData.machine_code === splitId[1]) {
+      if (data === "PRIZE_LOST" && GameData&&GameData.machine_code === splitId[1]) {
       }
       if (
         data === "RH_POSITION_CHANGED" &&
-        GameData.machine_code === machineId[1]
+        GameData&&GameData.machine_code === machineId[1]
       ) {
         setCurrentPrizeMove(false);
         setShowUserPopup(false)
@@ -716,9 +716,9 @@ useEffect(()=>{
   useEffect(() => {
     console.log(freePlay);
     console.log(freePlay >= configuration.FREE_PLAY_LIMIT &&
-      GameData.price === "0"&&user&&user.vip===false);
+      GameData&&GameData.price === "0"&&user&&user.vip===false);
     console.log(  freePlay >= configuration.FREE_PLAY_LIMIT &&
-      GameData.price === "0")
+      GameData&&GameData.price === "0")
   }, [freePlay,configuration]);
   
   const setPlayBack = () => {
@@ -746,7 +746,7 @@ useEffect(()=>{
         source: "web",
         replay: false,
         //  ,
-      freeplay:GameData.price==="0"?true:false,
+      freeplay:GameData&&GameData.price==="0"?true:false,
 
       };
       dispatch(gameEntry(EntryRequest));
@@ -927,6 +927,27 @@ useEffect(()=>{
       setPlayAgain(false)
     }
   },[wait])
+  async function playAudioBackground() {
+    audioRefHome.current.src = music.Game;
+    audioRefHome.current.play();
+  }
+  useEffect(() => {
+    if (gameMusic === 1 || gameMusic === 1) {
+      audioRefHome.current.volume = 1;
+      playAudioBackground();
+    } else {
+      audioRefHome.current.volume = 0;
+    }
+  }, [gameMusic]);
+  async function audioEnded(src) {
+    if (musicStatus === "true") {
+      audioRefHome.current.volume = 1;
+      audioRefHome.current.src = src;
+      audioRefHome.current.play();
+    } else {
+      audioRefHome.current.volume = 0;
+    }
+  }
   // popups
   async function movePrize() {
     return (
@@ -1092,8 +1113,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify({
         playerID: userId,
-        machineID: game._id,
-        productID: GameData.id,
+        machineID: game&&game._id,
+        productID: GameData&&GameData.id,
         title: category,
         content: reportText,
         source: "web",
@@ -1117,7 +1138,7 @@ useEffect(()=>{
     setTimeout(() => {
       // gameStatus();
       // gameSession()
-    }, game.get_status_time);
+    }, game&&game.get_status_time);
   }
   async function timeOut(userId, timeout_status) {
     setPlayAudio(music.Whoops);
@@ -1151,8 +1172,8 @@ useEffect(()=>{
     navigate("/prizes", { state: { category: sendCategory } });
   }
   async function checkAnime() {
-    console.log(game.machine_delay_time)
-    switch (game.machine_delay_time) {
+    // console.log(game.machine_delay_time)
+    switch (game&&game.machine_delay_time) {
       case 10:
         setWaitAnimation(AllAnimation.wait_10);
         break;
@@ -1192,7 +1213,7 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify({
         playerID: userId,
-        machineCode: game.machineCode,
+        machineCode: game&&game.machineCode,
         player_request: "RH_MOVE_GIFT",
       }),
       headers: {
@@ -1209,7 +1230,7 @@ useEffect(()=>{
     // setActive(false)
     console.log(EntryRequest)
     checkAnime();
-    console.log(typeof GameData.price)
+    // console.log(typeof GameData.price)
     setPlayAudio(music.Wincha);
     setDirection(game.movement.split("-"));
     e.preventDefault();
@@ -1227,9 +1248,9 @@ useEffect(()=>{
       }
     });
     const joinBody = {
-      machineCode: game.machineCode,
+      machineCode: game&&game.machineCode,
       playerID: userId,
-      freeplay:GameData.price==="0"?true:false,
+      freeplay:GameData&&GameData.price==="0"?true:false,
       //  ,
       source: "web",
     }
@@ -1291,7 +1312,7 @@ useEffect(()=>{
     // const freePl = JSON.parse(localStorage.getItem("times"))
     // console.log(freePl);
     // setFreePlay(freePlay+1)
-    if(GameData.price==="0"&&user?.vip===false){
+    if(GameData&&GameData.price==="0"&&user?.vip===false){
       setCheckDateCount(checkDateCount+1)
       // localStorage.setItem("checkPlay",checkDateCount)
     }
@@ -1299,11 +1320,11 @@ useEffect(()=>{
     socket.emit("peer_message", `${baseMessage}|P_STARTED`);
     const startBody = {
       playerID: userId,
-      machineCode: game.machineCode,
+      machineCode: game&&game.machineCode,
       source: "web",
       //  ,
-      freeplay:GameData.price==="0"?true:false,
-      product_id: GameData.id,
+      freeplay:GameData&&GameData.price==="0"?true:false,
+      product_id: GameData&&GameData.id,
       //  ,
     }
     await fetch(`${baseUrl}/game/start`, {
@@ -1317,7 +1338,7 @@ useEffect(()=>{
       .then((res) => res.json())
       .then((data) => {
         setGameStartStatus(true)
-        console.log("direction", game.camera_data[0].camera_id);
+        console.log("direction", game&&game.camera_data[0].camera_id);
         console.log(data)
         console.log(startBody,"startBody")
         localStorage.setItem("inGame", true);
@@ -1347,7 +1368,7 @@ useEffect(()=>{
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game.machineCode,
+        machineCode: game&&game.machineCode,
         playerID: userId,
         command:
           command === "LEFT" ? "LEFT" : command === "RIGHT" ? "RIGHT" : "",
@@ -1372,7 +1393,7 @@ useEffect(()=>{
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game.machineCode,
+        machineCode: game&&game.machineCode,
         playerID: userId,
         command: command,
         source: "web",
@@ -1395,7 +1416,7 @@ useEffect(()=>{
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game.machineCode,
+        machineCode: game&&game.machineCode,
         playerID: userId,
         command: "P_FW",
         source: "web",
@@ -1414,7 +1435,7 @@ useEffect(()=>{
     await fetch(`${baseUrl}/game/movement`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game.machineCode,
+        machineCode: game&&game.machineCode,
         playerID: userId,
         command: "FW_STOP",
         source: "web",
@@ -1433,14 +1454,14 @@ useEffect(()=>{
         setTimeout(() => {
           gameStatus();
           // gameSession();
-        }, game.get_status_time * 1000);
+        }, game&&game.get_status_time * 1000);
       });
   }
   async function gameStatus() {
     console.log(userId);
     const sessionData = {
       playerID: userId,
-      machineCode: game.machineCode,
+      machineCode: game&&game.machineCode,
       source: "web",
     }
     await fetch(`${baseUrl}/game/status`, {
@@ -1464,9 +1485,9 @@ useEffect(()=>{
     // setStatus(true)
     const sessionData = {
       user_id: userId,
-        machineID: game._id,
+        machineID: game&&game._id,
         game_status: statusCode,
-        product_id: GameData.id,
+        product_id: GameData&&GameData.id,
         game_session_id: startGame.game_session_id,
         source: "web",
     }
@@ -1502,7 +1523,7 @@ useEffect(()=>{
     await fetch(`${baseUrl}/game/leave`, {
       method: "POST",
       body: JSON.stringify({
-        machineCode: game.machineCode,
+        machineCode: game&&game.machineCode,
         playerID: userId,
         timeout_status: timeout_status,
         source: "web",
@@ -1529,7 +1550,7 @@ useEffect(()=>{
               JSON.stringify({
                 user_id: userId,
                 socket_id: socket.id,
-                machineCode: GameData.machine_code,
+                machineCode: GameData&&GameData.machine_code,
               })
             );
           }, 1000);
@@ -1551,9 +1572,9 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify({
         user_id: userId,
-        product_id: GameData.id,
+        product_id: GameData&&GameData.id,
         game_status: true,
-        machineID: game._id,
+        machineID: game&&game._id,
         archiveid: session.archiveid,
         game_session_id: startGame.game_session_id,
       }),
@@ -1598,7 +1619,7 @@ useEffect(()=>{
       method: "PUT",
       body: JSON.stringify({
         user_id: userId,
-        point: GameData.price === "0" ? "0" : GameData.price,
+        point: GameData&&GameData.price === "0" ? "0" : GameData&&GameData.price,
         credicts: "false",
         source: "web",
       }),
@@ -1611,13 +1632,13 @@ useEffect(()=>{
       .then((data) => {
         console.log(data)
         console.log(data)
-        if (GameData.price === "0") {
+        if (GameData&&GameData.price === "0") {
           // setFreePlay(freePlay + 1);
         }
-        console.log(user.vip)
+        // console.log(user.vip)
         if (
           freePlay >= configuration.FREE_PLAY_LIMIT &&
-          GameData.price === "0"&&user.vip===false
+          GameData&&GameData.price === "0"&&user.vip===false
           ) {
             // if(user.username === "" || user.username === undefined ){
             //   setFreePlayNotReg(true)
@@ -1630,14 +1651,14 @@ useEffect(()=>{
           else{
             setCount(count + 1);
             // setPlayAudio(music.CoinDrop);
-            console.log(data)
-            console.log(freePlay)
-            console.log(configuration.FREE_PLAY_LIMIT)
-            console.log(GameData.price)
-            console.log(user.vip)
+            // console.log(data)
+            // console.log(freePlay)
+            // console.log(configuration.FREE_PLAY_LIMIT)
+            // console.log(GameData.price)
+            // console.log(user.vip)
             dispatch(updateProfile());
             gameStart();
-            console.log(data)
+            // console.log(data)
           }
       });
   }
@@ -1662,8 +1683,8 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify({
         playerID: userId,
-        machineID: game._id,
-        productID: GameData.id,
+        machineID: game&&game._id,
+        productID: GameData&&GameData.id,
         title: report.Title,
         content: report.Content,
         source: "web",
@@ -1681,7 +1702,7 @@ useEffect(()=>{
       method: "POST",
       body: JSON.stringify({
         playerID: userId,
-        machineID: game._id,
+        machineID: game&&game._id,
       }),
       headers: {
         "Content-Type":"application/json",
@@ -1841,10 +1862,11 @@ useEffect(()=>{
 // }
   return (
     <div className={style.Container}>
+        <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
     {playAudio?
       <PlaySound src={playAudio} reportIssueCategories ={reportIssueCategories} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound}/>
     :""}
-      <PlayGameAudio gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} />
+      {/* <PlayGameAudio gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} /> */}
       {prizeResetActive ? (
         <div className={style.popup}>
         <div className={style.OverlayBg} onClick={()=>{
@@ -2063,6 +2085,7 @@ useEffect(()=>{
               onClick={() => {
                 setFreeLimitPopup(false);
                 gameLeave(userId,false)
+                window.location.reload()
               }}
             >
               <button>OK</button>
@@ -2121,7 +2144,7 @@ useEffect(()=>{
                 setOnPlay(false);
               }}
             /> */}
-            {game.last_win_url === "" ? (
+            {game&&game.last_win_url === "" ? (
               <div className={style.VideoEmpty}>
                 <p>Whoops! Video unavailable Please try again later.</p>
               </div>
@@ -2137,9 +2160,9 @@ useEffect(()=>{
           playsinline
           preload="metadata"
         >
-        <source src="${game.last_win_url}" type="video/mp4" />
-        <source src="${game.last_win_url}" type="video/MPEG-4" />
-        <source src="${game.last_win_url}" type="video/avc" />
+        <source src="${game&&game.last_win_url}" type="video/mp4" />
+        <source src="${game&&game.last_win_url}" type="video/MPEG-4" />
+        <source src="${game&&game.last_win_url}" type="video/avc" />
         </video>`
       }}
     ></div>
@@ -2501,7 +2524,7 @@ useEffect(()=>{
                       onClick={() => {
                         if((freePlay >= configuration.FREE_PLAY_LIMIT &&
                           gameDetails.price === "0" &&
-                          user.vip === false)  || (gameDetails.machine_status === false)){
+                          user&&user.vip === false)  || (gameDetails.machine_status === false)){
 
                           }
                           else{
@@ -2529,7 +2552,7 @@ useEffect(()=>{
                           >
                            {(freePlay >= configuration.FREE_PLAY_LIMIT &&
                               gameDetails.price === "0" &&
-                              user.vip === false)  || (gameDetails.machine_status === false)? (
+                              user&&user.vip === false)  || (gameDetails.machine_status === false)? (
                                 <img
                                   src={assets.ticketIcon}
                                   alt=""
@@ -3094,7 +3117,7 @@ useEffect(()=>{
                             />
                           </button>
                         ) : firstStep ? (
-                          game.camera_data[0].camera_id === "1" ? (
+                          game&&game.camera_data[0].camera_id === "1" ? (
                             direction && direction[1] === "Right" ? (
                               <div className={style.ArrowBothButtons}>
                                 <div
@@ -3559,7 +3582,7 @@ useEffect(()=>{
                             ) : (
                             <img src={waitStatic} alt="" />
                             )
-                          ) : game.camera_data[0].camera_id === "2" ? (
+                          ) : game&&game.camera_data[0].camera_id === "2" ? (
                             direction && direction[1] === "Right" ? (
                               //  <div className={style.playImageLoader}>
                               <div className={style.ArrowBothButtons}>
@@ -3998,7 +4021,7 @@ useEffect(()=>{
                             </button>
                           )
                         ) : secondStep ? (
-                          game.camera_data[0].camera_id === "1" ? (
+                          game&&game.camera_data[0].camera_id === "1" ? (
                             direction && direction[1] === "Right" ? (
                               <div className={style.ArrowBothButtons}>
                                 <div
@@ -4420,7 +4443,7 @@ useEffect(()=>{
                                 <img src={waitStatic} alt="" />
                               </button>
                             )
-                          ) : game.camera_data[0].camera_id === "2" ? (
+                          ) : game&&game.camera_data[0].camera_id === "2" ? (
                             direction && direction[1] === "Right" ? (
                               //  <div className={style.playImageLoader}>
                               <div className={style.ArrowBothButtons}>
@@ -4980,13 +5003,13 @@ useEffect(()=>{
                           setReloadStatus(true)
                           // setGamePlay(true);
                           setPlayAgain(false);
-                          console.log(GameData.machine_code)
+                          // console.log(GameData.machine_code)
                           socket.emit(
                             "socket_connect",
                             JSON.stringify({
                               user_id: userId,
                               socket_id: socket.id,
-                              machineCode: GameData.machine_code,
+                              machineCode: GameData&&GameData.machine_code,
                             })
                           );
                           let message = `${baseMessage}|P_RESTARTED`;
@@ -5038,7 +5061,7 @@ useEffect(()=>{
                     className={style.Report}
                     style={{
                      
-                      pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId? "none" : "visible",
+                      pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game&&game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game&&game.price_move_status===true&&prizeId!==userId? "none" : "visible",
                     }}
                   >
                     <button
@@ -5054,7 +5077,7 @@ useEffect(()=>{
                 </div>
                 <div
                   className={style.Right}
-                  style={{                       pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId? "none" : "visible",
+                  style={{                       pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game&&game.prize_reset_status===true&&prizeDate!=="PRIZE_WON"&&prizeId!==userId||game&&game.price_move_status===true&&prizeId!==userId? "none" : "visible",
                 }}
                   // style={{ pointerEvents: gamePlayStatus||currentPrizeMove===true&&prizeId===userId||game.prize_reset_status===true&&prizeResetStatus!=="RESET"&&prizeId!==userId||game.price_move_status===true&&prizeId!==userId||currentPrizeMove===true&&prizeId!==userId? "none" : "visible" }}
                 >

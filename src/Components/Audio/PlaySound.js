@@ -18,11 +18,12 @@ function PlaySound({setPlayAudio,src,reportIssueCategories,gameMusic, setGameMus
           if (gameSound === 1||gameSound==="1") {
             // audioRef.current.volume = 1;
             audioRef.current.muted = false;
+            console.log(audioRef.current.muted = false,"first_sound")
 
           } else {
             // audioRef.current.volume = 0;
             audioRef.current.muted = true;
-
+            console.log( audioRef.current.muted = true,"second_sound")
           }
         }, [gameSound]);
         
@@ -31,11 +32,12 @@ function PlaySound({setPlayAudio,src,reportIssueCategories,gameMusic, setGameMus
           if (audioStatus===1||audioStatus==="1") {
             // audioRef.current.src = src;
             audioRef.current.play();
-            audioRef.current.muted = false;
+            audioRef.current.muted = true;
+            console.log(  audioRef.current.muted = false,"third_sound");
           
           } else {
-            audioRef.current.muted = true;
-
+            audioRef.current.muted = false;
+            console.log(audioRef.current.muted = false,"fourth_sound");
           }
         }
         useEffect(()=>{

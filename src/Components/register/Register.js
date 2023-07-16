@@ -142,10 +142,15 @@ const Register = () => {
   useEffect(() => {
     console.log(state);
   }, [state]);
+  useEffect(()=>{
+    if(username.length>1){
+      checkUsername()
+    }
+  },[username])
   const handleRegister =async(e) => {
     e.preventDefault();
     console.log("reached");
-    checkUsername();
+    // checkUsername();
     console.log("register username state", usernameExist);
     const data = {
       username: username,
@@ -160,10 +165,10 @@ const Register = () => {
     };
     console.log(data);
     console.log(configuration);
-    if ( password === confirmPassword) {
+    if ( password === confirmPassword&&usernameExist==="True")  {
       await dispatch(registerAction(data));
+      await navigate("/prizes", { state: { category: "plushies" } });
     }
-    await navigate("/prizes", { state: { category: "plushies" } });
     // await navigate("/prizes",{state:{category:"plushies"}})
   };
   const checkUsername = async () => {
@@ -347,6 +352,7 @@ const Register = () => {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
+              checkUsername()
             }}
           />
           {username.length < 1 && username !== "" ? (

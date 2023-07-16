@@ -131,7 +131,7 @@ const Profile = ({ gameMusic,
       // setBirthday(`${date[2]}-${date[1]}-${date[0]}`)
       setBirthday(user.dob);
       // console.log(birthday)
-      setSubscription(user.vip ? "Yes" : "No");
+      setSubscription(user.vip ? "On" : "Off");
     }
   });
   // useEffect(() => {
@@ -466,10 +466,13 @@ const Profile = ({ gameMusic,
               </div>
               <div className={style.SubscribeButton}>
                 <button onClick={()=>{
-                 if(userId===null){
+                 if((user && user.username === ""||user.username === undefined)){
                   return navigate("/login")
                 }
-                vipPayment();
+                else{
+                  vipPayment();
+                }
+                
                 }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
               </div>
               <div className={style.CancelSubscription}>
@@ -1281,9 +1284,9 @@ const Profile = ({ gameMusic,
                     <input
                       type="text"
                       // value="***********"
-                      value="Please Enter"
+                      value={user && user.username ? "***********" : ""}
                       readOnly
-                      placeholder="Your Password"
+                      placeholder="Please Enter"
                       onClick={handleInputClick}
                       className={user && user.username ? style.loggedIn : style.loggedOut}
 
@@ -1309,10 +1312,7 @@ const Profile = ({ gameMusic,
                   <div className={style.InputSection}>
                     <input type="text" value={subscription} readOnly className={style.loggedIn} />
                     {user&&user.vip===false||userId===null?<img src={shippingInfo} alt="" onClick={()=>{
-                      if(user && user.username === ""||user.username === undefined){
-                        navigate("/login");
-                      }
-                      else if(user && user.profile_status === false){
+                      if(user && user.profile_status === false&&(user && user.username !== ""&&user.username !== undefined)){
                         setResendEmail(true)
                       }
                       else{

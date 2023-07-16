@@ -256,12 +256,12 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
     if (gameSound === 1 || gameSound === 1) {
-      console.log(audioRef.current.volume);
-      audioRef.current.volume = 1;
+      console.log(audioRef.current.muted);
+      audioRef.current.muted = false;
       console.log("true for gameMusic");
-      console.log(audioRef.current.volume);
+      console.log(audioRef.current.muted);
     } else {
-      audioRef.current.volume = 0;
+      audioRef.current.muted = true;
       console.log(typeof gameMusic);
       console.log("not reached");
     }
@@ -272,16 +272,16 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log("its below", gameMusic, gameSound);
 
     if (gameMusic === 1 || gameMusic === 1) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
+      console.log(audioRefHome.current.muted);
+      audioRefHome.current.muted = false;
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
       console.log("not reached");
     }
     if (gameSound === 1 || gameSound === 1) {
-      console.log(audioRef.current.volume);
-      audioRef.current.volume = 1;
+      console.log(audioRef.current.muted);
+      audioRef.current.muted = false;
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -293,11 +293,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(audioStatus, "audioStatus");
     if (audioStatus === "true") {
       console.log("reached here");
-      audioRef.current.volume = 1;
+      audioRef.current.muted = false;
       audioRef.current.src = src;
       audioRef.current.play();
     } else {
-      audioRef.current.volume = 0;
+      audioRef.current.muted = true;
     }
   }
   useEffect(() => {
@@ -305,13 +305,13 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
     if (gameMusic === 1 || gameMusic === 1) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
+      console.log(audioRefHome.current.muted);
+      audioRefHome.current.muted = false;
       console.log("true for gameMusic");
-      console.log(audioRefHome.current.volume);
+      console.log(audioRefHome.current.muted);
       playAudioBg();
     } else {
-      audioRefHome.current.volume = 0;
+      audioRefHome.current.muted = true;
       console.log(typeof gameMusic);
       console.log("not reached");
     }
@@ -319,8 +319,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   }, [window, gameMusic]);
   useEffect(() => {
     if (gameMusic === 1 || gameMusic === 1) {
-      console.log(audioRefHome.current.volume);
-      audioRefHome.current.volume = 1;
+      console.log(audioRefHome.current.muted);
+      audioRefHome.current.muted = false;
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -333,11 +333,11 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   async function audioEnded(src) {
     if (musicStatus === "true") {
       // audioRefHome.current.unmute()
-      audioRefHome.current.volume = 1;
+      audioRefHome.current.muted = true;
       audioRefHome.current.src = src;
       audioRefHome.current.play();
     } else {
-      audioRefHome.current.volume = 0;
+      audioRefHome.current.muted =false;
       // audioRefHome.current.mute()
     }
   }

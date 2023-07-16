@@ -61,7 +61,7 @@
     /* text-decoration: underline; */
 }
 .TermsAndPrivacyText li{
-    border-bottom: 1.5px solid #fff;
+    text-decoration: underline;
 }
 .Menu ul li:hover {
     border-bottom: 1.5px solid #1b8fe7;
