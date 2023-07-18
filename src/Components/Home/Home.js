@@ -16,6 +16,7 @@ import VideoSrcHome from "../../assests/video/wincha_home.mp4";
 import winchaIcons from "../../assests/Wincha HomePage Logo.png";
 import { baseUrl } from "../url";
 import ReactPlayer from "react-player";
+import PlayStore from "../../assests/google-play-badge.png"
 
 const Home = () => {
   const navigate = useNavigate();
@@ -162,6 +163,14 @@ const Home = () => {
                 window.open(
                   "https://apps.apple.com/gb/app/wincha/id1604147807"
                 );
+              }}
+            />
+            <img
+              src={PlayStore}
+              alt=""
+              className={style.PlayStore}
+              onClick={() => {
+                window.open("https://play.google.com/store/apps/details?id=com.bandai.wincha");
               }}
             />
             <div className={style.LeftIcons}>
@@ -338,12 +347,21 @@ const Home = () => {
               <img
                 src={AppStore}
                 alt=""
+                className={style.appStore}
                 onClick={() => {
                   window.open(
                     "https://apps.apple.com/gb/app/wincha/id1604147807"
                   );
                 }}
               />
+              <img
+              src={PlayStore}
+              alt=""
+              className={style.playStore}
+              onClick={() => {
+                window.open("https://play.google.com/store/apps/details?id=com.bandai.wincha");
+              }}
+            />
             </div>
           </div>
           <div className={style.MCrane}>

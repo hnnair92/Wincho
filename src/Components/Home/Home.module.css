@@ -49,6 +49,9 @@
     height: 100%;
     position: relative;
     z-index: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .Contact{
     width: 100%;
@@ -243,7 +246,15 @@
     position: absolute;
     top: 0;
     z-index: 999;
-    left: 50%;
+    left: 40%;
+    transform: translate(-50%,-50%);
+}
+.PlayStore{
+    width: 21%;
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    left: 60%;
     transform: translate(-50%,-50%);
 }
 .PlayBtn{
@@ -337,11 +348,33 @@
         width: 100%;
     }
     .MAppStore{
-        width: 60%;
-    }
-    .MAppStore img{
         width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
+    .appStore{
+        width: 65%;
+        position: absolute;
+        top: 0;
+        z-index: 999;
+        left: 15%;
+        transform: translate(-50%,-20%);
+    }
+    .playStore{
+        width: 70%;
+        position: absolute;
+        top: 0;
+        z-index: 999;
+        left: 85%;
+        transform: translate(-50%,-20%);
+    }
+    /* .MAppStore img{
+        width: 100%;
+    } */
     .MSupportBg {
         width: 100%;
     }
@@ -728,7 +761,7 @@
 }
 @media(max-width:599px){
     .MAppStore{
-        width: 90%;
+        width: 100%;
     }
     .ContactSection{
         margin-top: 2rem;

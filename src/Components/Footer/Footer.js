@@ -476,9 +476,27 @@ const Footer = ({
                     <p>&copy; Bandai Namco Amusement Europe Ltd.</p>
                 </div>
                 <div className={style.TermsAndPrivacy}>
-                <div className={style.TermsAndPrivacyText} style={{pointerEvents:gamePlay?"none":"visible"}}>
-                    <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
-                    <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link>
+                <div className={style.TermsAndPrivacyText} >
+                    {/* <Link to={`${configuration.privacy}`} target="_blank">Privacy Policy</Link>
+                    <Link to={`${configuration.terms}`} target="_blank">Terms and Conditions</Link> */}
+                    <li onClick={()=>{
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("terms")
+                        }
+                        else{
+                          window.open(configuration.terms)
+                        }
+                    }} >Privacy Policy</li>
+                    <li onClick={()=>{
+                      if(splitPath[1]==="game"){
+                        setActive(true)
+                        setPageUrl("privacy")
+                        }
+                        else{
+                          window.open(configuration.privacy)
+                        }
+                    }}  >Terms and Conditions</li>
                 </div>
                 <div className={style.Mlogos}>
                 <div className={style.MbandaiLogo}>

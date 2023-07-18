@@ -1039,7 +1039,8 @@ const Profile = ({ gameMusic,
             {/* <button className={style.ProfileBtn}>PROFILE</button>
             <button className={style.history}>HISTORY</button>
             <button className={style.Faq}>FAQ</button> */}
-            <button
+            {
+              (userId!==null&&user&&user.username!=="")?<button
               className={style.Deactivate}
               onClick={() => {
                 if(userId!==null&&user&&user.username!==""){
@@ -1048,7 +1049,9 @@ const Profile = ({ gameMusic,
               }}
             >
               Delete ACCOUNT
-            </button>
+            </button>:''
+            }
+            
           </div>
         </div>
         <div className={style.FullDetails}>

@@ -1646,6 +1646,7 @@ useEffect(()=>{
             // else{
             //   return setFreeLimitPopup(true);
             // }
+            localStorage.setItem("reload",false)
             return setFreeLimitPopup(true);
           }
           else{
@@ -1959,10 +1960,11 @@ useEffect(()=>{
               }}
             > */}
               <button onClick={()=>{
+                 localStorage.setItem("reload",false)
                 setFreeLimitPopup(false)
                 gameLeave()
                 navigate("/login")
-                // window.location.reload()
+                window.location.reload()
               }}>OK</button>
             {/* </Link> */}
           </div>

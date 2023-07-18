@@ -255,15 +255,17 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
 
     console.log(gameSound === 1, "gameSound");
     console.log(typeof gameSound, "gameMusic");
-    if (gameSound === 1 || gameSound === 1) {
+    if (gameSound === 1 || gameSound === "1") {
       console.log(audioRef.current.muted);
       audioRef.current.muted = false;
       console.log("true for gameMusic");
       console.log(audioRef.current.muted);
+      console.log( audioRef.current.muted = false,"first_music");
     } else {
       audioRef.current.muted = true;
       console.log(typeof gameMusic);
       console.log("not reached");
+      console.log(audioRef.current.muted = true,"second_music");
     }
     console.log(typeof setGameSound);
   }, [gameMusic, gameSound, window]);
@@ -271,17 +273,19 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   useEffect(() => {
     console.log("its below", gameMusic, gameSound);
 
-    if (gameMusic === 1 || gameMusic === 1) {
+    if (gameMusic === 1 || gameMusic === "1") {
       console.log(audioRefHome.current.muted);
       audioRefHome.current.muted = false;
+      console.log(audioRefHome.current.muted = false,"third_music");
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
       console.log("not reached");
     }
-    if (gameSound === 1 || gameSound === 1) {
+    if (gameSound === 1 || gameSound === "1") {
       console.log(audioRef.current.muted);
       audioRef.current.muted = false;
+      console.log(audioRef.current.muted = false,"fourth_music");
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -296,17 +300,20 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       audioRef.current.muted = false;
       audioRef.current.src = src;
       audioRef.current.play();
-    } else {
+      console.log( audioRef.current.muted = false,"fifth_music");
+        } else {
       audioRef.current.muted = true;
+      console.log( audioRef.current.muted = true,"sixsth_music");
     }
   }
   useEffect(() => {
     console.log("its below", gameMusic, gameSound);
     console.log(gameMusic === 1, "gameSound");
     console.log(typeof gameMusic, "gameMusic");
-    if (gameMusic === 1 || gameMusic === 1) {
+    if (gameMusic === 1 || gameMusic === "1") {
       console.log(audioRefHome.current.muted);
       audioRefHome.current.muted = false;
+      console.log( audioRefHome.current.muted = false,"seventh_music");
       console.log("true for gameMusic");
       console.log(audioRefHome.current.muted);
       playAudioBg();
@@ -314,13 +321,15 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       audioRefHome.current.muted = true;
       console.log(typeof gameMusic);
       console.log("not reached");
+      console.log(audioRefHome.current.muted = true,"eight_music");
     }
     console.log(typeof gameMusic);
   }, [window, gameMusic]);
   useEffect(() => {
-    if (gameMusic === 1 || gameMusic === 1) {
+    if (gameMusic === 1 || gameMusic === "1") {
       console.log(audioRefHome.current.muted);
       audioRefHome.current.muted = false;
+      console.log( audioRefHome.current.muted = false,"nineth_music");
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -333,11 +342,13 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   async function audioEnded(src) {
     if (musicStatus === "true") {
       // audioRefHome.current.unmute()
-      audioRefHome.current.muted = true;
+      audioRefHome.current.muted = false;
       audioRefHome.current.src = src;
       audioRefHome.current.play();
+      console.log( audioRefHome.current.muted = false,"tenth_music");
     } else {
-      audioRefHome.current.muted =false;
+      audioRefHome.current.muted =true;
+      console.log(  audioRefHome.current.muted =true,"leventh_music");
       // audioRefHome.current.mute()
     }
   }

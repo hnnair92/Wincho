@@ -143,9 +143,9 @@ const Register = () => {
     console.log(state);
   }, [state]);
   useEffect(()=>{
-    if(username.length>1){
+   if(username.length>0){
       checkUsername()
-    }
+   }
   },[username])
   const handleRegister =async(e) => {
     e.preventDefault();
@@ -189,6 +189,12 @@ const Register = () => {
         setUsernameExist(data.status);
       });
   };
+  
+   useEffect(()=>{
+    console.log(usernameExist);
+   
+   
+  },[usernameExist])
   let dateArray = [];
   const handleDate = (e) => {
     const date = e.$D.toString().length>1?e.$D:`0${e.$D.toString()}`
@@ -352,9 +358,12 @@ const Register = () => {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
-              checkUsername()
+              // checkUsername()
             }}
           />
+          {usernameExist==="False"?<p className={style.AgeRestrict}>
+              Username already exist
+            </p>:''}
           {username.length < 1 && username !== "" ? (
             <p className={style.AgeRestrict}>
               Username should be greater than 1
@@ -374,7 +383,14 @@ const Register = () => {
             id=""
             className={style.input}
             onClick={()=>{
-              setShowCalender(true)
+              if(date.length===0){
+                setShowCalender(true)
+              }
+              // {date.length===0?setShowCalender(true):''}
+              
+            }}
+            onChange={(e)=>{
+              setDate(e.target.value)
             }}
           />
            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
