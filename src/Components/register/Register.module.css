@@ -98,6 +98,13 @@
   /* color: #333333d1; */
   color: #bdbdbd;
 }
+.date_input::-webkit-input-placeholder {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Poppins";
+  /* color: #333333d1; */
+  color: #bdbdbd;
+}
 .input::-webkit-keygen-select {
   display: none;
 }
@@ -106,6 +113,34 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+.date_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Poppins";
+  width: 100%;
+  font-size: 3rem;
+  padding: 0rem 2.26rem;
+  /* padding: 1.13rem 2.26rem; */
+  text-align: left;
+  border-radius: 1.13rem;
+  margin: 1.13rem 0;
+  border: 0.25rem solid #606060;
+  height: 7.5rem;
+}
+.date_input {
+  width: 125%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-family: "Poppins";
+  font-size: 3rem;
+  background-color: #fff;
+  text-align: center;
+  font-weight: 500;
+  color: #000;
 }
 .password {
   display: flex;
@@ -510,12 +545,11 @@ label {
   z-index: 0;
   opacity: 0;
 } */
-.DataInput::-webkit-input-placeholder{
+.DataInput::-webkit-input-placeholder {
   opacity: 1;
   color: #bdbdbd;
-  
 }
-.DataInput{
+.DataInput {
   opacity: 1;
   color: #bdbdbd;
 }
@@ -631,12 +665,11 @@ label {
 
 @media (max-height: 630px) {
   .Container {
-
     height: 100%;
     padding: 5.68rem;
     padding-right: 0;
   }
-  .Register{
+  .Register {
     margin-right: 5.68rem;
   }
   .input {
@@ -690,7 +723,7 @@ label {
     padding-right: 0;
     padding-left: 0;
   }
-  .Register{
+  .Register {
     margin-right: 25px;
     margin-left: 25px;
   }
@@ -844,7 +877,7 @@ label {
     font-weight: 500;
     text-align: center;
   }
-  .DataInput{
+  .DataInput {
     height: 6.11rem;
   }
 }
@@ -1270,30 +1303,28 @@ label {
     transform: translate(-50%, -50%);
   }
 }
-.ShowCalender{
+.ShowCalender {
   width: 100%;
   height: 100%;
   position: absolute;
-
 }
-.ShowCalenderOverlay{
+.ShowCalenderOverlay {
   background-color: #00000025;
   width: 100%;
   height: 100vh;
   position: absolute;
-  z-index:  999999999;
-
+  z-index: 999999999;
 }
-.CalenderContent{
+.CalenderContent {
   background-color: #fff;
   border-radius: 25px;
   /* padding: 20px; */
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   z-index: 9999999999;
 }
-.CalenderContent > button{
+.CalenderContent > button {
   font-size: 1.75rem;
 }

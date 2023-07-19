@@ -632,9 +632,9 @@ transform: scale(1.1); */
     width: 100%;
   }
   .BottomMenuIcon:nth-child(3) {
-    width: 12%;
-margin-top: 4px;
-position: relative;
+    width: 11.5%;
+    margin-top: 4px;
+    position: relative;
 }
   .BottomMenuIcon:nth-child(3) img{
    position: absolute;
@@ -1427,8 +1427,8 @@ position: relative;
     z-index: 0;
   }
   .BottomMenuIcon:nth-child(3) {
-    width: 10.5%;
-    margin-top: 2rem;
+    width: 10.8%;
+    margin-top: 1rem;
   }
 
   .MobileMenu .HamBurgerMenu .Settings {
@@ -1615,8 +1615,8 @@ position: relative;
     font-weight: 500;
   }
   .BottomMenuIcon:nth-child(3) {
-    width: 10.75%;
-    margin-top: 5px;
+    width: 11%;
+    /* margin-top: 5px; */
   }
   .MLogo {
     width: 11%;

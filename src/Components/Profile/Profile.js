@@ -1127,6 +1127,7 @@ const Profile = ({ gameMusic,
                     }} alt="" />
                   </div>
                 </div>
+                  <hr color="#000" className={style.hrLine}/>
                 <div className={style.Address}>
                   <div className={style.title}>
                     <p>Shipping</p>

@@ -9,12 +9,13 @@ import tick from "../../assests/Green Tick.png";
 import wincha from "../../assests/Wincha Pop-Up Icon.png";
 import Select from "react-select";
 import { FaChevronDown } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import info from "../../assests/Information Icon.png";
 import { configutation } from "../../actions/product";
 import { baseUrl } from "../url";
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // import { ExpansionPanel, ExpansionList, DatePicker } from "react-md";
 // import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 // import dayjs from 'dayjs';
@@ -54,8 +55,8 @@ const Register = () => {
     dispatch(configutation());
   }, [dispatch]);
   useEffect(() => {
-    if(password.length<=0){
-      setPasswordCheck(false)
+    if (password.length <= 0) {
+      setPasswordCheck(false);
     }
   }, [password]);
   const fetchLocation = async () => {
@@ -112,6 +113,11 @@ const Register = () => {
   const navigate = useNavigate();
   const { user, authenticated } = useSelector((state) => state.profile);
   const { error } = useSelector((state) => state.userData);
+
+  // useEffect(() => {
+  //  console.log(error,"error_message");
+  // }, [])
+
   useEffect(() => {
     // if(userId!==null&&user&&user.username!==""){
     //     dispatch(updateProfile(userId))
@@ -142,12 +148,12 @@ const Register = () => {
   useEffect(() => {
     console.log(state);
   }, [state]);
-  useEffect(()=>{
-   if(username.length>0){
-      checkUsername()
-   }
-  },[username])
-  const handleRegister =async(e) => {
+  useEffect(() => {
+    if (username.length > 0) {
+      checkUsername();
+    }
+  }, [username]);
+  const handleRegister = async (e) => {
     e.preventDefault();
     console.log("reached");
     // checkUsername();
@@ -156,7 +162,7 @@ const Register = () => {
       username: username,
       email: email,
       password: password,
-      dob: date||"",
+      dob: date || "",
       country: location.country,
       state: state.state,
       countrycode: configuration.COUNTRY_CODE,
@@ -165,9 +171,9 @@ const Register = () => {
     };
     console.log(data);
     console.log(configuration);
-    if ( password === confirmPassword&&usernameExist==="True")  {
+    if (password === confirmPassword && usernameExist === "True") {
       await dispatch(registerAction(data));
-      await navigate("/prizes", { state: { category: "plushies" } });
+      // await navigate("/prizes", { state: { category: "plushies" } });
     }
     // await navigate("/prizes",{state:{category:"plushies"}})
   };
@@ -189,18 +195,16 @@ const Register = () => {
         setUsernameExist(data.status);
       });
   };
-  
-   useEffect(()=>{
+
+  useEffect(() => {
     console.log(usernameExist);
-   
-   
-  },[usernameExist])
+  }, [usernameExist]);
   let dateArray = [];
   const handleDate = (e) => {
-    const date = e.$D.toString().length>1?e.$D:`0${e.$D.toString()}`
-    const month = e.$M.toString().length>1?e.$M:`0${e.$M.toString()}`
+    const date = e.$D.toString().length > 1 ? e.$D : `0${e.$D.toString()}`;
+    const month = e.$M.toString().length > 1 ? e.$M : `0${e.$M.toString()}`;
     console.log(date);
-    
+
     // const selDate = e.target.value;
     // dateArray = selDate.split("-");
     // const CurYear = new Date().getFullYear();
@@ -217,10 +221,10 @@ const Register = () => {
     // setDate("")
     setDate(`${date}/${month}/${e.$y}`);
   };
-  useEffect(()=>{
-    console.log(date)
-  },[date])
-  console.log(window.innerWidth*0.8)
+  useEffect(() => {
+    console.log(date);
+  }, [date]);
+  console.log(window.innerWidth * 0.8);
   const popup = (error) => {
     return (
       <div className={style.Popup}>
@@ -249,6 +253,11 @@ const Register = () => {
       </div>
     );
   };
+
+  const handleClearDate = () => {
+    setDate("");
+  };
+
   console.log(allState);
   const checkState = (state, e) => {
     e.preventDefault();
@@ -264,25 +273,29 @@ const Register = () => {
   const [passIcon, setPassIcon] = useState(false);
   return (
     <div className={style.Container}>
-      {showCalender?
-           <div className={style.ShowCalender}>
-            <div className={style.ShowCalenderOverlay} onClick={()=>{
-              setShowCalender(false)
-            }}>
-
-            </div>
-            <div className={style.CalenderContent}>
-              <LocalizationProvider dateAdapter={AdapterDayjs} >
-          <DateCalendar onChange={(e)=>{
-                handleDate(e)
-                console.log(e)
-                setShowCalender(false)
-              }}/>
-        </LocalizationProvider>
-
-            </div>
-           </div>
-    :""}
+      {showCalender ? (
+        <div className={style.ShowCalender}>
+          <div
+            className={style.ShowCalenderOverlay}
+            onClick={() => {
+              setShowCalender(false);
+            }}
+          ></div>
+          <div className={style.CalenderContent}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateCalendar
+                onChange={(e) => {
+                  handleDate(e);
+                  console.log(e);
+                  setShowCalender(false);
+                }}
+              />
+            </LocalizationProvider>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
       {checkError ? (
         <div className={style.Popup}>
           <div className={style.Contents}>
@@ -322,7 +335,7 @@ const Register = () => {
           </div>
           <div className={style.content}>
             <ul>
-            <p>Password must include:</p>
+              <p>Password must include:</p>
               <li>8-20 Characters</li>
               <li>At least 1 capital letter</li>
               <li>At least 1 number</li>
@@ -361,9 +374,11 @@ const Register = () => {
               // checkUsername()
             }}
           />
-          {usernameExist==="False"?<p className={style.AgeRestrict}>
-              Username already exist
-            </p>:''}
+          {usernameExist === "False" ? (
+            <p className={style.AgeRestrict}>Username already exist</p>
+          ) : (
+            ""
+          )}
           {username.length < 1 && username !== "" ? (
             <p className={style.AgeRestrict}>
               Username should be greater than 1
@@ -374,26 +389,33 @@ const Register = () => {
             ""
           )}
           <label htmlFor="">Date of Birth (Optional)</label>
+          <div className={style.date_container}>
+            <div>
+              <input
+                type="text"
+                placeholder="DD/MM/YYYY"
+                name=""
+                value={date && date}
+                id=""
+                className={style.date_input}
+                // readOnly
+                onClick={() => {
+                  if (date.length === 0) {
+                    setShowCalender(true);
+                  }
+                  // {date.length===0?setShowCalender(true):''}
+                }}
+                onChange={(e) => {
+                  // setDate(e.target.value);
+                }}
+              />
+            </div>
+            <div className={style.clearButton}>
+              {date && <AiOutlineClose onClick={handleClearDate} />}
+            </div>
+          </div>
 
-          <input
-            type="text"
-            placeholder="DD/MM/YYYY"
-            name=""
-            value={date&&date}
-            id=""
-            className={style.input}
-            onClick={()=>{
-              if(date.length===0){
-                setShowCalender(true)
-              }
-              // {date.length===0?setShowCalender(true):''}
-              
-            }}
-            onChange={(e)=>{
-              setDate(e.target.value)
-            }}
-          />
-           {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
 
            <DatePicker sx={{
             height: "7.5rem",
@@ -420,7 +442,7 @@ const Register = () => {
  />
 
            </LocalizationProvider> */}
-           
+
           {/* <input
             type="date"
             required
@@ -447,7 +469,7 @@ const Register = () => {
               handleDate(e);
               console.log(e.target.value);
             }} /> */}
-            {/* <MobileDatePicker defaultValue={dayjs('2022-04-17')} /> */}
+          {/* <MobileDatePicker defaultValue={dayjs('2022-04-17')} /> */}
           {/* <DatePicker id="date-picker-1" label="Date 1" /> */}
           {location?.countryCode === "US" ? (
             <>
@@ -546,25 +568,29 @@ const Register = () => {
               />
             )}
           </div>
-          {passwordCheck===true?password.length < 8 && password !== "" ? (
-            <p className={style.AgeRestrict}>
-              Password does not match criteria
-            </p>
-          ) : password && password.length > 15 && password !== "" ? (
-            <p className={style.AgeRestrict}>
-              Password does not match criteria
-            </p>
-          ) : /\d/.test(password) === false && password !== "" ? (
-            <p className={style.AgeRestrict}>
-              Password does not match criteria
-            </p>
-          ) : /[A-Z]/.test(password) === false && password !== "" ? (
-            <p className={style.AgeRestrict}>
-              Password does not match criteria
-            </p>
+          {passwordCheck === true ? (
+            password.length < 8 && password !== "" ? (
+              <p className={style.AgeRestrict}>
+                Password does not match criteria
+              </p>
+            ) : password && password.length > 15 && password !== "" ? (
+              <p className={style.AgeRestrict}>
+                Password does not match criteria
+              </p>
+            ) : /\d/.test(password) === false && password !== "" ? (
+              <p className={style.AgeRestrict}>
+                Password does not match criteria
+              </p>
+            ) : /[A-Z]/.test(password) === false && password !== "" ? (
+              <p className={style.AgeRestrict}>
+                Password does not match criteria
+              </p>
+            ) : (
+              ""
+            )
           ) : (
             ""
-          ):""}
+          )}
           {/* {password.length<8&&password.length>15?<p>Enter Password More than 8 Words</p>:""} */}
           {/* {new String(password).length<8&&new String(password).length>15?<p>Enter Password More than 8 Words</p>:""} */}
           <div className={style.password}>
@@ -574,9 +600,9 @@ const Register = () => {
               placeholder="REPEAT PASSWORD"
               className={style.input}
               onClick={(e) => {
-              if(password.length>0){
-                setPasswordCheck(true)
-              }
+                if (password.length > 0) {
+                  setPasswordCheck(true);
+                }
               }}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
@@ -590,11 +616,15 @@ const Register = () => {
                     }}/>} */}
           </div>
           <div className={style.CheckPassword}>
-            {password === confirmPassword  ? (
+            {password === confirmPassword ? (
               ""
-            ) : RepeatPasswordCheck&&password.length>0&&confirmPassword.length>0? (
+            ) : RepeatPasswordCheck &&
+              password.length > 0 &&
+              confirmPassword.length > 0 ? (
               <p className={style.AgeRestrict}>Password do not match</p>
-            ):""}
+            ) : (
+              ""
+            )}
           </div>
           <input
             type="email"
@@ -602,9 +632,9 @@ const Register = () => {
             placeholder="EMAIL"
             value={email}
             className={style.input}
-            onClick={()=>{
-              if(password.length>0&&confirmPassword.length>0){
-                setRepeatPasswordCheck(true)
+            onClick={() => {
+              if (password.length > 0 && confirmPassword.length > 0) {
+                setRepeatPasswordCheck(true);
               }
             }}
             onChange={(e) => {
@@ -646,8 +676,7 @@ const Register = () => {
             </p>
           </div>
           {/* <button type="submit" className={style.formBtn}>Confirm</button> */}
-          {
-          terms === true &&
+          {terms === true &&
           password === confirmPassword &&
           password.length > 7 &&
           password.length < 15 &&
@@ -659,7 +688,6 @@ const Register = () => {
               Confirm
             </button>
           ) : (
-           
             <button type="submit" className={style.btnDisabled} disabled>
               Confirm
             </button>

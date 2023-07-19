@@ -344,24 +344,26 @@ const Home = () => {
             </div>
 
             <div className={style.MAppStore}>
-              <img
-                src={AppStore}
+              <div className={style.appStore}>
+                <img
+                  src={AppStore}
+                  alt=""
+                  onClick={() => {
+                    window.open(
+                      "https://apps.apple.com/gb/app/wincha/id1604147807"
+                    );
+                  }}
+                />
+              </div>
+              <div className={style.playStore}>
+                <img
+                src={PlayStore}
                 alt=""
-                className={style.appStore}
                 onClick={() => {
-                  window.open(
-                    "https://apps.apple.com/gb/app/wincha/id1604147807"
-                  );
+                  window.open("https://play.google.com/store/apps/details?id=com.bandai.wincha");
                 }}
               />
-              <img
-              src={PlayStore}
-              alt=""
-              className={style.playStore}
-              onClick={() => {
-                window.open("https://play.google.com/store/apps/details?id=com.bandai.wincha");
-              }}
-            />
+              </div>
             </div>
           </div>
           <div className={style.MCrane}>

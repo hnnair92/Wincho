@@ -384,7 +384,7 @@ const Description = ({
 
   useEffect(()=>{
     if(GameData&&GameData.category){
-      const datas = GameData&&GameData.category.split(",")
+      const datas = GameData&&GameData.category&&GameData.category.split(",")
       console.log(datas)
       setSendCategory(datas[0])
     }
