@@ -131,7 +131,9 @@ const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                   state: {
                                     game:
                                       notificationItem &&
-                                      notificationItem.product[0]
+                                      notificationItem.product[0],
+                                      user:user,
+                                      cateogry:notificationItem.product[0].category.split(",")[0]
                                   },
                                 }
                               );

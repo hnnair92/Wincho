@@ -70,7 +70,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const navigate = useNavigate();
   const [topup, setTopup] = useState(false);
   const [search, setSearch] = useState("");
-  const [searchArray, setSearchArray] = useState(false);
+  const [searchArray, setSearchArray] = useState([]);
   const [category, setCategory] = useState(
     state && state.category ? state.category : "free"
   );
@@ -521,9 +521,9 @@ useEffect(()=>{
         // console.log(search)
       });
   };
-  useEffect(() => {
-    searchApi();
-  }, [search]);
+  // useEffect(() => {
+  //   searchApi();
+  // }, [search]);
   useEffect(() => {
     console.log(times >= configuration.freeplay_limit);
     console.log(times);
@@ -796,6 +796,7 @@ useEffect(()=>{
               className={style.SearchIcon}
               onClick={() => {
                 setSearchIconStatus(true);
+                searchApi();
               }}
             >
               <img src={searchIcon} alt="" />

@@ -126,7 +126,7 @@ const Description = ({
   const lastDateOfTheMonth = CustomDate.getDate()
   const utc = newDate.getUTCMilliseconds()
   const milliseconds = newDate.getTime()
-  console.log(state);
+  // console.log(state);
   const animeStatus = JSON.parse(localStorage.getItem("animeStatus"))
   const localDate = JSON.parse(localStorage.getItem("dates"))
   const deviceId = JSON.parse(localStorage.getItem("deviceId"))
@@ -389,6 +389,11 @@ const Description = ({
       setSendCategory(datas[0])
     }
   },[GameData])
+  useEffect(()=>{
+    console.log(GameData.category,"catagory1");
+    console.log(GameData.category.split(","),"catagory2");
+    console.log(sendCategory,"catagory3");
+  },[])
   useEffect(()=>{                                                                                                                                  
     console.log(leavePopup)
   },[leavePopup])
@@ -871,6 +876,7 @@ useEffect(()=>{
     user_id: userId,
     }
     dispatch(getProductByCollection(fetchData))
+    console.log( state&&state.cateogry);
     console.log(fetchData);
     // dispatch(getAllGames())
   },[dispatch,state,configuration])
@@ -1142,7 +1148,7 @@ useEffect(()=>{
   }
   async function timeOut(userId, timeout_status) {
     setPlayAudio(music.Whoops);
-
+    console.log(music.Whoops,"First_music");
     socket.emit(`${baseMessage}|P_ENDED`);
     socket.emit(`${baseMessage}|G_DISCONNECTED`);
     setTimeoutStatus(true);
@@ -1232,6 +1238,7 @@ useEffect(()=>{
     checkAnime();
     // console.log(typeof GameData.price)
     setPlayAudio(music.Wincha);
+    console.log(music.Wincha,"second_music");
     setDirection(game.movement.split("-"));
     e.preventDefault();
     socket.emit("peer_message", `${baseMessage}|G_CONNECTED`);
@@ -1865,7 +1872,7 @@ useEffect(()=>{
     <div className={style.Container}>
         <audio ref={audioRefHome} onEnded={audioEnded} loop></audio>
     {playAudio?
-      <PlaySound src={playAudio} reportIssueCategories ={reportIssueCategories} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound}/>
+      <PlaySound src={playAudio} setPlayAudio={setPlayAudio} reportIssueCategories ={reportIssueCategories} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound}/>
     :""}
       {/* <PlayGameAudio gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} /> */}
       {prizeResetActive ? (
@@ -4975,7 +4982,7 @@ useEffect(()=>{
                                 }
                                 else{
                                   setPlayAudio(music.Whoops);
-
+                                  console.log(music.Whoops,"third_music");
                             // setReloadStatus(false)
 
                                 // setGamePlay(false);
