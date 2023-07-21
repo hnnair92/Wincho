@@ -389,31 +389,31 @@ const Register = () => {
             ""
           )}
           <label htmlFor="">Date of Birth (Optional)</label>
-          <div className={style.date_container}>
-            <div>
+          {/* <div className={style.date_container}>
+            <div> */}
               <input
-                type="text"
-                placeholder="DD/MM/YYYY"
+                type="date"
+                placeholder=""
                 name=""
                 value={date && date}
                 id=""
-                className={style.date_input}
+                className={(date && date)?style.Dateinput2:style.Dateinput}
                 // readOnly
                 onClick={() => {
-                  if (date.length === 0) {
-                    setShowCalender(true);
-                  }
+                  // if (date.length === 0) {
+                  //   setShowCalender(true);
+                  // }
                   // {date.length===0?setShowCalender(true):''}
                 }}
                 onChange={(e) => {
                    setDate(e.target.value);
                 }}
               />
-            </div>
+            {/* </div>
             <div className={style.clearButton}>
               {date && <AiOutlineClose onClick={handleClearDate} />}
             </div>
-          </div>
+          </div> */}
 
           {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
 

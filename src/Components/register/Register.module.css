@@ -182,6 +182,53 @@ input:-webkit-autofill:active {
   border: 0.25rem solid #606060;
   font-weight: 500;
 }
+.Dateinput{
+  font-family: "Poppins";
+  width: 100%;
+  font-size: 3rem;
+  height: 7.5rem;
+  padding: 1.13rem 2.26rem;
+  text-align: center;
+  border-radius: 1.13rem;
+  margin: 1.13rem 0;
+  border: 0.25rem solid #606060;
+  font-weight: 500;
+  /* color: #000; */
+}
+.Dateinput2{
+  font-family: "Poppins";
+  width: 100%;
+  font-size: 3rem;
+  height: 7.5rem;
+  padding: 1.13rem 2.26rem;
+  text-align: center;
+  border-radius: 1.13rem;
+  margin: 1.13rem 0;
+  border: 0.25rem solid #606060;
+  font-weight: 500;
+}
+.Dateinput::placeholder {
+  color: red;
+}
+
+/* input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #bdbdbd;
+} */
+input[type="date"].Dateinput2::-webkit-datetime-edit-text,
+input[type="date"].Dateinput2::-webkit-datetime-edit-month-field,
+input[type="date"].Dateinput2::-webkit-datetime-edit-day-field,
+input[type="date"].Dateinput2::-webkit-datetime-edit-year-field {
+  color: #000;
+}
+input[type="date"].Dateinput::-webkit-datetime-edit-text,
+input[type="date"].Dateinput::-webkit-datetime-edit-month-field,
+input[type="date"].Dateinput::-webkit-datetime-edit-day-field,
+input[type="date"].Dateinput::-webkit-datetime-edit-year-field {
+  color: #bdbdbd;
+}
 .Terms {
   width: 100%;
   display: flex;
