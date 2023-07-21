@@ -295,7 +295,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   }, [window, gameMusic]);
   async function playAudio(src) {
     console.log(audioStatus, "audioStatus");
-    if (audioStatus === "true") {
+    if (audioStatus === 1||audioStatus === "1") {
       console.log("reached here");
       audioRef.current.muted = false;
       audioRef.current.src = src;
@@ -838,6 +838,7 @@ useEffect(()=>{
               className={style.SearchIcon}
               onClick={() => {
                 setSearchIconStatus(true);
+                searchApi();
               }}
             >
               <img src={searchIcon} alt="" />

@@ -178,7 +178,7 @@ const Footer = ({
             <div className={style.FooterDetails}>
             <div className={style.Menu}>
                 <ul>
-                <p className={style.Title}>LINKS</p>
+                <p className={style.LinkTitle}>LINKS</p>
                     <li onClick={(e)=>{
                         // handleId(e,"home")
                         setPageUrl("")

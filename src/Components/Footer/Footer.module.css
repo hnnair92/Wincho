@@ -41,7 +41,11 @@
     font-weight: 700;
     color: #fff;
 }
-
+.LinkTitle{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+}
 .Menu ul {
     height: 100%;
     display: flex;

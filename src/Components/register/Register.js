@@ -695,7 +695,7 @@ const Register = () => {
 
           <div className={style.checkUser}>
             {error && error.status === "False" ? (
-              <p className={style.userInvaild}>{error && error.description}</p>
+              <p className={style.AgeRestrict}>{error && error.description}</p>
             ) : (
               ""
             )}

@@ -1177,6 +1177,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                           vipData.data[0].vip_token === false
                         ) {
                           setPremiumPopup(true);
+                          // setIsVip(true)
                         }
                         if (user && user.vip === false) {
                           setPremiumPopup(true);
@@ -1295,7 +1296,6 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                 <img src={assets.winchaPopup} alt="" />
               </div>
               <div className={style.phnpopupText}>
-                <p>Invalid Phone Number </p>
                 <p>Invalid Phone Number </p>
               </div>
               <div className={style.popupbutton}>

@@ -4977,7 +4977,10 @@ useEffect(()=>{
                                     // setGamePlay(false);
                                     setPlayAgain(false);
                                     setReloadStatus(false)
-                                    navigate("/win-screen",{state:{game:GameData}});
+                                    setTimeout(() => {
+                                      navigate("/win-screen",{state:{game:GameData}});
+                                    }, 1000);
+                                    
 
                                 }
                                 else{
