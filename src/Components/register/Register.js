@@ -406,7 +406,7 @@ const Register = () => {
                   // {date.length===0?setShowCalender(true):''}
                 }}
                 onChange={(e) => {
-                  // setDate(e.target.value);
+                   setDate(e.target.value);
                 }}
               />
             </div>
