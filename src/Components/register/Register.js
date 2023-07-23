@@ -374,11 +374,7 @@ const Register = () => {
               // checkUsername()
             }}
           />
-          {usernameExist === "False" ? (
-            <p className={style.AgeRestrict}>Username already exist</p>
-          ) : (
-            ""
-          )}
+
           {username.length < 1 && username !== "" ? (
             <p className={style.AgeRestrict}>
               Username should be greater than 1
@@ -694,6 +690,11 @@ const Register = () => {
           )}
 
           <div className={style.checkUser}>
+          {usernameExist === "False" ? (
+            <p className={style.AgeRestrict}>Username already exist</p>
+          ) : (
+            ""
+          )}
             {error && error.status === "False" ? (
               <p className={style.AgeRestrict}>{error && error.description}</p>
             ) : (

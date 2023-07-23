@@ -446,6 +446,16 @@ useEffect(()=>{
   //     setCategory("free")
   //   }
   // },[search])
+
+  useEffect(() => {
+    if (search) {
+      searchApi();
+    }
+  
+   
+  }, [search])
+  
+
   useEffect(() => {
     if (searchArray.length > 0) {
       // setCategory("");
@@ -796,7 +806,7 @@ useEffect(()=>{
               className={style.SearchIcon}
               onClick={() => {
                 setSearchIconStatus(true);
-                searchApi();
+                // searchApi();
               }}
             >
               <img src={searchIcon} alt="" />
@@ -838,7 +848,7 @@ useEffect(()=>{
               className={style.SearchIcon}
               onClick={() => {
                 setSearchIconStatus(true);
-                searchApi();
+                // searchApi();
               }}
             >
               <img src={searchIcon} alt="" />

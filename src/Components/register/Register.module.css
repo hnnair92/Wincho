@@ -1,7 +1,7 @@
 .Container {
   width: 100%;
   /* height: 90vh; */
-  height: 100vh;
+  height: 110vh;
   /* height: 100%; */
   padding: 5rem 11.5rem;
   padding-right: 0;
@@ -331,6 +331,7 @@ input[type="date"].Dateinput::-webkit-datetime-edit-year-field {
   margin: 2.84rem 0px;
   margin-right: auto;
   margin-top: 0;
+  text-align: center;
 }
 label {
   text-align: left;
@@ -901,10 +902,13 @@ label {
     text-align: center;
   }
   .Dateinput{
-    height: 6rem;
     font-size: 2rem;
     font-weight: 500;
+    height: 6rem;
     text-align: center;
+    outline: none;
+    background: transparent;
+    padding: 0 9rem;
   }
   .Dateinput2{
     height: 6rem;
