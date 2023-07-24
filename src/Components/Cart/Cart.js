@@ -745,6 +745,12 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       user &&
       user.addressline1 === "" ? (
         <div className={style.popup}>
+          <div
+            className={style.AddressTitleOverlay}
+            onClick={() => {
+              setIsAddress(false);
+            }}
+          ></div>
           <div className={style.popupImage}>
             <img src={assets.winchaPopup} alt="" />
           </div>

@@ -140,6 +140,7 @@
 }
 .PrizeReset {
   width: 45%;
+  margin: 13px auto;
 }
 .Camera button,
 .PrizeReset button,
@@ -1501,7 +1502,7 @@ border-radius: 30px;
 }
 .HowToPlayOverlay {
   width: 100vw;
-  height: 100vh;
+  height: 135vh;
   position: fixed;
   z-index: 9;
 }

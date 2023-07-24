@@ -2094,7 +2094,7 @@ useEffect(()=>{
               onClick={() => {
                 setFreeLimitPopup(false);
                 gameLeave(userId,false)
-                window.location.reload()
+                // window.location.reload()
               }}
             >
               <button>OK</button>
