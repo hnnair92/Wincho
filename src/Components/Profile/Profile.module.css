@@ -270,6 +270,7 @@
 }
 .Shipping .Phone .InputSection input {
   border-bottom: none;
+  padding: 2px 0;
 }
 .Shipping .Phone .InputSection {
   display: flex;

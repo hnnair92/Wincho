@@ -59,6 +59,72 @@ const Register = () => {
       setPasswordCheck(false);
     }
   }, [password]);
+
+  const currentYear = new Date().getFullYear();
+  const [selectedDate, setSelectedDate] = useState(null);
+  const years = Array.from({ length: 100 }, (_, index) => currentYear - index);
+
+  const daysInMonth = (year, month) => {
+    return new Date(year, month + 1, 0).getDate();
+  };
+
+  const handleYearChange = (event) => {
+    setSelectedDate((prevDate) => {
+      const selectedYear = parseInt(event.target.value, 10);
+      const selectedMonth = prevDate?.getMonth() || 0;
+      const selectedDay = Math.min(
+        prevDate?.getDate() || 1,
+        daysInMonth(selectedYear, selectedMonth)
+      );
+
+      return new Date(selectedYear, selectedMonth, selectedDay);
+    });
+  };
+
+  const handleMonthChange = (event) => {
+    setSelectedDate((prevDate) => {
+      const selectedMonth = parseInt(event.target.value, 10);
+      const selectedYear = prevDate?.getFullYear() || currentYear;
+      const selectedDay = Math.min(
+        prevDate?.getDate() || 1,
+        daysInMonth(selectedYear, selectedMonth)
+      );
+
+      return new Date(selectedYear, selectedMonth, selectedDay);
+    });
+  };
+
+  const handleDayChange = (event) => {
+    setSelectedDate((prevDate) => {
+      const selectedDay = Math.min(event.target.value, 31);
+      const selectedMonth = prevDate?.getMonth() || 0;
+      const selectedYear = prevDate?.getFullYear() || currentYear;
+      const days = daysInMonth(selectedYear, selectedMonth);
+
+      return new Date(selectedYear, selectedMonth, Math.min(selectedDay, days));
+    });
+  };
+
+  const dayOptions = Array.from({ length: 31 }, (_, index) => index + 1);
+  const yearOptions = years.map((year) => (
+    <option key={year} value={year}>
+      {year}
+    </option>
+  ));
+
+  function formatDateToDDMMYYYY(date) {
+    if (!date) return ""; // Return an empty string if the date is null or undefined
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Note: Months are zero-based, so we add 1
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+  const clearDate = () => {
+    setSelectedDate(null);
+  };
+
   const fetchLocation = async () => {
     await fetch(`https://pro.ip-api.com/json/?key=cHngsdONXseEb0x`)
       .then((res) => res.json())
@@ -158,11 +224,12 @@ const Register = () => {
     console.log("reached");
     // checkUsername();
     console.log("register username state", usernameExist);
+    const formattedDate = formatDateToDDMMYYYY(selectedDate);
     const data = {
       username: username,
       email: email,
       password: password,
-      dob: date || "",
+      dob: formattedDate || "",
       country: location.country,
       state: state.state,
       countrycode: configuration.COUNTRY_CODE,
@@ -385,27 +452,79 @@ const Register = () => {
             ""
           )}
           <label htmlFor="">Date of Birth (Optional)</label>
+
+          <div className={style.date_container}>
+            <select
+              value={selectedDate?.getDate() || ""}
+              onChange={handleDayChange}
+              placeholder="Day"
+              className={selectedDate?.getDate() ? "" : style.defaultOption}
+            >
+              <option value="" disabled className={style.defaultOption}>
+                Day
+              </option>
+              {dayOptions.map((day) => (
+                <option key={day} value={day} className={style.normalOption}>
+                  {day}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedDate?.getMonth() || ""}
+              onChange={handleMonthChange}
+              placeholder="Month"
+              className={selectedDate?.getDate() ? "" : style.defaultOption}
+            >
+              <option value="" disabled className={style.defaultOption}>
+                Month
+              </option>
+              {Array.from({ length: 12 }, (_, index) => (
+                <option
+                  key={index}
+                  value={index}
+                  className={style.normalOption}
+                >
+                  {new Date(currentYear, index).toLocaleString("default", {
+                    month: "long",
+                  })}
+                </option>
+              ))}
+            </select>
+            <select
+              value={selectedDate?.getFullYear() || ""}
+              onChange={handleYearChange}
+              placeholder="Year"
+              className={selectedDate?.getDate() ? "" : style.defaultOption}
+            >
+              <option value="" disabled className={style.defaultOption}>
+                Year
+              </option>
+              {yearOptions}
+            </select>
+            {selectedDate && <AiOutlineClose onClick={clearDate} />}
+          </div>
+
           {/* <div className={style.date_container}>
             <div> */}
-              <input
+          {/* <input
                 type="date"
                 placeholder=""
                 name=""
                 value={date && date}
                 id=""
                 className={(date && date)?style.Dateinput2:style.Dateinput}
-                // readOnly
                 onClick={() => {
-                  // if (date.length === 0) {
-                  //   setShowCalender(true);
-                  // }
-                  // {date.length===0?setShowCalender(true):''}
+                  if (date.length === 0) {
+                    setShowCalender(true);
+                  }
+                  {date.length===0?setShowCalender(true):''}
                 }}
                 onChange={(e) => {
                    setDate(e.target.value);
                 }}
-              />
-            {/* </div>
+              /> */}
+
+          {/* </div>
             <div className={style.clearButton}>
               {date && <AiOutlineClose onClick={handleClearDate} />}
             </div>
@@ -690,11 +809,11 @@ const Register = () => {
           )}
 
           <div className={style.checkUser}>
-          {usernameExist === "False" ? (
-            <p className={style.AgeRestrict}>Username already exist</p>
-          ) : (
-            ""
-          )}
+            {usernameExist === "False" ? (
+              <p className={style.AgeRestrict}>Username already exist</p>
+            ) : (
+              ""
+            )}
             {error && error.status === "False" ? (
               <p className={style.AgeRestrict}>{error && error.description}</p>
             ) : (

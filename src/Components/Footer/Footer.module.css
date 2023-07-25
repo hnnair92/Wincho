@@ -185,7 +185,7 @@
 
     .Menu ul li,.TermsAndPrivacyText li {
         font-size: 2.5rem;
-        padding: 15px 0;
+        padding: 10px 0;
     }
 
     .SocialMedia {
@@ -360,7 +360,7 @@
 
     .Menu ul li,.TermsAndPrivacyText li {
         font-size: 1.75rem;
-        padding: 10px 0;
+        padding: 5px 0;
     }
 
     .SocialMedia {
@@ -393,6 +393,9 @@
     }
     .Container{
         padding:2rem 0;
+    }
+    .Menu ul li,.TermsAndPrivacyText li {
+        padding: 5px 0;
     }
 } 
 @media(max-width:280px){

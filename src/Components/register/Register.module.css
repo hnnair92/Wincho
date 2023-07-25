@@ -105,6 +105,12 @@
   /* color: #333333d1; */
   color: #bdbdbd;
 }
+.date_container::-webkit-input-placeholder {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "Poppins";
+  color: #bdbdbd;
+}
 .input::-webkit-keygen-select {
   display: none;
 }
@@ -118,7 +124,7 @@ input:-webkit-autofill:active {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   font-family: "Poppins";
   width: 100%;
   font-size: 3rem;
@@ -129,6 +135,39 @@ input:-webkit-autofill:active {
   margin: 1.13rem 0;
   border: 0.25rem solid #606060;
   height: 7.5rem;
+  position: relative;
+}
+.date_container input {
+  border: none;
+  outline: none;
+  font-family: "Poppins";
+  font-size: 3rem;
+  background-color: #fff;
+  text-align: center;
+  width: 100%;
+}
+.date_container select {
+  border: none;
+  outline: none;
+  font-family: "Poppins";
+  font-size: 3rem;
+  background-color: #fff;
+  text-align: center;
+  /* color: #bdbdbd; */
+  position: relative;
+  width: 13rem;
+}
+/* .date_container select option {
+  color: #6a2020;
+  position: absolute;
+  bottom: 0;
+  top: 100%;
+} */
+.defaultOption {
+  color: #bdbdbd;
+}
+.normalOption{
+  color: #000;
 }
 .date_input {
   width: 125%;
@@ -181,9 +220,10 @@ input:-webkit-autofill:active {
   margin: 1.13rem 0;
   border: 0.25rem solid #606060;
   font-weight: 500;
+  outline: none;
 }
-.Dateinput{
-  font-family: "Poppins";
+.Dateinput {
+  /* font-family: "Poppins";
   width: 100%;
   font-size: 3rem;
   height: 7.5rem;
@@ -194,10 +234,11 @@ input:-webkit-autofill:active {
   border: 0.25rem solid #606060;
   font-weight: 500;
   /* color: #000; */
-  text-align: center;
+  /* text-align: center;  */
+  /* color: #bdbdbd; */
 }
-.Dateinput2{
-  font-family: "Poppins";
+.Dateinput2 {
+  /* font-family: "Poppins";
   width: 100%;
   font-size: 3rem;
   height: 7.5rem;
@@ -206,31 +247,14 @@ input:-webkit-autofill:active {
   border-radius: 1.13rem;
   margin: 1.13rem 0;
   border: 0.25rem solid #606060;
-  font-weight: 500;
+  font-weight: 500; */
+
+  color: #000;
 }
 .Dateinput::placeholder {
   color: red;
 }
 
-/* input[type="date"]::-webkit-datetime-edit-text,
-input[type="date"]::-webkit-datetime-edit-month-field,
-input[type="date"]::-webkit-datetime-edit-day-field,
-input[type="date"]::-webkit-datetime-edit-year-field {
-  color: #bdbdbd;
-} */
-input[type="date"].Dateinput2::-webkit-datetime-edit-text,
-input[type="date"].Dateinput2::-webkit-datetime-edit-month-field,
-input[type="date"].Dateinput2::-webkit-datetime-edit-day-field,
-input[type="date"].Dateinput2::-webkit-datetime-edit-year-field {
-  color: #000;
-}
-input[type="date"].Dateinput::-webkit-datetime-edit-text,
-input[type="date"].Dateinput::-webkit-datetime-edit-month-field,
-input[type="date"].Dateinput::-webkit-datetime-edit-day-field,
-input[type="date"].Dateinput::-webkit-datetime-edit-year-field {
-  color: #bdbdbd94;
-  text-transform: uppercase;
-}
 .Terms {
   width: 100%;
   display: flex;
@@ -846,13 +870,13 @@ label {
     font-weight: 500;
     text-align: center;
   }
-  .Dateinput{
+  .Dateinput {
     height: 7.11rem;
     font-size: 3.25rem;
     font-weight: 500;
     text-align: center;
   }
-  .Dateinput2{
+  .Dateinput2 {
     height: 7.11rem;
     font-size: 3.25rem;
     font-weight: 500;
@@ -901,7 +925,7 @@ label {
     font-weight: 500;
     text-align: center;
   }
-  .Dateinput{
+  .Dateinput {
     font-size: 2rem;
     font-weight: 500;
     height: 6rem;
@@ -910,7 +934,7 @@ label {
     background: transparent;
     padding: 0 9rem;
   }
-  .Dateinput2{
+  .Dateinput2 {
     height: 6rem;
     font-size: 2rem;
     font-weight: 500;
@@ -1395,12 +1419,13 @@ label {
 .CalenderContent {
   background-color: #fff;
   border-radius: 25px;
-  /* padding: 20px; */
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999999999;
+  width: 500px;
+  height: 500px;
 }
 .CalenderContent > button {
   font-size: 1.75rem;
