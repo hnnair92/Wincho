@@ -2061,7 +2061,7 @@ useEffect(()=>{
           </div>
           <div className={style.popupText}>
             <p>
-              Thanks! We have received your report and, if necessary,will aim to
+              Thanks! We have received your report and, if necessary, will aim to
               respond within 24 hours
             </p>
           </div>
@@ -3155,6 +3155,7 @@ useEffect(()=>{
                                    <button onMouseDown={() => {
                                       FirstArrowPress("RIGHT");
                                       console.log(animeRef);
+                                      console.log("event_First_mousedown");
                                       setCameraState1(true);
                                           animeRef.current.pause()
                                       animeRef.current.pause()
@@ -3165,7 +3166,7 @@ useEffect(()=>{
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_First_mouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
@@ -3175,6 +3176,7 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
+                                      console.log("event_First_pointerdown");
 
                                     }}
                                     onPointerUp={(e) => {
@@ -3182,7 +3184,7 @@ useEffect(()=>{
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_First_pointerup");
                                     }}> 
                                     <Lotties
                                       animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
@@ -3271,7 +3273,7 @@ useEffect(()=>{
                                       setCameraState2(true);
                                       localStorage.setItem("state",JSON.stringify(true))
                                       animeRef.current.pause()
-
+                                      console.log("event_second_mousedown");
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
 
@@ -3282,7 +3284,7 @@ useEffect(()=>{
 
                                       setCameraState2(false);
 
-                                      
+                                      console.log("event_second_mouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
@@ -3292,14 +3294,14 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_second_pointerdown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       localStorage.setItem("state",JSON.stringify(false))
                                       setCameraState2(false);
-
+                                      console.log("event_second_pointerup");
                                     }}>
                                   <Lotties
                                     animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
@@ -3386,7 +3388,7 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_First_leftmousedown");
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("LR_STOP");
@@ -3394,6 +3396,7 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       // animeRef.current.play()
                                       setCameraState2(false);
+                                      console.log("event_First_leftmouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
@@ -3404,7 +3407,7 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_First_leftpointeredown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
@@ -3413,7 +3416,7 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       setCameraState2(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_First_leftpointereup");
                                     }}>
                                   <Lotties
                                     animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
@@ -3499,7 +3502,7 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_second_leftmousedown");
                                       // console.log(animeRef.current)
                                     }}
                                     onMouseUp={() => {
@@ -3508,7 +3511,7 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       setCameraState1(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_second_leftmouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
@@ -3521,6 +3524,7 @@ useEffect(()=>{
                                       // console.log(cameraState1)
                                       setCameraState1(true);
                                       // console.log(animeRef.current)
+                                      console.log("event_second_leftpointeredown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
@@ -3529,6 +3533,7 @@ useEffect(()=>{
                                       console.log(animeRef.current);
                                       setCameraState1(false);
                                       // animeRef.current.play()
+                                      console.log("event_second_leftpointereup");
 
                                     }}>
                                   <Lotties
@@ -3623,13 +3628,13 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_First_camera2mousedown");
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_First_camera2mouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
@@ -3638,14 +3643,14 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_First_camera2pointerdown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState1(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_First_camera2pointerup");
                                     }}>
                                     <Lotties
                                     animationData={cameraState2?AllAnimation.rightPressedStatic:AllAnimation.rightStatic}
@@ -3721,13 +3726,13 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_second_camera2mousedown");
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
                                       // animeRef.current.play()
-
+                                      console.log("event_second_camera2mouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("RIGHT");
@@ -3737,13 +3742,14 @@ useEffect(()=>{
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
                                       ;
+                                      console.log("event_second_camera2pointerdown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
                                       FirstArrowRelease("RL_STOP");
                                       setCameraState2(true);
                                       // animeRef.current.play()
-
+                                      console.log("event_second_camera2pointerup");
                                     }}> 
                                   <Lotties
                                     animationData={cameraState2?AllAnimation.upPressedStatic:AllAnimation.upStatic}
@@ -3828,13 +3834,14 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
+                                      console.log("event_first_direction1_left_mousedown");
 
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       console.log("hello its Here");
-
+                                      console.log("event_first_direction1_left_mouseup");
                                       setCameraState1(false);
                                       // animeRef.current.play()
 
@@ -3849,7 +3856,7 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_first_direction1_left_pointerdown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
@@ -3859,7 +3866,7 @@ useEffect(()=>{
                                       console.log("released");
                                       setCameraState1(false);
                                       // animeRef.current.play()
-
+                                      console.log("event_first_direction1_left_pointerup");
                                     }}> 
                                     <Lotties
                                       animationData={cameraState1?AllAnimation.leftPressedStatic:AllAnimation.leftStatic}
@@ -3940,14 +3947,14 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_second_direction1_left_mousedown");
                                     }}
                                     onMouseUp={() => {
                                       FirstArrowRelease("LR_STOP");
                                       console.log("released");
                                       setCameraState2(true);
                                       // animeRef.current.play()
-
+                                      console.log("event_second_direction1_left_mouseup");
                                     }}
                                     onPointerDown={() => {
                                       FirstArrowPress("LEFT");
@@ -3957,7 +3964,7 @@ useEffect(()=>{
                                       animeRef.current.pause()
                                       console.log(animeRef.current.setSpeed)
                                       console.log(animeRef)
-
+                                      console.log("event_second_direction1_left_pointerdown");
                                     }}
                                    onPointerUp={(e) => {
                                       console.log(e,"its touchend")
@@ -3965,6 +3972,7 @@ useEffect(()=>{
                                       console.log("released");
                                       setCameraState2(true);
                                       // animeRef.current.play()
+                                      console.log("event_second_direction1_left_pointerup");
 
                                     }}> 
                                     <Lotties

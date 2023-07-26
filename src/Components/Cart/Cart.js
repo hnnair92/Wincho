@@ -744,31 +744,33 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       isAddressShown === false &&
       user &&
       user.addressline1 === "" ? (
-        <div className={style.popup}>
+        <div>
           <div
-            className={style.AddressTitleOverlay}
-            onClick={() => {
-              setIsAddress(false);
-            }}
-          ></div>
-          <div className={style.popupImage}>
-            <img src={assets.winchaPopup} alt="" />
-          </div>
-          <div className={style.DetailspopupText}>
-            {}
-            <p>Whoops! We need your shipping details</p>
-            {}
-          </div>
-          <div className={style.ReportPopupButton}>
-            <button
+              className={style.AddressTitleOverlay}
               onClick={() => {
-                setisAddressField(true);
-                setIsAddressShown(true);
                 setIsAddress(false);
               }}
-            >
-              ADD DETAILS
-            </button>
+            ></div>
+          <div className={style.popup}>
+            <div className={style.popupImage}>
+              <img src={assets.winchaPopup} alt="" />
+            </div>
+            <div className={style.DetailspopupText}>
+              {}
+              <p>Whoops! We need your shipping details</p>
+              {}
+            </div>
+            <div className={style.ReportPopupButton}>
+              <button
+                onClick={() => {
+                  setisAddressField(true);
+                  setIsAddressShown(true);
+                  setIsAddress(false);
+                }}
+              >
+                ADD DETAILS
+              </button>
+            </div>
           </div>
         </div>
       ) : (

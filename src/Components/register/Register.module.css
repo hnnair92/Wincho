@@ -157,6 +157,36 @@ input:-webkit-autofill:active {
   position: relative;
   width: 13rem;
 }
+
+select {
+  
+  position: relative;
+}
+
+
+select option {
+  width: 25px;
+}
+
+select option::-ms-expand {
+  
+  display: none; 
+}
+
+
+select::-ms-expand {
+  display: none;
+}
+
+select:after {
+  content: "\25BC";  
+  position: absolute;
+  top: 50%; 
+  right: 10px; 
+  transform: translateY(-50%); 
+  pointer-events: none;
+}
+
 /* .date_container select option {
   color: #6a2020;
   position: absolute;
@@ -164,9 +194,10 @@ input:-webkit-autofill:active {
   top: 100%;
 } */
 .defaultOption {
-  color: #bdbdbd;
+  color: #dfdfdf;
+  font-weight: 500;
 }
-.normalOption{
+.normalOption {
   color: #000;
 }
 .date_input {
@@ -671,7 +702,7 @@ label {
   }
   .Register {
     margin-right: 1.7rem;
-    /* width: 90%; */
+    width: 90%;
     flex-direction: column;
   }
   /* .input::-webkit-input-placeholder {
@@ -792,10 +823,8 @@ label {
 @media (max-width: 1065px) {
   .Container {
     background: #fae863;
-    padding: 50px 25px;
+    padding: 6rem 0;
     height: auto;
-    padding-right: 0;
-    padding-left: 0;
   }
   .Register {
     margin-right: 25px;
@@ -1041,6 +1070,13 @@ label {
   }
   label {
     font-size: 1.75rem;
+  }
+  .date_container {
+    height: 6.11rem;
+  }
+  .date_container select {
+    font-size: 2.5rem;
+    width: 13rem;
   }
 }
 @media (max-width: 350px) {
