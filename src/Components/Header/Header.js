@@ -78,7 +78,7 @@ const Header = ({
     localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
   // let userId = localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):localStorage.setItem("user","")
   console.log(inGame);
-  
+
   async function getHistory() {
     await fetch(`${baseUrl}/cart/history`, {
       method: "POST",
@@ -96,24 +96,22 @@ const Header = ({
       });
   }
   useEffect(() => {
-    if(userId){
+    if (userId) {
       getHistory();
     }
-  }, [urlState, dispatch, window, active,userId]);
-
-
-
-  
+  }, [urlState, dispatch, window, active, userId]);
 
   const { cart } = useSelector((state) => state.cart);
-  useEffect(() => {
-  if(userId){
-    dispatch(updateProfile(userData.user));
-    dispatch(cartAction());
-    dispatch(notificationAction());
 
-  }
-  }, [dispatch, window, active,userId]);
+
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(updateProfile(userData.user));
+      dispatch(cartAction());
+      dispatch(notificationAction());
+    }
+  }, [dispatch, window, active, userId]);
   useEffect(() => {
     console.log(gamePlay, "gamePlay status");
     console.log(active, "active status");
@@ -166,7 +164,7 @@ const Header = ({
     }
   }
   const [toggle, setToggle] = useState(false);
- 
+
   const handleTabClosing = async (event) => {
     // removePlayerFromGame()
     // console.log("exiting")\
@@ -681,7 +679,7 @@ const Header = ({
               onClick={() => {
                 // setSetting(true)
                 setting ? setSetting(false) : setSetting(true);
-                setHistoryPopup(false)
+                setHistoryPopup(false);
                 notificationbubble
                   ? setNotificationBubble(false)
                   : setNotificationBubble(true);
@@ -728,9 +726,12 @@ const Header = ({
               {/* {isUser? */}
               <ul>
                 {settingsMenu.map((menu) => {
-                  console.log(menu.Name === "Logout" && userId === null)
-              {/* console.log("hello") */}
-              {/* console.log('====================================');
+                  console.log(menu.Name === "Logout" && userId === null);
+                  {
+                    /* console.log("hello") */
+                  }
+                  {
+                    /* console.log('====================================');
               console.log(userId);
               console.log(user&&user.username);
               console.log(user&&user.username.length);
@@ -739,20 +740,27 @@ const Header = ({
               console.log(menu.Name === "Logout" && user&&user.username.length===0) 
               console.log(menu.Name === "Login/Register" && userId !== null) 
               console.log(menu.Name === "Login/Register" && userId !== undefined)
-              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0) */}
+              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0) */
+                  }
                   return (
                     <div
                       className={style.MenuSection}
                       // style={{margin:menu.Name==="Logout"&&userId===null||menu.Name==="Logout"&&user?.username!==""||menu.Name==="Login/Register"&&userId!==null?"0":"15px 0px",pointerEvents:gamePlay===true&&menu.Name!=="Sound"||gamePlay===true&&menu.Name!=="Music"?"none":"visible"}}
                       style={{
                         margin:
-                        (menu.Name === "Logout" && userId === null) ||
-                      (menu.Name === "Logout" && userId === undefined) ||
-                      (menu.Name === "Logout" &&user&&user.username.length===0) ||
-                      // (menu.Name === "Login/Register" && userId === null) ||
-                      // (menu.Name === "Login/Register" && userId === undefined)||
-                      ( (menu.Name === "Login/Register"&&user&&user.username!=="")&&
-                      (menu.Name === "Login/Register"&&user&&user.username!==undefined))
+                          (menu.Name === "Logout" && userId === null) ||
+                          (menu.Name === "Logout" && userId === undefined) ||
+                          (menu.Name === "Logout" &&
+                            user &&
+                            user.username.length === 0) ||
+                          // (menu.Name === "Login/Register" && userId === null) ||
+                          // (menu.Name === "Login/Register" && userId === undefined)||
+                          (menu.Name === "Login/Register" &&
+                            user &&
+                            user.username !== "" &&
+                            menu.Name === "Login/Register" &&
+                            user &&
+                            user.username !== undefined)
                             ? "0px"
                             : "12px 0px",
                         pointerEvents:
@@ -786,7 +794,11 @@ const Header = ({
                         //   navigate(`/${MMenu.url}`);
                         // }
 
-                        if(menu.Name !== "History"&&menu.Name!=="Sound"&&menu.Name!=="Music") {
+                        if (
+                          menu.Name !== "History" &&
+                          menu.Name !== "Sound" &&
+                          menu.Name !== "Music"
+                        ) {
                           if (placeId[1] === "game") {
                             setActive(true);
                           }
@@ -923,7 +935,7 @@ const Header = ({
                             }
                             onClick={() => {
                               setMusicId(menu.id);
-                              gameMusic === 1|| gameMusic === "1"
+                              gameMusic === 1 || gameMusic === "1"
                                 ? setGameMusic(0)
                                 : setGameMusic(1);
                               // sliderSction
@@ -1050,9 +1062,14 @@ const Header = ({
           {/* <div className={style.Settings}  style={{pointerEvents:gamePlay?"none":"visible"}}> */}
           <ul>
             {settingsMenu.map((menu) => {
-              {/* console.log(menu.Name === "Logout" && userId === null) */}
-              {/* console.log("hello") */}
-              {/* console.log('====================================');
+              {
+                /* console.log(menu.Name === "Logout" && userId === null) */
+              }
+              {
+                /* console.log("hello") */
+              }
+              {
+                /* console.log('====================================');
               console.log(userId);
               console.log(user&&user.username);
               console.log(user&&user.username.length);
@@ -1061,8 +1078,9 @@ const Header = ({
               console.log(menu.Name === "Logout" && user&&user.username.length===0) 
               console.log(menu.Name === "Login/Register" && userId !== null) 
               console.log(menu.Name === "Login/Register" && userId !== undefined)
-              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0) */}
-              
+              console.log(menu.Name === "Login/Register"&&user&&user.username.length===0) */
+              }
+
               return (
                 <div
                   className={style.MenuSection}
@@ -1070,11 +1088,17 @@ const Header = ({
                     margin:
                       (menu.Name === "Logout" && userId === null) ||
                       (menu.Name === "Logout" && userId === undefined) ||
-                      (menu.Name === "Logout" && user&&user.username === "") ||
+                      (menu.Name === "Logout" &&
+                        user &&
+                        user.username === "") ||
                       // (menu.Name === "Login/Register" && userId !== null) ||
                       // (menu.Name === "Login/Register" && userId !== undefined)||
-                     ( (menu.Name === "Login/Register"&&user&&user.username!=="")&&
-                      (menu.Name === "Login/Register"&&user&&user.username!==undefined))
+                      (menu.Name === "Login/Register" &&
+                        user &&
+                        user.username !== "" &&
+                        menu.Name === "Login/Register" &&
+                        user &&
+                        user.username !== undefined)
                         ? "0px"
                         : "15px 0px",
                     pointerEvents:
@@ -1105,7 +1129,11 @@ const Header = ({
                     //     : // ""
                     //       setSetting(false);
                     // }
-                    if (menu.Name !== "History"&&menu.Name!=="Sound"&&menu.Name!=="Music") {
+                    if (
+                      menu.Name !== "History" &&
+                      menu.Name !== "Sound" &&
+                      menu.Name !== "Music"
+                    ) {
                       if (placeId[1] === "game") {
                         setActive(true);
                       }
@@ -1247,9 +1275,7 @@ const Header = ({
                         }
                         onClick={() => {
                           setMusicId(menu.id);
-                          gameMusic === 1
-                            ? setGameMusic(0)
-                            : setGameMusic(1);
+                          gameMusic === 1 ? setGameMusic(0) : setGameMusic(1);
                           // sliderSction
                           //   ? setSliderAction(false)
                           //   : setSliderAction(true);
@@ -1287,13 +1313,13 @@ const Header = ({
                       <li>Sound</li>
                       <div
                         className={
-                          gameSound === 1 || gameSound ===" 1"
+                          gameSound === 1 || gameSound === " 1"
                             ? style.ActiveSlider
                             : style.Slider
                         }
                         onClick={() => {
                           setAudioId(menu.id);
-                          gameSound === 1 || gameSound ===" 1"
+                          gameSound === 1 || gameSound === " 1"
                             ? setGameSound(0)
                             : setGameSound(1);
                           // sliderSction
@@ -1363,16 +1389,25 @@ const Header = ({
         ""
       )}
       {/* <audio ref={audioRef}></audio> */}
-      {playAudio?
-      <PlaySound setPlayAudio={setPlayAudio} src={playAudio} gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound}/>
-    :""}
+      {playAudio ? (
+        <PlaySound
+          setPlayAudio={setPlayAudio}
+          src={playAudio}
+          gameMusic={gameMusic}
+          setGameMusic={setGameMusic}
+          gameSound={gameSound}
+          setGameSound={setGameSound}
+        />
+      ) : (
+        ""
+      )}
       <div
         className={style.MobileTopNav}
         style={{ pointerEvents: gamePlay ? "none" : "visible" }}
       >
         <div
           className={style.MLogo}
-          style={{zIndex:setting===true&&"0"}}
+          style={{ zIndex: setting === true && "0" }}
           // onClick={(e) => {
           //     //  setActive(true)
           //      // }
@@ -1419,9 +1454,13 @@ const Header = ({
           />
         </div>
         <div className={style.MBandaiLogo}>
-          <img src={bandaiLogo} alt=""  onClick={()=>{
-            window.open("http://www.bandainamco-am.co.uk/")
-          }}/>
+          <img
+            src={bandaiLogo}
+            alt=""
+            onClick={() => {
+              window.open("http://www.bandainamco-am.co.uk/");
+            }}
+          />
         </div>
         <div className={style.MCredits}>
           <div className={style.MTicket}>
@@ -1537,9 +1576,13 @@ const Header = ({
           </button>
         </div>
         <div className={style.bandaiLogo}>
-          <img src={bandaiLogo} alt="" onClick={()=>{
-            window.open("http://www.bandainamco-am.co.uk/")
-          }}/>
+          <img
+            src={bandaiLogo}
+            alt=""
+            onClick={() => {
+              window.open("http://www.bandainamco-am.co.uk/");
+            }}
+          />
         </div>
         <div className={style.Menu}>
           <ul style={{ pointerEvents: gamePlay === true ? "none" : "visible" }}>
@@ -1574,14 +1617,12 @@ const Header = ({
                         handleId(e);
                         console.log("home");
                       } else {
-                        if (window.location.pathname.split("/")[1] === "game"){
+                        if (window.location.pathname.split("/")[1] === "game") {
                           setActive(true);
-                        }
-                        else{
+                        } else {
                           setToggle(false);
                           setIsAddress(true);
                         }
-                       
                       }
                     }
 
@@ -1650,7 +1691,7 @@ const Header = ({
               <img src={ticket} alt="" />
             </div>
             <div className={style.Points}>
-              <p>{(user && user.point) || "0"}</p>
+              <p >{(user && user.point) || "0"}</p>
             </div>
             {/* <Link to="/tickets"> */}
             <div className={style.Plus}>

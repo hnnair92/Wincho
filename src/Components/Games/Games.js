@@ -447,13 +447,20 @@ useEffect(()=>{
   //   }
   // },[search])
 
-  useEffect(() => {
-    if (search) {
-      searchApi();
-    }
+  // useEffect(() => {
+  //   if (search) {
+  //     searchApi();
+  //   }
   
    
-  }, [search])
+  // }, [search])
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      // alert("enter is clicked")
+      searchApi();
+    }
+  };
   
 
   useEffect(() => {
@@ -821,6 +828,7 @@ useEffect(()=>{
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
+              onKeyDown={handleKeyPress}
             />
 
             <div className={style.EmptySearch}>
@@ -830,6 +838,7 @@ useEffect(()=>{
                 onClick={() => {
                   setSearch("");
                   setSearchIconStatus(false);
+                  setSearchArray([])
                 }}
               />
             </div>
@@ -863,6 +872,7 @@ useEffect(()=>{
               onChange={(e) => {
                 setSearch(e.target.value);
               }}
+              onKeyDown={handleKeyPress}
             />
             {/* ) : (
               ""

@@ -157,35 +157,7 @@ input:-webkit-autofill:active {
   position: relative;
   width: 13rem;
 }
-
-select {
-  
-  position: relative;
-}
-
-
-select option {
-  width: 25px;
-}
-
-select option::-ms-expand {
-  
-  display: none; 
-}
-
-
-select::-ms-expand {
-  display: none;
-}
-
-select:after {
-  content: "\25BC";  
-  position: absolute;
-  top: 50%; 
-  right: 10px; 
-  transform: translateY(-50%); 
-  pointer-events: none;
-}
+ 
 
 /* .date_container select option {
   color: #6a2020;
