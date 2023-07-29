@@ -777,7 +777,7 @@ const Header = ({
                         console.log(user?.username);
                         // }
                         e.preventDefault();
-                        setPlayAudio(music.Boing);
+                        // setPlayAudio(music.Boing);
                         setSetting(false);
                         setNotificationBubble(true);
                         // if(gamePlay===true){
@@ -1114,8 +1114,7 @@ const Header = ({
                       console.log(user?.username);
                     }
                     e.preventDefault();
-                    setPlayAudio(music.Boing);
-
+                    // setPlayAudio(music.Boing);
                     setSetting(false);
                     setNotificationBubble(true);
                     // if(gamePlay===true){

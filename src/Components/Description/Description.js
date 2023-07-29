@@ -2043,7 +2043,12 @@ useEffect(()=>{
           <div className={style.popupSubmit}>
             <button
               onClick={() => {
-                sendReport();
+                if(reportText===""){
+
+                }
+                else{
+                  sendReport();
+                }
               }}
             >
               SEND
@@ -3071,7 +3076,7 @@ useEffect(()=>{
                             setPrizeMoveIcon(true)
                             setShowGrayPrizeIcon(true)
                             setShowGrayIcon(true)
-                            
+                            setPlayAudio(music.Chime)
                           }}
                         >
                           <img src={assets.greenPrizeMove} alt="" />
