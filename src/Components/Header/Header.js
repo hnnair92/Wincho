@@ -151,6 +151,7 @@ const Header = ({
     localStorage.removeItem("SaveShipping");
     localStorage.removeItem("times");
     localStorage.removeItem("premium");
+    localStorage.removeItem("lastNotificationId");
     // navigate("/");
     window.location.reload();
   };

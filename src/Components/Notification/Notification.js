@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
 import PlayAudio from "../Audio/PlayAudio";
+import PlaySound from "../Audio/PlaySound";
 import { notificationAction } from "../../actions/user";
 const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -19,9 +20,12 @@ const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const userId = JSON.parse(localStorage.getItem("user"));
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
+  const [playAudio, setPlayAudio] = useState("");
+  const NotificationlastId = localStorage.getItem("lastNotificationId");
   //   const[notification,setNotification] = useState({})
   const navigate = useNavigate();
-  async function notificationGet() {
+
+  async function notificationGet(initial) {
     console.log(userId);
     await fetch(`${baseUrl}/user/notifications/get`, {
       method: "POST",
@@ -38,7 +42,38 @@ const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         setNotificationData(data.data[0]);
         setLoading(false);
         console.log(data);
-        dispatch(notificationAction());
+        // dispatch(notificationAction());
+        // const length = data.data[0].notifications.length
+        console.log(data.data[0].notifications.length, "NOTIF_LENGTH");
+
+        if ( data.data[0].notifications.length > 0 && data.data[0].notifications[0]._id != null) {
+          if (
+            NotificationlastId != "" &&
+            NotificationlastId !=
+              data.data[0].notifications[data.data[0].notifications.length- 1]._id
+          ) {
+            if(initial){
+              setPlayAudio(music.Boing, "boing played");
+            }
+            localStorage.setItem("lastNotificationId", NotificationlastId);
+          } else {
+            console.log("no music");
+          }
+          console.log(data.data[0].notifications.length, "length");
+          const lastNotification =
+            data.data[0].notifications[
+              data.data[0].notifications.length - 1
+            ];
+          const lastNotificationId = lastNotification._id;
+          console.log(lastNotificationId, "id");
+          console.log(
+            data.data[0].notifications.length+ "||" + lastNotification._id,
+            "length"
+          );
+          localStorage.setItem("lastNotificationId", lastNotificationId);
+        } else {
+          console.log("nothing");
+        }
 
         // console.log(notificationData.notifications.length)
         // setProduct(data.data[0].notifications.[])
@@ -60,12 +95,12 @@ const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        notificationGet();
+        notificationGet(false);
         dispatch(notificationAction());
       });
   }
   useEffect(() => {
-    if (userId) notificationGet();
+    if (userId) notificationGet(true);
   }, [userId]);
   return (
     <div className={style.Container}>
@@ -77,6 +112,18 @@ const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         gameSound={gameSound}
         setGameSound={setGameSound}
       />
+      {playAudio ? (
+        <PlaySound
+          setPlayAudio={setPlayAudio}
+          src={playAudio}
+          gameMusic={gameMusic}
+          setGameMusic={setGameMusic}
+          gameSound={gameSound}
+          setGameSound={setGameSound}
+        />
+      ) : (
+        ""
+      )}
 
       <div className={style.Notifications}>
         <div className={style.Head}>
@@ -132,8 +179,11 @@ const Notification = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                                     game:
                                       notificationItem &&
                                       notificationItem.product[0],
-                                      user:user,
-                                      cateogry:notificationItem.product[0].category.split(",")[0]
+                                    user: user,
+                                    cateogry:
+                                      notificationItem.product[0].category.split(
+                                        ","
+                                      )[0],
                                   },
                                 }
                               );
