@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MdArrowRight, MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import profile from "../../assests/Wincha Profile Icon.png";
 import style from "./Profile.module.css";
 import rightArrow from "../../assests/Enter Edit Arrow.png";
@@ -9,20 +9,20 @@ import myDetailsBlue from "../../assests/My Details Selected Tab.png";
 import shippingGray from "../../assests/Shipping Unselected Tab.png";
 import myDetailsGray from "../../assests/My Details Unselected Tab.png";
 import shippingBlue from "../../assests/Shipping Selected Tab.png";
-import { configutation } from "../../actions/product";
+// import { configutation } from "../../actions/product";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../Description/assests";
 import eye from "../../assests/Password Eye.png";
 import Loader from "../NewLoader/NewLoader";
 import info from "../../assests/Information Icon.png";
 import icon from "../../assests/Wincha Support Icon.png";
-import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png"
-import FreeplaySection from "../../assests/Artboard 48 Freeplay Icon and TEXT.png"
-import NotificationSection from "../../assests/Artboard 48 Notification Icon and TEXT.png"
-import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.png"
-import CloseImage from "../../assests/Artboard 48 X.png"
-import Lower from "../../assests/Artboard 48 - Lower Image Split.png"
-import Upper from "../../assests/Artboard 48 - Upper Image Split.png"
+import BundleSection from "../../assests/Artboard 48 Bundle Icon and TEXT.png";
+import FreeplaySection from "../../assests/Artboard 48 Freeplay Icon and TEXT.png";
+import NotificationSection from "../../assests/Artboard 48 Notification Icon and TEXT.png";
+import ShippingSection from "../../assests/Artboard 48 Shipping Icon and TEXT.png";
+import CloseImage from "../../assests/Artboard 48 X.png";
+import Lower from "../../assests/Artboard 48 - Lower Image Split.png";
+import Upper from "../../assests/Artboard 48 - Upper Image Split.png";
 import Lottie from "lottie-react";
 import { updateProfile } from "../../actions/user";
 import { FaChevronDown } from "react-icons/fa";
@@ -30,16 +30,14 @@ import { AllAnimation } from "../../Animation/allAnimation";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
 import PlayAudio from "../Audio/PlayAudio";
-const Profile = ({ gameMusic,
-  setGameMusic,
-  gameSound,
-  setGameSound,}) => {
-    const navigate = useNavigate()
-     
-  const token = JSON.parse(localStorage.getItem("token"))
+import { encrypt } from "../EncryptionUtils";
+const Profile = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
+  const navigate = useNavigate();
+
+  const token = JSON.parse(localStorage.getItem("token"));
 
   // const baseUrl = "https://uat.wincha-online.com"
-// const baseUrl = "https://uat.wincha-online.com"
+  // const baseUrl = "https://uat.wincha-online.com"
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -52,7 +50,9 @@ const Profile = ({ gameMusic,
   const { configuration } = useSelector((state) => state.configuration);
   const [updatePassword, setUpdatePassword] = useState(false);
   const [Deactivate, setDeactivate] = useState(false);
-  const [resendEmail, setResendEmail] = useState(user && user.profile_status===false?true:false);
+  const [resendEmail, setResendEmail] = useState(
+    user && user.profile_status === false ? true : false
+  );
   const [message, setMessage] = useState(false);
   const [type, setType] = useState(true);
   const [isAddress, setIsAddress] = useState(false);
@@ -67,7 +67,7 @@ const Profile = ({ gameMusic,
   const [selectState, setSelectState] = useState(false);
   const [allState, setAllState] = useState([]);
   const [postcodetrue, setPostcodeTrue] = useState(false);
-  const [phonenumber,setPhonenumber]=useState(false)
+  const [phonenumber, setPhonenumber] = useState(false);
   const [checkError, setCheckError] = useState(false);
 
   const [addressObj, setAddressObj] = useState({
@@ -79,11 +79,14 @@ const Profile = ({ gameMusic,
   });
   const dispatch = useDispatch();
   // const userId = JSON.parse(localStorage.getItem("user"));
-  const userId = localStorage.getItem("user")&&JSON.parse(localStorage.getItem("user"))
-  console.log(userId)
+  const userId =
+    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"));
+  console.log(userId);
+  const newBaseKey = localStorage.getItem("baseKey");
+  const newBaseIv = localStorage.getItem("baseIv");
   const [passIcon, setPassIcon] = useState(false);
   const [checkMail, setCheckMail] = useState(false);
-  const resendLocal = localStorage.getItem("resend")
+  const resendLocal = localStorage.getItem("resend");
 
   async function deactivateAccount() {
     await fetch(`${baseUrl}/game/issue/report`, {
@@ -97,8 +100,8 @@ const Profile = ({ gameMusic,
         source: "web",
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -109,18 +112,17 @@ const Profile = ({ gameMusic,
         // console.log(window.location.pathname.split("/"))
         // navigate("/");
 
-        // 
+        //
         localStorage.removeItem("user");
         localStorage.removeItem("SaveShipping");
         localStorage.removeItem("times");
         window.location.reload();
-        // 
+        //
 
         // navigate("/")
-
       });
   }
-  
+
   useEffect(() => {
     if (user) {
       // const date = user.dob.split("-");
@@ -134,27 +136,35 @@ const Profile = ({ gameMusic,
       setSubscription(user.vip ? "On" : "Off");
     }
   });
+  useEffect(() => {
+    // dispatch(configuration());
+    console.log(newBaseIv);
+    console.log(newBaseKey);
+    console.log(configuration.ANDROID_VERSION);
+    console.log(configuration);
+  }, []);
+
   // useEffect(() => {
   //   if (user && user.profile_status === false) {
   //     setResendEmail(true);
   //   }
   // }, []);
-  useEffect(()=>{
-    console.log(resendLocal,"resendLocal")
+  useEffect(() => {
+    console.log(resendLocal, "resendLocal");
     // const resendLocal = localStorage.getItem("resend")
-    if(resendLocal===true){
-      setResendEmail(false)
-      setCheckMail(true)
+    if (resendLocal === true) {
+      setResendEmail(false);
+      setCheckMail(true);
     }
-  },[resendLocal,user])
-  const [loading,setLoading] = useState(true)
-  useEffect(()=>{
-    setTimeout(()=>{
-      setLoading(false)
-    },3000)
-  },[])
-  async function resendEmailApi(){
-    setLoading(true)
+  }, [resendLocal, user]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+  async function resendEmailApi() {
+    setLoading(true);
     await fetch(`${baseUrl}/user/verification/resend`, {
       method: "POST",
       body: JSON.stringify({
@@ -162,31 +172,51 @@ const Profile = ({ gameMusic,
         source: "web",
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        localStorage.setItem("resend",true)
-        setLoading(false)
-        setResendEmail(false)
-        setCheckMail(true)
+        localStorage.setItem("resend", true);
+        setLoading(false);
+        setResendEmail(false);
+        setCheckMail(true);
       });
   }
-  async function updatePasswordFunc(e){
-    e.preventDefault()
+
+  async function updatePasswordFunc(e) {
+    e.preventDefault();
+    const bodyData = {
+      id: userId,
+      username: user.username,
+      password: password,
+      source: "web",
+    };
+    console.log(bodyData);
+    const newData = JSON.stringify(bodyData);
+    const plaintext = newData;
+    // const key = "ocpwincha4tR5d0P";
+    // const iv = "ocpwincha7h3XrYb";
+    const key = newBaseKey;
+    const iv = newBaseIv;
+    console.log(newBaseKey);
+    console.log(newBaseIv);
+
+    const encryptedText = encrypt(plaintext, key, iv);
+    console.log(encryptedText, "encrypted_text");
+    const newBody = {
+      title: encryptedText,
+      source: "web",
+      type: "web",
+    };
+    console.log(newBody);
     await fetch(`${baseUrl}/user/profile/update`, {
       method: "PUT",
-      body: JSON.stringify({
-        id: userId,
-        username:user.username,
-        password:password,
-        source: "web",
-      }),
+      body: JSON.stringify(newBody),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -195,7 +225,7 @@ const Profile = ({ gameMusic,
         // setLoading(false)
         // setResendEmail(false)
         // setCheckMail(true)
-        console.log(data)
+        console.log(data);
       });
   }
   async function vipPayment() {
@@ -216,8 +246,8 @@ const Profile = ({ gameMusic,
       method: "POST",
       body: JSON.stringify(requestData),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -245,18 +275,17 @@ const Profile = ({ gameMusic,
         number: `${configuration.COUNTRY_CODE}${number}`,
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         if (data.data[0].valid === true) {
-            postCodeCheck();
-        }
-        else{
-           setPhonenumber(true)
+          postCodeCheck();
+        } else {
+          setPhonenumber(true);
         }
       });
   }
@@ -268,14 +297,14 @@ const Profile = ({ gameMusic,
         code: zipcode,
       }),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "True") {
-           addAddress();
+          addAddress();
         } else {
           setPostcodeTrue(true);
         }
@@ -318,12 +347,28 @@ const Profile = ({ gameMusic,
         coutryname: configuration.COUNTRY_NAME,
       };
     }
+    const newData = JSON.stringify(body);
+    const plaintext = newData;
+    // const key = "ocpwincha4tR5d0P";
+    // const iv = "ocpwincha7h3XrYb";
+    const key = newBaseKey;
+    const iv = newBaseIv;
+    console.log(newBaseKey);
+    console.log(newBaseIv);
+
+    const encryptedText = encrypt(plaintext, key, iv);
+    console.log(encryptedText, "encrypted_text");
+    const newBody = {
+      title: encryptedText,
+      source: "web",
+      type: "web",
+    }
     await fetch(`${baseUrl}/user/shipping/details/update`, {
       method: "PUT",
-      body: JSON.stringify(body),
+      body: JSON.stringify(newBody),
       headers: {
-        "Content-Type":"application/json",
-                    "access-token":`${token}`,
+        "Content-Type": "application/json",
+        "access-token": `${token}`,
       },
     })
       .then((res) => res.json())
@@ -352,9 +397,9 @@ const Profile = ({ gameMusic,
         console.log(err);
       });
   };
-  useEffect(()=>{
-    stateFetch()
-  },[])
+  useEffect(() => {
+    stateFetch();
+  }, []);
   const checkStateExits = (state, e) => {
     e.preventDefault();
     if (state.status === false) {
@@ -369,306 +414,328 @@ const Profile = ({ gameMusic,
   };
 
   const handleInputClick = () => {
-    if (userId===null || user.username === "") {
-      navigate('/login');
-      console.log(user.username ,"profileuser")
+    if (userId === null || user.username === "") {
+      navigate("/login");
+      console.log(user.username, "profileuser");
     }
   };
 
   return (
     <div className={style.Container}>
-
       {/* <audio ref={audioRefHome} onEnded={audioEnded} loop></audio> */}
-      <PlayAudio gameMusic={gameMusic} setGameMusic={setGameMusic} gameSound={gameSound} setGameSound={setGameSound} />
+      <PlayAudio
+        gameMusic={gameMusic}
+        setGameMusic={setGameMusic}
+        gameSound={gameSound}
+        setGameSound={setGameSound}
+      />
 
-      {loading?<div className={style.LoaderDiv}>
-            <div className={style.LoaderAnime}>
-              <Lottie animationData={AllAnimation.Loader} />
-            </div>
-            </div>:
-      <div className={style.Profile} onClick={()=>{
-        console.log(resendLocal)
-        console.log(user && user.profile_status===false&&checkMail===false&&resendLocal===false||resendLocal===undefined,"chekcing intense")
-        if(resendLocal===true){
-          setResendEmail(false)
-
-          setCheckMail(true)
-        }
-        if(user && user.profile_status===false&&checkMail===false&&resendLocal!==true){
-          setResendEmail(true)
-        console.log(resendLocal,"true")
-
-        }
-        else{
-          setResendEmail(false)
-
-        }
-       
-      }}>
-    {premiumPopup?
-      <div className={style.clubHousePopup}>
-      <div className={style.OverlayBg} onClick={()=>{
-            setPremiumPopup(false)
-        }}>
-
-        </div>
-        <div className={style.ClubHouse}>
-            <div className={style.TopImage}>
-          <div className={style.clubHouseClose} onClick={()=>{
-            setPremiumPopup(false)
-          }}>
-            {/* <MdClose/> */}
-            <img src={CloseImage} alt="" />
+      {loading ? (
+        <div className={style.LoaderDiv}>
+          <div className={style.LoaderAnime}>
+            <Lottie animationData={AllAnimation.Loader} />
           </div>
-              <img src={Upper} alt="" />
-            </div>
-            <div className={style.BottomContents}>
-              {/* <div className={style.LowerImg}>
+        </div>
+      ) : (
+        <div
+          className={style.Profile}
+          onClick={() => {
+            console.log(resendLocal);
+            console.log(
+              (user &&
+                user.profile_status === false &&
+                checkMail === false &&
+                resendLocal === false) ||
+                resendLocal === undefined,
+              "chekcing intense"
+            );
+            if (resendLocal === true) {
+              setResendEmail(false);
+
+              setCheckMail(true);
+            }
+            if (
+              user &&
+              user.profile_status === false &&
+              checkMail === false &&
+              resendLocal !== true
+            ) {
+              setResendEmail(true);
+              console.log(resendLocal, "true");
+            } else {
+              setResendEmail(false);
+            }
+          }}
+        >
+          {premiumPopup ? (
+            <div className={style.clubHousePopup}>
+              <div
+                className={style.OverlayBg}
+                onClick={() => {
+                  setPremiumPopup(false);
+                }}
+              ></div>
+              <div className={style.ClubHouse}>
+                <div className={style.TopImage}>
+                  <div
+                    className={style.clubHouseClose}
+                    onClick={() => {
+                      setPremiumPopup(false);
+                    }}
+                  >
+                    {/* <MdClose/> */}
+                    <img src={CloseImage} alt="" />
+                  </div>
+                  <img src={Upper} alt="" />
+                </div>
+                <div className={style.BottomContents}>
+                  {/* <div className={style.LowerImg}>
                 <img src={Lower} alt="" />
               </div> */}
-              <div className={style.BonusPoints}>
-                  <div className={style.Bonus}>
-                    <p>{configuration.VIP_BONUS_POINT}W</p>
+                  <div className={style.BonusPoints}>
+                    <div className={style.Bonus}>
+                      <p>{configuration.VIP_BONUS_POINT}W</p>
+                    </div>
+                    <div className={style.BonusText}>
+                      <p>Sign Up Bonus!</p>
+                    </div>
                   </div>
-                  <div className={style.BonusText}>
-                    <p>Sign Up Bonus!</p>
+                  <div className={style.benefits}>
+                    <div className={style.benefit}>
+                      <div className={style.benefitImage}>
+                        <img src={ShippingSection} alt="" />
+                      </div>
+                    </div>
+                    <div className={style.benefit}>
+                      <div className={style.benefitImage}>
+                        <img src={BundleSection} alt="" />
+                      </div>
+                    </div>
+                    <div className={style.benefit}>
+                      <div className={style.benefitImage}>
+                        <img src={NotificationSection} alt="" />
+                      </div>
+                    </div>
+                    <div className={style.benefit}>
+                      <div className={style.benefitImage}>
+                        <img src={FreeplaySection} alt="" />
+                      </div>
+                    </div>
                   </div>
-              </div>
-              <div className={style.benefits}>
-                <div className={style.benefit}>
-                  <div className={style.benefitImage}>
-                  <img src={ShippingSection} alt="" />
-
+                  <div className={style.SubscribeButton}>
+                    <button
+                      onClick={() => {
+                        if (
+                          (user && user.username === "") ||
+                          user.username === undefined
+                        ) {
+                          return navigate("/login");
+                        } else {
+                          vipPayment();
+                        }
+                      }}
+                    >{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
                   </div>
-                  
+                  <div className={style.CancelSubscription}>
+                    <p>Cancel any time</p>
+                  </div>
                 </div>
-                <div className={style.benefit}>
-                  <div className={style.benefitImage}>
-                  <img src={BundleSection} alt="" />
-
-                  </div>
-                  
-                </div>
-                <div className={style.benefit}>
-                  <div className={style.benefitImage}>
-                  <img src={NotificationSection} alt="" />
-
-                  </div>
-                  
-                </div>
-                <div className={style.benefit}>
-                  <div className={style.benefitImage}>
-                  <img src={FreeplaySection} alt="" />
-
-                  </div>
-                  
-                </div>
-              </div>
-              <div className={style.SubscribeButton}>
-                <button onClick={()=>{
-                 if((user && user.username === ""||user.username === undefined)){
-                  return navigate("/login")
-                }
-                else{
-                  vipPayment();
-                }
-                
-                }}>{`${configuration.CURRENCY_SYMBOL}${configuration.VIP_SUBSCRIPTION} / ${configuration.VIP_SUBSCRIPTION_PERIOD}`}</button>
-              </div>
-              <div className={style.CancelSubscription}>
-                <p>Cancel any time</p>
-              </div>
-            </div>
-            <div className={style.TermsAndPolicy}>
-              <div className={style.Terms} onClick={()=>{
-                window.open(
-                  `${ configuration.terms}`,
-                  "_blank"
-                );
-              }}>
-                <p>Subscription Terms</p>
-              </div>
-              <div className={style.Policy} onClick={()=>{
-                window.open(
-                  `${ configuration.privacy}`,
-                  "_blank"
-                );
-              }}>
-                <p>Privacy Policy</p>
-              </div>
-            </div>
-        </div>
-
-      </div>
-      
-      :""}
-        {passIcon&&userId!==null&&user&&user.username!==""? (
-          <div className={style.Passpopup}>
-          <div className={style.OverlayBg} onClick={()=>{
-            setPassIcon(false)
-        }}>
-
-        </div>
-            <div className={style.image}>
-              <img src={icon} alt="" />
-            </div>
-            <div className={style.content}>
-              <ul>
-                <p>Password must include:</p>
-                <li>8-20 Characters</li>
-                <li>At least 1 capital letter</li>
-                <li>At least 1 number</li>
-                <li>At least 1 special character</li>
-                <li>No spaces</li>
-              </ul>
-            </div>
-            <div className={style.action}>
-              <button
-                onClick={(e) => {
-                  setPassIcon(false);
-                  // forgotPass?forgotPassword(e):setPassIcon(false)
-                }}
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-       
-        {updatePassword&&userId!==null&&user&&user.username!==""? (
-          <div className={style.AddressSection}>
-          <div className={style.OverlayBg} onClick={()=>{
-            setUpdatePassword(false)
-        }}>
-
-        </div>
-            <form action="">
-            {/* <p className={style.AddressTitle}>Update Password</p> */}
-              {/* <h1>Shipping Address</h1> */}
-              <input
-                type="text"
-                name=""
-                id=""
-                // value={line1}
-                readOnly
-                value={user.username}
-                placeholder="USERNAME"
-                onChange={(e) => {
-                  // setLine1(e.target.value);
-                  //  line2 = e.target.value
-                }}
-              />
-
-              <div className={style.email}>
-                <div className={style.info}>
-                  <img
-                    src={info}
-                    alt=""
+                <div className={style.TermsAndPolicy}>
+                  <div
+                    className={style.Terms}
                     onClick={() => {
-                      setPassIcon(true);
+                      window.open(`${configuration.terms}`, "_blank");
                     }}
-                  />
+                  >
+                    <p>Subscription Terms</p>
+                  </div>
+                  <div
+                    className={style.Policy}
+                    onClick={() => {
+                      window.open(`${configuration.privacy}`, "_blank");
+                    }}
+                  >
+                    <p>Privacy Policy</p>
+                  </div>
                 </div>
-                {/* <label htmlFor="password">Password</label> */}
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {passIcon && userId !== null && user && user.username !== "" ? (
+            <div className={style.Passpopup}>
+              <div
+                className={style.OverlayBg}
+                onClick={() => {
+                  setPassIcon(false);
+                }}
+              ></div>
+              <div className={style.image}>
+                <img src={icon} alt="" />
+              </div>
+              <div className={style.content}>
+                <ul>
+                  <p>Password must include:</p>
+                  <li>8-20 Characters</li>
+                  <li>At least 1 capital letter</li>
+                  <li>At least 1 number</li>
+                  <li>At least 1 special character</li>
+                  <li>No spaces</li>
+                </ul>
+              </div>
+              <div className={style.action}>
+                <button
+                  onClick={(e) => {
+                    setPassIcon(false);
+                    // forgotPass?forgotPassword(e):setPassIcon(false)
+                  }}
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+
+          {updatePassword && userId !== null && user && user.username !== "" ? (
+            <div className={style.AddressSection}>
+              <div
+                className={style.OverlayBg}
+                onClick={() => {
+                  setUpdatePassword(false);
+                }}
+              ></div>
+              <form action="">
+                {/* <p className={style.AddressTitle}>Update Password</p> */}
+                {/* <h1>Shipping Address</h1> */}
                 <input
-                  type={type ? "password" : "text"}
+                  type="text"
                   name=""
-                  id="password"
-                  autocomplete="off"
-                  className={style.passwordInput}
-                  value={password}
-                  placeholder="NEW PASSWORD"
+                  id=""
+                  // value={line1}
+                  readOnly
+                  value={user.username}
+                  placeholder="USERNAME"
                   onChange={(e) => {
-                    setPassword(e.target.value);
+                    // setLine1(e.target.value);
+                    //  line2 = e.target.value
                   }}
                 />
-                <div className={style.eye}>
-                  <img
-                    src={eye}
-                    alt=""
-                    onClick={() => {
-                      type ? setType(false) : setType(true);
+
+                <div className={style.email}>
+                  <div className={style.info}>
+                    <img
+                      src={info}
+                      alt=""
+                      onClick={() => {
+                        setPassIcon(true);
+                      }}
+                    />
+                  </div>
+                  {/* <label htmlFor="password">Password</label> */}
+                  <input
+                    type={type ? "password" : "text"}
+                    name=""
+                    id="password"
+                    autocomplete="off"
+                    className={style.passwordInput}
+                    value={password}
+                    placeholder="NEW PASSWORD"
+                    onChange={(e) => {
+                      setPassword(e.target.value);
                     }}
                   />
+                  <div className={style.eye}>
+                    <img
+                      src={eye}
+                      alt=""
+                      onClick={() => {
+                        type ? setType(false) : setType(true);
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-              <input
-                type="text"
-                name=""
-                id=""
-                autocomplete="off"
-                // value={number}
-                placeholder="REPEAT NEW PASSWORD"
-                onChange={(e) => {
-                  // setNumber(e.target.value)
-                  //  line2 = e.target.value
-                }}
-              />
-              <input className={style.emailip}
-                type="email"
-                name=""
-                id=""
-                // value={city}
-                value={user.email}
-                readOnly
-                placeholder="EMAIL"
-                onChange={(e) => {
-                  // setCity(e.target.value)
-                  //  line2 = e.target.value
-                }}
-              />
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  autocomplete="off"
+                  // value={number}
+                  placeholder="REPEAT NEW PASSWORD"
+                  onChange={(e) => {
+                    // setNumber(e.target.value)
+                    //  line2 = e.target.value
+                  }}
+                />
+                <input
+                  className={style.emailip}
+                  type="email"
+                  name=""
+                  id=""
+                  // value={city}
+                  value={user.email}
+                  readOnly
+                  placeholder="EMAIL"
+                  onChange={(e) => {
+                    // setCity(e.target.value)
+                    //  line2 = e.target.value
+                  }}
+                />
 
-              <button
-                type="submit"
-                onClick={(e) => {
-                  // setIsAddressFieldShown(true);
-                  // setisAddressField(false);
-                  // setAddressObj({
-                  //   line1,
-                  //   line2,
-                  //   city,
-                  //   state,
-                  //   zipcode
-                  // })
-                  // numberValidation()
-                  // setCount(4)
-                  // console.log(addressObj);
-                  updatePasswordFunc(e)
+                <button
+                  type="submit"
+                  onClick={(e) => {
+                    // setIsAddressFieldShown(true);
+                    // setisAddressField(false);
+                    // setAddressObj({
+                    //   line1,
+                    //   line2,
+                    //   city,
+                    //   state,
+                    //   zipcode
+                    // })
+                    // numberValidation()
+                    // setCount(4)
+                    // console.log(addressObj);
+                    updatePasswordFunc(e);
+                  }}
+                  // disabled={ line1===""|| line2===""|| city===""|| state===""|| zipcode===""}
+                >
+                  CONFIRM
+                </button>
+              </form>
+            </div>
+          ) : (
+            ""
+          )}
+          {Deactivate && userId !== null && user && user.username !== "" ? (
+            <div className={style.DeactivatePopup}>
+              <div
+                className={style.DeacOverlayBg}
+                onClick={() => {
+                  setDeactivate(false);
                 }}
-                // disabled={ line1===""|| line2===""|| city===""|| state===""|| zipcode===""}
-              >
-                CONFIRM
-              </button>
-            </form>
-          </div>
-        ) : (
-          ""
-        )}
-        {Deactivate&&userId!==null&&user&&user.username!==""? (
-          <div className={style.DeactivatePopup}>
-            <div className={style.DeacOverlayBg} onClick={()=>{
-            setDeactivate(false)
-        }}>
-
-        </div>
-          <div className={style.popup}>
-          
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.ReportPopupButtonCategory}>
-              {/* <button>DEACTIVATE</button> */}
-            </div>
-            <div className={style.popupText}>
-            <p>If you proceed with an account deletion,your account will be irreversibly
-              deleted resulting in your data and any remaining credit being permanently and
-              immediately erased. Please remember to also turn off any in-app subscriptions in your device
-              account settings that are associated with this app.
-            </p>
-            </div>
-            {/* <div className={style.popupInput}>
+              ></div>
+              <div className={style.popup}>
+                <div className={style.popupImage}>
+                  <img src={assets.winchaPopup} alt="" />
+                </div>
+                <div className={style.ReportPopupButtonCategory}>
+                  {/* <button>DEACTIVATE</button> */}
+                </div>
+                <div className={style.popupText}>
+                  <p>
+                    If you proceed with an account deletion,your account will be
+                    irreversibly deleted resulting in your data and any
+                    remaining credit being permanently and immediately erased.
+                    Please remember to also turn off any in-app subscriptions in
+                    your device account settings that are associated with this
+                    app.
+                  </p>
+                </div>
+                {/* <div className={style.popupInput}>
               <textarea
                 name=""
                 id=""
@@ -680,285 +747,306 @@ const Profile = ({ gameMusic,
                 placeholder="If you can, please tell us why you're leaving..."
               ></textarea>
             </div> */}
-            <div></div>
-            <div className={style.popupSubmit}>
-              <div className={style.cancelButton}>
-                <button onClick={()=>{
-                  setDeactivate(false)
-                }} >CLOSE</button>
+                <div></div>
+                <div className={style.popupSubmit}>
+                  <div className={style.cancelButton}>
+                    <button
+                      onClick={() => {
+                        setDeactivate(false);
+                      }}
+                    >
+                      CLOSE
+                    </button>
+                  </div>
+                  <div className={style.deleteButton}>
+                    <button
+                      onClick={() => {
+                        // sendReport();
+                        deactivateAccount();
+                      }}
+                    >
+                      DELETE
+                    </button>
+                  </div>
                 </div>
-              <div className={style.deleteButton}>
-                <button
-                  onClick={() => {
-                    // sendReport();
-                    deactivateAccount()
-                  }}
-                >
-                  DELETE
-                </button>
               </div>
             </div>
-          </div>
-          </div>
-        ) : (
-          ""
-        )}
-        {resendEmail&&userId!==null&&user&&user.username!=="" ? (
-          <div className={style.resendEmailpopup}>
-          <div className={style.popupOverlay} onClick={()=>{
-             if(resendLocal===true){
-              setResendEmail(false)
-    
-              setCheckMail(true)
-            }
-            // setResendEmail(false)
-          }}></div>
-          <div className={style.popupContent}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
-            </div>
-            <div className={style.resendpopupText}>
-              <p>Awaiting player verification</p>
-            </div>
-            <div className={style.popupButton}>
+          ) : (
+            ""
+          )}
+          {resendEmail && userId !== null && user && user.username !== "" ? (
+            <div className={style.resendEmailpopup}>
               <div
-                // to="/tickets"
+                className={style.popupOverlay}
                 onClick={() => {
-                  // setResendEmail(false);
-                  // resendEmailApi()
-                }}
-              >
-                <button  onClick={() => {
+                  if (resendLocal === true) {
+                    setResendEmail(false);
 
-                  // setResendEmail(false);
-                  resendEmailApi();
-                }}>RESEND EMAIL</button>
+                    setCheckMail(true);
+                  }
+                  // setResendEmail(false)
+                }}
+              ></div>
+              <div className={style.popupContent}>
+                <div className={style.popupImage}>
+                  <img src={assets.winchaPopup} alt="" />
+                </div>
+                <div className={style.resendpopupText}>
+                  <p>Awaiting player verification</p>
+                </div>
+                <div className={style.popupButton}>
+                  <div
+                    // to="/tickets"
+                    onClick={() => {
+                      // setResendEmail(false);
+                      // resendEmailApi()
+                    }}
+                  >
+                    <button
+                      onClick={() => {
+                        // setResendEmail(false);
+                        resendEmailApi();
+                      }}
+                    >
+                      RESEND EMAIL
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          {/* {loading?
+              {/* {loading?
           <Lottie animationData={AllAnimation.Loader}/>
           :""} */}
-          </div>
-        ) : (
-          ""
-        )}
-        {checkMail&&userId!==null&&user&&user.username!=="" ? (
-          <div className={style.resendEmailpopup}>
-          <div className={style.popupOverlay} onClick={()=>{
-            // setResendEmail(false)
-          }}></div>
-          <div className={style.popupContent}>
-            <div className={style.popupImage}>
-              <img src={assets.winchaPopup} alt="" />
             </div>
-            <div className={style.popupText}>
-              <p>Please check your mail and refresh the page</p>
-            </div>
-            <div className={style.popupButton}>
+          ) : (
+            ""
+          )}
+          {checkMail && userId !== null && user && user.username !== "" ? (
+            <div className={style.resendEmailpopup}>
               <div
-                // to="/tickets"
+                className={style.popupOverlay}
                 onClick={() => {
-                  // setResendEmail(false);
-                  // resendEmailApi()
+                  // setResendEmail(false)
                 }}
-              >
-                {/* <button  onClick={() => {
+              ></div>
+              <div className={style.popupContent}>
+                <div className={style.popupImage}>
+                  <img src={assets.winchaPopup} alt="" />
+                </div>
+                <div className={style.popupText}>
+                  <p>Please check your mail and refresh the page</p>
+                </div>
+                <div className={style.popupButton}>
+                  <div
+                    // to="/tickets"
+                    onClick={() => {
+                      // setResendEmail(false);
+                      // resendEmailApi()
+                    }}
+                  >
+                    {/* <button  onClick={() => {
                   resendEmailApi();
                 }}>RESEND EMAIL</button> */}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          {/* {loading?
+              {/* {loading?
           <Lottie animationData={AllAnimation.Loader}/>
           :""} */}
-          </div>
-        ) : (
-          ""
-        )}
-        {isAddress&&userId!==null&&user&&user.username!==""?
-        (<div className={style.editAddress} >
-          <div
-            className={style.editAddressOverlay}
-            onClick={() => {
-              setIsAddress(false);
-              setSelectState(false)
-            }}
-          ></div>
-          <form>
-            <h1>Shipping Address</h1>
-            <input
-              type="text"
-              name=""
-              id=""
-              value={firstName}
-              placeholder="FIRST NAME"
-              onChange={(e) => {
-                setFirstName(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name=""
-              id=""
-              value={lastName}
-              placeholder="LAST NAME"
-              onChange={(e) => {
-                setLastName(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name=""
-              id=""
-              value={line1}
-              placeholder="LINE 1"
-              onChange={(e) => {
-                setLine1(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name=""
-              id=""
-              value={line2}
-              placeholder="LINE 2"
-              onChange={(e) => {
-                setLine2(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name=""
-              id=""
-              value={number}
-              placeholder="PHONE NUMBER"
-              onChange={(e) => {
-                setNumber(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              name=""
-              id=""
-              value={city}
-              placeholder="CITY"
-              onChange={(e) => {
-                setCity(e.target.value);
-              }}
-            />
-            {user.coutrycode === "1" ? (
-              <div className={`${style.input} ${style.selectInput}`}>
-                {state.state ? (
-                  <input
-                    type="text"
-                    readOnly
-                    value={state.state}
-                    className={style.StateSelect}
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    readOnly
-                    className={style.StateSelectCenter}
-                    placeholder="SELECT STATE"
-                  />
-                )}
-                {}
-                <FaChevronDown  className={style.Downarrow}
-                  onClick={() => {
-                    selectState ? setSelectState(false) : setSelectState(true);
+            </div>
+          ) : (
+            ""
+          )}
+          {isAddress && userId !== null && user && user.username !== "" ? (
+            <div className={style.editAddress}>
+              <div
+                className={style.editAddressOverlay}
+                onClick={() => {
+                  setIsAddress(false);
+                  setSelectState(false);
+                }}
+              ></div>
+              <form>
+                <h1>Shipping Address</h1>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={firstName}
+                  placeholder="FIRST NAME"
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
                   }}
                 />
-                {selectState ? (
-                  <div className={selectState ? style.AllState : style.stateUp}>
-                    {allState.map((stateItem) => {
-                      return (
-                        <input
-                          type="text"
-                          name="state"
-                          id="state"
-                          readOnly
-                          value={stateItem.state}
-                          onClick={(e) => {
-                            checkStateExits(stateItem, e);
-                          }}
-                        />
-                      );
-                    })}
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={lastName}
+                  placeholder="LAST NAME"
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={line1}
+                  placeholder="LINE 1"
+                  onChange={(e) => {
+                    setLine1(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={line2}
+                  placeholder="LINE 2"
+                  onChange={(e) => {
+                    setLine2(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={number}
+                  placeholder="PHONE NUMBER"
+                  onChange={(e) => {
+                    setNumber(e.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={city}
+                  placeholder="CITY"
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                />
+                {user.coutrycode === "1" ? (
+                  <div className={`${style.input} ${style.selectInput}`}>
+                    {state.state ? (
+                      <input
+                        type="text"
+                        readOnly
+                        value={state.state}
+                        className={style.StateSelect}
+                      />
+                    ) : (
+                      <input
+                        type="text"
+                        readOnly
+                        className={style.StateSelectCenter}
+                        placeholder="SELECT STATE"
+                      />
+                    )}
+                    {}
+                    <FaChevronDown
+                      className={style.Downarrow}
+                      onClick={() => {
+                        selectState
+                          ? setSelectState(false)
+                          : setSelectState(true);
+                      }}
+                    />
+                    {selectState ? (
+                      <div
+                        className={selectState ? style.AllState : style.stateUp}
+                      >
+                        {allState.map((stateItem) => {
+                          return (
+                            <input
+                              type="text"
+                              name="state"
+                              id="state"
+                              readOnly
+                              value={stateItem.state}
+                              onClick={(e) => {
+                                checkStateExits(stateItem, e);
+                              }}
+                            />
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 ) : (
-                  ""
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    value={state}
+                    placeholder="COUNTY"
+                    onChange={(e) => {
+                      setState(e.target.value);
+                    }}
+                  />
                 )}
-              </div>
-            ) : (
-              <input
-                type="text"
-                name=""
-                id=""
-                value={state}
-                placeholder="COUNTY"
-                onChange={(e) => {
-                  setState(e.target.value);
-                }}
-              />
-            )}
-            <input
-                type="text"
-                value={user?.coutryname || ""}
-                readOnly
-                placeholder="Country"
-              />
-            {user.coutrycode === "44" ? (
-              <input
-                type="text"
-                name=""
-                id=""
-                value={zipcode}
-                placeholder="POSTCODE"
-                onChange={(e) => {
-                  setZipCode(e.target.value);
-                }}
-              />
-            ) : (
-              <input
-                type="text"
-                name=""
-                id=""
-                value={zipcode}
-                placeholder="ZIP/POSTAL CODE"
-                onChange={(e) => {
-                  setZipCode(e.target.value);
-                }}
-              />
-            )}
-            
-            <button
-            type="submit"
-            onClick={() => {
-              setIsAddress(false);
-              setAddressObj({
-                line1,
-                line2,
-                city,
-                state,
-                zipcode,
-              });
-               numberValidation();
-              console.log(addressObj);
-            }}
-            disabled={
-              line1 === "" ||
-              line2 === "" ||
-              city === "" ||
-              state === "" ||
-              zipcode === ""
-            }
-            >CONFIRM</button>
-          </form>
-        </div>
-        ):(
-          "")}
+                <input
+                  type="text"
+                  value={user?.coutryname || ""}
+                  readOnly
+                  placeholder="Country"
+                />
+                {user.coutrycode === "44" ? (
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    value={zipcode}
+                    placeholder="POSTCODE"
+                    onChange={(e) => {
+                      setZipCode(e.target.value);
+                    }}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    value={zipcode}
+                    placeholder="ZIP/POSTAL CODE"
+                    onChange={(e) => {
+                      setZipCode(e.target.value);
+                    }}
+                  />
+                )}
+
+                <button
+                  type="submit"
+                  onClick={() => {
+                    setIsAddress(false);
+                    setAddressObj({
+                      line1,
+                      line2,
+                      city,
+                      state,
+                      zipcode,
+                    });
+                    numberValidation();
+                    console.log(addressObj);
+                  }}
+                  disabled={
+                    line1 === "" ||
+                    line2 === "" ||
+                    city === "" ||
+                    state === "" ||
+                    zipcode === ""
+                  }
+                >
+                  CONFIRM
+                </button>
+              </form>
+            </div>
+          ) : (
+            ""
+          )}
           {phonenumber ? (
           <div className={style.postpopup}>
             <div className={style.popupImage}>
@@ -987,7 +1075,7 @@ const Profile = ({ gameMusic,
               <img src={assets.winchaPopup} alt="" />
             </div>
             <div className={style.postpopupText}>
-              <p>Code does not exists</p>
+              <p>Post code invalid</p>
             </div>
             <div className={style.popupbutton}>
               <button
@@ -1027,315 +1115,351 @@ const Profile = ({ gameMusic,
             {/* {loading?
           <Lottie animationData={AllAnimation.Loader}/>
           :""} */}
-        <div className={style.ProfileContent}>
-          <div className={style.ProfileImage}>
-            <img src={profile} alt="" />
-          </div>
-          <div className={style.ProfileAction}>
-            {/* <div className={style.AllBtns}>
+          <div className={style.ProfileContent}>
+            <div className={style.ProfileImage}>
+              <img src={profile} alt="" />
+            </div>
+            <div className={style.ProfileAction}>
+              {/* <div className={style.AllBtns}>
             <button className={style.btn2}>SHIPPING</button>
             <button className={style.btn1}>MY DETAILS</button>
           </div> */}
-            {/* <button className={style.ProfileBtn}>PROFILE</button>
+              {/* <button className={style.ProfileBtn}>PROFILE</button>
             <button className={style.history}>HISTORY</button>
             <button className={style.Faq}>FAQ</button> */}
-            {
-              (userId!==null&&user&&user.username!=="")?<button
-              className={style.Deactivate}
-              onClick={() => {
-                if(userId!==null&&user&&user.username!==""){
-                setDeactivate(true);
-                }
-              }}
-            >
-              Delete ACCOUNT
-            </button>:''
-            }
-            
+              {userId !== null && user && user.username !== "" ? (
+                <button
+                  className={style.Deactivate}
+                  onClick={() => {
+                    if (userId !== null && user && user.username !== "") {
+                      setDeactivate(true);
+                    }
+                  }}
+                >
+                  Delete ACCOUNT
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-        </div>
-        <div className={style.FullDetails}>
-          <div className={style.TabBtns}>
-            {/* mydetails */}
+          <div className={style.FullDetails}>
+            <div className={style.TabBtns}>
+              {/* mydetails */}
 
-            {myDetails === false ? (
-              <img
-                src={myDetailsGray}
-                alt=""
-                className={myDetails ? style.TabBtnActiveImg : style.TabImg}
-                onClick={() => {
-                  setmyDetails(false);
-                  console.log("from mydetails", myDetails);
-                }}
-              />
-            ) : (
-              <img
-                src={myDetailsBlue}
-                alt=""
-                className={myDetails ? style.TabBtnActiveImg : style.TabImg}
-                onClick={() => {
-                  setmyDetails(false);
-                  console.log("from mydetails", myDetails);
-                }}
-              />
-            )}
-            {/* shipping */}
-            {myDetails === false ? (
-              <img
-                src={shippingBlue}
-                alt=""
-                className={myDetails ? style.TabImg : style.TabBtnActiveImg}
-                onClick={() => {
-                  setmyDetails(true);
-                  console.log("from shipping", myDetails);
-                }}
-              />
-            ) : (
-              <img
-                src={shippingGray}
-                alt=""
-                className={myDetails ? style.TabImg : style.TabBtnActiveImg}
-                onClick={() => {
-                  setmyDetails(true);
-                  console.log("from shipping", myDetails);
-                }}
-              />
-            )}
-          </div>
+              {myDetails === false ? (
+                <img
+                  src={myDetailsGray}
+                  alt=""
+                  className={myDetails ? style.TabBtnActiveImg : style.TabImg}
+                  onClick={() => {
+                    setmyDetails(false);
+                    console.log("from mydetails", myDetails);
+                  }}
+                />
+              ) : (
+                <img
+                  src={myDetailsBlue}
+                  alt=""
+                  className={myDetails ? style.TabBtnActiveImg : style.TabImg}
+                  onClick={() => {
+                    setmyDetails(false);
+                    console.log("from mydetails", myDetails);
+                  }}
+                />
+              )}
+              {/* shipping */}
+              {myDetails === false ? (
+                <img
+                  src={shippingBlue}
+                  alt=""
+                  className={myDetails ? style.TabImg : style.TabBtnActiveImg}
+                  onClick={() => {
+                    setmyDetails(true);
+                    console.log("from shipping", myDetails);
+                  }}
+                />
+              ) : (
+                <img
+                  src={shippingGray}
+                  alt=""
+                  className={myDetails ? style.TabImg : style.TabBtnActiveImg}
+                  onClick={() => {
+                    setmyDetails(true);
+                    console.log("from shipping", myDetails);
+                  }}
+                />
+              )}
+            </div>
 
-          <div className={style.TabSection}>
-            {myDetails === false ? (
-              <div className={style.Shipping}>
-                <div className={style.Phone}>
-                  <div className={style.title}>
-                    <p>Phone Number</p>
+            <div className={style.TabSection}>
+              {myDetails === false ? (
+                <div className={style.Shipping}>
+                  <div className={style.Phone}>
+                    <div className={style.title}>
+                      <p>Phone Number</p>
+                    </div>
+                    <div className={style.InputSection}>
+                      <input
+                        // className={style.phoneInputSection}
+                        type="text"
+                        value={user?.phone}
+                        placeholder="Please Enter"
+                        readOnly
+                        onClick={handleInputClick}
+                        className={
+                          user && user.username
+                            ? style.loggedIn
+                            : style.loggedOut
+                        }
+                      />
+                      <img
+                        src={rightArrow}
+                        onClick={() => {
+                          setIsAddress(true);
+                        }}
+                        alt=""
+                      />
+                    </div>
                   </div>
-                  <div className={style.InputSection}>
-                    <input 
-                    // className={style.phoneInputSection}
-                      type="text"
-                      value={user?.phone}
-                      placeholder="Please Enter"
-                      readOnly
-                      onClick={handleInputClick}
-                      className={user && user.username ? style.loggedIn : style.loggedOut}
-
-
-                    />
-                    <img src={rightArrow} onClick={()=>{
-                      setIsAddress(true)
-                    }} alt="" />
-                  </div>
-                </div>
-                  <hr color="#000" className={style.hrLine}/>
-                <div className={style.Address}>
-                  <div className={style.title}>
-                    <p>Shipping</p>
-                  </div>
-                  <div className={style.InputSection}>
-                    {/* <input
+                  <hr color="#000" className={style.hrLine} />
+                  <div className={style.Address}>
+                    <div className={style.title}>
+                      <p>Shipping</p>
+                    </div>
+                    <div className={style.InputSection}>
+                      {/* <input
                       type="text"
                       value={user?.username || ""}
                       readOnly
                       placeholder="Username"
                     /> */}
-  
-                    <img src={rightArrow} onClick={()=>{
-                      setIsAddress(true)
-                    }} alt="" />
-                 
-                    <input
-                      type="text"
-                      value={user?.addressline1 || ""}
-                      readOnly
-                      placeholder="Please Enter"
-                      onClick={handleInputClick}
-                      className={user && user.username ? style.loggedIn : style.loggedOut}
 
-                    />
-                    <input
-                      type="text"
-                      value={user?.addressline2 || ""}
-                      readOnly
-                      placeholder=""
-                      className={style.loggedIn}
-                    />
-                    <input
-                      type="text"
-                      value={user?.city || ""}
-                      readOnly
-                      placeholder=""
-                      className={style.loggedIn}
+                      <img
+                        src={rightArrow}
+                        onClick={() => {
+                          setIsAddress(true);
+                        }}
+                        alt=""
+                      />
 
-                    />
-                    {user && user.coutryname === "UK" ? (
                       <input
                         type="text"
-                        value={user?.state || ""}
+                        value={user?.addressline1 || ""}
+                        readOnly
+                        placeholder="Please Enter"
+                        onClick={handleInputClick}
+                        className={
+                          user && user.username
+                            ? style.loggedIn
+                            : style.loggedOut
+                        }
+                      />
+                      <input
+                        type="text"
+                        value={user?.addressline2 || ""}
                         readOnly
                         placeholder=""
                         className={style.loggedIn}
-
                       />
-                    ) : user && user.coutryname === "USA" ? (
                       <input
                         type="text"
-                        value={user?.state || ""}
+                        value={user?.city || ""}
                         readOnly
                         placeholder=""
                         className={style.loggedIn}
-
                       />
-                    ) : (
-                      ""
-                    )}
-                    <input
+                      {user && user.coutryname === "UK" ? (
+                        <input
+                          type="text"
+                          value={user?.state || ""}
+                          readOnly
+                          placeholder=""
+                          className={style.loggedIn}
+                        />
+                      ) : user && user.coutryname === "USA" ? (
+                        <input
+                          type="text"
+                          value={user?.state || ""}
+                          readOnly
+                          placeholder=""
+                          className={style.loggedIn}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      <input
                         type="text"
                         value={user?.coutryname || ""}
                         readOnly
                         placeholder=""
                         className={style.loggedIn}
-
                       />
-                    {/* <input type="text"  value={user?.county||""}readOnly placeholder="Country"/> */}
-                    {user && user.coutryname === "UK" ? (
+                      {/* <input type="text"  value={user?.county||""}readOnly placeholder="Country"/> */}
+                      {user && user.coutryname === "UK" ? (
+                        <input
+                          type="text"
+                          value={user?.zipcode || ""}
+                          readOnly
+                          placeholder=""
+                          className={style.loggedIn}
+                        />
+                      ) : user && user.coutryname === "USA" ? (
+                        <input
+                          type="text"
+                          value={user?.zipcode || ""}
+                          readOnly
+                          placeholder=""
+                          className={style.loggedIn}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {/* <input type="text" value={user?.zipcode||""}readOnly placeholder="Zipcode"/> */}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className={style.myDetails}>
+                  <div className={style.Username}>
+                    <div className={style.title}>
+                      <p>Username</p>
+                    </div>
+                    <div className={style.InputSection}>
                       <input
                         type="text"
-                        value={user?.zipcode || ""}
+                        value={username}
                         readOnly
-                        placeholder=""
-                        className={style.loggedIn}
-
+                        // placeholder="Your Name"
+                        placeholder="Please Enter"
+                        onClick={handleInputClick}
+                        className={
+                          user && user.username
+                            ? style.loggedIn
+                            : style.loggedOut
+                        }
                       />
-                    ) : user && user.coutryname === "USA" ? (
+                    </div>
+                  </div>
+                  <div className={style.Birthday}>
+                    <div className={style.title}>
+                      <p>Birthday</p>
+                    </div>
+                    <div className={style.InputSection}>
                       <input
                         type="text"
-                        value={user?.zipcode || ""}
+                        value={birthday}
                         readOnly
-                        placeholder=""
-                        className={style.loggedIn}
-
+                        // placeholder="DD/MM/YYYY"
+                        placeholder="Please Enter"
+                        onClick={handleInputClick}
+                        className={
+                          user && user.username
+                            ? style.loggedIn
+                            : style.loggedOut
+                        }
                       />
-                    ) : (
-                      ""
-                    )}
-                    {/* <input type="text" value={user?.zipcode||""}readOnly placeholder="Zipcode"/> */}
+                      {/* <input type="date" value={birthday} onChange/> */}
+                    </div>
                   </div>
-                </div>
-              </div>
-            ) : (
-              <div className={style.myDetails}>
-                <div className={style.Username}>
-                  <div className={style.title}>
-                    <p>Username</p>
-                  </div>
-                  <div className={style.InputSection}
-                    >
-                    <input
-                      type="text"
-                      value={username}
-                      readOnly
-                      // placeholder="Your Name"
-                      placeholder="Please Enter"
-                      onClick={handleInputClick}
-                      className={user && user.username ? style.loggedIn : style.loggedOut}
-                   
-                    />
-                  </div>
-                </div>
-                <div className={style.Birthday}>
-                  <div className={style.title}>
-                    <p>Birthday</p>
-                  </div>
-                  <div className={style.InputSection}>
-                    <input
-                      type="text"
-                      value={birthday}
-                      readOnly
-                      // placeholder="DD/MM/YYYY"
-                      placeholder="Please Enter"
-                      onClick={handleInputClick}
-                      className={user && user.username ? style.loggedIn : style.loggedOut}
-                    />
-                    {/* <input type="date" value={birthday} onChange/> */}
-                  </div>
-                </div>
-                <div className={style.EmailAddress}>
-                  <div className={style.title}>
-                    <p>Email Address</p>
-                  </div>
-                  <div className={style.InputSection}>
-                    <input
-                      type="email"
-                      value={email}
-                      readOnly
-                      // placeholder="YourName@gmail.com"
-                      placeholder="Please Enter"
-                      onClick={handleInputClick}
-                      className={user && user.username ? style.loggedIn : style.loggedOut}
-
-                    />
-                    {/* <input type="email" value={email} onChange={(e)=>{
+                  <div className={style.EmailAddress}>
+                    <div className={style.title}>
+                      <p>Email Address</p>
+                    </div>
+                    <div className={style.InputSection}>
+                      <input
+                        type="email"
+                        value={email}
+                        readOnly
+                        // placeholder="YourName@gmail.com"
+                        placeholder="Please Enter"
+                        onClick={handleInputClick}
+                        className={
+                          user && user.username
+                            ? style.loggedIn
+                            : style.loggedOut
+                        }
+                      />
+                      {/* <input type="email" value={email} onChange={(e)=>{
                                 setEmail(e.target.value)
                             }}/> */}
+                    </div>
                   </div>
-                </div>
-                <div className={style.Password}>
-                  <div className={style.title}>
-                    <p>Password</p>
-                  </div>
-                  <div className={style.InputSection}>
-                    <input
-                      type="text"
-                      // value="***********"
-                      value={user && user.username ? "***********" : ""}
-                      readOnly
-                      placeholder="Please Enter"
-                      onClick={handleInputClick}
-                      className={user && user.username ? style.loggedIn : style.loggedOut}
+                  <div className={style.Password}>
+                    <div className={style.title}>
+                      <p>Password</p>
+                    </div>
+                    <div className={style.InputSection}>
+                      <input
+                        type="text"
+                        // value="***********"
+                        value={user && user.username ? "***********" : ""}
+                        readOnly
+                        placeholder="Please Enter"
+                        onClick={handleInputClick}
+                        className={
+                          user && user.username
+                            ? style.loggedIn
+                            : style.loggedOut
+                        }
+                      />
+                      {/* <MdOutlineKeyboardArrowRight/> */}
+                      <img
+                        src={rightArrow}
+                        alt=""
+                        onClick={() => {
+                          setUpdatePassword(true);
+                        }}
+                      />
 
-                    />
-                    {/* <MdOutlineKeyboardArrowRight/> */}
-                    <img
-                      src={rightArrow}
-                      alt=""
-                      onClick={() => { 
-                        setUpdatePassword(true);
-                      }}
-                    />
-
-                    {/* <input type="password" value={password} onChange={(e)=>{
+                      {/* <input type="password" value={password} onChange={(e)=>{
                                 setPassword(e.target.value)
                             }}/> */}
+                    </div>
                   </div>
-                </div>
-                <div className={style.Subscription}>
-                  <div className={style.title}>
-                    <p>Subscription</p>
-                  </div>
-                  <div className={style.InputSection}>
-                    <input type="text" value={subscription} readOnly className={style.loggedIn} />
-                    {user&&user.vip===false||userId===null?<img src={shippingInfo} alt="" onClick={()=>{
-                      if(user && user.profile_status === false&&(user && user.username !== ""&&user.username !== undefined)){
-                        setResendEmail(true)
-                      }
-                      else{
-                        setPremiumPopup(true);
-                      }
-                    }}/>:""
-                   
-                  }
-                    {/* <input type="text" value={subscription} onChange={(e)=>{
+                  <div className={style.Subscription}>
+                    <div className={style.title}>
+                      <p>Subscription</p>
+                    </div>
+                    <div className={style.InputSection}>
+                      <input
+                        type="text"
+                        value={subscription}
+                        readOnly
+                        className={style.loggedIn}
+                      />
+                      {(user && user.vip === false) || userId === null ? (
+                        <img
+                          src={shippingInfo}
+                          alt=""
+                          onClick={() => {
+                            if (
+                              user &&
+                              user.profile_status === false &&
+                              user &&
+                              user.username !== "" &&
+                              user.username !== undefined
+                            ) {
+                              setResendEmail(true);
+                            } else {
+                              setPremiumPopup(true);
+                            }
+                          }}
+                        />
+                      ) : (
+                        ""
+                      )}
+                      {/* <input type="text" value={subscription} onChange={(e)=>{
                                 setSubscription(e.target.value)
                             }}/> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      }
+      )}
     </div>
   );
 };

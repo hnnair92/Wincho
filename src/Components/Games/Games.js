@@ -608,7 +608,7 @@ useEffect(()=>{
       }
       dispatch(updateProfile());
     }
-    dispatch(updateProfile());
+    // dispatch(updateProfile());
   }, [userId]);
   useEffect(() => {
     console.log(userId);
@@ -629,7 +629,7 @@ useEffect(()=>{
       dispatch(registerAction(userRegAnom));
       dispatch(updateProfile());
     }
-    dispatch(updateProfile());
+    // dispatch(updateProfile());
   }, [userId]);
 
   const categories = [

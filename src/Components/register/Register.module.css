@@ -1227,7 +1227,7 @@ label {
     transform: translate(-50%, -50%);
   }
     .Terms p {
-    width: 53%;
+    width: 69%;
    
   }
 }
@@ -1463,9 +1463,9 @@ label {
 .CalenderContent > button {
   font-size: 1.75rem;
 }
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-device-width: 1050px){
   .Terms p {
   
-    width: 63%;
+    width: 53%;
   }
 }

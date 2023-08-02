@@ -205,10 +205,15 @@ const Ticket = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   });
   useEffect(() => {
     fetchTickets();
+    console.log(configuration.VIP_SUBSCRIPTION);
+    console.log(configuration.ANDROID_VERSION);
+    console.log(configuration.BASE_KEY);
+    console.log(configuration);
   }, []);
   useEffect(() => {
     if (user && user.profile_status === false) {
       setResendEmail(true);
+   
     }
   }, [user]);
   const showPopup = () => {

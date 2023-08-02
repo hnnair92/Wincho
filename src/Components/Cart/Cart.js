@@ -29,6 +29,8 @@ import { FaChevronDown } from "react-icons/fa";
 import { music } from "../../assests/Musics/allMusic";
 import { baseUrl } from "../url";
 import PlayAudio from "../Audio/PlayAudio";
+import { encrypt } from "../EncryptionUtils";
+
 
 const isSafari = () => {
   const ua = navigator.userAgent.toLowerCase();
@@ -37,6 +39,9 @@ const isSafari = () => {
 
 const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const token = JSON.parse(localStorage.getItem("token"));
+
+  const newBaseKey = localStorage.getItem("baseKey");
+  const newBaseIv = localStorage.getItem("baseIv");
 
   const dispatch = useDispatch();
   const [cartData, setCartData] = useState([]);
@@ -245,9 +250,25 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
         coutryname: configuration.COUNTRY_NAME,
       };
     }
+    const newData = JSON.stringify(body);
+    const plaintext = newData;
+    // const key = "ocpwincha4tR5d0P";
+    // const iv = "ocpwincha7h3XrYb";
+    const key = newBaseKey;
+    const iv = newBaseIv;
+    console.log(newBaseKey);
+    console.log(newBaseIv);
+
+    const encryptedText = encrypt(plaintext, key, iv);
+    console.log(encryptedText, "encrypted_text");
+    const newBody = {
+      title: encryptedText,
+      source: "web",
+      type: "web",
+    }
     await fetch(`${baseUrl}/user/shipping/details/update`, {
       method: "PUT",
-      body: JSON.stringify(body),
+      body: JSON.stringify(newBody),
       headers: {
         "Content-Type": "application/json",
         "access-token": `${token}`,
@@ -369,9 +390,25 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       state: user.state,
       user_id: userId,
     };
+    const newData = JSON.stringify(sendData);
+    const plaintext = newData;
+    // const key = "ocpwincha4tR5d0P";
+    // const iv = "ocpwincha7h3XrYb";
+    const key = newBaseKey;
+    const iv = newBaseIv;
+    console.log(newBaseKey);
+    console.log(newBaseIv);
+
+    const encryptedText = encrypt(plaintext, key, iv);
+    console.log(encryptedText, "encrypted_text");
+    const newBody = {
+      title: encryptedText,
+      source: "web",
+      type: "web",
+    }
     await fetch(`${baseUrl}/cart/checkout`, {
       method: "POST",
-      body: JSON.stringify(sendData),
+      body: JSON.stringify(newBody),
       headers: {
         "Content-Type": "application/json",
         "access-token": `${token}`,
@@ -1371,7 +1408,7 @@ const Cart = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
                   <img src={assets.winchaPopup} alt="" />
                 </div>
                 <div className={style.popupText}>
-                  <p>Code does not exists</p>
+                  <p>Post code invalid</p>
                 </div>
                 <div className={style.popupbutton}>
                   <button

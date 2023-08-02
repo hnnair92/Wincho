@@ -163,7 +163,7 @@ import {
         .then((res) => res.json())
         .then((data) => {
           // localStorage.setItem("user",JSON.stringify(data.data[0]._id))
-  
+          localStorage.setItem("country_code", JSON.stringify(data.data[0].coutryname));
           dispatch({
             type: PROFILE_SUCCESS,
             payload: data,

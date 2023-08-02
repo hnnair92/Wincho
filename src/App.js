@@ -33,6 +33,7 @@ import Test from "./Components/Description/test";
 import ScrollToTop from "./scrollToTop";
 import { baseUrl } from "./Components/url";
 import Cookie from "./Components/Cookie/Cookie";
+import Encryption from "./Components/encryption";
 // import { Socket } from 'socket.io-client';
 import "pepjs";
 // import AudioTry from "./audioTry";
@@ -337,6 +338,7 @@ function App() {
           {/* <Route path="/payment/cancel" element={<Ticket />} /> */}
           <Route path="/test" element={<Test />} />
           <Route path="/new/cookie" element={<Cookie />} />
+        <Route path="/encryption" element={<Encryption/>}/>
           {/* <Route path="/socket" element={<Socket/>}/> */}
         </Routes>
         <Footer
@@ -353,6 +355,7 @@ function App() {
           setGamePlay={setGamePlay}
           gamePlay={gamePlay}
         />
+
       </Router>
 
     </div>
