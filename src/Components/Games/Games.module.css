@@ -400,6 +400,13 @@
   width: 100%;
   object-fit: cover;
 }
+.clubhouse_lock{
+  width: 150px;
+}
+.clubhouse_lock img{
+  width: 100%;
+  height: 100%;
+}
 @media (max-width: 1065px) {
   .Popup {
     width: 35%;
@@ -644,6 +651,7 @@
   /* max-width: 1600px; */
   justify-content: space-between;
   margin-left: 2%;
+  align-items: center;
 }
 .popupOverlay {
   width: 100%;

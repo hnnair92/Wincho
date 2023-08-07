@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import style from "./Games.module.css";
 import Ticket from "../../assests/golden-ticket.png";
 import info from "../../assests/info.png";
+import clubhouse from "../../assests/club_house.png";
+import clubhouse_blue from "../../assests/Unlocked Clubhouse Selected.png";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -84,6 +86,8 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   const [times, setTimes] = useState(localStorage.getItem("times") || 0);
   console.log(localStorage.getItem("times"), "FREE_PLAY_0");
   const scrollRefDiv = useRef(null);
+  const [showAlternateClubhouseImage, setShowAlternateClubhouseImage] =
+    useState(false);
   const checkPlayArray =
     localStorage.getItem("checkPlay") &&
     JSON.parse(localStorage.getItem("checkPlay"));
@@ -260,12 +264,12 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       audioRef.current.muted = false;
       console.log("true for gameMusic");
       console.log(audioRef.current.muted);
-      console.log( audioRef.current.muted = false,"first_music");
+      console.log((audioRef.current.muted = false), "first_music");
     } else {
       audioRef.current.muted = true;
       console.log(typeof gameMusic);
       console.log("not reached");
-      console.log(audioRef.current.muted = true,"second_music");
+      console.log((audioRef.current.muted = true), "second_music");
     }
     console.log(typeof setGameSound);
   }, [gameMusic, gameSound, window]);
@@ -276,7 +280,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     if (gameMusic === 1 || gameMusic === "1") {
       console.log(audioRefHome.current.muted);
       audioRefHome.current.muted = false;
-      console.log(audioRefHome.current.muted = false,"third_music");
+      console.log((audioRefHome.current.muted = false), "third_music");
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -285,7 +289,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     if (gameSound === 1 || gameSound === "1") {
       console.log(audioRef.current.muted);
       audioRef.current.muted = false;
-      console.log(audioRef.current.muted = false,"fourth_music");
+      console.log((audioRef.current.muted = false), "fourth_music");
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -295,15 +299,15 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
   }, [window, gameMusic]);
   async function playAudio(src) {
     console.log(audioStatus, "audioStatus");
-    if (audioStatus === 1||audioStatus === "1") {
+    if (audioStatus === 1 || audioStatus === "1") {
       console.log("reached here");
       audioRef.current.muted = false;
       audioRef.current.src = src;
       audioRef.current.play();
-      console.log( audioRef.current.muted = false,"fifth_music");
-        } else {
+      console.log((audioRef.current.muted = false), "fifth_music");
+    } else {
       audioRef.current.muted = true;
-      console.log( audioRef.current.muted = true,"sixsth_music");
+      console.log((audioRef.current.muted = true), "sixsth_music");
     }
   }
   useEffect(() => {
@@ -313,7 +317,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     if (gameMusic === 1 || gameMusic === "1") {
       console.log(audioRefHome.current.muted);
       audioRefHome.current.muted = false;
-      console.log( audioRefHome.current.muted = false,"seventh_music");
+      console.log((audioRefHome.current.muted = false), "seventh_music");
       console.log("true for gameMusic");
       console.log(audioRefHome.current.muted);
       playAudioBg();
@@ -321,7 +325,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       audioRefHome.current.muted = true;
       console.log(typeof gameMusic);
       console.log("not reached");
-      console.log(audioRefHome.current.muted = true,"eight_music");
+      console.log((audioRefHome.current.muted = true), "eight_music");
     }
     console.log(typeof gameMusic);
   }, [window, gameMusic]);
@@ -329,7 +333,7 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
     if (gameMusic === 1 || gameMusic === "1") {
       console.log(audioRefHome.current.muted);
       audioRefHome.current.muted = false;
-      console.log( audioRefHome.current.muted = false,"nineth_music");
+      console.log((audioRefHome.current.muted = false), "nineth_music");
       playAudioBg();
     } else {
       console.log(typeof gameMusic);
@@ -345,22 +349,21 @@ const Games = ({ gameMusic, setGameMusic, gameSound, setGameSound }) => {
       audioRefHome.current.muted = false;
       audioRefHome.current.src = src;
       audioRefHome.current.play();
-      console.log( audioRefHome.current.muted = false,"tenth_music");
+      console.log((audioRefHome.current.muted = false), "tenth_music");
     } else {
-      audioRefHome.current.muted =true;
-      console.log(  audioRefHome.current.muted =true,"leventh_music");
+      audioRefHome.current.muted = true;
+      console.log((audioRefHome.current.muted = true), "leventh_music");
       // audioRefHome.current.mute()
     }
   }
-useEffect(()=>{
-  if(loading===false){
-    setLoadingScreen(true)
-    setTimeout(()=>{
-      setLoadingScreen(false)
-
-    },10000)
-  }
-},[loading])
+  useEffect(() => {
+    if (loading === false) {
+      setLoadingScreen(true);
+      setTimeout(() => {
+        setLoadingScreen(false);
+      }, 10000);
+    }
+  }, [loading]);
   async function resendEmailApi() {
     setLoadingScreen(true);
     await fetch(`${baseUrl}/user/verification/resend`, {
@@ -451,17 +454,15 @@ useEffect(()=>{
   //   if (search) {
   //     searchApi();
   //   }
-  
-   
+
   // }, [search])
 
   const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       // alert("enter is clicked")
       searchApi();
     }
   };
-  
 
   useEffect(() => {
     if (searchArray.length > 0) {
@@ -476,9 +477,9 @@ useEffect(()=>{
   //     setCategory(state?state.category:"free")
   //   }
   // }, []);
-  useEffect(()=>{
-    JSON.stringify(localStorage.setItem("times",times))
-},[times])
+  useEffect(() => {
+    JSON.stringify(localStorage.setItem("times", times));
+  }, [times]);
   async function checkFreePlay() {
     const userBody = {
       // user: user&&user.username===""?"":userId,
@@ -513,7 +514,7 @@ useEffect(()=>{
         // }
         // console.log(times);
         // :localStorage.setItem("times", JSON.stringify(data.data[0].freeplay_limit))
-        setTimes(data.data[0].freeplay_limit)
+        setTimes(data.data[0].freeplay_limit);
       });
   }
   const searchApi = async () => {
@@ -640,46 +641,52 @@ useEffect(()=>{
       id: 0,
     },
     {
+      title: "Clubhouse",
+      value: "club_house",
+      NoOfGames: 0,
+      id: 1,
+    },
+    {
       title: "Plushies",
       value: "plushies",
       NoOfGames: 0,
-      id: 1,
+      id: 2,
     },
     {
       title: "Novelty",
       value: "novelty",
       NoOfGames: 0,
-      id: 2,
+      id: 3,
     },
     {
       title: "Collectable",
       value: "collectable",
       NoOfGames: 0,
-      id: 3,
+      id: 4,
     },
     {
       title: "e-Gifting",
       value: "e-gifting",
       NoOfGames: 0,
-      id: 4,
+      id: 5,
     },
     {
       title: "New",
       value: "new",
       NoOfGames: 0,
-      id: 5,
+      id: 6,
     },
     {
       title: "Popular",
       value: "popular",
       NoOfGames: 0,
-      id: 6,
+      id: 7,
     },
     {
       title: "All",
       value: "0",
       NoOfGames: 0,
-      id: 7,
+      id: 8,
     },
   ];
   useEffect(() => {
@@ -798,12 +805,23 @@ useEffect(()=>{
 
                     setCategory(categoryItem.value);
 
-                    // setAllCategory("");
-
-                    // setAllCategory(categoryItem.title)
+                  
                   }}
                 >
-                  {categoryItem.title}
+                  {categoryItem.value === "club_house" ? (
+                    <div className={style.clubhouse_lock}>
+                      <img
+                        src={
+                          categoryItem.value === category
+                            ? clubhouse_blue
+                            : clubhouse
+                        }
+                        alt={categoryItem.title}
+                      />
+                    </div>
+                  ) : (
+                    categoryItem.title
+                  )}
                 </button>
               );
             })}
@@ -838,7 +856,7 @@ useEffect(()=>{
                 onClick={() => {
                   setSearch("");
                   setSearchIconStatus(false);
-                  setSearchArray([])
+                  setSearchArray([]);
                 }}
               />
             </div>
@@ -1224,21 +1242,30 @@ useEffect(()=>{
             if (e.changedTouches[0].clientX - startTouchData.clientX > 100) {
               if (categoryIndex === 0) {
                 setCategorySlide(categories.length * 6 * -1);
-                console.log(categorySlide + "||" + categories.length,"first_slide_value");
+                console.log(
+                  categorySlide + "||" + categories.length,
+                  "first_slide_value"
+                );
               } else {
                 // setCategorySlide((10*categoryIndex+1))
                 setCategorySlide((categorySlide) => categorySlide + 8);
                 // setCategorySlide(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(1))\\
-                console.log(categorySlide,"second_slide_value");
+                console.log(categorySlide, "second_slide_value");
               }
             } else {
               // else if(e.changedTouches[0].clientX-startTouchData.clientX<100){
               if (categories.length - 1 === categoryIndex) {
                 setCategorySlide(0);
-                console.log(categorySlide+ "||" + categories.length,"third_slide_value");
+                console.log(
+                  categorySlide + "||" + categories.length,
+                  "third_slide_value"
+                );
               } else {
                 setCategorySlide((9 * categoryIndex + 1) * -1);
-                console.log(categorySlide + "||" + categoryIndex ,"fourth_slide_value");
+                console.log(
+                  categorySlide + "||" + categoryIndex,
+                  "fourth_slide_value"
+                );
               }
             }
             //  setStartTouchData({})
@@ -1827,7 +1854,7 @@ useEffect(()=>{
                                 {(times >= configuration.FREE_PLAY_LIMIT &&
                                   game.price === "0" &&
                                   user?.vip === false) ||
-                                (game.machine_status === false) ? (
+                                game.machine_status === false ? (
                                   <img
                                     src={Ticket}
                                     alt=""
