@@ -66,6 +66,7 @@ const Header = ({
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [PhoneNumber, setPhoneNumber] = useState("");
+  const [userName, setUserName] = useState([]);
   const { notification } = useSelector((state) => state.notification);
   let inGame = localStorage.getItem("inGame");
   const placeId = urlState.pathname.split("/");
@@ -103,7 +104,27 @@ const Header = ({
 
   const { cart } = useSelector((state) => state.cart);
 
-
+  async function getProfile() {
+    await fetch(`${baseUrl}/user/profile/details`, {
+      method: "POST",
+      body: JSON.stringify({
+        user_id: userId,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "profile details");
+        setUserName(data.data[0]);
+      });
+  }
+  useEffect(() => {
+    getProfile();
+    console.log(userName);
+    console.log(userName.username);
+  }, [userId]);
 
   useEffect(() => {
     if (userId) {
@@ -1691,7 +1712,7 @@ const Header = ({
               <img src={ticket} alt="" />
             </div>
             <div className={style.Points}>
-              <p >{(user && user.point) || "0"}</p>
+              <p>{(user && user.point) || "0"}</p>
             </div>
             {/* <Link to="/tickets"> */}
             <div className={style.Plus}>
@@ -1726,13 +1747,11 @@ const Header = ({
         ) : (
           ""
         )}
-        {userId !== null && user && user.username !== "" ? (
+        {userId !== null && userName && userName.username !== "" ? (
           // {userId !== null||user!==null||user!==undefined?
           // {userId!==null||userId!==""||userId!==undefined||user?.username!==""?
           <div className={style.Profile}>
-            <p className={style.Username}>
-              {(user && user.username) || "username"}
-            </p>
+            <p className={style.Username}>{userName.username || ""}</p>
             <div className={style.HamBurgerMenu}>
               {notificationbubble &&
               notification &&
@@ -1755,7 +1774,7 @@ const Header = ({
                     : setNotificationBubble(true);
                 }}
               />
-              {setting ? "" : ""}
+              {/* {setting ? "" : ""}/ */}
             </div>
           </div>
         ) : (
@@ -1783,7 +1802,7 @@ const Header = ({
                   setting ? setSetting(false) : setSetting(true);
                 }}
               />
-              {setting ? "" : ""}
+              {/* {setting ? "" : ""} */}
             </div>
           </div>
         )}

@@ -1223,18 +1223,22 @@ useEffect(()=>{
             setMoveTouchData({});
             if (e.changedTouches[0].clientX - startTouchData.clientX > 100) {
               if (categoryIndex === 0) {
-                setCategorySlide(categories.length * 10 * -1);
+                setCategorySlide(categories.length * 6 * -1);
+                console.log(categorySlide + "||" + categories.length,"first_slide_value");
               } else {
                 // setCategorySlide((10*categoryIndex+1))
-                setCategorySlide((categorySlide) => categorySlide + 10);
-                // setCategorySlide(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(1))
+                setCategorySlide((categorySlide) => categorySlide + 8);
+                // setCategorySlide(((e.changedTouches[0].clientX-startTouchData.clientX)/window.innerWidth)*100*(1))\\
+                console.log(categorySlide,"second_slide_value");
               }
             } else {
               // else if(e.changedTouches[0].clientX-startTouchData.clientX<100){
               if (categories.length - 1 === categoryIndex) {
                 setCategorySlide(0);
+                console.log(categorySlide+ "||" + categories.length,"third_slide_value");
               } else {
-                setCategorySlide((10 * categoryIndex + 2) * -1);
+                setCategorySlide((9 * categoryIndex + 1) * -1);
+                console.log(categorySlide + "||" + categoryIndex ,"fourth_slide_value");
               }
             }
             //  setStartTouchData({})
